@@ -91,7 +91,10 @@
 
 在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
 
-成对出现的名称以及相应的值name1: value1 &amp;#125;```12345">
+成对出现的名称以及相应的值{ name1: value1 }
+
+
+Getters">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neal's Blog">
 <meta property="og:url" content="http://yoursite.com/2016/07/26/javascript_object_literal/index.html">
@@ -103,10 +106,13 @@
 
 在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
 
-成对出现的名称以及相应的值name1: value1 &amp;#125;```12345">
+成对出现的名称以及相应的值{ name1: value1 }
+
+
+Getters">
 <meta property="og:image" content="http://ac-Myg6wSTV.clouddn.com/825d7c6a95690b5818eb.jpg">
 <meta property="og:image" content="http://ac-Myg6wSTV.clouddn.com/e46fa45d4cce81bc3be9.jpg">
-<meta property="og:updated_time" content="2016-07-26T13:21:12.000Z">
+<meta property="og:updated_time" content="2016-07-29T14:09:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neal's Blog">
 <meta name="twitter:description" content="原文链接 : Why object literals in JavaScript are cool
@@ -116,7 +122,10 @@
 
 在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
 
-成对出现的名称以及相应的值name1: value1 &amp;#125;```12345">
+成对出现的名称以及相应的值{ name1: value1 }
+
+
+Getters">
 <meta name="twitter:image" content="http://ac-Myg6wSTV.clouddn.com/825d7c6a95690b5818eb.jpg">
 
 
@@ -309,8 +318,13 @@
 </blockquote>
 <p>在<a href="https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="external">ECMAScript 2015</a>之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：</p>
 <ul>
-<li>成对出现的名称以及相应的值<figure class="highlight plain"><figcaption><span>name1: value1 &#125;```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">* [Getters](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get) `&#123; get name()&#123;..&#125; &#125;` 以及[setters](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set) `&#123; set name(val)&#123;..&#125; &#125;` 可以用于动态的属性值。</div><div class="line"></div><div class="line">遗憾的是，这个对象字面量可能会出现下面这样的情况：</div><div class="line"></div><div class="line">```var myObject = &#123;  </div><div class="line">var myObject = &#123;  </div><div class="line">  myString: &apos;value 1&apos;,</div><div class="line">  get myNumber() &#123;</div><div class="line">    return this._myNumber;</div><div class="line">  &#125;,</div><div class="line">  set myNumber(value) &#123;</div><div class="line">    this._myNumber = Number(value);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">myObject.myString; // =&gt; &apos;value 1&apos;  </div><div class="line">myObject.myNumber = &apos;15&apos;;  </div><div class="line">myObject.myNumber; // =&gt; 15</div></pre></td></tr></table></figure></li>
+<li>成对出现的名称以及相应的值<code>{ name1: value1 }</code></li>
 </ul>
+<ul>
+<li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get" target="_blank" rel="external">Getters</a> <code>{ get name(){..} }</code> 以及<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set" target="_blank" rel="external">setters</a> <code>{ set name(val){..} }</code> 可以用于动态的属性值。</li>
+</ul>
+<p>遗憾的是，这个对象字面量可能会出现下面这样的情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var myObject = &#123;  </div><div class="line">  myString: &apos;value 1&apos;,</div><div class="line">  get myNumber() &#123;</div><div class="line">    return this._myNumber;</div><div class="line">  &#125;,</div><div class="line">  set myNumber(value) &#123;</div><div class="line">    this._myNumber = Number(value);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">myObject.myString; // =&gt; &apos;value 1&apos;  </div><div class="line">myObject.myNumber = &apos;15&apos;;  </div><div class="line">myObject.myNumber; // =&gt; 15</div></pre></td></tr></table></figure>
 <p>Javascript一个基于<a href="https://en.wikipedia.org/wiki/Prototype-based_programming" target="_blank" rel="external">原型的语言</a>，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。</p>
 <p>通常都会涉及到对象的定义和对象原型的设置。我经常觉得对于原型的设置应该允许直接在对象字面量进行，用一条语句即可。</p>
 <p>不幸的是，对象字面量的限制不允许通过使用一个直接的方法来达到这个目的。你必须通过结合使用<code>Object.create()</code>以及对象字面量来设置原型：</p>
