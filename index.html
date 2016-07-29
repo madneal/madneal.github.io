@@ -281,24 +281,23 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <ul>
-<li>原文链接 : <a href="https://rainsoft.io/why-object-literals-in-javascript-are-cool/" target="_blank" rel="external">Why object literals in JavaScript are cool</a></li>
-<li>原文作者 : <a href="https://rainsoft.io/author/dmitri-pavlutin/" target="_blank" rel="external">Dmitri Pavlutin</a></li>
+<li>原文链接 : <a href="https://rainsoft.io/why-object-literals-in-javascript-are-cool/">Why object literals in JavaScript are cool</a></li>
+<li>原文作者 : <a href="https://rainsoft.io/author/dmitri-pavlutin/">Dmitri Pavlutin</a></li>
 <li>译者 : neal1991</li>
 </ul>
 </blockquote>
-<p>在<a href="https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="external">ECMAScript 2015</a>之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：</p>
+<p>在<a href="https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/">ECMAScript 2015</a>之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：</p>
 <ul>
 <li>成对出现的名称以及相应的值<code>{ name1: value1 }</code></li>
 </ul>
 <ul>
-<li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get" target="_blank" rel="external">Getters</a> <code>{ get name(){..} }</code> 以及<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set" target="_blank" rel="external">setters</a> <code>{ set name(val){..} }</code> 可以用于动态的属性值。</li>
+<li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get">Getters</a> <code>{ get name(){..} }</code> 以及<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set">setters</a> <code>{ set name(val){..} }</code> 可以用于动态的属性值。</li>
 </ul>
 <p>遗憾的是，这个对象字面量可能会出现下面这样的情况：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var myObject = &#123;  </div><div class="line">  myString: &apos;value 1&apos;,</div><div class="line">  get myNumber() &#123;</div><div class="line">    return this._myNumber;</div><div class="line">  &#125;,</div><div class="line">  set myNumber(value) &#123;</div><div class="line">    this._myNumber = Number(value);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">myObject.myString; // =&gt; &apos;value 1&apos;  </div><div class="line">myObject.myNumber = &apos;15&apos;;  </div><div class="line">myObject.myNumber; // =&gt; 15</div></pre></td></tr></table></figure>
-<p>Javascript一个基于<a href="https://en.wikipedia.org/wiki/Prototype-based_programming" target="_blank" rel="external">原型的语言</a>，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。</p>
+<p>Javascript一个基于<a href="https://en.wikipedia.org/wiki/Prototype-based_programming">原型的语言</a>，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。</p>
 <p>通常都会涉及到对象的定义和对象原型的设置。我经常觉得对于原型的设置应该允许直接在对象字面量进行，用一条语句即可。</p>
 <p>不幸的是，对象字面量的限制不允许通过使用一个直接的方法来达到这个目的。你必须通过结合使用<code>Object.create()</code>以及对象字面量来设置原型：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var myProto = &#123;  </div><div class="line">  propertyExists: function(name) &#123;</div><div class="line">    return name in this;    </div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">var myNumbers = Object.create(myProto);  </div><div class="line">myNumbers[&apos;array&apos;] = [1, 6, 7];  </div><div class="line">myNumbers.propertyExists(&apos;array&apos;);      // =&gt; true  </div><div class="line">myNumbers.propertyExists(&apos;collection&apos;); // =&gt; false</div></pre></td></tr></table></figure>
@@ -311,182 +310,13 @@
 <li>利用<code>super</code>来调用</li>
 <li>动态的属性名称</li>
 </ul>
-<p>我们也可展望下未来可以下心的提议在（<a href="https://github.com/sebmarkbage/ecmascript-rest-spread#status-of-this-proposal" target="_blank" rel="external">第二部分</a>）：通过使用对象中的rest以及spread属性</p>
+<p>我们也可展望下未来可以下心的提议在（<a href="https://github.com/sebmarkbage/ecmascript-rest-spread#status-of-this-proposal">第二部分</a>）：通过使用对象中的rest以及spread属性</p>
 <p><img src="http://ac-Myg6wSTV.clouddn.com/825d7c6a95690b5818eb.jpg" alt="Infographic"></p>
-<h3 id="1-在对象构造函数中设置原型"><a href="#1-在对象构造函数中设置原型" class="headerlink" title="1.在对象构造函数中设置原型"></a>1.在对象构造函数中设置原型</h3><p>你已经知道可以通过使用这个getter 属性<code>__proto__</code>来访问一个对象的原型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var myObject = &#123;  </div><div class="line">  name: &apos;Hello World!&apos;</div><div class="line">&#125;;</div><div class="line">myObject.__proto__;                         // =&gt; &#123;&#125;  </div><div class="line">myObject.__proto__.isPrototypeOf(myObject); // =&gt; true</div></pre></td></tr></table></figure>
-<p><code>myObject.__proto__</code>返回<code>myObject</code>的原型对象。</p>
-<p>好消息是<a href="http://www.ecma-international.org/ecma-262/6.0/#sec-__proto__-property-names-in-object-initializers" target="_blank" rel="external">ES2015允许使用</a>对象字面量<code>__proto__</code>作为属性名在对象字面量<code>{ __proto__: protoObject }</code>中来设置原型。</p>
-<p>让我们来使用<code>__proto__</code>来初始化一个对象从而改善上述我们提到的糟糕的情形：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var myProto = &#123;  </div><div class="line">  propertyExists: function(name) &#123;</div><div class="line">    return name in this;    </div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">var myNumbers = &#123;  </div><div class="line">  __proto__: myProto,</div><div class="line">  array: [1, 6, 7]</div><div class="line">&#125;;</div><div class="line">myNumbers.propertyExists(&apos;array&apos;);      // =&gt; true  </div><div class="line">myNumbers.propertyExists(&apos;collection&apos;); // =&gt; false</div></pre></td></tr></table></figure>
-<p>As you know already, one option to access the prototype of an existing object is using the getter property <code>__proto__</code>:</p>
-<pre><code>var myObject = {  
-  name: &apos;Hello World!&apos;
-};
-myObject.__proto__;                         // =&gt; {}  
-myObject.__proto__.isPrototypeOf(myObject); // =&gt; true  
-</code></pre><p><code>myNumbers</code>通过一个特别的属性名称<code>__proto__</code>来使用<code>myProto</code>的原型。这个对象通过一句话就可以声明，不需要额外的函数比如<code>Object.create()</code>。</p>
-<p>很显然，使用<code>__proto__</code>十分简单。我往往更喜欢这种简单并且有效的解决方案。</p>
-<p>有点偏离主题了。我觉得奇怪的是一个简单并且灵活的解决方案往往需要大量的工作和设计。如果一个解决方案是简单的，你可能觉得它很容易设计。然而恰恰相反：</p>
-<ul>
-<li>让它简明直接是十分复杂的</li>
-<li>让它复杂并且难以理解是很简单的</li>
-</ul>
-<p>如果有的东西看起来很复杂或者用起来很麻烦，那么它可能在设计的时候考虑的不是很充分。所以你对于简便的观点是什么呢？</p>
-<h4 id="2-1-proto-使用的一些特别案例"><a href="#2-1-proto-使用的一些特别案例" class="headerlink" title="2.1__proto__使用的一些特别案例"></a>2.1<code>__proto__</code>使用的一些特别案例</h4><p>即使<code>__proto__</code>看起来十分简单，但是还是又一些特殊的情形需要注意：</p>
-<p><img src="http://ac-Myg6wSTV.clouddn.com/e46fa45d4cce81bc3be9.jpg" alt="Infographic"></p>
-<p>只允许在对象字面量中使用一次<code>__proto__</code>。一旦重复使用就会出现下面的错误：</p>
-<pre><code>var object = {  
-  __proto__: {
-    toString: function() {
-      return &apos;[object Numbers]&apos;
-    }
-  },
-  numbers: [1, 5, 89],
-  __proto__: {
-    toString: function() {
-      return &apos;[object ArrayOfNumbers]&apos;
-    }
-  }
-};
-</code></pre><p>在这个例子中，对象中使用了2次<code>__proto__</code>属性，这个是不被允许的。在这种情形下出现报错<code>SyntaxError: Duplicate __proto__ fields are not allowed in object literals</code>。</p>
-<p>Javascript只允许对象或者<code>null</code>来使用<code>__proto__</code>属性。任何尝试通过基本类型（strings,numbers,booleans)或者<code>undefined</code>来使用只会被忽略掉并不会改变对象的原型。</p>
-<p>让我们在看一下例子吧：</p>
-<pre><code>var objUndefined = {  
-  __proto__: undefined
-};
-Object.getPrototypeOf(objUndefined); // =&gt; {}  
-var objNumber = {  
-  __proto__: 15
-};
-Object.getPrototypeOf(objNumber);    // =&gt; {}  
-</code></pre><p>这个对象字面量通过使用<code>undefined</code>以及数字15来设置<code>__proto__</code>值。因为只有对象或者<code>null</code>才允许成为原型，<code>objUndefined</code>以及<code>objNumber</code>依然有他们自己默认的原型：普通的Javascript对象。<code>__proto</code>属性会被忽略。</p>
-<p>当然，通过使用基本类型来设置对象的原型也很奇怪，所以这里的限制也是理所当然的了。</p>
-<h3 id="2-Shorthand-method-definition"><a href="#2-Shorthand-method-definition" class="headerlink" title="2. Shorthand method definition"></a>2. Shorthand method definition</h3><h3 id="简单函数声明"><a href="#简单函数声明" class="headerlink" title="简单函数声明"></a>简单函数声明</h3><p>在对象字面量中可以通过使用一个简短的表达式来声明方法，通过这种方式关键字<code>function</code>以及符号<code>:</code>可以省略。这个就叫做简单函数声明。</p>
-<p>让我们使用新的简短的形式来定义函数：</p>
-<pre><code>var collection = {  
-  items: [],
-  add(item) {
-    this.items.push(item);
-  },
-  get(index) {
-    return this.items[index];
-  }
-};
-collection.add(15);  
-collection.add(3);  
-collection.get(0); // =&gt; 15  
-</code></pre><p><code>add()</code> and <code>get()</code> are methods defined in <code>collection</code> using a short form.</p>
-<p>在<code>collection</code>通过一种简短的形式来定义<code>add()</code>和<code>get()</code> 方法。</p>
-<p>这样做的好处之一是声明的方法就是命名的函数，这对于调试来说很有利。通过执行<code>collection.add.name</code>就会返回上述例子中的方法<code>add</code>的名称。</p>
-<h3 id="3-通过super来调用"><a href="#3-通过super来调用" class="headerlink" title="3.通过super来调用"></a>3.通过<code>super</code>来调用</h3><p>一个有趣的提升是通过关键字<code>super</code>就可以访问从原型链中继承的属性，如下所示：</p>
-<pre><code>var calc = {  
-  sumArray (items) {
-    return items.reduce(function(a, b) {
-      return a + b;
-    });
-  }
-};
-var numbers = {  
-  __proto__: calc,
-  numbers: [4, 6, 7],
-  sumElements() {
-    return super.sumArray(this.numbers);
-  }
-};
-numbers.sumElements(); // =&gt; 17  
-</code></pre><p><code>calc</code>就是<code>numbers</code>对象的原型。在<code>numbers</code>对象中的<code>sumElements</code>方法中，可以通过利用关键字<code>super</code>:<code>super.sumArray()</code>来访问原型中的方法。</p>
-<p><code>super</code>是反问对象原型链中继承属性的快捷方式。</p>
-<h4 id="3-1-super使用限制"><a href="#3-1-super使用限制" class="headerlink" title="3.1 super使用限制"></a>3.1 <code>super</code>使用限制</h4><p><code>super</code>只能被用于对象字面量中简单方法的定义。</p>
-<p>如果常识通过一个普通的函数声明来访问<code>{ name: function() {} }</code>，Javascript就会抛出错误：</p>
-<pre><code>var calc = {  
-  sumArray (items) {
-    return items.reduce(function(a, b) {
-      return a + b;
-    });
-  }
-};
-var numbers = {  
-  __proto__: calc,
-  numbers: [4, 6, 7],
-  sumElements: function() {
-    return super.sumArray(this.numbers);
-  }
-};
-// Throws SyntaxError: &apos;super&apos; keyword unexpected here
-numbers.sumElements();  
-</code></pre><p>方法<code>sumElements</code>是以属性的方式来定义：<code>sumElements: function() {…}</code>。因为<code>super</code>只能在简单函数中使用，在这种情形调用的话就回抛错<code>SyntaxError: &#39;super&#39; keyword unexpected here</code>。</p>
-<p>这一限制并太会影响对象字面量声明的方式。通常在对象字面量中更多的会使用简单函数定义。</p>
-<h3 id="4-动态的属性名称"><a href="#4-动态的属性名称" class="headerlink" title="4.动态的属性名称"></a>4.动态的属性名称</h3><p>在ES2015之间，对象初始化器中的属性名称只是字面上的，大多数都是静态字符串。为了创建一个具有动态名称的属性，你必须使用属性访问器：</p>
-<pre><code>function prefix(prefStr, name) {  
-   return prefStr + &apos;_&apos; + name;
-}
-var object = {};  
-object[prefix(&apos;number&apos;, &apos;pi&apos;)] = 3.14;  
-object[prefix(&apos;bool&apos;, &apos;false&apos;)] = false;  
-object; // =&gt; { number_pi: 3.14, bool_false: false }  
-</code></pre><p>很显然，这种定义属性的方式远远不能让人满意。动态属性命名以优雅的方式解决了这个问题。</p>
-<p>当通过一个表达式来获得属性的名称的时候，把代码放在一个中括号里面<code>{[expression]:value}</code>。这个表达式最终的结果就会成为这个属性的名称。</p>
-<p>我很喜欢这种方式：简短。</p>
-<p>我们再升级一下：</p>
-<pre><code>function prefix(prefStr, name) {  
-   return prefStr + &apos;_&apos; + name;
-}
-var object = {  
-  [prefix(&apos;number&apos;, &apos;pi&apos;)]: 3.14,
-  [prefix(&apos;bool&apos;, &apos;false&apos;)]: false
-};
-object; // =&gt; { number_pi: 3.14, bool_false: false }  
-</code></pre><p><code>[prefix(&#39;number&#39;, &#39;pi&#39;)]</code>通过计算表达式<code>prefix(&#39;number&#39;, &#39;pi&#39;)</code>的值来获得属性的名称。</p>
-<p>相应的 <code>[prefix(&#39;bool&#39;, &#39;false&#39;)]</code>将第二个属性名称命名为<code>&#39;bool_false&#39;</code>。</p>
-<h4 id="4-1-将Symbol作为属性名称"><a href="#4-1-将Symbol作为属性名称" class="headerlink" title="4.1 将Symbol作为属性名称"></a>4.1 将<code>Symbol</code>作为属性名称</h4><p><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Symbol" target="_blank" rel="external">Symbols</a>也能够被用于动态属性名称。只要确保在中括号中包含它们：<code>{ [Symbol(&#39;name&#39;)]: &#39;Prop value&#39; }</code>。</p>
-<p>比如，让我们使用一个特别的属性<code>Symbol.iterator</code> 来遍历对象中的属性。示例如下：</p>
-<pre><code>var object = {  
-   number1: 14,
-   number2: 15,
-   string1: &apos;hello&apos;,
-   string2: &apos;world&apos;,
-   [Symbol.iterator]: function *() {
-     var own = Object.getOwnPropertyNames(this),
-       prop;
-     while(prop = own.pop()) {
-       yield prop;
-     }
-   }
-}
-[...object]; // =&gt; [&apos;number1&apos;, &apos;number2&apos;, &apos;string1&apos;, &apos;string2&apos;]
-</code></pre><p><code>[Symbol.iterator]: function *() { }</code> 定义了一个属性来用于遍历对象中的属性。这个spread操作符<code>[...object]</code> 用迭代器访问并返回属性列表。</p>
-<h3 id="5-展望未来：rest以及spread属性"><a href="#5-展望未来：rest以及spread属性" class="headerlink" title="5. 展望未来：rest以及spread属性"></a>5. 展望未来：rest以及spread属性</h3><p>对象字面量中<a href="https://github.com/sebmarkbage/ecmascript-rest-spread" target="_blank" rel="external">rest以及spread属性</a>是接下来的草案，这将可能作为新版本javascript的新特性。</p>
-<p>在ECMAScript 2015中的数组意境存在一个替代物。</p>
-<p><a href="https://github.com/sebmarkbage/ecmascript-rest-spread/blob/master/Rest.md" target="_blank" rel="external">Rest属性</a> 允许收集解构赋值后遗留的对象中的属性。</p>
-<p>下面这个例子就是在解构赋值<code>object</code>之后收集剩余的属性：</p>
-<pre><code>var object = {  
-  propA: 1,
-  propB: 2,
-  propC: 3
-};
-let {propA, ...restObject} = object;  
-propA;      // =&gt; 1  
-restObject; // =&gt; { propB: 2, propC: 3 }  
-</code></pre><p><a href="https://github.com/sebmarkbage/ecmascript-rest-spread/blob/master/Spread.md" target="_blank" rel="external">Spread属性</a>  允许从源对象中拷贝属性到另一个对象字面量中。在下面的例子中对象字面量中的额外属性来自于源对象。</p>
-<pre><code>var source = {  
-  propB: 2,
-  propC: 3
-};
-var object = {  
-  propA: 1,
-  ...source
-}
-object; // =&gt; { propA: 1, propB: 2, propC: 3 }  
-</code></pre><h3 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h3><p>Javascript正在飞速前进。</p>
-<p>即使一个相当小的对象字面量的构建在ECMAScript 2015都得到了相当可观的提升。更多的特性在草案议程上。</p>
-<p>你可以通过直接设置<code>__proto__</code>这个属性名称来直接设置对象的原型。在简单函数声明中可以通过使用关键字<code>super</code>来轻松地访问对象原型链中所继承的属性。</p>
-<p>如果一个属性的名称是实时获得的，现在你可以通过使用动态属性名称<code>[expression]</code>来初始化对象。</p>
-<p>诚然，对象字面量真是酷爆了！！！</p>
-<p>欢迎评论。</p>
-<p>_</p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/26/javascript_object_literal/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
         
       
     </div>
