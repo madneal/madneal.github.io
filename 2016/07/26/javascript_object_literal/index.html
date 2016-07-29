@@ -112,7 +112,7 @@ Getters">
 Getters">
 <meta property="og:image" content="http://ac-Myg6wSTV.clouddn.com/825d7c6a95690b5818eb.jpg">
 <meta property="og:image" content="http://ac-Myg6wSTV.clouddn.com/e46fa45d4cce81bc3be9.jpg">
-<meta property="og:updated_time" content="2016-07-29T14:48:42.000Z">
+<meta property="og:updated_time" content="2016-07-29T14:50:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Why Object Literals in javaScript Are Cool">
 <meta name="twitter:description" content="原文链接 : Why object literals in JavaScript are cool
@@ -323,6 +323,7 @@ Getters">
 <ul>
 <li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get" target="_blank" rel="external">Getters</a> <code>{ get name(){..} }</code> 以及<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set" target="_blank" rel="external">setters</a> <code>{ set name(val){..} }</code> 可以用于动态的属性值。</li>
 </ul>
+<a id="more"></a>
 <p>遗憾的是，这个对象字面量可能会出现下面这样的情况：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var myObject = &#123;  </div><div class="line">  myString: &apos;value 1&apos;,</div><div class="line">  get myNumber() &#123;</div><div class="line">    return this._myNumber;</div><div class="line">  &#125;,</div><div class="line">  set myNumber(value) &#123;</div><div class="line">    this._myNumber = Number(value);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">myObject.myString; // =&gt; &apos;value 1&apos;  </div><div class="line">myObject.myNumber = &apos;15&apos;;  </div><div class="line">myObject.myNumber; // =&gt; 15</div></pre></td></tr></table></figure>
 <p>Javascript一个基于<a href="https://en.wikipedia.org/wiki/Prototype-based_programming" target="_blank" rel="external">原型的语言</a>，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。</p>
@@ -340,7 +341,6 @@ Getters">
 </ul>
 <p>我们也可展望下未来可以下心的提议在（<a href="https://github.com/sebmarkbage/ecmascript-rest-spread#status-of-this-proposal" target="_blank" rel="external">第二部分</a>）：通过使用对象中的rest以及spread属性</p>
 <p><img src="http://ac-Myg6wSTV.clouddn.com/825d7c6a95690b5818eb.jpg" alt="Infographic"></p>
-<a id="more"></a>
 <h3 id="1-在对象构造函数中设置原型"><a href="#1-在对象构造函数中设置原型" class="headerlink" title="1.在对象构造函数中设置原型"></a>1.在对象构造函数中设置原型</h3><p>你已经知道可以通过使用这个getter 属性<code>__proto__</code>来访问一个对象的原型：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var myObject = &#123;  </div><div class="line">  name: &apos;Hello World!&apos;</div><div class="line">&#125;;</div><div class="line">myObject.__proto__;                         // =&gt; &#123;&#125;  </div><div class="line">myObject.__proto__.isPrototypeOf(myObject); // =&gt; true</div></pre></td></tr></table></figure>
 <p><code>myObject.__proto__</code>返回<code>myObject</code>的原型对象。</p>

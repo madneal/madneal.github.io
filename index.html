@@ -295,23 +295,6 @@
 <ul>
 <li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get">Getters</a> <code>{ get name(){..} }</code> 以及<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set">setters</a> <code>{ set name(val){..} }</code> 可以用于动态的属性值。</li>
 </ul>
-<p>遗憾的是，这个对象字面量可能会出现下面这样的情况：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var myObject = &#123;  </div><div class="line">  myString: &apos;value 1&apos;,</div><div class="line">  get myNumber() &#123;</div><div class="line">    return this._myNumber;</div><div class="line">  &#125;,</div><div class="line">  set myNumber(value) &#123;</div><div class="line">    this._myNumber = Number(value);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">myObject.myString; // =&gt; &apos;value 1&apos;  </div><div class="line">myObject.myNumber = &apos;15&apos;;  </div><div class="line">myObject.myNumber; // =&gt; 15</div></pre></td></tr></table></figure>
-<p>Javascript一个基于<a href="https://en.wikipedia.org/wiki/Prototype-based_programming">原型的语言</a>，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。</p>
-<p>通常都会涉及到对象的定义和对象原型的设置。我经常觉得对于原型的设置应该允许直接在对象字面量进行，用一条语句即可。</p>
-<p>不幸的是，对象字面量的限制不允许通过使用一个直接的方法来达到这个目的。你必须通过结合使用<code>Object.create()</code>以及对象字面量来设置原型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var myProto = &#123;  </div><div class="line">  propertyExists: function(name) &#123;</div><div class="line">    return name in this;    </div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">var myNumbers = Object.create(myProto);  </div><div class="line">myNumbers[&apos;array&apos;] = [1, 6, 7];  </div><div class="line">myNumbers.propertyExists(&apos;array&apos;);      // =&gt; true  </div><div class="line">myNumbers.propertyExists(&apos;collection&apos;); // =&gt; false</div></pre></td></tr></table></figure>
-<p>我觉得这是一个让人很不爽的解决方案。Javascript既然是一个基于原型的语言，为什么还要花这么大力气从一个原型中创建对象。</p>
-<p>幸运的是，这个语言每天都在变化。Javascript很多令人沮丧的地方也都在一步步地被解决。</p>
-<p>这篇文章解释了ES2015是如何解决上述问题并通过以下额外的好处来提高对象字面量：</p>
-<ul>
-<li>在对象构造函数中设置原型</li>
-<li>简单函数声明</li>
-<li>利用<code>super</code>来调用</li>
-<li>动态的属性名称</li>
-</ul>
-<p>我们也可展望下未来可以下心的提议在（<a href="https://github.com/sebmarkbage/ecmascript-rest-spread#status-of-this-proposal">第二部分</a>）：通过使用对象中的rest以及spread属性</p>
-<p><img src="http://ac-Myg6wSTV.clouddn.com/825d7c6a95690b5818eb.jpg" alt="Infographic"></p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/26/javascript_object_literal/#more" rel="contents">
               Read more &raquo;
