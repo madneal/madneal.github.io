@@ -1,4 +1,0 @@
-昨天用nodes中的moongoose去查询一个结果遇到一个大坑，这个坑貌似用moongoose可能会遇到。背景是这样的，我在nodejs中去查询document，得到的可以看作是一个对象list。在这个结果集中，我要去寻找这个结果中的某个属性是否和其他的结果重复，并给它添加一个属性作为标志。举例子，我们获得的结果就像是```[{name:'neal',age:'18'},{name:'neal',age:'19'}]```,
-我希望把它变成```[{name:'neal',age:'18',flag:true},{name:'neal',age:'19',flag:true}]```。奇怪的事情发生了，我无法在这些对象中新增这个flag属性，这肿么可能。我尝试各种方法，但是还是存不进去。
-后来去stack overflow一查，发觉居然是mongoose  的问题。。。。我压根没有想过是mongoose的问题。原来mongoose是ODM(object document mapper)，类似于操作关系型数据库的ORM,我们使用mongoose取到的数据结构依赖我们定义的schema结构，因为我们当初没有定义flag属性，所以最终返回的结果就没有这个属性了。
-这个问题应该也有很多解决方法，这里就说一下我看到的一些方法。比如事先在schema增加这个属性，但是我觉得有时候就是不想定义这个属性才在后面加的；还有一个就是把返回的结果用toObject()方法进行转化，这样就可以像普通的对象一样增加属性了；其实本质的原因似乎是document .toObjet()里面需要一个vituals :true 的属性来实现，而默认的是false。可能我说的还不是特别透彻，可以去看一下官方的api http://mongoosejs.com/docs/api.html#document_Document-toObject
