@@ -142,6 +142,13 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/about/">About</a>
+          </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -212,6 +219,20 @@
     </header>
     
     
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/" class="post-link"></a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt; @import &#34;css文件&#34;  显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/">Read More →</a>
+  </footer>
+</article>
+
       
         <article class="post-entry">
   <header class="post-header">
@@ -351,9 +372,10 @@ from django.contrib import admin from .models import Question,Choice //Register 
   </header>
   
   <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么：
+mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
 建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.</p>
+from django.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
@@ -370,37 +392,6 @@ from django.db import models class Question(models.</p>
  边缘像素提取 我们使用Canny边缘检测来获得边缘映射和边缘定位映射。选择方差σ = 1 并且模板的尺寸是9*1在X方向和Y方向上进行高斯卷积。边缘映射是通过一个合适的阈值处理得到的结果。在图表1中，图b是通过Canny边缘检测得到的边缘映射，图c则是边缘定位映射。  通过霍夫变化检测直线 检测到的边缘点将被用于对直线参数空间中可能的存在的线进行投票。图像被水平地分为几个部分，如图2a所示，为了适应因为道路弯曲从而导致道路消失点的变化。图像部分自下而上高度越来越小。每个图像分割部分都有它们自己的直线参数空间，每个图像分割部分中边缘点分别为可能的直线进行投票。通过对于规范化后的累加空间的阈值处理，直线分割最终能够在每一个图像分割部分中检测出来。  地平线和消失点检测 每一个图像分割部分中检测到的直线都是成对出现的，任意一队直线的相交部分会为另外一个霍夫空间中的消失点进行投票。投票的权重是根据最后一步产生的成对直线的规范化累加值决定的。这个过程在每个图像分割部分中分别重复，但是会在相同的霍夫空间中投票。 霍夫空间中对于每一列的投票会归总起来从来检测可能的消失点。获得投票最多的一行将会被选择座位地平线在图像平面中，如下图所示： 对于每个图像分割部分来说，它的消失点由地平线附近投票最多的点所决定。所有检测到的消失点可以再图4b中看到。注意一点，对于图像部分5，没有消失点存在，因为在这个图像分割部分并没有检测到直线。  根据检测的道路线估计道路中间线的参数k 对于消失点进行投票的直线被认为是每个图像分割部分中道路线。从图像最下面的图像分割部分往上，挑选出在各个图像分割部分中的左右两边挑选出最接近去中间一列的检测到的道路线。如果这两条道路线在这个图像分割部分中并不存在，这个过程就会在更高的图像分割部分中进行，知道获得需要的道路线。图6表示两条直线L1和L2在图像分割部分4中，因为没有直线存在图像分割部分5中。 然后连接图像分割部分4中的消失点和P-l4和P-r4的中点P-m4（直线L1和直线L2的相交的部分） 参数k可以通过以下公式进行估计： 对于图7中中间线的估计的例子如下所示： 从图像分割部分4开始，因为图像分割部分5中不存在消失点，我们假设这个部分的消失点跟在分割部分4中的消失点。延伸通过vp4和P-m4交于图像分割部分5的P-m5点。同样的，我们在图像分割部分3中我们也能够检测到消失点。直线（vp3-P-m3)交于图像分割部分2的底部的P-m2处。同样的道理，适用于以上的部分 通过构建道路中间线，通过参数k和道路中间线我们可以估计处道路的两条边缘线，图8给出了例子  计算道路模型的控制点来接近检测的道路中间线 可以利用很多方法来计算B-spline中的控制点通过中间线。因为B-spline后面的部分会准确地逼近道路边缘，这里我们只是粗略地使用B-spline来接近检测到的道路中间线。 我们是通过使用3个不同的控制点来构成两个部分的B-spline。为了让B-spline通过第一个和最后一个控制点，我们使用三倍的第一个和最后一个控制点。因此事实上一共有7个控制点，3个第一个控制点和3个最后一个控制点都是相同的。 我们首先选择P-m0和P-m5分别代表道路模型中的第一个控制点Q0和最后一个控制点Q2.节点P1的选择取决于图9中β1和β2的值。如果β1和β2的值不等于0，我们则选择P-m作为Q1。即P1=P-m，P-m是P-m1和P-m2的中点。如果β1为0，而β2不等于0.我们则选择P-m1作为P1(Q1).其他的情况，我们则选择P-m2作为P1(Q1).因此控制点Q1可以通过下面的公式计算： 实验结果   引用： Wang, Yue, Eam Khwang Teoh, and Dinggang Shen. “Lane detection and tracking using B-Snake.” Image and Vision computing 22.4 (2004): 269-280.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文地址：Bootstrap considered harmful
-原文作者：Hidde de Vries
-译文出自：neal
-译者： Neal
-个人主页：http://neal1991.pythonanywhere.com
-这些年Bootstrap已经在前端项目中流行起来，它能够带来很多好处。然而，但是如果以你们的团队已经有了在职的前端开发人员，我觉得最好还是不要用Bootstrap，在某些地方，弊大于利。
-Bootstrap的好处是什么 Bootstrap主要是栅格系统，但同时也带来了很多组件的样式表和脚本，包括表格，导航栏，进度条，页码，表单样式，模式和提示文本。在这篇文章，我所说的Bootstrap是包含它的所有功能的。
-Bootstrap是一个很好的工具对于一个纸箱装饰他们的程序但是无须担心结果的样式问题的后端开发人员。如果因为某些原因，预算或者什么的，你的团队没有前端开发人员或者设计人员，Bootstrap是一个绝佳的弥补方法。
-对于设计人员来说，Bootstrap也是有用处的：它可以快速地从设计软件切换到浏览器中，不需要过多担心前端的代码设计。
-即使是对于那些基本只专注于数据但是很少关注UI和布局的前端开发人员来说，Bootstrap也是一个绝佳的工具。
-什么时候你最好别用它 然而，如果你的团队已经拥有了前端开发人员，使用Bootstrap可能会潜在的浪费他们宝贵的时间，并让他们可能从解决实际问题上转移注意力。Bootstrap做的正是前端开发人员所擅长的事情，但是用的是一种很通用的方式。你的网站或者网络app是非常特别的，因此如果你使用一个通用的系统可能会不太合适。这意味着为了实现这种特殊性将会包含很多的异常发生。
-当需要很多异常来复位Bootstrap Bootstrap曾经是被Twitter 的开发人员用于系统化他们网络app的样式。如果你的网站app和他们的样式不一样，这意味着你需要解除他们中的某些样式。
-很多网站和Twitter的样式并不相同。因此，如果他们装载了Bootstrap的时候，他们可能需要卸载很多地方。
-在某些网站上，我看到有9/10的Bootstrap样式已经被网站自己的样式所替代。坦白说，这很荒谬。
-当它让简单的事情变得复杂 CSS是给网站添加一套简单的样式规则，这有时候可能会被重写。当你在你的网站使用Bootstrap的样式的时候，几乎所有的元素都是用一个复杂的样式规则。任何异常都会在它之上表现。问题是大多数网站他们的样式异常都被表现在Bootstrap之上。
-Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任何元素相结合起来，对于需要特别处理的列则要区别对待。很多网站十分简单：它们在小屏幕设备上没有列或者只有一到两列在大一点的屏幕上。
-当它产生技术债务的时候 前端依赖Bootstrap的时间越长，就会牵扯到更多的东西，更多的规则需要设置来覆盖Bootstrap的某些规则。这或多或少地让技术代码背负技术债务，尤其前端代码的部署需要手动的更新。随着依赖的增多，Bootstrap将变得更加难以移除。
-当它命名一些不是你app的规定 命名是一件很困难的事情，为团队的应用中的规定命名需要花费相当多的时间。使用’btn’之类的缩写并不能很好的给组件命名。
-结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/">Read More →</a>
   </footer>
 </article>
 

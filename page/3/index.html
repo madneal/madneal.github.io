@@ -142,6 +142,13 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/about/">About</a>
+          </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -212,6 +219,19 @@
     </header>
     
     
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" class="post-link"></a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
+  </footer>
+</article>
+
       
         <article class="post-entry">
   <header class="post-header">
@@ -348,21 +368,6 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } }  </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
-var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
