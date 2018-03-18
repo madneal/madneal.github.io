@@ -36,7 +36,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
 from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
 from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin." />
-    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -49,8 +49,8 @@ from django.contrib import admin from .models import Question,Choice //Register 
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
 from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
 from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin." />
-  <meta property="og:url" content="https://neal1991.github.io/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" />
-  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -58,8 +58,8 @@ from django.contrib import admin from .models import Question,Choice //Register 
 <meta name="generator" content="Hugo 0.37.1" />
 
 
-<link rel="canonical" href="https://neal1991.github.io/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" />
-<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -84,18 +84,18 @@ from django.contrib import admin from .models import Question,Choice //Register 
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -130,7 +130,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
     
     
   <header class="site-header">
-  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -151,21 +151,21 @@ from django.contrib import admin from .models import Question,Choice //Register 
             
               is-active
             ">
-            <a href="https://neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
             
             
             ">
-            <a href="https://github.com/laozhu">Works</a>
+            <a href="https://github.com/neal1991">Works</a>
           </li>
       
         <li class="menu-item
             
             
             ">
-            <a href="https://neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
@@ -181,7 +181,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
 
       
       <li class="social-item">
-        <a href="//github.com/github_username" title="GitHub"><span class="icon icon-github"></span></a>
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
       </li>
 
       <li class="social-item">
@@ -212,15 +212,11 @@ from django.contrib import admin from .models import Question,Choice //Register 
 
       
 
-      <li class="social-item">
-        <a href="//weibo.com/weibo_username" title="Weibo"><span class="icon icon-weibo"></span></a>
-      </li>
+      
 
       
 
-      <li class="social-item">
-        <a href="//www.linkedin.com/in/linkedin_username" title="Linkedin"><span class="icon icon-linkedin"></span></a>
-      </li>
+      
 
       
 
@@ -229,7 +225,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
       
 
       <li class="social-item">
-        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -360,7 +356,7 @@ admin.site.register(Question,QuestionAdmin)
   });
 </script>
 
-<script src="https://neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>
