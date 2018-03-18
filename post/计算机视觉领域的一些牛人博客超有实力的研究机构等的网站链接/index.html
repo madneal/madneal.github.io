@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title></title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="转载：http://blog.csdn.net/carson2005/article/details/6601109
+提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005
+ 以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的朋友可以多关注这些网站，多了解一些CV的具体应用。搞研究的朋友也可以从中了解到很多牛人的研究动态、招生情况等。总之，我认为，知识只有分享才能产生更大的价值，真诚希望下面的链接能对朋友们有所帮助。  （1）googleResearch； http://research.google.com/index.html （2）MIT博士，汤晓欧学生林达华； http://people.csail.mit.edu/dhlin/index.html （3）MIT博士后Douglas Lanman； http://web.media.mit.edu/~dlanman/ （4）opencv中文网站； http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5 （5）Stanford大学vision实验室； http://vision.stanford.edu/research.html （6）Stanford大学博士崔靖宇； http://www.stanford.edu/~jycui/ （7）UCLA教授朱松纯； http://www.stat.ucla.edu/~sczhu/ （8）中国人工智能网； http://www.chinaai.org/ （9）中国视觉网； http://www.china-vision.net/ （10）中科院自动化所； http://www.ia.cas.cn/ （11）中科院自动化所李子青研究员； http://www.cbsr.ia.ac.cn/users/szli/ （12）中科院计算所山世光研究员； http://www.jdl.ac.cn/user/sgshan/ （13）人脸识别主页； http://www.face-rec.org/ （14）加州大学伯克利分校CV小组； http://www.eecs.berkeley.edu/Research/Projects/CS/vision/
+（15）南加州大学CV实验室； http://iris.usc.edu/USC-Computer-Vision.html （16）卡内基梅隆大学CV主页；
+http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
+（17）微软CV研究员Richard Szeliski；http://research.microsoft.com/en-us/um/people/szeliski/ （18）微软亚洲研究院计算机视觉研究组； http://research.microsoft.com/en-us/groups/vc/ （19）微软剑桥研究院ML与CV研究组； http://research.microsoft.com/en-us/groups/mlp/default.aspx
+（20）研学论坛； http://bbs.matwav.com/ （21）美国Rutgers大学助理教授刘青山； http://www.research.rutgers.edu/~qsliu/ （22）计算机视觉最新资讯网； http://www.cvchina.info/ （23）运动检测、阴影、跟踪的测试视频下载； http://apps.hi.baidu.com/share/detail/18903287 （24）香港中文大学助理教授王晓刚； http://www.ee.cuhk.edu.hk/~xgwang/ (25)香港中文大学多媒体实验室（汤晓鸥）; http://mmlab.ie.cuhk.edu.hk/ (26)U.C. San Diego. computer vision;http://vision.ucsd.edu/content/home (27)CVonline; http://homepages.inf.ed.ac.uk/rbf/CVonline/ (28)computer vision software; http://peipa.essex.ac.uk/info/software.html (29)Computer Vision Resource; http://www." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="转载：http://blog.csdn.net/carson2005/article/details/6601109
+提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005
+ 以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的朋友可以多关注这些网站，多了解一些CV的具体应用。搞研究的朋友也可以从中了解到很多牛人的研究动态、招生情况等。总之，我认为，知识只有分享才能产生更大的价值，真诚希望下面的链接能对朋友们有所帮助。  （1）googleResearch； http://research.google.com/index.html （2）MIT博士，汤晓欧学生林达华； http://people.csail.mit.edu/dhlin/index.html （3）MIT博士后Douglas Lanman； http://web.media.mit.edu/~dlanman/ （4）opencv中文网站； http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5 （5）Stanford大学vision实验室； http://vision.stanford.edu/research.html （6）Stanford大学博士崔靖宇； http://www.stanford.edu/~jycui/ （7）UCLA教授朱松纯； http://www.stat.ucla.edu/~sczhu/ （8）中国人工智能网； http://www.chinaai.org/ （9）中国视觉网； http://www.china-vision.net/ （10）中科院自动化所； http://www.ia.cas.cn/ （11）中科院自动化所李子青研究员； http://www.cbsr.ia.ac.cn/users/szli/ （12）中科院计算所山世光研究员； http://www.jdl.ac.cn/user/sgshan/ （13）人脸识别主页； http://www.face-rec.org/ （14）加州大学伯克利分校CV小组； http://www.eecs.berkeley.edu/Research/Projects/CS/vision/
+（15）南加州大学CV实验室； http://iris.usc.edu/USC-Computer-Vision.html （16）卡内基梅隆大学CV主页；
+http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
+（17）微软CV研究员Richard Szeliski；http://research.microsoft.com/en-us/um/people/szeliski/ （18）微软亚洲研究院计算机视觉研究组； http://research.microsoft.com/en-us/groups/vc/ （19）微软剑桥研究院ML与CV研究组； http://research.microsoft.com/en-us/groups/mlp/default.aspx
+（20）研学论坛； http://bbs.matwav.com/ （21）美国Rutgers大学助理教授刘青山； http://www.research.rutgers.edu/~qsliu/ （22）计算机视觉最新资讯网； http://www.cvchina.info/ （23）运动检测、阴影、跟踪的测试视频下载； http://apps.hi.baidu.com/share/detail/18903287 （24）香港中文大学助理教授王晓刚； http://www.ee.cuhk.edu.hk/~xgwang/ (25)香港中文大学多媒体实验室（汤晓鸥）; http://mmlab.ie.cuhk.edu.hk/ (26)U.C. San Diego. computer vision;http://vision.ucsd.edu/content/home (27)CVonline; http://homepages.inf.ed.ac.uk/rbf/CVonline/ (28)computer vision software; http://peipa.essex.ac.uk/info/software.html (29)Computer Vision Resource; http://www." />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="转载：http://blog.csdn.net/carson2005/article/details/6601109
+提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005
+ 以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的朋友可以多关注这些网站，多了解一些CV的具体应用。搞研究的朋友也可以从中了解到很多牛人的研究动态、招生情况等。总之，我认为，知识只有分享才能产生更大的价值，真诚希望下面的链接能对朋友们有所帮助。  （1）googleResearch； http://research.google.com/index.html （2）MIT博士，汤晓欧学生林达华； http://people.csail.mit.edu/dhlin/index.html （3）MIT博士后Douglas Lanman； http://web.media.mit.edu/~dlanman/ （4）opencv中文网站； http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5 （5）Stanford大学vision实验室； http://vision.stanford.edu/research.html （6）Stanford大学博士崔靖宇； http://www.stanford.edu/~jycui/ （7）UCLA教授朱松纯； http://www.stat.ucla.edu/~sczhu/ （8）中国人工智能网； http://www.chinaai.org/ （9）中国视觉网； http://www.china-vision.net/ （10）中科院自动化所； http://www.ia.cas.cn/ （11）中科院自动化所李子青研究员； http://www.cbsr.ia.ac.cn/users/szli/ （12）中科院计算所山世光研究员； http://www.jdl.ac.cn/user/sgshan/ （13）人脸识别主页； http://www.face-rec.org/ （14）加州大学伯克利分校CV小组； http://www.eecs.berkeley.edu/Research/Projects/CS/vision/
+（15）南加州大学CV实验室； http://iris.usc.edu/USC-Computer-Vision.html （16）卡内基梅隆大学CV主页；
+http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
+（17）微软CV研究员Richard Szeliski；http://research.microsoft.com/en-us/um/people/szeliski/ （18）微软亚洲研究院计算机视觉研究组； http://research.microsoft.com/en-us/groups/vc/ （19）微软剑桥研究院ML与CV研究组； http://research.microsoft.com/en-us/groups/mlp/default.aspx
+（20）研学论坛； http://bbs.matwav.com/ （21）美国Rutgers大学助理教授刘青山； http://www.research.rutgers.edu/~qsliu/ （22）计算机视觉最新资讯网； http://www.cvchina.info/ （23）运动检测、阴影、跟踪的测试视频下载； http://apps.hi.baidu.com/share/detail/18903287 （24）香港中文大学助理教授王晓刚； http://www.ee.cuhk.edu.hk/~xgwang/ (25)香港中文大学多媒体实验室（汤晓鸥）; http://mmlab.ie.cuhk.edu.hk/ (26)U.C. San Diego. computer vision;http://vision.ucsd.edu/content/home (27)CVonline; http://homepages.inf.ed.ac.uk/rbf/CVonline/ (28)computer vision software; http://peipa.essex.ac.uk/info/software.html (29)Computer Vision Resource; http://www." />
+  <meta property="og:url" content="https://neal1991.github.io/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/laozhu">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/github_username" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//weibo.com/weibo_username" title="Weibo"><span class="icon icon-weibo"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/linkedin_username" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+      <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+    </header>
+    <article class="post-content"><p>转载：<a href="http://blog.csdn.net/carson2005/article/details/6601109">http://blog.csdn.net/carson2005/article/details/6601109</a></p>
+
+<p>提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005</p>
+
+<pre><code>    以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的朋友可以多关注这些网站，多了解一些CV的具体应用。搞研究的朋友也可以从中了解到很多牛人的研究动态、招生情况等。总之，我认为，知识只有分享才能产生更大的价值，真诚希望下面的链接能对朋友们有所帮助。
+</code></pre>
+
+<p>（1）googleResearch； <a href="http://research.google.com/index.html">http://research.google.com/index.html</a>
+（2）MIT博士，汤晓欧学生林达华； <a href="http://people.csail.mit.edu/dhlin/index.html">http://people.csail.mit.edu/dhlin/index.html</a>
+（3）MIT博士后Douglas Lanman； <a href="http://web.media.mit.edu/~dlanman/">http://web.media.mit.edu/~dlanman/</a>
+（4）opencv中文网站； <a href="http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5">http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5</a>
+（5）Stanford大学vision实验室； <a href="http://vision.stanford.edu/research.html">http://vision.stanford.edu/research.html</a>
+（6）Stanford大学博士崔靖宇； <a href="http://www.stanford.edu/~jycui/">http://www.stanford.edu/~jycui/</a>
+（7）UCLA教授朱松纯； <a href="http://www.stat.ucla.edu/~sczhu/">http://www.stat.ucla.edu/~sczhu/</a>
+（8）中国人工智能网； <a href="http://www.chinaai.org/">http://www.chinaai.org/</a>
+（9）中国视觉网； <a href="http://www.china-vision.net/">http://www.china-vision.net/</a>
+（10）中科院自动化所； <a href="http://www.ia.cas.cn/">http://www.ia.cas.cn/</a>
+（11）中科院自动化所李子青研究员； <a href="http://www.cbsr.ia.ac.cn/users/szli/">http://www.cbsr.ia.ac.cn/users/szli/</a>
+（12）中科院计算所山世光研究员； <a href="http://www.jdl.ac.cn/user/sgshan/">http://www.jdl.ac.cn/user/sgshan/</a>
+（13）人脸识别主页； <a href="http://www.face-rec.org/">http://www.face-rec.org/</a>
+（14）加州大学伯克利分校CV小组； <a href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/">http://www.eecs.berkeley.edu/Research/Projects/CS/vision/</a></p>
+
+<p>（15）南加州大学CV实验室； <a href="http://iris.usc.edu/USC-Computer-Vision.html">http://iris.usc.edu/USC-Computer-Vision.html</a>
+（16）卡内基梅隆大学CV主页；</p>
+
+<p><a href="http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html">http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html</a></p>
+
+<p>（17）微软CV研究员Richard Szeliski；<a href="http://research.microsoft.com/en-us/um/people/szeliski/">http://research.microsoft.com/en-us/um/people/szeliski/</a>
+（18）微软亚洲研究院计算机视觉研究组； <a href="http://research.microsoft.com/en-us/groups/vc/">http://research.microsoft.com/en-us/groups/vc/</a>
+（19）微软剑桥研究院ML与CV研究组； <a href="http://research.microsoft.com/en-us/groups/mlp/default.aspx">http://research.microsoft.com/en-us/groups/mlp/default.aspx</a></p>
+
+<p>（20）研学论坛； <a href="http://bbs.matwav.com/">http://bbs.matwav.com/</a>
+（21）美国Rutgers大学助理教授刘青山； <a href="http://www.research.rutgers.edu/~qsliu/">http://www.research.rutgers.edu/~qsliu/</a>
+（22）计算机视觉最新资讯网； <a href="http://www.cvchina.info/">http://www.cvchina.info/</a>
+（23）运动检测、阴影、跟踪的测试视频下载； <a href="http://apps.hi.baidu.com/share/detail/18903287">http://apps.hi.baidu.com/share/detail/18903287</a>
+（24）香港中文大学助理教授王晓刚； <a href="http://www.ee.cuhk.edu.hk/~xgwang/">http://www.ee.cuhk.edu.hk/~xgwang/</a>
+(25)香港中文大学多媒体实验室（汤晓鸥）; <a href="http://mmlab.ie.cuhk.edu.hk/">http://mmlab.ie.cuhk.edu.hk/</a>
+(26)U.C. San Diego. computer vision;<a href="http://vision.ucsd.edu/content/home">http://vision.ucsd.edu/content/home</a>
+(27)CVonline; <a href="http://homepages.inf.ed.ac.uk/rbf/CVonline/">http://homepages.inf.ed.ac.uk/rbf/CVonline/</a>
+(28)computer vision software; <a href="http://peipa.essex.ac.uk/info/software.html">http://peipa.essex.ac.uk/info/software.html</a>
+(29)Computer Vision Resource; <a href="http://www.cvpapers.com/">http://www.cvpapers.com/</a>
+(30)computer vision research groups;<a href="http://peipa.essex.ac.uk/info/groups.html">http://peipa.essex.ac.uk/info/groups.html</a>
+(31)computer vision center; <a href="http://computervisioncentral.com/cvcnews">http://computervisioncentral.com/cvcnews</a></p>
+
+<p>(32)浙江大学图像技术研究与应用（ITRA）团队：<a href="http://www.dvzju.com/">http://www.dvzju.com/</a></p>
+
+<p>(33)自动识别网：<a href="http://www.autoid-china.com.cn/">http://www.autoid-china.com.cn/</a></p>
+
+<p>(34)清华大学章毓晋教授：<a href="http://www.tsinghua.edu.cn/publish/ee/4157/2010/20101217173552339241557/20101217173552339241557_.html">http://www.tsinghua.edu.cn/publish/ee/4157/2010/20101217173552339241557/20101217173552339241557_.html</a></p>
+
+<p>(35)顶级民用机器人研究小组Porf.Gary领导的Willow Garage:<a href="http://www.willowgarage.com/">http://www.willowgarage.com/</a></p>
+
+<p>(36)上海交通大学图像处理与模式识别研究所：<a href="http://www.pami.sjtu.edu.cn/">http://www.pami.sjtu.edu.cn/</a></p>
+
+<p>(37)上海交通大学计算机视觉实验室刘允才教授：<a href="http://www.visionlab.sjtu.edu.cn/">http://www.visionlab.sjtu.edu.cn/</a></p>
+
+<p>(38)德克萨斯州大学奥斯汀分校助理教授Kristen Grauman ：<a href="http://www.cs.utexas.edu/~grauman/">http://www.cs.utexas.edu/~grauman/</a> 图像分解，检索</p>
+
+<p>(39)清华大学电子工程系智能图文信息处理实验室（丁晓青教授）：<a href="http://ocrserv.ee.tsinghua.edu.cn/auto/index.asp">http://ocrserv.ee.tsinghua.edu.cn/auto/index.asp</a></p>
+
+<p>(40)北京大学高文教授：<a href="http://www.jdl.ac.cn/htm-gaowen/">http://www.jdl.ac.cn/htm-gaowen/</a></p>
+
+<p>(41)清华大学艾海舟教授：<a href="http://media.cs.tsinghua.edu.cn/cn/aihz">http://media.cs.tsinghua.edu.cn/cn/aihz</a></p>
+
+<p>(42)中科院生物识别与安全技术研究中心：<a href="http://www.cbsr.ia.ac.cn/china/index%20CH.asp">http://www.cbsr.ia.ac.cn/china/index%20CH.asp</a></p>
+
+<p>(43)瑞士巴塞尔大学 Thomas Vetter教授：<a href="http://informatik.unibas.ch/personen/vetter_t.html">http://informatik.unibas.ch/personen/vetter_t.html</a></p>
+
+<p>(44)俄勒冈州立大学 Rob Hess博士：<a href="http://blogs.oregonstate.edu/hess/">http://blogs.oregonstate.edu/hess/</a></p>
+
+<p>(45)深圳大学 于仕祺副教授：<a href="http://yushiqi.cn/">http://yushiqi.cn/</a></p>
+
+<p>(46)西安交通大学人工智能与机器人研究所：<a href="http://www.aiar.xjtu.edu.cn/">http://www.aiar.xjtu.edu.cn/</a></p>
+
+<p>(47)卡内基梅隆大学研究员Robert T. Collins:<a href="http://www.cs.cmu.edu/~rcollins/home.html#Background">http://www.cs.cmu.edu/~rcollins/home.html#Background</a></p>
+
+<p>(48)MIT博士Chris Stauffer:<a href="http://people.csail.mit.edu/stauffer/Home/index.php">http://people.csail.mit.edu/stauffer/Home/index.php</a></p>
+
+<p>(49)美国密歇根州立大学生物识别研究组(Anil K. Jain教授)：<a href="http://www.cse.msu.edu/rgroups/biometrics/">http://www.cse.msu.edu/rgroups/biometrics/</a></p>
+
+<p>(50)美国伊利诺伊州立大学Thomas S. Huang:<a href="http://www.beckman.illinois.edu/directory/t-huang1">http://www.beckman.illinois.edu/directory/t-huang1</a></p>
+
+<p>(51)武汉大学数字摄影测量与计算机视觉研究中心：<a href="http://www.whudpcv.cn/index.asp">http://www.whudpcv.cn/index.asp</a></p>
+
+<p>(52)瑞士巴塞尔大学Sami Romdhani助理研究员：<a href="http://informatik.unibas.ch/personen/romdhani_sami/">http://informatik.unibas.ch/personen/romdhani_sami/</a></p>
+
+<p>(53)CMU大学研究员Yang Wang:<a href="http://www.cs.cmu.edu/~wangy/home.html">http://www.cs.cmu.edu/~wangy/home.html</a></p>
+
+<p>(54)英国曼彻斯特大学Tim Cootes教授：<a href="http://personalpages.manchester.ac.uk/staff/timothy.f.cootes/">http://personalpages.manchester.ac.uk/staff/timothy.f.cootes/</a></p>
+
+<p>(55)美国罗彻斯特大学教授Jiebo Luo:<a href="http://www.cs.rochester.edu/u/jluo/">http://www.cs.rochester.edu/u/jluo/</a></p>
+
+<p>(56)美国普渡大学机器人视觉实验室：<a href="https://engineering.purdue.edu/RVL/Welcome.html">https://engineering.purdue.edu/RVL/Welcome.html</a></p>
+
+<p>(57)美国宾利州立大学感知、运动与认识实验室：<a href="http://vision.cse.psu.edu/home/home.shtml">http://vision.cse.psu.edu/home/home.shtml</a></p>
+
+<p>(58)美国宾夕法尼亚大学GRASP实验室：<a href="https://www.grasp.upenn.edu/">https://www.grasp.upenn.edu/</a></p>
+
+<p>(59)美国内达华大学里诺校区CV实验室：<a href="http://www.cse.unr.edu/CVL/index.php">http://www.cse.unr.edu/CVL/index.php</a></p>
+
+<p>(60)美国密西根大学vision实验室：<a href="http://www.eecs.umich.edu/vision/index.html">http://www.eecs.umich.edu/vision/index.html</a></p>
+
+<p>(61)University of Massachusetts(麻省大学),视觉实验室：<a href="http://vis-www.cs.umass.edu/index.html">http://vis-www.cs.umass.edu/index.html</a></p>
+
+<p>(62)华盛顿大学博士后Iva Kemelmacher:<a href="http://www.cs.washington.edu/homes/kemelmi">http://www.cs.washington.edu/homes/kemelmi</a></p>
+
+<p>(63)以色列魏茨曼科技大学Ronen Basri:<a href="http://www.wisdom.weizmann.ac.il/~ronen/index.html">http://www.wisdom.weizmann.ac.il/~ronen/index.html</a></p>
+
+<p>(64)瑞士ETH-Zurich大学CV实验室：<a href="http://www.vision.ee.ethz.ch/boostingTrackers/index.htm">http://www.vision.ee.ethz.ch/boostingTrackers/index.htm</a></p>
+
+<p>(65)微软CV研究员张正友：<a href="http://research.microsoft.com/en-us/um/people/zhang/">http://research.microsoft.com/en-us/um/people/zhang/</a></p>
+
+<p>(66)中科院自动化所医学影像研究室：<a href="http://www.3dmed.net/">http://www.3dmed.net/</a></p>
+
+<p>(67)中科院田捷研究员：<a href="http://www.3dmed.net/tian/">http://www.3dmed.net/tian/</a></p>
+
+<p>(68)微软Redmond研究院研究员Simon Baker:<a href="http://research.microsoft.com/en-us/people/sbaker/">http://research.microsoft.com/en-us/people/sbaker/</a></p>
+
+<p>(69)普林斯顿大学教授李凯：<a href="http://www.cs.princeton.edu/~li/">http://www.cs.princeton.edu/~li/</a>
+(70)普林斯顿大学博士贾登：<a href="http://www.cs.princeton.edu/~jiadeng/">http://www.cs.princeton.edu/~jiadeng/</a>
+(71)牛津大学教授Andrew Zisserman： <a href="http://www.robots.ox.ac.uk/~az/">http://www.robots.ox.ac.uk/~az/</a>
+(72)英国leeds大学研究员Mark Everingham:<a href="http://www.comp.leeds.ac.uk/me/">http://www.comp.leeds.ac.uk/me/</a>
+(73)英国爱丁堡大学教授Chris William: <a href="http://homepages.inf.ed.ac.uk/ckiw/">http://homepages.inf.ed.ac.uk/ckiw/</a>
+(74)微软剑桥研究院研究员John Winn: <a href="http://johnwinn.org/">http://johnwinn.org/</a>
+(75)佐治亚理工学院教授Monson H.Hayes：<a href="http://savannah.gatech.edu/people/mhayes/index.html">http://savannah.gatech.edu/people/mhayes/index.html</a>
+(76)微软亚洲研究院研究员孙剑：<a href="http://research.microsoft.com/en-us/people/jiansun/">http://research.microsoft.com/en-us/people/jiansun/</a>
+(77)微软亚洲研究院研究员马毅：<a href="http://research.microsoft.com/en-us/people/mayi/">http://research.microsoft.com/en-us/people/mayi/</a>
+(78)英国哥伦比亚大学教授David Lowe: <a href="http://www.cs.ubc.ca/~lowe/">http://www.cs.ubc.ca/~lowe/</a>
+(79)英国爱丁堡大学教授Bob Fisher: <a href="http://homepages.inf.ed.ac.uk/rbf/">http://homepages.inf.ed.ac.uk/rbf/</a>
+(80)加州大学圣地亚哥分校教授Serge J.Belongie:<a href="http://cseweb.ucsd.edu/~sjb/">http://cseweb.ucsd.edu/~sjb/</a>
+(81)威斯康星大学教授Charles R.Dyer: <a href="http://pages.cs.wisc.edu/~dyer/">http://pages.cs.wisc.edu/~dyer/</a>
+(82)多伦多大学教授Allan.Jepson: <a href="http://www.cs.toronto.edu/~jepson/">http://www.cs.toronto.edu/~jepson/</a>
+(83)伦斯勒理工学院教授Qiang Ji: <a href="http://www.ecse.rpi.edu/~qji/">http://www.ecse.rpi.edu/~qji/</a>
+(84)CMU研究员Daniel Huber: <a href="http://www.ri.cmu.edu/person.html?person_id=123">http://www.ri.cmu.edu/person.html?person_id=123</a>
+(85)多伦多大学教授：David J.Fleet: <a href="http://www.cs.toronto.edu/~fleet/">http://www.cs.toronto.edu/~fleet/</a>
+(86)伦敦大学玛丽女王学院教授Andrea Cavallaro:<a href="http://www.eecs.qmul.ac.uk/~andrea/">http://www.eecs.qmul.ac.uk/~andrea/</a>
+(87)多伦多大学教授Kyros Kutulakos: <a href="http://www.cs.toronto.edu/~kyros/">http://www.cs.toronto.edu/~kyros/</a>
+(88)杜克大学教授Carlo Tomasi: <a href="http://www.cs.duke.edu/~tomasi/">http://www.cs.duke.edu/~tomasi/</a>
+(89)CMU教授Martial Hebert: <a href="http://www.cs.cmu.edu/~hebert/">http://www.cs.cmu.edu/~hebert/</a>
+(90)MIT助理教授Antonio Torralba: <a href="http://web.mit.edu/torralba/www/">http://web.mit.edu/torralba/www/</a>
+(91)马里兰大学研究员Yasel Yacoob: <a href="http://www.umiacs.umd.edu/users/yaser/">http://www.umiacs.umd.edu/users/yaser/</a>
+(92)康奈尔大学教授Ramin Zabih: <a href="http://www.cs.cornell.edu/~rdz/">http://www.cs.cornell.edu/~rdz/</a></p>
+
+<p>(93)CMU博士田渊栋: <a href="http://www.cs.cmu.edu/~yuandong/">http://www.cs.cmu.edu/~yuandong/</a>
+(94)CMU副教授Srinivasa Narasimhan: <a href="http://www.cs.cmu.edu/~srinivas/">http://www.cs.cmu.edu/~srinivas/</a>
+(95)CMU大学ILIM实验室：<a href="http://www.cs.cmu.edu/~ILIM/">http://www.cs.cmu.edu/~ILIM/</a>
+(96)哥伦比亚大学教授Sheer K.Nayar: <a href="http://www.cs.columbia.edu/~nayar/">http://www.cs.columbia.edu/~nayar/</a>
+(97)三菱电子研究院研究员Fatih Porikli ：<a href="http://www.porikli.com/">http://www.porikli.com/</a>
+(98)康奈尔大学教授Daniel Huttenlocher：<a href="http://www.cs.cornell.edu/~dph/">http://www.cs.cornell.edu/~dph/</a>
+(99)南京大学教授周志华：<a href="http://cs.nju.edu.cn/zhouzh/index.htm">http://cs.nju.edu.cn/zhouzh/index.htm</a>
+(100)芝加哥丰田技术研究所助理教授Devi Parikh: <a href="http://ttic.uchicago.edu/~dparikh/index.html">http://ttic.uchicago.edu/~dparikh/index.html</a>
+(101)瑞士联邦理工学院博士后Helmut Grabner: <a href="http://www.vision.ee.ethz.ch/~hegrabne/#Short_CV">http://www.vision.ee.ethz.ch/~hegrabne/#Short_CV</a></p>
+
+<p>(102)香港中文大学教授贾佳亚：<a href="http://www.cse.cuhk.edu.hk/~leojia/index.html">http://www.cse.cuhk.edu.hk/~leojia/index.html</a></p>
+
+<p>(103)南京大学教授吴建鑫：<a href="http://c2inet.sce.ntu.edu.sg/Jianxin/index.html">http://c2inet.sce.ntu.edu.sg/Jianxin/index.html</a></p>
+
+<p>(104)GE研究院研究员李关：<a href="http://www.cs.unc.edu/~lguan/">http://www.cs.unc.edu/~lguan/</a></p>
+
+<p>(105)佐治亚理工学院教授Monson Hayes:<a href="http://savannah.gatech.edu/people/mhayes/">http://savannah.gatech.edu/people/mhayes/</a></p>
+
+<p>(106)图片检索国际竞赛PASCAL VOC(微软剑桥研究院组织):<a href="http://pascallin.ecs.soton.ac.uk/challenges/VOC/">http://pascallin.ecs.soton.ac.uk/challenges/VOC/</a></p>
+
+<p>(107)机器视觉开源处理库汇总：<a href="http://archive.cnblogs.com/a/2217609/">http://archive.cnblogs.com/a/2217609/</a></p>
+
+<p>(108)布朗大学教授Benjamin Kimia: <a href="http://www.lems.brown.edu/kimia.html">http://www.lems.brown.edu/kimia.html</a></p>
+
+<p>(109)数据堂-图像处理相关的样本数据：<a href="http://www.datatang.com/data/list/602026/p1">http://www.datatang.com/data/list/602026/p1</a></p>
+
+<p>(110)东软基于CV的汽车辅助驾驶系统：<a href="http://www.neusoft.com/cn/solutions/1047/">http://www.neusoft.com/cn/solutions/1047/</a></p>
+
+<p>(111)马里兰大学教授Rema Chellappa:<a href="http://www.cfar.umd.edu/~rama/">http://www.cfar.umd.edu/~rama/</a>
+(112)芝加哥丰田研究中心助理教授Devi Parikh：<a href="http://ttic.uchicago.edu/~dparikh/index.html">http://ttic.uchicago.edu/~dparikh/index.html</a></p>
+
+<p>(113)宾夕法尼亚大学助理教授石建波：<a href="http://www.cis.upenn.edu/~jshi/">http://www.cis.upenn.edu/~jshi/</a></p>
+
+<p>(114)比利时鲁汶大学教授Luc Van Gool：<a href="http://www.vision.ee.ethz.ch/members/get_member.cgi?id=1">http://www.vision.ee.ethz.ch/members/get_member.cgi?id=1</a>, <a href="http://www.vision.ee.ethz.ch/~vangool/">http://www.vision.ee.ethz.ch/~vangool/</a></p>
+
+<p>(115)行人检测主页：<a href="http://www.pedestrian-detection.com/">http://www.pedestrian-detection.com/</a></p>
+
+<p>(116)法国学习算法与系统实验室Basilio Noris博士：<a href="http://lasa.epfl.ch/people/member.php?SCIPER=129576">http://lasa.epfl.ch/people/member.php?SCIPER=129576</a> <a href="http://mldemos.epfl.ch/">http://mldemos.epfl.ch/</a>
+(117)美国马里兰大学LARRY S.DAVIS教授：<a href="http://www.umiacs.umd.edu/~lsd/">http://www.umiacs.umd.edu/~lsd/</a></p>
+
+<p>(118)计算机视觉论文分类导航：<a href="http://www.visionbib.com/bibliography/contents.html">http://www.visionbib.com/bibliography/contents.html</a></p>
+
+<p>(119)计算机视觉分类信息导航：<a href="http://www.visionbib.com/">http://www.visionbib.com/</a>
+(120)西班牙马德里理工大学博士Marcos Nieto：<a href="http://marcosnieto.net/">http://marcosnieto.net/</a>
+(121)香港理工大学副教授张磊：<a href="http://www4.comp.polyu.edu.hk/~cslzhang/">http://www4.comp.polyu.edu.hk/~cslzhang/</a></p>
+
+<p>(122)以色列技术学院教授Michael Elad：<a href="http://www.cs.technion.ac.il/~elad/">http://www.cs.technion.ac.il/~elad/</a></p>
+
+<p>(123)韩国启明大学计算机视觉与模式识别实验室：<a href="http://cvpr.kmu.ac.kr/">http://cvpr.kmu.ac.kr/</a></p>
+
+<p>(124)英国诺丁汉大学Michel Valstar博士：<a href="http://www.cs.nott.ac.uk/~mfv/">http://www.cs.nott.ac.uk/~mfv/</a></p>
+
+<p>(125)卡内基梅隆大学Takeo Kanade教授:<a href="http://www.ri.cmu.edu/people/kanade_takeo.html">http://www.ri.cmu.edu/people/kanade_takeo.html</a>
+(126)微软学术搜索：<a href="http://libra.msra.cn/">http://libra.msra.cn/</a>
+(127)比利时天主教鲁汶大学Radu Timofte博士：<a href="http://homes.esat.kuleuven.be/~rtimofte/，交通标志检测，定位，3D跟踪">http://homes.esat.kuleuven.be/~rtimofte/，交通标志检测，定位，3D跟踪</a>
+(128)迪斯尼匹兹堡研究院研究员：Iain Matthews:<a href="http://www.iainm.com/iainm/Home.html">http://www.iainm.com/iainm/Home.html</a></p>
+
+<p><a href="http://www.ri.cmu.edu/person.html?type=publications&amp;person_id=741">http://www.ri.cmu.edu/person.html?type=publications&amp;person_id=741</a> AAM,三维重建</p>
+
+<p>（129）康奈尔大学视觉与图像分析组：<a href="http://www.via.cornell.edu/">http://www.via.cornell.edu/</a> 医学图像处理</p>
+
+<p>（130）密西根州立大学生物识别研究组：<a href="http://www.cse.msu.edu/biometrics/">http://www.cse.msu.edu/biometrics/</a> 人脸识别、指纹识别、图像检索
+（131）柏林科技大学计算机视觉与遥感实验室：<a href="http://www.cv.tu-berlin.de/menue/computer_vision_remote_sensing/parameter/en/">http://www.cv.tu-berlin.de/menue/computer_vision_remote_sensing/parameter/en/</a> 图像分析、物体重建、基于图像的表面测量、医学图像处理</p>
+
+<p>（132）英国布里斯托大学数字多媒体研究组：<a href="http://www.cs.bris.ac.uk/Research/Digitalmedia/">http://www.cs.bris.ac.uk/Research/Digitalmedia/</a> 运动检测与跟踪、视频压缩、3D重建、字符定位</p>
+
+<p>（133）英国萨利大学视觉、语音与信号处理中心： <a href="http://www.surrey.ac.uk/cvssp/">http://www.surrey.ac.uk/cvssp/</a>   人脸识别、监控、3D、视频检索、
+（134）北卡莱罗纳大学教堂山分校Marc Pollefeys教授：<a href="http://www.cs.unc.edu/~marc/">http://www.cs.unc.edu/~marc/</a> 基于视频的3D模型生成、相机标定、运动检测与分析、3D重建</p>
+
+<p>（135）澳大利亚国立大学Richard Hartley教授：<a href="http://users.cecs.anu.edu.au/~hartley/">http://users.cecs.anu.edu.au/~hartley/</a> 运动估计、稀疏子空间、跟踪、</p>
+
+<p>（136）百度技术副总监于凯：<a href="http://www.dbs.ifi.lmu.de/~yu_k/">http://www.dbs.ifi.lmu.de/~yu_k/</a> 深度学习，稀疏表示，图像分类</p>
+
+<p>（137）西安电子科技大学高新波教授：<a href="http://web.xidian.edu.cn/xbgao/index.html">http://web.xidian.edu.cn/xbgao/index.html</a> 质量评判、水印、稀疏表示、超分辨率</p>
+
+<p>（138）加州大学伯克利分校Michael I.Jordan教授：<a href="http://www.cs.berkeley.edu/~jordan/">http://www.cs.berkeley.edu/~jordan/</a> 机器学习</p>
+
+<p>（139）加州理工行人检测相关资料：<a href="http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/">http://www.vision.caltech.edu/Image_Datasets/CaltechPedestrians/</a></p>
+
+<p>（140）微软Redmond研究院研究员Piotr Dollar: <a href="http://vision.ucsd.edu/~pdollar/">http://vision.ucsd.edu/~pdollar/</a> 行人检测、特征提取、</p>
+
+<p>（141）视觉计算研究论坛：<a href="http://www.sigvc.org/bbs/">http://www.sigvc.org/bbs/</a> 中科院视觉计算研究小组的论坛</p>
+
+<p>（142）美国坦桑尼亚州立大学稀疏学习软件包：<a href="http://www.public.asu.edu/~jye02/Software/SLEP/index.htm">http://www.public.asu.edu/~jye02/Software/SLEP/index.htm</a> 稀疏学习</p>
+
+<p>（143）美国加州大学圣地亚哥分校Jacob Whitehill博士：<a href="http://mplab.ucsd.edu/~jake/">http://mplab.ucsd.edu/~jake/</a> 机器学习</p>
+
+<p>（144）美国布朗大学Michael J.Black教授：<a href="http://cs.brown.edu/~black/">http://cs.brown.edu/~black/</a>  人的姿态估计和跟踪</p>
+
+<p>（145）美国加州大学圣地亚哥分校David Kriegman教授：<a href="http://cseweb.ucsd.edu/~kriegman/">http://cseweb.ucsd.edu/~kriegman/</a> 人脸识别</p>
+
+<p>（146）南加州大学Paul Debevec教授：<a href="http://ict.debevec.org/~debevec/">http://ict.debevec.org/~debevec/</a> 或 <a href="http://www.pauldebevec.com/">http://www.pauldebevec.com/</a> 将CV和CG结合研究 人脸捕捉重建技术</p>
+
+<p>（147）伊利诺伊大学D.A.Forsyth教授：<a href="http://luthuli.cs.uiuc.edu/~daf/">http://luthuli.cs.uiuc.edu/~daf/</a> 三维重建</p>
+
+<p>（148）英国牛津大学Ian Reid教授：<a href="http://www.robots.ox.ac.uk/~ian/">http://www.robots.ox.ac.uk/~ian/</a> 跟踪和机器人导航</p>
+
+<p>（149）CMU大学Alyosha Efros 教授: <a href="https://www.cs.cmu.edu/~efros/">https://www.cs.cmu.edu/~efros/</a> 图像纹理合成</p>
+
+<p>（150）加州大学伯克利分校Jitendra Malik教授：<a href="http://www.cs.berkeley.edu/~malik/">http://www.cs.berkeley.edu/~malik/</a> 轮廓检测、图像/视频分割、图形匹配、目标识别</p>
+
+<p>（151）MIT教授William Freeman： <a href="http://people.csail.mit.edu/billf/">http://people.csail.mit.edu/billf/</a> 图像纹理合成</p>
+
+<p>（152）CMU博士Henry Schneiderman： <a href="http://www.cs.cmu.edu/~hws/">http://www.cs.cmu.edu/~hws/</a> 目标检测和识别；</p>
+
+<p>（153）微软研究员Paul Viola: <a href="http://research.microsoft.com/en-us/um/people/viola/">http://research.microsoft.com/en-us/um/people/viola/</a> AdaBoost算法</p>
+
+<p>（154）微软研究员Antonio Criminisi: <a href="http://research.microsoft.com/en-us/people/antcrim/">http://research.microsoft.com/en-us/people/antcrim/</a> 图像修补，三维重建，目标检测与跟踪；</p>
+
+<p>（155）魏茨曼科学研究所教授Michal Irani: <a href="http://www.wisdom.weizmann.ac.il/~irani/">http://www.wisdom.weizmann.ac.il/~irani/</a> 超分辨率</p>
+
+<p>（156）瑞士洛桑理工学院Pascal Fua教授：<a href="http://people.epfl.ch/pascal.fua/bio?lang=en">http://people.epfl.ch/pascal.fua/bio?lang=en</a> 立体视觉，增强现实</p>
+
+<p>（157）佐治亚理工学院Irfan Essa教授：<a href="http://www.ic.gatech.edu/people/irfan-essa">http://www.ic.gatech.edu/people/irfan-essa</a> 人脸表情识别</p>
+
+<p>（158）中科院助理教授樊彬：<a href="http://www.sigvc.org/bfan/">http://www.sigvc.org/bfan/</a> 特征描述；</p>
+
+<p>（159）斯坦福大学Sebastian Thrun教授：<a href="http://robots.stanford.edu/index.html">http://robots.stanford.edu/index.html</a> 机器人；</p>
+
+<p>（160）多伦多大学Geoffrey E.Hinton教授：<a href="http://www.cs.toronto.edu/~hinton/">http://www.cs.toronto.edu/~hinton/</a> 深度学习</p>
+
+<p>（161）凤巢系统架构师张栋博士：<a href="http://weibo.com/machinelearning">http://weibo.com/machinelearning</a></p>
+
+<p>（162）2012年龙星计划机器学习课程：<a href="http://bigeye.au.tsinghua.edu.cn/DragonStar2012/index.html">http://bigeye.au.tsinghua.edu.cn/DragonStar2012/index.html</a></p>
+
+<p>（163）中科院自动化所肖柏华教授：<a href="http://www.compsys.ia.ac.cn/people/xiaobaihua.html">http://www.compsys.ia.ac.cn/people/xiaobaihua.html</a> 文字识别、人脸识别、质量评判
+（164）图像视频质量评判：<a href="http://live.ece.utexas.edu/research/quality/">http://live.ece.utexas.edu/research/quality/</a></p>
+
+<p>（165）纽约大学Yann LeCun教授<a href="http://yann.lecun.com/">http://yann.lecun.com/</a>   <a href="http://yann.lecun.com/exdb/mnist/">http://yann.lecun.com/exdb/mnist/</a>  手写体数字识别
+（166）二维条码识别开源库zxing：<a href="http://code.google.com/p/zxing/">http://code.google.com/p/zxing/</a></p>
+
+<p>（167）布朗大学Pedro Felzenszwalb教授：<a href="http://cs.brown.edu/~pff/">http://cs.brown.edu/~pff/</a> 特征提取，Deformable Part Model</p>
+
+<p>（168）伊利诺伊香槟大学Svetlana Lazebnik教授：<a href="http://www.cs.illinois.edu/homes/slazebni/">http://www.cs.illinois.edu/homes/slazebni/</a> 特征提取，聚类，图像检索</p>
+
+<p>（169）荷兰乌德勒支大学图像与多媒体研究中心<a href="http://www.cs.uu.nl/centers/give/multimedia/index.html">http://www.cs.uu.nl/centers/give/multimedia/index.html</a> 图像、多媒体检索与匹配</p>
+
+<p>（170）英国格拉斯哥大学信息检索小组：<a href="http://ir.dcs.gla.ac.uk/">http://ir.dcs.gla.ac.uk/</a> 文本、图像、视频检索</p>
+
+<p>（171）中科院自动化所孙哲南助理教书：<a href="http://www.cbsr.ia.ac.cn/users/znsun/">http://www.cbsr.ia.ac.cn/users/znsun/</a> 虹膜识别、掌纹识别、人脸识别</p>
+
+<p>（172）南京信息工程大学刘青山教授：<a href="http://www.jstuoke.com/web/xky/detail.asp?NewsID=1096">http://www.jstuoke.com/web/xky/detail.asp?NewsID=1096</a> 人脸图像分析、医学图像分析</p>
+
+<p>（173）清华大学助理教授冯建江：<a href="http://ivg.au.tsinghua.edu.cn/~jfeng/">http://ivg.au.tsinghua.edu.cn/~jfeng/</a> 指纹识别</p>
+
+<p>（174）北航助理教授黄迪：<a href="http://irip.buaa.edu.cn/~dihuang/">http://irip.buaa.edu.cn/~dihuang/</a> 3D人脸识别</p>
+
+<p>（175）中山大学助理教授郑伟诗：<a href="http://sist.sysu.edu.cn/~zhwshi/">http://sist.sysu.edu.cn/~zhwshi/</a> 人脸识别、特征匹配、聚类、检索；</p>
+
+<p>（176）google瑞士苏黎世的工程师Thomas Deselaers: <a href="http://thomas.deselaers.de/index.html">http://thomas.deselaers.de/index.html</a> 图像检索</p>
+
+<p>（177）百度深度学习研究中心博士后余轶南：<a href="http://www.cbsr.ia.ac.cn/users/ynyu/index.htm">http://www.cbsr.ia.ac.cn/users/ynyu/index.htm</a> 目标检测，图像检索</p>
+
+<p>（178）威兹曼科技大学超分辨率：<a href="http://www.wisdom.weizmann.ac.il/~vision/SingleImageSR.html">http://www.wisdom.weizmann.ac.il/~vision/SingleImageSR.html</a></p>
+
+<p>（179）德克萨斯大学奥斯汀分校Al Bovik教授：<a href="http://live.ece.utexas.edu/people/bovik/">http://live.ece.utexas.edu/people/bovik/</a> 图像视频质量判别、特征提取</p>
+
+<p>（180）以色列希伯来大学Yair Weiss教授：<a href="http://www.cs.huji.ac.il/~yweiss/">http://www.cs.huji.ac.il/~yweiss/</a> 机器学习、超分辨率</p>
+
+<p>（181）以色列希伯来大学Daniel Zoran博士：<a href="http://www.cs.huji.ac.il/~daniez/">http://www.cs.huji.ac.il/~daniez/</a> 超分辨率、去噪</p>
+
+<p>（182）美国加州大学Peyman Milanfar教授：<a href="http://users.soe.ucsc.edu/~milanfar/">http://users.soe.ucsc.edu/~milanfar/</a> 去噪</p>
+
+<p>（183）中科院计算所副研究员常虹：<a href="http://www.jdl.ac.cn/user/hchang/index.html">http://www.jdl.ac.cn/user/hchang/index.html</a> 图像检索、半监督学习、超分辨率</p>
+
+<p>（184）以色列威茨曼大学Anat Levin教授：<a href="http://www.wisdom.weizmann.ac.il/~levina/">http://www.wisdom.weizmann.ac.il/~levina/</a> 去噪、去模糊</p>
+
+<p>（185）以色列威茨曼大学Daniel Glasner博士后：<a href="http://www.wisdom.weizmann.ac.il/~glasner/">http://www.wisdom.weizmann.ac.il/~glasner/</a> 超分辨率、分割、姿态估计</p>
+
+<p>（186）密西根大学助理教授Honglak Lee: <a href="http://web.eecs.umich.edu/~honglak/">http://web.eecs.umich.edu/~honglak/</a> 机器学习、特征提取，去噪、稀疏表示；</p>
+
+<p>（187）MIT周博磊博士：<a href="http://people.csail.mit.edu/bzhou/">http://people.csail.mit.edu/bzhou/</a> 聚集分析、运动检测</p>
+
+<p>（188）美国田纳西大学Li He博士：<a href="http://web.eecs.utk.edu/~lhe4/">http://web.eecs.utk.edu/~lhe4/</a> 稀疏表示、超分辨率；</p>
+
+<p>（189）Adobe研究院Jianchao Yang研究员：<a href="http://www.ifp.illinois.edu/~jyang29/">http://www.ifp.illinois.edu/~jyang29/</a> 稀疏表示，超分辨率、图片检索、去噪、去模糊</p>
+
+<p>（190）Deep Learning主页：<a href="http://deeplearning.net/">http://deeplearning.net/</a> 深度学习论文、软件，代码，demo，数据等；</p>
+
+<p>（191）斯坦福大学Andrew Ng教授：<a href="http://cs.stanford.edu/people/ang/">http://cs.stanford.edu/people/ang/</a> 深度神经网络，深度学习</p>
+
+<p>（192）Elefant: <a href="http://elefant.developer.nicta.com.au/">http://elefant.developer.nicta.com.au/</a> 机器学习开源库</p>
+
+<p>（193）微软研究员Ce Liu: <a href="http://people.csail.mit.edu/celiu/">http://people.csail.mit.edu/celiu/</a> 去噪、超分辨率、去模糊、分割</p>
+
+<p>（194）West Virginia大学助理教授Xin Li: <a href="http://www.csee.wvu.edu/~xinl/">http://www.csee.wvu.edu/~xinl/</a> 边缘检测、降噪、去模糊</p>
+
+<p>（195）<a href="http://www.csee.wvu.edu/~xinl/source.html">http://www.csee.wvu.edu/~xinl/source.html</a> 深度学习、去噪、编码、压缩感知、超分辨率、聚类、分割等相关代码集合</p>
+
+<p>（196）西班牙格拉纳达大学超分辨率重建项目组：<a href="http://decsai.ugr.es/pi/superresolution/index.html">http://decsai.ugr.es/pi/superresolution/index.html</a></p>
+
+<p>（197）清华大学程明明博士：<a href="http://mmcheng.net/">http://mmcheng.net/</a> 图像分割、检索</p>
+
+<p>（198）牛津布鲁克斯大学Philip H.S.Torr教授：<a href="http://cms.brookes.ac.uk/staff/PhilipTorr/">http://cms.brookes.ac.uk/staff/PhilipTorr/</a> 分割、三维重建</p>
+
+<p>（199）佐治亚理工学院James M.Rehg教授：<a href="http://www.cc.gatech.edu/~rehg/">http://www.cc.gatech.edu/~rehg/</a> 分割、行人检测、特征描述、</p>
+
+<p>（200）大规模图像分类、检测竞赛ILSVRC（Stanford, Google举办）:</p>
+
+<p><a href="http://www.image-net.org/challenges/LSVRC/2013/">http://www.image-net.org/challenges/LSVRC/2013/</a></p>
+
+<p>（201）加州大学尔湾分校Deva Ramanan助理教授：<a href="http://www.ics.uci.edu/~dramanan/">http://www.ics.uci.edu/~dramanan/</a> 目标检测，行人检测，跟踪、稀疏表示</p>
+
+<p>（202）人脸识别测试图片集：<a href="http://www.mlcv.net/">http://www.mlcv.net/</a></p>
+
+<p>（203）美国西北大学博士Ming Yang: <a href="http://www.ece.northwestern.edu/~mya671/">http://www.ece.northwestern.edu/~mya671/</a> 人脸识别、图像检索；</p>
+
+<p>（204）美国加州大学伯克利分校博士后Ross B.Girshick：<a href="http://www.cs.berkeley.edu/~rbg/">http://www.cs.berkeley.edu/~rbg/</a> 目标检测（DPM）</p>
+
+<p>（205）中文语言资源联盟：<a href="http://www.chineseldc.org/index.html">http://www.chineseldc.org/index.html</a>  内有很多语言识别、字符识别的训练，测试库；</p>
+
+<p>（206）西班牙巴塞罗那大学计算机视觉中心：<a href="http://www.cvc.uab.es/adas/site/">http://www.cvc.uab.es/adas/site/</a> 检测、跟踪、3D、行人检测、汽车辅助驾驶</p>
+
+<p>（207）德国戴姆勒研究所Prof. Dr. Dariu M. Gavrila：<a href="http://www.gavrila.net/index.html">http://www.gavrila.net/index.html</a> 跟踪、行人检测、</p>
+
+<p>（208）苏黎世联邦理工学院Andreas Ess博士后：<a href="http://www.vision.ee.ethz.ch/~aess/">http://www.vision.ee.ethz.ch/~aess/</a> 行人检测、行为检测、跟踪</p>
+
+<p>（209）Libqrencode: <a href="http://fukuchi.org/works/qrencode/">http://fukuchi.org/works/qrencode/</a> 基于C语言的QR二维码编码开源库</p>
+
+<p>（210）江西财经大学袁飞牛教授：<a href="http://sit.jxufe.cn/grbk/yfn/index.html#">http://sit.jxufe.cn/grbk/yfn/index.html#</a>  烟雾检测、3D重建、医学图像处理</p>
+
+<p>（211）耶路撒冷大学Raanan Fattal教师：<a href="http://www.cs.huji.ac.il/~raananf/">http://www.cs.huji.ac.il/~raananf/</a>  图像增强、</p>
+
+<p>（212）耶路撒冷大学Dani Lischnski教授：<a href="http://www.cs.huji.ac.il/~danix/">http://www.cs.huji.ac.il/~danix/</a> 去模糊、纹理合成、图像增强</p>
+
+<p>（213）北京航空航天大学周付根教授：<a href="http://www.sa.buaa.edu.cn/html/yhxy/szll/jsfc/txcl/1521.html">http://www.sa.buaa.edu.cn/html/yhxy/szll/jsfc/txcl/1521.html</a>  医学图像处理</p>
+
+<p>（214）北京航空航天大学姜志国教授：<a href="http://www.sa.buaa.edu.cn/html/yhxy/xygk/zyld/1595.html">http://www.sa.buaa.edu.cn/html/yhxy/xygk/zyld/1595.html</a> 医学图像处理，遥感图像分割；</p>
+
+<p>（215）德国萨尔布吕肯大学博士后R. Benenson： <a href="http://rodrigob.github.io/#">http://rodrigob.github.io/#</a> 行人检测，无人驾驶汽车</p>
+</article>
+    <footer class="post-footer">
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

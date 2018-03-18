@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title></title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
+数字：1*$
+n位的数字：^\d{n}$
+至少n位的数字：^\d{n,}$
+m-n位的数字：^\d{m,n}$
+零和非零开头的数字：^(0|[1-9][0-9]*)$
+非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
+带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
+正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
+有两位小数的正实数：2&#43;(.[0-9]{2})?$
+有1~3位小数的正实数：3&#43;(.[0-9]{1,3})?$
+非零的正整数：4\d$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]*$
+非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
+非负整数：^\d&#43;$ 或 5\d*|0$
+非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
+非负浮点数：^\d&#43;(.\d&#43;)?$ 或 6\d.\d|0.\d[1-9]\d|0?.0&#43;|0$
+非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d.\d|0.\d[1-9]\d))|0?.0&#43;|0$
+正浮点数：7\d.\d|0.\d[1-9]\d$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
+负浮点数：^-([1-9]\d.\d|0.\d[1-9]\d)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
+浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d.\d|0.\d[1-9]\d|0?.0&#43;|0)$
+二、校验字符的表达式
+汉字：8{0,}$
+英文和数字：9&#43;$ 或 10{4,40}$
+长度为3-20的所有字符：^.{3,20}$
+由26个英文字母组成的字符串：11&#43;$
+由26个大写英文字母组成的字符串：12&#43;$
+由26个小写英文字母组成的字符串：13&#43;$
+由数字和26个英文字母组成的字符串：14&#43;$
+由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
+中文、英文、数字包括下划线：15&#43;$
+中文、英文、数字但不包括下划线等符号：16&#43;$ 或 17{2,20}$
+可以输入含有^%&amp;amp;’,;=?$\”等字符：[^%&amp;amp;&amp;lsquo;,;=?$\x22]&#43;
+禁止输入含有~的字符：[^~\x22]&#43;
+三、特殊需求表达式
+Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
+域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
+InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;amp;=]*)?$
+手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
+电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
+国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
+数字：1*$
+n位的数字：^\d{n}$
+至少n位的数字：^\d{n,}$
+m-n位的数字：^\d{m,n}$
+零和非零开头的数字：^(0|[1-9][0-9]*)$
+非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
+带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
+正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
+有两位小数的正实数：2&#43;(.[0-9]{2})?$
+有1~3位小数的正实数：3&#43;(.[0-9]{1,3})?$
+非零的正整数：4\d$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]*$
+非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
+非负整数：^\d&#43;$ 或 5\d*|0$
+非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
+非负浮点数：^\d&#43;(.\d&#43;)?$ 或 6\d.\d|0.\d[1-9]\d|0?.0&#43;|0$
+非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d.\d|0.\d[1-9]\d))|0?.0&#43;|0$
+正浮点数：7\d.\d|0.\d[1-9]\d$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
+负浮点数：^-([1-9]\d.\d|0.\d[1-9]\d)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
+浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d.\d|0.\d[1-9]\d|0?.0&#43;|0)$
+二、校验字符的表达式
+汉字：8{0,}$
+英文和数字：9&#43;$ 或 10{4,40}$
+长度为3-20的所有字符：^.{3,20}$
+由26个英文字母组成的字符串：11&#43;$
+由26个大写英文字母组成的字符串：12&#43;$
+由26个小写英文字母组成的字符串：13&#43;$
+由数字和26个英文字母组成的字符串：14&#43;$
+由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
+中文、英文、数字包括下划线：15&#43;$
+中文、英文、数字但不包括下划线等符号：16&#43;$ 或 17{2,20}$
+可以输入含有^%&amp;amp;’,;=?$\”等字符：[^%&amp;amp;&amp;lsquo;,;=?$\x22]&#43;
+禁止输入含有~的字符：[^~\x22]&#43;
+三、特殊需求表达式
+Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
+域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
+InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;amp;=]*)?$
+手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
+电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
+国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$" />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
+数字：1*$
+n位的数字：^\d{n}$
+至少n位的数字：^\d{n,}$
+m-n位的数字：^\d{m,n}$
+零和非零开头的数字：^(0|[1-9][0-9]*)$
+非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
+带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
+正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
+有两位小数的正实数：2&#43;(.[0-9]{2})?$
+有1~3位小数的正实数：3&#43;(.[0-9]{1,3})?$
+非零的正整数：4\d$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]*$
+非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
+非负整数：^\d&#43;$ 或 5\d*|0$
+非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
+非负浮点数：^\d&#43;(.\d&#43;)?$ 或 6\d.\d|0.\d[1-9]\d|0?.0&#43;|0$
+非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d.\d|0.\d[1-9]\d))|0?.0&#43;|0$
+正浮点数：7\d.\d|0.\d[1-9]\d$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
+负浮点数：^-([1-9]\d.\d|0.\d[1-9]\d)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
+浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d.\d|0.\d[1-9]\d|0?.0&#43;|0)$
+二、校验字符的表达式
+汉字：8{0,}$
+英文和数字：9&#43;$ 或 10{4,40}$
+长度为3-20的所有字符：^.{3,20}$
+由26个英文字母组成的字符串：11&#43;$
+由26个大写英文字母组成的字符串：12&#43;$
+由26个小写英文字母组成的字符串：13&#43;$
+由数字和26个英文字母组成的字符串：14&#43;$
+由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
+中文、英文、数字包括下划线：15&#43;$
+中文、英文、数字但不包括下划线等符号：16&#43;$ 或 17{2,20}$
+可以输入含有^%&amp;amp;’,;=?$\”等字符：[^%&amp;amp;&amp;lsquo;,;=?$\x22]&#43;
+禁止输入含有~的字符：[^~\x22]&#43;
+三、特殊需求表达式
+Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
+域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
+InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;amp;=]*)?$
+手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
+电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
+国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$" />
+  <meta property="og:url" content="https://neal1991.github.io/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/laozhu">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/github_username" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//weibo.com/weibo_username" title="Weibo"><span class="icon icon-weibo"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/linkedin_username" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式
+一、校验数字的表达式</p>
+
+<p>数字：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">1</a></sup>*$</p>
+
+<p>n位的数字：^\d{n}$</p>
+
+<p>至少n位的数字：^\d{n,}$</p>
+
+<p>m-n位的数字：^\d{m,n}$</p>
+
+<p>零和非零开头的数字：^(0|[1-9][0-9]*)$</p>
+
+<p>非零开头的最多带两位小数的数字：^([1-9][0-9]*)+(.[0-9]{1,2})?$</p>
+
+<p>带1-2位小数的正数或负数：^(-)?\d+(.\d{1,2})?$</p>
+
+<p>正数、负数、和小数：^(-|+)?\d+(.\d+)?$</p>
+
+<p>有两位小数的正实数：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">2</a></sup>+(.[0-9]{2})?$</p>
+
+<p>有1~3位小数的正实数：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">3</a></sup>+(.[0-9]{1,3})?$</p>
+
+<p>非零的正整数：<sup class="footnote-ref" id="fnref:1-9"><a href="#fn:1-9">4</a></sup>\d<em>$ 或 ^([1-9][0-9]</em>){1,3}$ 或 ^+?[1-9][0-9]*$</p>
+
+<p>非零的负整数：^-[1-9][]0-9″<em>$ 或 ^-[1-9]\d</em>$</p>
+
+<p>非负整数：^\d+$ 或 <sup class="footnote-ref" id="fnref:1-9"><a href="#fn:1-9">5</a></sup>\d*|0$</p>
+
+<p>非正整数：^-[1-9]\d*|0$ 或 ^((-\d+)|(0+))$</p>
+
+<p>非负浮点数：^\d+(.\d+)?$ 或 <sup class="footnote-ref" id="fnref:1-9"><a href="#fn:1-9">6</a></sup>\d<em>.\d</em>|0.\d<em>[1-9]\d</em>|0?.0+|0$</p>
+
+<p>非正浮点数：^((-\d+(.\d+)?)|(0+(.0+)?))$ 或 ^(-([1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>))|0?.0+|0$</p>
+
+<p>正浮点数：<sup class="footnote-ref" id="fnref:1-9"><a href="#fn:1-9">7</a></sup>\d<em>.\d</em>|0.\d<em>[1-9]\d</em>$ 或 ^(([0-9]+.[0-9]<em>[1-9][0-9]</em>)|([0-9]<em>[1-9][0-9]</em>.[0-9]+)|([0-9]<em>[1-9][0-9]</em>))$</p>
+
+<p>负浮点数：^-([1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>)$ 或 ^(-(([0-9]+.[0-9]<em>[1-9][0-9]</em>)|([0-9]<em>[1-9][0-9]</em>.[0-9]+)|([0-9]<em>[1-9][0-9]</em>)))$</p>
+
+<p>浮点数：^(-?\d+)(.\d+)?$ 或 ^-?([1-9]\d<em>.\d</em>|0.\d<em>[1-9]\d</em>|0?.0+|0)$</p>
+
+<p>二、校验字符的表达式</p>
+
+<p>汉字：<sup class="footnote-ref" id="fnref:u4e00-u9fa5"><a href="#fn:u4e00-u9fa5">8</a></sup>{0,}$</p>
+
+<p>英文和数字：<sup class="footnote-ref" id="fnref:A-Za-z0-9"><a href="#fn:A-Za-z0-9">9</a></sup>+$ 或 <sup class="footnote-ref" id="fnref:A-Za-z0-9"><a href="#fn:A-Za-z0-9">10</a></sup>{4,40}$</p>
+
+<p>长度为3-20的所有字符：^.{3,20}$</p>
+
+<p>由26个英文字母组成的字符串：<sup class="footnote-ref" id="fnref:A-Za-z"><a href="#fn:A-Za-z">11</a></sup>+$</p>
+
+<p>由26个大写英文字母组成的字符串：<sup class="footnote-ref" id="fnref:A-Z"><a href="#fn:A-Z">12</a></sup>+$</p>
+
+<p>由26个小写英文字母组成的字符串：<sup class="footnote-ref" id="fnref:a-z"><a href="#fn:a-z">13</a></sup>+$</p>
+
+<p>由数字和26个英文字母组成的字符串：<sup class="footnote-ref" id="fnref:A-Za-z0-9"><a href="#fn:A-Za-z0-9">14</a></sup>+$</p>
+
+<p>由数字、26个英文字母或者下划线组成的字符串：^\w+$ 或 ^\w{3,20}$</p>
+
+<p>中文、英文、数字包括下划线：<sup class="footnote-ref" id="fnref:u4E00-u9FA5A-Za"><a href="#fn:u4E00-u9FA5A-Za">15</a></sup>+$</p>
+
+<p>中文、英文、数字但不包括下划线等符号：<sup class="footnote-ref" id="fnref:u4E00-u9FA5A-Za"><a href="#fn:u4E00-u9FA5A-Za">16</a></sup>+$ 或 <sup class="footnote-ref" id="fnref:u4E00-u9FA5A-Za"><a href="#fn:u4E00-u9FA5A-Za">17</a></sup>{2,20}$</p>
+
+<p>可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;&lsquo;,;=?$\x22]+</p>
+
+<p>禁止输入含有~的字符：[^~\x22]+</p>
+
+<p>三、特殊需求表达式</p>
+
+<p>Email地址：^\w+([-+.]\w+)<em>@\w+([-.]\w+)</em>.\w+([-.]\w+)*$</p>
+
+<p>域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?</p>
+
+<p>InternetURL：[a-zA-z]+://[^\s]* 或 ^http://([\w-]+.)+[\w-]+(/[\w-./?%&amp;=]*)?$</p>
+
+<p>手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$</p>
+
+<p>电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$</p>
+
+<p>国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7}
+身份证号(15位、18位数字)：^\d{15}|\d{18}$</p>
+
+<p>短身份证号码(数字、字母x结尾)：^([0-9]){7,18}(x|X)?$ 或 ^\d{8,18}|[0-9x]{8,18}|[0-9X]{8,18}?$</p>
+
+<p>帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$</p>
+
+<p>密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)：<sup class="footnote-ref" id="fnref:a-zA-Z"><a href="#fn:a-zA-Z">18</a></sup>\w{5,17}$</p>
+
+<p>强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间)：^(?=.<em>\d)(?=.</em>[a-z])(?=.*[A-Z]).{8,10}$</p>
+
+<p>日期格式：^\d{4}-\d{1,2}-\d{1,2}
+一年的12个月(01～09和1～12)：^(0?[1-9]|1[0-2])$</p>
+
+<p>一个月的31天(01～09和1～31)：^((0?[1-9])|((1|2)[0-9])|30|31)$
+钱的输入格式：
+有四种钱的表示形式我们可以接受:”10000.00″ 和 “10,000.00″, 和没有 “分” 的 “10000″ 和 “10,000″：^[1-9][0-9]*$</p>
+
+<p>这表示任意一个不以0开头的数字，但是，这也意味着一个字符”0″不通过，所以我们采用下面的形式：^(0|[1-9][0-9]*)$</p>
+
+<p>一个0或者一个不以0开头的数字.我们还可以允许开头有一个负号：^(0|-?[1-9][0-9]*)$</p>
+
+<p>这表示一个0或者一个可能为负的开头不为0的数字.让用户以0开头好了.把负号的也去掉，因为钱总不能是负的吧.下面我们要加的是说明可能的小数部分：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">19</a></sup>+(.[0-9]+)?$</p>
+
+<p>必须说明的是，小数点后面至少应该有1位数，所以”10.”是不通过的，但是 “10″ 和 “10.2″ 是通过的：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">20</a></sup>+(.[0-9]{2})?$</p>
+
+<p>这样我们规定小数点后面必须有两位，如果你认为太苛刻了，可以这样：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">21</a></sup>+(.[0-9]{1,2})?$</p>
+
+<p>这样就允许用户只写一位小数。下面我们该考虑数字中的逗号了，我们可以这样：<sup class="footnote-ref" id="fnref:0-9"><a href="#fn:0-9">22</a></sup>{1,3}(,[0-9]{3})*(.[0-9]{1,2})?$</p>
+
+<p>1到3个数字，后面跟着任意个 逗号+3个数字，逗号成为可选，而不是必须：^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$</p>
+
+<p>备注：这就是最终结果了，别忘了”+”可以用”*”替代。如果你觉得空字符串也可以接受的话(奇怪，为什么?)最后，别忘了在用函数时去掉去掉那个反斜杠，一般的错误都在这里
+xml文件：^([a-zA-Z]+-?)+[a-zA-Z0-9]+\.[x|X][m|M][l|L]$</p>
+
+<p>中文字符的正则表达式：[\u4e00-\u9fa5]
+双字节字符：<sup class="footnote-ref" id="fnref:2-ASCII-1"><a href="#fn:2-ASCII-1">0</a></sup>
+空白行的正则表达式：\n\s<em>\r (可以用来删除空白行)
+HTML标记的正则表达式：&lt;(\S</em>?)[^&gt;]<em>&gt;.</em>?&lt;/\1&gt;|&lt;.<em>? /&gt; (网上流传的版本太糟糕，上面这个也仅仅能部分，对于复杂的嵌套标记依旧无能为力)
+首尾空白字符的正则表达式：^\s</em>|\s<em>$或(^\s</em>)|(\s*$) (可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式)
+腾讯QQ号：[1-9][0-9]{4,} (腾讯QQ号从10000开始)
+中国邮政编码：[1-9]\d{5}(?!\d) (中国邮政编码为6位数字)
+IP地址：\d+.\d+.\d+.\d+ (提取IP地址时有用)
+IP地址：((?:(?:25[0-5]|2[0-4]\d|[01]?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d?\d))</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+<li id="fn:1-9">1-9 <a class="footnote-return" href="#fnref:1-9"><sup>[return]</sup></a></li>
+<li id="fn:1-9">1-9 <a class="footnote-return" href="#fnref:1-9"><sup>[return]</sup></a></li>
+<li id="fn:1-9">1-9 <a class="footnote-return" href="#fnref:1-9"><sup>[return]</sup></a></li>
+<li id="fn:1-9">1-9 <a class="footnote-return" href="#fnref:1-9"><sup>[return]</sup></a></li>
+<li id="fn:u4e00-u9fa5">\u4e00-\u9fa5 <a class="footnote-return" href="#fnref:u4e00-u9fa5"><sup>[return]</sup></a></li>
+<li id="fn:A-Za-z0-9">A-Za-z0-9 <a class="footnote-return" href="#fnref:A-Za-z0-9"><sup>[return]</sup></a></li>
+<li id="fn:A-Za-z0-9">A-Za-z0-9 <a class="footnote-return" href="#fnref:A-Za-z0-9"><sup>[return]</sup></a></li>
+<li id="fn:A-Za-z">A-Za-z <a class="footnote-return" href="#fnref:A-Za-z"><sup>[return]</sup></a></li>
+<li id="fn:A-Z">A-Z <a class="footnote-return" href="#fnref:A-Z"><sup>[return]</sup></a></li>
+<li id="fn:a-z">a-z <a class="footnote-return" href="#fnref:a-z"><sup>[return]</sup></a></li>
+<li id="fn:A-Za-z0-9">A-Za-z0-9 <a class="footnote-return" href="#fnref:A-Za-z0-9"><sup>[return]</sup></a></li>
+<li id="fn:u4E00-u9FA5A-Za">\u4E00-\u9FA5A-Za-z0-9_ <a class="footnote-return" href="#fnref:u4E00-u9FA5A-Za"><sup>[return]</sup></a></li>
+<li id="fn:u4E00-u9FA5A-Za">\u4E00-\u9FA5A-Za-z0-9 <a class="footnote-return" href="#fnref:u4E00-u9FA5A-Za"><sup>[return]</sup></a></li>
+<li id="fn:u4E00-u9FA5A-Za">\u4E00-\u9FA5A-Za-z0-9 <a class="footnote-return" href="#fnref:u4E00-u9FA5A-Za"><sup>[return]</sup></a></li>
+<li id="fn:a-zA-Z">a-zA-Z <a class="footnote-return" href="#fnref:a-zA-Z"><sup>[return]</sup></a></li>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+<li id="fn:0-9">0-9 <a class="footnote-return" href="#fnref:0-9"><sup>[return]</sup></a></li>
+</ol>
+</div>
+</article>
+    <footer class="post-footer">
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

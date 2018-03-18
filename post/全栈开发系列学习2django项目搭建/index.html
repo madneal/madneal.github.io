@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title></title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;rdquo;pip install MySQL-python&amp;rdquo;就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入&amp;rdquo;make install&amp;rdquo;这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
+mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306
+MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo; MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;
+MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&amp;rdquo;make&amp;rdquo;,你将会看到： ｀ MYSQL_HOST = &amp;lsquo;127." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;rdquo;pip install MySQL-python&amp;rdquo;就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入&amp;rdquo;make install&amp;rdquo;这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
+mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306
+MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo; MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;
+MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&amp;rdquo;make&amp;rdquo;,你将会看到： ｀ MYSQL_HOST = &amp;lsquo;127." />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;rdquo;pip install MySQL-python&amp;rdquo;就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入&amp;rdquo;make install&amp;rdquo;这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
+mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306
+MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo; MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;
+MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&amp;rdquo;make&amp;rdquo;,你将会看到： ｀ MYSQL_HOST = &amp;lsquo;127." />
+  <meta property="og:url" content="https://neal1991.github.io/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/laozhu">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/github_username" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="//weibo.com/weibo_username" title="Weibo"><span class="icon icon-weibo"></span></a>
+      </li>
+
+      
+
+      <li class="social-item">
+        <a href="//www.linkedin.com/in/linkedin_username" title="Linkedin"><span class="icon icon-linkedin"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title"></h1>
+      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>项目代码：<a href="http://yunpan.cn/cHajgT4HvgHqx">http://yunpan.cn/cHajgT4HvgHqx</a> （提取码：8350）
+配置项目：
+1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。
+2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&rdquo;pip install MySQL-python&rdquo;就可以了。
+3. 解压项目文件代码。
+4. 进入src文件夹下，输入&rdquo;make install&rdquo;这样会自动安装所有的依赖库。
+5. 现在我们可以创建一个数据库：web_dev_tutorial</p>
+
+<pre><code>mysql -u &lt;your username&gt; -p&lt;yourpassword&gt;
+</code></pre>
+
+<p>注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。
+在数据库中创建实例：
+<code>create database web_dev_tutorial</code>
+然后将数据库和我们的项目链接在一起，打开<code>src/web_dev_tutorial/settings.py</code>找到以下配置
+<code>
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': &quot;web_dev_tutorial&quot;,
+        'USER': 'root',
+        'PASSWORD': 'root',
+    }
+}
+</code>
+把相应的用户名密码改成你的数据库的用户名密码就可以了。
+6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容
+`
+MYSQL_HOST     = &lsquo;127.0.0.1&rsquo;
+MYSQL_PORT     = 3306</p>
+
+<p>MYSQL_USERNAME = &lsquo;root&rsquo;
+MYSQL_PASSWORD = &lsquo;root&rsquo;</p>
+
+<p>MYSQL_DB_NAME  = &lsquo;web_dev_tutorial&rsquo;
+<code>
+同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入</code>make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。
+7. 在文件夹src下，输入&rdquo;make&rdquo;,你将会看到：
+｀
+MYSQL_HOST     = &lsquo;127.0.0.1&rsquo;
+MYSQL_PORT     = 3306</p>
+
+<p>MYSQL_USERNAME = &lsquo;root&rsquo;
+MYSQL_PASSWORD = &lsquo;root&rsquo;</p>
+
+<p>MYSQL_DB_NAME  = &lsquo;web_dev_tutorial&rsquo;
+｀
+这样服务器就启动了，你就可以访问试试了。
+不过这里有一个问题就是这个服务器只能在本机访问，如果我们想通过ip地址来访问的话，我们可以通过输入<code>python manage.py runserver 0.0.0.0:8000</code>来启动服务器，这样我们就可以通过ip地址来访问服务器了。</p>
+
+<p>##一些注意事项##
+这个项目是一个博客平台，你访问过后就能够看的出来。为了简化设计它具有以下这些特点：
+1. 我们的用户可以对博客进行相应的编辑操作。
+2. 所有发表的文章都可以被所有用户看到，用户可以搜索他们感兴趣的博文。
+3. 用户可以评论或者点赞。
+4. 用户可以订阅其他用户的博文，从而受到更新通知。</p>
+
+<p>##展示代码##
+当你解压代码的时候，你应该可以看到以下的基本结构：
+<img src="http://img.blog.csdn.net/20151010105008694" alt="这里写图片描述" />
+这有一些关键部分：
+web_dev_tutorial文件夹</p>
+
+<ul>
+<li>settings.py 这个文件里面主要是一些基础配置，比如数据库连接，日志配置，模版和静态文件路径等等</li>
+<li>urls.py 这个文件定义了整个网站的路由。路由可以看作是从任何url到一个指定资源的路径。</li>
+<li>wsgi.py 这个脚本文件是用来运行服务器。这个文件的内容我们可以暂时忽略。</li>
+</ul>
+
+<p>app文件夹
+ 这是一个应用。django支持多种应用同时存在一个相同的系统的中，允许他们执行不同的功能。这里我们只会拥有一个应用，所以我们介绍一下下面的文件：</p>
+
+<ul>
+<li><p>models.py 这个文件定义了Models.你可以把它们认为是数据库中的表格。一个例子如下所示：
+`
+class User(models.Model):
+ROLE_ADMIN  = 1
+ROLE_AUTHOR = 2</p>
+
+<p>username = models.CharField(max_length=50)
+email    = models.CharField(max_length=50, unique=True)
+password = models.CharField(max_length=50)
+description = models.CharField(max_length=512, null=True)
+role     = models.SmallIntegerField()
+deleted  = models.BooleanField(default=0)
+`
+controllers.py 我们曾经说过，controller是为了响应某个动作的。在Django中，一个controller是一个函数响应客户端的请求并且响应一个对象。</p></li>
+</ul>
+
+<p>urls.py 一个应用可以定义它自己的url路径。如果一个应用中的所有url都是有相同的前缀，那么你就可定义他们在这个应用中。</p>
+</article>
+    <footer class="post-footer">
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
