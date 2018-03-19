@@ -142,13 +142,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -222,150 +215,199 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" class="post-link">service worker介绍</a></h3>
+    <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
   </header>
   
-  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
-var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
+  <p class="post-summary">原文：Service workers explained
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
+ 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
+Service worker就好像它的内部有一个有一个shared worker ：
+ 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
+ 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
+ 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" class="post-link">Twitter Lite以及大规模的高性能React渐进式网络应用</a></h3>
+    <p class="post-meta">@Neal · Apr 16, 2017 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool 原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com   在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
- 成对出现的名称以及相应的值{ name1: value1 }
- Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
-  遗憾的是，这个对象字面量可能会出现下面这样的情况：
-var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
+  <p class="post-summary">Twitter Lite以及大规模的高性能React渐进式网络应用  原文：Twitter Lite and High Performance React Progressive Web Apps at Scale
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
+ 创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
+在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
+下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
+对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
+经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
+const plugins = [ // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({ names: [ &#39;vendor&#39;, &#39;manifest&#39;], minChunks: Infinity }), // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.optimize.CommonChunkPlugin({ async: true, children: true, minChunks: 4 }) ];   添加细粒度，基于路由的代码分割。为了加快初始化和主页timeline渲染，app的整体大小可能会更大，文件会在sesiion期间内按需分块在40个代码块之中。–Nicolas Gallagher</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/" class="post-link">第一个progressive web application，发车！</a></h3>
+    <p class="post-meta">@Neal · Mar 19, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}‘.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
+  <p class="post-summary">progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
+var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = []; cityConfig.forEach(function(city) { request.get(url &#43; city) .end(function(err, res) { $ = cheerio.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" class="post-link">第一个chrome extension</a></h3>
+    <p class="post-meta">@Neal · Mar 4, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">今天打包一个安装程序，总是出现报错，internal build error -6213，然后搜遍都没有找到什么解决方案。看到一个帖子，说是因为installsheild里面的build的时候自动扫描.NET依赖库造成的原因，要把这个自动扫描功能给关掉，但是他说的在什么地方关说的不是很清楚，所以我一直找不到。 http://1978l.blog.163.com/blog/static/4494441620098704049756/原文帖子如下 后来找了半天，终于找到地方了。 如图1，图2所示，把components里面所有.NET scan at Build设置为none,这个可能是这个软件的bug把，我使用的是2011版本，免费的版本。 真心的，我实验室解决问题的能手，实验室这些妹子如果没有我，我都不知道她们该怎么活下去。</p>
+  <p class="post-summary">如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
+{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action”里面定义的是extension的相关内容，”default_icon”即是插件的图标，”default_popup”就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。”content_script”是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js”则是插入到页面的js文件，你还可以插入css文件。需要注意的是，”content_script”虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
+var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/" class="post-link">Ext.js性能优化漫谈</a></h3>
+    <p class="post-meta">@Neal · Feb 22, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。 1. 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 2. 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 3. IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 4. 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 5. 每个读写操作都是请求 IndexDB随时随地都在使用请求 6. 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 7. NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。</p>
+  <p class="post-summary">Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
+尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
+事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
+listeners: { load: onFirstLoadData, single: true }  在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
+避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
+减少border布局 不需要一下再加载所有的元素
+批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="post-link">latex中large的作用域问题</a></h3>
+    <p class="post-meta">@Neal · Jan 6, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">200：成功响应 302：找到，但是请求的资源在另外一个不同的url中。 400：错误请求。这个请求不能被服务器所理解，客户端必须修改请求。 401：未认证，这个请求需要用户认证。 404：未找到。服务器没有找到任何和这个请求符合的资源。</p>
+  <p class="post-summary">在毕业论文的写作过程中，遇到了一个\large 作用域的问题。假设下面有三种写法：
+I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are right}, yeah, yeah, yeah I am cool \begin{large} you are right \end{large}, yeah, yeah, yeah 我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？ 下面且看这三个命令的分别显示结果： 很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面\large 的影响，也变成了放大的字体。这就是\large的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/" class="post-link">Latex--入门系列三</a></h3>
+    <p class="post-meta">@Neal · Dec 12, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
-github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
-配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34;  上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</p>
+  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
+TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
+I am text. Yes. %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|} \hline $a_1~~~b$ &amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结  {和}是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
+ $是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a&#43;b=c$，输入$$a&#43;b=c$$，那么你的公式就会在段与段之间以块的形式展现。
+ %是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
+ _和^分别作为下标和上标。你也可以同时使用上标和下标，比如： ~是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
+ 实际上，\经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
+ &amp;适用于在数组以及表格中定义列的。
+ ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
+ 一次效果函数，比如使用\ss来获得一个德国字母。
+ 状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
+ 使用命令取得相应的值，一般是使用{}或者[]。比如：
+ \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。
+ 口音和发声符号，比如\&#39;{e} \v{o}来产生 使用\begin和end是定义环境，从而和其他内容区分处理，比如：
+  \begin{verbatim} In the verbatim environment, text appears with almost no treatment.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/" class="post-link">只要三步，你就可以在github上发布网站了</a></h3>
+    <p class="post-meta">@Neal · Dec 9, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
-clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.</p>
+  <p class="post-summary">今天，看到github推送了一个新的消息，Publishing with GitHub Pages, now as easy as 1, 2, 3。总结起来就是在github将你的文档或者发布网页将会变得十分简单。 三步：
+ 创建仓库 提交markdown文件 激活Github pages  现在github对于markdown文件真的支持的特别好，比csdn的markdown好多了。老实说，如果不是github在国内的访问速度感人，我早就把我的博客迁移到github上面去了。csdn的博客简直丑到不能忍了。 反正github的这次更新主要是针对GitHub Pages,这样markodown可以方便快捷的渲染成页面，而且还不会影响你现有的项目或者网站。而且还会给你进行一些默认的配置，对于新手来说，的确是非常友好的。当然了，实在不想用的话，还可以在设置里面禁用掉。更多详细情况，可以去GitHub上面去了解，试试看啊！！！</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/" class="post-link">Latex--入门系列二</a></h3>
+    <p class="post-meta">@Neal · Dec 6, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary"> 全选 设置全选button，选中所有的checkbox
- private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &#34;True&#34;; } else continue; } }  取消全选 设置取消全选button，取消选中的所有checkbox
- private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &#34;False&#34;; } else continue; } }  </p>
+  <p class="post-summary">Latex 专业的参考
+tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
+基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
+运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
+因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
+dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
+输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
+注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
+如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
+一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
+注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
+其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">Latex--入门系列一</a></h3>
+    <p class="post-meta">@Neal · Dec 3, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
-padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px  new method:
-padding:0px 20px 30px 10px // top right bottom left respectively  同理：
-margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px  margin:0px 20px 30px 10px  如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
-padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px  the new method:
-padding:20px  如果上下值和左右值分别一样呢： the old method:
-margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px  the new method
-margin:0px 20px // top and bottom right and left respectively  border的属性设置: the old method</p>
+  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
+TeX, LaTeX以及他们的用法 Tex:排版 Tex是Donald Knuth发明的一种排版语言。排版意味着从结构性的文本到审美的一个标准。在Tex里面，你可以控制文本的根本结构，而不是像word一样，是软件阴影的帮你管理文件的结构，而紧紧给你提供一个图形化的接口。在TeX/LaTeX里面，对于布局和样式都有着默认的合理的设置但是却是可以控制的。
+Tex对于希望控制文本的人是非常友好的，一部分可能是因为它不会帮助你不能控制的东西。当然，简便也是一方面的－当TeX工作正常的时候，它运行的很好并且容易明白，但是当它有问题的时候，将会很麻烦，将会变得难以处理。（这点我深有体会）如果你稍微脱离了他的运作方式或者期望一个不太容易实现的功能，你可能需要头痛一下了。
+还有其他的一些优点和缺点。TeX的公式拍版是它的强项之一。在以前它可能是唯一较为正式的选择，即使像现在可以使用MathML或者MathType的时候，TeX也被认为是使用起来还是比较便利的。假如你以前还没有接触过TeX，那么你可尝试穿件下面的公式：
+在TeX仅仅使用t) = h(t) \otimes g(t) \equiv \int h(\nu) g(t-\nu) d\nu就可以搞定了。是不是看起来挺简单的。
+它的缺点可能是将它用于不是它的目的功能的地方。比如，你希望得到一些奇特的表格，你可能会遇到问题并发现一些替代的解决方法，不过这意味着你需要用一些相应的包并且按照其相应的方式去实现了。
+LATEX：文档编制 LaTeX是围绕TeX的一种文档编制的宏命令，它是一个比较高层次的能够利用它们产生一些比较常用的文档类型。它考虑到很多方面的内容，包括页眉和页尾，表格内容生成，自动两列的样式以及其他更多的细节。LaTeX现在被广泛得应用以及于它和TeX之间可以交换使用。TeX的实现方法大多数可以直接用在LaTeX的文档上面。当然你可以直接写TeX文件，但这不一定有什么用。如果希望看到更多的介绍，你可以参考这个。
+书籍，报告以及PDF LaTeX对于写文章，报告以及书籍有些基本的设置。
+它之所以受到喜爱的原因可能是对于大型的文档不容易搞混样式，于其它的一些工具截然不同，比如微软的word，随着文档长度的增长，它的处理复杂度也在逐渐增长，如果你曾经参与过大型的共同合作的文档项目，那么你将深有体会。
+近些年以来，pafTeX编译器变得流行起来，因为它可以直接编译pdf文件（不需要dvi以及ps文件作为媒介），使用pdflatex 而不是latex，你可使用一些针对pdf的特点。
+包 在TeX和LaTeX里面有各种各样的包，你可以用一些比较怪异的符号，制作一些表格包括输和公式，写活页曲谱，做CAD图，确保首字母大写以及单词拼写正确，或者仅仅只是用一些特别的地方。
+版本变化以及实现 LaTeX最近通用经常写作是LaTeX2e。我认为你是在使用这个版本的。通常这也无关紧要，但是有一些老的命令我不会特别提及。
+注意这个版本以及老版本的LaTeX209是最通用的语言以及实现规范，并不针对特别的包或者实现。
+免费的TeX软件包括通常的’teTeX’也叫做’TeX Live’对于unix系列的系统，以及对于windows系统的’MikTex’。你也可以参考下面相关的软件。
+你可以参考维基百科里面的TeX以及LaTeX。TUG是近些年的一些开发工作和相关文档。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
 </article>
 

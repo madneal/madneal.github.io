@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>differential evolution代码实例（DE算法）</title>
 
   
   
@@ -23,7 +23,7 @@ clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="differential evolution代码实例（DE算法）" />
     <meta name="twitter:description" content="DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
 clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &amp;gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d." />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
@@ -31,7 +31,7 @@ clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="differential evolution代码实例（DE算法）" />
   <meta property="og:description" content="DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
 clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &amp;gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d." />
   <meta property="og:url" content="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/" />
@@ -153,13 +153,6 @@ clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -226,8 +219,8 @@ clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <h1 class="post-title">differential evolution代码实例（DE算法）</h1>
+      <p class="post-meta">@Neal · Oct 26, 2015 · 1 min read</p>
     </header>
     <article class="post-content"><p>DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码</p>
 
@@ -279,8 +272,14 @@ D));
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>875</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

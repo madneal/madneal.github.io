@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Post on Neal&#39;s Blog</title>
+    <link>https://madneal.com/tags/post/</link>
+    <description>Recent content in Post on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Fri, 17 Apr 2015 18:04:50 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/tags/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>winform中进行post上传文件</title>
+      <link>https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Fri, 17 Apr 2015 18:04:50 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</guid>
+      <description>winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
+ private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &amp;quot;POST&amp;quot;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&amp;quot;md5data&amp;quot;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</description>
+    </item>
+    
+  </channel>
+</rss>

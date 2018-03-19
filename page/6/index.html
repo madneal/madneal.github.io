@@ -142,13 +142,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -222,147 +215,43 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link">javascript的继承模式</a></h3>
+    <p class="post-meta">@Neal · Oct 24, 2015 · 2 min read</p>
   </header>
   
-  <p class="post-summary">RGB色彩模式是工业界的一种颜色标准，它通过对红（RED）、绿（GREEN）、蓝（BLUE）三种基本颜色的相互组合从而叠加出各种颜色。RGB色彩模式为每一个红、绿、蓝分类了0-255范围内的亮度值。 RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个数字分别表示红、绿、蓝的亮度值，常用的颜色的RGB颜色分布有以下这些：
- 品红色 （255,0,255） 蓝色 （0,0,255） 青色 （0,255,255） 绿色 （0,255,0） 黄色 （255,255,0） 红色 （255,0,0） 紫色 (128,0,128) 深蓝色 （0,128,128） 鸭绿色 （0,128,128） 深绿色 （0,128,0） 橄榄绿 （128,128,0） 栗色 （128,0,0） 黑色 (0,0,0) 灰色 （128,128,128） 银色 （192,192,192） 白色 （255,255,255）  </p>
+  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/" class="post-link">css盒子模型设置的缩略形式</a></h3>
+    <p class="post-meta">@Neal · Oct 24, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
-数字：1*$
-n位的数字：^\d{n}$
-至少n位的数字：^\d{n,}$
-m-n位的数字：^\d{m,n}$
-零和非零开头的数字：^(0|[1-9][0-9]*)$
-非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
-带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
-正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
-有两位小数的正实数：2&#43;(.[0-9]{2})?$
-有1~3位小数的正实数：3&#43;(.[0-9]{1,3})?$
-非零的正整数：4\d$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]*$
-非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
-非负整数：^\d&#43;$ 或 5\d*|0$
-非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
-非负浮点数：^\d&#43;(.\d&#43;)?$ 或 6\d.\d|0.\d[1-9]\d|0?.0&#43;|0$
-非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d.\d|0.\d[1-9]\d))|0?.0&#43;|0$
-正浮点数：7\d.\d|0.\d[1-9]\d$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
-负浮点数：^-([1-9]\d.\d|0.\d[1-9]\d)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
-浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d.\d|0.\d[1-9]\d|0?.0&#43;|0)$
-二、校验字符的表达式
-汉字：8{0,}$
-英文和数字：9&#43;$ 或 10{4,40}$
-长度为3-20的所有字符：^.{3,20}$
-由26个英文字母组成的字符串：11&#43;$
-由26个大写英文字母组成的字符串：12&#43;$
-由26个小写英文字母组成的字符串：13&#43;$
-由数字和26个英文字母组成的字符串：14&#43;$
-由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
-中文、英文、数字包括下划线：15&#43;$
-中文、英文、数字但不包括下划线等符号：16&#43;$ 或 17{2,20}$
-可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;‘,;=?$\x22]&#43;
-禁止输入含有~的字符：[^~\x22]&#43;
-三、特殊需求表达式
-Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
-域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
-InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;=]*)?$
-手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
-电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
-国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$</p>
+  <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
+padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px  new method:
+padding:0px 20px 30px 10px // top right bottom left respectively  同理：
+margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px  margin:0px 20px 30px 10px  如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
+padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px  the new method:
+padding:20px  如果上下值和左右值分别一样呢： the old method:
+margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px  the new method
+margin:0px 20px // top and bottom right and left respectively  border的属性设置: the old method</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
- List&lt;string&gt; listOnit = new List&lt;string&gt;(); //绑定原始数据源 List&lt;string&gt; listNew = new List&lt;string&gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
-************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)  我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">latex毫无疑问是一个十分强大的论文写作工具，所以掌握它就显得非常有意义，讲一下如何画一个简单的表格，代码如下： \begin{table} \centering \begin{tabular}{||c|c||} \hline algorithm &amp; time complexity
-\hline RM-MEDA &amp; O(NM)
-\hline IRM-MEDA &amp; O(NK)
-\hline \end{tabular} \caption{The time complexity comparing result} \label{TAB1} \end{table} 呈现的效果如下： 是不是很简单</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">//将获取的文件流转化为内存流 public static MemoryStream ConvertStreamToMemoryStream(Stream stream) { MemoryStream memoryStream = new MemoryStream(); if (stream != null) { byte[] buffer = ReadFull(stream); if (buffer != null) { var binaryWriter = new BinaryWriter(memoryStream); binaryWriter.Write(buffer); } } return memoryStream; } public static byte[] ReadFull(Stream input) { byte[] buffer = new byte[16 * 1024]; using (MemoryStream ms = new MemoryStream()) { int read; while ((read = input.Read(buffer, 0, buffer.Length)) &gt; 0) { ms.Write(buffer, 0, read); } return ms.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要的应用。
-特征值和特征向量 特征值和特征向量是线性代数里面的基础知识，相信大部分人都知道： 很显然，λ就是特征向量v对应的特征值，一个矩阵的一组特征向量都是相互正交的，相信这些大家在线性代数都有学习。特征值分解是将一个矩阵以下面的形式进行分解： 其中Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线上的元素就是一个特征值。 特征值分解可以得到特征值和特征向量，特征值表示的是这个特征值的重要性，而特征向量表示的是这个特征是什么，可以将每一个特征向量理解为一个线性的子空间。不过特征值分解也有很多的局限，比如变换的矩阵必须是方阵。
-奇异值 特征值分解只能针对于方阵，局限性较大，而奇异值分解是一个能够用于任意的矩阵的一种分解方法： 假设A是一个N*M的矩阵，那么U是一个N*N的方阵（里面的向量是正交的，U里面的向量称为左奇异向量），Σ是一个N*M的矩阵（除了对角线的元素都是0，对角线上的元素称为奇异值），V’（V的转置矩阵）是一个N*N的矩阵，里面的向量也是正教的，称为右奇异向量。 我们将矩阵A和他的转置矩阵相乘，就可以得到一个方阵，我们利用方阵的求特征值可以得到： 这里面的v，就是我们上面所说的右奇异向量，由此我们可以得到 这里的σ就是上面所说的奇异值，u就是上面说的左奇异向量。奇异值σ跟特征值类似，在矩阵Σ中也是从打到小排列，而且σ的减少特别的快。在很多情况下，前10%的甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们可以用前r大的奇异值来近似描述矩阵，因此部分奇异值分解可以如下定义： r是一个远小于m、n的数， 右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和要远远小于原始的矩阵A。
-SVD和PCA PCA的问题其实是一个基的变换，使得变换后的数据有着最大的方差。方差的大小描述的是一个变量的信息量，我们在讲一个东西的稳定性的时候，往往说要减小方差，如果一个模型的方差很大，那就说明模型不稳定了。但是对于机器学习的数据，方差大反而有意义，不然输入的数据就是同一个点了，那方差九尾0了。 这个假设是一个摄像机采集一个物体运动得到的图片，上面的点表示物体运动的位置，假设我们想用一条直线去拟合这些点，那我们应该选择什么方向的线？当然是图上标有signal的那条线。如果我们把这些点单纯的投影到x轴或者y轴上，最后在x轴和y轴上得到的方差就是相似的。 一般来说方差大的方向就是信号的方向，方差小的方向就是噪声的方向，我们在数据挖掘或者数字信号处理中，往往是要提高信噪比。就上图说，如果我们只保留signal方向的数据，就可以对原始数据进行不错的近似了。 PCA的就是对原始的空间中顺序地找一组相互正教的坐标轴，第一个轴使得方差最大，第二个轴是在与第一个轴相交的平面中使得方差最大，第三个轴也是在与第1,2个轴正交的平面中使得方差最大，这种假设在N维空间中，我们就可以找到N个这样的坐标轴，我们取前r个去近似这个空间，这样就从一个N维的空间压缩到r维的空间，但是我们可以选择r个坐标轴使得空间的压缩使得数据的损失最小。 假设我们矩阵的每一行代表一个样本，每一列代表一个feature，将一个m*n的矩阵A进行坐标轴的变化，P就是一个变换的矩阵从一个n维的空间变换到另外一个n维的空间 而将一个m*n的矩阵A变成一个m*r的矩阵，我们就会使得本来有n个feature的，变成有r个feature了(r小于n)，这r个其实就是对n个feature的一种提炼，我们把这个称为feature的压缩： 之前的SVD的式子是： 在矩阵的两边同时乘上一个矩阵V，由于v是一个正交的矩阵 我们对SVD分解的式子两边乘以U的转置矩阵U’ PCA几乎可以说是对SVD的一种包装，如果我们实现了SVD，那也就实现了PCA。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="post-link">在pythonanywhere部署你的第一个应用</a></h3>
+    <p class="post-meta">@Neal · Oct 21, 2015 · 1 min read</p>
   </header>
   
   <p class="post-summary">pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
@@ -377,37 +266,108 @@ import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/" class="post-link">使用js实现图片轮滑效果</a></h3>
+    <p class="post-meta">@Neal · Oct 21, 2015 · 2 min read</p>
   </header>
   
-  <p class="post-summary">回调函数 在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。
-回调函数的机制  定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。  为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
-代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型–typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
-void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc); void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc);  这两个函数接受以下参数：
-·byte * array：指向元素数组的指针（任意类型）。
-·int size：数组中元素的个数。
-·int elem_size：数组中一个元素的大小，以字节为单位。
-·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。
-回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &lt; elem2) return -1; if(elem1 &gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); }    int main(int argc,char* argv[])</p>
+  <p class="post-summary">经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;document&lt;/title&gt; &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt; &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;flash&#34;&gt; &lt;ul id=&#34;pic&#34;&gt; &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ol id=&#34;num&#34;&gt; &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;li&gt;4&lt;/li&gt; &lt;li&gt;5&lt;/li&gt; &lt;li&gt;6&lt;/li&gt; &lt;/ol&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;  图像的原路径我就不制定了，css文件
+* { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-link">剑指offer学习--初级c&#43;&#43;面试题</a></h3>
+    <p class="post-meta">@Neal · Oct 21, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1 2 8 9 2 4 9 12
-4 7 10 13 6 8 11 15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
-从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
-bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; }  </p>
+  <p class="post-summary">定义一个空的类型，里面没有任何成员函数和成员变量，对该类型求sizeof,得到的结果是多少？ 答案是1。空类型中的实例中不包含任何信息，本来求sizeof应该是0，但是当我们声明该类型的实例的时候，他必须在内存中占有一定的空间，否则无法使用这些实例。至于占用多少内存，由编译器决定。Visual Studio中每个空类型的实例占用1字节的空间。
+ 如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
+  那如果把析构函数标记为虚函数呢？ C&#43;&#43;的编译器一旦发现一个类型中有虚函数，就会为该类型生成虚函数表，并在该类型中的每一个实例中添加一个指向虚函数表的指针。在32位的机器上，一个指针占4字节的空间，因此求sizeof是4；如果是64位的机器，那么结果就是8.
+分析下面代码运行结果：
+class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&lt;&lt;value&lt;&lt;endl; } }; int main() { A a = 10; A b = a; b.print(); }  在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C&#43;&#43;的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;other)，也就是把传值参数改为常量引用。
+C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什么区别？ 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public,而在class中默认的是private。 那么在C#中呢？ C#和C&#43;&#43;不一样。在C#中如果没有标明成员函数或者成员变量的访问权限，struct和class都是private。struct和class的区别是struct定义的是值类型，值类型的实例在栈上分配内存；而class定义的是引用类型，引用类型的实例是在堆上分配内存的。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" class="post-link">matlab调试技巧</a></h3>
+    <p class="post-meta">@Neal · Oct 13, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Matlab的调试总体分为，直接调试和间接调试。 1.直接调试： （1）去掉句末的分号； （2）单独调试一个函数：将第一行的函数声明注释掉，并定义输入量，以脚本方式执行 M 文件； （3）适当地方添加输出变量值的语句； （4）添加keyboard命令；
+2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try…catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try…catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try…catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/" class="post-link">柯西分布</a></h3>
+    <p class="post-meta">@Neal · Oct 12, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">柯西分布的概率密度函数是： t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准柯西分布，标准柯西分布的密度函数是： 下面的是标准柯西分布概率密度函数分布图： </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" class="post-link">Django学习——开发你的第一个Django应用2</a></h3>
+    <p class="post-meta">@Neal · Oct 11, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
+产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
+开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
+进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
+在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
+from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/" class="post-link">如何查找django安装路径</a></h3>
+    <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" class="post-link">Django学习——开发你的第一个Django应用1</a></h3>
+    <p class="post-meta">@Neal · Oct 10, 2015 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
 </article>
 

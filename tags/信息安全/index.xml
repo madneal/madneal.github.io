@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>信息安全 on Neal&#39;s Blog</title>
+    <link>https://madneal.com/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 信息安全 on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Sun, 06 Aug 2017 21:44:24 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>什么是服务端伪造（SSRF）</title>
+      <link>https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/</link>
+      <pubDate>Sun, 06 Aug 2017 21:44:24 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/</guid>
+      <description>什么是服务端伪造（SSRF）  原文：GitHub Pages and Single-Page Apps
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
+典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
+下面的是PHP中容易收到SSRF的一个例子。
+&amp;lt;?php /** * Check if the &amp;#39;url&amp;#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&amp;#39;url&amp;#39;])){ $url = $_GET[&amp;#39;url&amp;#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &amp;#39;rb&amp;#39;); /** * Send the correct response headers */ header(&amp;#34;Content-Type: image/png&amp;#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</description>
+    </item>
+    
+  </channel>
+</rss>

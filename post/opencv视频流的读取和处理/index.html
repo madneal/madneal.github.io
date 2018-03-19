@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>opencv视频流的读取和处理</title>
 
   
   
@@ -22,14 +22,14 @@
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="opencv视频流的读取和处理" />
     <meta name="twitter:description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。" />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="opencv视频流的读取和处理" />
   <meta property="og:description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。" />
   <meta property="og:url" content="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" />
   <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
@@ -150,13 +150,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -223,8 +216,8 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <h1 class="post-title">opencv视频流的读取和处理</h1>
+      <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
     </header>
     <article class="post-content"><ol>
 <li>Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码</li>
@@ -312,8 +305,16 @@ void canny(Mat&amp; img, Mat&amp; out)
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/videocapture"><span class="tag">Videocapture</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/opencv"><span class="tag">Opencv</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1071</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

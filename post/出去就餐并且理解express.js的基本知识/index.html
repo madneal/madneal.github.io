@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>出去就餐并且理解Express.js的基本知识</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端&amp;hellip;&amp;hellip;你可能并不会很顺利。
+是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
+当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
+有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
+下面是我们将会涉及到的四个关键部分：
+ The require statements Middleware Routing App." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="出去就餐并且理解Express.js的基本知识" />
+    <meta name="twitter:description" content="Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端&amp;hellip;&amp;hellip;你可能并不会很顺利。
+是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
+当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
+有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
+下面是我们将会涉及到的四个关键部分：
+ The require statements Middleware Routing App." />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="出去就餐并且理解Express.js的基本知识" />
+  <meta property="og:description" content="Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端&amp;hellip;&amp;hellip;你可能并不会很顺利。
+是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
+当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
+有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
+下面是我们将会涉及到的四个关键部分：
+ The require statements Middleware Routing App." />
+  <meta property="og:url" content="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">出去就餐并且理解Express.js的基本知识</h1>
+      <p class="post-meta">@Neal · Nov 12, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content">
+
+<p><img src="https://cdn-images-1.medium.com/max/11520/1*iMkFu1T52fkSnlZDlCrvkQ.jpeg" alt="" /></p>
+
+<h2 id="going-out-to-eat-and-understanding-the-basics-of-express-js出去就餐并且理解express-js的基本知识">Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识</h2>
+
+<blockquote>
+<p>原文：<a href="https://medium.freecodecamp.org/going-out-to-eat-and-understanding-the-basics-of-express-js-f034a029fb66">Going out to eat and understanding the basics of Express.js</a></p>
+
+<p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
+
+<p>welcome to star my <a href="https://github.com/neal1991">articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
+
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
+</blockquote>
+
+<p>如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端&hellip;&hellip;你可能并不会很顺利。</p>
+
+<p>是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。</p>
+
+<p>当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我<strong>为什么</strong>要做我正在做的事情。</p>
+
+<p>有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 <a href="https://expressjs.com/">Express.js</a> 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。</p>
+
+<p>下面是我们将会涉及到的四个关键部分：</p>
+
+<ol>
+<li>The require statements</li>
+<li>Middleware</li>
+<li>Routing</li>
+<li>App.listen()/ Starting the server</li>
+</ol>
+
+<p>在这个比喻中，你是一个餐馆老板，希望雇用一个总经理 - 创建所有流程并且进行管理，这样餐厅就可以顺利运行，客户也就快乐了。</p>
+
+<p>下面是接下来部分的预览：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2578/1*gWVqib20b1NNzB6vrM-U6w.png" alt="" /></p>
+
+<p>最后，你将会理解基本 Express app 的每个部分的功能。</p>
+
+<h2 id="步骤1-雇佣经理-require-statements">步骤1: 雇佣经理 (require statements)</h2>
+
+<p>在这个例子中，你是餐馆老板。 而且你需要聘请专家来管理你的新餐厅的日常运作。 你当然不是专家，你不能把它交给服务员和厨房去搞清楚。</p>
+
+<p>如果你想经营一家高效安全的餐厅，你需要有人来保证你的员工以最高的效率工作。 Express 就是新的经理。</p>
+
+<p>第一部分非常简单。 与其他 NPM 软件包一样，你需要使用 npm 安装 express 模块，然后使用 <strong>require</strong> statement 来加载模块。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2596/1*VjyG-yoVn9aUYJ_cdN6RYA.png" alt="" /></p>
+
+<p>不像其它的许多 NPM 包，你也需要使用这行：</p>
+
+<pre><code>const app = express();
+</code></pre>
+
+<p>这是因为你需要一个变量来保存你的新的 Express 应用程序。 Express 不是 Node 的默认部分。</p>
+
+<h2 id="步骤二-在餐厅做决定-middleware">步骤二: 在餐厅做决定 (middleware)</h2>
+
+<p>让我们在这停一下。餐厅里最常见的例程有哪些？我们脑海中立马出现了3个：</p>
+
+<ol>
+<li>给新顾客安排座位</li>
+<li>接受食物订单</li>
+<li>在用餐结束进行确认</li>
+</ol>
+
+<p>对于每一个例程，都需要进行一系列的进程才能执行行动。比如，在你给顾客安排座位之前，你需要知道：</p>
+
+<ol>
+<li>他们是不是穿了衬衫和鞋子（以及裤子）？否则，他们不能被安排座位。</li>
+<li>如果他们想坐在吧台那里，他们是否已经有21岁（如果你在美国的话）</li>
+</ol>
+
+<p>这不是海滩酒吧！ 同样，在你的代码中，你需要验证请求是否具有某些标准，然后才能继续。 例如，如果有人尝试登录到你的网站：</p>
+
+<ol>
+<li>他们是否具有账户？</li>
+<li>他们是否输入了正确的密码？</li>
+</ol>
+
+<p>这是 <strong>middleware</strong> 概念的来源。Middleware 功能允许你对任何传入的请求采取行动，并在发回响应之前对其进行修改。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*8HIzvtX-DA3C26uv.png" alt="" /></p>
+
+<p>在你的餐厅，你需要一系列的规则来决定你是否应该接待来访的人。 比方说，一对夫妇走进你的餐厅。 在给他们一张桌子之前，你有一条规则：他们穿着衬衫和鞋子吗？</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2636/1*Gqix0p7PBNJ5htTY3sT7OQ.png" alt="" /></p>
+
+<p>首先，你从<a href="http://expressjs.com/en/api.html#app.use">app.use()</a>开始。这意味着这些仅仅是下一个路线需要应用的规则。它们不是 GET，POST，PUT或DELETE。</p>
+
+<p>在第四行，你有一个匿名函数，参数 req，res 和 next。对于这个代码块的目的，你只是检查请求（req），看它是否有衬衫和鞋子。</p>
+
+<p>你最后还需要使用next()函数，因为你只是在这里验证服装。之后，在路线中，你将允许客人获得实际的桌子。</p>
+
+<p>在第五行和第六行，你检查他们是否有衬衫和鞋子。</p>
+
+<p>而在第7-9行中，只有两者兼而有之才行。</p>
+
+<p>上面的代码块缺少一个重要的事情：一个<strong>路径</strong>。这是请求中包含的特定字符串。而且由于缺少路径，它将在每个请求上运行。</p>
+
+<p>你可以想象？当顾客进入餐馆&hellip;点了食物&hellip;要求支票&hellip;员工将被迫在他们上下看他们确定他们穿衣服！这是一个快速停业的办法。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2578/1*fjZKIJYmTIxQmVMURYTW9g.png" alt="" /></p>
+
+<p>所以，我们在上面的例子中改变第4行。 现在，我们只会在用户请求“/ table”路径时运行这个代码。</p>
+
+<p>完整的解释：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2606/1*d1OPYjAlr6mUWtjtMRbk6g.png" alt="" /></p>
+
+<h2 id="步骤3-执行常见的例程-路由">步骤3: 执行常见的例程 (路由)</h2>
+
+<p>让我们继续就座的例子。 到目前为止，我们只知道如何验证某人是否应该就做。 但是我们实际上并不知道如何把他们指引到桌子旁边并且就坐。</p>
+
+<p>这就是<strong>路由</strong>的来源。路由允许我们根据<strong>路径</strong>编写具体的行动。 选项是 GET，POST ，PUT 和 DELETE，但现在我们将重点介绍 GET 和 POST。</p>
+
+<p>在餐厅的环境下，我们需要创建一个 GET 请求，以便选择一个特定的桌子并安排客人就做。 GET 不会修改或添加新数据到你的数据库。 他们只是检索基于特定参数的信息。</p>
+
+<p>在这种情况下，假设你需要创建一个程序来安排两个派对。 2号来自客户的要求。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2572/1*pGvgMABGA1xzrSL9EFGQmQ.png" alt="" /></p>
+
+<p>好的，在我解释之前：是的，这只是在最后发送信息。 实际上还没有找到一个具体的表格来给客户安排座位。 我需要在一个数组中搜索一个打开的表格，这涉及到更多的背景故事&hellip;&hellip;这超出了本教程的范围。</p>
+
+<p>在第12行中，我们定义了当宾客<strong>请求</strong>&lsquo;table&rsquo;<strong>路由</strong>时查找表的过程。 就像上面的中间件示例一样，我们有可用的请求和响应参数。 它也有一个<strong>参数</strong>，金额。 在这个例子中，这是两个。</p>
+
+<p>事实上，第12行函数声明之后的所有内容在技术上都是<strong>middleware</strong>，因为它修改了用户请求。 你会看到图中的结尾。</p>
+
+<p>在第13行中，我们从请求对象的<strong>参数</strong>中访问聚会中的人数。 由于请求来自用户，所以没有声明任何地方，我们没有任何前端代码。 所以如果这是一个真正的应用程序，请求可能如下所示：</p>
+
+<pre><code>req = {
+  params: {
+    amount: 2;
+  }
+}
+</code></pre>
+
+<p>在第13行中，我们的 party 变量访问请求中的 params 对象的 amount 属性。</p>
+
+<p>最后在第14行，我们发送响应给客户：我们正在寻找合适的桌子。</p>
+
+<p>这是一次很多。 下面一张图表：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/3666/1*k7DkIw1cheKYBwu_AC4SAA.png" alt="" /></p>
+
+<h2 id="步骤3-5-让你的餐厅有效率-路由">步骤3.5: 让你的餐厅有效率 (路由)</h2>
+
+<p>现在您可以追踪从请求到响应的完整路径。 但是，随着你的应用程序的规模不断扩大，你将不希望单独为每条路由编码规则。 你会发现一些路由共享相同的规则，所以你需要找到一种方法来将一组规则应用到多个路由。</p>
+
+<p>就座位而言，您可以将你的客户安置在吧台或餐桌旁。 他们有衬衫和鞋子的共同规则，但是在酒吧里坐着要求每个人都超过 21岁。</p>
+
+<p>而且，在服务客户方面，你需要使用稍微不同的程序来供应开胃菜，主菜和晚餐。 但是，这三条路线也有很多共同之处。</p>
+
+<p>这是路由器进来的地方。路由器让你分组你的路由，这样你就可以创建通用的规则。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2394/1*6Irrxz4EmHaPgVm0JRgVLg.png" alt="" /></p>
+
+<p>我们需要创建 middleware 来覆盖这些情况。 现在我会将考虑到上面的就座案例，对上面的代码进行重写。</p>
+
+<p>这是完整的代码片段：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2598/1*Pih87WdfXU_PEXkcbsaAIw.png" alt="" /></p>
+
+<p>我将分别讨论每个部分。</p>
+
+<p>在第 4 行，我们声明我们的路由器。</p>
+
+<p>在第6行和第14行，我们现在使用seatingRouter.use（）来代替app.use（）来表示这个中间件只与seatRouter路由有关。</p>
+
+<p>最后，在第21行中，我们添加了更多的中间件，以显示每个座位路由器以“/ seating”开头。 所以，如果有人要求在酒吧坐一个座位，完整的路径是&rsquo;/ seating / bar&rsquo;，这可能会有点不合理，因为当你在第4行创建路由器时，你可能会预期路径被定义。 这很正常！</p>
+
+<p>这里是以图表的形式：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*-1x9T6VvBCQihyzwqgnGIA.png" alt="" /></p>
+
+<p>并且当你添加一个 GET 路由的时候，  它将会转到你上面分配的路由。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2604/1*EPEUF9z94mMlCYXMB6HENA.png" alt="" /></p>
+
+<h2 id="步骤4-开放营业-端口">步骤4: 开放营业 (端口)</h2>
+
+<p>好吧，最后一部分。 到目前为止，你已经雇佣了一位经理，在接受客户请求之前定义了要做的事情，并且确定如何处理特定的客户请求。现在，你只需确定所需位置的地址即可。</p>
+
+<p>你的服务器端口有点像餐厅本身的地址。 由于你的服务器可以同时处理多种类型的餐厅（或服务器端脚本），因此你需要告知每个脚本应在哪里运行。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2650/1*xGoTkrNMLnwyh7zR2wbbVA.png" alt="" /></p>
+
+<p>在上面的例子中，端口是 3000，它位于你的计算机上。 所以如果你输入：</p>
+
+<p>​   <code>https://localhost:3000/</code></p>
+
+<p>在你的浏览器中，并且你在运行你的 Node 应用程序，服务器知道运行特定的脚本。 在这种情况下，只要输入URL，您将在控制台中记录消息，并能够使用任何路由。 如果餐厅本身是您的电子商务应用程序，那么它现在在地址 3000 处开始营业。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2650/1*kl9doAbsvsaQNJdFWhc2-Q.png" alt="" /></p>
+
+<p>你喜欢这个教程吗？ 给它点赞，让别人也可以发现它。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/express"><span class="tag">Express</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/javascript"><span class="tag">Javascript</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/nodejs"><span class="tag">Nodejs</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>126</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

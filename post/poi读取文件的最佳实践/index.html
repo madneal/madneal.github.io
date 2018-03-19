@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>POI读取文件的最佳实践</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="POI读取文件的最佳实践" />
+    <meta name="twitter:description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger." />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="POI读取文件的最佳实践" />
+  <meta property="og:description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger." />
+  <meta property="og:url" content="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">POI读取文件的最佳实践</h1>
+      <p class="post-meta">@Neal · Nov 26, 2017 · 5 min read</p>
+    </header>
+    <article class="post-content">
+
+<p><a href="https://poi.apache.org/">POI</a>是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：</p>
+
+<h2 id="word-篇">word 篇</h2>
+
+<p>对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：</p>
+
+<pre><code>    private static String readDoc(String filePath, InputStream is) {
+        String text= &quot;&quot;;
+        try {
+            if (filePath.endsWith(&quot;doc&quot;)) {
+                WordExtractor ex = new WordExtractor(is);
+                text = ex.getText();
+                ex.close();
+                is.close();
+            } else if(filePath.endsWith(&quot;docx&quot;)) {
+                XWPFDocument doc = new XWPFDocument(is);
+                XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
+                text = extractor.getText();
+                extractor.close();
+                is.close();
+            }
+        } catch (Exception e) {
+            logger.error(filePath, e);
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
+        return text;
+    }
+</code></pre>
+
+<p>理论上来说，这段代码应该对于读取大多数 doc 或者 docx 文件都是有效的。但是!!!!我发现了一个奇怪的问题，就是我的代码在读取某些 doc 文件的时候，经常会给出这样的一个异常：</p>
+
+<pre><code>org.apache.poi.poifs.filesystem.OfficeXmlFileException: The supplied data appears to be in the Office 2007+ XML. You are calling the part of POI that deals with OLE2 Office Documents.
+</code></pre>
+
+<p>这个异常的意思是什么呢，通俗的来讲，就是你打开的文件并不是一个 doc 文件，你应该使用读取 docx 的方法去读取。但是我们明明打开的就是一个后缀是 doc 的文件啊！</p>
+
+<p>其实 doc 和 docx 的本质不同的，doc 是 OLE2 类型，而 docx 而是 OOXML 类型。如果你用压缩文件打开一个 docx 文件，你会发现一些文件夹：
+<img src="http://img.blog.csdn.net/20171126163057697?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" /></p>
+
+<p>本质上 docx 文件就是一个 zip 文件，里面包含了一些 xml 文件。所以，一些 docx 文件虽然大小不大，但是其内部的 xml 文件确实比较大的，这也是为什么在读取某些看起来不是很大的 docx 文件的时候却耗费了大量的内存。</p>
+
+<p>然后我使用压缩文件打开这个 doc 文件，果不其然，其内部正是如上图，所以本质上我们可以认为它是一个 docx 文件。可能是因为它是以某种兼容模式保存从而导致如此坑爹的问题。所以，现在我们根据后缀名来判断一个文件是 doc 或者 docx 就是不可靠的了。</p>
+
+<p>老实说，我觉得这应该不是一个很少见的问题。但是我在谷歌上并没有找到任何关于此的信息。<a href="https://stackoverflow.com/questions/41711627/how-to-know-whether-a-file-is-docx-or-doc-format-from-apache-poi">how to know whether a file is .docx or .doc format from Apache POI</a> 这个例子是通过 ZipInputStream 来判断文件是否是 docx 文件：</p>
+
+<pre><code>boolean isZip = new ZipInputStream( fileStream ).getNextEntry() != null;
+</code></pre>
+
+<p>但我并不觉得这是一个很好的方法，因为我得去构建一个ZipInpuStream，这很显然不好。另外，这个操作貌似会影响到 InputStream，所以你在读取正常的 doc 文件会有问题。或者你使用 File 对象去判断是否是一个 zip 文件。但这也不是一个好方法，因为我还需要在压缩文件中读取 doc 或者 docx 文件，所以我的输入必须是 Inputstream，所以这个选项也是不可以的。 我在 stackoverflow 上和一帮老外扯了大半天，有时候我真的很怀疑这帮老外的理解能力，不过最终还是有一个大佬给出了一个让我欣喜若狂的解决方案，<a href="https://poi.apache.org/apidocs/org/apache/poi/poifs/filesystem/FileMagic.html">FileMagic</a>。这个是一个 POI 3.17新增加的一个特性：</p>
+
+<pre><code>public enum FileMagic {
+    /** OLE2 / BIFF8+ stream used for Office 97 and higher documents */
+    OLE2(HeaderBlockConstants._signature),
+    /** OOXML / ZIP stream */
+    OOXML(OOXML_FILE_HEADER),
+    /** XML file */
+    XML(RAW_XML_FILE_HEADER),
+    /** BIFF2 raw stream - for Excel 2 */
+    BIFF2(new byte[]{
+            0x09, 0x00, // sid=0x0009
+            0x04, 0x00, // size=0x0004
+            0x00, 0x00, // unused
+            0x70, 0x00  // 0x70 = multiple values
+    }),
+    /** BIFF3 raw stream - for Excel 3 */
+    BIFF3(new byte[]{
+            0x09, 0x02, // sid=0x0209
+            0x06, 0x00, // size=0x0006
+            0x00, 0x00, // unused
+            0x70, 0x00  // 0x70 = multiple values
+    }),
+    /** BIFF4 raw stream - for Excel 4 */
+    BIFF4(new byte[]{
+            0x09, 0x04, // sid=0x0409
+            0x06, 0x00, // size=0x0006
+            0x00, 0x00, // unused
+            0x70, 0x00  // 0x70 = multiple values
+    },new byte[]{
+            0x09, 0x04, // sid=0x0409
+            0x06, 0x00, // size=0x0006
+            0x00, 0x00, // unused
+            0x00, 0x01
+    }),
+    /** Old MS Write raw stream */
+    MSWRITE(
+            new byte[]{0x31, (byte)0xbe, 0x00, 0x00 },
+            new byte[]{0x32, (byte)0xbe, 0x00, 0x00 }),
+    /** RTF document */
+    RTF(&quot;{\\rtf&quot;),
+    /** PDF document */
+    PDF(&quot;%PDF&quot;),
+    // keep UNKNOWN always as last enum!
+    /** UNKNOWN magic */
+    UNKNOWN(new byte[0]);
+
+    final byte[][] magic;
+
+    FileMagic(long magic) {
+        this.magic = new byte[1][8];
+        LittleEndian.putLong(this.magic[0], 0, magic);
+    }
+
+    FileMagic(byte[]... magic) {
+        this.magic = magic;
+    }
+
+    FileMagic(String magic) {
+        this(magic.getBytes(LocaleUtil.CHARSET_1252));
+    }
+
+    public static FileMagic valueOf(byte[] magic) {
+        for (FileMagic fm : values()) {
+            int i=0;
+            boolean found = true;
+            for (byte[] ma : fm.magic) {
+                for (byte m : ma) {
+                    byte d = magic[i++];
+                    if (!(d == m || (m == 0x70 &amp;&amp; (d == 0x10 || d == 0x20 || d == 0x40)))) {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found) {
+                    return fm;
+                }
+            }
+        }
+        return UNKNOWN;
+    }
+
+    /**
+     * Get the file magic of the supplied InputStream (which MUST
+     *  support mark and reset).&lt;p&gt;
+     *
+     * If unsure if your InputStream does support mark / reset,
+     *  use {@link #prepareToCheckMagic(InputStream)} to wrap it and make
+     *  sure to always use that, and not the original!&lt;p&gt;
+     *
+     * Even if this method returns {@link FileMagic#UNKNOWN} it could potentially mean,
+     *  that the ZIP stream has leading junk bytes
+     *
+     * @param inp An InputStream which supports either mark/reset
+     */
+    public static FileMagic valueOf(InputStream inp) throws IOException {
+        if (!inp.markSupported()) {
+            throw new IOException(&quot;getFileMagic() only operates on streams which support mark(int)&quot;);
+        }
+
+        // Grab the first 8 bytes
+        byte[] data = IOUtils.peekFirst8Bytes(inp);
+
+        return FileMagic.valueOf(data);
+    }
+
+
+    /**
+     * Checks if an {@link InputStream} can be reseted (i.e. used for checking the header magic) and wraps it if not
+     *
+     * @param stream stream to be checked for wrapping
+     * @return a mark enabled stream
+     */
+    public static InputStream prepareToCheckMagic(InputStream stream) {
+        if (stream.markSupported()) {
+            return stream;
+        }
+        // we used to process the data via a PushbackInputStream, but user code could provide a too small one
+        // so we use a BufferedInputStream instead now
+        return new BufferedInputStream(stream);
+    }
+}
+</code></pre>
+
+<p>在这给出主要的代码，其主要就是根据 InputStream 前 8 个字节来判断文件的类型，毫无以为这就是最优雅的解决方式。一开始，其实我也是在想对于压缩文件的前几个字节似乎是由不同的定义的，<a href="https://en.wikipedia.org/wiki/Magic_number_%28programming%29">magicmumber</a>。因为 FileMagic 的依赖和3.16 版本是兼容的，所以我只需要加入这个类就可以了，因此我们现在读取 word 文件的正确做法是：</p>
+
+<pre><code>    private static String readDoc (String filePath, InputStream is) {
+        String text= &quot;&quot;;
+        is = FileMagic.prepareToCheckMagic(is);
+        try {
+            if (FileMagic.valueOf(is) == FileMagic.OLE2) {
+                WordExtractor ex = new WordExtractor(is);
+                text = ex.getText();
+                ex.close();
+            } else if(FileMagic.valueOf(is) == FileMagic.OOXML) {
+                XWPFDocument doc = new XWPFDocument(is);
+                XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
+                text = extractor.getText();
+                extractor.close();
+            }
+        } catch (Exception e) {
+            logger.error(&quot;for file &quot; + filePath, e);
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+        }
+        return text;
+    }
+</code></pre>
+
+<h2 id="excel-篇">excel 篇</h2>
+
+<p>对于 excel 篇，我也就不去找之前的方案和现在的方案的对比了。就给出我现在的最佳做法了：</p>
+
+<pre><code>    @SuppressWarnings(&quot;deprecation&quot; )
+    private static String readExcel(String filePath, InputStream inp) throws Exception {
+        Workbook wb;
+        StringBuilder sb = new StringBuilder();
+        try {
+            if (filePath.endsWith(&quot;.xls&quot;)) {
+                wb = new HSSFWorkbook(inp);
+            } else {
+                wb = StreamingReader.builder()
+                        .rowCacheSize(1000)    // number of rows to keep in memory (defaults to 10)
+                        .bufferSize(4096)     // buffer size to use when reading InputStream to file (defaults to 1024)
+                        .open(inp);            // InputStream or File for XLSX file (required)
+            }
+            sb = readSheet(wb, sb, filePath.endsWith(&quot;.xls&quot;));
+            wb.close();
+        } catch (OLE2NotOfficeXmlFileException e) {
+            logger.error(filePath, e);
+        } finally {
+            if (inp != null) {
+                inp.close();
+            }
+        }
+        return sb.toString();
+    }
+
+    private static String readExcelByFile(String filepath, File file) {
+        Workbook wb;
+        StringBuilder sb = new StringBuilder();
+        try {
+            if (filepath.endsWith(&quot;.xls&quot;)) {
+                wb = WorkbookFactory.create(file);
+            } else {
+                wb = StreamingReader.builder()
+                        .rowCacheSize(1000)    // number of rows to keep in memory (defaults to 10)
+                        .bufferSize(4096)     // buffer size to use when reading InputStream to file (defaults to 1024)
+                        .open(file);            // InputStream or File for XLSX file (required)
+            }
+            sb = readSheet(wb, sb, filepath.endsWith(&quot;.xls&quot;));
+            wb.close();
+        } catch (Exception e) {
+            logger.error(filepath, e);
+        }
+        return sb.toString();
+    }
+
+    private static StringBuilder readSheet(Workbook wb, StringBuilder sb, boolean isXls) throws Exception {
+        for (Sheet sheet: wb) {
+            for (Row r: sheet) {
+                for (Cell cell: r) {
+                    if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                        sb.append(cell.getStringCellValue());
+                        sb.append(&quot; &quot;);
+                    } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                        if (isXls) {
+                            DataFormatter formatter = new DataFormatter();
+                            sb.append(formatter.formatCellValue(cell));
+                        } else {
+                            sb.append(cell.getStringCellValue());
+                        }
+                        sb.append(&quot; &quot;);
+                    }
+                }
+            }
+        }
+        return sb;
+    }
+</code></pre>
+
+<p>其实，对于 excel 读取，我的工具面临的最大问题就是内存溢出。经常在读取某些特别大的 excel 文件的时候都会带来一个内存溢出的问题。后来我终于找到一个优秀的工具 <a href="https://github.com/monitorjbl/excel-streaming-reader">excel-streaming-reader</a>，它可以流式的读取 xlsx 文件，将一些特别大的文件拆分成小的文件去读。</p>
+
+<p>另外一个做的优化就是，对于可以使用 File 对象的场景下，我是去使用 File 对象去读取文件而不是使用 InputStream 去读取，因为使用 InputStream 需要把它全部加载到内存中，所以这样是非常占用内存的。</p>
+
+<p>最后，我的一点小技巧就是使用 <code>cell.getCellType</code> 去减少一些数据量，因为我只需要获取一些文字以及数字的字符串内容就可以了。</p>
+
+<p>以上，就是我在使用 POI 读取文件的一些探索和发现，希望对你能有所帮助。上面的这些例子也是在我的一款工具 <a href="https://github.com/neal1991/everywhere/">everywhere</a> 中的应用（这款工具主要是可以帮助你在电脑中进行内容的全文搜索），感兴趣的可以看看，欢迎 star 或者 pr。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/apache"><span class="tag">Apache</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/poi"><span class="tag">Poi</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>112</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

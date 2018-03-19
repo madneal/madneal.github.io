@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>判断数组中元素多个属性是否重复</title>
 
   
   
@@ -23,7 +23,7 @@
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="判断数组中元素多个属性是否重复" />
     <meta name="twitter:description" content="js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理 ```var isUnique = function(collection) { for (var i = 0,len = collection.length;i &amp;lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &amp;lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;amp;&amp;amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &amp;gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; };
  另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套  collection = _.groupBy(collection,&amp;lsquo;name&amp;rsquo;); for (var i in collection) { if (collection[i]." />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
@@ -31,7 +31,7 @@
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="判断数组中元素多个属性是否重复" />
   <meta property="og:description" content="js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理 ```var isUnique = function(collection) { for (var i = 0,len = collection.length;i &amp;lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &amp;lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;amp;&amp;amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &amp;gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; };
  另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套  collection = _.groupBy(collection,&amp;lsquo;name&amp;rsquo;); for (var i in collection) { if (collection[i]." />
   <meta property="og:url" content="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" />
@@ -153,13 +153,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -226,8 +219,8 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <h1 class="post-title">判断数组中元素多个属性是否重复</h1>
+      <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><p>js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组<code>[{name:'neal',age:'18'},{name:'neal',age:'18'},{name:'jane',age:'20'}]</code>.假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。
 这种问题有一个比较死的方法就是拿两个循环来做处理
@@ -277,8 +270,14 @@ else {
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/javascript"><span class="tag">Javascript</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>625</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

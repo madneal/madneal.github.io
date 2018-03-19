@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Latex--入门系列二</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="Latex 专业的参考
+tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
+基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
+运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
+因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
+dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
+输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
+注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
+如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
+一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
+注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
+其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="Latex--入门系列二" />
+    <meta name="twitter:description" content="Latex 专业的参考
+tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
+基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
+运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
+因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
+dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
+输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
+注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
+如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
+一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
+注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
+其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Latex--入门系列二" />
+  <meta property="og:description" content="Latex 专业的参考
+tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
+基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
+运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
+因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
+dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
+输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
+注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
+如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
+一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
+注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
+其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。" />
+  <meta property="og:url" content="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Latex--入门系列二</h1>
+      <p class="post-meta">@Neal · Dec 6, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>Latex 专业的参考</p>
+
+<p>tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，<a href="http://latex.knobs-dials.com">Arbitrary reference </a>.所以将会翻译出来，供初学者学习
+基本的使用</p>
+
+<h2 id="基本的使用">基本的使用</h2>
+
+<h3 id="tex会产生什么">TeX会产生什么</h3>
+
+<p>最基本的来说，你会生成一个.tex文件，即你的文档，即<code>youfile.tex</code>。</p>
+
+<p>运行<code>latex you file.tex</code>可以让TeX工作并且生成<code>your file.dvi</code>，这是当下的输出。dvi是一个独立的排版语言。</p>
+
+<p>因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。</p>
+
+<p>dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用<code>pdflatex yourfile.tex</code>。</p>
+
+<h3 id="输出文件">输出文件:</h3>
+
+<p>LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(<code>.aux</code>文件是引用的，<code>toc</code>是给章头用的等等)，这些数据下次运行还可以继续使用。</p>
+
+<p>注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。</p>
+
+<p>如果你用的是unix的系统，我建议你可以看看<a href="http://www.pps.jussieu.fr/~beffara/soft/rubber/">rubber</a>。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。</p>
+
+<p>一个<code>.log</code>文件也会产生，它是tex文件编译产生的一些相关信息。</p>
+
+<p>注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。</p>
+
+<h3 id="其他可能输出的格式">其他可能输出的格式</h3>
+
+<p>除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过<code>dvips</code>软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个<a href="http://www.utdallas.edu/~cantrell/online/tex-pdf.html">字体渲染的问题</a>。对于pdf，我建议你使用<code>pdflatex</code>或者类似的工具从而避免字体的一系列问题。你必须将所有的<code>.ps/.eps</code>文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/latex"><span class="tag">Latex</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>467</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

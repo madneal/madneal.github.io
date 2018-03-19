@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Elasticsearch on Neal&#39;s Blog</title>
+    <link>https://madneal.com/tags/elasticsearch/</link>
+    <description>Recent content in Elasticsearch on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Fri, 23 Feb 2018 22:30:09 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>聊聊答题应用题库的建立</title>
+      <link>https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/</link>
+      <pubDate>Fri, 23 Feb 2018 22:30:09 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/</guid>
+      <description>前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
+网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
+另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
+使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
+from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：</description>
+    </item>
+    
+    <item>
+      <title>基于ELK进行邮箱访问日志的分析</title>
+      <link>https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/</link>
+      <pubDate>Thu, 16 Nov 2017 09:11:39 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/</guid>
+      <description>公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
+系统搭建 系统主要是基于elasticsearch+logstash+filebeat+kibana+nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛应用于日志采集。
+其实在搭这个系统还是比较麻烦的，可是前面有的踩过的坑当时没有及时记录下来，有点忘记了。但是里面就是配置logstash和filebeat配置证书的时候有点麻烦，配置不好会一直没有办法连通。还要注意ES的索引占得空间，其实ES索引还蛮占空间的。
+Logstash Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
+filter logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
+geoip 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
+geoip { fields =&amp;gt; [&amp;quot;city_name&amp;quot;, &amp;quot;country_name&amp;quot;] }  日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken  针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d+[/-]\d+[/-]\d+ OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken}  通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</description>
+    </item>
+    
+  </channel>
+</rss>

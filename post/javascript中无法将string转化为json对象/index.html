@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>javascript中无法将string转化为json对象</title>
 
   
   
@@ -22,14 +22,14 @@
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="javascript中无法将string转化为json对象" />
     <meta name="twitter:description" content="在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{&amp;ldquo;age&amp;rdquo;:1}]}&amp;lsquo;.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到&amp;rsquo;[{&amp;ldquo;age&amp;rdquo;:1}]&amp;lsquo;进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。" />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="javascript中无法将string转化为json对象" />
   <meta property="og:description" content="在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{&amp;ldquo;age&amp;rdquo;:1}]}&amp;lsquo;.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到&amp;rsquo;[{&amp;ldquo;age&amp;rdquo;:1}]&amp;lsquo;进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。" />
   <meta property="og:url" content="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" />
   <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
@@ -150,13 +150,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -223,8 +216,8 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <h1 class="post-title">javascript中无法将string转化为json对象</h1>
+      <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><p>在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{&ldquo;age&rdquo;:1}]}&lsquo;.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到&rsquo;[{&ldquo;age&rdquo;:1}]&lsquo;进行转化。
 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。
@@ -235,8 +228,16 @@
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/javascript"><span class="tag">Javascript</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/json"><span class="tag">Json</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>625</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>nodejs回调大坑</title>
 
   
   
@@ -29,7 +29,7 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="nodejs回调大坑" />
     <meta name="twitter:description" content="最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
 Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;rdquo;callback hell&amp;rdquo;或&amp;rdquo;pyramid of doom&amp;rdquo;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
 后续传递风格
@@ -43,7 +43,7 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="nodejs回调大坑" />
   <meta property="og:description" content="最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
 Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;rdquo;callback hell&amp;rdquo;或&amp;rdquo;pyramid of doom&amp;rdquo;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
 后续传递风格
@@ -171,13 +171,6 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -244,8 +237,8 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+      <h1 class="post-title">nodejs回调大坑</h1>
+      <p class="post-meta">@Neal · Apr 27, 2016 · 3 min read</p>
     </header>
     <article class="post-content"><p>最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：<a href="http://www.infoq.com/cn/articles/nodejs-callback-hell/。">http://www.infoq.com/cn/articles/nodejs-callback-hell/。</a></p>
 
@@ -540,8 +533,16 @@ Node.js社区中有很多借助generator实现异步回调顺序化的库，比�
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/nodejs"><span class="tag">Nodejs</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%BC%82%E6%AD%A5"><span class="tag">异步</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>691</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -142,13 +142,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -222,41 +215,50 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/" class="post-link">从后台看python--为什么说python是慢的</a></h3>
+    <p class="post-meta">@Neal · Dec 8, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">只能生成一个实例的类是为了实现单例模式的类型。
-加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton(); } } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，.</p>
+  <p class="post-summary">python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
+1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
+int a = 1; int b = 2; int c = a &#43; b;  1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法(a,b) 4.将结果分配给c
+在python中，同样的
+a = 1 b = 2 c = a &#43; b  1.分配1给a
+ 设置一个对象，然后将它的类型设置为整数 将它的值设为1 2.分配2给b
+ 设置一个对象，然后将它的类型设置为整数
+ 将它的值设为2 3.调用一个二进制加法(a,b)
+ 寻找一个类型在对象中
+ a是一个整数，它的值是a
+ 寻找一个类型在对象中
+ b是一个整数，它的值是b
+ 调用一个二进制加法
+ 返回结果，结果是一个整数 4.产生一个对象c
+ 将一个对象的类型设置为整数
+ 将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+  2.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" class="post-link">谈谈CS英文论文写作</a></h3>
+    <p class="post-meta">@Neal · Nov 27, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">定义一个空的类型，里面没有任何成员函数和成员变量，对该类型求sizeof,得到的结果是多少？ 答案是1。空类型中的实例中不包含任何信息，本来求sizeof应该是0，但是当我们声明该类型的实例的时候，他必须在内存中占有一定的空间，否则无法使用这些实例。至于占用多少内存，由编译器决定。Visual Studio中每个空类型的实例占用1字节的空间。
- 如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
-  那如果把析构函数标记为虚函数呢？ C&#43;&#43;的编译器一旦发现一个类型中有虚函数，就会为该类型生成虚函数表，并在该类型中的每一个实例中添加一个指向虚函数表的指针。在32位的机器上，一个指针占4字节的空间，因此求sizeof是4；如果是64位的机器，那么结果就是8.
-分析下面代码运行结果：
-class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&lt;&lt;value&lt;&lt;endl; } }; int main() { A a = 10; A b = a; b.print(); }  在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C&#43;&#43;的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;other)，也就是把传值参数改为常量引用。
-C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什么区别？ 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public,而在class中默认的是private。 那么在C#中呢？ C#和C&#43;&#43;不一样。在C#中如果没有标明成员函数或者成员变量的访问权限，struct和class都是private。struct和class的区别是struct定义的是值类型，值类型的实例在栈上分配内存；而class定义的是引用类型，引用类型的实例是在堆上分配内存的。</p>
+  <p class="post-summary">作为一个CS的研究生，发篇文章是你毕业的必要条件。现如今，学校对于文章的要求也越来越高，一般来说，还是国外的期刊或者会议更加受到认可，这样对于毕业也有好处。因此，以我自己的感受来说，论文的写作以及表达方式，合理地呈现你的实验结果，清楚的逻辑解释，显得尤为重要。让人看得懂的论文往往比一个拥有的好的想法的论文更能得到别人的认可，当然这也并不是推崇只是为了专注于论文的写作，毕竟想法才是一篇论文的灵魂。然而事实如此，做好论文的写作的重要性实在很大。 作为一个研究生，很显然并没有很多的论文的写作经验。所以，我们一般的做法就是模仿别人的论文写作。我们需要阅读大量别人的论文，这样其实也是对自己的语感的培养。当然，这里推荐你还是多读读外国人写的论文，因为他们的论文写作表达方式相对来说更为的地道。我觉得论文写作的词汇使用很讲究的，同一种意思可以有很多种表达方式。就比如说你的算法很好，你可以说：outperforms than other algorithm, has advantages over other algorithm, has impressive performances, has remarkable performances等等。我前段时间，看到有个单词就很好，circumvent，这个单词的意思是绕开。其实，我们算法的改进，很多时候并不是对这个问题的直接改进，而是绕开这个问题，从而避免这个问题，所以我就觉得这个单词用的很精妙。 其实现在的论文写作也和古代的八股文一样，有一样的套路。其实对于一个给定方向的论文，他们的套路其实基本都是一致的。老实说，对于所有的论文我们基本都有一个一致的框架结构。首先，一般在abstract里面，我们会简要的说一下我们的思想，这里要言简意赅，并且能够最大化吸引别人，突出你想发的优点。然后，在introduction里面，就是介绍相关背景知识的时候，像我们专业，一般都是介绍一些相关的算法，或者你提出的算法的基础，这些都是我们提出的算法基础。接着才是提出我们自己的算法的正确的时机。在正文里面，首先就是介绍你算法或者思想的基础，然后就是你的算法和思想了。记住，这个才是你论文的核心部分。你的论文大部分应该都是讲你自己的想法而不是别人的想法，否则也就是本末倒置了。计算机的论文，很多都是需要实验结果来佐证的。没有实验结果，你的所有想法都不具有说服力。同时，实验结果需要相应的详细的分析过程，对于实验结果你要分析的多一点，虽然觉得有时候觉得自己说的是废话，但也尽量多说一点，多换点角度表达。一般你可以从性能上去说，说我们算法的性能好；如果算法的性能差不多，那就可以从运行时间去说，可以说我们算法的运行速度快。当然，我觉得写别的方向的论文应该也是差不多的，从多个角度去表现你算法和想法的优点，这一点很有必要。另外一点，多用图和表格来表达你的实验结果，图优于表格，表格优于文字，文字最次。优秀的表达方式往往更容易吸引别人的目光，所以多学一下怎么画图。看一些TOP期刊的文章，他们是怎么画图的，这样装逼也会好一点。 其他的我也不知道还有什么好说的把。自己真心的体会，是中国人真的灌了好多水，尤其是我自己的这个方向。有时候自己也觉得很愤慨，但想想自己，何曾不是也在灌水。可能还是自己也是推动这个方向恶性循环的一份子，还是希望以后这个方向有更良性的发展吧，当然，与我无关了。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">剑指offer--字符串</a></h3>
+    <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
   </header>
   
   <p class="post-summary">C/C&#43;&#43;中每个字符串都以字符’\0’作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
@@ -271,26 +273,53 @@ String str = &#34;hello&#34;; str.ToUpper(); str.</p>
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" class="post-link">剑指offer学习读书笔记--二维数组中的查找</a></h3>
+    <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
-img标签alt属性和title属性的区别
-alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
- css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
-div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：      给浮动元素添加 overflow:auto样式 为最后浮动元素设置如下样式： .clearfix:after{ visibility:hidden; display:block; content:” “; clear:both; height:0; } .</p>
+  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1 2 8 9 2 4 9 12
+4 7 10 13 6 8 11 15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
+从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
+bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; }  </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-link">剑指offer学习--实现单例模式</a></h3>
+    <p class="post-meta">@Neal · Nov 13, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">只能生成一个实例的类是为了实现单例模式的类型。
+加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton(); } } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/" class="post-link">latex算法步骤如何去掉序号</a></h3>
+    <p class="post-meta">@Neal · Nov 6, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">想去掉latex算法步骤前面的序号，如下 我想去掉每个算法步骤前面的数字序号，1，2，3，因为我已经写了step。我们只需要引用a lgorithmic这个包就可以了，代码如下：
+\usepackage{algorithmic} \begin{algorithm}[htb] \caption{SDE} \label{alg2} \begin{algorithmic} \STATE Step 1. Compute the covariance matrix $C$ of the current population, then apply Eigen decomposition to $C$ as follows: \begin{equation} \label{eve} C=EDE^T \end{equation} where $E$ is the eigenvector matrix of the population, $E^T$ is the corresponding transposed matrix. $D$ is a diagonal matrix composed of eigenvalues. \STATE Step 2. Compute the the projection of the population with eigenvector matrix $E$. \begin{equation} \label{proj} P=X_G\cdot{E} \end{equation} \STATE Step 3.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/" class="post-link">前端面试基础题目</a></h3>
+    <p class="post-meta">@Neal · Oct 30, 2015 · 1 min read</p>
   </header>
   
   <p class="post-summary">行内元素有哪些？块级元素有哪些？CSS的盒模型？ 行内元素：a b br i span input select 块级元素：div p h1 h2 h3 h4 form ul css盒模型：content border margin padding
@@ -312,78 +341,46 @@ obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </p>
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-link">每日一练--直接插入排序</a></h3>
+    <p class="post-meta">@Neal · Oct 28, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
-convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif  这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
-tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition</p>
+  <p class="post-summary">现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]….A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; }  今天一练，到此结束。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/" class="post-link">differential evolution代码实例（DE算法）</a></h3>
+    <p class="post-meta">@Neal · Oct 26, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理 ```var isUnique = function(collection) { for (var i = 0,len = collection.length;i &lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; };
- 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套  collection = _.groupBy(collection,‘name’); for (var i in collection) { if (collection[i].</p>
+  <p class="post-summary">DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
+clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%9D%E8%AF%86nuget/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
+    <p class="post-meta">@Neal · Oct 25, 2015 · 2 min read</p>
   </header>
   
-  <p class="post-summary">因为想查一查opencvsharp的东西，然后发觉这个包可以再NuGet上面可以直接下载。我也经常在很多地方都可以看到NuGet，所以我想写下来，记录下来。 NuGet是一个免费的并且开源的包管理器在微软的开发平台上。NuGet发布在Visual Studio的拓展插件上。 NuGet现在已经移植到代码管理平台github了，链接地址为https://github.com/nuget/home。他们打算以后新的东西都在这个网址更新了。
-资源 NuGet Gallery: http://nuget.org Documentation: http://docs.nuget.org Blog: http://blog.nuget.org Twitter: @nuget JabbR chat: https://jabbr.net/#rooms/nuget TeamCity continuous build server: http://build.nuget.org Latest successful VS Extension build: http://build.nuget.org/NuGet.Tools.vsix Latest successful NuGet.exe build: http://build.nuget.org/NuGet.exe
-NuGet貌似自从vs2012版本之后就默认在系统中了，所以不需要再安装了。如果想确保你的版本有没有安装NuGet，你可以看一下工具栏。你也可以在扩展和更新中可以进行NuGet的更新和管理。 只要你安装了，就可以非常方便的引用第三方的库，直接在引用里面添加就可以了。</p>
+  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
+github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
+配置工具 对于本地版本配置用户信息
+git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34;  上面的分别是设置用户名和邮箱
+建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%9D%E8%AF%86nuget/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">本文是UCLA教授朱松纯的见解，我翻译下作为见解，尽管以后不一定做这些东西，但我觉得这些道理还是有价值的。
- 我们如何知道我们是不是在以错误的方式做研究？ 视觉问题是一个在现代科学以及工程上一个非常具有挑战性和潜力的问题，因为它非常复杂并且包罗万象。对于如此复杂的一个问题，我们必须十分谨慎地选择一个长期有效的解决方案以免走入一个死胡同中。人们喜欢享受能够感觉到的进程，但实际地研究过程就回事十分枯燥无味的在普通人的眼中。
- 视觉问题是一个可以用机器学习来解决的分类问题吗？ 经常有些学生说：视觉问题是不是仅仅只是机器学习地应用而已，他们经常是这么觉得。如果是这样的话，那么对于视觉问题的研究者来说，他们的任务仅仅只是设计好的特征而已就可以了。这个问题真的是对视觉问题的侮辱，这反映了对与视觉问题的误解并将其简单的划分为分类问题。这对于我来说毫不奇怪，因为现在的年轻一代不仅不知道Ulf Genander（模式理论之父）同时也不知道David Marr（计算机视觉之父）。打个比方来说，机器学习的方法就好像是三千年来中国中国中药临床经验总结出来的方法。古代的人们由于对于现代医学缺乏足够的认知，他们往往尝试不同的药材组合，就像机器学习的研究者尝试不同的特征。这些成分通过不同的权重被混合在一起，然后通过煎煮最后变成一味中药，这是一个迭代回归的过程。据信这些药可以治疗一切疾病包括癌症，禽流感等等，而不需要理解这些药的生物作用或者相应的病理机制。所有你需要做的仅仅是找到正确的成分然后以合适的比例把它们混合在一起。理论上来说，这是现实可行的，就像机器学习保证可以解决所有问题如果机器学习能够找到足够的特征和例子。但是问题是：组成成分的范围如此之广，我们如何才能有效地找到合适的组成成分呢？对于视觉问题，我们需要研究图像的复杂的结构，以及丰富的空间和他们的组成部分，还有各种各样的模型和代表。
- 为什么我们需要忍受不同风格的视觉问题？ 视觉问题中的方法论可以概括成三个部分：Hack, Math,Stat。Hacks是一种启发式的方法，或者是某种方法在某个问题可以起到作用，但是我们无法分辨出它到底在哪其作用。Math恰恰相反，它告诉我们在某种特定的条件下，事情可以在某种性能的保证下进行分析，但是这些条件经常是有限的，所以难以应用到现实世界中的通用场景中。Stat是一个回归过程。通过很多的参数，你最终可以拟合任何的数据但是缺乏足够的物理解释。所以这三者是不同等级的解释或者模型。
- 如果你不能解决一个简单的问题，那么你就必须要解决一个复杂的问题！ 简化论是现代科学中很多领域中一个非常受欢迎的研究策略。经常说一个问题你可以把它分成几个小的组成部分或者一个复杂的系统是由几个不同的组成部分组成而来的。这些方法轮在十九世纪八十年代被一些视觉研究者所实践，比如边缘检测，分割等等。但是人们发现仅仅是边缘检测这样最简单的问题都不能够很好的解决，因为边缘的定义取决不同等级的任务需求，即使是人类如果没有特定的任务等级也无法决定是否存在边缘。不象物理学家可以选择一个给定的规模或者现象来进行研究，计算机视觉研究者发现他们自己非常的不幸：每一个简单的图像对于不同的等级包含了很多的模式以及任务。下面的表格包含了一系列我们需要解决的问题对于理解一幅图像来说。
-  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令”pip install MySQL-python”就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入”make install”这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
-mysql -u &lt;your username&gt; -p&lt;yourpassword&gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
-MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
-MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入”make”,你将会看到： ｀ MYSQL_HOST = ‘127.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
   </footer>
 </article>
 

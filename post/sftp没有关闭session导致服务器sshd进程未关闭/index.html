@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>sftp没有关闭session导致服务器sshd进程未关闭</title>
 
   
   
@@ -23,7 +23,7 @@
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="sftp没有关闭session导致服务器sshd进程未关闭" />
     <meta name="twitter:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger." />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
@@ -31,7 +31,7 @@
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="sftp没有关闭session导致服务器sshd进程未关闭" />
   <meta property="og:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger." />
   <meta property="og:url" content="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/" />
@@ -153,13 +153,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -226,8 +219,8 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <h1 class="post-title">sftp没有关闭session导致服务器sshd进程未关闭</h1>
+      <p class="post-meta">@Neal · Jul 28, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><p>项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。
 <img src="http://img.blog.csdn.net/20160728170459770" alt="这里写图片描述" />
@@ -270,8 +263,16 @@
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="tag">服务器</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/sftp"><span class="tag">Sftp</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>598</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

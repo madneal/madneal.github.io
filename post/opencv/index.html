@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title></title>
+  <title>OPENCV</title>
 
   
   
@@ -29,7 +29,7 @@ http://blog.csdn.net/carson2005/article/details/6243476
   
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@twitter_username" />
-    <meta name="twitter:title" content="" />
+    <meta name="twitter:title" content="OPENCV" />
     <meta name="twitter:description" content="[转载] http://blog.csdn.net/carson2005/article/details/6979806
 尽管之前写过一篇关于OpenCV的介绍（http://blog.csdn.net/carson2005/article/details/5822149），但依然有朋友对其不甚了解。所以，经常能碰到有人问我诸如以下一些问题：OpenCV能不能实现人脸识别？OpenCV有没有车辆检测的API？OpenCV有没有三维重建的函数？面对这样的问题，我也很困惑。到底该如何给他们解释，才能让它们明白，OpenCV确实很强大，但还没有他们想象中的那么强大。其实，OpenCV的全称，是Open source Computer Vision Library,开放源代码计算机视觉库。也就是说，它是一套关于计算机视觉的开放源代码的API函数库。这也就意味着，(1)不管是科学研究，还是商业应用，都可以利用它来作开发;(2)所有API函数的源代码都是公开的，你可以看到其内部实现的程序步骤；(3)你可以修改OpenCV的源代码，编译生成你需要的特定API函数。但是，作为一个库，它所提供的，仅仅是一些常用的，经典的，大众化的算法的API。一个典型的计算机视觉算法，应该包含以下一些步骤：(1)数据获取（对OpenCV来说，就是图片）；(2)预处理;(3)特征提取;(4)特征选择;(5)分类器设计与训练;(6)分类判别;而OpenCV对这六个部分，分别（记住这个词）提供了API。下面我分别就这六个部分对一些常见问题进行必要的解释。 对于数据获取，计算机视觉领域的数据，无非就是图片和视频两种。图片，有bmp,jpg,png,tiff&amp;hellip;.各种压缩和非压缩格式。所以，对压缩格式的图片而言，OpenCV内部必然包含了对应的图片解压缩函数(一般都是包含了开源的图片解压函数库，例如，对于jpg压缩格式而言，就包含了libjpg开源库)。而对于视频而言，常见的有.rmvb,.avi,.asf等格式，不同的格式，代表着不同的视频压缩算法(对于AVI格式，尽管都是avi格式，但内部的压缩算法仍然不相同。具体原因请参考我的另一篇博客:http://blog.csdn.net/carson2005/article/details/6314089)，也就需要对应的解压算法来解压。尽管OpenCV提供了一些读写视频文件的API，但是，它也仅仅是一个接口而已，其内部，依然需要调用相应的视频编解码器的API来进行解码。常用的视频编解码器有：xvid,ffmpeg等。也就是说，如果你想利用OpenCV来进行视频读写之类的操作，是需要安装此类视频编解码器的。安装了相应的视频解码器之后，你就可以调用OpenCV的视频相关API来进行视频文件的读取操作了，当然，视频文件被解码之后，变成了一张一张的图片，然后才能被OpenCV所处理。另外，还有一种情况，就是数据来自于相机，包括数字相机和模拟相机。不管是哪种相机，你都要想办法获取到相机发送给PC的图片数据（PC在内存里面接收到的来自相机的数据可能是jpg格式，也可能是bmp格式）。如果，你在PC内存中接收到的是相机发送过来的jpg压缩格式，还需要进行图片数据的内存解压。关于相机和OpenCV的这部分内容，请见我另一篇博客：
 http://blog.csdn.net/carson2005/article/details/6243476
@@ -43,7 +43,7 @@ http://blog.csdn.net/carson2005/article/details/6243476
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="OPENCV" />
   <meta property="og:description" content="[转载] http://blog.csdn.net/carson2005/article/details/6979806
 尽管之前写过一篇关于OpenCV的介绍（http://blog.csdn.net/carson2005/article/details/5822149），但依然有朋友对其不甚了解。所以，经常能碰到有人问我诸如以下一些问题：OpenCV能不能实现人脸识别？OpenCV有没有车辆检测的API？OpenCV有没有三维重建的函数？面对这样的问题，我也很困惑。到底该如何给他们解释，才能让它们明白，OpenCV确实很强大，但还没有他们想象中的那么强大。其实，OpenCV的全称，是Open source Computer Vision Library,开放源代码计算机视觉库。也就是说，它是一套关于计算机视觉的开放源代码的API函数库。这也就意味着，(1)不管是科学研究，还是商业应用，都可以利用它来作开发;(2)所有API函数的源代码都是公开的，你可以看到其内部实现的程序步骤；(3)你可以修改OpenCV的源代码，编译生成你需要的特定API函数。但是，作为一个库，它所提供的，仅仅是一些常用的，经典的，大众化的算法的API。一个典型的计算机视觉算法，应该包含以下一些步骤：(1)数据获取（对OpenCV来说，就是图片）；(2)预处理;(3)特征提取;(4)特征选择;(5)分类器设计与训练;(6)分类判别;而OpenCV对这六个部分，分别（记住这个词）提供了API。下面我分别就这六个部分对一些常见问题进行必要的解释。 对于数据获取，计算机视觉领域的数据，无非就是图片和视频两种。图片，有bmp,jpg,png,tiff&amp;hellip;.各种压缩和非压缩格式。所以，对压缩格式的图片而言，OpenCV内部必然包含了对应的图片解压缩函数(一般都是包含了开源的图片解压函数库，例如，对于jpg压缩格式而言，就包含了libjpg开源库)。而对于视频而言，常见的有.rmvb,.avi,.asf等格式，不同的格式，代表着不同的视频压缩算法(对于AVI格式，尽管都是avi格式，但内部的压缩算法仍然不相同。具体原因请参考我的另一篇博客:http://blog.csdn.net/carson2005/article/details/6314089)，也就需要对应的解压算法来解压。尽管OpenCV提供了一些读写视频文件的API，但是，它也仅仅是一个接口而已，其内部，依然需要调用相应的视频编解码器的API来进行解码。常用的视频编解码器有：xvid,ffmpeg等。也就是说，如果你想利用OpenCV来进行视频读写之类的操作，是需要安装此类视频编解码器的。安装了相应的视频解码器之后，你就可以调用OpenCV的视频相关API来进行视频文件的读取操作了，当然，视频文件被解码之后，变成了一张一张的图片，然后才能被OpenCV所处理。另外，还有一种情况，就是数据来自于相机，包括数字相机和模拟相机。不管是哪种相机，你都要想办法获取到相机发送给PC的图片数据（PC在内存里面接收到的来自相机的数据可能是jpg格式，也可能是bmp格式）。如果，你在PC内存中接收到的是相机发送过来的jpg压缩格式，还需要进行图片数据的内存解压。关于相机和OpenCV的这部分内容，请见我另一篇博客：
 http://blog.csdn.net/carson2005/article/details/6243476
@@ -171,13 +171,6 @@ http://blog.csdn.net/carson2005/article/details/6243476
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -244,8 +237,8 @@ http://blog.csdn.net/carson2005/article/details/6243476
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title"></h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <h1 class="post-title">OPENCV</h1>
+      <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
     </header>
     <article class="post-content"><p>[转载]
 <a href="http://blog.csdn.net/carson2005/article/details/6979806">http://blog.csdn.net/carson2005/article/details/6979806</a></p>
@@ -267,8 +260,14 @@ http://blog.csdn.net/carson2005/article/details/6243476
 </article>
     <footer class="post-footer">
       
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/opencv"><span class="tag">Opencv</span></a></li>
+        
+      </ul>
+      
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>736770</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1072</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

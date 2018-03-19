@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>聊聊答题应用题库的建立</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
+网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
+另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
+使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
+from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="聊聊答题应用题库的建立" />
+    <meta name="twitter:description" content="前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
+网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
+另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
+使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
+from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="聊聊答题应用题库的建立" />
+  <meta property="og:description" content="前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
+网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
+另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
+使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
+from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：" />
+  <meta property="og:url" content="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">聊聊答题应用题库的建立</h1>
+      <p class="post-meta">@Neal · Feb 23, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。</p>
+
+<p>网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 <a href="https://github.com/tesseract-ocr/tesseract">tesseract-ocr</a>以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 <a href="https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe">https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe</a> ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。</p>
+
+<p>另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。</p>
+
+<h2 id="使用-elasticsearch-建立题库">使用 elasticsearch 建立题库</h2>
+
+<p>本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于<a href="https://github.com/Skyexu/TopSup">TopSup</a> 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> elasticsearch <span style="color:#f92672">import</span> Elasticsearch
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write_quetion</span>():
+  question <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;谁是世界上最帅的人&#39;</span>,
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;answer&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;Neal&#39;</span>
+  }
+  es <span style="color:#f92672">=</span> Elasticsearch({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;localhost&#39;</span>})
+  es<span style="color:#f92672">.</span>index(index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question-index&#39;</span>, doc_type<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question&#39;</span>, id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, body<span style="color:#f92672">=</span>question)</code></pre></div>
+<p>上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 <a href="https://db-engines.com/en/ranking">DB-Engines</a> 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：</p>
+
+<table>
+  <tr>
+  <th>关系型数据库</th>
+  <th>Elasticsearch</th>
+  </tr>
+  <tr>
+  <td>database</td>
+  <td>index</td>
+  </tr>
+  <tr>
+  <td>table</td>
+  <td>type</td>
+  </tr>
+  <tr>
+  <td>row</td>
+  <td>document</td>
+  </tr>
+  <tr>
+  <td>column</td>
+  <td>field</td>
+  </tr>
+</table>
+
+<p>那么在 es 中搜索问题时应该这样：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search_question</span>(key_words):
+  es <span style="color:#f92672">=</span> Elasticsearch({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;localhost&#39;</span>})
+  res <span style="color:#f92672">=</span> es<span style="color:#f92672">.</span>search(index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question-index&#39;</span>, body<span style="color:#f92672">=</span>{
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;query&#34;</span>: {
+      <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;match&#34;</span>: {
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;question&#34;</span>: key_words,
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;minimum_should_match&#34;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;75%&#34;</span>
+        }
+      }
+    }
+  })
+  <span style="color:#66d9ef">if</span> res[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;hits&#39;</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;total&#39;</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">for</span> hit <span style="color:#f92672">in</span> res[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;hits&#39;</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;hits&#39;</span>]:
+      <span style="color:#66d9ef">print</span>(hit[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;_source&#39;</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;:&#39;</span> <span style="color:#f92672">+</span> hit[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;_source&#39;</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;answer&#39;</span>])
+   <span style="color:#66d9ef">else</span>:
+     <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;未搜索到类似结果&#39;</span>)</code></pre></div>
+<h2 id="从图片中获取问题和答案">从图片中获取问题和答案</h2>
+
+<p>题库的建立可以使用文本的方式或者直接使用答题应用的手机截图，毫无疑问后者是更有价值的。假设我们现在有一张这样的截图：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/10/1617eae1206b47b4?w=401&amp;h=713&amp;f=png&amp;s=256870" alt="" /></p>
+
+<p>这张图片中已经包含了正确的选项，但我们如何识别这个图片并且知道这个正确答案呢？使用选项后面的数字么，不可行，正确答案并不一定是选择的最多的选项。感谢图像处理这门课程，里面有一个非常基础的概念帮我解决了这个问题。一般来说将彩色图片转化为灰度图片就是通过一个确定的函数将彩色空间映射到灰度空间。以 matlab 中将 RGB 图（可以理解为一张彩色图）转化为灰度图的 <code>rgb2gray</code> 函数为例，假设一个彩色像素的 RGB 值是 (R, G, B)，那么它的灰度值 G 的计算方法应该是：</p>
+
+<p><code>G =  0.2989 * R + 0.5870 * G + 0.1140 * B</code></p>
+
+<p>业界的通用做法就是将按照一定的权重来计算彩色像素的灰度值。通过取色笔可以获取上图正确答案背景颜色的 RGB 值是(80, 215, 216)，而错误答案背景颜色的 RGB 值是(194, 194, 194)。</p>
+
+<p><a href="https://imgchr.com/i/936LqI"><img src="https://user-gold-cdn.xitu.io/2018/2/10/1617eae1c9c6d842?w=680&amp;h=555&amp;f=png&amp;s=165381" alt="936LqI.md.png" /></a></p>
+
+<p>今天教大家的是乘法分配律，秀了一波小学数学。言归正传，可以看出，彩色图像映射的灰度值更低。这对于我们区分正确选项和错误选项就有了重大的帮助。首先我们对选项区域进行裁剪，避免右边的数字影响识别结果。通过二值化算法，我们可以把问题选项图使用不同的阈值将图片转换成两张不同的图片，小于阈值的像素点变成黑色像素点，大于阈值的像素点编程白色像素点。二值化转换的算法非常简单：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binarizing</span>(img, threshold):
+    pixdata <span style="color:#f92672">=</span> img<span style="color:#f92672">.</span>load()
+    w, h <span style="color:#f92672">=</span> img<span style="color:#f92672">.</span>size
+    <span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(h):
+        <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(w):
+            <span style="color:#66d9ef">if</span> pixdata[x, y] <span style="color:#f92672">&lt;</span> threshold:
+                pixdata[x, y] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+            <span style="color:#66d9ef">else</span>:
+                pixdata[x, y] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>
+    <span style="color:#66d9ef">return</span> img</code></pre></div>
+<p>通过阈值 120 和阈值 180(175到194之间的任意值都是可以的) 来获取二值化图片，结果分别为：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/10/1617eae1b80a48f3?w=655&amp;h=554&amp;f=png&amp;s=53327" alt="93c8dx.png" /></p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/10/1617eae1bc0f0f75?w=651&amp;h=623&amp;f=png&amp;s=64677" alt="93clLR.png" /></p>
+
+<p>这下答案就呼之欲出了吧。我们将这两张图通过 ocr 的方式去识别，第一张图可以获取所有的选项，而第二张图只能获取错误的选项，那么二者的差异之处不正就是正确选项了嘛！是不是骨骼精奇，是不是没想到！</p>
+
+<h2 id="结语">结语</h2>
+
+<p>本文就到此为止，本文主要是从一个很小的角度讲述一种建立题库的方式，使用一种图像处理的简单技术来获取正确的选项。是不是觉得学的课程还是有价值的。当然本文只是作为一种技术的探讨，并不一定保证实际中的可操作性，详细代码可以阅读原文查看。</p>
+
+<p>以上。</p>
+
+<p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/10/1617eae1b59c001c?w=258&amp;h=258&amp;f=jpeg&amp;s=27683" alt="93cfyj.jpg" /></p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/elasticsearch"><span class="tag">Elasticsearch</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

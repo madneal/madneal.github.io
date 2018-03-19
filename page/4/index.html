@@ -142,13 +142,6 @@
             <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
-        <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/about/">About</a>
-          </li>
-      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -222,185 +215,187 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" class="post-link">模拟.net post请求属性</a></h3>
+    <p class="post-meta">@Neal · Apr 25, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
-一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC： 1. Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 2. View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 3. Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。</p>
+  <p class="post-summary">这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
+    <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
-&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;document&lt;/title&gt; &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt; &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;flash&#34;&gt; &lt;ul id=&#34;pic&#34;&gt; &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ol id=&#34;num&#34;&gt; &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;li&gt;4&lt;/li&gt; &lt;li&gt;5&lt;/li&gt; &lt;li&gt;6&lt;/li&gt; &lt;/ol&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;  图像的原路径我就不制定了，css文件
-* { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li.</p>
+  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
+var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" class="post-link">js的事件流理解</a></h3>
+    <p class="post-meta">@Neal · Mar 5, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
-Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
-当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
-在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
- 选择节点元素  如果你熟悉jquery的话，你应该知道$(‘.class’)和$(‘#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
-同样你可以在console使用同样的方式来访问元素。$(‘tagName’) $(‘.class’) $(‘#id’)和document.querySelector(“)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
-你可以用$$(‘tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
-2.将你的浏览器转化成一个编辑器
-你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
-你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
-document.body.contentEditable = true
-3.寻找dom中元素绑定的事件
-当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(‘selector’))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：
-如果希望找到某个特定事件的监听，你可以这么做：
-getEventListeners($(‘selector’)).eventName[0].listener
-这将展示所有和这个事件相关的监听。比如：
-getEventListeners($(‘.firstName’)).click[0].listener
-4.监听事件
-如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
- monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),‘eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[‘eventName1’,‘eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
-console里面有一个很重要的函数叫做console.time(‘labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(‘labelName’)能够结束相应的计时器。
-比如我们想看到一个循环的执行时间，我们可以做如下处理：
-console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6.</p>
+  <p class="post-summary"> 面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
+事件捕获和事件冒泡 事件流描述的是从页面中接收事件的顺序,也可理解为事件在页面中传播的顺序。 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：
+&lt;body&gt; &lt;div id=&#34;outer&#34;&gt; &lt;div id=&#34;inner&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt;  这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&gt;outer-&gt;body。然而捕获事件流的顺序则截然想法：body-&gt;outer-&gt;innner。
+DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。还是以上面的代码为例，单击inner则会按照下面的顺序触发事件：document-&gt;html-&gt;body-&gt;outer-&gt;ineer-&gt;outer-&gt;body-&gt;html-&gt;document。在DOM事件流中，实际的目标inner在捕获阶段不会接受到事件。这意味着在捕获阶段，事件到outer就停止了，下一个阶段是“处于目标”阶段，于是事件在inner 上发生，并在事件处理中呗看成是冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
+事件处理程序 响应某个时间的函数叫做事件处理程序。DOM0级的事件处理程序很简单,onclick就是常用的DOM0级事件处理函数，只会在冒泡阶段被处理。 而DOM2级事件定义了两个方法用于处理置顶和删除事件处理程序的操作addEventListener()和removeEventListener()，所有DOM节点都包含这两个方法，并且它们都接受3个参数：要处理的事件名，作为事件处理的函数和一个布尔值。最后这个布尔值参数如果是true，表示在捕获阶段调用事件处理程序，反之则是在事件冒泡阶段处理程序。DOM2级方法添加事件处理程序的好处是可以添加多个事件处理程序，会按照添加顺序被处理（无论是捕获还是冒泡）。 而IE不同的它有自己的方法attachEvent()和detachEvent,这两个接受相同的两个参数：事件处理程序名称和事件处理程序函数。
+跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } }  </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/" class="post-link">百度前端实习生面试（连跪之旅）</a></h3>
+    <p class="post-meta">@Neal · Mar 4, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
-1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
-int a = 1; int b = 2; int c = a &#43; b;  1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法(a,b) 4.将结果分配给c
-在python中，同样的
-a = 1 b = 2 c = a &#43; b  1.分配1给a
- 设置一个对象，然后将它的类型设置为整数 将它的值设为1 2.分配2给b
- 设置一个对象，然后将它的类型设置为整数
- 将它的值设为2 3.调用一个二进制加法(a,b)
- 寻找一个类型在对象中
- a是一个整数，它的值是a
- 寻找一个类型在对象中
- b是一个整数，它的值是b
- 调用一个二进制加法
- 返回结果，结果是一个整数 4.产生一个对象c
- 将一个对象的类型设置为整数
- 将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
-  2.</p>
+  <p class="post-summary">去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">前端面试题——系列一</a></h3>
+    <p class="post-meta">@Neal · Mar 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
-题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
-输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
-样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
-代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m; } cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; }  这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
+  <p class="post-summary">html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
+img标签alt属性和title属性的区别
+alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
+ css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
+div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
+ 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：      给浮动元素添加 overflow:auto样式 为最后浮动元素设置如下样式： .clearfix:after{ visibility:hidden; display:block; content:” “; clear:both; height:0; } .</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/" class="post-link">演化计算会议</a></h3>
+    <p class="post-meta">@Neal · Jan 8, 2016 · 3 min read</p>
   </header>
   
-  <p class="post-summary">在网上看到一个前端大牛的主页，觉得他有一个特效特别酷，一开始还以为是要用什么javascript代码来实现，但仔细看一下，发觉只是用几行css代码就搞定了，我觉得挺好的。 他这个效果就是鼠标放在左半部分和右半部分，整个网页的布局颜色会相互变化，我贴上前后两张图来比较一下，你们就明白了。 当鼠标放在左半部分： 当鼠标放在右半部分： 可能静态的图片看不太出效果，但是动态看起来还是比较酷的，最关键的是它的代码其实很简单。
-.panel, .panel-left:hover &#43; .panel-right { background-color: #22c3aa; color: white; } .panel-right, .panel:hover { background-color: white; color: #22c3aa; } .panel-right:hover &#43; img#avatar { transform: rotateY(180deg); }  第一段和第二段代码主要就是背景颜色和主体颜色的改变，他把做面板鼠标移动到上面时的效果和右面板的效果设为一致，从而达到左右颠倒的效果，最后一段代码主要是下面一张图片的旋转180度。 真的是前端的东西很变化莫测，往往很简单的思路能够达到意想不到的效果，我觉得真的是值得我们很多时候多多思考的。 再贴上这个前端大神的网页http://zhangwenli.com/。真的很佩服她，一个女生居然代码写的这么好，看看别人做的东西，再看看自己的东西，简直惭愧不已，我觉得人丑还是多读书，尤其是我这种长的那么丑的人就更应该读了。</p>
+  <p class="post-summary">作为一名演化计算会议的学生，要懂得这方面的会议啦，不过我最熟悉的只是CEC了，其他的会议还真没怎么见过。 【原创】演化计算&amp;演化硬件相关会议评价(07.07.15) Copy to clipboard Posted by: dareios Posted on: 2007-07-13 00:27
+欢迎大家提意见，补充^^
+Revised Date(v4): 2007/10/03 (修改: ICES) Revised Date(v3): 2007/07/15 (追加:CEC, AUS-AI, ICCS) Revised Date(v2): 2007/06/05(追加:GECCO, ICONIP) Revised Date(v1): 2007/05/29
+写这个段子纯粹是因为受了南大周志华教授写的AI Conferences那篇文章的影响,于是起了写一篇自己心目中的conferences tier list的念头. List中的会议评价主要根据我本人这几年接触到的会议论文集的质量,参加会议过程的感观,CiteSeer的那个Estimated impact of publication venues in Computer Science,会议的专业性-我本人偏重evolvable hardware,大部分的LNCS出版的会议和少量的其他重要相关会议将做探讨. grade A 的会议是演化硬件方向最权威的国际会议,其中发表的论文大多有一读的价值. B 的会议也是质量非常不错的会议, C 的会议, 我个人认为去发表论文还是不错的,但是通常不会在这个档次的会议proceeding中找参考论文.D 的会议,通常是一些发表论文数量超过500篇,或者永远在中国国内打转的＂国际＂会议.
+grade A:
+ICES (A0): International Conference on Evolvable Systems: From Biology to Hareware. 基本上是从90年代evolvable hardware(EHW)的研究引起学术界的关注就开始举行的重要会议.EHW方面最重要的2个会议之一.首次举行是在1995年的瑞士(当时还不叫 ICES,96年才开始现在的名字),基本上当时的EHW开创性人物瑞士的Eduardo Sanchez,日本的Tetsuya Higuchi等人都参加了这次会议.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" class="post-link">数据结构线性表相关操作</a></h3>
+    <p class="post-meta">@Neal · Dec 28, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
- private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &#34;POST&#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&#34;md5data&#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</p>
+  <p class="post-summary">数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
+#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/the-sum-of-two-fixed-value/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/" class="post-link">installsheild2011打包程序internal build error 6213</a></h3>
+    <p class="post-meta">@Neal · Dec 20, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">the sum of two fixed value
-description
-Input an array and an integer, fina a pair of number in the array so that the sum is equals to the inputed integer. If there are several pairs, you can output any pair. For example, if the input array is [1,2,4,5,7,11,15] and an integer 15, because 4 &#43; 11 = 15, hence output 4 and 11.
-analysis and solution
-We try to figure out this problem step by step.</p>
+  <p class="post-summary">今天打包一个安装程序，总是出现报错，internal build error -6213，然后搜遍都没有找到什么解决方案。看到一个帖子，说是因为installsheild里面的build的时候自动扫描.NET依赖库造成的原因，要把这个自动扫描功能给关掉，但是他说的在什么地方关说的不是很清楚，所以我一直找不到。 http://1978l.blog.163.com/blog/static/4494441620098704049756/原文帖子如下 后来找了半天，终于找到地方了。 如图1，图2所示，把components里面所有.NET scan at Build设置为none,这个可能是这个软件的bug把，我使用的是2011版本，免费的版本。 真心的，我实验室解决问题的能手，实验室这些妹子如果没有我，我都不知道她们该怎么活下去。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/the-sum-of-two-fixed-value/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-link">常用的正则表达式</a></h3>
+    <p class="post-meta">@Neal · Dec 15, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。
-sqlite3 .separator &#39;,&#39; .import filename tablename  导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
-datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(‘now’,‘localtime’)。
-database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</p>
+  <p class="post-summary">正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
+数字：1*$
+n位的数字：^\d{n}$
+至少n位的数字：^\d{n,}$
+m-n位的数字：^\d{m,n}$
+零和非零开头的数字：^(0|[1-9][0-9]*)$
+非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
+带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
+正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
+有两位小数的正实数：2&#43;(.[0-9]{2})?$
+有1~3位小数的正实数：3&#43;(.[0-9]{1,3})?$
+非零的正整数：4\d$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]*$
+非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
+非负整数：^\d&#43;$ 或 5\d*|0$
+非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
+非负浮点数：^\d&#43;(.\d&#43;)?$ 或 6\d.\d|0.\d[1-9]\d|0?.0&#43;|0$
+非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d.\d|0.\d[1-9]\d))|0?.0&#43;|0$
+正浮点数：7\d.\d|0.\d[1-9]\d$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
+负浮点数：^-([1-9]\d.\d|0.\d[1-9]\d)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
+浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d.\d|0.\d[1-9]\d|0?.0&#43;|0)$
+二、校验字符的表达式
+汉字：8{0,}$
+英文和数字：9&#43;$ 或 10{4,40}$
+长度为3-20的所有字符：^.{3,20}$
+由26个英文字母组成的字符串：11&#43;$
+由26个大写英文字母组成的字符串：12&#43;$
+由26个小写英文字母组成的字符串：13&#43;$
+由数字和26个英文字母组成的字符串：14&#43;$
+由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
+中文、英文、数字包括下划线：15&#43;$
+中文、英文、数字但不包括下划线等符号：16&#43;$ 或 17{2,20}$
+可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;‘,;=?$\x22]&#43;
+禁止输入含有~的字符：[^~\x22]&#43;
+三、特殊需求表达式
+Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
+域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
+InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;=]*)?$
+手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
+电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
+国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/" class="post-link"></a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/" class="post-link">latex如何给表格添加注释</a></h3>
+    <p class="post-meta">@Neal · Dec 10, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&#34;HostName:&#34; &#43; hostname &#43; &#34;|Port:&#34; &#43; port); logger.debug(&#34;Session created&#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&#34;Failed to connect FTP server &#34; &#43; hostname); return false; } logger.debug(&#34;Username:&#34; &#43; userName &#43; &#34;|Password:&#34; &#43; password); } catch (Exception ex) { logger.</p>
+  <p class="post-summary">在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
+\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$ &amp;$3.90e-03$ &amp;$1.39e-04$ &amp;$3.70e-03$ &amp;$4.20e-03$ &amp;$\textbf{3.60e-03}$ &amp;$1.02e-04$ &amp;$3.40e-03$ &amp;$3.80e-03$\\\\ $F_{2}$ &amp;$3.80e-03$ &amp;$1.43e-04$ &amp;$3.50e-03$ &amp;$4.10e-03$ &amp;$\textbf{3.70e-03}$ &amp;$9.83e-05$ &amp;$3.50e-03$ &amp;$3.90e-03$\\\\ $F_{3}$ &amp;$7.20e-03$ &amp;$3.90e-03$ &amp;$3.60e-03$ &amp;$1.55e-02$ &amp;$\textbf{6.70e-03}$ &amp;$1.10e-03$ &amp;$3.80e-03$ &amp;$8.50e-03$\\\\ $F_{4}$ &amp;$5.03e-02$ &amp;$1.30e-03$ &amp;$4.82e-02$ &amp;$5.35e-02$ &amp;$\textbf{5.08e-02}$ &amp;$2.10e-03$ &amp;$4.81e-02$ &amp;$5.62e-02$\\\\ $F_{5}$ &amp;$5.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/">Read More →</a>
   </footer>
 </article>
 

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&amp;rsquo;setTimeout&amp;rsquo;）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="JavaScript是如何工作的：引擎，运行时间以及调用栈的概述" />
+    <meta name="twitter:description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&amp;rsquo;setTimeout&amp;rsquo;）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="JavaScript是如何工作的：引擎，运行时间以及调用栈的概述" />
+  <meta property="og:description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&amp;rsquo;setTimeout&amp;rsquo;）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。" />
+  <meta property="og:url" content="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</h1>
+      <p class="post-meta">@Neal · Sep 13, 2017 · 1 min read</p>
+    </header>
+    <article class="post-content">
+
+<h1 id="javascript是如何工作的-引擎-运行时以及调用栈的概述">JavaScript是如何工作的：引擎，运行时以及调用栈的概述</h1>
+
+<blockquote>
+<p>原文：<a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
+
+<p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
+
+<p>welcome to star my <a href="https://github.com/neal1991">articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
+
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
+</blockquote>
+
+<p>随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。</p>
+
+<p>正如<a href="http://githut.info/">GitHut stats</a>所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。
+<img src="https://cdn-images-1.medium.com/max/3036/1*Zf4reZZJ9DCKsXf5CSXghg.png" alt="" /></p>
+
+<p>(<a href="https://madnight.github.io/githut/">获取最新的 GitHub language stats</a>).</p>
+
+<p>如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。</p>
+
+<p>因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。</p>
+
+<h2 id="概览">概览</h2>
+
+<p>几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。</p>
+
+<p>在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。</p>
+
+<p>如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。</p>
+
+<p>如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。</p>
+
+<h2 id="javascript-引擎"><strong>JavaScript 引擎</strong></h2>
+
+<p>最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2048/1*OnH_DlbNAPvB9KLxUCyMsA.png" alt="" /></p>
+
+<p>引擎主要由两个部分组成：</p>
+
+<ul>
+<li>内存堆——这是内存分配发生的地方</li>
+<li>回调——这是你代码执行时的栈帧。</li>
+</ul>
+
+<h2 id="runtime"><strong>Runtime</strong></h2>
+
+<p>有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&rsquo;setTimeout&rsquo;）。然而这些API并不是由引擎提供的。</p>
+
+<p>那么，它们是从哪来的呢？</p>
+
+<p>事实证明这有一点复杂。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2048/1*4lHHyfEhVB0LnQ3HlhSs8g.png" alt="" /></p>
+
+<p>因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
+
+<p>接着，我们还有非常流行的<strong>事件循环(event loo)</strong>以及<strong>回调队列(callback queue)</strong>。</p>
+
+<h2 id="调用栈">调用栈</h2>
+
+<p>JavaScript是一种单线程的编程语言，这意味着它只拥有一个单独的调用栈。因此它一次只能做一件事情。</p>
+
+<p>调用栈是一种数据结构记录着我们正在程序的什么地方。如果我们步入一个函数，我们就将这个函数放在栈的顶部。如果我们从一个函数返回，我们则是将这个函数从栈顶弹出。这就是这个栈所做的一切。</p>
+
+<p>让我们看一个例子。参看如下代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">multiply</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">y</span>;
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printSquare</span>(<span style="color:#a6e22e">x</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">multiply</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">x</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">s</span>);
+}
+
+<span style="color:#a6e22e">printSquare</span>(<span style="color:#ae81ff">5</span>);
+</code></pre></div>
+<p>当引擎执行这段代码的时候，调用栈首先将会是空的。然后，将会按照以下步骤进行：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2048/1*Yp1KOt_UJ47HChmS9y7KXw.png" alt="" /></p>
+
+<p>调用栈中的每一项都被称为<strong>栈帧(Stack Frame)</strong>。</p>
+
+<p>并且这正是都异常被抛出的时候栈追踪是如何构建的——这基本就是异常发生时调用栈的状态。请看如下代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>() {
+    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;SessionStack will help you resolve crashes :)&#39;</span>);
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bar</span>() {
+    <span style="color:#a6e22e">foo</span>();
+}
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">start</span>() {
+    <span style="color:#a6e22e">bar</span>();
+}
+
+<span style="color:#a6e22e">start</span>();
+</code></pre></div>
+<p>如果这段代码在Chrome中执行（假设代码是在一个叫做foo.js的文件中），接下来的栈追踪将会产生：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*T-W_ihvl-9rG4dn18kP3Qw.png" alt="" /></p>
+
+<p>“<strong>爆栈</strong>&ldquo;——当你达到最大调用栈的大小的时候就会发生这种情况。并且这种情况很容易产生，特别是你没有对你的代码做全面的测试的时候。请看下面的示例代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>() {
+    <span style="color:#a6e22e">foo</span>();
+}
+
+<span style="color:#a6e22e">foo</span>();
+</code></pre></div>
+<p>当引擎开始执行这段代码的时候，它一开始调用函数”foo“。然而，这个函数递归调用本身并且没有终止条件。因此在每一个执行的步骤中，相同的函数都会一次又一次地被添加到调用栈中。看起来就像这样：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2048/1*AycFMDy9tlDmNoc5LXd9-g.png" alt="" /></p>
+
+<p>在某个点，然而函数调用的数量就超过调用栈的实际尺寸，那么浏览器就决定采取行动，抛出一个错误，看起来是这个样子的：</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*e0nEd59RPKz9coyY8FX-uw.png" alt="" /></p>
+
+<p>在单线程环境中运行代码可能相当容易因为你不需要处理多线程环境中复杂的情形——比如，死锁。</p>
+
+<p>但是在单线程环境中也可能遇到种种限制。因为JavaScript具有一个单独的调用栈，<strong>当事情变得缓慢的时候到底发生了什么？</strong></p>
+
+<h2 id="并发以及事件循环"><strong>并发以及事件循环</strong></h2>
+
+<p>当你的函数调用在调用栈中花了大量的时间来进行到底发生了什么？比如，想象一下假如你想在浏览器中使用JavaScript来做一些复杂的图像转换。</p>
+
+<p>你可能会问——为什么这也会是一个问题？问题是尽管调用栈具有函数来执行，但是浏览器实施中不能做任何其他的事——它被阻塞了。这意味着浏览器不能渲染，它不能运行其他的代码，它就是歇菜了。如果你希望你的app能够具有流畅的UI的时候就会产生问题。</p>
+
+<p>并且这不是唯一的问题。一旦你的浏览器开始处理调用栈中的大量任务，他将在很长时间内都无法响应。大多数浏览器通过抛出错误来采取行动，询问你是否想中止网页。</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*WlMXK3rs_scqKTRV41au7g.jpeg" alt="" /></p>
+
+<p>现在，这并不是一种最好的用户体验，是不是？</p>
+
+<p>因此，我们如何在不阻塞UI并且让浏览器保持响应的情况下执行大量的代码？解决方案就是<strong>异步回调</strong>。</p>
+
+<p>这个将会在”JavaScript是如何工作的&rdquo;的第二部分进一步解释。</p>
+
+<p>同时，如果你很难在你的JavaScript重现并且理解问题的时候，可以看看 <a href="https://www.sessionstack.com">SessionStack</a>。SessionStack记录了你的web应用中的一切：所有的DOM变化，用户交互，JavaScript异常，栈追踪，失败的网络请求以及调试消息。</p>
+
+<p>使用SessionStack，你可以重现你的web应用中的问题就像录像一样，并且可以看到用户交互的一切。</p>
+
+<p>现在有一个免费的计划能够允许你可以<a href="https://www.sessionstack.com/signup/">开始免费试用</a></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2062/1*kEQmoMuNBDfZKNSBh0tvRA.png" alt="" /></p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/javascript"><span class="tag">Javascript</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>186</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
