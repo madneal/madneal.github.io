@@ -215,6 +215,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
+    <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
+准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
+另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
+const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; { let ele = { cx: circle.cx, cy: circle.cy, sroke: circle.stroke, id: circle.id }; result.push(ele); }) const str = JSON.stringify(result);  通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
+ Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&gt; TimeSheet =&gt; TimesheetTable 这样的嵌套。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" class="post-link">聊聊答题应用题库的建立</a></h3>
     <p class="post-meta">@Neal · Feb 23, 2018 · 2 min read</p>
   </header>
@@ -402,36 +421,6 @@ star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（�
  prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/" class="post-link">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</a></h3>
-    <p class="post-meta">@Neal · May 11, 2017 · 5 min read</p>
-  </header>
-  
-  <p class="post-summary">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1] 原文：基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-渐进式web应用是大势所趋。越来越多的大公司开始使用这些技术（比如推特：https://mobile.twitter.com/）。
-想象你可以在地铁中浏览一个web应用，这个应用能够向用户推送通知并且提供实时的数据，以及提供类似于app的浏览，这些就是PWA的大致的能力。
-渐进式web应用（PWA）是一个web应用能够提供给用户一种类似于app的体验。PWA得益于现代web科技创新（Service Workers, Native APIS, JS famework）以及提升的web应用质量标准。
-如果你想了解更多关于PWA，请访问这个很棒的Google developer page。
-看一下下面的PWA！看起来很像原生的app，是不是？
-推特渐进式web应用
-从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
- 你可以选择任何你喜欢的框架来进行开发；
- 一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
- 很容易获得：不需要通过应用商店来下载。
-  然而，在2017年早期，PWA仍然面临一些限制条件：
- Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
- 一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
-  教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
   </footer>
 </article>
 

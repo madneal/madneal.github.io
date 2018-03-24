@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>pwa, 上海地铁线路图全新重构</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 &amp;ldquo;offline first&amp;rdquo;。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
+准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
+另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
+const circles = document.querySelectorAll(&amp;#39;circle&amp;#39;); let result = []; circles.forEach(circle =&amp;gt; { let ele = { cx: circle.cx, cy: circle.cy, sroke: circle.stroke, id: circle.id }; result.push(ele); }) const str = JSON.stringify(result);  通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
+ Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&amp;gt; TimeSheet =&amp;gt; TimesheetTable 这样的嵌套。" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="pwa, 上海地铁线路图全新重构" />
+    <meta name="twitter:description" content="之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 &amp;ldquo;offline first&amp;rdquo;。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
+准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
+另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
+const circles = document.querySelectorAll(&amp;#39;circle&amp;#39;); let result = []; circles.forEach(circle =&amp;gt; { let ele = { cx: circle.cx, cy: circle.cy, sroke: circle.stroke, id: circle.id }; result.push(ele); }) const str = JSON.stringify(result);  通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
+ Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&amp;gt; TimeSheet =&amp;gt; TimesheetTable 这样的嵌套。" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="pwa, 上海地铁线路图全新重构" />
+  <meta property="og:description" content="之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 &amp;ldquo;offline first&amp;rdquo;。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
+准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
+另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
+const circles = document.querySelectorAll(&amp;#39;circle&amp;#39;); let result = []; circles.forEach(circle =&amp;gt; { let ele = { cx: circle.cx, cy: circle.cy, sroke: circle.stroke, id: circle.id }; result.push(ele); }) const str = JSON.stringify(result);  通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
+ Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&amp;gt; TimeSheet =&amp;gt; TimesheetTable 这样的嵌套。" />
+  <meta property="og:url" content="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">pwa, 上海地铁线路图全新重构</h1>
+      <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 &ldquo;offline first&rdquo;。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：<a href="https://neal1991.github.io/subway-shanghai">https://neal1991.github.io/subway-shanghai</a></p>
+
+<h2 id="准备">准备</h2>
+
+<p>准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 <a href="https://github.com/facebook/create-react-app">create-react-app</a> 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。</p>
+
+<p>另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">circles</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelectorAll</span>(<span style="color:#e6db74">&#39;circle&#39;</span>);
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> [];
+<span style="color:#a6e22e">circles</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">circle</span> =&gt; {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">ele</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">cx</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">cx</span>,
+    <span style="color:#a6e22e">cy</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">cy</span>,
+    <span style="color:#a6e22e">sroke</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">stroke</span>, 
+    <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">id</span>
+  };
+  <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">ele</span>);
+})
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">result</span>);
+</code></pre></div>
+<p>通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。</p>
+
+<h2 id="设计">设计</h2>
+
+<p>数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：</p>
+
+<h3 id="组件结构">组件结构</h3>
+
+<p>将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：</p>
+
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/map.png" alt="map.png" /></p>
+
+<ul>
+<li>Label: 地图上的文本信息，包括地铁站名，线路名称</li>
+<li>Station: 地铁站点，包括普通站点和中转站点</li>
+<li>Line： 地铁线路</li>
+<li>InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息</li>
+</ul>
+
+<p>这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&gt; TimeSheet =&gt; TimesheetTable 这样的嵌套。</p>
+
+<h2 id="组件通信和状态管理">组件通信和状态管理</h2>
+
+<p>本地开发的最大的难点应该就是这一块的内容了。本来由于组件的层级并不算特别复杂，所以我并不打算上 Redux 这种类型的全局状态管理库。主要组件之间的通信就是父子通信和兄弟组件通信。父子组件通信比较简单，父组件的 state 即为子组件的 props，可以通过这个实现父子组件通信。兄弟组件略为复杂，兄弟组件通过共享父组件的状态来进行通信。假如这样的情景，我点击站点，希望能够弹出信息提示窗，这就是 Station 组件和 InfoCard 组件之间的通信，通过 Map 组件来进行共享。点击 Station 组件触发事件，通过回调更新 Map 组件状态的更新，同时也实现了 InfoCard 组件的更新。同时为了实现，点击其它区域就可以关闭信息提示窗，我们对 Map 组件进行监听，监听事件的冒泡来实现高效的关闭，当然为了避免一些不必要的冒泡，还需要在一些事件处理中阻止事件冒泡。</p>
+
+<p><img src="https://user-images.githubusercontent.com/12164075/37656324-ace5c2b2-2c82-11e8-8b6a-b3c96e091c73.gif" alt="subway-react" /></p>
+
+<p>InfoCard 是最为复杂的一个组件，因为里面包含了好几个 icon，以及状态信息的切换，同时需要实现切换不同的站点的时候能够更新信息提示窗。需要注意信息提示窗信息初次点击信息的初始化，以及切换不同 icon 时分别显示不同的信息，比如卫生间信息或者出入口信息，以及对于时刻表，切换不同的线路的时候更新对应的时刻表。这些状态的转化，需要值得注意。另外值得一题的点就是，在切换不同站点的时候的状态，假如我正在看某个站点的卫生间信息的时候，我点击另外一个站点，这时候弹出的信息提示窗应该是时刻表信息还是卫生间信息呢？我的选择还是卫生间信息，我对于这一状态进行了保持，这样的用户体验从逻辑上来讲似乎更佳。具体实现的代码细节就不一一说明了，里面肯能包含更多的细节，欢迎使用体验。</p>
+
+<h2 id="性能优化">性能优化</h2>
+
+<p>以上这些的开发得益于之前的维护，所以重构过程还是比较快的，稍微熟悉了下 react 的用法就完成了重构。但是，在上线之后使用 lighthouse 做分析，performan 的得分是 0 分。首屏渲染以及可交互得分都是 0 分，首先来分析一下。因为整个应用都是通过 js 来渲染，而最为核心的就是那个 svg。整个看下来，有几点值得注意：</p>
+
+<ul>
+<li>代码直接将 json 导入，导致 js 体积过大</li>
+<li>所有组件都在渲染的时候进行加载</li>
+</ul>
+
+<p>找到问题点，就可以想到一些解决方案了。第一个比较简单，压缩 json 数据，去除一些不需要的信息。第二个，好的解决办法就是通过异步加载来实现组件加载，效果明显，尤其是对于 InfoCard 组件：</p>
+
+<h3 id="同步">同步</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InfoCard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+  <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+    <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>) <span style="color:#960050;background-color:#1e0010">｛</span>
+    ...
+    <span style="color:#960050;background-color:#1e0010">｝</span>
+  <span style="color:#960050;background-color:#1e0010">｝</span>
+  ...
+}
+</code></pre></div>
+<h3 id="异步">异步</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">asyncInfoCard</span> (<span style="color:#a6e22e">importComp</span>) {
+  <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InfoCard</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">Component</span> {
+    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">props</span>) {
+      <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">props</span>);
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
+      };
+    }
+    
+    <span style="color:#a6e22e">asyncComponentDidMount</span>() {
+      <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">component</span> } <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">importComp</span>();
+      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setState</span>({
+        <span style="color:#a6e22e">component</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">component</span>
+      })
+    <span style="color:#960050;background-color:#1e0010">｝</span>
+  }
+}
+</code></pre></div>
+<p>这样我们就实现了将同步组件改造成一个异步加载的组件，这样就无需一下子加载所有的组件。这样我们就可以在 Map 中使用异步的方式来进行组件的加载：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">asyncInfoCard</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./InfoCard&#39;</span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">InfoCard</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">asyncInfoCard</span>(() =&gt; <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#39;./InfoCard&#39;</span>)
+</code></pre></div>
+<p>通过上线之后的性能分析，lighthouse 性能评分一下子就上升到了 80 多分，证明这样的改进还是比较有效的。另外一个值得提的点就是首屏，因为历史原因，整张图 svg 中元素的位置都是定死的，及横坐标和纵坐标都已经是定义好的，而 svg 被定为在中间。在移动端加载时，呈现的就是左边的空白区域，所以给用户一种程序未加载完毕的错觉。之前的版本的做法就是通过 scroll 来实现滚动条的滚动，将视图的焦点移动到中间位置。这次的想法是通过 <code>transform</code> 来实现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">svg</span> {
+<span style="color:#66d9ef">transform</span>: translate(<span style="color:#ae81ff">-100</span><span style="color:#66d9ef">px</span>, <span style="color:#ae81ff">-300</span><span style="color:#66d9ef">px</span>)
+}</code></pre></div>
+<p>这样实现了整个 svg 图位置的偏移，使用 lighthouse 进行分析，性能分降到了 70 多分。继续想想有没有其他的方法，后来我想在最左上上角定义一个箭头动画。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right_arrow.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right arrow&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right arrow&#34;</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right-arrow&#34;</span>/&gt;</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">right-arrow</span> {
+  <span style="color:#66d9ef">animation</span>: moveright <span style="color:#ae81ff">3</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span> <span style="color:#66d9ef">infinite</span>;
+}
+@<span style="color:#66d9ef">keyframs</span> <span style="color:#f92672">moveright</span> {
+  <span style="color:#f92672">0</span><span style="color:#f92672">%</span> {
+    <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">2</span><span style="color:#66d9ef">rem</span>);
+  }
+  <span style="color:#f92672">50</span><span style="color:#f92672">%</span> {
+    <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">3</span><span style="color:#66d9ef">rem</span>);
+  }
+  <span style="color:#f92672">100</span><span style="color:#f92672">%</span> {
+    <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">5</span><span style="color:#66d9ef">rem</span>);
+  }
+} </code></pre></div>
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/right_arrow.gif" alt="right_arrow.gif" /></p>
+
+<p>这样我们就可以创建一个循环向右移动的动画，提示用户向右滑动。部署之后发现性能分立马降到 0，索性也就放弃了这个做法。最后来时决定采用 <code>transform: translateX(-200px) translateY(-300px);</code> ，因为这样通过 css3 的属性可以在一些移动设备上还可以利用 GPU 加速，并且 translateX 不会引起页面的重绘或者重排，只会导致图层重组，最小避免对性能的影响。</p>
+
+<h2 id="部署">部署</h2>
+
+<p>目前的部署方案是采取 create-react-app 的官方建议，通过 gh-pages 实现将 build 的打包文件上传到 gh-pages 分支上从而实现部署。</p>
+
+<h3 id="兼容性">兼容性</h3>
+
+<p>目前该应用在 Chrome 浏览器的支持性是最好的，安卓浏览器建议安装 Chrome 浏览器使用，我一般也都比较喜欢在手机上使用谷歌浏览器。对于 Safari 浏览器，其它的浏览功能似乎没有什么大问题，目前应该还没支持添加到主屏幕。不过在之后的 ios 版本好像对于 pwa 有着更进一步的支持。</p>
+
+<h2 id="结语">结语</h2>
+
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/commits.png" alt="commits.png" /></p>
+
+<p>花了两个礼拜的时间完成了项目的完整的重构，从这一年来的 commit 记录可以看到三月份疯狂 commit 了一波，主要是第一个周末花费了两天的时间修改了好多代码，被那个 InfoCard 的状态切换搞了很久，后面就是针对性能做了一些优化。过程很痛苦，一度怀疑自己的 coding 能力。不过最后还是有以下感悟：</p>
+
+<ul>
+<li>世界上没有最好的语言，最好的框架，只有最合适的</li>
+<li>最优雅的实现都不是一蹴而就的，都是一个个试出来的</li>
+</ul>
+
+<p>最后一个冷笑话：</p>
+
+<p>青年问禅师：“请问大师，我写的程序为什么没有得到预期的输出？”
+禅师答到：“年轻人，那是因为你的程序只会按你怎么写的执行，不会按你怎么想的执行啊……”</p>
+
+<p><a href="https://github.com/neal1991">源代码地址</a>，欢迎 star 或者 pr。</p>
+
+<p>以上</p>
+
+<p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+
+<p><img src="https://user-gold-cdn.xitu.io/2018/2/10/1617eae1b59c001c?w=258&amp;h=258&amp;f=jpeg&amp;s=27683" alt="93cfyj.jpg" /></p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/pwa"><span class="tag">Pwa</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/react"><span class="tag">React</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
