@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web前端 on Neal&#39;s Blog</title>
+    <link>https://madneal.com/categories/web%E5%89%8D%E7%AB%AF/</link>
+    <description>Recent content in Web前端 on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Sun, 12 Nov 2017 17:12:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/categories/web%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>出去就餐并且理解Express.js的基本知识</title>
+      <link>https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Sun, 12 Nov 2017 17:12:53 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/</guid>
+      <description>Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端&amp;hellip;&amp;hellip;你可能并不会很顺利。
+是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
+当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
+有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
+下面是我们将会涉及到的四个关键部分：
+ The require statements Middleware Routing App.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</title>
+      <link>https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/</link>
+      <pubDate>Wed, 13 Sep 2017 21:04:31 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/</guid>
+      <description>JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&amp;rsquo;setTimeout&amp;rsquo;）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</description>
+    </item>
+    
+    <item>
+      <title>通过利用immutability的能力编写更安全和更整洁的代码</title>
+      <link>https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/</link>
+      <pubDate>Sun, 21 May 2017 11:41:05 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/</guid>
+      <description>通过利用immutability的能力编写更安全和更整洁的代码  原文：Write safer and cleaner code by leveraging the power of “Immutability”
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Immutability是函数式编程的重要基础之一。它允许你能编写更安全以及更整洁的代码。我将会通过一些JavaScript例子来向你展示如何来达到immutability。
+根据维基百科：
+ 不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
+ Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
+const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5); console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5]  这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</description>
+    </item>
+    
+    <item>
+      <title>菜鸟程序员成长史 --记 Github 1000&#43; contributions</title>
+      <link>https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/</link>
+      <pubDate>Fri, 19 May 2017 08:53:06 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/</guid>
+      <description>其实一直以来想写一篇文章总结这几年的技术学习，刚好趁着自己的第一次github contribution 达到1000+，写篇文章总结以下。本文篇幅较长，我会分为几个章节来分别阐述。
+博客篇 为什么我要把博客放在第一位呢？因为我认为博客是developer学习技术的平台，也是developer分享知识的平台，博客差不多也就相当于是developer的名片。现如今，博客平台形形色色，有老牌的博客园，CSDN，也有现在比较新潮的SegmentFault，掘金，开发者头条，知乎等等。现在博客的形式已经发展得多种多样，现如今新潮的犹如各种各样的专栏等等。当然，在这么多博文中，有很多质量很高的文章，也有很多滥竽充数的垃圾文章。下面，我就就我个人的了解探探我接触的这些博客平台，仅是个人观点。
+Github 哈哈。我为什么把Github列到博客篇呢？其实现在Github几乎已经成为了我生命中不可或缺的一部分，每天打开电脑的一件事，基本就是打开Github看看。作为世界上最大的同性交友网站，Github对于程序猿来说绝对是生命中不可或缺的部分。在此，我主要说说Github作为博客方面的内容。 很多人认为Github只不过是一个代码托管的地方，为什么会和博客有关系呢？其实，现在很多人都是在Github的issue里面开博客，因为issue里面方便作者和读者的沟通，而且支持markdown格式，各种功能也是很丰富。对于比较关注的博客，你可以设置watch，这样你就可以了解issue里面的每一次变化，并且还会有相应的邮件通知。在此，给出几个我关注的几个人的Github博客：
+ iCSS：讲解CSS的，有的还是蛮有趣的。 梁少峰的个人博客：讲解vue讲解的很透彻，百度大牛，我觉得有些博文挺值得看，而且值得多看几遍，不过我好像都没看完。他的博文还是需要深度挖掘的。 ccforward/cc：应该是当初关注他的一个知乎爬虫，他的博客内容我没有看太多，但是内容貌似还不错。 underscore-analysis：解析underscroe源代码的，挺不错的，我看过一两篇，值得多读几篇，我自己也该去读了。 Front-end-tutorial：内容很多，我没有过多了解，可以了解一下。  以上就是我了解的一些在Github上面的博客，因为在Github我没有特别关注这方面，所以还不是特别多，当然Github也不是我主要逛博客的地方。
+CSDN CSDN是我开启个人技术博客的地方，感兴趣的地方去我的博客逛逛http://blog.csdn.net/neal1991 。我应该是从2015年4月份开始写博客的，博客的内容主要有我研究生期间一开始做的道路识别的一些研究的论文，虽然这个方向没搞下去，这个方向的确很有前景，只能说老板很有眼光，但我没能力，没能搞下去。其它的也包括一些开发过程遇到的坑之内的，面试经历，技术文章翻译。老实说，CSDN现在的确不是一个很好的平台，因为本身它就偏老，在markdown的显示不是很完美，在移动端显示不是很好，还有一点很重要，广告特别多，还是莫名其妙的，看起来很讨厌。其实我一直都想弃坑，奈何就是github国内访问速度不稳定，还有毕竟在这边维护这么久了，所以还是一直维护着。在CSDN上，我基本上都是去写博客，基本不会在它上面浏览技术博客，因为它的浏览界面实在是太杂乱了，没有重点。这可能也是老牌博客的一个缺点，可能一时半会也没办法改过来。下面我主要讲一些我自己的一些比较稍微有用的博客内容：
+ combox系列问题集：当初做winform开发遇到的问题，记得当初最坑爹的是调试combox的时候，visual studio老是崩溃，后来发觉居然是有道翻译的锅，也是醉了。。。 独立成分分析：这个应该是当初一个讨论班里面要做的一个presentation，我把内容整理出来写了这篇博文，阅读量快2000了，好像是我博客里面阅读次数最多的了。 如何查找django安装路径：非常简单的一个问题，但是当初搜遍了，没找到解决方法。 mongoose对象无法新增删除属性：当初在处理mongo遇到的一个问题，是个坑。 第一个chrome extension：第一次写chrome extension，没有想象中的那么复杂，不过还是有一些方法的，貌似360有翻译过谷歌相关的文档。老实说，谷歌真的很良心，现在很多开发者文档都已经是中文的了。 第一个pwa：第一次写progressive web application，其实写pwa和写其它单页面应用没有特别大的区别。pwa也是我非常看到的技术栈，我觉得这个比小程序好上一百倍，只不过现在在国内还是不温不火，但是我觉得很肯能哪一天就星星之火，可以燎原了。  鉴于CSDN平台的种种，我的确越来越不太愿意在这上面写文章。而且我最近的文章一向是以翻译国外技术文章为主，毕竟还是菜，所以只能靠英语吃饭啦。
+掘金 老实说，掘金应该是同类这种网站访问量比较大的。的确，里面有不少的精品内容，当然也会参杂很多乱七八糟的东西。其实，现在一般的原创博主都不会只在一个平台发文章，所以基本上你这个平台看得到的，在其它平台也差不多都能看到。只不过我现在基本不看掘金了，因为他们的编辑对新人极度不友善，极度不友好。
+众成翻译 360的一个专门翻译技术博客为主的平台，目前应该还是比较小众。360的前端其实还是蛮不错的，尤其是他们的齐舞团队，里面也有很多大牛。这个平台里面的文章一半质量还是比较高的，而且这个平台翻译操作也是蛮舒适的，感兴趣的非常值得试一试。而且他们的群沟通都很流畅，不像掘金那帮人。。。无力吐槽。
+知乎 我本身一向是很排斥知乎的。讲心里话，知乎里面百分之八十的人都是在写故事，骗关注的，我也不明白知乎为什么充斥了这么多天天无事可做的人。当然，不可否认的是，知乎里面还是存在百分之二十的精品内容的，这也是让我能够忍受那剩余的百分之八十垃圾的原因。知乎里面那些回答我觉得没有太大的意义，看了也就是笑一笑，一般都是用来刷新三观用的，在此，我仅说一些技术专栏：
+ 饿了么前端：饿了么现在前端的确搞得风生水起，尤其是pwa，感觉他们是这方面搞得国内最为成熟的一家。可能并不是，但他们肯定是分享这方面内容最多的公司。感觉饿了么前端蛮多大牛，不过感觉他们都喜欢混国外圈，黄玄基本都是在medium发文章的。。。 某熊的全栈之路：这个应该是infoq的专栏，这个编辑每个礼拜会发一个国内外最新技术的文章集合，基本是前端为主。内容比较新颖，基本上最时髦的都在这里面。 Think In Vue：意如其名，现在vue在国内真的很火。火到我觉得用react的撕逼应该撕不过vue，vue的作者尤雨溪在知乎也是很活跃的，经常手撕任何喷vue的人，还有看他阮一峰每日一喷很有意思。阮老师也是个很有意思的人，感觉天天都有人喷他，但是阮老师的心态丝毫不受影响，剖有大师风范。不过值得一提的是，阮老师博客的广告位可价值不菲哦~~ 美团点评技术博客：算得上是大厂，值得一看。  知乎乱，前端乱，如何乱中取胜，就是要保持一颗平常心。
+开发者头条 不温不火的平台，文章质量还行。我一般发文章这个里面也会发一份。感觉里面的内容偏机器学习以及架构方面，而且这发文章可以攒IO币，可以换书哟。
+Medium 国外的一个博客平台，访问需要翻墙。这是国外一个专门写story的地方，样式很好看，应该算得上是国外非常知名的一个博客平台了。当然了，里面的内容也是多姿多彩的，同时里面的技术文章质量也有很多很高的文章。现在国内技术圈翻译的大多数文章基本都是来自于这个平台。
+Quora 国外一个和知乎一样的网站。不过知乎由于国内人数优势，火爆异常。Quora则是不温不火，而且上面还有不少华人。我关注过一段时间，但貌似都没什么特别的内容。 以上基本就是我所有的对于一些博客平台的了解，可能不包含所有，但基本都是我自己的个人的亲身经历。可能部分言辞颇为激烈，但也都是我的肺腑之言。
+微信公众号 微信公众号作为一种特殊的平台，现在也成为一种传播渠道，有点类似于报看订阅的形式。但这不一定是一种非常有效的传播方式，感觉深度还是不够的，我比较喜欢在电脑上看文章，因为在手机上看文章难以持续地专注于一篇有内容的文章，一般就只能浅尝则止。所以我一般都是把链接转到我的微信PC版，然后再用浏览器打开，下面介绍一些我关注的一些技术类公众号：
+ 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。
+Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
+star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（当然也有很多是骗star的）。其实，现在很多人看到一个项目都会去star，但是后续是否会关注，当然也就不一定了。曾经有一段时间，我对star深深着迷（其实现在还是很着迷），我每天都希望有人能给我的项目star，看着别人上千的star我都会超级羡慕。但我其实也能够深深体会到做一个开源项目的不容易，开发者有一个idea往往很简单，但是要去实现它，推广它，完善它。这真的很难很难，而且还会有各种各样形形色色的人问你各种问题，给你提出各种要求，这些都是很痛苦的。但是我依然希望自己有一天还是能够成为一名出色的开源项目的开发者。下面我就挑一些我star的项目来讲一讲：
+ prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。</description>
+    </item>
+    
+    <item>
+      <title>基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</title>
+      <link>https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/</link>
+      <pubDate>Thu, 11 May 2017 09:28:40 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/</guid>
+      <description>基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1] 原文：基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+渐进式web应用是大势所趋。越来越多的大公司开始使用这些技术（比如推特：https://mobile.twitter.com/）。
+想象你可以在地铁中浏览一个web应用，这个应用能够向用户推送通知并且提供实时的数据，以及提供类似于app的浏览，这些就是PWA的大致的能力。
+渐进式web应用（PWA）是一个web应用能够提供给用户一种类似于app的体验。PWA得益于现代web科技创新（Service Workers, Native APIS, JS famework）以及提升的web应用质量标准。
+如果你想了解更多关于PWA，请访问这个很棒的Google developer page。
+看一下下面的PWA！看起来很像原生的app，是不是？
+推特渐进式web应用
+从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
+ 你可以选择任何你喜欢的框架来进行开发；
+ 一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+ 很容易获得：不需要通过应用商店来下载。
+  然而，在2017年早期，PWA仍然面临一些限制条件：
+ Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+ 一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
+  教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。</description>
+    </item>
+    
+    <item>
+      <title>service worker介绍</title>
+      <link>https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/</link>
+      <pubDate>Tue, 02 May 2017 12:21:13 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/</guid>
+      <description>原文：Service workers explained
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
+ 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
+Service worker就好像它的内部有一个有一个shared worker ：
+ 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
+ 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
+ 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它&amp;rsquo;background&amp;rsquo;功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</description>
+    </item>
+    
+    <item>
+      <title>Twitter Lite以及大规模的高性能React渐进式网络应用</title>
+      <link>https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 16 Apr 2017 08:27:46 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/</guid>
+      <description>Twitter Lite以及大规模的高性能React渐进式网络应用  原文：Twitter Lite and High Performance React Progressive Web Apps at Scale
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
+ 创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
+在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
+下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
+对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
+经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
+const plugins = [ // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({ names: [ &amp;#39;vendor&amp;#39;, &amp;#39;manifest&amp;#39;], minChunks: Infinity }), // 从所有的块中提取公共模块（不需要&amp;#39;name&amp;#39;属性）  mew webpack.optimize.CommonChunkPlugin({ async: true, children: true, minChunks: 4 }) ];   添加细粒度，基于路由的代码分割。为了加快初始化和主页timeline渲染，app的整体大小可能会更大，文件会在sesiion期间内按需分块在40个代码块之中。&amp;ndash;Nicolas Gallagher</description>
+    </item>
+    
+    <item>
+      <title>第一个progressive web application，发车！</title>
+      <link>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/</link>
+      <pubDate>Sun, 19 Mar 2017 14:50:10 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/</guid>
+      <description>progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
+var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;fs&amp;#39;); var cityConfig = [&amp;#39;wuhu&amp;#39;, &amp;#39;shanghai&amp;#39;, &amp;#39;beijing&amp;#39;, &amp;#39;hangzhou&amp;#39;, &amp;#39;nanjing&amp;#39;, &amp;#39;wuxi&amp;#39;, &amp;#39;xiamen&amp;#39;, &amp;#39;longyan&amp;#39;]; var cheerio = require(&amp;#39;cheerio&amp;#39;); var url = &amp;#39;http://woeid.rosselliot.co.nz/lookup/&amp;#39;; var attrNames = [&amp;#39;city&amp;#39;, &amp;#39;province&amp;#39;, &amp;#39;country&amp;#39;, &amp;#39;woeid&amp;#39;]; var result = []; cityConfig.forEach(function(city) { request.get(url + city) .end(function(err, res) { $ = cheerio.</description>
+    </item>
+    
+    <item>
+      <title>第一个chrome extension</title>
+      <link>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/</link>
+      <pubDate>Sat, 04 Mar 2017 13:47:34 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/</guid>
+      <description>如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
+{ &amp;quot;manifest_version&amp;quot;: 2, &amp;quot;name&amp;quot;: &amp;quot;弹幕增强&amp;quot;, &amp;quot;description&amp;quot;: &amp;quot;This extension provides you a good experience of sending danmu at douyu&amp;quot;, &amp;quot;version&amp;quot;: &amp;quot;1.0&amp;quot;, &amp;quot;browser_action&amp;quot;: { &amp;quot;default_icon&amp;quot;: &amp;quot;icon.png&amp;quot;, &amp;quot;default_popup&amp;quot;: &amp;quot;popup.html&amp;quot; }, &amp;quot;content_scripts&amp;quot; : [{ &amp;quot;matches&amp;quot;: [ &amp;quot;http://*/*&amp;quot;, &amp;quot;https://*/*&amp;quot; ], &amp;quot;js&amp;quot; : [&amp;quot;app.js&amp;quot;], &amp;quot;run_at&amp;quot;: &amp;quot;document_end&amp;quot; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&amp;rdquo;里面定义的是extension的相关内容，&amp;rdquo;default_icon&amp;rdquo;即是插件的图标，&amp;rdquo;default_popup&amp;rdquo;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。&amp;rdquo;content_script&amp;rdquo;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&amp;rdquo;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，&amp;rdquo;content_script&amp;rdquo;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script&amp;rdquo;:
+var times = 1000; for (var i = 0; i &amp;lt; times; i ++) { (function(i) { setTimeout(function() { console.</description>
+    </item>
+    
+    <item>
+      <title>Ext.js性能优化漫谈</title>
+      <link>https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</link>
+      <pubDate>Wed, 22 Feb 2017 21:40:16 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</guid>
+      <description>Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
+尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
+事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
+listeners: { load: onFirstLoadData, single: true }  在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
+避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
+减少border布局 不需要一下再加载所有的元素
+批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</description>
+    </item>
+    
+    <item>
+      <title>你可能不知道谷歌浏览器开发工具的其他用处</title>
+      <link>https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/</link>
+      <pubDate>Mon, 03 Oct 2016 08:03:50 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/</guid>
+      <description>原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
+Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
+当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
+在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
+ 选择节点元素  如果你熟悉jquery的话，你应该知道$(&amp;lsquo;.class&amp;rsquo;)和$(&amp;lsquo;#id&amp;rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。
+同样你可以在console使用同样的方式来访问元素。$(&amp;lsquo;tagName&amp;rsquo;) $(&amp;lsquo;.class&amp;rsquo;) $(&amp;lsquo;#id&amp;rsquo;)和document.querySelector(&amp;ldquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
+你可以用$$(&amp;lsquo;tagName&amp;rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
+2.将你的浏览器转化成一个编辑器
+你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
+你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
+document.body.contentEditable = true
+3.寻找dom中元素绑定的事件
+当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(&amp;lsquo;selector&amp;rsquo;))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：
+如果希望找到某个特定事件的监听，你可以这么做：
+getEventListeners($(&amp;lsquo;selector&amp;rsquo;)).eventName[0].listener
+这将展示所有和这个事件相关的监听。比如：
+getEventListeners($(&amp;lsquo;.firstName&amp;rsquo;)).click[0].listener
+4.监听事件
+如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
+ monitorEvents($(&amp;lsquo;selector&amp;rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),&amp;lsquo;eventName&amp;rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),[&amp;lsquo;eventName1&amp;rsquo;,&amp;lsquo;eventName2&amp;rsquo;….])将会监听符合这个选择器的事件。 unmonitorEvents($(&amp;lsquo;selector&amp;rsquo;))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
+console里面有一个很重要的函数叫做console.time(&amp;lsquo;labelTime&amp;rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&amp;lsquo;labelName&amp;rsquo;)能够结束相应的计时器。
+比如我们想看到一个循环的执行时间，我们可以做如下处理：
+console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &amp;lt; 100000; i++){ 2+4+5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6.</description>
+    </item>
+    
+    <item>
+      <title>Bootstrap真的总是好的吗</title>
+      <link>https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/</link>
+      <pubDate>Mon, 15 Aug 2016 13:16:39 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/</guid>
+      <description>原文地址：Bootstrap considered harmful
+原文作者：Hidde de Vries
+译文出自：neal
+译者： Neal
+个人主页：http://neal1991.pythonanywhere.com
+这些年Bootstrap已经在前端项目中流行起来，它能够带来很多好处。然而，但是如果以你们的团队已经有了在职的前端开发人员，我觉得最好还是不要用Bootstrap，在某些地方，弊大于利。
+Bootstrap的好处是什么 Bootstrap主要是栅格系统，但同时也带来了很多组件的样式表和脚本，包括表格，导航栏，进度条，页码，表单样式，模式和提示文本。在这篇文章，我所说的Bootstrap是包含它的所有功能的。
+Bootstrap是一个很好的工具对于一个纸箱装饰他们的程序但是无须担心结果的样式问题的后端开发人员。如果因为某些原因，预算或者什么的，你的团队没有前端开发人员或者设计人员，Bootstrap是一个绝佳的弥补方法。
+对于设计人员来说，Bootstrap也是有用处的：它可以快速地从设计软件切换到浏览器中，不需要过多担心前端的代码设计。
+即使是对于那些基本只专注于数据但是很少关注UI和布局的前端开发人员来说，Bootstrap也是一个绝佳的工具。
+什么时候你最好别用它 然而，如果你的团队已经拥有了前端开发人员，使用Bootstrap可能会潜在的浪费他们宝贵的时间，并让他们可能从解决实际问题上转移注意力。Bootstrap做的正是前端开发人员所擅长的事情，但是用的是一种很通用的方式。你的网站或者网络app是非常特别的，因此如果你使用一个通用的系统可能会不太合适。这意味着为了实现这种特殊性将会包含很多的异常发生。
+当需要很多异常来复位Bootstrap Bootstrap曾经是被Twitter 的开发人员用于系统化他们网络app的样式。如果你的网站app和他们的样式不一样，这意味着你需要解除他们中的某些样式。
+很多网站和Twitter的样式并不相同。因此，如果他们装载了Bootstrap的时候，他们可能需要卸载很多地方。
+在某些网站上，我看到有9/10的Bootstrap样式已经被网站自己的样式所替代。坦白说，这很荒谬。
+当它让简单的事情变得复杂 CSS是给网站添加一套简单的样式规则，这有时候可能会被重写。当你在你的网站使用Bootstrap的样式的时候，几乎所有的元素都是用一个复杂的样式规则。任何异常都会在它之上表现。问题是大多数网站他们的样式异常都被表现在Bootstrap之上。
+Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任何元素相结合起来，对于需要特别处理的列则要区别对待。很多网站十分简单：它们在小屏幕设备上没有列或者只有一到两列在大一点的屏幕上。
+当它产生技术债务的时候 前端依赖Bootstrap的时间越长，就会牵扯到更多的东西，更多的规则需要设置来覆盖Bootstrap的某些规则。这或多或少地让技术代码背负技术债务，尤其前端代码的部署需要手动的更新。随着依赖的增多，Bootstrap将变得更加难以移除。
+当它命名一些不是你app的规定 命名是一件很困难的事情，为团队的应用中的规定命名需要花费相当多的时间。使用&amp;rsquo;btn&amp;rsquo;之类的缩写并不能很好的给组件命名。
+结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。</description>
+    </item>
+    
+    <item>
+      <title>javascript中的对象字面量为啥这么酷</title>
+      <link>https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/</link>
+      <pubDate>Tue, 26 Jul 2016 22:37:18 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/</guid>
+      <description>原文链接 : Why object literals in JavaScript are cool 原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com   在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+ 成对出现的名称以及相应的值{ name1: value1 }
+ Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+  遗憾的是，这个对象字面量可能会出现下面这样的情况：
+var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&amp;gt; &#39;value 1&#39; myObject.</description>
+    </item>
+    
+    <item>
+      <title>javascript中无法将string转化为json对象</title>
+      <link>https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Fri, 01 Jul 2016 16:34:48 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/</guid>
+      <description>在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{&amp;ldquo;age&amp;rdquo;:1}]}&amp;lsquo;.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到&amp;rsquo;[{&amp;ldquo;age&amp;rdquo;:1}]&amp;lsquo;进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;+str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</description>
+    </item>
+    
+    <item>
+      <title>判断数组中元素多个属性是否重复</title>
+      <link>https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/</link>
+      <pubDate>Fri, 01 Jul 2016 13:42:49 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/</guid>
+      <description>js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理 ```var isUnique = function(collection) { for (var i = 0,len = collection.length;i &amp;lt; len;i++) { var count = 0; for (var j = 0;j &amp;lt; len;j++) { if (collection[i].name === collection[j].name &amp;amp;&amp;amp; collection[i].age === collection[j].age) { count = count + 1; } } if (count &amp;gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; };
+ 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套  collection = _.groupBy(collection,&amp;lsquo;name&amp;rsquo;); for (var i in collection) { if (collection[i].</description>
+    </item>
+    
+    <item>
+      <title>moongoose对象无法新增删除属性</title>
+      <link>https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Thu, 30 Jun 2016 21:40:33 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/</guid>
+      <description>昨天用nodes中的moongoose去查询一个结果遇到一个大坑，这个坑貌似用moongoose可能会遇到。背景是这样的，我在nodejs中去查询document，得到的可以看作是一个对象list。在这个结果集中，我要去寻找这个结果中的某个属性是否和其他的结果重复，并给它添加一个属性作为标志。举例子，我们获得的结果就像是[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;19&#39;}], 我希望把它变成[{name:&#39;neal&#39;,age:&#39;18&#39;,flag:true},{name:&#39;neal&#39;,age:&#39;19&#39;,flag:true}]。奇怪的事情发生了，我无法在这些对象中新增这个flag属性，这肿么可能。我尝试各种方法，但是还是存不进去。 后来去stack overflow一查，发觉居然是mongoose 的问题。。。。我压根没有想过是mongoose的问题。原来mongoose是ODM(object document mapper)，类似于操作关系型数据库的ORM,我们使用mongoose取到的数据结构依赖我们定义的schema结构，因为我们当初没有定义flag属性，所以最终返回的结果就没有这个属性了。 这个问题应该也有很多解决方法，这里就说一下我看到的一些方法。比如事先在schema增加这个属性，但是我觉得有时候就是不想定义这个属性才在后面加的；还有一个就是把返回的结果用toObject()方法进行转化，这样就可以像普通的对象一样增加属性了；其实本质的原因似乎是document .toObjet()里面需要一个vituals :true 的属性来实现，而默认的是false。可能我说的还不是特别透彻，可以去看一下官方的api http://mongoosejs.com/docs/api.html#document_Document-toObject</description>
+    </item>
+    
+    <item>
+      <title>nodejs回调大坑</title>
+      <link>https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/</link>
+      <pubDate>Wed, 27 Apr 2016 08:57:52 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/</guid>
+      <description>最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
+Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;rdquo;callback hell&amp;rdquo;或&amp;rdquo;pyramid of doom&amp;rdquo;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
+后续传递风格
+为什么会有坑？这要从后续传递风格（continuation-passing style&amp;ndash;CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
+这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
+在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
+module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) }  像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
+ 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</description>
+    </item>
+    
+    <item>
+      <title>模拟.net post请求属性</title>
+      <link>https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/</link>
+      <pubDate>Mon, 25 Apr 2016 17:02:51 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/</guid>
+      <description>这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</description>
+    </item>
+    
+    <item>
+      <title>nodejs爬虫编码问题</title>
+      <link>https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Sat, 16 Apr 2016 18:03:14 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
+var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。</description>
+    </item>
+    
+    <item>
+      <title>js的事件流理解</title>
+      <link>https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/</link>
+      <pubDate>Sat, 05 Mar 2016 17:19:32 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/</guid>
+      <description> 面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
+事件捕获和事件冒泡 事件流描述的是从页面中接收事件的顺序,也可理解为事件在页面中传播的顺序。 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：
+&amp;lt;body&amp;gt; &amp;lt;div id=&amp;quot;outer&amp;quot;&amp;gt; &amp;lt;div id=&amp;quot;inner&amp;quot;&amp;gt;&amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt;  这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&amp;gt;outer-&amp;gt;body。然而捕获事件流的顺序则截然想法：body-&amp;gt;outer-&amp;gt;innner。
+DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。还是以上面的代码为例，单击inner则会按照下面的顺序触发事件：document-&amp;gt;html-&amp;gt;body-&amp;gt;outer-&amp;gt;ineer-&amp;gt;outer-&amp;gt;body-&amp;gt;html-&amp;gt;document。在DOM事件流中，实际的目标inner在捕获阶段不会接受到事件。这意味着在捕获阶段，事件到outer就停止了，下一个阶段是“处于目标”阶段，于是事件在inner 上发生，并在事件处理中呗看成是冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
+事件处理程序 响应某个时间的函数叫做事件处理程序。DOM0级的事件处理程序很简单,onclick就是常用的DOM0级事件处理函数，只会在冒泡阶段被处理。 而DOM2级事件定义了两个方法用于处理置顶和删除事件处理程序的操作addEventListener()和removeEventListener()，所有DOM节点都包含这两个方法，并且它们都接受3个参数：要处理的事件名，作为事件处理的函数和一个布尔值。最后这个布尔值参数如果是true，表示在捕获阶段调用事件处理程序，反之则是在事件冒泡阶段处理程序。DOM2级方法添加事件处理程序的好处是可以添加多个事件处理程序，会按照添加顺序被处理（无论是捕获还是冒泡）。 而IE不同的它有自己的方法attachEvent()和detachEvent,这两个接受相同的两个参数：事件处理程序名称和事件处理程序函数。
+跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;+type,handler); } else { element[&#39;on&#39;+type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; +type,handler); } else { element[&#39;on&#39;+type] = null; } } }  </description>
+    </item>
+    
+    <item>
+      <title>百度前端实习生面试（连跪之旅）</title>
+      <link>https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/</link>
+      <pubDate>Fri, 04 Mar 2016 16:56:41 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/</guid>
+      <description>去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。</description>
+    </item>
+    
+    <item>
+      <title>前端面试题——系列一</title>
+      <link>https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/</link>
+      <pubDate>Tue, 01 Mar 2016 19:08:46 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
+      <description>html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
+img标签alt属性和title属性的区别
+alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
+ css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
+div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
+ 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：      给浮动元素添加 overflow:auto样式 为最后浮动元素设置如下样式： .clearfix:after{ visibility:hidden; display:block; content:” “; clear:both; height:0; } .</description>
+    </item>
+    
+    <item>
+      <title>前端面试基础题目</title>
+      <link>https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/</link>
+      <pubDate>Fri, 30 Oct 2015 14:38:23 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/</guid>
+      <description>行内元素有哪些？块级元素有哪些？CSS的盒模型？ 行内元素：a b br i span input select 块级元素：div p h1 h2 h3 h4 form ul css盒模型：content border margin padding
+前端页面由哪三层构成，分别是什么，作用是什么？ 结构层：主要指DOM节点：HTML/XHTML 样式层：主要指页面渲染：CSS 脚本层：主要指页面动画效果：JS/AS
+CSS引入的方式有哪些?link和@import的区别是？ 内联 内嵌 外链 导入 区别：同时加载
+css选择符号有哪些 标签选择符 类选择符 ID选择符
+标签上title和alt属性的区别是什么？ alt当图片不显示用文字代表 title为该属性提供信息
+什么是语义话的HTML？ 直观的认识标签，对于搜索引擎抓取有好处
+清除浮动的几种方式以及优缺点： 1 使用空标签清除浮动 clear:both（理论上可以清楚任何标签，缺点增加无意义的标签） 2 使用overflow:auto 3 使用afert伪元素清除浮动
+IE和标准下有哪些兼容性的写法
+var ev = ev || window.event document.documentElement.clientWidth || document.body.clientWidth var target = ev.srcElement || ev.target  闭包就是能够读取其他函数内部变量的函数
+添加，插入，替换，删除，到某个节点的方法
+obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </description>
+    </item>
+    
+    <item>
+      <title>github命令大全</title>
+      <link>https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</link>
+      <pubDate>Sun, 25 Oct 2015 22:30:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</guid>
+      <description>github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
+github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
+配置工具 对于本地版本配置用户信息
+git config --global user.name &amp;quot;username&amp;quot; git config --global user.email &amp;quot;email&amp;quot;  上面的分别是设置用户名和邮箱
+建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &amp;quot;description message&amp;quot;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</description>
+    </item>
+    
+    <item>
+      <title>javascript的继承模式</title>
+      <link>https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 24 Oct 2015 14:03:33 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/</guid>
+      <description>在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</description>
+    </item>
+    
+    <item>
+      <title>css盒子模型设置的缩略形式</title>
+      <link>https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/</link>
+      <pubDate>Sat, 24 Oct 2015 10:48:23 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/</guid>
+      <description>css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
+padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px  new method:
+padding:0px 20px 30px 10px // top right bottom left respectively  同理：
+margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px  margin:0px 20px 30px 10px  如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
+padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px  the new method:
+padding:20px  如果上下值和左右值分别一样呢： the old method:
+margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px  the new method
+margin:0px 20px // top and bottom right and left respectively  border的属性设置: the old method</description>
+    </item>
+    
+    <item>
+      <title>在pythonanywhere部署你的第一个应用</title>
+      <link>https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Wed, 21 Oct 2015 21:03:10 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/</guid>
+      <description>pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
+git clone https://github.com/&amp;lt;username&amp;gt;/my-first-blog.git  产生一个virtualenv
+cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate  数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
+import os import sys path = &#39;/home/&amp;lt;your-username&amp;gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application())  ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</description>
+    </item>
+    
+    <item>
+      <title>使用js实现图片轮滑效果</title>
+      <link>https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/</link>
+      <pubDate>Wed, 21 Oct 2015 19:57:40 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/</guid>
+      <description>经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt; &amp;lt;title&amp;gt;document&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;style.css&amp;quot;&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;javascript.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div id=&amp;quot;flash&amp;quot;&amp;gt; &amp;lt;ul id=&amp;quot;pic&amp;quot;&amp;gt; &amp;lt;li style=&amp;quot;display:block&amp;quot;&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot; &amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol id=&amp;quot;num&amp;quot;&amp;gt; &amp;lt;li class=&amp;quot;activate&amp;quot;&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;6&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot; class=&amp;quot;arrow&amp;quot; id=&amp;quot;left&amp;quot;&amp;gt;&amp;amp;lt;&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot; class=&amp;quot;arrow&amp;quot; id=&amp;quot;right&amp;quot;&amp;gt;&amp;amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;  图像的原路径我就不制定了，css文件
+* { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li.</description>
+    </item>
+    
+    <item>
+      <title>Django学习——开发你的第一个Django应用2</title>
+      <link>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/</link>
+      <pubDate>Sun, 11 Oct 2015 13:02:59 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/</guid>
+      <description>接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
+产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
+开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
+进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
+在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
+from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</description>
+    </item>
+    
+    <item>
+      <title>如何查找django安装路径</title>
+      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Sat, 10 Oct 2015 18:35:51 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/</guid>
+      <description>需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</description>
+    </item>
+    
+    <item>
+      <title>Django学习——开发你的第一个Django应用1</title>
+      <link>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/</link>
+      <pubDate>Sat, 10 Oct 2015 16:39:31 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/</guid>
+      <description>突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.</description>
+    </item>
+    
+    <item>
+      <title>http响应代码解释</title>
+      <link>https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/</link>
+      <pubDate>Sat, 10 Oct 2015 11:19:41 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/</guid>
+      <description>200：成功响应 302：找到，但是请求的资源在另外一个不同的url中。 400：错误请求。这个请求不能被服务器所理解，客户端必须修改请求。 401：未认证，这个请求需要用户认证。 404：未找到。服务器没有找到任何和这个请求符合的资源。</description>
+    </item>
+    
+    <item>
+      <title>全栈开发系列学习2——django项目搭建</title>
+      <link>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Sat, 10 Oct 2015 11:16:11 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</guid>
+      <description>项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;rdquo;pip install MySQL-python&amp;rdquo;就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入&amp;rdquo;make install&amp;rdquo;这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
+mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306
+MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo; MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;
+MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&amp;rdquo;make&amp;rdquo;,你将会看到： ｀ MYSQL_HOST = &amp;lsquo;127.</description>
+    </item>
+    
+    <item>
+      <title>一个神奇却很简单的css特效</title>
+      <link>https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/</link>
+      <pubDate>Wed, 07 Oct 2015 16:49:41 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/</guid>
+      <description>在网上看到一个前端大牛的主页，觉得他有一个特效特别酷，一开始还以为是要用什么javascript代码来实现，但仔细看一下，发觉只是用几行css代码就搞定了，我觉得挺好的。 他这个效果就是鼠标放在左半部分和右半部分，整个网页的布局颜色会相互变化，我贴上前后两张图来比较一下，你们就明白了。 当鼠标放在左半部分： 当鼠标放在右半部分： 可能静态的图片看不太出效果，但是动态看起来还是比较酷的，最关键的是它的代码其实很简单。
+.panel, .panel-left:hover + .panel-right { background-color: #22c3aa; color: white; } .panel-right, .panel:hover { background-color: white; color: #22c3aa; } .panel-right:hover + img#avatar { transform: rotateY(180deg); }  第一段和第二段代码主要就是背景颜色和主体颜色的改变，他把做面板鼠标移动到上面时的效果和右面板的效果设为一致，从而达到左右颠倒的效果，最后一段代码主要是下面一张图片的旋转180度。 真的是前端的东西很变化莫测，往往很简单的思路能够达到意想不到的效果，我觉得真的是值得我们很多时候多多思考的。 再贴上这个前端大神的网页http://zhangwenli.com/。真的很佩服她，一个女生居然代码写的这么好，看看别人做的东西，再看看自己的东西，简直惭愧不已，我觉得人丑还是多读书，尤其是我这种长的那么丑的人就更应该读了。</description>
+    </item>
+    
+    <item>
+      <title>全栈开发教学学习系列1——前言</title>
+      <link>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/</link>
+      <pubDate>Wed, 07 Oct 2015 14:47:02 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/</guid>
+      <description>在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
+一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC： 1. Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 2. View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 3. Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。</description>
+    </item>
+    
+    <item>
+      <title>indexDB的概念</title>
+      <link>https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Wed, 07 Oct 2015 09:49:59 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/</guid>
+      <description>IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。 1. 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 2. 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 3. IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 4. 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 5. 每个读写操作都是请求 IndexDB随时随地都在使用请求 6. 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 7. NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。</description>
+    </item>
+    
+    <item>
+      <title>css样式表的引入方式</title>
+      <link>https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/</link>
+      <pubDate>Tue, 06 Oct 2015 16:11:46 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/</guid>
+      <description>一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;css文件&amp;quot;&amp;gt; @import &amp;quot;css文件&amp;quot;  显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</description>
+    </item>
+    
+  </channel>
+</rss>

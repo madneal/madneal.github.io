@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>机器学习 on Neal&#39;s Blog</title>
+    <link>https://madneal.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+    <description>Recent content in 机器学习 on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Mon, 26 Oct 2015 08:44:06 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>differential evolution代码实例（DE算法）</title>
+      <link>https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Mon, 26 Oct 2015 08:44:06 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/</guid>
+      <description>DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
+clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4+(x1^6)/3+x1*x2é4*x2^2+4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &amp;gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a+d.</description>
+    </item>
+    
+    <item>
+      <title>柯西分布</title>
+      <link>https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/</link>
+      <pubDate>Mon, 12 Oct 2015 18:49:39 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/</guid>
+      <description>柯西分布的概率密度函数是： t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准柯西分布，标准柯西分布的密度函数是： 下面的是标准柯西分布概率密度函数分布图： </description>
+    </item>
+    
+    <item>
+      <title>奇异值分解基础(SVD)</title>
+      <link>https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/</link>
+      <pubDate>Sat, 27 Jun 2015 18:10:15 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/</guid>
+      <description>最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要的应用。
+特征值和特征向量 特征值和特征向量是线性代数里面的基础知识，相信大部分人都知道： 很显然，λ就是特征向量v对应的特征值，一个矩阵的一组特征向量都是相互正交的，相信这些大家在线性代数都有学习。特征值分解是将一个矩阵以下面的形式进行分解： 其中Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线上的元素就是一个特征值。 特征值分解可以得到特征值和特征向量，特征值表示的是这个特征值的重要性，而特征向量表示的是这个特征是什么，可以将每一个特征向量理解为一个线性的子空间。不过特征值分解也有很多的局限，比如变换的矩阵必须是方阵。
+奇异值 特征值分解只能针对于方阵，局限性较大，而奇异值分解是一个能够用于任意的矩阵的一种分解方法： 假设A是一个N*M的矩阵，那么U是一个N*N的方阵（里面的向量是正交的，U里面的向量称为左奇异向量），Σ是一个N*M的矩阵（除了对角线的元素都是0，对角线上的元素称为奇异值），V&amp;rsquo;（V的转置矩阵）是一个N*N的矩阵，里面的向量也是正教的，称为右奇异向量。 我们将矩阵A和他的转置矩阵相乘，就可以得到一个方阵，我们利用方阵的求特征值可以得到： 这里面的v，就是我们上面所说的右奇异向量，由此我们可以得到 这里的σ就是上面所说的奇异值，u就是上面说的左奇异向量。奇异值σ跟特征值类似，在矩阵Σ中也是从打到小排列，而且σ的减少特别的快。在很多情况下，前10%的甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们可以用前r大的奇异值来近似描述矩阵，因此部分奇异值分解可以如下定义： r是一个远小于m、n的数， 右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和要远远小于原始的矩阵A。
+SVD和PCA PCA的问题其实是一个基的变换，使得变换后的数据有着最大的方差。方差的大小描述的是一个变量的信息量，我们在讲一个东西的稳定性的时候，往往说要减小方差，如果一个模型的方差很大，那就说明模型不稳定了。但是对于机器学习的数据，方差大反而有意义，不然输入的数据就是同一个点了，那方差九尾0了。 这个假设是一个摄像机采集一个物体运动得到的图片，上面的点表示物体运动的位置，假设我们想用一条直线去拟合这些点，那我们应该选择什么方向的线？当然是图上标有signal的那条线。如果我们把这些点单纯的投影到x轴或者y轴上，最后在x轴和y轴上得到的方差就是相似的。 一般来说方差大的方向就是信号的方向，方差小的方向就是噪声的方向，我们在数据挖掘或者数字信号处理中，往往是要提高信噪比。就上图说，如果我们只保留signal方向的数据，就可以对原始数据进行不错的近似了。 PCA的就是对原始的空间中顺序地找一组相互正教的坐标轴，第一个轴使得方差最大，第二个轴是在与第一个轴相交的平面中使得方差最大，第三个轴也是在与第1,2个轴正交的平面中使得方差最大，这种假设在N维空间中，我们就可以找到N个这样的坐标轴，我们取前r个去近似这个空间，这样就从一个N维的空间压缩到r维的空间，但是我们可以选择r个坐标轴使得空间的压缩使得数据的损失最小。 假设我们矩阵的每一行代表一个样本，每一列代表一个feature，将一个m*n的矩阵A进行坐标轴的变化，P就是一个变换的矩阵从一个n维的空间变换到另外一个n维的空间 而将一个m*n的矩阵A变成一个m*r的矩阵，我们就会使得本来有n个feature的，变成有r个feature了(r小于n)，这r个其实就是对n个feature的一种提炼，我们把这个称为feature的压缩： 之前的SVD的式子是： 在矩阵的两边同时乘上一个矩阵V，由于v是一个正交的矩阵 我们对SVD分解的式子两边乘以U的转置矩阵U&amp;rsquo; PCA几乎可以说是对SVD的一种包装，如果我们实现了SVD，那也就实现了PCA。</description>
+    </item>
+    
+    <item>
+      <title>PCA算法和实例</title>
+      <link>https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</link>
+      <pubDate>Sat, 20 Jun 2015 09:11:39 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</guid>
+      <description>PCA算法 算法步骤： 假设有m条n维数据。 1. 将原始数据按列组成n行m列矩阵X 2. 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3. 求出协方差矩阵C=1/mXXT 4. 求出协方差矩阵的特征值以及对应的特征向量 5. 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6. Y=PX即为降维到k维后的数据
+实例 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
+然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2&amp;frasl;5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：
+因此我们的矩阵P是： 可以验证协方差矩阵C的对角化： 最好我们用P的第一行诚意数据矩阵，就得到了降维后的数据表示： 降维后的投影结果如下图： PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同的正交方向上没有相关性。 因此，PCA也存在一些限制，例如它可以很好地解除线性相关，但是对于高阶相关性就没有办法了。对于存在高阶相关性的数据，可以考虑Kernel PCA,通过Kernel将非线性相关转化为线性相关。另外，PCA假设数据各特征分布在正交方向上，如果在非正交方向上存在几个方差较大的方向，PCA的效果就大打折扣。 PCA是一种无参数技术，也就是说面对同样的数据，如果不考虑清晰，谁来做结果都一样，没有主观参数的介入，所以PCA便于通用实现，但是本身没有个性化的优化。
+本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html</description>
+    </item>
+    
+    <item>
+      <title>独立成分分析（Independent Component Analysis）</title>
+      <link>https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/</link>
+      <pubDate>Sun, 19 Apr 2015 12:52:51 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/</guid>
+      <description>ICA是一种用于在统计数据中寻找隐藏的因素或者成分的方法。ICA是一种广泛用于盲缘分离的(BBS)方法，用于揭示随机变量或者信号中隐藏的信息。ICA被用于从混合信号中提取独立的信号信息。ICA在20世纪80年代提出来，但是知道90年代中后期才开始逐渐流行起来。 ICA的起源可以来源于一个鸡尾酒会问题，我们假设三个观测点x1,x2,x3,放在房间里同时检测三个人说话，另三个人的原始信号为s1,s2,s3，则求解的过程可以如下图所示：
+定义 假设n个随机变量x1,x2,&amp;hellip;.xn,由n个随机变量s1,s2,&amp;hellip;sn组成，并且这n个随机变量是相互独立的，可以用下面的公示表达： 为了表达的方便，我们可以用向量的形式来表达： x = As 这个只不过是ICA最基本的定义，在很多实际问题中，应该包含了噪声。但是为了简化问题，我们这里忽略了噪声。因为如果模型中包含噪音，处理起来将会十分困难，而且大多数不包含噪音的模型已经能够解决很多问题，所以这里我们就将噪声先忽略。
+ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立的基本原则，同时，基本上可以说只需要这个原则我们就可以估计这个模型。 独立成分必须是非高斯分布的。高斯分布的高阶累计量是0，但是高阶信息对于ICA的模型的估计却是十分必要的。 为了简化，我们假设未知的混合矩阵A是一个方阵。  白化 白化是一种比不相关性要稍微强一些的性质。对一个零均值的随即向量y进行白化处理，就是让它的组成成分不相关，并且让变量的方差相等。也就是说，变量y的协方差矩阵是单位矩阵： 为什么独立成分是非高斯的 ICA最基本的限制条件就是独立成分必须是非高斯分布的，这或许也是ICA早期没有流行起来的原因。我们假设变量x1和x2是高斯分布的，不相关的，且方差相等： 下面的图表示联合概率分布，可以看出，我们无法判断任何关于变量x1和x2的方向信息，这就是为什么混合矩阵A不能被估计出来的原因： 峭度 在这我们讲述一个利用峭度来进行ICA模型估计的方法，ICA的估计方法很多，这只是最基础的一个方法。 对于变量y峭度可以由下面的公式定义： 峭度是可正可负的，高斯分布变量的峭度是0，这也是为什么独立成分必须是非高斯分布的原因之一。峭度为负的变量分布称为次高斯分布，峭度为正的变量的分布则为超高斯分布，下图分别是拉普拉斯分布（超高斯分布）和均匀分布（次高斯分布）： 基于峭度的梯度算法 我们经常利用峭度的绝对值或者平方来进行求解： 我们通过优化这个目标函数来估计ICA模型，z表示白化后的观察数据x。 实际上，我们是使峭度极大化。我们会从某个方向向量w开始，然后计算在什么方向峭度的增长最快，我们则将方向向量w向这个方向移动。 峭度绝对值的梯度可以如下计算： 下面是一个快速不动点算法基于峭度计算的流程图： ## ICA估计的主要方法 ##   通过极大化非高斯性来估计 通过极大似然性来估计 通过极小互信息来估计 通过张量的方法来估计 通过非线性分解和非线性PCA来估计 这里，我们只是讲了其中的一个基础方法之一，并不就是最好的方法。  ICA算法的思想可以用下面的公式来描述： ICA method = objective funtion + optimization algorithm
+引用 [1]Hyvärinen A, Karhunen J, Oja E. Independent component analysis[M]. John Wiley &amp;amp; Sons, 2004. [2]Hyvärinen A, Oja E.</description>
+    </item>
+    
+  </channel>
+</rss>
