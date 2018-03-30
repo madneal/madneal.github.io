@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>service worker之cache实践--sw-precache</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
+但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
+var cacheName = &amp;#39;subway&amp;#39;; var filesToCache = [ &amp;#39;/&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;image/transfer.png&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;app.css&amp;#39; ]; self.addEventListener(&amp;#39;install&amp;#39;, function(e) { console.log(&amp;#39;service worker install&amp;#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&amp;#39;serviceworker caching app shell&amp;#39;); return cache.addAll(filesToCache); })); });  可以看出我们在install事件后通过在cache里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
+sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
+gulp.task(&amp;#39;generate-sw&amp;#39;, function(callback) { var path = require(&amp;#39;path&amp;#39;); var swPrecache = require(&amp;#39;sw-precache&amp;#39;); swPrecache.write(path.join(&amp;#39;sw.js&amp;#39;), { staticFileGlobs: [ &amp;#39;app.js&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;dist/app.css&amp;#39;, &amp;#39;image/*.{png}&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;/&amp;#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="service worker之cache实践--sw-precache" />
+    <meta name="twitter:description" content="Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
+但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
+var cacheName = &amp;#39;subway&amp;#39;; var filesToCache = [ &amp;#39;/&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;image/transfer.png&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;app.css&amp;#39; ]; self.addEventListener(&amp;#39;install&amp;#39;, function(e) { console.log(&amp;#39;service worker install&amp;#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&amp;#39;serviceworker caching app shell&amp;#39;); return cache.addAll(filesToCache); })); });  可以看出我们在install事件后通过在cache里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
+sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
+gulp.task(&amp;#39;generate-sw&amp;#39;, function(callback) { var path = require(&amp;#39;path&amp;#39;); var swPrecache = require(&amp;#39;sw-precache&amp;#39;); swPrecache.write(path.join(&amp;#39;sw.js&amp;#39;), { staticFileGlobs: [ &amp;#39;app.js&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;dist/app.css&amp;#39;, &amp;#39;image/*.{png}&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;/&amp;#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw." />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="service worker之cache实践--sw-precache" />
+  <meta property="og:description" content="Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
+但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
+var cacheName = &amp;#39;subway&amp;#39;; var filesToCache = [ &amp;#39;/&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;image/transfer.png&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;app.css&amp;#39; ]; self.addEventListener(&amp;#39;install&amp;#39;, function(e) { console.log(&amp;#39;service worker install&amp;#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&amp;#39;serviceworker caching app shell&amp;#39;); return cache.addAll(filesToCache); })); });  可以看出我们在install事件后通过在cache里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
+sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
+gulp.task(&amp;#39;generate-sw&amp;#39;, function(callback) { var path = require(&amp;#39;path&amp;#39;); var swPrecache = require(&amp;#39;sw-precache&amp;#39;); swPrecache.write(path.join(&amp;#39;sw.js&amp;#39;), { staticFileGlobs: [ &amp;#39;app.js&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;dist/app.css&amp;#39;, &amp;#39;image/*.{png}&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;/&amp;#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw." />
+  <meta property="og:url" content="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">service worker之cache实践--sw-precache</h1>
+      <p class="post-meta">@Neal · Apr 22, 2017 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。</p>
+
+<p>但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个<a href="https://neal1991.github.io/subway-shanghai/">上海地铁线路图</a>的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cacheName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;subway&#39;</span>;
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">filesToCache</span> <span style="color:#f92672">=</span> [
+    <span style="color:#e6db74">&#39;/&#39;</span>,
+    <span style="color:#e6db74">&#39;index.html&#39;</span>,
+    <span style="color:#e6db74">&#39;image/transfer.png&#39;</span>,
+    <span style="color:#e6db74">&#39;dist/alloy_finger.js&#39;</span>,
+    <span style="color:#e6db74">&#39;app.css&#39;</span>
+];
+
+<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">e</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;service worker install&#39;</span>);
+    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">waitUntil</span>(<span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#a6e22e">cacheName</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;serviceworker caching app shell&#39;</span>);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>(<span style="color:#a6e22e">filesToCache</span>);
+    }));
+});
+</code></pre></div>
+<p>可以看出我们在install事件后通过在cache里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？</p>
+
+<p>Google其实在PWA推出的过程中也给出了很多有用的技术。比如<a href="https://github.com/GoogleChrome/sw-precache">sw-precache</a>以及<a href="https://github.com/GoogleChrome/sw-toolbox">sw-toolbox</a>，以及最近正在发展过程中的<a href="https://github.com/GoogleChrome/sw-helpers">sw-helper</a>。这里，我主要使用的是sw-precache来更新我的service worker策略。</p>
+
+<p>sw-precache也是NODE中的一个模块，可以通过<code>npm install sw-precache</code>来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇<a href="https://medium.com/@Huxpro/how-does-sw-precache-works-2d99c3d3c725">文章</a>来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">gulp</span>.<span style="color:#a6e22e">task</span>(<span style="color:#e6db74">&#39;generate-sw&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">callback</span>) {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">swPrecache</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;sw-precache&#39;</span>);
+
+    <span style="color:#a6e22e">swPrecache</span>.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;sw.js&#39;</span>), {
+        <span style="color:#a6e22e">staticFileGlobs</span><span style="color:#f92672">:</span> [
+            <span style="color:#e6db74">&#39;app.js&#39;</span>,
+            <span style="color:#e6db74">&#39;dist/alloy_finger.js&#39;</span>,
+            <span style="color:#e6db74">&#39;dist/app.css&#39;</span>,
+            <span style="color:#e6db74">&#39;image/*.{png}&#39;</span>,
+            <span style="color:#e6db74">&#39;index.html&#39;</span>,
+            <span style="color:#e6db74">&#39;/&#39;</span>
+        ]
+    }, <span style="color:#a6e22e">callback</span>)
+})
+</code></pre></div>
+<p>我们通过利用 sw-precache 来生成 <a href="https://github.com/neal1991/subway-shanghai/blob/master/sw.js">sw.js 文件</a>。主要的方式是检测你在staticFileGlobs里面的文件有没有发生变化，如果发生变化就会重新生成hash码，从而能够使得APP在代码更新之后向远程请求新的代码。</p>
+
+<p>这篇文章可能只是很小的一点，关于 service worker 的使用还有很多东西值得学习，欢迎关注我的 <a href="https://neal1991.github.io/neal1991/">github</a> 共同探讨。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/pwa"><span class="tag">Pwa</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>342</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

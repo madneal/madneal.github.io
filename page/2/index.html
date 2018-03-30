@@ -215,6 +215,47 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/" class="post-link">什么是服务端伪造（SSRF）</a></h3>
+    <p class="post-meta">@Neal · Aug 6, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">什么是服务端伪造（SSRF）  原文：GitHub Pages and Single-Page Apps
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
+典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
+下面的是PHP中容易收到SSRF的一个例子。
+&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/" class="post-link">通过利用immutability的能力编写更安全和更整洁的代码</a></h3>
+    <p class="post-meta">@Neal · May 21, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">通过利用immutability的能力编写更安全和更整洁的代码  原文：Write safer and cleaner code by leveraging the power of “Immutability”
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Immutability是函数式编程的重要基础之一。它允许你能编写更安全以及更整洁的代码。我将会通过一些JavaScript例子来向你展示如何来达到immutability。
+根据维基百科：
+ 不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
+ Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
+const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5); console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5]  这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
     <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
@@ -297,6 +338,24 @@ Service worker就好像它的内部有一个有一个shared worker ：
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/" class="post-link">service worker之cache实践--sw-precache</a></h3>
+    <p class="post-meta">@Neal · Apr 22, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
+但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
+var cacheName = &#39;subway&#39;; var filesToCache = [ &#39;/&#39;, &#39;index.html&#39;, &#39;image/transfer.png&#39;, &#39;dist/alloy_finger.js&#39;, &#39;app.css&#39; ]; self.addEventListener(&#39;install&#39;, function(e) { console.log(&#39;service worker install&#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&#39;serviceworker caching app shell&#39;); return cache.addAll(filesToCache); })); });  可以看出我们在install事件后通过在cache里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
+sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
+gulp.task(&#39;generate-sw&#39;, function(callback) { var path = require(&#39;path&#39;); var swPrecache = require(&#39;sw-precache&#39;); swPrecache.write(path.join(&#39;sw.js&#39;), { staticFileGlobs: [ &#39;app.js&#39;, &#39;dist/alloy_finger.js&#39;, &#39;dist/app.css&#39;, &#39;image/*.{png}&#39;, &#39;index.html&#39;, &#39;/&#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" class="post-link">Twitter Lite以及大规模的高性能React渐进式网络应用</a></h3>
     <p class="post-meta">@Neal · Apr 16, 2017 · 2 min read</p>
   </header>
@@ -362,61 +421,6 @@ listeners: { load: onFirstLoadData, single: true }  在页面渲染之后，尽�
 批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="post-link">latex中large的作用域问题</a></h3>
-    <p class="post-meta">@Neal · Jan 6, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在毕业论文的写作过程中，遇到了一个\large 作用域的问题。假设下面有三种写法：
-I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are right}, yeah, yeah, yeah I am cool \begin{large} you are right \end{large}, yeah, yeah, yeah 我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？ 下面且看这三个命令的分别显示结果： 很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面\large 的影响，也变成了放大的字体。这就是\large的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/" class="post-link">Latex--入门系列三</a></h3>
-    <p class="post-meta">@Neal · Dec 12, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
-TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
-I am text. Yes. %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|} \hline $a_1~~~b$ &amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结  {和}是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
- $是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a&#43;b=c$，输入$$a&#43;b=c$$，那么你的公式就会在段与段之间以块的形式展现。
- %是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
- _和^分别作为下标和上标。你也可以同时使用上标和下标，比如： ~是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
- 实际上，\经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
- &amp;适用于在数组以及表格中定义列的。
- ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
- 一次效果函数，比如使用\ss来获得一个德国字母。
- 状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
- 使用命令取得相应的值，一般是使用{}或者[]。比如：
- \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。
- 口音和发声符号，比如\&#39;{e} \v{o}来产生 使用\begin和end是定义环境，从而和其他内容区分处理，比如：
-  \begin{verbatim} In the verbatim environment, text appears with almost no treatment.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/" class="post-link">只要三步，你就可以在github上发布网站了</a></h3>
-    <p class="post-meta">@Neal · Dec 9, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">今天，看到github推送了一个新的消息，Publishing with GitHub Pages, now as easy as 1, 2, 3。总结起来就是在github将你的文档或者发布网页将会变得十分简单。 三步：
- 创建仓库 提交markdown文件 激活Github pages  现在github对于markdown文件真的支持的特别好，比csdn的markdown好多了。老实说，如果不是github在国内的访问速度感人，我早就把我的博客迁移到github上面去了。csdn的博客简直丑到不能忍了。 反正github的这次更新主要是针对GitHub Pages,这样markodown可以方便快捷的渲染成页面，而且还不会影响你现有的项目或者网站。而且还会给你进行一些默认的配置，对于新手来说，的确是非常友好的。当然了，实在不想用的话，还可以在设置里面禁用掉。更多详细情况，可以去GitHub上面去了解，试试看啊！！！</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/">Read More →</a>
   </footer>
 </article>
 

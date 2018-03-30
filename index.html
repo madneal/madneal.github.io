@@ -215,7 +215,7 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/" class="post-link">如何做一个完美的页码跳转</a></h3>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/" class="post-link">如何做一个完美的页码跳转</a></h3>
     <p class="post-meta">@Neal · Mar 28, 2018 · 1 min read</p>
   </header>
   
@@ -229,7 +229,7 @@ Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
 代码实现 Show me the code.
 func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startIndex := p - step endIndex := p &#43; step if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { startIndex = 1 endIndex = startIndex &#43; 2 * step } else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { endIndex = pages startIndex = pages - 2 * step } else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { startIndex = 1 endIndex = pages } // handle some special cases  if startIndex &lt; 1 { startIndex = 1 } if endIndex &gt; pages { endIndex = pages } for i := startIndex; i &lt;= endIndex; i&#43;&#43; { pageList = append(pageList, i) } return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
   </footer>
 </article>
 
@@ -249,6 +249,26 @@ const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; ci
  Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&gt; TimeSheet =&gt; TimesheetTable 这样的嵌套。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" class="post-link">通过七牛云建立私有图床</a></h3>
+    <p class="post-meta">@Neal · Feb 25, 2018 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。
+注册账户 首先你可以通过这个链接注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。
+创建好存储空间（bucket）就已经完成了私有图库的第一步。
+开发 在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在官方 SDK 文档获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 js SDK 文档。
+文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
+ 利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
+上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
+function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/">Read More →</a>
   </footer>
 </article>
 
@@ -335,12 +355,27 @@ LICENSE: MIT
     <p class="post-meta">@Neal · Sep 23, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">Medium(https://medium.com)（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。 Medium文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装: * 将export-medium clone 或者下载到本地。 * 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹
+  <p class="post-summary">Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
+Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装: * 将 export-medium clone 或者下载到本地。 * 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹
 这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
 目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
 仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-link">Mongoose中document和object的区别</a></h3>
+    <p class="post-meta">@Neal · Sep 17, 2017 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
+router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
   </footer>
 </article>
 
@@ -371,47 +406,6 @@ JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8�
 因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/" class="post-link">什么是服务端伪造（SSRF）</a></h3>
-    <p class="post-meta">@Neal · Aug 6, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">什么是服务端伪造（SSRF）  原文：GitHub Pages and Single-Page Apps
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
-典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
-下面的是PHP中容易收到SSRF的一个例子。
-&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/" class="post-link">通过利用immutability的能力编写更安全和更整洁的代码</a></h3>
-    <p class="post-meta">@Neal · May 21, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">通过利用immutability的能力编写更安全和更整洁的代码  原文：Write safer and cleaner code by leveraging the power of “Immutability”
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Immutability是函数式编程的重要基础之一。它允许你能编写更安全以及更整洁的代码。我将会通过一些JavaScript例子来向你展示如何来达到immutability。
-根据维基百科：
- 不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
- Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
-const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5); console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5]  这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
 </article>
 

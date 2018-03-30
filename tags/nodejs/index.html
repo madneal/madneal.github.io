@@ -241,6 +241,20 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-link">Mongoose中document和object的区别</a></h3>
+    <p class="post-meta">@Neal · Sep 17, 2017 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
+router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/" class="post-link">moongoose对象无法新增删除属性</a></h3>
     <p class="post-meta">@Neal · Jun 30, 2016 · 1 min read</p>
   </header>

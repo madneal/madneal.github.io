@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Mongoose中document和object的区别</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
+router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:title" content="Mongoose中document和object的区别" />
+    <meta name="twitter:description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
+router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model." />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Mongoose中document和object的区别" />
+  <meta property="og:description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
+router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model." />
+  <meta property="og:url" content="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      <li class="social-item">
+        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Mongoose中document和object的区别</h1>
+      <p class="post-meta">@Neal · Sep 17, 2017 · 3 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">next</span>) {
+  <span style="color:#75715e">// res.render(&#39;index&#39;, { title: &#39;Express&#39; });
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mongoose</span>.<span style="color:#a6e22e">model</span>(<span style="color:#e6db74">&#39;realestate&#39;</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">queryCretia</span> <span style="color:#f92672">=</span> {};
+  <span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">find</span>(<span style="color:#a6e22e">queryCretia</span>, (<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">docs</span>) =&gt; {
+    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">render</span>(<span style="color:#e6db74">&#39;index&#39;</span>, {
+      <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;express&#39;</span>,
+      <span style="color:#a6e22e">docs</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">docs</span>
+    })
+  })
+});
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ejs" data-lang="ejs">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;
+    &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt;
+    &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt;
+    &lt;!-- &lt;%= docs %&gt; --&gt;
+    &lt;ul&gt;
+      &lt;% docs.forEach(function(doc){ %&gt;
+      &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt;
+      &lt;% }) %&gt;
+    &lt;/ul&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<p>在第一段代码中，通过<code>model.find</code>我们应该能够获取到根据<code>queryCriteria</code>获取的结果，结果应该是一个对象数组，类似于这样：</p>
+
+<pre><code>[{
+    &quot;_id&quot; : ObjectId(&quot;59bdeadb2a5c612514ee7970&quot;),
+    &quot;title&quot; : &quot;好楼层，中等装修，满5年，上门实拍&quot;,
+    &quot;type&quot; : &quot;2室1厅&quot;,
+    &quot;square&quot; : &quot;75.42平&quot;,
+    &quot;direction&quot; : &quot;朝南&quot;,
+    &quot;floor&quot; : &quot;中区/6层&quot;,
+    &quot;unitPrice&quot; : 47732,
+    &quot;totalPrice&quot; : 360,
+    &quot;location&quot; : null,
+    &quot;specialExplain&quot; : &quot;满五&quot;,
+    &quot;url&quot; : &quot;http://sh.lianjia.com//ershoufang/sh4528035.html&quot;,
+    &quot;station&quot; : &quot;江杨北路&quot;,
+    &quot;line&quot; : &quot;3号线&quot;,
+    &quot;updateTime&quot; : &quot;2017-09-17 11:24:11&quot;
+}
+{
+    &quot;_id&quot; : ObjectId(&quot;59bdeadb2a5c612514ee7971&quot;),
+    &quot;title&quot; : &quot;南北户型，厨卫全明，高区采光好，装修精美&quot;,
+    &quot;type&quot; : &quot;2室2厅&quot;,
+    &quot;square&quot; : &quot;90.92平&quot;,
+    &quot;direction&quot; : &quot;朝南北&quot;,
+    &quot;floor&quot; : &quot;高区/6层&quot;,
+    &quot;unitPrice&quot; : 46194,
+    &quot;totalPrice&quot; : 420,
+    &quot;location&quot; : null,
+    &quot;specialExplain&quot; : &quot;满五&quot;,
+    &quot;url&quot; : &quot;http://sh.lianjia.com//ershoufang/sh4546221.html&quot;,
+    &quot;station&quot; : &quot;江杨北路&quot;,
+    &quot;line&quot; : &quot;3号线&quot;,
+    &quot;updateTime&quot; : &quot;2017-09-17 11:24:11&quot;
+}]
+</code></pre>
+
+<p>预期<code>index.ejs</code>应该渲染的页面是一个ul渲染的结果，类似于</p>
+
+<ul>
+<li>2室1厅</li>
+<li>2室2厅</li>
+</ul>
+
+<p>当然，理想很丰满，现实很骨感。我就是死活渲染不出来<code>doc.type</code>。照理说应该是不可能的，在<code>index.ejs</code>中<code>doc</code>就是一个对象，我为什么不能获取<code>doc</code>的<code>type</code>属性呢？这不合理，太不合理了！</p>
+
+<p>老实说，这个问题我之间也是遇到过，当初我是想修改这个<code>doc</code>的属性，但是死活没有办法修改，当初也是花了很久找到原因。这次我就把这个问题好好地研究一下。</p>
+
+<p>先说结果，以及解决方法把。我比较喜欢剧透。愿意是因为再次返回的<code>doc</code>是属于Document的实例，而不是一个普通的对象。也就是说它和普通的对象是不一样的，它没有普通对象的一些方法，普通对象也没有它身上的一些方法。解决方案有几种，不过究其根本都是将这种document转化为普通的对象：</p>
+
+<h3 id="方法1">方法1：</h3>
+
+<p>利用<a href="http://mongoosejs.com/docs/api.html#document_Document-toObject"><code>toObject</code>方法</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">docs</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">doc</span> =&gt; {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">toObject</span>();
+})
+</code></pre></div>
+<h3 id="方法2">方法2：</h3>
+
+<p>利用JSON方法，这是我想到的一个方法，具体深层原因在这就不展开了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">docs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">docs</span>);
+<span style="color:#a6e22e">docs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">docs</span>);
+</code></pre></div>
+<h3 id="方法3">方法3:</h3>
+
+<p>利用<code>lean</code>方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">find</span>().<span style="color:#a6e22e">lean</span>().<span style="color:#a6e22e">exec</span>((<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">docs</span>) =&gt; {
+....
+})
+</code></pre></div>
+<p>上述的三种方法应该都能成功将find获取的结果转化为普通的对象。</p>
+
+<p>但是我还想知道到底document和一个普通的对象到底有什么区别，区别在哪里呢？</p>
+
+<p>我们假设<code>find</code>获取的结果是<code>docs</code>，转化为普通对象的结果是<code>docs1</code>。现在我们就看一看这二者的区别。理论上<code>docs</code>和<code>docs1</code>都应该是数组，而它们中元素都应该是一个对象，我们先来看看是不是这样呢？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">docs</span>));
+<span style="color:#a6e22e">consoele</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">docs</span>[<span style="color:#ae81ff">0</span>]));
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">docs1</span>));
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">docs1</span>[<span style="color:#ae81ff">0</span>]))
+</code></pre></div>
+<p>我们通过上述方法可以获取<code>docs</code>以及<code>docs1</code>的类型以及其中元素的类型，结果是：</p>
+
+<pre><code>[object Array]
+[object Object]
+
+[object Array]
+[object Object]
+</code></pre>
+
+<p>和我们预想中的一模一样，那问题不在这，那我们就探究探究<code>docs[0]</code>以及<code>docs1[0]</code>的原型把，看看它的原型到底是什么呢？知道JS的人，应该都知道JS中的原型链。在此，我们就通过<code>__proto__</code>来粗暴地获取对象的原型：</p>
+
+<pre><code>console.dir(doc[0].__proto__);
+
+console.dir(docs[0].__proto__);
+</code></pre>
+
+<p>结果是：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#960050;background-color:#1e0010">model</span> {
+  <span style="color:#960050;background-color:#1e0010">db:</span>
+   <span style="color:#960050;background-color:#1e0010">NativeConnection</span> <span style="color:#960050;background-color:#1e0010">{</span>
+     <span style="color:#960050;background-color:#1e0010">base:</span>
+      <span style="color:#960050;background-color:#1e0010">Mongoose</span> <span style="color:#960050;background-color:#1e0010">{</span>
+        <span style="color:#960050;background-color:#1e0010">connections:</span> <span style="color:#960050;background-color:#1e0010">[Array],</span>
+        <span style="color:#960050;background-color:#1e0010">models:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">modelSchemas:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">options:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">plugins:</span> <span style="color:#960050;background-color:#1e0010">[Array]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">collections:</span> { <span style="color:#960050;background-color:#1e0010">realestates:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">models:</span> { <span style="color:#960050;background-color:#1e0010">realestate:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">config:</span> { <span style="color:#960050;background-color:#1e0010">autoIndex:</span> <span style="color:#960050;background-color:#1e0010">true</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">replica:</span> <span style="color:#66d9ef">false</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">hosts:</span> <span style="color:#66d9ef">null</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">host:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#ae81ff">127.0</span><span style="color:#960050;background-color:#1e0010">.</span><span style="color:#ae81ff">0.1</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
+     <span style="color:#960050;background-color:#1e0010">port:</span> <span style="color:#ae81ff">27017</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">user:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+     <span style="color:#960050;background-color:#1e0010">pass:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+     <span style="color:#960050;background-color:#1e0010">name:</span> <span style="color:#960050;background-color:#1e0010">&#39;real_estate_info&#39;,</span>
+     <span style="color:#960050;background-color:#1e0010">options:</span>
+      { <span style="color:#960050;background-color:#1e0010">db:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">auth:</span> <span style="color:#960050;background-color:#1e0010">{</span>}<span style="color:#960050;background-color:#1e0010">,</span>
+        <span style="color:#960050;background-color:#1e0010">server:</span> [<span style="color:#960050;background-color:#1e0010">Object</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+        <span style="color:#960050;background-color:#1e0010">replset:</span> [<span style="color:#960050;background-color:#1e0010">Object</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+        <span style="color:#960050;background-color:#1e0010">mongos:</span> <span style="color:#960050;background-color:#1e0010">undefined</span> <span style="color:#960050;background-color:#1e0010">},</span>
+     <span style="color:#960050;background-color:#1e0010">otherDbs:</span> []<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_readyState:</span> <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_closeCalled:</span> <span style="color:#66d9ef">false</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_hasOpened:</span> <span style="color:#66d9ef">true</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_listening:</span> <span style="color:#66d9ef">false</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">db:</span>
+      <span style="color:#960050;background-color:#1e0010">Db</span> {
+        <span style="color:#960050;background-color:#1e0010">domain:</span> <span style="color:#960050;background-color:#1e0010">null,</span>
+        <span style="color:#960050;background-color:#1e0010">_events:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">_eventsCount:</span> <span style="color:#960050;background-color:#1e0010">6,</span>
+        <span style="color:#960050;background-color:#1e0010">_maxListeners:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+        <span style="color:#960050;background-color:#1e0010">s:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">serverConfig:</span> <span style="color:#960050;background-color:#1e0010">[Getter],</span>
+        <span style="color:#960050;background-color:#1e0010">bufferMaxEntries:</span> <span style="color:#960050;background-color:#1e0010">[Getter],</span>
+        <span style="color:#960050;background-color:#1e0010">databaseName:</span> <span style="color:#960050;background-color:#1e0010">[Getter],</span>
+        <span style="color:#960050;background-color:#1e0010">_listening:</span> <span style="color:#960050;background-color:#1e0010">true</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_events:</span>
+      { <span style="color:#960050;background-color:#1e0010">connected:</span> <span style="color:#960050;background-color:#1e0010">[Function],</span>
+        <span style="color:#960050;background-color:#1e0010">error:</span> <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">bound</span> <span style="color:#960050;background-color:#1e0010">bound</span> <span style="color:#960050;background-color:#1e0010">consoleCall],</span>
+        <span style="color:#960050;background-color:#1e0010">disconnected:</span> <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">bound</span> <span style="color:#960050;background-color:#1e0010">bound</span> <span style="color:#960050;background-color:#1e0010">consoleCall],</span>
+        <span style="color:#960050;background-color:#1e0010">reconnected:</span> <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">bound</span> <span style="color:#960050;background-color:#1e0010">bound</span> <span style="color:#960050;background-color:#1e0010">consoleCall]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_eventsCount:</span> <span style="color:#ae81ff">4</span> <span style="color:#960050;background-color:#1e0010">},</span>
+  <span style="color:#960050;background-color:#1e0010">discriminators:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+  <span style="color:#960050;background-color:#1e0010">id:</span> [<span style="color:#960050;background-color:#1e0010">Getter/Setter</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">__v:</span> [<span style="color:#960050;background-color:#1e0010">Getter/Setter</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">_id:</span> [<span style="color:#960050;background-color:#1e0010">Getter/Setter</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">schema:</span>
+   <span style="color:#960050;background-color:#1e0010">Schema</span> {
+     <span style="color:#960050;background-color:#1e0010">obj:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+     <span style="color:#960050;background-color:#1e0010">paths:</span> <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#960050;background-color:#1e0010">_id:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span> <span style="color:#960050;background-color:#1e0010">__v:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">aliases:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">subpaths:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">virtuals:</span> { <span style="color:#960050;background-color:#1e0010">id:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">singleNestedPaths:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">nested:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">inherits:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">callQueue:</span> [ [<span style="color:#960050;background-color:#1e0010">Array</span>], [<span style="color:#960050;background-color:#1e0010">Array</span>], [<span style="color:#960050;background-color:#1e0010">Array</span>], [<span style="color:#960050;background-color:#1e0010">Array</span>], [<span style="color:#960050;background-color:#1e0010">Array</span>], [<span style="color:#960050;background-color:#1e0010">Array</span>] ]<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_indexes:</span> []<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">methods:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">statics:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">tree:</span> { <span style="color:#960050;background-color:#1e0010">_id:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span> <span style="color:#960050;background-color:#1e0010">__v:</span> <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">Number],</span> <span style="color:#960050;background-color:#1e0010">id:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">query:</span> {}<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">childSchemas:</span> []<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">plugins:</span> [ [<span style="color:#960050;background-color:#1e0010">Object</span>], [<span style="color:#960050;background-color:#1e0010">Object</span>], [<span style="color:#960050;background-color:#1e0010">Object</span>], [<span style="color:#960050;background-color:#1e0010">Object</span>] ]<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">s:</span> { <span style="color:#960050;background-color:#1e0010">hooks:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span> <span style="color:#960050;background-color:#1e0010">kareemHooks:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">options:</span>
+      { <span style="color:#960050;background-color:#1e0010">retainKeyOrder:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">typeKey:</span> <span style="color:#960050;background-color:#1e0010">&#39;type&#39;,</span>
+        <span style="color:#960050;background-color:#1e0010">id:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">noVirtualId:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">_id:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">noId:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">validateBeforeSave:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">read:</span> <span style="color:#960050;background-color:#1e0010">null,</span>
+        <span style="color:#960050;background-color:#1e0010">shardKey:</span> <span style="color:#960050;background-color:#1e0010">null,</span>
+        <span style="color:#960050;background-color:#1e0010">autoIndex:</span> <span style="color:#960050;background-color:#1e0010">null,</span>
+        <span style="color:#960050;background-color:#1e0010">minimize:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">discriminatorKey:</span> <span style="color:#960050;background-color:#1e0010">&#39;__t&#39;,</span>
+        <span style="color:#960050;background-color:#1e0010">versionKey:</span> <span style="color:#960050;background-color:#1e0010">&#39;__v&#39;,</span>
+        <span style="color:#960050;background-color:#1e0010">capped:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">bufferCommands:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">strict:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">pluralization:</span> <span style="color:#960050;background-color:#1e0010">true</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">&#39;$globalPluginsApplied&#39;:</span> <span style="color:#66d9ef">true</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">_requiredpaths:</span> [] <span style="color:#960050;background-color:#1e0010">},</span>
+  <span style="color:#960050;background-color:#1e0010">collection:</span>
+   <span style="color:#960050;background-color:#1e0010">NativeCollection</span> {
+     <span style="color:#960050;background-color:#1e0010">collection:</span> <span style="color:#960050;background-color:#1e0010">Collection</span> <span style="color:#960050;background-color:#1e0010">{</span> <span style="color:#960050;background-color:#1e0010">s:</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">opts:</span> { <span style="color:#960050;background-color:#1e0010">bufferCommands:</span> <span style="color:#960050;background-color:#1e0010">true,</span> <span style="color:#960050;background-color:#1e0010">capped:</span> <span style="color:#960050;background-color:#1e0010">false</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">name:</span> <span style="color:#960050;background-color:#1e0010">&#39;realestates&#39;,</span>
+     <span style="color:#960050;background-color:#1e0010">collectionName:</span> <span style="color:#960050;background-color:#1e0010">&#39;realestates&#39;,</span>
+     <span style="color:#960050;background-color:#1e0010">conn:</span>
+      <span style="color:#960050;background-color:#1e0010">NativeConnection</span> {
+        <span style="color:#960050;background-color:#1e0010">base:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">collections:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">models:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">config:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">replica:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">hosts:</span> <span style="color:#960050;background-color:#1e0010">null,</span>
+        <span style="color:#960050;background-color:#1e0010">host:</span> <span style="color:#960050;background-color:#1e0010">&#39;127.0.0.1&#39;,</span>
+        <span style="color:#960050;background-color:#1e0010">port:</span> <span style="color:#960050;background-color:#1e0010">27017,</span>
+        <span style="color:#960050;background-color:#1e0010">user:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+        <span style="color:#960050;background-color:#1e0010">pass:</span> <span style="color:#960050;background-color:#1e0010">undefined,</span>
+        <span style="color:#960050;background-color:#1e0010">name:</span> <span style="color:#960050;background-color:#1e0010">&#39;real_estate_info&#39;,</span>
+        <span style="color:#960050;background-color:#1e0010">options:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">otherDbs:</span> <span style="color:#960050;background-color:#1e0010">[],</span>
+        <span style="color:#960050;background-color:#1e0010">_readyState:</span> <span style="color:#960050;background-color:#1e0010">1,</span>
+        <span style="color:#960050;background-color:#1e0010">_closeCalled:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">_hasOpened:</span> <span style="color:#960050;background-color:#1e0010">true,</span>
+        <span style="color:#960050;background-color:#1e0010">_listening:</span> <span style="color:#960050;background-color:#1e0010">false,</span>
+        <span style="color:#960050;background-color:#1e0010">db:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">_events:</span> <span style="color:#960050;background-color:#1e0010">[Object],</span>
+        <span style="color:#960050;background-color:#1e0010">_eventsCount:</span> <span style="color:#960050;background-color:#1e0010">4</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">queue:</span> []<span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">buffer:</span> <span style="color:#66d9ef">false</span><span style="color:#960050;background-color:#1e0010">,</span>
+     <span style="color:#960050;background-color:#1e0010">emitter:</span>
+      <span style="color:#960050;background-color:#1e0010">EventEmitter</span> {
+        <span style="color:#960050;background-color:#1e0010">domain:</span> <span style="color:#960050;background-color:#1e0010">null,</span>
+        <span style="color:#960050;background-color:#1e0010">_events:</span> <span style="color:#960050;background-color:#1e0010">{</span>}<span style="color:#960050;background-color:#1e0010">,</span>
+        <span style="color:#960050;background-color:#1e0010">_eventsCount:</span> <span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">,</span>
+        <span style="color:#960050;background-color:#1e0010">_maxListeners:</span> <span style="color:#960050;background-color:#1e0010">undefined</span> <span style="color:#960050;background-color:#1e0010">}</span> <span style="color:#960050;background-color:#1e0010">},</span>
+  <span style="color:#960050;background-color:#1e0010">&#39;$__original_save&#39;:</span> { <span style="color:#960050;background-color:#1e0010">[Function]</span> <span style="color:#960050;background-color:#1e0010">numAsyncPres:</span> <span style="color:#960050;background-color:#1e0010">0</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">save:</span> { <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">wrappedPointCut]</span> <span style="color:#960050;background-color:#1e0010">&#39;$originalFunction&#39;:</span> <span style="color:#960050;background-color:#1e0010">&#39;$__original_save&#39;,</span> <span style="color:#960050;background-color:#1e0010">&#39;$isWrapped&#39;:</span> <span style="color:#960050;background-color:#1e0010">true</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">_pres:</span>
+   { <span style="color:#960050;background-color:#1e0010">&#39;$__original_save&#39;:</span> <span style="color:#960050;background-color:#1e0010">[</span> <span style="color:#960050;background-color:#1e0010">[Object],</span> <span style="color:#960050;background-color:#1e0010">[Object],</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> <span style="color:#960050;background-color:#1e0010">],</span>
+     <span style="color:#960050;background-color:#1e0010">&#39;$__original_remove&#39;:</span> <span style="color:#960050;background-color:#1e0010">[</span> <span style="color:#960050;background-color:#1e0010">[Object]</span> <span style="color:#960050;background-color:#1e0010">]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">_posts:</span> { <span style="color:#960050;background-color:#1e0010">&#39;$__original_save&#39;:</span> <span style="color:#960050;background-color:#1e0010">[],</span> <span style="color:#960050;background-color:#1e0010">&#39;$__original_remove&#39;:</span> <span style="color:#960050;background-color:#1e0010">[]</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">&#39;$__original_remove&#39;:</span> { <span style="color:#960050;background-color:#1e0010">[Function]</span> <span style="color:#960050;background-color:#1e0010">numAsyncPres:</span> <span style="color:#960050;background-color:#1e0010">1</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">remove:</span>
+   { <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">wrappedPointCut]</span>
+     <span style="color:#960050;background-color:#1e0010">&#39;$originalFunction&#39;:</span> <span style="color:#960050;background-color:#1e0010">&#39;$__original_remove&#39;,</span>
+     <span style="color:#960050;background-color:#1e0010">&#39;$isWrapped&#39;:</span> <span style="color:#960050;background-color:#1e0010">true</span> }<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">&#39;$__original_validate&#39;:</span> [<span style="color:#960050;background-color:#1e0010">Function</span>]<span style="color:#960050;background-color:#1e0010">,</span>
+  <span style="color:#960050;background-color:#1e0010">validate:</span>
+   { <span style="color:#960050;background-color:#1e0010">[Function:</span> <span style="color:#960050;background-color:#1e0010">wrappedPointCut]</span>
+     <span style="color:#960050;background-color:#1e0010">&#39;$originalFunction&#39;:</span> <span style="color:#960050;background-color:#1e0010">&#39;$__original_validate&#39;,</span>
+     <span style="color:#960050;background-color:#1e0010">&#39;$isWrapped&#39;:</span> <span style="color:#960050;background-color:#1e0010">true</span> } <span style="color:#960050;background-color:#1e0010">}</span></code></pre></div>
+<p>以及</p>
+
+<pre><code>{}
+</code></pre>
+
+<p><strong>很显然</strong>，问题就是在这里，<code>docs[0]</code>和<code>docs[0]</code>的原型并不是一个东西。而js中对象通过<code>.</code>或者是<code>[]</code>访问属性都是调用了<code>Object</code>中的某个方法，但具体什么方法我不太记得。然而<code>docs</code>中的原型或者其原型的原型也是没有这个方法的，因此他就没办法去访问这个属性。</p>
+
+<p>其实<code>docs[0].__proto__.__proto__</code>是Model,<code>docs[0].__proto__.__proto__.__proto__</code>是Document,<code>docs[0].__proto__.__proto__.__proto__.__proto__</code>才是<code>{}</code>。</p>
+
+<p>至此，这个问题引起的一系列的探究也是告一段落了。其实Mongoose还有另外一些奇怪的地方，被人所诟病，在此也不一一细数了。从问题的发现，到写这篇文章大概花了大半天的时间，以前遇到问题就找到解决办法就停止了，但是这一次通过这样深入地去发现，可能就会发掘到更多的东西。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/nodejs"><span class="tag">Nodejs</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/js"><span class="tag">Js</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/mongoose"><span class="tag">Mongoose</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>194</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

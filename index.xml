@@ -14,10 +14,10 @@
     
     <item>
       <title>如何做一个完美的页码跳转</title>
-      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</link>
+      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</link>
       <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</guid>
+      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</guid>
       <description>需求 想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：
 问题定义 我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 pages，当前选择的页码为 p,p 往左走或者往右走的步长是固定的，令步长为 step。那么我们现在要做的事情可以这么理解，我们要从 1 到 pages 之间截取可用的页码数，假设开始页码为 startIndex，结束页码为 endIndex。抽象一下，我们可以总结出以下几种情况：
 Condition1 startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages
@@ -42,6 +42,22 @@ const circles = document.querySelectorAll(&amp;#39;circle&amp;#39;); let result 
 设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
 组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
  Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&amp;gt; TimeSheet =&amp;gt; TimesheetTable 这样的嵌套。</description>
+    </item>
+    
+    <item>
+      <title>通过七牛云建立私有图床</title>
+      <link>https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/</link>
+      <pubDate>Sun, 25 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/</guid>
+      <description>七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。
+注册账户 首先你可以通过这个链接注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。
+创建好存储空间（bucket）就已经完成了私有图库的第一步。
+开发 在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在官方 SDK 文档获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 js SDK 文档。
+文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
+ 利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
+上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 + 3600s。
+function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() + 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。</description>
     </item>
     
     <item>
@@ -110,10 +126,21 @@ LICENSE: MIT
       <pubDate>Sat, 23 Sep 2017 16:33:06 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/</guid>
-      <description>Medium(https://medium.com)（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。 Medium文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装: * 将export-medium clone 或者下载到本地。 * 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹
+      <description>Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
+Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装: * 将 export-medium clone 或者下载到本地。 * 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹
 这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
 目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
 仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</description>
+    </item>
+    
+    <item>
+      <title>Mongoose中document和object的区别</title>
+      <link>https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
+router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.</description>
     </item>
     
     <item>
@@ -243,6 +270,20 @@ Service worker就好像它的内部有一个有一个shared worker ：
  在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
  即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
  利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它&amp;rsquo;background&amp;rsquo;功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</description>
+    </item>
+    
+    <item>
+      <title>service worker之cache实践--sw-precache</title>
+      <link>https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/</link>
+      <pubDate>Sat, 22 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/</guid>
+      <description>Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
+但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
+var cacheName = &amp;#39;subway&amp;#39;; var filesToCache = [ &amp;#39;/&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;image/transfer.png&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;app.css&amp;#39; ]; self.addEventListener(&amp;#39;install&amp;#39;, function(e) { console.log(&amp;#39;service worker install&amp;#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&amp;#39;serviceworker caching app shell&amp;#39;); return cache.addAll(filesToCache); })); });  可以看出我们在install事件后通过在cache里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
+sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
+gulp.task(&amp;#39;generate-sw&amp;#39;, function(callback) { var path = require(&amp;#39;path&amp;#39;); var swPrecache = require(&amp;#39;sw-precache&amp;#39;); swPrecache.write(path.join(&amp;#39;sw.js&amp;#39;), { staticFileGlobs: [ &amp;#39;app.js&amp;#39;, &amp;#39;dist/alloy_finger.js&amp;#39;, &amp;#39;dist/app.css&amp;#39;, &amp;#39;image/*.{png}&amp;#39;, &amp;#39;index.html&amp;#39;, &amp;#39;/&amp;#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw.</description>
     </item>
     
     <item>
