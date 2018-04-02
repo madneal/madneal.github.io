@@ -22,7 +22,7 @@
   
   
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:site" content="@gohugoio" />
     <meta name="twitter:title" content="sftp没有关闭session导致服务器sshd进程未关闭" />
     <meta name="twitter:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger." />
@@ -169,9 +169,7 @@
         <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
       </li>
 
-      <li class="social-item">
-        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
+      
 
       
 
@@ -272,7 +270,7 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>609</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>612</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -289,7 +287,7 @@
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.src = '//' + "dongne" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();

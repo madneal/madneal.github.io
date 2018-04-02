@@ -23,7 +23,7 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
   
   
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:site" content="@gohugoio" />
     <meta name="twitter:title" content="javascript的继承模式" />
     <meta name="twitter:description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
 基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
@@ -172,9 +172,7 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
         <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
       </li>
 
-      <li class="social-item">
-        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
+      
 
       
 
@@ -421,7 +419,7 @@ console.log(parent.obj.a);//2
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>887</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>890</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -438,7 +436,7 @@ console.log(parent.obj.a);//2
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.src = '//' + "dongne" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();

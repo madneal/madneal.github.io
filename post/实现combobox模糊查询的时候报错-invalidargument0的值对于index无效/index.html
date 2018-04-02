@@ -23,7 +23,7 @@
   
   
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@twitter_username" />
+    <meta name="twitter:site" content="@gohugoio" />
     <meta name="twitter:title" content="实现combobox模糊查询的时候报错 InvalidArgument=“0”的值对于“index”无效" />
     <meta name="twitter:description" content="因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
  List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); //绑定原始数据源 List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
@@ -172,9 +172,7 @@
         <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
       </li>
 
-      <li class="social-item">
-        <a href="//twitter.com/twitter_username" title="Twitter"><span class="icon icon-twitter"></span></a>
-      </li>
+      
 
       
 
@@ -300,7 +298,7 @@ System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1062</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1065</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -317,7 +315,7 @@ System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index�
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "disqus_shortname" + '.disqus.com/embed.js';
+        s.src = '//' + "dongne" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
