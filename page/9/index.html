@@ -206,6 +206,21 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" class="post-link">实现combobox模糊查询的时候报错 InvalidArgument=“0”的值对于“index”无效</a></h3>
+    <p class="post-meta">@Neal · May 2, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
+ List&lt;string&gt; listOnit = new List&lt;string&gt;(); //绑定原始数据源 List&lt;string&gt; listNew = new List&lt;string&gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
+************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)  我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%BE%AE%E8%BD%AFvisual-studio-code%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/" class="post-link">微软Visual Studio Code基本特征</a></h3>
     <p class="post-meta">@Neal · May 2, 2015 · 1 min read</p>
   </header>
@@ -337,22 +352,6 @@ database is locked 读完数据库一定要关闭，无论是reader还是dataset
 opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;); CvWindow w = new CvWindow(&#34;Lane Detection&#34;); CvWindow canny = new CvWindow(&#34;Canny&#34;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/" class="post-link">combox系列问题集</a></h3>
-    <p class="post-meta">@Neal · Apr 14, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">visual studio崩溃 你是不是经常会遇到一编辑combox，visual studio就会立马崩溃。一直都无法理解是什么原因，然后后来发现居然是因为有道的截屏翻译，关掉截屏翻译就好了。
-combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Items.Add(dr[0]); }  自动补全的功能 我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。
-模糊查询 上面那个自动补全的功能只能实现从左到右进行匹配，而不能进行模糊匹配。假设我们的combobox里面有“张三“，如果输入”张“可以进行匹配，但是我们如果输入”三“的话就无法实现匹配，而combobox自身并没有这个属性，所以我们需要自己写一个方法来实现。
- List&lt;string&gt; listOnit = new List&lt;string&gt;(); List&lt;string&gt; listNew = new List&lt;string&gt;(); //用于模糊查询 private void BindComboBox() { string str = &#34;select License from tb_drug&#34;; SQLiteDataReader sdr = sh.getcom(str); while (sdr.Read()) { if (sdr[0].ToString() != &#34; &#34; &amp;&amp; sdr[0].ToString() != null) listOnit.Add(sdr[0].ToString()); } sdr.Close(); this.comboBox1.Items.AddRange(listOnit.ToArray()); } private void comboBox1_TextUpdate(object sender, EventArgs e) { this.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/">Read More →</a>
   </footer>
 </article>
 
