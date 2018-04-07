@@ -29,13 +29,6 @@
   <meta name="twitter:description" content="全栈工程师的进击" />
   <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
 
-  
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Neal 的博客" />
-  <meta property="og:description" content="全栈工程师的进击" />
-  <meta property="og:url" content="https://madneal.com/categories/%E5%89%8D%E7%AB%AF/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
-
 
 
 
@@ -243,6 +236,24 @@ sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来
 gulp.task(&#39;generate-sw&#39;, function(callback) { var path = require(&#39;path&#39;); var swPrecache = require(&#39;sw-precache&#39;); swPrecache.write(path.join(&#39;sw.js&#39;), { staticFileGlobs: [ &#39;app.js&#39;, &#39;dist/alloy_finger.js&#39;, &#39;dist/app.css&#39;, &#39;image/*.{png}&#39;, &#39;index.html&#39;, &#39;/&#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/" class="post-link">消灭 star 大作战--Front-end-tutorial</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">写在前面 Github star 往往非常简单，点击一个按钮，就 star 了。但是你还去看它么，这就未必了。因此很多库长年累月的堆积在你的 star list 里面无人问津。因此，会有这样一个具有一个非常中二的名字的计划。对于 star 仓库，从后往前，一个个理解消化，不要让它无意义地堆积。
+操作步骤：
+ fork it finish it  仓库信息  仓库名称：Front-end-tutorial 主要内容：这是一个博客，里面主要是前端开发的内容，内容设计比较广泛，包括 HTML, CSS, JS 以及流行的框架，以及前端开发的其他内容。 消灭计划：内容较多，打算主要消化一些感兴趣的内容，主要应该集中于原生的东西或者一些性能方面的知识。  作战内容 JavaScript 深拷贝 深拷贝可以说是一个老生重谈的问题，几乎每一个前端面试都可能会问这样的问题。Js 中的对象都是引用，所以浅拷贝时，修改拷贝后的对象会影响原对象。原仓库中其实讲的并不是很深入，我反倒是觉得评论里面的一篇文章深入剖析 JavaScript 的深复制讲得更好。
+有很多第三方库实现了对于对象的深拷贝。
+ jQuery: $.extend(true, {}, sourceObject) loadsh: _.clone(sourceObject, true) 或者 _.cloneDeep(sourceObject)  另外有一个神奇的方法就是借助于 JSON 的 parse 和 stringify 方法，当时我才看到这个方法的时候惊为天人，这个方法还可以用来判断两个对象是否相等。当然，这个方法还是有一些限制，因为正确处理的对象只能是使用 json 可以表示的数据结构，对于函数可能就无能为力了。原文作者实现了一个深拷贝的方法，不过考虑了很多情况，在这里我们就实现一个简单版的深拷贝把。
+function deepCopy(obj) { const result = {}; for (const key in obj) { if (obj.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/">Read More →</a>
   </footer>
 </article>
 
