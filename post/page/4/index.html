@@ -220,6 +220,37 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/" class="post-link">sftp没有关闭session导致服务器sshd进程未关闭</a></h3>
+    <p class="post-meta">@Neal · Jul 28, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
+ protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&#34;HostName:&#34; &#43; hostname &#43; &#34;|Port:&#34; &#43; port); logger.debug(&#34;Session created&#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&#34;Failed to connect FTP server &#34; &#43; hostname); return false; } logger.debug(&#34;Username:&#34; &#43; userName &#43; &#34;|Password:&#34; &#43; password); } catch (Exception ex) { logger.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link">javascript中的对象字面量为啥这么酷</a></h3>
+    <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool 原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com   在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+ 成对出现的名称以及相应的值{ name1: value1 }
+ Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+  遗憾的是，这个对象字面量可能会出现下面这样的情况：
+var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" class="post-link">javascript中无法将string转化为json对象</a></h3>
     <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
   </header>
@@ -334,37 +365,6 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } }  </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/" class="post-link">百度前端实习生面试（连跪之旅）</a></h3>
-    <p class="post-meta">@Neal · Mar 4, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">前端面试题——系列一</a></h3>
-    <p class="post-meta">@Neal · Mar 1, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
-img标签alt属性和title属性的区别
-alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
- css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
-div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：      给浮动元素添加 overflow:auto样式 为最后浮动元素设置如下样式： .clearfix:after{ visibility:hidden; display:block; content:” “; clear:both; height:0; } .</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
 </article>
 

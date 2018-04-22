@@ -220,6 +220,36 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/" class="post-link">道路识别demo</a></h3>
+    <p class="post-meta">@Neal · Apr 15, 2015 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
+opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;); CvWindow w = new CvWindow(&#34;Lane Detection&#34;); CvWindow canny = new CvWindow(&#34;Canny&#34;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/" class="post-link">combox系列问题集</a></h3>
+    <p class="post-meta">@Neal · Apr 14, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">visual studio崩溃 你是不是经常会遇到一编辑combox，visual studio就会立马崩溃。一直都无法理解是什么原因，然后后来发现居然是因为有道的截屏翻译，关掉截屏翻译就好了。
+combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Items.Add(dr[0]); }  自动补全的功能 我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。
+模糊查询 上面那个自动补全的功能只能实现从左到右进行匹配，而不能进行模糊匹配。假设我们的combobox里面有“张三“，如果输入”张“可以进行匹配，但是我们如果输入”三“的话就无法实现匹配，而combobox自身并没有这个属性，所以我们需要自己写一个方法来实现。
+ List&lt;string&gt; listOnit = new List&lt;string&gt;(); List&lt;string&gt; listNew = new List&lt;string&gt;(); //用于模糊查询 private void BindComboBox() { string str = &#34;select License from tb_drug&#34;; SQLiteDataReader sdr = sh.getcom(str); while (sdr.Read()) { if (sdr[0].ToString() != &#34; &#34; &amp;&amp; sdr[0].ToString() != null) listOnit.Add(sdr[0].ToString()); } sdr.Close(); this.comboBox1.Items.AddRange(listOnit.ToArray()); } private void comboBox1_TextUpdate(object sender, EventArgs e) { this.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%9D%E8%AF%86nuget/" class="post-link">初识NuGet</a></h3>
     <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
   </header>
@@ -363,55 +393,6 @@ http://blog.csdn.net/carson2005/article/details/6243476
 </article>
 
       
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/" class="post-link">ROT13加密和解密</a></h3>
-    <p class="post-meta">@Neal · Apr 11, 2015 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">问题 ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。
-应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。
-例如，下面的英文笑话，精华句被ROT13所隐匿：
-How can you tell an extrovert from an
-introvert at NSA? Va gur ryringbef,
-gur rkgebireg ybbxf ng gur BGURE thl’f fubrf.
-通过ROT13转换，该笑话的解答揭露如下：
-Ubj pna lbh gryy na rkgebireg sebz na
-vagebireg ng AFN? In the elevators,
-the extrovert looks at the OTHER guy’s shoes.
-第二次使用ROT13将恢复为原文。
-Input
-第1行：一个整数T（1≤T≤10）为问题数。
-接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。
-Output
-对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。
-然后对应每个问题在一行中输出经过ROT13加密后的一段文字。
-Sample Input
-3
-How can you tell an extrovert from an</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/" class="post-link">一个简单的输入输出算法题</a></h3>
-    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
-题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
-输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
-样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
-代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m; } cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; }  这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">Read More →</a>
-  </footer>
-</article>
-
-      
     
     
       <footer class="list-footer">
@@ -420,6 +401,8 @@ How can you tell an extrovert from an</p>
           
             <a class="pagination-previous" href="https://madneal.com/post/page/9/">← Newer Posts</a>
           
+          
+            <a class="pagination-next" href="https://madneal.com/post/page/11/">Older Posts →</a>
           
         </nav>
       </footer>
