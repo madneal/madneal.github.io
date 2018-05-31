@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 21 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://madneal.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>理解 OutOfMemoryError 异常</title>
+      <link>https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/</link>
+      <pubDate>Sat, 26 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/</guid>
+      <description>OutOfMemoryError 异常应该可以算得上是一个非常棘手的问题。JAVA 的程序员不用像苦逼的 C 语言程序员手动地管理内存，JVM 帮助他们分配内存，释放内存。但是当遇到内存相关的问题，就比如 OutOfMemoryError，如何去排查并且解决就变成一个非常令人头疼的问题。在 JAVA 中，所有的对象都存储在堆中，通常如果 JVM 无法再分配新的内存，内存耗尽，并且垃圾回收器无法及时回收内存，就会抛出 OutOfMemoryError。
+我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
+java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
+private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfMemoryError error  } catch (Error e) { e.printStackTrace(); } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。</description>
+    </item>
     
     <item>
       <title>从一道面试题谈谈 setTimeout 和 setInterval</title>
@@ -18,7 +30,7 @@
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/</guid>
-      <description>最近有看到一道题目，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印打印 1 等等，如何去实现？
+      <description>最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
 假如我们尝试使用 setTimeout 去实现：
 for (var i = 0; i &amp;lt; 5; i++) { setTimeout(function() { console.log(i); }, i * 1000); }  这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
 因此，对于上述的代码块，每一个 setTimeout 函数都被添加到了任务队列中。然后，这还涉及到了函数作用于的问题。因为当任务队列中的函数执行的时候，其作用域其实是全局作用域。setTimeout 中的打印函数执行的时候就会在全局作用域中寻找变量 i，而此时全局作用域的变量 i 的值已经变成 5 了。这也就是为什么打印的数字都是 5。那么应该如何达到我们一开始预期的效果呢？这里我们就需要考虑到函数执行上下文的问题，可以通过立即执行函数（IIFE）来改变函数作用域。
