@@ -220,6 +220,41 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/" class="post-link">你可能不知道谷歌浏览器开发工具的其他用处</a></h3>
+    <p class="post-meta">@Neal · Oct 3, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
+Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
+当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
+在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
+ 选择节点元素  如果你熟悉jquery的话，你应该知道$(‘.class’)和$(‘#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
+同样你可以在console使用同样的方式来访问元素。$(‘tagName’) $(‘.class’) $(‘#id’)和document.querySelector(“)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
+你可以用$$(‘tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
+2.将你的浏览器转化成一个编辑器
+你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
+你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
+document.body.contentEditable = true
+3.寻找dom中元素绑定的事件
+当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(‘selector’))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：
+如果希望找到某个特定事件的监听，你可以这么做：
+getEventListeners($(‘selector’)).eventName[0].listener
+这将展示所有和这个事件相关的监听。比如：
+getEventListeners($(‘.firstName’)).click[0].listener
+4.监听事件
+如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
+ monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),‘eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[‘eventName1’,‘eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
+console里面有一个很重要的函数叫做console.time(‘labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(‘labelName’)能够结束相应的计时器。
+比如我们想看到一个循环的执行时间，我们可以做如下处理：
+console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/" class="post-link">Bootstrap真的总是好的吗</a></h3>
     <p class="post-meta">@Neal · Aug 15, 2016 · 1 min read</p>
   </header>
@@ -364,20 +399,6 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
   <p class="post-summary">这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
-    <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
