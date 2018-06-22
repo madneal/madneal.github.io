@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Wmic 使用中的一些问题</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
+起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近大的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
+程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
+wmic product get name,description
+这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
+wmic product get name, description &amp;gt; products.txt
+这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
+通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
+补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
+wmic qfe list full" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Wmic 使用中的一些问题" />
+    <meta name="twitter:description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
+起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近大的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
+程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
+wmic product get name,description
+这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
+wmic product get name, description &amp;gt; products.txt
+这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
+通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
+补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
+wmic qfe list full" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Wmic 使用中的一些问题" />
+  <meta property="og:description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
+起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近大的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
+程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
+wmic product get name,description
+这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
+wmic product get name, description &amp;gt; products.txt
+这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
+通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
+补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
+wmic qfe list full" />
+  <meta property="og:url" content="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Wmic 使用中的一些问题</h1>
+      <p class="post-meta">@Neal · Jun 21, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。</p>
+
+<h2 id="起源">起源</h2>
+
+<p>我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近大的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。</p>
+
+<h2 id="程序和功能">程序和功能</h2>
+
+<p>通过 <code>wmic product</code> 我们可以获取程序和功能的安装信息。</p>
+
+<p><code>wmic product get name,description</code></p>
+
+<p>这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 <code>name</code> 以及 <code>description</code> 之外我们还可以使用 <code>vendor</code> 以及 <code>version</code> 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：</p>
+
+<p><code>wmic product get name, description &gt; products.txt</code></p>
+
+<p>这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 <code>wmic</code> 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。</p>
+
+<p>通过 <code>wmic</code> 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 <code>wmic</code> 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考<a href="http://www.4hou.com/technology/10206.html">这篇文章</a>。</p>
+
+<h2 id="补丁信息">补丁信息</h2>
+
+<p>经常我们需要获取计算机的补丁安装情况。通过 <code>systeminfo</code> 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 <code>wmic</code> 来获取补丁安装信息。</p>
+
+<p><code>wmic qfe list full</code></p>
+
+<p>这样我们就可以获取补丁的安装的相关信息了，但是这样的结果可能看起来不是很直观，所以我们还可以进行相应的格式化。<code>wmic qfe list full /format:table</code>，这样就可以把结果以表格的形式展现出来。加入我们还希望将结果导出来，我们可以将其导出比较好看的 html 表格形式：<code>wmic qfe list full /fomrmat:htble &gt; qfe.html</code>。</p>
+
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/htable.png" alt="htable.png" /></p>
+
+<p>如果不希望在结果中显示所有的字段，可以使用 <code>wmic qfe list brief</code> 或者 使用 <code>wmic qfe get hotfixid,installedon</code> 获取希望展示的字段。还可以使用其他的字段，比如 <code>description</code>, <code>installedby</code> 等等。</p>
+
+<p>这样获取的是完整的补丁列表，如果仅仅希望获取2018年的补丁安装信息该怎么做呢？ Wmic 还支持 <code>where</code> 关键词来查询：</p>
+
+<p><code>wmic qfe where &quot;installedon like '%/%/2018'&quot; list brief</code></p>
+
+<p>这样就可以获取2018年内安装的补丁信息列表。但是很奇怪的一件事情就是这句话在命令行中执行是没有什么问题的，但是在 bat 脚本中执行这句话的时候，总是提示 <code>No Instance(s) Available.</code>。一开始我一直以为是 <code>where</code> 关键词有问题或者是 <code>wmic</code> 的问题。尝试使用：</p>
+
+<p><code>wmic path win32_quickfixengineering where (installedon like &quot;%/%/2018&quot;) list bief</code></p>
+
+<p>同样地，这句话在命令中可以执行，但是在 bat 脚本中还是同样的问题。另外也排除了 <code>where</code> 关键词影响的可能性。最后才发现问题在于 <code>%</code> 上，因为在 bat 脚本中，% 有多种用途，在这里如果我们希望表示原始的 %，那么我们应该使用 %% 来表达，因此：</p>
+
+<p><code>wmic qfe where &quot;installedon like '%%/%%/2018'&quot; list brief</code></p>
+
+<h2 id="more">More</h2>
+
+<p>当然关于 wmic 还有很多更高阶的玩法。比如，就有 WMI Query Language 能够提供查询功能，有点类似于 SQL，部分关键字是一样的，比如常见的 where 以及 select。可以在一些工具中使用 WQL 语法，比如在运行中输入 <code>wbemttest</code> 就可以打开 wmi 的测试工具。</p>
+
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/wbemtest.png" alt="wbemtest.png" /></p>
+
+<p>在本地连接之后，就可以通过查询语句来查询一些信息了。比如，<code>select * from win32_process</code> 就可以看到一些进程相关的信息。关于测试工具的更过用法，参考<a href="https://www.codeproject.com/Articles/46390/WMI-Query-Language-by-Example">这篇文章</a>。</p>
+
+<p>关于 wmi 的更多用法，可以参考<a href="https://msdn.microsoft.com/en-us/library/aa394572(v=vs.85).aspx">微软的官方文档</a>。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/wmic"><span class="tag">Wmic</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/windows"><span class="tag">Windows</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104405154-2', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

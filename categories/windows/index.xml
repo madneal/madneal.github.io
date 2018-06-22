@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows on Neal&#39;s Blog</title>
+    <link>https://madneal.com/categories/windows/</link>
+    <description>Recent content in Windows on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Thu, 21 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/categories/windows/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Wmic 使用中的一些问题</title>
+      <link>https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Thu, 21 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</guid>
+      <description>Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
+起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近大的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
+程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
+wmic product get name,description
+这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
+wmic product get name, description &amp;gt; products.txt
+这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
+通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
+补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
+wmic qfe list full</description>
+    </item>
+    
+  </channel>
+</rss>
