@@ -254,7 +254,7 @@ var createImgElement = function(urla, b) { var imgElement = document.createEleme
     <span style="color:#a6e22e">imgElement</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">urla</span>
 };
 </code></pre></div>
-<p>这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。</p>
+<p>这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。</p>
 
 <p>这里涉及到一个 canvas 和图片之间的相互转化。下面提供两个相互转化的函数：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvasToImg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fucntion</span>(<span style="color:#a6e22e">image</span>) {
