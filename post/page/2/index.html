@@ -220,6 +220,21 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-link">POI读取文件的最佳实践</a></h3>
+    <p class="post-meta">@Neal · Nov 26, 2017 · 5 min read</p>
+  </header>
+  
+  <p class="post-summary">POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &#34;&#34;; try { if (filePath.endsWith(&#34;doc&#34;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&#34;docx&#34;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/" class="post-link">基于ELK进行邮箱访问日志的分析</a></h3>
     <p class="post-meta">@Neal · Nov 16, 2017 · 1 min read</p>
   </header>
@@ -420,28 +435,6 @@ LICENSE: MIT
   教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" class="post-link">service worker介绍</a></h3>
-    <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Service workers explained
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
- 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
-Service worker就好像它的内部有一个有一个shared worker ：
- 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
- 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
- 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
   </footer>
 </article>
 

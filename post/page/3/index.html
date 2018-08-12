@@ -220,6 +220,28 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" class="post-link">service worker介绍</a></h3>
+    <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：Service workers explained
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
+ 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
+Service worker就好像它的内部有一个有一个shared worker ：
+ 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
+ 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
+ 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/" class="post-link">service worker之cache实践--sw-precache</a></h3>
     <p class="post-meta">@Neal · Apr 22, 2017 · 1 min read</p>
   </header>
@@ -382,33 +404,6 @@ dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成�
 其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">Latex--入门系列一</a></h3>
-    <p class="post-meta">@Neal · Dec 3, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
-TeX, LaTeX以及他们的用法 Tex:排版 Tex是Donald Knuth发明的一种排版语言。排版意味着从结构性的文本到审美的一个标准。在Tex里面，你可以控制文本的根本结构，而不是像word一样，是软件阴影的帮你管理文件的结构，而紧紧给你提供一个图形化的接口。在TeX/LaTeX里面，对于布局和样式都有着默认的合理的设置但是却是可以控制的。
-Tex对于希望控制文本的人是非常友好的，一部分可能是因为它不会帮助你不能控制的东西。当然，简便也是一方面的－当TeX工作正常的时候，它运行的很好并且容易明白，但是当它有问题的时候，将会很麻烦，将会变得难以处理。（这点我深有体会）如果你稍微脱离了他的运作方式或者期望一个不太容易实现的功能，你可能需要头痛一下了。
-还有其他的一些优点和缺点。TeX的公式拍版是它的强项之一。在以前它可能是唯一较为正式的选择，即使像现在可以使用MathML或者MathType的时候，TeX也被认为是使用起来还是比较便利的。假如你以前还没有接触过TeX，那么你可尝试穿件下面的公式：
-在TeX仅仅使用t) = h(t) \otimes g(t) \equiv \int h(\nu) g(t-\nu) d\nu就可以搞定了。是不是看起来挺简单的。
-它的缺点可能是将它用于不是它的目的功能的地方。比如，你希望得到一些奇特的表格，你可能会遇到问题并发现一些替代的解决方法，不过这意味着你需要用一些相应的包并且按照其相应的方式去实现了。
-LATEX：文档编制 LaTeX是围绕TeX的一种文档编制的宏命令，它是一个比较高层次的能够利用它们产生一些比较常用的文档类型。它考虑到很多方面的内容，包括页眉和页尾，表格内容生成，自动两列的样式以及其他更多的细节。LaTeX现在被广泛得应用以及于它和TeX之间可以交换使用。TeX的实现方法大多数可以直接用在LaTeX的文档上面。当然你可以直接写TeX文件，但这不一定有什么用。如果希望看到更多的介绍，你可以参考这个。
-书籍，报告以及PDF LaTeX对于写文章，报告以及书籍有些基本的设置。
-它之所以受到喜爱的原因可能是对于大型的文档不容易搞混样式，于其它的一些工具截然不同，比如微软的word，随着文档长度的增长，它的处理复杂度也在逐渐增长，如果你曾经参与过大型的共同合作的文档项目，那么你将深有体会。
-近些年以来，pafTeX编译器变得流行起来，因为它可以直接编译pdf文件（不需要dvi以及ps文件作为媒介），使用pdflatex 而不是latex，你可使用一些针对pdf的特点。
-包 在TeX和LaTeX里面有各种各样的包，你可以用一些比较怪异的符号，制作一些表格包括输和公式，写活页曲谱，做CAD图，确保首字母大写以及单词拼写正确，或者仅仅只是用一些特别的地方。
-版本变化以及实现 LaTeX最近通用经常写作是LaTeX2e。我认为你是在使用这个版本的。通常这也无关紧要，但是有一些老的命令我不会特别提及。
-注意这个版本以及老版本的LaTeX209是最通用的语言以及实现规范，并不针对特别的包或者实现。
-免费的TeX软件包括通常的’teTeX’也叫做’TeX Live’对于unix系列的系统，以及对于windows系统的’MikTex’。你也可以参考下面相关的软件。
-你可以参考维基百科里面的TeX以及LaTeX。TUG是近些年的一些开发工作和相关文档。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
 </article>
 

