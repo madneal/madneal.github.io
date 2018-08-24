@@ -220,6 +220,39 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" class="post-link">web 狗之writeup--phone</a></h3>
+    <p class="post-meta">@Neal · Aug 23, 2018 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
+打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
+注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！
+正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
+数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&#34;11&#34;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
+Hello, txt1 Your phone is 1 and 1 = 2 union select database().</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" class="post-link">利用 python 生成可视化报告</a></h3>
+    <p class="post-meta">@Neal · Aug 16, 2018 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
+docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
+doc = Docxtpl(filename) context = { &#34;a&#34;: &#34;13413&#34; } doc.Render(context) Matplotlib 是一个非常好的可视化作图工具，可以利用它制作各种图例。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/" class="post-link">黑产代码解密--利用canvas加载代码</a></h3>
     <p class="post-meta">@Neal · Aug 12, 2018 · 3 min read</p>
   </header>
@@ -366,43 +399,6 @@ const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; ci
  Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&gt; TimeSheet =&gt; TimesheetTable 这样的嵌套。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" class="post-link">通过七牛云建立私有图床</a></h3>
-    <p class="post-meta">@Neal · Feb 25, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。
-注册账户 首先你可以通过这个链接注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。
-创建好存储空间（bucket）就已经完成了私有图库的第一步。
-开发 在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在官方 SDK 文档获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 js SDK 文档。
-文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
- 利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
-上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
-function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" class="post-link">聊聊答题应用题库的建立</a></h3>
-    <p class="post-meta">@Neal · Feb 23, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
-网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
-另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
-使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
-from elasticsearch import Elasticsearch def write_quetion(): question = { &#39;question&#39;: &#39;谁是世界上最帅的人&#39;, &#39;answer&#39;: &#39;Neal&#39; } es = Elasticsearch({&#39;localhost&#39;}) es.index(index=&#39;question-index&#39;, doc_type=&#39;question&#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/">Read More →</a>
   </footer>
 </article>
 

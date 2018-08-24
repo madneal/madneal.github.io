@@ -213,6 +213,40 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" class="post-link">opencv视频流的读取和处理</a></h3>
+    <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/" class="post-link">歌德巴赫猜想</a></h3>
+    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary"> 题目 Description
+歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
+每行一个偶数n（4 &lt; n &lt;= 20000）
+Output
+对应于每个输入的偶数，输出a、一个空格、b、一个换行符
+Sample Input
+8 10 1000 Sample Output
+3 5 5 5 491 509
+代码 #include&lt;stdio.h&gt; #include&lt;math.h&gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&#34;%d&#34;,&amp;n) != EOF) { for (i = n/2;i &gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;&amp;isPrime(j)) { printf(&#34;%d %d\n&#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/" class="post-link">道路识别</a></h3>
     <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>

