@@ -273,10 +273,12 @@ tpl<span style="color:#f92672">.</span>render(context, jinja_env)
 tpl<span style="color:#f92672">.</span>save(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;test_files/inline_image.docx&#39;</span>)</code></pre></div>
 <p>同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 <a href="https://github.com/elapouya/python-docx-template/tree/master/tests">test</a>，里面有各种例子可以参考。</p>
 
-<h2 id="matplotlin">Matplotlin</h2>
+<h2 id="matplotlib">Matplotlib</h2>
 
-<p>Matplotlib 是一个非常好的可视化作图工具，可以利用它制作各种图例。</p>
-</article>
+<p>Matplotlib 是一个非常好的可视化作图工具，可以利用它制作各种图例。主要讲plt.几个使用的时候遇到的一些小问题。第一个就是图例上的中文乱码，需要设置图例的文字字体：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;font.sans.serif&#34;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;SimHei&#34;</span>]</code></pre></div>
+<p>第二个情况就是图例中的 label 很有可能重叠，所以可以将 label 旋转：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>xtick(obj[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;group_labels&#34;</span>], rotation<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)</code></pre></div></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
