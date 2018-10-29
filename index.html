@@ -213,6 +213,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" class="post-link">Qradar SIEM--查询利器 AQL</a></h3>
+    <p class="post-meta">@Neal · Oct 26, 2018 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">对于 SIEM 平台来说，好用的查询方式非常重要。之前有体验基于 ELK 搭建的平台，在 kibana 上面是可以通过一些 filter 来做一些过滤并且是支持 lucene 的语法，包括一些简单的逻辑查询以及 wildquery 等等。但是的确是在做一些汇聚之类时不是很方便，一般需要通过 json 来构建更高级的查询语句。后来好像也有转 SQL 之类的插件，但我也没有使用过，总的来说体验比较一般。
+Qradar Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 BUG 一大堆，但架不住别的更差啊），基本上也是属于业界 TOP 5。商业产品的好处就是不用自己太折腾，搞搞就可以用，缺点就是贵。AQL（Ariel Query Language）是 Qradar 中的一种查询语言，与普通的 SQL 的语句类似，但是阉割了一些功能也增加了一些功能。以下是 AQL 的基本流程：
+可以看出 AQL 是一种非常类似于 SQL 的语言，所以基本上你用过 SQL 学会 AQL 也就分分钟的事情，而且你也不会拿它去做特别复杂的嵌套查询（因为它也不支持。。。）
+Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 QIDNAME(qid) 来获取事件名称，RULENAME(123) 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。
+下面就是我在使用过程中一些小经验：
+引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" class="post-link">web 狗之writeup--phone</a></h3>
     <p class="post-meta">@Neal · Aug 23, 2018 · 4 min read</p>
   </header>
@@ -374,25 +392,6 @@ Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
 func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startIndex := p - step endIndex := p &#43; step if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { startIndex = 1 endIndex = startIndex &#43; 2 * step } else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { endIndex = pages startIndex = pages - 2 * step } else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { startIndex = 1 endIndex = pages } // handle some special cases  if startIndex &lt; 1 { startIndex = 1 } if endIndex &gt; pages { endIndex = pages } for i := startIndex; i &lt;= endIndex; i&#43;&#43; { pageList = append(pageList, i) } return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
-    <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
-准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
-另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
-const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; { let ele = { cx: circle.cx, cy: circle.cy, sroke: circle.stroke, id: circle.id }; result.push(ele); }) const str = JSON.stringify(result);  通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
-设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
-组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
- Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息  这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&gt; TimeSheet =&gt; TimesheetTable 这样的嵌套。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
   </footer>
 </article>
 
