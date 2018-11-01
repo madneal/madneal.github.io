@@ -213,6 +213,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/" class="post-link">如何做一个完美的页码跳转</a></h3>
+    <p class="post-meta">@Neal · Mar 28, 2018 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">需求 想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：
+问题定义 我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 pages，当前选择的页码为 p,p 往左走或者往右走的步长是固定的，令步长为 step。那么我们现在要做的事情可以这么理解，我们要从 1 到 pages 之间截取可用的页码数，假设开始页码为 startIndex，结束页码为 endIndex。抽象一下，我们可以总结出以下几种情况：
+Condition1 startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages
+Condition2 startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages
+Condition3 startIndex &lt; 1 &amp;&amp; endIndex &gt; pages
+Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
+这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
+代码实现 Show me the code.
+func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startIndex := p - step endIndex := p &#43; step if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { startIndex = 1 endIndex = startIndex &#43; 2 * step } else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { endIndex = pages startIndex = pages - 2 * step } else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { startIndex = 1 endIndex = pages } // handle some special cases  if startIndex &lt; 1 { startIndex = 1 } if endIndex &gt; pages { endIndex = pages } for i := startIndex; i &lt;= endIndex; i&#43;&#43; { pageList = append(pageList, i) } return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
     <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
   </header>
@@ -383,26 +404,6 @@ JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8�
 因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/" class="post-link">什么是服务端伪造（SSRF）</a></h3>
-    <p class="post-meta">@Neal · Aug 6, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">什么是服务端伪造（SSRF）  原文：GitHub Pages and Single-Page Apps
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
-典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
-下面的是PHP中容易收到SSRF的一个例子。
-&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
   </footer>
 </article>
 
