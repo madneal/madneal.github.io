@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C# on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/c#/</link>
+    <link>https://neal1991.github.io/tags/c#/</link>
     <description>Recent content in C# on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Tue, 28 Apr 2015 11:45:14 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://neal1991.github.io/tags/c#/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>如何将网络流转化为内存流 C#</title>
-      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</link>
+      <link>https://neal1991.github.io/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</link>
       <pubDate>Tue, 28 Apr 2015 11:45:14 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</guid>
+      <guid>https://neal1991.github.io/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</guid>
       <description>//将获取的文件流转化为内存流 public static MemoryStream ConvertStreamToMemoryStream(Stream stream) { MemoryStream memoryStream = new MemoryStream(); if (stream != null) { byte[] buffer = ReadFull(stream); if (buffer != null) { var binaryWriter = new BinaryWriter(memoryStream); binaryWriter.Write(buffer); } } return memoryStream; } public static byte[] ReadFull(Stream input) { byte[] buffer = new byte[16 * 1024]; using (MemoryStream ms = new MemoryStream()) { int read; while ((read = input.Read(buffer, 0, buffer.Length)) &amp;gt; 0) { ms.Write(buffer, 0, read); } return ms.</description>
     </item>
     

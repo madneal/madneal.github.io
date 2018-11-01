@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>面试题 on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+    <link>https://neal1991.github.io/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
     <description>Recent content in 面试题 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 21 Apr 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://neal1991.github.io/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>从一道面试题谈谈 setTimeout 和 setInterval</title>
-      <link>https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/</link>
+      <link>https://neal1991.github.io/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/</link>
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/</guid>
+      <guid>https://neal1991.github.io/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/</guid>
       <description>最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
 假如我们尝试使用 setTimeout 去实现：
 for (var i = 0; i &amp;lt; 5; i++) { setTimeout(function() { console.log(i); }, i * 1000); }  这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
@@ -27,10 +27,10 @@ for (var i = 0; i &amp;lt; 5; i++) { (function(i) { setTimeout(function() { cons
     
     <item>
       <title>前端面试题——系列一</title>
-      <link>https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/</link>
+      <link>https://neal1991.github.io/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/</link>
       <pubDate>Tue, 01 Mar 2016 19:08:46 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
+      <guid>https://neal1991.github.io/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
       <description>html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
 img标签alt属性和title属性的区别
 alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。

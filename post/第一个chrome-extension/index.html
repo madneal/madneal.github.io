@@ -28,7 +28,7 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
     <meta name="twitter:description" content="如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
 { &amp;quot;manifest_version&amp;quot;: 2, &amp;quot;name&amp;quot;: &amp;quot;弹幕增强&amp;quot;, &amp;quot;description&amp;quot;: &amp;quot;This extension provides you a good experience of sending danmu at douyu&amp;quot;, &amp;quot;version&amp;quot;: &amp;quot;1.0&amp;quot;, &amp;quot;browser_action&amp;quot;: { &amp;quot;default_icon&amp;quot;: &amp;quot;icon.png&amp;quot;, &amp;quot;default_popup&amp;quot;: &amp;quot;popup.html&amp;quot; }, &amp;quot;content_scripts&amp;quot; : [{ &amp;quot;matches&amp;quot;: [ &amp;quot;http://*/*&amp;quot;, &amp;quot;https://*/*&amp;quot; ], &amp;quot;js&amp;quot; : [&amp;quot;app.js&amp;quot;], &amp;quot;run_at&amp;quot;: &amp;quot;document_end&amp;quot; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&amp;rdquo;里面定义的是extension的相关内容，&amp;rdquo;default_icon&amp;rdquo;即是插件的图标，&amp;rdquo;default_popup&amp;rdquo;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。&amp;rdquo;content_script&amp;rdquo;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&amp;rdquo;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，&amp;rdquo;content_script&amp;rdquo;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script&amp;rdquo;:
 var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console." />
-    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
   
 
   
@@ -37,8 +37,8 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
   <meta property="og:description" content="如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
 { &amp;quot;manifest_version&amp;quot;: 2, &amp;quot;name&amp;quot;: &amp;quot;弹幕增强&amp;quot;, &amp;quot;description&amp;quot;: &amp;quot;This extension provides you a good experience of sending danmu at douyu&amp;quot;, &amp;quot;version&amp;quot;: &amp;quot;1.0&amp;quot;, &amp;quot;browser_action&amp;quot;: { &amp;quot;default_icon&amp;quot;: &amp;quot;icon.png&amp;quot;, &amp;quot;default_popup&amp;quot;: &amp;quot;popup.html&amp;quot; }, &amp;quot;content_scripts&amp;quot; : [{ &amp;quot;matches&amp;quot;: [ &amp;quot;http://*/*&amp;quot;, &amp;quot;https://*/*&amp;quot; ], &amp;quot;js&amp;quot; : [&amp;quot;app.js&amp;quot;], &amp;quot;run_at&amp;quot;: &amp;quot;document_end&amp;quot; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&amp;rdquo;里面定义的是extension的相关内容，&amp;rdquo;default_icon&amp;rdquo;即是插件的图标，&amp;rdquo;default_popup&amp;rdquo;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。&amp;rdquo;content_script&amp;rdquo;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&amp;rdquo;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，&amp;rdquo;content_script&amp;rdquo;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script&amp;rdquo;:
 var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console." />
-  <meta property="og:url" content="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta property="og:url" content="https://neal1991.github.io/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
 
 
 
@@ -46,8 +46,8 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
 <meta name="generator" content="Hugo 0.37.1" />
 
 
-<link rel="canonical" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" />
-<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://neal1991.github.io/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -72,18 +72,18 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://madneal.com/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
 
 
   
@@ -118,7 +118,7 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
     
     
   <header class="site-header">
-  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -139,7 +139,7 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
             
               is-active
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://neal1991.github.io/">Home</a>
           </li>
       
         <li class="menu-item
@@ -153,7 +153,7 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
             
             
             ">
-            <a href="https://madneal.com/tags/">Tags</a>
+            <a href="https://neal1991.github.io/tags/">Tags</a>
           </li>
       
     </ul>
@@ -211,7 +211,7 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
       
 
       <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -271,9 +271,9 @@ for (var i = 0; i &lt; times; i ++) {
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/chrome"><span class="tag">Chrome</span></a></li>
+          <li><a href="https://neal1991.github.io/tags/chrome"><span class="tag">Chrome</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E6%89%A9%E5%B1%95"><span class="tag">扩展</span></a></li>
+          <li><a href="https://neal1991.github.io/tags/%E6%89%A9%E5%B1%95"><span class="tag">扩展</span></a></li>
         
       </ul>
       
@@ -337,7 +337,7 @@ for (var i = 0; i &lt; times; i ++) {
   });
 </script>
 
-<script src="https://madneal.com/js/bundle.js"></script>
+<script src="https://neal1991.github.io/js/bundle.js"></script>
 
 
 <script>

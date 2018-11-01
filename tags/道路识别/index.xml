@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>道路识别 on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</link>
+    <link>https://neal1991.github.io/tags/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</link>
     <description>Recent content in 道路识别 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Wed, 15 Apr 2015 09:55:48 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://neal1991.github.io/tags/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>道路识别demo</title>
-      <link>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</link>
+      <link>https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</link>
       <pubDate>Wed, 15 Apr 2015 09:55:48 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</guid>
+      <guid>https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</guid>
       <description>最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
 opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&amp;quot;test1.mp4&amp;quot;); CvWindow w = new CvWindow(&amp;quot;Lane Detection&amp;quot;); CvWindow canny = new CvWindow(&amp;quot;Canny&amp;quot;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &amp;lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.</description>
     </item>
     
     <item>
       <title>道路识别</title>
-      <link>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</link>
+      <link>https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</link>
       <pubDate>Sat, 11 Apr 2015 13:29:14 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</guid>
+      <guid>https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</guid>
       <description>我们老板希望我能在道路识别这个方面做一些东西，这方面的东西一直在看，但是一直都是模模糊糊，我希望自己能够用一个合适的方式总结一下道路识别的问题。
 道路识别问题其实也正正恰好是识别问题中的一个方面，所以道路识别问题的关键也是在于如何选取一个特征来进行识别。道路识别问题可以使用不同的方法来解决，我打算从下面这些方面来阐述一下我自己对道路识别的一个理解：
  我们要解决什么情况下的道路问题 其实我觉得这点挺重要的，因为很多计算机视觉的问题在不同的要求之下有各种各样的方法。我觉得很有必要弄清楚自己需要的目标，我是要解决什么样的问题。道路识别问题可以分为结构化的道路和非结构化的道路。结构化的道路就是比较标准的道路，有着清晰地道路线，高速公路，城市公路，这些都是典型的结构化道路。而非结构化道路就是往往没有规则，没有明显的道路线或者根本没有道路线，显然，这样的道路识别比较复杂。因为我自己还是一个菜鸟，所以我一直以来看的问题都是针对结构化的道路。

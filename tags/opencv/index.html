@@ -27,14 +27,14 @@
   <meta name="twitter:site" content="@gohugoio" />
   <meta name="twitter:title" content="Neal 的博客" />
   <meta name="twitter:description" content="全栈工程师的进击" />
-  <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
 
   
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Neal 的博客" />
   <meta property="og:description" content="全栈工程师的进击" />
-  <meta property="og:url" content="https://madneal.com/tags/opencv/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta property="og:url" content="https://neal1991.github.io/tags/opencv/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
 
 
 
@@ -42,8 +42,8 @@
 <meta name="generator" content="Hugo 0.37.1" />
 
 
-<link rel="canonical" href="https://madneal.com/tags/opencv/" />
-<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://neal1991.github.io/tags/opencv/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -68,18 +68,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://madneal.com/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
 
 
   
@@ -110,7 +110,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -129,7 +129,7 @@
             
             
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://neal1991.github.io/">Home</a>
           </li>
       
         <li class="menu-item
@@ -143,7 +143,7 @@
             
             
             ">
-            <a href="https://madneal.com/tags/">Tags</a>
+            <a href="https://neal1991.github.io/tags/">Tags</a>
           </li>
       
     </ul>
@@ -201,7 +201,7 @@
       
 
       <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -217,48 +217,48 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/iplimage-versus-mat/" class="post-link">Iplimage versus Mat</a></h3>
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/iplimage-versus-mat/" class="post-link">Iplimage versus Mat</a></h3>
     <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
   </header>
   
   <p class="post-summary"> 我们可能经常面临这样的困惑，Iplimage和Mat这两种数据结构，我们应该用哪一种数据结构。 Iplimage一开始就存在opencv库之中，他来源于Intel的另外一个函数库Intel Image Processing Library(IPL)，这是一种非常重要的数据结构。在经典书籍里面的sample用的基本都是Iplimage这个数据结构。但是这是一种C风格的数据结构，你必须为他分配以及释放内存。 Mat则是一种新的数据结构，越来越多的人也在使用这种数据结构了，因为它是面向对象的。所以我们不需要自己来为它管理内存。它是通过计数的方式来进行引用，如果它的引用计数为0的话，那么它就会自动释放内存。 老实说，用什么数据结构，我也不知道。因为我觉得有些方法，Mat数据结构还不具备，有的方法只有运用Iplimage才可以。
 将Iplimage转化为Mat IplImage* ipl; Mat m = cvarrToMat(ipl);  </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/iplimage-versus-mat/">Read More →</a>
+    <a class="read-more" href="https://neal1991.github.io/post/iplimage-versus-mat/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/" class="post-link">道路识别demo</a></h3>
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/" class="post-link">道路识别demo</a></h3>
     <p class="post-meta">@Neal · Apr 15, 2015 · 2 min read</p>
   </header>
   
   <p class="post-summary">最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
 opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;); CvWindow w = new CvWindow(&#34;Lane Detection&#34;); CvWindow canny = new CvWindow(&#34;Canny&#34;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
+    <a class="read-more" href="https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" class="post-link">opencv视频流的读取和处理</a></h3>
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" class="post-link">opencv视频流的读取和处理</a></h3>
     <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
   </header>
   
   <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
+    <a class="read-more" href="https://neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/opencv/" class="post-link">OPENCV</a></h3>
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/opencv/" class="post-link">OPENCV</a></h3>
     <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>
   
@@ -271,7 +271,7 @@ http://blog.csdn.net/carson2005/article/details/6243476
 对于分类器部分，OpenCV提供了SVM,CART,boost,bayes,bdt,ANN,这几种常用的算法。而这些基本已经覆盖了常用的分类器。所以，你需要做的，就是知道怎么调用其接口，各种分类器的优点和缺点（该部分，建议阅读“机器学习”这本书）。
 通过以上的分析，你或许已经发现，OpenCV不过是一个工具而已。或者，你可以将它理解为幼儿园小朋友过家家玩的积木，而OpenCV中的函数，则可以理解为一个一个的积木块，利用所有或者部分积木块，你可以快速的搭建起来具体的计算机视觉方面的应用（比如，字符识别，车牌识别，遗留物检测）。想必你也已经发现，在利用OpenCV这个积木来搭建具体的计算机视觉应用的时候，真正核心的，应该是这些积木块，如果你明白了积木块的工作原理，那么，是不是就可以不用这些积木块了呢？完全正确！不过，一般部分情况下，我们不需要这么做，因为，OpenCV已经帮你做好了一些工作（已经帮你做好了一些积木块，直接拿来用就是了）。但是，诸如前面提到的特征提取模块，很多情况下，OpenCV就无能为力了。这个时候，你就需要翻阅计算机视觉、模式识别、机器学习领域顶级会议、期刊、杂志上面发表的文章了。然后，根据这些文章中阐述的原理和方法，来编程实现你要的东西。实际上，也就等于搭建一个属于你私有的积木块。其实，OpenCV中的每一个API函数，也就是这么来的。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/opencv/">Read More →</a>
+    <a class="read-more" href="https://neal1991.github.io/post/opencv/">Read More →</a>
   </footer>
 </article>
 
@@ -311,7 +311,7 @@ http://blog.csdn.net/carson2005/article/details/6243476
   });
 </script>
 
-<script src="https://madneal.com/js/bundle.js"></script>
+<script src="https://neal1991.github.io/js/bundle.js"></script>
 
 
 <script>

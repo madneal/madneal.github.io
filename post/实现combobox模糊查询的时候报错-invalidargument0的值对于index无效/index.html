@@ -28,7 +28,7 @@
     <meta name="twitter:description" content="因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
  List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); //绑定原始数据源 List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
 ************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp;amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp;amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)  我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。" />
-    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
   
 
   
@@ -37,8 +37,8 @@
   <meta property="og:description" content="因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
  List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); //绑定原始数据源 List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
 ************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp;amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp;amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)  我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。" />
-  <meta property="og:url" content="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta property="og:url" content="https://neal1991.github.io/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
 
 
 
@@ -46,8 +46,8 @@
 <meta name="generator" content="Hugo 0.37.1" />
 
 
-<link rel="canonical" href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" />
-<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://neal1991.github.io/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -72,18 +72,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://madneal.com/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
 
 
   
@@ -118,7 +118,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -139,7 +139,7 @@
             
               is-active
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://neal1991.github.io/">Home</a>
           </li>
       
         <li class="menu-item
@@ -153,7 +153,7 @@
             
             
             ">
-            <a href="https://madneal.com/tags/">Tags</a>
+            <a href="https://neal1991.github.io/tags/">Tags</a>
           </li>
       
     </ul>
@@ -211,7 +211,7 @@
       
 
       <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -291,9 +291,9 @@ System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index�
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/combobox"><span class="tag">Combobox</span></a></li>
+          <li><a href="https://neal1991.github.io/tags/combobox"><span class="tag">Combobox</span></a></li>
         
-          <li><a href="https://madneal.com/tags/winform"><span class="tag">Winform</span></a></li>
+          <li><a href="https://neal1991.github.io/tags/winform"><span class="tag">Winform</span></a></li>
         
       </ul>
       
@@ -357,7 +357,7 @@ System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index�
   });
 </script>
 
-<script src="https://madneal.com/js/bundle.js"></script>
+<script src="https://neal1991.github.io/js/bundle.js"></script>
 
 
 <script>
