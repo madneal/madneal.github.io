@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://neal1991.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>什么是DDOS</title>
+      <link>https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/</link>
+      <pubDate>Fri, 04 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/</guid>
+      <description>什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn+Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源+真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</description>
+    </item>
     
     <item>
       <title>架构整洁之道读后感</title>
@@ -234,20 +248,6 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
 使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
 from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：</description>
-    </item>
-    
-    <item>
-      <title>什么是DDOS</title>
-      <link>https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/</link>
-      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/</guid>
-      <description>什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
-有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
-DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
-传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
-以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn+Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
-DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源+真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</description>
     </item>
     
     <item>
