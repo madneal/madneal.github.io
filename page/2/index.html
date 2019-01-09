@@ -290,6 +290,24 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &#39;q
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" class="post-link">什么是DDOS</a></h3>
+    <p class="post-meta">@Neal · Jan 4, 2018 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-link">POI读取文件的最佳实践</a></h3>
     <p class="post-meta">@Neal · Nov 26, 2017 · 5 min read</p>
   </header>
@@ -374,36 +392,6 @@ Medium 文章格式显示地非常优雅，但是存在一个问题。众所周�
 router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" class="post-link">JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</a></h3>
-    <p class="post-meta">@Neal · Sep 13, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
-正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
-如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
-因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
-概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
-在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
-如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
-如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
-JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
-引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：’setTimeout’）。然而这些API并不是由引擎提供的。
-那么，它们是从哪来的呢？
-事实证明这有一点复杂。
-因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
 </article>
 

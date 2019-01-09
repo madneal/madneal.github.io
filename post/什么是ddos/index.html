@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>什么是DDOS</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="什么是DDOS" />
+    <meta name="twitter:description" content="什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。" />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="什么是DDOS" />
+  <meta property="og:description" content="什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。" />
+  <meta property="og:url" content="https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">前端技术</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">什么是DDOS</h1>
+      <p class="post-meta">@Neal · Jan 4, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content">
+
+<h2 id="什么是-ddos">什么是 DDOS</h2>
+
+<p>DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。</p>
+
+<p>有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。</p>
+
+<h2 id="ddos-攻击类型">DDOS 攻击类型</h2>
+
+<p>常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。</p>
+
+<h3 id="传输层-ddos-攻击">传输层 DDOS 攻击</h3>
+
+<p>传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。</p>
+
+<p>以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn+Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。</p>
+
+<h3 id="dns-ddos-攻击">DNS DDoS 攻击</h3>
+
+<p>DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源+真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</p>
+
+<p>以 DNS Query Flood 攻击为例，其本质上执行的是真实的 Query 请求，属于正常业务行为。但如果多台肉鸡同时发起海量的域名查询请求，对服务端来说则无法为正常的 Query 请求返回结果，从而导致拒绝服务。</p>
+
+<h3 id="连接型ddos攻击">连接型DDoS攻击</h3>
+
+<p>连接型 DDoS 攻击主要是指TCP慢速连接攻击，连接耗尽攻击，Loic，Hoic，Slowloris，Pyloris，Xoic等慢速攻击。</p>
+
+<p>以 Slowloris 攻击为例，其攻击目标是 Web 服务容器的并发上限，当 Web 服务容器的连接并发数达到上限后，Web 服务即无法接受新的请求。具体来说，Web 服务接收到新的 HTTP 请求时，建立新的连接来处理请求，并在处理完成后关闭这个连接；如果该连接一直处于连接状态，收到新的 HTTP 请求时则需要建立新的连接进行处理；而当所有连接都处于连接状态时，Web 将无法处理任何新的请求。</p>
+
+<p>Slowloris 攻击利用 HTT P协议的特性来达到攻击目的。HTTP 请求以 <code>\r\n\r\n</code> 标识 Headers 的结束，如果 Web 服务端只收到 <code>\r\n</code>，则认为 HTTP Headers 部分没有结束，将保留该连接并等待后续的请求内容。</p>
+
+<h3 id="web应用层ddos攻击">Web应用层DDoS攻击</h3>
+
+<p>Web应用层攻击主要是指 HTTP Get Flood，HTTP Post Flood，CC 等攻击。</p>
+
+<p>通常应用层攻击完全模拟用户请求，类似于各种搜索引擎和爬虫一样，这些攻击行为和正常的业务并没有严格的边界，难以辨别。</p>
+
+<p>Web 服务中一些资源消耗较大的事务和页面（例如，Web 应用中的分页和分表，如果控制页面的参数过大，频繁的翻页将会占用较多的 Web 服务资源）。尤其在高并发频繁调用的情况下，类似这样的事务就成了早期 CC 攻击的目标。</p>
+
+<p>由于现在的攻击大都是混合型的，掺杂在正常的业务中，因此一般存在模拟用户行为的频繁操作都可以被认为是 CC 攻击。但总体来说，CC 攻击这类应用层的攻击特点，是和业务应用边界模糊。例如，各种刷票软件对网站的访问，从某种程度上来说就是CC攻击。</p>
+
+<p>CC 攻击瞄准的是 Web 应用的后端业务，除了导致拒绝服务外，还会直接影响 Web 应用的功能和性能，包括 Web 响应时间、数据库服务、磁盘读写等，都会导致功能和性能的异常。</p>
+
+<h2 id="面对-ddos-我能做些什么">面对 DDOS，我能做些什么</h2>
+
+<p>扩容，这似乎是最简单，最粗暴，也是最有效的解决办法。因为只要你的应用地服务能力始终在 DDOS 攻击之上，那么你的服务就可以从容应对 DDOS 攻击。但，扩容是要钱的，所以无限扩容理论上也不是现实的，而且如果你的服务还没有上云，还不能够做到快速扩容，还是有很大问题的。面对与不同的 DDOS攻击类型，需要不同的应对方法。</p>
+
+<p>以国内抗 DDOS 设备为例，作为国内的主流网络设备供应商，其抗 DDOS 主要针对网络包的分析。主要防护策略主要是针对于不同协议的防护策略：包括 TCP 防护策略， UDP 防护策略， HTTP(HTTPS) 防护策略以及 DNS 防护策略。针对不同的网络协议，也有不同的攻击类型，主要防护策略都是结合对源 IP 包的分析，发现异常包，以及访问频率超过异常的包，从而来进行防护。但是这种防护策略针对于应用层的攻击显得就不是那么有效了，而且有可能会造成对正常用户的误伤。</p>
+
+<p>WAF（网络应用防火墙），作为这几年越来越流行的网络安全设备，似乎成为了企业安全的镇妖法宝。要是哪个企业出门说自己还没有上 WAF，出门肯定会被别人嘲笑。但是 WAF 真的不是灵丹妙药，如果说是把 WAF 拿做来抵抗 DDOS，是有一定的效果，但是 WAF 并不是用于解决 DDOS，它还是主要用于防范主流的安全攻击，比如 SQL 注入， XSS， 文件包含等等。当然，目前不少 WAF 厂商可能宣扬可以防护 DDOS，有些 WAF 厂商的确很厉害，上了的确有立竿见影的效果，但是指望它能解决一切问题，可能就不太现实了。</p>
+
+<p>说一千到一万，防护 DDOS 还是需要应用本身来做出优化。如果你的应用做的足够好，架构足够合理，那么你系统能够承载的访问量也会大大提升。针对于应用的提升也是多方面的：包括系统服务的瘦身，减少每次请求资源的消耗；包括前端方面的优化，包括资源体积的压缩；静态资源 CDN 化，将静态资源部署到 CDN 上，从而避免对自身服务器资源的消耗。</p>
+
+<p>DDOS 攻击类型是多种多样的，而往往黑客的攻击它地攻击方式是多种多样的，精细化的。如果只有一种攻击方式，那么就很好防护了，你只要使用一种防护策略就可以了。但是人家一旦使用组合拳，你就头大了，你就必须想出足够好、足够合理的防护策略。这种防护的过程将会是一个相互斗争的过程。</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="https://help.aliyun.com/document_detail/28401.html?spm=a2c4g.11186623.6.549.15c03c37UOcTM6">https://help.aliyun.com/document_detail/28401.html?spm=a2c4g.11186623.6.549.15c03c37UOcTM6</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MjM5MDgwMzc4MA==&amp;mid=2654867427&amp;idx=1&amp;sn=d09df0b09ec445005ed462507ce144e7&amp;chksm=bd759dc88a0214de61c6a143b093a45fb08c6f6565b6930df6a6c9e191d709a2e708d585b15b&amp;mpshare=1&amp;scene=1&amp;srcid=0104D90WcK7mHAPRN0Dyd39V#rd">https://mp.weixin.qq.com/s?__biz=MjM5MDgwMzc4MA==&amp;mid=2654867427&amp;idx=1&amp;sn=d09df0b09ec445005ed462507ce144e7&amp;chksm=bd759dc88a0214de61c6a143b093a45fb08c6f6565b6930df6a6c9e191d709a2e708d585b15b&amp;mpshare=1&amp;scene=1&amp;srcid=0104D90WcK7mHAPRN0Dyd39V#rd</a></li>
+</ul>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://neal1991.github.io/tags/ddos"><span class="tag">DDOS</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>370</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2019 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104405154-2', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
