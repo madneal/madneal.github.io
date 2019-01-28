@@ -7,10 +7,44 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 04 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://neal1991.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>隐写术-深入研究 PDF 混淆漏洞</title>
+      <link>https://neal1991.github.io/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/</guid>
+      <description>原文：&amp;ldquo;steganography&amp;rdquo; - obfuscating PDF exploits in depth
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 上礼拜发现的关于使用 this.getPageNumWords() &amp;amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
+我们的 EdgeLogic 引擎将样本检测为 &amp;ldquo;exploit CVE-2013-3346&amp;rdquo;，与前一个相同。
+ https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
+上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。 * https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection
+打开后，伪装成 IRS 文件的 PDF 看起来很正常。</description>
+    </item>
+    
+    <item>
+      <title>IIS短文件漏洞及修复建议</title>
+      <link>https://neal1991.github.io/iis%E7%9F%AD%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE/</link>
+      <pubDate>Mon, 14 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/iis%E7%9F%AD%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE/</guid>
+      <description>最近公司有几个系统有发现 IIS 短文件名的漏洞，这个漏洞也是比较久的漏洞了，网上也是有不少的修复方案。但是有的修复方案还是没有彻底修复。以下也是自己做一个全面的总结以及彻底以及完美的修复方案。
+什么是 IIS 短文件漏洞 为了兼容 16 位的 MS-DOS 程序，Windows 为文件名较长的文件（文件夹）生成了对应的 windows 8.3 短文件名。在 Windows 下，对应的短文件名可以使用 dir /x 命令来查看。如下图，.gitconfig 对应的短文件名就是 GITCON~1.
+基于此特性，并结合 IIS 对于请求路径中包含通配符不同的响应的特性，IIS 对于存在的短文件名的响应码为 404，对不存在的短文件名的响应码是 400.根据这个特点，可以暴力破解出 IIS 中存在的短文件名。关于短文件漏洞， Soroush Dalili 在 2012 年就有论文是关于这方面的研究。里面详细阐述了 IIS 短文件名的漏洞利用原理。
+漏洞修复 关于该漏洞的修复，一般的修复就是停止创建短文件名，可以通过修改注册表来实现：
+Reference http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/pic/37473/cn_zh/1510647047395/short%20name.png
+https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/ff621566(v=ws.11)
+https://support.microsoft.com/en-us/help/121007/how-to-disable-8-3-file-name-creation-on-ntfs-partitions
+https://www.tecklyfe.com/windows-server-tip-disable-8-3-naming-strip-existing-short-names/
+https://serverfault.com/questions/670658/fixing-the-iis-tilde-vulnerability</description>
+    </item>
     
     <item>
       <title>什么是DDOS</title>

@@ -220,6 +220,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/" class="post-link">道路识别demo</a></h3>
+    <p class="post-meta">@Neal · Apr 15, 2015 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
+opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;); CvWindow w = new CvWindow(&#34;Lane Detection&#34;); CvWindow canny = new CvWindow(&#34;Canny&#34;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/" class="post-link">combox系列问题集</a></h3>
     <p class="post-meta">@Neal · Apr 14, 2015 · 1 min read</p>
   </header>
@@ -375,38 +389,6 @@ http://blog.csdn.net/carson2005/article/details/6243476
 通过以上的分析，你或许已经发现，OpenCV不过是一个工具而已。或者，你可以将它理解为幼儿园小朋友过家家玩的积木，而OpenCV中的函数，则可以理解为一个一个的积木块，利用所有或者部分积木块，你可以快速的搭建起来具体的计算机视觉方面的应用（比如，字符识别，车牌识别，遗留物检测）。想必你也已经发现，在利用OpenCV这个积木来搭建具体的计算机视觉应用的时候，真正核心的，应该是这些积木块，如果你明白了积木块的工作原理，那么，是不是就可以不用这些积木块了呢？完全正确！不过，一般部分情况下，我们不需要这么做，因为，OpenCV已经帮你做好了一些工作（已经帮你做好了一些积木块，直接拿来用就是了）。但是，诸如前面提到的特征提取模块，很多情况下，OpenCV就无能为力了。这个时候，你就需要翻阅计算机视觉、模式识别、机器学习领域顶级会议、期刊、杂志上面发表的文章了。然后，根据这些文章中阐述的原理和方法，来编程实现你要的东西。实际上，也就等于搭建一个属于你私有的积木块。其实，OpenCV中的每一个API函数，也就是这么来的。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/opencv/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/" class="post-link">ROT13加密和解密</a></h3>
-    <p class="post-meta">@Neal · Apr 11, 2015 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">问题 ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。
-应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。
-例如，下面的英文笑话，精华句被ROT13所隐匿：
-How can you tell an extrovert from an
-introvert at NSA? Va gur ryringbef,
-gur rkgebireg ybbxf ng gur BGURE thl’f fubrf.
-通过ROT13转换，该笑话的解答揭露如下：
-Ubj pna lbh gryy na rkgebireg sebz na
-vagebireg ng AFN? In the elevators,
-the extrovert looks at the OTHER guy’s shoes.
-第二次使用ROT13将恢复为原文。
-Input
-第1行：一个整数T（1≤T≤10）为问题数。
-接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。
-Output
-对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。
-然后对应每个问题在一行中输出经过ROT13加密后的一段文字。
-Sample Input
-3
-How can you tell an extrovert from an</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/">Read More →</a>
   </footer>
 </article>
 
