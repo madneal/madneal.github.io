@@ -220,6 +220,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/" class="post-link">第一个progressive web application，发车！</a></h3>
+    <p class="post-meta">@Neal · Mar 19, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
+var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = []; cityConfig.forEach(function(city) { request.get(url &#43; city) .end(function(err, res) { $ = cheerio.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" class="post-link">第一个chrome extension</a></h3>
     <p class="post-meta">@Neal · Mar 4, 2017 · 1 min read</p>
   </header>
@@ -406,37 +420,6 @@ console里面有一个很重要的函数叫做console.time(‘labelTime’)能�
 console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/" class="post-link">Bootstrap真的总是好的吗</a></h3>
-    <p class="post-meta">@Neal · Aug 15, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文地址：Bootstrap considered harmful
-原文作者：Hidde de Vries
-译文出自：neal
-译者： Neal
-个人主页：http://neal1991.pythonanywhere.com
-这些年Bootstrap已经在前端项目中流行起来，它能够带来很多好处。然而，但是如果以你们的团队已经有了在职的前端开发人员，我觉得最好还是不要用Bootstrap，在某些地方，弊大于利。
-Bootstrap的好处是什么 Bootstrap主要是栅格系统，但同时也带来了很多组件的样式表和脚本，包括表格，导航栏，进度条，页码，表单样式，模式和提示文本。在这篇文章，我所说的Bootstrap是包含它的所有功能的。
-Bootstrap是一个很好的工具对于一个纸箱装饰他们的程序但是无须担心结果的样式问题的后端开发人员。如果因为某些原因，预算或者什么的，你的团队没有前端开发人员或者设计人员，Bootstrap是一个绝佳的弥补方法。
-对于设计人员来说，Bootstrap也是有用处的：它可以快速地从设计软件切换到浏览器中，不需要过多担心前端的代码设计。
-即使是对于那些基本只专注于数据但是很少关注UI和布局的前端开发人员来说，Bootstrap也是一个绝佳的工具。
-什么时候你最好别用它 然而，如果你的团队已经拥有了前端开发人员，使用Bootstrap可能会潜在的浪费他们宝贵的时间，并让他们可能从解决实际问题上转移注意力。Bootstrap做的正是前端开发人员所擅长的事情，但是用的是一种很通用的方式。你的网站或者网络app是非常特别的，因此如果你使用一个通用的系统可能会不太合适。这意味着为了实现这种特殊性将会包含很多的异常发生。
-当需要很多异常来复位Bootstrap Bootstrap曾经是被Twitter 的开发人员用于系统化他们网络app的样式。如果你的网站app和他们的样式不一样，这意味着你需要解除他们中的某些样式。
-很多网站和Twitter的样式并不相同。因此，如果他们装载了Bootstrap的时候，他们可能需要卸载很多地方。
-在某些网站上，我看到有9/10的Bootstrap样式已经被网站自己的样式所替代。坦白说，这很荒谬。
-当它让简单的事情变得复杂 CSS是给网站添加一套简单的样式规则，这有时候可能会被重写。当你在你的网站使用Bootstrap的样式的时候，几乎所有的元素都是用一个复杂的样式规则。任何异常都会在它之上表现。问题是大多数网站他们的样式异常都被表现在Bootstrap之上。
-Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任何元素相结合起来，对于需要特别处理的列则要区别对待。很多网站十分简单：它们在小屏幕设备上没有列或者只有一到两列在大一点的屏幕上。
-当它产生技术债务的时候 前端依赖Bootstrap的时间越长，就会牵扯到更多的东西，更多的规则需要设置来覆盖Bootstrap的某些规则。这或多或少地让技术代码背负技术债务，尤其前端代码的部署需要手动的更新。随着依赖的增多，Bootstrap将变得更加难以移除。
-当它命名一些不是你app的规定 命名是一件很困难的事情，为团队的应用中的规定命名需要花费相当多的时间。使用’btn’之类的缩写并不能很好的给组件命名。
-结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/">Read More →</a>
   </footer>
 </article>
 
