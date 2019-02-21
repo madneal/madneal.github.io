@@ -213,6 +213,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/sqlite%E6%93%8D%E4%BD%9C/" class="post-link">sqlite操作</a></h3>
+    <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。
+sqlite3 .separator &#39;,&#39; .import filename tablename  导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
+datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(‘now’,‘localtime’)。
+database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/sqlite%E6%93%8D%E4%BD%9C/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/iplimage-versus-mat/" class="post-link">Iplimage versus Mat</a></h3>
     <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
   </header>
@@ -358,24 +374,6 @@ http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
 （20）研学论坛； http://bbs.matwav.com/ （21）美国Rutgers大学助理教授刘青山； http://www.research.rutgers.edu/~qsliu/ （22）计算机视觉最新资讯网； http://www.cvchina.info/ （23）运动检测、阴影、跟踪的测试视频下载； http://apps.hi.baidu.com/share/detail/18903287 （24）香港中文大学助理教授王晓刚； http://www.ee.cuhk.edu.hk/~xgwang/ (25)香港中文大学多媒体实验室（汤晓鸥）; http://mmlab.ie.cuhk.edu.hk/ (26)U.C. San Diego. computer vision;http://vision.ucsd.edu/content/home (27)CVonline; http://homepages.inf.ed.ac.uk/rbf/CVonline/ (28)computer vision software; http://peipa.essex.ac.uk/info/software.html (29)Computer Vision Resource; http://www.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/" class="post-link">关于计算机视觉研究</a></h3>
-    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">本文是UCLA教授朱松纯的见解，我翻译下作为见解，尽管以后不一定做这些东西，但我觉得这些道理还是有价值的。
- 我们如何知道我们是不是在以错误的方式做研究？ 视觉问题是一个在现代科学以及工程上一个非常具有挑战性和潜力的问题，因为它非常复杂并且包罗万象。对于如此复杂的一个问题，我们必须十分谨慎地选择一个长期有效的解决方案以免走入一个死胡同中。人们喜欢享受能够感觉到的进程，但实际地研究过程就回事十分枯燥无味的在普通人的眼中。
- 视觉问题是一个可以用机器学习来解决的分类问题吗？ 经常有些学生说：视觉问题是不是仅仅只是机器学习地应用而已，他们经常是这么觉得。如果是这样的话，那么对于视觉问题的研究者来说，他们的任务仅仅只是设计好的特征而已就可以了。这个问题真的是对视觉问题的侮辱，这反映了对与视觉问题的误解并将其简单的划分为分类问题。这对于我来说毫不奇怪，因为现在的年轻一代不仅不知道Ulf Genander（模式理论之父）同时也不知道David Marr（计算机视觉之父）。打个比方来说，机器学习的方法就好像是三千年来中国中国中药临床经验总结出来的方法。古代的人们由于对于现代医学缺乏足够的认知，他们往往尝试不同的药材组合，就像机器学习的研究者尝试不同的特征。这些成分通过不同的权重被混合在一起，然后通过煎煮最后变成一味中药，这是一个迭代回归的过程。据信这些药可以治疗一切疾病包括癌症，禽流感等等，而不需要理解这些药的生物作用或者相应的病理机制。所有你需要做的仅仅是找到正确的成分然后以合适的比例把它们混合在一起。理论上来说，这是现实可行的，就像机器学习保证可以解决所有问题如果机器学习能够找到足够的特征和例子。但是问题是：组成成分的范围如此之广，我们如何才能有效地找到合适的组成成分呢？对于视觉问题，我们需要研究图像的复杂的结构，以及丰富的空间和他们的组成部分，还有各种各样的模型和代表。
- 为什么我们需要忍受不同风格的视觉问题？ 视觉问题中的方法论可以概括成三个部分：Hack, Math,Stat。Hacks是一种启发式的方法，或者是某种方法在某个问题可以起到作用，但是我们无法分辨出它到底在哪其作用。Math恰恰相反，它告诉我们在某种特定的条件下，事情可以在某种性能的保证下进行分析，但是这些条件经常是有限的，所以难以应用到现实世界中的通用场景中。Stat是一个回归过程。通过很多的参数，你最终可以拟合任何的数据但是缺乏足够的物理解释。所以这三者是不同等级的解释或者模型。
- 如果你不能解决一个简单的问题，那么你就必须要解决一个复杂的问题！ 简化论是现代科学中很多领域中一个非常受欢迎的研究策略。经常说一个问题你可以把它分成几个小的组成部分或者一个复杂的系统是由几个不同的组成部分组成而来的。这些方法轮在十九世纪八十年代被一些视觉研究者所实践，比如边缘检测，分割等等。但是人们发现仅仅是边缘检测这样最简单的问题都不能够很好的解决，因为边缘的定义取决不同等级的任务需求，即使是人类如果没有特定的任务等级也无法决定是否存在边缘。不象物理学家可以选择一个给定的规模或者现象来进行研究，计算机视觉研究者发现他们自己非常的不幸：每一个简单的图像对于不同的等级包含了很多的模式以及任务。下面的表格包含了一系列我们需要解决的问题对于理解一幅图像来说。
-  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/">Read More →</a>
   </footer>
 </article>
 

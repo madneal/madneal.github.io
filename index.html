@@ -213,6 +213,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
+    <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行不希望的操作。CSRF 攻击专门针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接），攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转移资金，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
+值得注意的一点是 CSRF 攻击经常与 XSS 攻击（特别是反射性 XSS）混淆。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此进本会执行。CSRF 的攻击通常是让目标在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。
+CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，买东西，改变账户信息或者其它目标攻击应用提供的服务。
+下面就是一个例子在机票供应商那里购买飞机票：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
+HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
     <p class="post-meta">@Neal · Feb 2, 2019 · 1 min read</p>
   </header>
@@ -374,30 +392,6 @@ wmic product get name, description &gt; products.txt
 wmic qfe list full</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/" class="post-link">Elasticsearch 团队开发章程</a></h3>
-    <p class="post-meta">@Neal · Jun 16, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Elasticsearch Team Development Constitution
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 前言 我们作为 Elasticsearch 核心开发人员团队希望尽可能快地向可靠，健壮，安全，可扩展且易于使用的系统迁移。我们希望为创新而努力，取代传统的构造和功能，删除脆弱的代码，并致力于改善用户体验，同时在我们快速变化的同时保持用户增长。
-对于我们来说，拥有一个团队的前进方向的共识是非常重要的，甚至更重要的是团队为什么要走上一条特定的路。当 Elasticsearch 创立之初时，它具有无尽的灵活性，易用性和丰富的 API。我们这帮年轻的团队成立了一家公司，并且突然用户数井喷式发展。支持组织几乎无法满足越来越多的客户，这是幸福的烦恼。然而，随着用户数量的增长，事情发生的可能性也越来越大，不幸的是，这比我们聘用支持工程师的速度要快得多。我们了解到，大多数灵活性来自宽松处理，从大多数情况下可行的功能，但不是全部。例如，用户可以使用请求发送的脚本基本上是一个远程代码执行引擎，如果出错，它是致命的。即使最基本的功能，比如设置，也非常灵活，但非常脆弱。在没有单位的情况下指定一个数字是很好的，除非许多用户不知道默认单位是什么。我们只是试图做正确的事情，结果证明并不是总是对的。
-现在我们处于不同的位置。我们的用户基数比 2013 年的用户基数大得多，但我们的支持机构并没有以同样的速度增长。是的，我们处理比 2013 年更多的支持案例，但这在我们当时的系统中是不可能的。现在我们已经从一个脆弱而灵活的系统转向了范围较窄的软件。我们定义了更多的边界：更严格的输入验证，允许我们对权限进行细粒度控制的安全模型，甚至还有一个插件模型，可以以极大的灵活性来添加风险更高的功能。
-但等等，我们还差得远呢！仍然有无穷无尽的问题会造成致命的后果。聚合可以通过一个请求来撑爆服务器。用户感觉需要运行 30&#43;GB 堆的 Elasticsearch。我们仍然提供了 27 种指定布尔值的不同方式。这份清单还有其它内容…
-我们对我们的用户，支持组织，云托管团队和第三方提供商负有巨大责任，提供可靠，稳健，安全且易于使用的系统。出于这个原因，我们都应该努力创新，取代传统的构造和功能，删除脆弱的代码，并改善用户体验。我们与其他公司相比的优势是我们的创新，创新需要速度。我们必须在留住用户的同时下采取行动并接受变革创新。
-以下章节是用于设计，重构或从 Elasticsearch 代码库中删除代码的原则和指导原则的集合。这些点是无序的，大部分是未分类的，应该被看作是 Elasticsearch 团队内软件开发的一个组成部分。
-设计特性  *过程优于结果*。 我们多年来一直遵循这种方法，这使我们能够随着时间的推移做出巨大的变化，而不会因大量的请求而产生巨大的响应。例如，补齐建议程序在 Elasticsearch 的早期版本中添加，而不支持实时更新和特定的删除。这意味着删除 Elasticsearch 中的文档不会立即反映在建议中。这是一个很难的问题，大约三年后，我们增加了对 Lucene 建议器和 Elasticsearch 的 bitset 过滤器的支持。与此同时，对于许多用户来说，这是一个可以接受的解决方案，修复了许多错误，并朝着基于文档的建议器发展。这就是过程优于结果。
- *为今天设计！谨慎使用抽象*。 计算机科学教授教育学生以灵活性和信息隐藏的名义广泛使用抽象层。当然 Elasticsearch 广泛使用抽象; 没有任何涉及数百万行代码的项目可以以其他方式进行工作并生存。但经验表明，过度或过早的抽象可能与过早优化一样有害。抽象应该用于所需的级别，不要再进一步。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/">Read More →</a>
   </footer>
 </article>
 
