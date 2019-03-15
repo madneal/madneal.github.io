@@ -7,10 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 21 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://neal1991.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cronos -- hack the box</title>
+      <link>https://neal1991.github.io/post/cronos-hack-the-box/</link>
+      <pubDate>Fri, 15 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/post/cronos-hack-the-box/</guid>
+      <description>Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13  3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</description>
+    </item>
+    
+    <item>
+      <title>服务端请求伪造（SSRF）攻击</title>
+      <link>https://neal1991.github.io/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</guid>
+      <description>概述 之前的一片文章讲到过跨站请求伪造（CSRF）攻击，今天讲一个可能更小众的攻击，服务端请求伪造（SSRF）攻击。SSRF，即攻击者利用服务器提供的函数去访问或者更新内部的资源。攻击者可以提供或者修改一个服务器读取或者提交数据的 URL，通过这些 URL，攻击者可能能够读取服务器的配置信息，连接到开启 http 的数据库服务或者向内部的服务（不应该暴露）提交 post 请求。
+目标应用可能能否从 URL 倒入数据或者推送数据到 URL，或者可以篡改从 URL 读取的数据。攻击者可以通过修改函数的调用可以提供一个完全不同的 URL 或者通过操作 URL 创建的方法。</description>
+    </item>
     
     <item>
       <title>跨站请求伪造（CSRF）攻击</title>
@@ -1644,6 +1668,15 @@ How can you tell an extrovert from an</description>
 输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
 样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
 代码 #include &amp;quot;stdafx.h&amp;quot; #include&amp;lt;iostream&amp;gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &amp;gt;&amp;gt; n; int m,m_; for (int i = 0; i &amp;lt; n;++ i) { cin &amp;gt;&amp;gt; m; a[i] = m; } cin &amp;gt;&amp;gt;n_; for (int i = 0;i &amp;lt; n; ++ i) { cin &amp;gt;&amp;gt; m_; b[i] = m_; } for (int i = 0;i &amp;lt;= n;i++) { if (i == 0) cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;quot; &amp;quot;; else cout &amp;lt;&amp;lt; a[i-1]*2 - b[i-1] &amp;lt;&amp;lt; &amp;quot; &amp;quot;; } return 0; }  这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://neal1991.github.io/htb%E6%8C%96%E5%9D%91%E8%AE%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/htb%E6%8C%96%E5%9D%91%E8%AE%B0/</guid>
+      <description></description>
     </item>
     
   </channel>

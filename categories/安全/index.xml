@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Thu, 21 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://neal1991.github.io/categories/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>服务端请求伪造（SSRF）攻击</title>
+      <link>https://neal1991.github.io/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</guid>
+      <description>概述 之前的一片文章讲到过跨站请求伪造（CSRF）攻击，今天讲一个可能更小众的攻击，服务端请求伪造（SSRF）攻击。SSRF，即攻击者利用服务器提供的函数去访问或者更新内部的资源。攻击者可以提供或者修改一个服务器读取或者提交数据的 URL，通过这些 URL，攻击者可能能够读取服务器的配置信息，连接到开启 http 的数据库服务或者向内部的服务（不应该暴露）提交 post 请求。
+目标应用可能能否从 URL 倒入数据或者推送数据到 URL，或者可以篡改从 URL 读取的数据。攻击者可以通过修改函数的调用可以提供一个完全不同的 URL 或者通过操作 URL 创建的方法。</description>
+    </item>
     
     <item>
       <title>跨站请求伪造（CSRF）攻击</title>
