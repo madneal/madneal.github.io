@@ -220,6 +220,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/" class="post-link">歌德巴赫猜想</a></h3>
+    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary"> 题目 Description
+歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
+每行一个偶数n（4 &lt; n &lt;= 20000）
+Output
+对应于每个输入的偶数，输出a、一个空格、b、一个换行符
+Sample Input
+8 10 1000 Sample Output
+3 5 5 5 491 509
+代码 #include&lt;stdio.h&gt; #include&lt;math.h&gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&#34;%d&#34;,&amp;n) != EOF) { for (i = n/2;i &gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;&amp;isPrime(j)) { printf(&#34;%d %d\n&#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/" class="post-link">道路识别</a></h3>
     <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>
