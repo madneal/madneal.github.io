@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Web 安全 on Neal&#39;s Blog</title>
-    <link>https://neal1991.github.io/tags/web-%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in Web 安全 on Neal&#39;s Blog</description>
+    <title>Csrf on Neal&#39;s Blog</title>
+    <link>https://neal1991.github.io/tags/csrf/</link>
+    <description>Recent content in Csrf on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Mon, 15 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://neal1991.github.io/tags/web-%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://neal1991.github.io/tags/csrf/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -30,30 +30,6 @@
 Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
  受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
 攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</description>
-    </item>
-    
-    <item>
-      <title>服务端请求伪造（SSRF）攻击</title>
-      <link>https://neal1991.github.io/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</link>
-      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://neal1991.github.io/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</guid>
-      <description>概述 之前的一片文章讲到过跨站请求伪造（CSRF）攻击，今天讲一个可能更小众的攻击，服务端请求伪造（SSRF）攻击。SSRF，即攻击者利用服务器提供的函数去访问或者更新内部的资源。攻击者可以提供或者修改一个服务器读取或者提交数据的 URL，通过这些 URL，攻击者可能能够读取服务器的配置信息，连接到开启 http 的数据库服务或者向内部的服务（不应该暴露）提交 post 请求。
-目标应用可能能否从 URL 倒入数据或者推送数据到 URL，或者可以篡改从 URL 读取的数据。攻击者可以通过修改函数的调用可以提供一个完全不同的 URL 或者通过操作 URL 创建的方法。</description>
-    </item>
-    
-    <item>
-      <title>跨站请求伪造（CSRF）攻击</title>
-      <link>https://neal1991.github.io/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/</link>
-      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://neal1991.github.io/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/</guid>
-      <description>概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
-值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
-CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
-下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;amp;to=PO BOX 1198 DUBLIN 2&amp;amp;amount=10&amp;amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
-HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</description>
     </item>
     
   </channel>
