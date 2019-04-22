@@ -220,6 +220,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" class="post-link">判断数组中元素多个属性是否重复</a></h3>
+    <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理 ```var isUnique = function(collection) { for (var i = 0,len = collection.length;i &lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; };
+ 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套  collection = _.groupBy(collection,‘name’); for (var i in collection) { if (collection[i].</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/" class="post-link">moongoose对象无法新增删除属性</a></h3>
     <p class="post-meta">@Neal · Jun 30, 2016 · 1 min read</p>
   </header>
@@ -356,20 +370,6 @@ grade A:
 ICES (A0): International Conference on Evolvable Systems: From Biology to Hareware. 基本上是从90年代evolvable hardware(EHW)的研究引起学术界的关注就开始举行的重要会议.EHW方面最重要的2个会议之一.首次举行是在1995年的瑞士(当时还不叫 ICES,96年才开始现在的名字),基本上当时的EHW开创性人物瑞士的Eduardo Sanchez,日本的Tetsuya Higuchi等人都参加了这次会议.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" class="post-link">数据结构线性表相关操作</a></h3>
-    <p class="post-meta">@Neal · Dec 28, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">Read More →</a>
   </footer>
 </article>
 
