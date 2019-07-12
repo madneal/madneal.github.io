@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>cve check</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
+可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
+可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="cve check" />
+    <meta name="twitter:description" content="今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
+可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
+可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv." />
+    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="cve check" />
+  <meta property="og:description" content="今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
+可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
+可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv." />
+  <meta property="og:url" content="https://neal1991.github.io/post/check-cve/" />
+  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://neal1991.github.io/post/check-cve/" />
+<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://neal1991.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://neal1991.github.io/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">cve check</h1>
+      <p class="post-meta">@Neal · Jul 4, 2019 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。</p>
+
+<p>可以通过 <a href="https://cve.circl.lu/api/">https://cve.circl.lu/api/</a> 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，</p>
+
+<p><img src="https://s2.ax1x.com/2019/07/04/ZUIwgH.png" alt="ZUIwgH.png" /></p>
+
+<p>可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。</p>
+
+<pre><code># check if file modified in the last several days
+def check_file_modified(filename, days):
+    file_modify_time = getmtime(filename)
+    return time() - file_modify_time &lt; (days * 3600 * 1000)
+
+
+def write_json(filename, result):
+    with open(filename, 'w') as f:
+        dump(result, f, indent=2)
+
+
+def write_csv(filename, result, header):
+    with open(filename, 'w', newline='') as f:
+        writer = csv.writer(f, delimiter=',')
+        writer.writerow(header)
+        for ele in result:
+            writer.writerow([ele[&quot;id&quot;], ele[&quot;last-modified&quot;], ele[&quot;cvss&quot;], ele[&quot;summary&quot;]])
+
+
+def search(params, options):
+    url = &quot;https://cve.circl.lu/api/search/&quot; + params
+    print(url)
+    filename = f&quot;{params.replace('/', '-')}.json&quot;
+    try:
+        if isfile(filename) and check_file_modified(filename, 3):
+            with open(filename, 'r') as f:
+                result = loads(f.read())
+        else:
+            res = get(url)
+            if res.status_code == 200:
+                with open(filename, 'w') as f:
+                    f.write(res.text)
+                result = loads(res.text)
+            else:
+                print(&quot;Request failed: %d&quot;.format(res.status_code))
+        cve_result = []
+        for ele in result:
+            if has_cve(ele, options.vendor, options.product, options.version, options.edition):
+                obj = {
+                    &quot;id&quot;: ele[&quot;id&quot;],
+                    &quot;last-modified&quot;: ele[&quot;last-modified&quot;],
+                    &quot;cvss&quot;: ele[&quot;cvss&quot;],
+                    &quot;summary&quot;: ele[&quot;summary&quot;]
+                }
+                cve_result.append(obj)
+            else:
+                continue
+        print(f&quot;{options.vendor}:{options.product}:{options.version}:{options.edition} &quot;
+              f&quot;has impacted by {len(cve_result)} cve&quot;)
+        if options.output is None or options.output == &quot;csv&quot;:
+            write_csv(&quot;result.csv&quot;, cve_result, [&quot;id&quot;, &quot;last-modified&quot;, &quot;cvss&quot;, &quot;summary&quot;])
+        else:
+            write_json(&quot;result.json&quot;, cve_result)
+    except Exception as e:
+        print(e)
+</code></pre>
+
+<p>完整的项目地址可以参考 <a href="https://github.com/neal1991/check-cve/blob/master/check-cve.py">https://github.com/neal1991/check-cve/blob/master/check-cve.py</a></p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://neal1991.github.io/tags/python"><span class="tag">Python</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2019 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-104405154-2', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

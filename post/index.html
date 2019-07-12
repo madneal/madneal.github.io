@@ -220,6 +220,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/check-cve/" class="post-link">cve check</a></h3>
+    <p class="post-meta">@Neal · Jul 4, 2019 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
+可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
+可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/check-cve/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" class="post-link">持续发布 Chrome 插件</a></h3>
     <p class="post-meta">@Neal · May 27, 2019 · 3 min read</p>
   </header>
@@ -373,29 +389,6 @@ POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-A
 HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
-    <p class="post-meta">@Neal · Feb 2, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：4 Tips for Better API Security in 2019
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 
-无论是在科技媒体亦或是分析报告中，2018年 “API”以及“安全”变得越来越常见，-或者更糟糕，“API” 以及“违规”一起出现在头条中。
-APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
-但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
-实际上，API 安全的要求正在成为一种共识：
- 在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
- OWASP Top 10是一个备受推崇的 Web 安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
   </footer>
 </article>
 
