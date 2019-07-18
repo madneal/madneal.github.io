@@ -220,22 +220,6 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" class="post-link">理解 OutOfMemoryError 异常</a></h3>
-    <p class="post-meta">@Neal · May 26, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">OutOfMemoryError 异常应该可以算得上是一个非常棘手的问题。JAVA 的程序员不用像苦逼的 C 语言程序员手动地管理内存，JVM 帮助他们分配内存，释放内存。但是当遇到内存相关的问题，就比如 OutOfMemoryError，如何去排查并且解决就变成一个非常令人头疼的问题。在 JAVA 中，所有的对象都存储在堆中，通常如果 JVM 无法再分配新的内存，内存耗尽，并且垃圾回收器无法及时回收内存，就会抛出 OutOfMemoryError。
-我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
-java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
-private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfMemoryError error  } catch (Error e) { e.printStackTrace(); } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/" class="post-link">从一道面试题谈谈 setTimeout 和 setInterval</a></h3>
     <p class="post-meta">@Neal · Apr 21, 2018 · 1 min read</p>
   </header>
@@ -401,6 +385,23 @@ LICENSE: MIT
  The require statements Middleware Routing App.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/" class="post-link">将Medium中的博客导出成markdown</a></h3>
+    <p class="post-meta">@Neal · Sep 23, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
+Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装: * 将 export-medium clone 或者下载到本地。 * 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹
+这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
+目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
+仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/">Read More →</a>
   </footer>
 </article>
 

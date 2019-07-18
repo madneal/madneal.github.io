@@ -220,24 +220,6 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://neal1991.github.io/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" class="post-link">js的事件流理解</a></h3>
-    <p class="post-meta">@Neal · Mar 5, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary"> 面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
-事件捕获和事件冒泡 事件流描述的是从页面中接收事件的顺序,也可理解为事件在页面中传播的顺序。 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：
-&lt;body&gt; &lt;div id=&#34;outer&#34;&gt; &lt;div id=&#34;inner&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt;  这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&gt;outer-&gt;body。然而捕获事件流的顺序则截然想法：body-&gt;outer-&gt;innner。
-DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。还是以上面的代码为例，单击inner则会按照下面的顺序触发事件：document-&gt;html-&gt;body-&gt;outer-&gt;ineer-&gt;outer-&gt;body-&gt;html-&gt;document。在DOM事件流中，实际的目标inner在捕获阶段不会接受到事件。这意味着在捕获阶段，事件到outer就停止了，下一个阶段是“处于目标”阶段，于是事件在inner 上发生，并在事件处理中呗看成是冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
-事件处理程序 响应某个时间的函数叫做事件处理程序。DOM0级的事件处理程序很简单,onclick就是常用的DOM0级事件处理函数，只会在冒泡阶段被处理。 而DOM2级事件定义了两个方法用于处理置顶和删除事件处理程序的操作addEventListener()和removeEventListener()，所有DOM节点都包含这两个方法，并且它们都接受3个参数：要处理的事件名，作为事件处理的函数和一个布尔值。最后这个布尔值参数如果是true，表示在捕获阶段调用事件处理程序，反之则是在事件冒泡阶段处理程序。DOM2级方法添加事件处理程序的好处是可以添加多个事件处理程序，会按照添加顺序被处理（无论是捕获还是冒泡）。 而IE不同的它有自己的方法attachEvent()和detachEvent,这两个接受相同的两个参数：事件处理程序名称和事件处理程序函数。
-跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } }  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://neal1991.github.io/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://neal1991.github.io/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/" class="post-link">百度前端实习生面试（连跪之旅）</a></h3>
     <p class="post-meta">@Neal · Mar 4, 2016 · 1 min read</p>
   </header>
@@ -416,6 +398,22 @@ a = 1 b = 2 c = a &#43; b  1.分配1给a
   <p class="post-summary">作为一个CS的研究生，发篇文章是你毕业的必要条件。现如今，学校对于文章的要求也越来越高，一般来说，还是国外的期刊或者会议更加受到认可，这样对于毕业也有好处。因此，以我自己的感受来说，论文的写作以及表达方式，合理地呈现你的实验结果，清楚的逻辑解释，显得尤为重要。让人看得懂的论文往往比一个拥有的好的想法的论文更能得到别人的认可，当然这也并不是推崇只是为了专注于论文的写作，毕竟想法才是一篇论文的灵魂。然而事实如此，做好论文的写作的重要性实在很大。 作为一个研究生，很显然并没有很多的论文的写作经验。所以，我们一般的做法就是模仿别人的论文写作。我们需要阅读大量别人的论文，这样其实也是对自己的语感的培养。当然，这里推荐你还是多读读外国人写的论文，因为他们的论文写作表达方式相对来说更为的地道。我觉得论文写作的词汇使用很讲究的，同一种意思可以有很多种表达方式。就比如说你的算法很好，你可以说：outperforms than other algorithm, has advantages over other algorithm, has impressive performances, has remarkable performances等等。我前段时间，看到有个单词就很好，circumvent，这个单词的意思是绕开。其实，我们算法的改进，很多时候并不是对这个问题的直接改进，而是绕开这个问题，从而避免这个问题，所以我就觉得这个单词用的很精妙。 其实现在的论文写作也和古代的八股文一样，有一样的套路。其实对于一个给定方向的论文，他们的套路其实基本都是一致的。老实说，对于所有的论文我们基本都有一个一致的框架结构。首先，一般在abstract里面，我们会简要的说一下我们的思想，这里要言简意赅，并且能够最大化吸引别人，突出你想发的优点。然后，在introduction里面，就是介绍相关背景知识的时候，像我们专业，一般都是介绍一些相关的算法，或者你提出的算法的基础，这些都是我们提出的算法基础。接着才是提出我们自己的算法的正确的时机。在正文里面，首先就是介绍你算法或者思想的基础，然后就是你的算法和思想了。记住，这个才是你论文的核心部分。你的论文大部分应该都是讲你自己的想法而不是别人的想法，否则也就是本末倒置了。计算机的论文，很多都是需要实验结果来佐证的。没有实验结果，你的所有想法都不具有说服力。同时，实验结果需要相应的详细的分析过程，对于实验结果你要分析的多一点，虽然觉得有时候觉得自己说的是废话，但也尽量多说一点，多换点角度表达。一般你可以从性能上去说，说我们算法的性能好；如果算法的性能差不多，那就可以从运行时间去说，可以说我们算法的运行速度快。当然，我觉得写别的方向的论文应该也是差不多的，从多个角度去表现你算法和想法的优点，这一点很有必要。另外一点，多用图和表格来表达你的实验结果，图优于表格，表格优于文字，文字最次。优秀的表达方式往往更容易吸引别人的目光，所以多学一下怎么画图。看一些TOP期刊的文章，他们是怎么画图的，这样装逼也会好一点。 其他的我也不知道还有什么好说的把。自己真心的体会，是中国人真的灌了好多水，尤其是我自己的这个方向。有时候自己也觉得很愤慨，但想想自己，何曾不是也在灌水。可能还是自己也是推动这个方向恶性循环的一份子，还是希望以后这个方向有更良性的发展吧，当然，与我无关了。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://neal1991.github.io/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">剑指offer--字符串</a></h3>
+    <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">C/C&#43;&#43;中每个字符串都以字符’\0’作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
+int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把”hello world”的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向”hello world”在内存中的地址就可以了。由于”hello world”是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
+String str = &#34;hello&#34;; str.ToUpper(); str.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://neal1991.github.io/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/">Read More →</a>
   </footer>
 </article>
 

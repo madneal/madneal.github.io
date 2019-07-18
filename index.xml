@@ -62,19 +62,6 @@ python2 python -m SimpleHTTPServer 90  python3 python3 -m http.server 80  php </
     </item>
     
     <item>
-      <title>Bastion -- hack the box</title>
-      <link>https://neal1991.github.io/post/bastion-hack-the-box/</link>
-      <pubDate>Tue, 14 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://neal1991.github.io/post/bastion-hack-the-box/</guid>
-      <description>Intrdouction Target: 10.10.10.134 (Windows)
-Kali: 10.10.16.65
-In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
-Information enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134 Warning: 10.10.10.134 giving up on port because retransmission cap hit (10).</description>
-    </item>
-    
-    <item>
       <title>Help -- hack the box</title>
       <link>https://neal1991.github.io/post/help-hack-the-box/</link>
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
@@ -105,6 +92,18 @@ Infomation Enumeration Firstly, gather open ports and services:
 Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
  受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
 攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</description>
+    </item>
+    
+    <item>
+      <title>Bashed -- hack the box</title>
+      <link>https://neal1991.github.io/bashed-hack-the-box/</link>
+      <pubDate>Thu, 04 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://neal1991.github.io/bashed-hack-the-box/</guid>
+      <description>Introduction Target: 10.10.10.68 (OS: Linux)
+Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http  Only port 80 is open, it may be an easy box.</description>
     </item>
     
     <item>
