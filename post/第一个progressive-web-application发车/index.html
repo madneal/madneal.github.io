@@ -40,7 +40,7 @@ var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;f
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/" />
@@ -241,28 +241,28 @@ var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;f
 <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> [];
 
 <span style="color:#a6e22e">cityConfig</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">city</span>) {
-    <span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">url</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">city</span>)
-    .<span style="color:#a6e22e">end</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">res</span>) {
-        <span style="color:#a6e22e">$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cheerio</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">text</span>);
-        <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;#woeid_results_table tr&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">ele</span>) {
-                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {};
-                <span style="color:#a6e22e">$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cheerio</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">ele</span>);
-                <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;td&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">td</span>) {
-                    <span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">attrNames</span>[<span style="color:#a6e22e">index</span>]] <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">this</span>).<span style="color:#a6e22e">text</span>();
-                })
-                <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">obj</span>);
-        });
-        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">object</span>) {
-            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">object</span>) {
-                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
-            }
-            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-        }
-        <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">obj</span>) {
-            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">country</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;China&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isEmpty</span>(<span style="color:#a6e22e">obj</span>);
-        })
-        <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">writeFile</span>(<span style="color:#e6db74">&#39;result.json&#39;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;\t&#34;</span>));
-    })
+	<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">url</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">city</span>)
+	.<span style="color:#a6e22e">end</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">res</span>) {
+		<span style="color:#a6e22e">$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cheerio</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">text</span>);
+		<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;#woeid_results_table tr&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">ele</span>) {
+				<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {};
+				<span style="color:#a6e22e">$</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cheerio</span>.<span style="color:#a6e22e">load</span>(<span style="color:#a6e22e">ele</span>);
+				<span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#39;td&#39;</span>).<span style="color:#a6e22e">each</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">index</span>, <span style="color:#a6e22e">td</span>) {
+					<span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">attrNames</span>[<span style="color:#a6e22e">index</span>]] <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">this</span>).<span style="color:#a6e22e">text</span>();
+				})
+				<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">obj</span>);
+		});
+		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">object</span>) {
+			<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">object</span>) {
+				<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+			}
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+		}
+		<span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">obj</span>) {
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">country</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;China&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isEmpty</span>(<span style="color:#a6e22e">obj</span>);
+		})
+		<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">writeFile</span>(<span style="color:#e6db74">&#39;result.json&#39;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;\t&#34;</span>));
+	})
 });
 </code></pre></div>
 <p>主要是使用了superagent和cheerio这两个包，一个是用来发请求的，另外一个是用于解析html的，城市名需要英文城市名，我这里就是config来配置的，然后对结果做了过滤保存成json格式的文件。
@@ -283,7 +283,7 @@ var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;f
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>895</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>896</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -344,11 +344,15 @@ var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;f
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

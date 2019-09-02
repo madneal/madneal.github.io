@@ -40,7 +40,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" />
@@ -229,83 +229,83 @@ using namespace std;
 //线性表的定义
 typedef int ElemType;
 typedef struct LNode{
-    ElemType data;
-    struct LNode *next;
+	ElemType data;
+	struct LNode *next;
 }LNode,*LinkList;
 //线性表的初始化
 int InitList_L(LinkList &amp;L)
 {
-    L = (LinkList)malloc(sizeof(LNode));
-    L-&gt;next = NULL;
-    return 1;
+	L = (LinkList)malloc(sizeof(LNode));
+	L-&gt;next = NULL;
+	return 1;
 }
 //线性表的插入
 int ListInsert_L(LinkList &amp;L,int i,ElemType e)
 {
-    LinkList p;
-    p = L;
-    int j = 0;
-    while(p&amp;&amp;j&lt;i-1)
-    {
-        p=p-&gt;next;
-        ++j;
-    }
-    if(!p||j&gt;i-1)
-        return 0;
-    LinkList s = (LinkList)malloc(sizeof(LNode));
-    s-&gt;data = e;
-    s-&gt;next=p-&gt;next;
-    p-&gt;next=s;
-    return 1;
+	LinkList p;
+	p = L;
+	int j = 0;
+	while(p&amp;&amp;j&lt;i-1)
+	{
+		p=p-&gt;next;
+		++j;
+	}
+	if(!p||j&gt;i-1)
+		return 0;
+	LinkList s = (LinkList)malloc(sizeof(LNode));
+	s-&gt;data = e;
+	s-&gt;next=p-&gt;next;
+	p-&gt;next=s;
+	return 1;
 }
 //清空线性表
 void Delete_L(LinkList L)
 {
-    LinkList p = L-&gt;next;
-    if(!p)
-        cout &lt;&lt; &quot;this list is empty!&quot;;
-    while(p)
-    {
-        cout &lt;&lt; p-&gt;data;
-        p = p-&gt;next;
-    }
-    cout &lt;&lt; endl;
+	LinkList p = L-&gt;next;
+	if(!p)
+		cout &lt;&lt; &quot;this list is empty!&quot;;
+	while(p)
+	{
+		cout &lt;&lt; p-&gt;data;
+		p = p-&gt;next;
+	}
+	cout &lt;&lt; endl;
 }
 //合并线性表
 void MergeList_L(LinkList &amp;La,LinkList &amp;Lb,LinkList &amp;Lc)
 {
-    LinkList pa = La-&gt;next;
-    LinkList pb = Lb-&gt;next;
-    LinkList pc = Lc=La;
-    while (pa&amp;&amp;pb)
-    {
-        if(pa-&gt;data&lt;pb-&gt;data)
-        {
-            pc-&gt;next=pa;
-            pc=pa;
-            pa=pa-&gt;next;
-        }
-        else
-        {
-            pc-&gt;next=pb;
-            pc=pb;
-            pb=pb-&gt;next;
-        }
-    }
-    pc-&gt;next=pa?pa:pb;
-    free(Lb);
+	LinkList pa = La-&gt;next;
+	LinkList pb = Lb-&gt;next;
+	LinkList pc = Lc=La;
+	while (pa&amp;&amp;pb)
+	{
+		if(pa-&gt;data&lt;pb-&gt;data)
+		{
+			pc-&gt;next=pa;
+			pc=pa;
+			pa=pa-&gt;next;
+		}
+		else
+		{
+			pc-&gt;next=pb;
+			pc=pb;
+			pb=pb-&gt;next;
+		}
+	}
+	pc-&gt;next=pa?pa:pb;
+	free(Lb);
 }
 
 int main()
 {
-    LinkList La,Lb,Lc;
-    InitList_L(La);
-    InitList_L(Lb);
-    InitList_L(Lc);
-    ListInsert_L(La,1,2);
-    ListInsert_L(La,2,3);
-    ListInsert_L(La,3,5);
-    Delete_L(La);
+	LinkList La,Lb,Lc;
+	InitList_L(La);
+	InitList_L(Lb);
+	InitList_L(Lc);
+	ListInsert_L(La,1,2);
+	ListInsert_L(La,2,3);
+	ListInsert_L(La,3,5);
+	Delete_L(La);
 }
 </code></pre>
 </article>
@@ -318,7 +318,7 @@ int main()
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1342</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1343</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -379,11 +379,15 @@ int main()
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

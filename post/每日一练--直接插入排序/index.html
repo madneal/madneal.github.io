@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" />
@@ -229,14 +229,14 @@
 
 <pre><code>//the index of array is from 0
 for j=1 to num.length
-    key = num[j];
-    i = j-1;
-    while i &gt;= 0 and num[i] &gt; key
-    {
-        num[i+1] = num[i];
-        i--;
-    }
-    num[i+1] = key;
+	key = num[j];
+	i = j-1;
+	while i &gt;= 0 and num[i] &gt; key
+	{
+		num[i+1] = num[i];
+		i--;
+	}
+	num[i+1] = key;
 </code></pre>
 
 <p>下面用c++来实现</p>
@@ -251,33 +251,33 @@ using namespace std;
 
 int main()
 {
-    int num[10] = {10,20,1,78,34,99,12,21,2,55};
-    int key;
-    cout &lt;&lt; &quot;the number has not been sorted:&quot; &lt;&lt; endl;
-    for (int i = 0;i &lt; 10;i++)
-    {
-        cout &lt;&lt; num[i] &lt;&lt; ' ';
-    }
-    cout &lt;&lt; endl;
-    cout &lt;&lt; &quot;the number has been sorted:&quot; &lt;&lt; endl;
-    for (int j =1;j &lt;10;j++)
-    {
-        int key = num[j];
-        int i = j-1;
-        while(i &gt;=0&amp;&amp;num[i]&gt;key)
-        {
-            num[i+1] = num[i];
-            i--;
-        }
-        num[i+1] = key;
-    }
+	int num[10] = {10,20,1,78,34,99,12,21,2,55};
+	int key;
+	cout &lt;&lt; &quot;the number has not been sorted:&quot; &lt;&lt; endl;
+	for (int i = 0;i &lt; 10;i++)
+	{
+		cout &lt;&lt; num[i] &lt;&lt; ' ';
+	}
+	cout &lt;&lt; endl;
+	cout &lt;&lt; &quot;the number has been sorted:&quot; &lt;&lt; endl;
+	for (int j =1;j &lt;10;j++)
+	{
+		int key = num[j];
+		int i = j-1;
+		while(i &gt;=0&amp;&amp;num[i]&gt;key)
+		{
+			num[i+1] = num[i];
+			i--;
+		}
+		num[i+1] = key;
+	}
 
-    for (int m = 0;m &lt; 10;m++)
-    {
-        cout &lt;&lt; num[m] &lt;&lt; ' ';
-    }
-    cout &lt;&lt; endl;
-    return 0;
+	for (int m = 0;m &lt; 10;m++)
+	{
+		cout &lt;&lt; num[m] &lt;&lt; ' ';
+	}
+	cout &lt;&lt; endl;
+	return 0;
 }
 
 </code></pre>
@@ -293,7 +293,7 @@ int main()
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1403</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1404</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -354,11 +354,15 @@ int main()
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

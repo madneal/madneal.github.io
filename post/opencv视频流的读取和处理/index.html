@@ -37,7 +37,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" />
@@ -230,31 +230,31 @@ using namespace std;
 
 int main()
 {
-    VideoCapture capture(&quot;d:\\road.avi&quot;);
-    //检测视频是否读取成功
-    if (!capture.isOpened())
-    {
-        cout &lt;&lt; &quot;No input image&quot;;
-        return 1;
-    }
+	VideoCapture capture(&quot;d:\\road.avi&quot;);
+	//检测视频是否读取成功
+	if (!capture.isOpened())
+	{
+		cout &lt;&lt; &quot;No input image&quot;;
+		return 1;
+	}
 
-    //获取图像帧率
-    double rate = capture.get(CV_CAP_PROP_FPS);
-    bool stop = false;
-    Mat frame;
-    namedWindow(&quot;Example&quot;);
+	//获取图像帧率
+	double rate = capture.get(CV_CAP_PROP_FPS);
+	bool stop = false;
+	Mat frame;
+	namedWindow(&quot;Example&quot;);
 
-    int delay = 1000/rate;
+	int delay = 1000/rate;
 
-    while (!stop)
-    {
-        if (!capture.read(frame))
-            break;
-        imshow(&quot;Example&quot;,frame);
-        if (waitKey(delay) &gt;= 0)
-            stop = true;
-    }
-    return 0;
+	while (!stop)
+	{
+		if (!capture.read(frame))
+			break;
+		imshow(&quot;Example&quot;,frame);
+		if (waitKey(delay) &gt;= 0)
+			stop = true;
+	}
+	return 0;
 }
 
 </code></pre>
@@ -284,7 +284,7 @@ void canny(Mat&amp; img, Mat&amp; out)
 
 <p>定义好一个视频处理类，它将与一个回调函数相关联。使用该类，可以创建一个实例，制定输入的视频文件，绑定回调函数，然后开始对每一帧进行处理，要调用这个视频处理类，只需要在main函数添加就可以了：</p>
 
-<pre><code>    // 首先创建实例
+<pre><code>	// 首先创建实例
     VideoProcessor processor;
     // 打开视频文件
     processor.setInput(&quot;e:\\road.avi&quot;);
@@ -312,7 +312,7 @@ void canny(Mat&amp; img, Mat&amp; out)
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1602</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1604</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -373,11 +373,15 @@ void canny(Mat&amp; img, Mat&amp; out)
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

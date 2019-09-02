@@ -18,7 +18,7 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="只能生成一个实例的类是为了实现单例模式的类型。
 加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton(); } } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，." />
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，." />
 
   
   
@@ -27,7 +27,7 @@ public sealed class Singleton { private Singelton() { } private static object sy
     <meta name="twitter:title" content="剑指offer学习--实现单例模式" />
     <meta name="twitter:description" content="只能生成一个实例的类是为了实现单例模式的类型。
 加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton(); } } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，." />
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，." />
     <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
   
 
@@ -36,14 +36,14 @@ public sealed class Singleton { private Singelton() { } private static object sy
   <meta property="og:title" content="剑指offer学习--实现单例模式" />
   <meta property="og:description" content="只能生成一个实例的类是为了实现单例模式的类型。
 加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton(); } } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，." />
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，." />
   <meta property="og:url" content="https://neal1991.github.io/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" />
   <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" />
@@ -233,26 +233,26 @@ public sealed class Singleton { private Singelton() { } private static object sy
 
 <pre><code>public sealed class Singleton
 {
-    private Singelton()
-    {
-    }
+	private Singelton()
+	{
+	}
 private static object syncObj = new object();
 
 private static Singleton instance = null;
 public static Singleton Instance
 {
-    get
-    {
-        if (instance == null)
-        {
-            locak(syncObj)
-            {
-                if (instance == null)
-                    instance = new Singleton();             
-            }
-        }
-        return instance;
-    }
+	get
+	{
+		if (instance == null)
+		{
+			locak(syncObj)
+			{
+				if (instance == null)
+					instance = new Singleton();				
+			}
+		}
+		return instance;
+	}
 }
 }
 </code></pre>
@@ -261,18 +261,18 @@ public static Singleton Instance
 
 <pre><code>public seled class Singleton
 {
-    private Singelton()
-    {
-    }
+	private Singelton()
+	{
+	}
 
-    private static Singleton instance = new Singleton();
-    public static Singleton Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+	private static Singleton instance = new Singleton();
+	public static Singleton Instance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 }
 </code></pre>
 
@@ -282,25 +282,25 @@ public static Singleton Instance
 
 <pre><code>public sealed class Singleton
 {
-    Singleton()
-    {
-    }
+	Singleton()
+	{
+	}
 
-    public static Singleton Instance;
-    {
-        get
-        {
-            return Nested.instance;
-        }
-    }
+	public static Singleton Instance;
+	{
+		get
+		{
+			return Nested.instance;
+		}
+	}
 
-    class Nested
-    {
-        static Nested()
-        {
-        }
-        internal static readonly Singleton instance = new Singleton();
-    }
+	class Nested
+	{
+		static Nested()
+		{
+		}
+		internal static readonly Singleton instance = new Singleton();
+	}
 }
 </code></pre>
 </article>
@@ -313,7 +313,7 @@ public static Singleton Instance
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1387</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1389</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -374,11 +374,15 @@ public static Singleton Instance
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

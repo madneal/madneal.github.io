@@ -52,7 +52,7 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" />
@@ -242,9 +242,9 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：</p>
 
 <pre><code>&lt;body&gt;
-    &lt;div id=&quot;outer&quot;&gt;
-        &lt;div id=&quot;inner&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
+	&lt;div id=&quot;outer&quot;&gt;
+		&lt;div id=&quot;inner&quot;&gt;&lt;/div&gt;
+	&lt;/div&gt;
 &lt;/body&gt;
 </code></pre>
 
@@ -264,30 +264,30 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 <h2 id="跨浏览器的事件处理程序">跨浏览器的事件处理程序</h2>
 
 <pre><code>var EventUtil = {
-    addHandler: function(element,type,handler) {
-        if (element.addEventListener) {
-            element.addEventListener(type,handler,false);
-        }
-        else if (element.attachEvent) {
-            element.attachEvent('on'+type,handler);
-        }
-        else {
-            element['on'+type] = handler;
-        }
-    },
+	addHandler: function(element,type,handler) {
+		if (element.addEventListener) {
+			element.addEventListener(type,handler,false);
+		}
+		else if (element.attachEvent) {
+			element.attachEvent('on'+type,handler);
+		}
+		else {
+			element['on'+type] = handler;
+		}
+	},
 
-    removeHandler: function(element,type,handler) {
-        if (element.removeEventListener)
-        {
-            element.removeEventListener(type,handler,false);
-        }
-        else(element.detachEvent) {
-            element.detachEvent('on' +type,handler);
-        }
-        else {
-            element['on'+type] = null;
-        }
-    }
+	removeHandler: function(element,type,handler) {
+		if (element.removeEventListener)
+		{
+			element.removeEventListener(type,handler,false);
+		}
+		else(element.detachEvent) {
+			element.detachEvent('on' +type,handler);
+		}
+		else {
+			element['on'+type] = null;
+		}
+	}
 }
 </code></pre>
 </article>
@@ -300,7 +300,7 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1274</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1275</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -361,11 +361,15 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

@@ -40,7 +40,7 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" />
@@ -229,16 +229,16 @@ var cheerio = request('cheerio');
 var iconv = require('iconv-lite');
 
 request ({
-    url : 'http://www.taobao.com',
-    encodeing = null
-    },function(err,res,body){
-    if (err) throw err;
-    // decode the content of the website
-    body = iconv.decode(body,'gbk');
+	url : 'http://www.taobao.com',
+	encodeing = null
+	},function(err,res,body){
+	if (err) throw err;
+	// decode the content of the website
+	body = iconv.decode(body,'gbk');
 
-    var $ = cheerio.load(body);
+	var $ = cheerio.load(body);
 
-    console.log($('head title').text());
+	console.log($('head title').text());
 }）
 </code></pre>
 
@@ -253,7 +253,7 @@ request ({
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1232</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1233</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -314,11 +314,15 @@ request ({
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

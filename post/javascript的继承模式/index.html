@@ -43,7 +43,7 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" />
@@ -231,15 +231,15 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
 <h2 id="基本模式">基本模式</h2>
 
 <pre><code>var Parent = function(){
-    this.name = 'parent';
+	this.name = 'parent';
 ｝;
 Parent.prototype.getName = function(){
-    return this.name;
+	return this.name;
 };
 Parent.prototype.obj = {a:1};
 
 var Child = function(){
-    this.name = 'child';
+	this.name = 'child';
 }
 Child.protytype = new Parent();
 
@@ -255,16 +255,16 @@ console.log(child.getName());//child
 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：</p>
 
 <pre><code>var Parent = function(name){
-    this.name = name || 'parent';
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
-    return this.name;
+	return this.name;
 };
 Parent.prototype.obj = {a:1};
 
 var Child = function(name)
 {
-    this.name = name || 'child';
+	this.name = name || 'child';
 };
 Child.prototype = new Parent();
 
@@ -280,15 +280,15 @@ console.log(child.getName());//myChild
 <h2 id="借用构造函数">借用构造函数</h2>
 
 <pre><code>var Parent = function(name){
-    this.name = name || 'parent';
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
-    return this.name;
+	return this.name;
 }
 Parent.prototype.obj = {a:1};
 
 var Child = function(name){
-    Parent.apply(this,arguments);
+	Parent.apply(this,arguments);
 }
 Child.prototype = new Parent();
 
@@ -302,15 +302,15 @@ console.log(child.getName());//myChild
 <p>上面这种方法在子类构造函数中通过<code>apply</code>调用父类的构造函数进行相同的的初始化工作，这样不管负累做了多少初始化工作，子类可以执行同样的初始化工作。但是上面这种实现方法存在一个问题，父类构造函数被执行了两次，一次是在子类构造函数中，椅子是在赋值子类原型的时候，这是多余的，我们可以做以下改进：</p>
 
 <pre><code>var Parent = function(name){
-    this.name = name || 'parent';
+	this.name = name || 'parent';
 };
 Parent.prototypr.getName = function(){
-    return this.name;
+	return this.name;
 };
 Parent.prototype.obj = {a:1};
 
 var Child = function(name){
-    Parent.apply(this,arguments);
+	Parent.apply(this,arguments);
 ｝；
 Child.protytype = Parent.protytype;
 
@@ -329,15 +329,15 @@ console.log(child.getName());//myChild
 <p>上面借用构造函数模式还是存在问题，它把父类的原型直接赋值给子类的原型，这会造成一个问题，就是如果对子类的原型做了修改，那么这个修改同时也会影响到父类的原型，进而影响父类对象。</p>
 
 <pre><code>var Parent = function(name){
-    this.name = name || 'parent';
+	this.name = name || 'parent';
 }；
 Parent.prototype.getName = function(){
-    return this.name;
+	return this.name;
 };
 Parent.prototype.obj = {a:1};
 
 var Child = function(name){
-    Parent.apply(this,arguments);
+	Parent.apply(this,arguments);
 };
 var F = new function(){};
 F.prototype = Parent.prototype;
@@ -357,15 +357,15 @@ console.log(child.getName());/myChild
 <p>上面可以刻到的我们在Parent的<code>prototype</code>属性中加入一个<code>obj</code>对象字面量属性，但是一直没有使用</p>
 
 <pre><code>var Parent = function(name){
-    this.name = name || 'parent';
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
-    return this.name;
+	return this.name;
 }；
 Parent.prototype.obj = {a:1};
 
 var Child = function(name){
-    Parent.aplly(this,arguments);
+	Parent.aplly(this,arguments);
 };
 var F = new function(){};
 F.prototype = Parent.prototype;
@@ -384,15 +384,15 @@ console.log(parent.obj.a);//2
 <p>在上面这种情况，当我们把<code>child</code>对象<code>obj.a</code>修改的时候，同时父类的原型中的<code>obj.a</code>也会被修改。原因是因为当访问<code>child.obj.a</code>的时候，我们会沿着原型链一直找到父类的<code>prototype</code>中，然后找到了<code>obj</code>属性，然后对<code>obj.a</code>进行修改.</p>
 
 <pre><code>var Parent = function(name){
-    this.name = name || 'parent';
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
-    return this.name;
+	return this.name;
 }；
 Parent.prototype.obj = {a:1};
 
 var Child = function(name){
-    Parent.aplly(this,arguments);
+	Parent.aplly(this,arguments);
 };
 var F = new function(){};
 F.prototype = Parent.prototype;
@@ -419,7 +419,7 @@ console.log(parent.obj.a);//2
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1407</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1408</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -480,11 +480,15 @@ console.log(parent.obj.a);//2
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

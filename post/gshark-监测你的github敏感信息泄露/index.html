@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" />
@@ -261,15 +261,15 @@
 
 <p>Gshark 实现了一套比较粗糙的权限管理，主要是基于 <a href="https://github.com/casbin/casbin">casbin</a> 来实现的。GShark 使用的 go-macaron 可以支持使用中间件 <a href="https://github.com/go-macaron/authz">authz</a> 来实现权限管理，其实它的实现方式也是比较粗糙的，核心代码其实就是下面的一个函数：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Authorizer</span>(<span style="color:#a6e22e">e</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">casbin</span>.<span style="color:#a6e22e">Enforcer</span>) <span style="color:#a6e22e">macaron</span>.<span style="color:#a6e22e">Handler</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">res</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">macaron</span>.<span style="color:#a6e22e">Context</span>) {
-        <span style="color:#a6e22e">user</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">BasicAuth</span>()
-        <span style="color:#a6e22e">method</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Method</span>
-        <span style="color:#a6e22e">path</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>
-        <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Enforce</span>(<span style="color:#a6e22e">user</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">method</span>) {
-            <span style="color:#a6e22e">accessDenied</span>(<span style="color:#a6e22e">res</span>)
-            <span style="color:#66d9ef">return</span>
-        }
-    }
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">res</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>, <span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">macaron</span>.<span style="color:#a6e22e">Context</span>) {
+		<span style="color:#a6e22e">user</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">BasicAuth</span>()
+		<span style="color:#a6e22e">method</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Method</span>
+		<span style="color:#a6e22e">path</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Path</span>
+		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Enforce</span>(<span style="color:#a6e22e">user</span>, <span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">method</span>) {
+			<span style="color:#a6e22e">accessDenied</span>(<span style="color:#a6e22e">res</span>)
+			<span style="color:#66d9ef">return</span>
+		}
+	}
 }</code></pre></div>
 <p>可以看到必须要通过 BasicAuth 来进行认证的，从而获取用户的角色，来实现权限的控制。因为 GShark 没有使用 BasicAuth 来进行认证，所以角色的传递也是一个比较头疼的问题，其实还是使用标准的认证方式比较好，目前因为没有做到，只能通过 cookie 来进行传递，这种方式因此是不太可靠的。</p>
 
@@ -356,7 +356,7 @@ PATH =
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>305</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>306</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -417,11 +417,15 @@ PATH =
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

@@ -40,7 +40,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/" />
@@ -299,8 +299,9 @@ var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNu
     <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理 ```var isUnique = function(collection) { for (var i = 0,len = collection.length;i &lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; };
- 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套  collection = _.groupBy(collection,‘name’); for (var i in collection) { if (collection[i].</p>
+  <p class="post-summary">js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理
+for (var i = 0,len = collection.length;i &lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; }; 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套
+collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { if (collection[i].</p>
   <footer class="post-footer">
     <a class="read-more" href="https://neal1991.github.io/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/">Read More →</a>
   </footer>
@@ -431,11 +432,15 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

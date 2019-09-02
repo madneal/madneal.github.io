@@ -52,7 +52,7 @@ C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什�
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/" />
@@ -248,27 +248,27 @@ C++的编译器一旦发现一个类型中有虚函数，就会为该类型生�
 <pre><code>class A
 {
 private:
-    int value;
+	int value;
 public:
-    A(int n)
-    {
-        value = n;
-    }
-    A(A other)
-    {
-        value = other.value;
-    }
-    void print()
-    {
-        std::cout&lt;&lt;value&lt;&lt;endl;
-    }
+	A(int n)
+	{
+		value = n;
+	}
+	A(A other)
+	{
+		value = other.value;
+	}
+	void print()
+	{
+		std::cout&lt;&lt;value&lt;&lt;endl;
+	}
 };
 
 int main()
 {
-    A a = 10;
-    A b = a;
-    b.print();
+	A a = 10;
+	A b = a;
+	b.print();
 }
 </code></pre>
 
@@ -288,7 +288,7 @@ C#和C++不一样。在C#中如果没有标明成员函数或者成员变量的�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1410</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1412</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -349,11 +349,15 @@ C#和C++不一样。在C#中如果没有标明成员函数或者成员变量的�
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

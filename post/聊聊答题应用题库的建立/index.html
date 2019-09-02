@@ -49,7 +49,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
@@ -244,11 +244,11 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 
 <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">write_quetion</span>():
   question <span style="color:#f92672">=</span> {
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;谁是世界上最帅的人&#39;</span>,
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;answer&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;Neal&#39;</span>
+    <span style="color:#e6db74">&#39;question&#39;</span>: <span style="color:#e6db74">&#39;谁是世界上最帅的人&#39;</span>,
+    <span style="color:#e6db74">&#39;answer&#39;</span>: <span style="color:#e6db74">&#39;Neal&#39;</span>
   }
-  es <span style="color:#f92672">=</span> Elasticsearch({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;localhost&#39;</span>})
-  es<span style="color:#f92672">.</span>index(index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question-index&#39;</span>, doc_type<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question&#39;</span>, id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, body<span style="color:#f92672">=</span>question)</code></pre></div>
+  es <span style="color:#f92672">=</span> Elasticsearch({<span style="color:#e6db74">&#39;localhost&#39;</span>})
+  es<span style="color:#f92672">.</span>index(index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;question-index&#39;</span>, doc_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;question&#39;</span>, id<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, body<span style="color:#f92672">=</span>question)</code></pre></div>
 <p>上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 <a href="https://db-engines.com/en/ranking">DB-Engines</a> 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：</p>
 
 <table>
@@ -276,21 +276,21 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 
 <p>那么在 es 中搜索问题时应该这样：</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">search_question</span>(key_words):
-  es <span style="color:#f92672">=</span> Elasticsearch({<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;localhost&#39;</span>})
-  res <span style="color:#f92672">=</span> es<span style="color:#f92672">.</span>search(index<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question-index&#39;</span>, body<span style="color:#f92672">=</span>{
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;query&#34;</span>: {
-      <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;match&#34;</span>: {
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;question&#34;</span>: key_words,
-        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;minimum_should_match&#34;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;75%&#34;</span>
+  es <span style="color:#f92672">=</span> Elasticsearch({<span style="color:#e6db74">&#39;localhost&#39;</span>})
+  res <span style="color:#f92672">=</span> es<span style="color:#f92672">.</span>search(index<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;question-index&#39;</span>, body<span style="color:#f92672">=</span>{
+    <span style="color:#e6db74">&#34;query&#34;</span>: {
+      <span style="color:#e6db74">&#34;match&#34;</span>: {
+        <span style="color:#e6db74">&#34;question&#34;</span>: key_words,
+        <span style="color:#e6db74">&#34;minimum_should_match&#34;</span>: <span style="color:#e6db74">&#34;75%&#34;</span>
         }
       }
     }
   })
-  <span style="color:#66d9ef">if</span> res[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;hits&#39;</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;total&#39;</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
-    <span style="color:#66d9ef">for</span> hit <span style="color:#f92672">in</span> res[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;hits&#39;</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;hits&#39;</span>]:
-      <span style="color:#66d9ef">print</span>(hit[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;_source&#39;</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;question&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;:&#39;</span> <span style="color:#f92672">+</span> hit[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;_source&#39;</span>][<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;answer&#39;</span>])
+  <span style="color:#66d9ef">if</span> res[<span style="color:#e6db74">&#39;hits&#39;</span>[<span style="color:#e6db74">&#39;total&#39;</span>] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">for</span> hit <span style="color:#f92672">in</span> res[<span style="color:#e6db74">&#39;hits&#39;</span>][<span style="color:#e6db74">&#39;hits&#39;</span>]:
+      <span style="color:#66d9ef">print</span>(hit[<span style="color:#e6db74">&#39;_source&#39;</span>][<span style="color:#e6db74">&#39;question&#39;</span>] <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;:&#39;</span> <span style="color:#f92672">+</span> hit[<span style="color:#e6db74">&#39;_source&#39;</span>][<span style="color:#e6db74">&#39;answer&#39;</span>])
    <span style="color:#66d9ef">else</span>:
-     <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;未搜索到类似结果&#39;</span>)</code></pre></div>
+     <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;未搜索到类似结果&#39;</span>)</code></pre></div>
 <h2 id="从图片中获取问题和答案">从图片中获取问题和答案</h2>
 
 <p>题库的建立可以使用文本的方式或者直接使用答题应用的手机截图，毫无疑问后者是更有价值的。假设我们现在有一张这样的截图：</p>
@@ -345,7 +345,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>554</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>555</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -406,11 +406,15 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

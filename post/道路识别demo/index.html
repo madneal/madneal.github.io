@@ -40,7 +40,7 @@ opencvsharp版本 using System; using System.Collections.Generic; using System.L
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/" />
@@ -320,54 +320,54 @@ CvSeq* lines;
 int main(int argc,char* argv[])
 {                  
     cvNamedWindow( &quot;show&quot;);      
-    g_capture=cvCreateFileCapture( &quot;D:\\road.avi&quot;);
+	g_capture=cvCreateFileCapture( &quot;D:\\road.avi&quot;);
     IplImage* frame;
     while(1)
     {  
-        CvMemStorage* storage = cvCreateMemStorage();
-        frame=cvQueryFrame(g_capture);
+		CvMemStorage* storage = cvCreateMemStorage();
+		frame=cvQueryFrame(g_capture);
 
-        //set the ROI of the original image
-        int x = 0,y = frame-&gt;height/2;
-        int width = frame-&gt;width,height = frame-&gt;height/2;
+		//set the ROI of the original image
+		int x = 0,y = frame-&gt;height/2;
+		int width = frame-&gt;width,height = frame-&gt;height/2;
 
-        if(!frame) 
-            break; 
+		if(!frame) 
+			break; 
 
-        cvSetImageROI(frame,cvRect(x,y,width,height));
-        IplImage* gray = cvCreateImage(cvGetSize(frame),8,1);
-        cvCvtColor(frame,gray,CV_BGR2GRAY);
+		cvSetImageROI(frame,cvRect(x,y,width,height));
+		IplImage* gray = cvCreateImage(cvGetSize(frame),8,1);
+		cvCvtColor(frame,gray,CV_BGR2GRAY);
 
-        cvCanny(gray,gray,50,100);
-        cvShowImage(&quot;canny&quot;,gray);
-        cvSmooth(gray,gray,CV_GAUSSIAN,3,1,0);
+		cvCanny(gray,gray,50,100);
+		cvShowImage(&quot;canny&quot;,gray);
+		cvSmooth(gray,gray,CV_GAUSSIAN,3,1,0);
 
-        //Hough
-        lines = cvHoughLines2(gray,storage,CV_HOUGH_PROBABILISTIC,1,CV_PI/180,50,90,50);
+		//Hough
+		lines = cvHoughLines2(gray,storage,CV_HOUGH_PROBABILISTIC,1,CV_PI/180,50,90,50);
 
-        //select approprivate lines acoording to the slope
-        for (int i = 0;i &lt; lines-&gt;total;i ++)
-        {
-            double k =INF;
-            CvPoint* line = (CvPoint*)cvGetSeqElem(lines,i);
-            int dx = line[1].x - line[0].x;
-            int dy = line[1].x - line[0].y;
-            double angle = atan2(dy,dx) * 180 /CV_PI;
-            if (abs(angle) &lt;= 10)
-                continue;
-            if (line[0].y &gt; line[1].y + 50 || line[0].y &lt; line[1].y - 50)
-            {
-                cvLine(frame,line[0],line[1],CV_RGB(255,0,0),2,CV_AA);
-            }
-        }
-        cvResetImageROI(frame);     
-        cvShowImage( &quot;show&quot;,frame);
+		//select approprivate lines acoording to the slope
+		for (int i = 0;i &lt; lines-&gt;total;i ++)
+		{
+			double k =INF;
+			CvPoint* line = (CvPoint*)cvGetSeqElem(lines,i);
+			int dx = line[1].x - line[0].x;
+			int dy = line[1].x - line[0].y;
+			double angle = atan2(dy,dx) * 180 /CV_PI;
+			if (abs(angle) &lt;= 10)
+				continue;
+			if (line[0].y &gt; line[1].y + 50 || line[0].y &lt; line[1].y - 50)
+			{
+				cvLine(frame,line[0],line[1],CV_RGB(255,0,0),2,CV_AA);
+			}
+		}
+		cvResetImageROI(frame);		
+		cvShowImage( &quot;show&quot;,frame);
         char c = cvWaitKey(33);            
         if(c==27)
             break;
     } 
-    cvReleaseCapture(&amp;g_capture);
-    cvDestroyWindow( &quot;show&quot;);               
+	cvReleaseCapture(&amp;g_capture);
+	cvDestroyWindow( &quot;show&quot;);               
     return 0;
 }
 </code></pre>
@@ -387,7 +387,7 @@ int main(int argc,char* argv[])
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1599</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1601</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -448,11 +448,15 @@ int main(int argc,char* argv[])
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

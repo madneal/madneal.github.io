@@ -61,7 +61,7 @@ Sample Input
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/" />
@@ -277,32 +277,32 @@ Sample Output</p>
 bool isPrime(int x); 
 int main()
 {
-    int n,i,j;
-    while (scanf(&quot;%d&quot;,&amp;n) != EOF)
-    {
-        for (i = n/2;i &gt; 0;i -= 2)
-        {
-            if(i%2 == 0)
-                i --;
-            j = n - i;
-        if(isPrime(i)&amp;&amp;isPrime(j))
-        {
-                printf(&quot;%d %d\n&quot;,i,j);
-                break;
-        }
-        }
-    }
-    return 0;
+	int n,i,j;
+	while (scanf(&quot;%d&quot;,&amp;n) != EOF)
+	{
+		for (i = n/2;i &gt; 0;i -= 2)
+		{
+			if(i%2 == 0)
+				i --;
+			j = n - i;
+		if(isPrime(i)&amp;&amp;isPrime(j))
+		{
+				printf(&quot;%d %d\n&quot;,i,j);
+				break;
+		}
+		}
+	}
+	return 0;
 }
 bool isPrime(int x)
 {
-    int len = sqrt((float)x);
-    for (int i = 2;i &lt;= len;i ++)
-    {
-        if(x % i == 0)
-            return false;
-    }
-    return true;
+	int len = sqrt((float)x);
+	for (int i = 2;i &lt;= len;i ++)
+	{
+		if(x % i == 0)
+			return false;
+	}
+	return true;
 }
 </code></pre>
 </article>
@@ -315,7 +315,7 @@ bool isPrime(int x)
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1603</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1604</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -376,11 +376,15 @@ bool isPrime(int x)
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

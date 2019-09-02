@@ -58,7 +58,7 @@ LICENSE: MIT
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/" />
@@ -290,22 +290,18 @@ $image <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</s
 
 <p>比如，攻击者可能能够访问本地的服务。在下面的例子中，攻击者通过开启<code>mod_status</code>（默认开启）能够在Apache HTTP服务器上发送下面的请求。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">GET /?url=http://localhost/server-status HTTP/1.1
-Host: example.com
-</code></pre></div>
+Host: example.com</code></pre></div>
 <p>类似的，SSRF能够被用来请求这个web服务器可以访问的其它内部资源，但是这些资源不是对公共开放的。这个样的例子比如是在<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Amazon EC2</a> 以及 <a href="https://docs.openstack.org/admin-guide/compute-networking-nova.html">OpenStack</a> 上访问实例元数据。这个服务仅仅向服务器开放而不是外部世界。攻击者甚至会有更多发现通过使用这个方法<a href="https://www.acunetix.com/blog/articles/ssrf-vulnerability-used-to-scan-the-web-servers-network/">在内部网络中运行端口扫描</a>。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">GET /?url=http://169.254.169.254/latest/meta-data/ HTTP/1.1
-Host: example.com
-</code></pre></div>
+Host: example.com</code></pre></div>
 <p>除了通过<code>http://</code>以及·<code>https://</code>URL协议，攻击者可能也利用少数人或者遗留的URL协议来访问内部网络的本地系统中的文件。</p>
 
 <p>下面的例子就是利用<code>file:///</code>URL协议来发送这样的请求。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">GET /?url=file:///etc/passwd HTTP/1.1
-Host: example.com
-</code></pre></div>
+Host: example.com</code></pre></div>
 <p>根据应用如何产生请求，攻击者能够利用URL协议而不是文件以及HTTP。比如，如果<code>cURL</code>被用来产生请求（上面的例子这就是利用<code>fopen()</code>来发送请求），可能能够利用<code>dist URL</code>协议向任何主机的任何端口发送请求并且发送自定义的数据。</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">GET /?url=dict://localhost:11211/stat HTTP/1.1
-Host: example.com
-</code></pre></div>
+Host: example.com</code></pre></div>
 <p>上述的请求会造成应用链接到主机的11211端口并且发送字符串&rdquo;stat&rdquo;。端口11211是<a href="https://memcached.org/">Memcached</a>（通常不会暴露）使用的端口。对于一个可以利用的综合攻击列表以及URL协议，ONSec实验室维护了一个具有关于SSRF攻击有用的<a href="https://docs.google.com/document/d/1v1TkWZtrhzRLy0bYXBcdLUedXGb9njTNIJXa3u9akHM">详细文档</a>。</p>
 
 <h2 id="检测ssrf">检测SSRF</h2>
@@ -349,7 +345,7 @@ Host: example.com
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>755</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>756</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -410,11 +406,15 @@ Host: example.com
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

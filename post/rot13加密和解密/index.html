@@ -94,7 +94,7 @@ How can you tell an extrovert from an" />
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://neal1991.github.io/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/" />
@@ -344,60 +344,60 @@ char str[1010];
 char tmp[1010];
 int Encry(char x)
 {
-    int a,b;
-    char tmp;
-    b = x;
-    a = x + 13;
-    if(b &gt;= 97 &amp;&amp; b &lt;= 122)
-    {   
-        if (a &gt; 122)
-        {
-        a = a - 26;
-        }
-    }
-    else if (b &gt;= 65 &amp;&amp; b &lt;= 90)
-    {
-        if(a &gt; 90)
-        {
-            a = a- 26;
-        }
-    }
-    else
-    {
-    a =b;
-    }
-    return a;
+	int a,b;
+	char tmp;
+	b = x;
+	a = x + 13;
+	if(b &gt;= 97 &amp;&amp; b &lt;= 122)
+	{	
+		if (a &gt; 122)
+		{
+		a = a - 26;
+		}
+	}
+	else if (b &gt;= 65 &amp;&amp; b &lt;= 90)
+	{
+		if(a &gt; 90)
+		{
+			a = a- 26;
+		}
+	}
+	else
+	{
+	a =b;
+	}
+	return a;
 }
 int main()
 {
-    int cas = 0;
-    int T;
-    int num[1010];
-    scanf(&quot;%d&quot;,&amp;T);
-    strcpy(str,&quot;&quot;);
-    while(T--)
-    {
-    while(strcmp(str,&quot;&quot;)==0)
-    gets(str);
-    memset(num,0,sizeof(num[0]));
-    int len = strlen(str);
-    for(int i = 0;i &lt; len;i ++)
-    {
-        num[i] = Encry(str[i]);
-    }
-    printf(&quot;case #%d:\n&quot;,cas++);
-    for(int i = 0;i &lt; len;i ++)
-    {
-        if(i == len - 1)
-    {
-        printf(&quot;%c\n&quot;,num[i]);
-    }
-    else
-    {
-        printf(&quot;%c&quot;,num[i]);
-    }
-    }
-    strcpy(str,&quot;&quot;);
+	int cas = 0;
+	int T;
+	int num[1010];
+	scanf(&quot;%d&quot;,&amp;T);
+	strcpy(str,&quot;&quot;);
+	while(T--)
+	{
+	while(strcmp(str,&quot;&quot;)==0)
+	gets(str);
+	memset(num,0,sizeof(num[0]));
+	int len = strlen(str);
+	for(int i = 0;i &lt; len;i ++)
+	{
+		num[i] = Encry(str[i]);
+	}
+	printf(&quot;case #%d:\n&quot;,cas++);
+	for(int i = 0;i &lt; len;i ++)
+	{
+		if(i == len - 1)
+	{
+		printf(&quot;%c\n&quot;,num[i]);
+	}
+	else
+	{
+		printf(&quot;%c&quot;,num[i]);
+	}
+	}
+	strcpy(str,&quot;&quot;);
 }
 return 0;
 }
@@ -416,7 +416,7 @@ return 0;
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1603</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1605</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -477,11 +477,15 @@ return 0;
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-104405154-2', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
