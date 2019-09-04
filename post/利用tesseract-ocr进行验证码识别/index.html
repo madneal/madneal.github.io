@@ -28,7 +28,7 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
     <meta name="twitter:description" content="因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
 convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif  这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
 tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition" />
-    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -37,8 +37,8 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
   <meta property="og:description" content="因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
 convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif  这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
 tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition" />
-  <meta property="og:url" content="https://neal1991.github.io/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" />
-  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -46,8 +46,8 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://neal1991.github.io/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" />
-<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -72,18 +72,18 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -118,7 +118,7 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
     
     
   <header class="site-header">
-  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -139,7 +139,7 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
             
               is-active
             ">
-            <a href="https://neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
@@ -153,11 +153,12 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
             
             
             ">
-            <a href="https://neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
+  <img class="avatar" src="https://madneal.com/img/wechat.jpg" alt="wechat">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -200,7 +201,9 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
 
       
 
-      
+      <li class="social-item">
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
 
       
 
@@ -211,7 +214,7 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
       
 
       <li class="social-item">
-        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -247,12 +250,12 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
       
       <ul class="post-tags">
         
-          <li><a href="https://neal1991.github.io/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB"><span class="tag">验证码识别</span></a></li>
+          <li><a href="https://madneal.com/tags/%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB"><span class="tag">验证码识别</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1224</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1225</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -309,7 +312,7 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
   });
 </script>
 
-<script src="https://neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>

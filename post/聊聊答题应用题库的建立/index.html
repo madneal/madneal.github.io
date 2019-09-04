@@ -32,7 +32,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
 使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
 from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：" />
-    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -43,8 +43,8 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
 使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
 from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#39;question&amp;#39;: &amp;#39;谁是世界上最帅的人&amp;#39;, &amp;#39;answer&amp;#39;: &amp;#39;Neal&amp;#39; } es = Elasticsearch({&amp;#39;localhost&amp;#39;}) es.index(index=&amp;#39;question-index&amp;#39;, doc_type=&amp;#39;question&amp;#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：" />
-  <meta property="og:url" content="https://neal1991.github.io/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
-  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -52,8 +52,8 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://neal1991.github.io/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
-<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -78,18 +78,18 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -124,7 +124,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
     
     
   <header class="site-header">
-  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -145,7 +145,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
             
               is-active
             ">
-            <a href="https://neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
@@ -159,11 +159,12 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
             
             
             ">
-            <a href="https://neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
+  <img class="avatar" src="https://madneal.com/img/wechat.jpg" alt="wechat">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -206,7 +207,9 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
 
       
 
-      
+      <li class="social-item">
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
 
       
 
@@ -217,7 +220,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
       
 
       <li class="social-item">
-        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -338,14 +341,14 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
       
       <ul class="post-tags">
         
-          <li><a href="https://neal1991.github.io/tags/elasticsearch"><span class="tag">Elasticsearch</span></a></li>
+          <li><a href="https://madneal.com/tags/elasticsearch"><span class="tag">Elasticsearch</span></a></li>
         
-          <li><a href="https://neal1991.github.io/tags/python"><span class="tag">Python</span></a></li>
+          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>556</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>557</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -402,7 +405,7 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
   });
 </script>
 
-<script src="https://neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>

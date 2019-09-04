@@ -30,7 +30,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
 java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
 private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfMemoryError error  } catch (Error e) { e.printStackTrace(); } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。" />
-    <meta name="twitter:image" content="https://neal1991.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -40,8 +40,8 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
 java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
 private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfMemoryError error  } catch (Error e) { e.printStackTrace(); } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。" />
-  <meta property="og:url" content="https://neal1991.github.io/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" />
-  <meta property="og:image" content="https://neal1991.github.io/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -49,8 +49,8 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://neal1991.github.io/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" />
-<link rel="alternative" href="https://neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -75,18 +75,18 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -121,7 +121,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
     
     
   <header class="site-header">
-  <img class="avatar" src="https://neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -142,7 +142,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
             
               is-active
             ">
-            <a href="https://neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
@@ -156,11 +156,12 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
             
             
             ">
-            <a href="https://neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
+  <img class="avatar" src="https://madneal.com/img/wechat.jpg" alt="wechat">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -203,7 +204,9 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 
       
 
-      
+      <li class="social-item">
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
 
       
 
@@ -214,7 +217,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
       
 
       <li class="social-item">
-        <a href="https://neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -320,12 +323,12 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
       
       <ul class="post-tags">
         
-          <li><a href="https://neal1991.github.io/tags/java"><span class="tag">Java</span></a></li>
+          <li><a href="https://madneal.com/tags/java"><span class="tag">Java</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>465</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>466</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -382,7 +385,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
   });
 </script>
 
-<script src="https://neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>

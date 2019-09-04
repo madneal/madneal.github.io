@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pca on Neal&#39;s Blog</title>
-    <link>https://neal1991.github.io/tags/pca/</link>
+    <link>https://madneal.com/tags/pca/</link>
     <description>Recent content in Pca on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 27 Jun 2015 18:10:15 +0000</lastBuildDate>
     
-	<atom:link href="https://neal1991.github.io/tags/pca/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://madneal.com/tags/pca/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>奇异值分解基础(SVD)</title>
-      <link>https://neal1991.github.io/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/</link>
+      <link>https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/</link>
       <pubDate>Sat, 27 Jun 2015 18:10:15 +0000</pubDate>
       
-      <guid>https://neal1991.github.io/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/</guid>
+      <guid>https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/</guid>
       <description>最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要的应用。
 特征值和特征向量 特征值和特征向量是线性代数里面的基础知识，相信大部分人都知道： 很显然，λ就是特征向量v对应的特征值，一个矩阵的一组特征向量都是相互正交的，相信这些大家在线性代数都有学习。特征值分解是将一个矩阵以下面的形式进行分解： 其中Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线上的元素就是一个特征值。 特征值分解可以得到特征值和特征向量，特征值表示的是这个特征值的重要性，而特征向量表示的是这个特征是什么，可以将每一个特征向量理解为一个线性的子空间。不过特征值分解也有很多的局限，比如变换的矩阵必须是方阵。
 奇异值 特征值分解只能针对于方阵，局限性较大，而奇异值分解是一个能够用于任意的矩阵的一种分解方法： 假设A是一个N*M的矩阵，那么U是一个N*N的方阵（里面的向量是正交的，U里面的向量称为左奇异向量），Σ是一个N*M的矩阵（除了对角线的元素都是0，对角线上的元素称为奇异值），V&amp;rsquo;（V的转置矩阵）是一个N*N的矩阵，里面的向量也是正教的，称为右奇异向量。 我们将矩阵A和他的转置矩阵相乘，就可以得到一个方阵，我们利用方阵的求特征值可以得到： 这里面的v，就是我们上面所说的右奇异向量，由此我们可以得到 这里的σ就是上面所说的奇异值，u就是上面说的左奇异向量。奇异值σ跟特征值类似，在矩阵Σ中也是从打到小排列，而且σ的减少特别的快。在很多情况下，前10%的甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们可以用前r大的奇异值来近似描述矩阵，因此部分奇异值分解可以如下定义： r是一个远小于m、n的数， 右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和要远远小于原始的矩阵A。
@@ -26,10 +26,10 @@ SVD和PCA PCA的问题其实是一个基的变换，使得变换后的数据有�
     
     <item>
       <title>PCA算法和实例</title>
-      <link>https://neal1991.github.io/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</link>
+      <link>https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</link>
       <pubDate>Sat, 20 Jun 2015 09:11:39 +0000</pubDate>
       
-      <guid>https://neal1991.github.io/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</guid>
+      <guid>https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</guid>
       <description>PCA算法 算法步骤： 假设有m条n维数据。 1. 将原始数据按列组成n行m列矩阵X 2. 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3. 求出协方差矩阵C=1/mXXT 4. 求出协方差矩阵的特征值以及对应的特征向量 5. 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6. Y=PX即为降维到k维后的数据
 实例 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
 然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2&amp;frasl;5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：

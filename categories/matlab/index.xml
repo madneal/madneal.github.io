@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Matlab on Neal&#39;s Blog</title>
-    <link>https://neal1991.github.io/categories/matlab/</link>
+    <link>https://madneal.com/categories/matlab/</link>
     <description>Recent content in Matlab on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Tue, 13 Oct 2015 18:49:10 +0000</lastBuildDate>
     
-	<atom:link href="https://neal1991.github.io/categories/matlab/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://madneal.com/categories/matlab/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>matlab调试技巧</title>
-      <link>https://neal1991.github.io/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/</link>
+      <link>https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/</link>
       <pubDate>Tue, 13 Oct 2015 18:49:10 +0000</pubDate>
       
-      <guid>https://neal1991.github.io/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/</guid>
+      <guid>https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/</guid>
       <description>Matlab的调试总体分为，直接调试和间接调试。 1.直接调试： （1）去掉句末的分号； （2）单独调试一个函数：将第一行的函数声明注释掉，并定义输入量，以脚本方式执行 M 文件； （3）适当地方添加输出变量值的语句； （4）添加keyboard命令；
 2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try&amp;hellip;catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try&amp;hellip;catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try&amp;hellip;catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1.</description>
     </item>
     
     <item>
       <title>matlab批量修改变量的名称</title>
-      <link>https://neal1991.github.io/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/</link>
+      <link>https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/</link>
       <pubDate>Tue, 08 Sep 2015 09:31:21 +0000</pubDate>
       
-      <guid>https://neal1991.github.io/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/</guid>
+      <guid>https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/</guid>
       <description>使用matlab做实验的时候，保存的文件里面的变量名都是一样的 ，所以希望能够把变量名全部都重命名。我举个个例子，假设我一堆文件，文件名分别是gds1,gds2,gds2,&amp;hellip;.. 但是实际上load进来之后的变量名称都是gds，所以我希望能够把变量名能够改成相对应的文件名称。在这里，我使用了eval这个函数，这个函数到是一个非常方便的选择。 %% 变量批量重命名 clear all rootname = &#39;gds&#39;; extension = &#39;.mat&#39;; for i = 1:n variable = [rootname,int2str(i)]; filename = [variable,extension]; load(filename); eval([&#39;gds&#39;,num2str(i),&#39;=&#39;,&#39;gds&#39;,&#39;;&#39;]); save(filename,variable); clear gds variable filename; end clear all</description>
     </item>
     
