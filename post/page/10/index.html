@@ -223,6 +223,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" class="post-link">全栈开发系列学习2——django项目搭建</a></h3>
+    <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令”pip install MySQL-python”就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入”make install”这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
+mysql -u &lt;your username&gt; -p&lt;yourpassword&gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
+MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
+MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入”make”,你将会看到： ｀ MYSQL_HOST = ‘127.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/" class="post-link">一个神奇却很简单的css特效</a></h3>
     <p class="post-meta">@Neal · Oct 7, 2015 · 1 min read</p>
   </header>
@@ -354,19 +370,6 @@ SVD和PCA PCA的问题其实是一个基的变换，使得变换后的数据有�
 本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/wwdc2015/" class="post-link">WWDC2015</a></h3>
-    <p class="post-meta">@Neal · Jun 9, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary"> ios9功能  Proactive：整合siri、联系人、日历以及第三方应用。 Notes： 可调节字体、插图片、支持手写注记等功能。 Maps： 加入新公交试图，Transit提供公交系统和换乘细节。 News：聚合新闻应用，可根据西兴趣选择不同的新闻源。 电池续航：充满殿后设备使用时间延长1小时。 安装包更小，只有1.3G。 用户隐私：数据只会保存在本地，不会上传到云。  OS X EI Capitan  新增多种触控板手势。 safari增加固定标签页功能。 窗口自适应功能，不必手动调整窗口大小和拖动窗口。 Spotlight能够理解日常语言。 Metal首次引入图形管理接口。 swift2将在今年年底开源。 split view将自动并排两个app共用一个屏幕。 邮箱app增强全屏显示功能。  ipad最新功能  quick type键盘 传说中的分屏 支持“画中画”功能  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/wwdc2015/">Read More →</a>
   </footer>
 </article>
 
