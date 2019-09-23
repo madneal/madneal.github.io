@@ -223,6 +223,28 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/" class="post-link">基于ELK进行邮箱访问日志的分析</a></h3>
+    <p class="post-meta">@Neal · Nov 16, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
+系统搭建 系统主要是基于elasticsearch&#43;logstash&#43;filebeat&#43;kibana&#43;nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛应用于日志采集。
+其实在搭这个系统还是比较麻烦的，可是前面有的踩过的坑当时没有及时记录下来，有点忘记了。但是里面就是配置logstash和filebeat配置证书的时候有点麻烦，配置不好会一直没有办法连通。还要注意ES的索引占得空间，其实ES索引还蛮占空间的。
+Logstash Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
+filter logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
+geoip 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
+geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] }  日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken  针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken}  通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" class="post-link">出去就餐并且理解Express.js的基本知识</a></h3>
     <p class="post-meta">@Neal · Nov 12, 2017 · 2 min read</p>
   </header>
@@ -423,24 +445,6 @@ Service worker就好像它的内部有一个有一个shared worker ：
  利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/" class="post-link">service worker之cache实践--sw-precache</a></h3>
-    <p class="post-meta">@Neal · Apr 22, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
-但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
-var cacheName = &#39;subway&#39;; var filesToCache = [ &#39;/&#39;, &#39;index.html&#39;, &#39;image/transfer.png&#39;, &#39;dist/alloy_finger.js&#39;, &#39;app.css&#39; ]; self.addEventListener(&#39;install&#39;, function(e) { console.log(&#39;service worker install&#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&#39;serviceworker caching app shell&#39;); return cache.addAll(filesToCache); })); });  可以看出我们在 install 事件后通过在 cache 里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
-Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
-sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
-gulp.task(&#39;generate-sw&#39;, function(callback) { var path = require(&#39;path&#39;); var swPrecache = require(&#39;sw-precache&#39;); swPrecache.write(path.join(&#39;sw.js&#39;), { staticFileGlobs: [ &#39;app.js&#39;, &#39;dist/alloy_finger.js&#39;, &#39;dist/app.css&#39;, &#39;image/*.{png}&#39;, &#39;index.html&#39;, &#39;/&#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/">Read More →</a>
   </footer>
 </article>
 
