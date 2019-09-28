@@ -18,7 +18,10 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="Golang 以前的依赖管理一直饱受诟病，社区的方案也层出不强，比如 vendor, glide, godep 等。之前的依赖管理一直是依靠 GOPATH 或者将依赖代码下载到本地，这种方式都有劣势。另外由于特殊的网络环境，导致谷歌的大部分包都没有办法下载。才 Golang 1.11 开始，官方已内置了更为强大的 Go modules 来一统多年来 Go 包依赖管理混乱的局面，从 1.13 开始将成为默认配置。配合 Goproxy 来使用来说，真香。这次配合我之前的 golang 开源项目 gshark 升级到 1.13，升级花费的时间不超过 5 分钟，真香。
 升级 Golang 版本 其实升级 Golang 版本是非常简单的，只要移除之前的 Golang，然后复制新版本的 Golang 就可以了。以我之前的 VPS 为例（CentOS,亲测苹果系统可以使用同样的方式升级），之前安装的 Golang 版本是 1.9。
- 移除旧版本 Golang  rm -rf /usr/local/go   安装新版本 Golang  wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz   配置 Golang 环境  如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1." />
+ 移除旧版本 Golang
+rm -rf /usr/local/go  安装新版本 Golang
+wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz  配置 Golang 环境
+如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1.13 其实这两个变量已经不是必要的了。不过我发现我在安装的依赖的时候，出现报错信息,通过配置 GOROOT 为 /usr/loca/go 即可解决。但有一个配置很重要，就是将 goproxy 设置为国内的代理（这里使用的是七牛云的代理），这样你就能体验飞一般的畅快。" />
 
   
   
@@ -27,7 +30,10 @@
     <meta name="twitter:title" content="真香系列之 Golang 升级" />
     <meta name="twitter:description" content="Golang 以前的依赖管理一直饱受诟病，社区的方案也层出不强，比如 vendor, glide, godep 等。之前的依赖管理一直是依靠 GOPATH 或者将依赖代码下载到本地，这种方式都有劣势。另外由于特殊的网络环境，导致谷歌的大部分包都没有办法下载。才 Golang 1.11 开始，官方已内置了更为强大的 Go modules 来一统多年来 Go 包依赖管理混乱的局面，从 1.13 开始将成为默认配置。配合 Goproxy 来使用来说，真香。这次配合我之前的 golang 开源项目 gshark 升级到 1.13，升级花费的时间不超过 5 分钟，真香。
 升级 Golang 版本 其实升级 Golang 版本是非常简单的，只要移除之前的 Golang，然后复制新版本的 Golang 就可以了。以我之前的 VPS 为例（CentOS,亲测苹果系统可以使用同样的方式升级），之前安装的 Golang 版本是 1.9。
- 移除旧版本 Golang  rm -rf /usr/local/go   安装新版本 Golang  wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz   配置 Golang 环境  如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1." />
+ 移除旧版本 Golang
+rm -rf /usr/local/go  安装新版本 Golang
+wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz  配置 Golang 环境
+如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1.13 其实这两个变量已经不是必要的了。不过我发现我在安装的依赖的时候，出现报错信息,通过配置 GOROOT 为 /usr/loca/go 即可解决。但有一个配置很重要，就是将 goproxy 设置为国内的代理（这里使用的是七牛云的代理），这样你就能体验飞一般的畅快。" />
     <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
@@ -36,7 +42,10 @@
   <meta property="og:title" content="真香系列之 Golang 升级" />
   <meta property="og:description" content="Golang 以前的依赖管理一直饱受诟病，社区的方案也层出不强，比如 vendor, glide, godep 等。之前的依赖管理一直是依靠 GOPATH 或者将依赖代码下载到本地，这种方式都有劣势。另外由于特殊的网络环境，导致谷歌的大部分包都没有办法下载。才 Golang 1.11 开始，官方已内置了更为强大的 Go modules 来一统多年来 Go 包依赖管理混乱的局面，从 1.13 开始将成为默认配置。配合 Goproxy 来使用来说，真香。这次配合我之前的 golang 开源项目 gshark 升级到 1.13，升级花费的时间不超过 5 分钟，真香。
 升级 Golang 版本 其实升级 Golang 版本是非常简单的，只要移除之前的 Golang，然后复制新版本的 Golang 就可以了。以我之前的 VPS 为例（CentOS,亲测苹果系统可以使用同样的方式升级），之前安装的 Golang 版本是 1.9。
- 移除旧版本 Golang  rm -rf /usr/local/go   安装新版本 Golang  wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz   配置 Golang 环境  如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1." />
+ 移除旧版本 Golang
+rm -rf /usr/local/go  安装新版本 Golang
+wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz  配置 Golang 环境
+如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1.13 其实这两个变量已经不是必要的了。不过我发现我在安装的依赖的时候，出现报错信息,通过配置 GOROOT 为 /usr/loca/go 即可解决。但有一个配置很重要，就是将 goproxy 设置为国内的代理（这里使用的是七牛云的代理），这样你就能体验飞一般的畅快。" />
   <meta property="og:url" content="https://madneal.com/post/gproxy/" />
   <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
@@ -235,79 +244,66 @@
 <p>其实升级 Golang 版本是非常简单的，只要移除之前的 Golang，然后复制新版本的 Golang 就可以了。以我之前的 VPS 为例（CentOS,亲测苹果系统可以使用同样的方式升级），之前安装的 Golang 版本是 1.9。</p>
 
 <ol>
-<li>移除旧版本 Golang</li>
-</ol>
+<li><p>移除旧版本 Golang</p>
 
 <pre><code>rm -rf /usr/local/go
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>安装新版本 Golang</li>
-</ol>
+<li><p>安装新版本 Golang</p>
 
 <pre><code>wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>配置 Golang 环境</li>
-</ol>
+<li><p>配置 Golang 环境</p>
 
 <p>如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1.13 其实这两个变量已经不是必要的了。不过我发现我在安装的依赖的时候，出现报错信息,通过配置 GOROOT 为 <code>/usr/loca/go</code> 即可解决。但有一个配置很重要，就是将 goproxy 设置为国内的代理（这里使用的是七牛云的代理），这样你就能体验飞一般的畅快。</p>
 
 <pre><code>export GOPROXY=https://goproxy.cn,direct
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h2 id="原有代码升级">原有代码升级</h2>
 
 <p>之前 <a href="https://github.com/neal1991/gshark">gshark</a> 没有使用任何的依赖管理，完全是通过 GOPATH 存放依赖。这有一个问题，就是项目的依赖做出了不兼容的版本升级，最终导致项目构建失败。通过 Go modules 可以锁定依赖版本，从而避免这个问题。以 gshark(<a href="https://github.com/neal1991/gshark">https://github.com/neal1991/gshark</a>) 为例进行 Go modules 的升级。</p>
 
 <ol>
-<li>mod 初始化</li>
-</ol>
+<li><p>mod 初始化</p>
 
 <p>cd 到项目文件夹中</p>
 
 <pre><code>go mod init github.com/neal1991/gshark
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>查找依赖</li>
-</ol>
+<li><p>查找依赖</p>
 
 <pre><code>go get ./...
 </code></pre>
 
-<p>只需要两部就可以升级使用 Go modules 就可以了。</p>
+<p>只需要两部就可以升级使用 Go modules 就可以了。</p></li>
+</ol>
 
 <h2 id="gshark">GShark</h2>
 
 <p>GShark 是我之前开源的一款 Github 敏感信息监测的系统，之前也有写过<a href="https://mp.weixin.qq.com/s?src=11&amp;timestamp=1569238467&amp;ver=1870&amp;signature=a*PjTnhB8*Dvc1*Xn-4Vom-nY*CUTPmDAKfphYD4pUr7vGsW0KGcZQikkEqUY6nkEgTIAIP5TteLbgECjBskQdJiO8Wc3B4RTNRSc2OAsThOwAGTtITMivnFEYqlYtFv&amp;new=1">文章</a>介绍这个项目。这个工具应该目前有一些同学在使用，可能使用过程中最大的问题就是项目的构建。因为可能有的同学之前不是特别熟悉 Golang 语言，觉得部署起来很麻烦。但其实 Golang 项目的构建特别方便，之前不方便主要还是由于项目的依赖比较难下。可是如果 Golang 升级到 1.13 之后，项目构建仅仅需要几步。</p>
 
 <ol>
-<li>下载代码</li>
-</ol>
+<li><p>下载代码</p>
 
 <pre><code>git clone https://github.com/neal1991/gshark
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>下载依赖</li>
-</ol>
+<li><p>下载依赖</p>
 
 <pre><code>go get ./...
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>编译</li>
-</ol>
+<li><p>编译</p>
 
 <pre><code>go build main.go
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>运行</li>
-</ol>
+<li><p>运行</p>
 
 <p>运行之前需要把 conf 文件夹里面的 app-template.ini 重命名为 app.ini，使用自己的配置即可。</p>
 
@@ -316,7 +312,8 @@ tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
 
 // 启动爬虫
 ./main scan
-</code></pre>
+</code></pre></li>
+</ol>
 
 <p>通过上面几步就可以启动 GShark 服务了。GShark 目前仅仅由我一个人维护，希望可以吸收社区优秀的建议，欢迎 PR。可以扫码加入微信群。</p>
 
