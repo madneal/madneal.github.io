@@ -216,6 +216,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/" class="post-link">独立成分分析（Independent Component Analysis）</a></h3>
+    <p class="post-meta">@Neal · Apr 19, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">ICA是一种用于在统计数据中寻找隐藏的因素或者成分的方法。ICA是一种广泛用于盲缘分离的(BBS)方法，用于揭示随机变量或者信号中隐藏的信息。ICA被用于从混合信号中提取独立的信号信息。ICA在20世纪80年代提出来，但是知道90年代中后期才开始逐渐流行起来。 ICA的起源可以来源于一个鸡尾酒会问题，我们假设三个观测点x1,x2,x3,放在房间里同时检测三个人说话，另三个人的原始信号为s1,s2,s3，则求解的过程可以如下图所示：
+定义 假设n个随机变量x1,x2,….xn,由n个随机变量s1,s2,…sn组成，并且这n个随机变量是相互独立的，可以用下面的公示表达： 为了表达的方便，我们可以用向量的形式来表达： x = As 这个只不过是ICA最基本的定义，在很多实际问题中，应该包含了噪声。但是为了简化问题，我们这里忽略了噪声。因为如果模型中包含噪音，处理起来将会十分困难，而且大多数不包含噪音的模型已经能够解决很多问题，所以这里我们就将噪声先忽略。
+ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立的基本原则，同时，基本上可以说只需要这个原则我们就可以估计这个模型。 独立成分必须是非高斯分布的。高斯分布的高阶累计量是0，但是高阶信息对于ICA的模型的估计却是十分必要的。 为了简化，我们假设未知的混合矩阵A是一个方阵。  白化 白化是一种比不相关性要稍微强一些的性质。对一个零均值的随即向量y进行白化处理，就是让它的组成成分不相关，并且让变量的方差相等。也就是说，变量y的协方差矩阵是单位矩阵： 为什么独立成分是非高斯的 ICA最基本的限制条件就是独立成分必须是非高斯分布的，这或许也是ICA早期没有流行起来的原因。我们假设变量x1和x2是高斯分布的，不相关的，且方差相等： 下面的图表示联合概率分布，可以看出，我们无法判断任何关于变量x1和x2的方向信息，这就是为什么混合矩阵A不能被估计出来的原因： 峭度 在这我们讲述一个利用峭度来进行ICA模型估计的方法，ICA的估计方法很多，这只是最基础的一个方法。 对于变量y峭度可以由下面的公式定义： 峭度是可正可负的，高斯分布变量的峭度是0，这也是为什么独立成分必须是非高斯分布的原因之一。峭度为负的变量分布称为次高斯分布，峭度为正的变量的分布则为超高斯分布，下图分别是拉普拉斯分布（超高斯分布）和均匀分布（次高斯分布）： 基于峭度的梯度算法 我们经常利用峭度的绝对值或者平方来进行求解： 我们通过优化这个目标函数来估计ICA模型，z表示白化后的观察数据x。 实际上，我们是使峭度极大化。我们会从某个方向向量w开始，然后计算在什么方向峭度的增长最快，我们则将方向向量w向这个方向移动。 峭度绝对值的梯度可以如下计算： 下面是一个快速不动点算法基于峭度计算的流程图： ## ICA估计的主要方法 ##   通过极大化非高斯性来估计 通过极大似然性来估计 通过极小互信息来估计 通过张量的方法来估计 通过非线性分解和非线性PCA来估计 这里，我们只是讲了其中的一个基础方法之一，并不就是最好的方法。  ICA算法的思想可以用下面的公式来描述： ICA method = objective funtion &#43; optimization algorithm
+引用 [1]Hyvärinen A, Karhunen J, Oja E. Independent component analysis[M]. John Wiley &amp; Sons, 2004. [2]Hyvärinen A, Oja E.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/" class="post-link">CHEVP算法（CannyHough Estimation of Vanishing Points)</a></h3>
     <p class="post-meta">@Neal · Apr 18, 2015 · 1 min read</p>
   </header>
@@ -347,27 +363,6 @@ void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunct
   <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/" class="post-link">歌德巴赫猜想</a></h3>
-    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary"> 题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &lt; n &lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&lt;stdio.h&gt; #include&lt;math.h&gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&#34;%d&#34;,&amp;n) != EOF) { for (i = n/2;i &gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;&amp;isPrime(j)) { printf(&#34;%d %d\n&#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">Read More →</a>
   </footer>
 </article>
 

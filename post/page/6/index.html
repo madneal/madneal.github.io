@@ -223,6 +223,30 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/" class="post-link">Latex--入门系列二</a></h3>
+    <p class="post-meta">@Neal · Dec 6, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Latex 专业的参考
+tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
+基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
+运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
+因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
+dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
+输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
+注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
+如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
+一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
+注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
+其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">Latex--入门系列一</a></h3>
     <p class="post-meta">@Neal · Dec 3, 2016 · 1 min read</p>
   </header>
@@ -399,26 +423,6 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
   <p class="post-summary">昨天用nodes中的moongoose去查询一个结果遇到一个大坑，这个坑貌似用moongoose可能会遇到。背景是这样的，我在nodejs中去查询document，得到的可以看作是一个对象list。在这个结果集中，我要去寻找这个结果中的某个属性是否和其他的结果重复，并给它添加一个属性作为标志。举例子，我们获得的结果就像是[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;19&#39;}], 我希望把它变成[{name:&#39;neal&#39;,age:&#39;18&#39;,flag:true},{name:&#39;neal&#39;,age:&#39;19&#39;,flag:true}]。奇怪的事情发生了，我无法在这些对象中新增这个flag属性，这肿么可能。我尝试各种方法，但是还是存不进去。 后来去stack overflow一查，发觉居然是mongoose 的问题。。。。我压根没有想过是mongoose的问题。原来mongoose是ODM(object document mapper)，类似于操作关系型数据库的ORM,我们使用mongoose取到的数据结构依赖我们定义的schema结构，因为我们当初没有定义flag属性，所以最终返回的结果就没有这个属性了。 这个问题应该也有很多解决方法，这里就说一下我看到的一些方法。比如事先在schema增加这个属性，但是我觉得有时候就是不想定义这个属性才在后面加的；还有一个就是把返回的结果用toObject()方法进行转化，这样就可以像普通的对象一样增加属性了；其实本质的原因似乎是document .toObjet()里面需要一个vituals :true 的属性来实现，而默认的是false。可能我说的还不是特别透彻，可以去看一下官方的api http://mongoosejs.com/docs/api.html#document_Document-toObject</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/" class="post-link">nodejs回调大坑</a></h3>
-    <p class="post-meta">@Neal · Apr 27, 2016 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
-Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为”callback hell”或”pyramid of doom”，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
-后续传递风格
-为什么会有坑？这要从后续传递风格（continuation-passing style–CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
-这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
-在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) }  像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
- 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/">Read More →</a>
   </footer>
 </article>
 
