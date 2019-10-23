@@ -216,6 +216,19 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" class="post-link">opencv视频流的读取和处理</a></h3>
+    <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/" class="post-link">歌德巴赫猜想</a></h3>
     <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>
