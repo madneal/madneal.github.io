@@ -224,6 +224,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">剑指offer--字符串</a></h3>
+    <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">C/C&#43;&#43;中每个字符串都以字符’\0’作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
+int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把”hello world”的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向”hello world”在内存中的地址就可以了。由于”hello world”是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
+String str = &#34;hello&#34;; str.ToUpper(); str.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" class="post-link">剑指offer学习读书笔记--二维数组中的查找</a></h3>
     <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
   </header>
@@ -367,22 +383,6 @@ margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px  the new met
 margin:0px 20px // top and bottom right and left respectively  border的属性设置: the old method</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="post-link">在pythonanywhere部署你的第一个应用</a></h3>
-    <p class="post-meta">@Neal · Oct 21, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
-git clone https://github.com/&lt;username&gt;/my-first-blog.git  产生一个virtualenv
-cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate  数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
-import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application())  ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
 </article>
 
