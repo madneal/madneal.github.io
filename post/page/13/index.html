@@ -224,6 +224,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-link">winform中进行post上传文件</a></h3>
+    <p class="post-meta">@Neal · Apr 17, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
+ private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &#34;POST&#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&#34;md5data&#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" class="post-link">sqlite操作</a></h3>
     <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
   </header>
@@ -366,25 +380,6 @@ Sample Input
   </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/" class="post-link">计算机视觉领域的一些牛人博客，超有实力的研究机构等的网站链接</a></h3>
-    <p class="post-meta">@Neal · Apr 11, 2015 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">转载：http://blog.csdn.net/carson2005/article/details/6601109
-提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005
- 以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的朋友可以多关注这些网站，多了解一些CV的具体应用。搞研究的朋友也可以从中了解到很多牛人的研究动态、招生情况等。总之，我认为，知识只有分享才能产生更大的价值，真诚希望下面的链接能对朋友们有所帮助。  （1）googleResearch； http://research.google.com/index.html （2）MIT博士，汤晓欧学生林达华； http://people.csail.mit.edu/dhlin/index.html （3）MIT博士后Douglas Lanman； http://web.media.mit.edu/~dlanman/ （4）opencv中文网站； http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5 （5）Stanford大学vision实验室； http://vision.stanford.edu/research.html （6）Stanford大学博士崔靖宇； http://www.stanford.edu/~jycui/ （7）UCLA教授朱松纯； http://www.stat.ucla.edu/~sczhu/ （8）中国人工智能网； http://www.chinaai.org/ （9）中国视觉网； http://www.china-vision.net/ （10）中科院自动化所； http://www.ia.cas.cn/ （11）中科院自动化所李子青研究员； http://www.cbsr.ia.ac.cn/users/szli/ （12）中科院计算所山世光研究员； http://www.jdl.ac.cn/user/sgshan/ （13）人脸识别主页； http://www.face-rec.org/ （14）加州大学伯克利分校CV小组； http://www.eecs.berkeley.edu/Research/Projects/CS/vision/
-（15）南加州大学CV实验室； http://iris.usc.edu/USC-Computer-Vision.html （16）卡内基梅隆大学CV主页；
-http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
-（17）微软CV研究员Richard Szeliski；http://research.microsoft.com/en-us/um/people/szeliski/ （18）微软亚洲研究院计算机视觉研究组； http://research.microsoft.com/en-us/groups/vc/ （19）微软剑桥研究院ML与CV研究组； http://research.microsoft.com/en-us/groups/mlp/default.aspx
-（20）研学论坛； http://bbs.matwav.com/ （21）美国Rutgers大学助理教授刘青山； http://www.research.rutgers.edu/~qsliu/ （22）计算机视觉最新资讯网； http://www.cvchina.info/ （23）运动检测、阴影、跟踪的测试视频下载； http://apps.hi.baidu.com/share/detail/18903287 （24）香港中文大学助理教授王晓刚； http://www.ee.cuhk.edu.hk/~xgwang/ (25)香港中文大学多媒体实验室（汤晓鸥）; http://mmlab.ie.cuhk.edu.hk/ (26)U.C. San Diego. computer vision;http://vision.ucsd.edu/content/home (27)CVonline; http://homepages.inf.ed.ac.uk/rbf/CVonline/ (28)computer vision software; http://peipa.essex.ac.uk/info/software.html (29)Computer Vision Resource; http://www.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/">Read More →</a>
   </footer>
 </article>
 

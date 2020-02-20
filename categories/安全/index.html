@@ -221,6 +221,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-link">PWK 以及 OSCP 最常见的问题</a></h3>
+    <p class="post-meta">@Neal · Feb 20, 2020 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：
+什么是 PWK 以及 OSCP PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。
+官方还推荐完成 OSCP 后还可以考虑以下课程：
+ CTP 中的渗透测试技术以及漏洞利用开发功能， AWAE 中的 Web 应用程序安全技能 WIFU 中的无线安全技能  如何以及在哪参加 PWK PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。
+如何注册 PWK 以及 OSCP 考试 一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。
+前提条件 除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
     <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
   </header>
@@ -385,27 +403,6 @@ APIs（应用程序编程接口）不仅是应用程序，系统和数据之间�
  OWASP Top 10是一个备受推崇的 Web 安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/" class="post-link">隐写术-深入研究 PDF 混淆漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 28, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：“steganography” - obfuscating PDF exploits in depth
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
-我们的 EdgeLogic 引擎将样本检测为 “exploit CVE-2013-3346”，与前一个相同。
- https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
-上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。 * https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection
-打开后，伪装成 IRS 文件的 PDF 看起来很正常。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 
