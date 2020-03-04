@@ -217,23 +217,6 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
-    <p class="post-meta">@Neal · Oct 25, 2015 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
-github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
-配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34;  上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link">javascript的继承模式</a></h3>
     <p class="post-meta">@Neal · Oct 24, 2015 · 2 min read</p>
   </header>
@@ -371,6 +354,22 @@ from django.contrib import admin from .models import Question,Choice //Register 
   <p class="post-summary">需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" class="post-link">Django学习——开发你的第一个Django应用1</a></h3>
+    <p class="post-meta">@Neal · Oct 10, 2015 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
 </article>
 
