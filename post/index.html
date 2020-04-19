@@ -224,6 +224,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
+    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
+SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
+与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
+即：两位同时为“1”，结果才为“1”，否则为0
+或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
+即：参加运算的两个对象只要有一个为1，其值为1
+假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
+1 &amp; x = 0, x = 0</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" class="post-link">XSS 漏洞知解 123</a></h3>
     <p class="post-meta">@Neal · Mar 4, 2020 · 2 min read</p>
   </header>
@@ -379,38 +400,6 @@ gallery Gallery 是一个包含很多 Latex 模板的网站，里面的模板包
  漏洞的影响的版本是 5.6.15 版本以及 6.6.1 版本以前。 Kibana 需要安装了 Canvas 插件。 目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。  原型链攻击 如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 proto 属性直接去修改 prototype。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/" class="post-link">Pornhub Web 开发者访谈</a></h3>
-    <p class="post-meta">@Neal · Oct 13, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Interview with a Pornhub Web Developer
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 无论你对色情内容采取何种立场，都无法否认成人网站行业对推动互联网发展具有巨大影响。从将浏览器的视频限制推送到通过WebSocket推送广告，以便广告拦截器无法检测到它们，你必须足够聪明才能在互联网的前沿进行创新。
-最近，我很有幸采访互联网最大的成人网站 Pornhub 的一名 Web 开发者。我想了解技术，Web API 如何改进以及在成人网站上工作的感受。请享用！
-注意：成人产业竞争激烈，因此有一些他们无法回答的问题。我尊重他们保守商业机密的需要。
-成人网站显然会显示许多图形内容。在开发过程中，你是否使用了大量的占位符图像和视频？最终产品和开发时的内容和经验有什么区别？
-实际上，我们在开发网站时不使用占位符！其次，重要的是代码和功能，接口是我们现在非常习惯的东西。一开始肯定会有一些学习曲线，但是我们大家很快就习惯了。
-对于网络流和第三方广告脚本，你如何在网站和功能开发过程中模拟这些重要的动态资源？
-为了进行开发，播放器分为两个部分。基本播放器实现核心功能并触发事件。开发不会受其他因素干扰。为了在网站上进行集成，我们希望运行那些第三方脚本和广告，以便我们尽早发现问题。在特殊情况下，我们将与广告客户合作，允许我们手动触发通常可能是随机的事件。
-平均每个页面可能至少包含一个视频，GIF 广告，一些 cam 表演者预览以及其他视频的缩略图。你如何测量页面性能以及如何使页面保持最佳性能？有什么你可已分享的技巧吗？
-我们使用一些测量系统。
- 我们的播放器会向我们报告有关视频播放性能和一般用法的指标 用于一般站点性能的第三方 RUM 系统。 WebpageTest 私有实例，用于在可用的 AWS 数据中心中编写测试脚本。我们主要将其用于查看给定时间可能发生的情况。它还使我们能够查看来自不同位置和提供者的“瀑布”。  我必须假设前端最重要，最复杂的功能是视频播放器。从在视频之前加入广告，标记视频的精彩时刻，更改视频速度和其他功能，你如何维护该资产的性能，功能和稳定性？
-我们有一支专门致力于视频播放器的团队，他们的首要任务是持续监控性能和效率。我们为此几乎使用了所有可用的东西；浏览器性能工具，网页测试，指标等。我们进行的所有更新均通过可靠的质量检查来确保稳定性和质量。
-专门的视频团队有多少人？团队中有多少前端开发人员？
-我要说的是，团队规模倾向于基于产品规模的平均水平。
-在成人网站上工作期间，你如何看待前端未来的变化？哪些新的 Web API 使你的生活更轻松？
-我肯定在前端世界的每个方面都看到了很多改进；
- 从纯 CSS 到最终使用 LESS 和 Mixins，再到使用具有媒体查询和图片标签的灵活 Grid 系统，以适应不同的分辨率和屏幕尺寸 jQuery 和 jQueryUI 慢慢地被淘汰，因此我们将回到 vanilla JS 中更高效的面向对象编程。在某些情况下，框架也非常有趣 我们喜欢新的 IntersectionObserver API，对于以更有效的方式加载图像非常有用 我们也开始使用画中画 API，以便在我们的某些页面上播放该浮动视频，主要是为了获得用户对该想法的反馈。  展望未来，有没有你想要更改，改进甚至创建的 Web API？</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/">Read More →</a>
   </footer>
 </article>
 

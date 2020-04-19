@@ -7,10 +7,40 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 04 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://madneal.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>网络安全分析的瑞士军刀--zeek</title>
+      <link>https://madneal.com/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</guid>
+      <description>Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
+安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
+sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel  这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
+Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
+依赖包</description>
+    </item>
+    
+    <item>
+      <title>让你的SQL盲注快起来</title>
+      <link>https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/</guid>
+      <description>本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
+SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
+与或运算 与或运算，操作符分别为 &amp;amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp;amp; 0 = 0; 0 &amp;amp; 1 = 0; 1 &amp;amp; 0 = 0; 1 &amp;amp; 1 = 1
+即：两位同时为“1”，结果才为“1”，否则为0
+或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
+即：参加运算的两个对象只要有一个为1，其值为1
+假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
+1 &amp;amp; x = 0, x = 0</description>
+    </item>
     
     <item>
       <title>XSS 漏洞知解 123</title>

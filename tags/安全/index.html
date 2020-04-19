@@ -221,6 +221,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
+    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
+SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
+与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
+即：两位同时为“1”，结果才为“1”，否则为0
+或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
+即：参加运算的两个对象只要有一个为1，其值为1
+假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
+1 &amp; x = 0, x = 0</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
     <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
   </header>
@@ -373,22 +394,6 @@ Infomation Enumeration Firstly, gather open ports and services:
 # Nmap 7.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/help-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bashed-hack-the-box/" class="post-link">Bashed -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Apr 4, 2019 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">Introduction Target: 10.10.10.68 (OS: Linux)
-Kali linux: 10.10.16.44
-Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http  Only port 80 is open, it may be an easy box.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bashed-hack-the-box/">Read More →</a>
   </footer>
 </article>
 
