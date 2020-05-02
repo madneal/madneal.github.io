@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>计算机视觉 on Neal&#39;s Blog</title>
-    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</link>
+    <link>https://madneal.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</link>
     <description>Recent content in 计算机视觉 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Fri, 23 Feb 2018 22:30:09 +0000</lastBuildDate>
     
-	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://madneal.com/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>聊聊答题应用题库的建立</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/</link>
+      <link>https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/</link>
       <pubDate>Fri, 23 Feb 2018 22:30:09 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/</guid>
+      <guid>https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/</guid>
       <description>前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
 网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
 另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
@@ -27,10 +27,10 @@ from elasticsearch import Elasticsearch def write_quetion(): question = { &amp;#
     
     <item>
       <title>利用tesseract-ocr进行验证码识别</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/</link>
+      <link>https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/</link>
       <pubDate>Tue, 26 Apr 2016 13:35:29 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/</guid>
+      <guid>https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/</guid>
       <description>因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
 convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif  这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
 tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition</description>
@@ -38,68 +38,68 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
     
     <item>
       <title>道路模型--linear-parabolic model</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/</link>
+      <link>https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/</link>
       <pubDate>Mon, 18 May 2015 19:23:28 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/</guid>
+      <guid>https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/</guid>
       <description>读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&amp;rdquo;,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。 好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示： 这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下： 这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出 因为在xm两边的函数值是相等的，并且导数也是相等的。 从而我们就能得到下面的公式： 这样我们可以把c和e用别的变量来表达 因此我们可以把最终的道路模型参数用下面的函数来表达 这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。 Reference Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.</description>
     </item>
     
     <item>
       <title>常用颜色的RGB分布</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/</link>
+      <link>https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/</link>
       <pubDate>Sun, 10 May 2015 11:55:27 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/</guid>
+      <guid>https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/</guid>
       <description>RGB色彩模式是工业界的一种颜色标准，它通过对红（RED）、绿（GREEN）、蓝（BLUE）三种基本颜色的相互组合从而叠加出各种颜色。RGB色彩模式为每一个红、绿、蓝分类了0-255范围内的亮度值。 RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个数字分别表示红、绿、蓝的亮度值，常用的颜色的RGB颜色分布有以下这些：
  品红色 （255,0,255） 蓝色 （0,0,255） 青色 （0,255,255） 绿色 （0,255,0） 黄色 （255,255,0） 红色 （255,0,0） 紫色 (128,0,128) 深蓝色 （0,128,128） 鸭绿色 （0,128,128） 深绿色 （0,128,0） 橄榄绿 （128,128,0） 栗色 （128,0,0） 黑色 (0,0,0) 灰色 （128,128,128） 银色 （192,192,192） 白色 （255,255,255）  </description>
     </item>
     
     <item>
       <title>CHEVP算法（CannyHough Estimation of Vanishing Points)</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/</link>
+      <link>https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/</link>
       <pubDate>Sat, 18 Apr 2015 19:38:02 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/</guid>
+      <guid>https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/</guid>
       <description>这个算法是汪悦在 Lane detection and tracking using B-spline中提出来的。他在这篇论文中主要用的是B-spline模型，这个模型的主要优点是鲁棒性好，可以针对不同的情景进行处理，而且他将检测道路两边的边缘的问题转化成求解道路中间线的问题。 下面主要描述一下CHEVP算法：
  边缘像素提取 我们使用Canny边缘检测来获得边缘映射和边缘定位映射。选择方差σ = 1 并且模板的尺寸是9*1在X方向和Y方向上进行高斯卷积。边缘映射是通过一个合适的阈值处理得到的结果。在图表1中，图b是通过Canny边缘检测得到的边缘映射，图c则是边缘定位映射。  通过霍夫变化检测直线 检测到的边缘点将被用于对直线参数空间中可能的存在的线进行投票。图像被水平地分为几个部分，如图2a所示，为了适应因为道路弯曲从而导致道路消失点的变化。图像部分自下而上高度越来越小。每个图像分割部分都有它们自己的直线参数空间，每个图像分割部分中边缘点分别为可能的直线进行投票。通过对于规范化后的累加空间的阈值处理，直线分割最终能够在每一个图像分割部分中检测出来。  地平线和消失点检测 每一个图像分割部分中检测到的直线都是成对出现的，任意一队直线的相交部分会为另外一个霍夫空间中的消失点进行投票。投票的权重是根据最后一步产生的成对直线的规范化累加值决定的。这个过程在每个图像分割部分中分别重复，但是会在相同的霍夫空间中投票。 霍夫空间中对于每一列的投票会归总起来从来检测可能的消失点。获得投票最多的一行将会被选择座位地平线在图像平面中，如下图所示： 对于每个图像分割部分来说，它的消失点由地平线附近投票最多的点所决定。所有检测到的消失点可以再图4b中看到。注意一点，对于图像部分5，没有消失点存在，因为在这个图像分割部分并没有检测到直线。  根据检测的道路线估计道路中间线的参数k 对于消失点进行投票的直线被认为是每个图像分割部分中道路线。从图像最下面的图像分割部分往上，挑选出在各个图像分割部分中的左右两边挑选出最接近去中间一列的检测到的道路线。如果这两条道路线在这个图像分割部分中并不存在，这个过程就会在更高的图像分割部分中进行，知道获得需要的道路线。图6表示两条直线L1和L2在图像分割部分4中，因为没有直线存在图像分割部分5中。 然后连接图像分割部分4中的消失点和P-l4和P-r4的中点P-m4（直线L1和直线L2的相交的部分） 参数k可以通过以下公式进行估计： 对于图7中中间线的估计的例子如下所示： 从图像分割部分4开始，因为图像分割部分5中不存在消失点，我们假设这个部分的消失点跟在分割部分4中的消失点。延伸通过vp4和P-m4交于图像分割部分5的P-m5点。同样的，我们在图像分割部分3中我们也能够检测到消失点。直线（vp3-P-m3)交于图像分割部分2的底部的P-m2处。同样的道理，适用于以上的部分 通过构建道路中间线，通过参数k和道路中间线我们可以估计处道路的两条边缘线，图8给出了例子  计算道路模型的控制点来接近检测的道路中间线 可以利用很多方法来计算B-spline中的控制点通过中间线。因为B-spline后面的部分会准确地逼近道路边缘，这里我们只是粗略地使用B-spline来接近检测到的道路中间线。 我们是通过使用3个不同的控制点来构成两个部分的B-spline。为了让B-spline通过第一个和最后一个控制点，我们使用三倍的第一个和最后一个控制点。因此事实上一共有7个控制点，3个第一个控制点和3个最后一个控制点都是相同的。 我们首先选择P-m0和P-m5分别代表道路模型中的第一个控制点Q0和最后一个控制点Q2.节点P1的选择取决于图9中β1和β2的值。如果β1和β2的值不等于0，我们则选择P-m作为Q1。即P1=P-m，P-m是P-m1和P-m2的中点。如果β1为0，而β2不等于0.我们则选择P-m1作为P1(Q1).其他的情况，我们则选择P-m2作为P1(Q1).因此控制点Q1可以通过下面的公式计算： 实验结果   引用： Wang, Yue, Eam Khwang Teoh, and Dinggang Shen. &amp;ldquo;Lane detection and tracking using B-Snake.&amp;rdquo; Image and Vision computing 22.4 (2004): 269-280.</description>
     </item>
     
     <item>
       <title>Iplimage versus Mat</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/iplimage-versus-mat/</link>
+      <link>https://madneal.com/post/iplimage-versus-mat/</link>
       <pubDate>Wed, 15 Apr 2015 12:08:20 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/iplimage-versus-mat/</guid>
+      <guid>https://madneal.com/post/iplimage-versus-mat/</guid>
       <description> 我们可能经常面临这样的困惑，Iplimage和Mat这两种数据结构，我们应该用哪一种数据结构。 Iplimage一开始就存在opencv库之中，他来源于Intel的另外一个函数库Intel Image Processing Library(IPL)，这是一种非常重要的数据结构。在经典书籍里面的sample用的基本都是Iplimage这个数据结构。但是这是一种C风格的数据结构，你必须为他分配以及释放内存。 Mat则是一种新的数据结构，越来越多的人也在使用这种数据结构了，因为它是面向对象的。所以我们不需要自己来为它管理内存。它是通过计数的方式来进行引用，如果它的引用计数为0的话，那么它就会自动释放内存。 老实说，用什么数据结构，我也不知道。因为我觉得有些方法，Mat数据结构还不具备，有的方法只有运用Iplimage才可以。
 将Iplimage转化为Mat IplImage* ipl; Mat m = cvarrToMat(ipl);  </description>
     </item>
     
     <item>
       <title>道路识别demo</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</link>
+      <link>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</link>
       <pubDate>Wed, 15 Apr 2015 09:55:48 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</guid>
+      <guid>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/</guid>
       <description>最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
 opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&amp;quot;test1.mp4&amp;quot;); CvWindow w = new CvWindow(&amp;quot;Lane Detection&amp;quot;); CvWindow canny = new CvWindow(&amp;quot;Canny&amp;quot;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &amp;lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.</description>
     </item>
     
     <item>
       <title>opencv视频流的读取和处理</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</link>
+      <link>https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</link>
       <pubDate>Sun, 12 Apr 2015 13:16:58 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</guid>
+      <guid>https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</guid>
       <description>Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</description>
     </item>
     
     <item>
       <title>道路识别</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</link>
+      <link>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</link>
       <pubDate>Sat, 11 Apr 2015 13:29:14 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</guid>
+      <guid>https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/</guid>
       <description>我们老板希望我能在道路识别这个方面做一些东西，这方面的东西一直在看，但是一直都是模模糊糊，我希望自己能够用一个合适的方式总结一下道路识别的问题。
 道路识别问题其实也正正恰好是识别问题中的一个方面，所以道路识别问题的关键也是在于如何选取一个特征来进行识别。道路识别问题可以使用不同的方法来解决，我打算从下面这些方面来阐述一下我自己对道路识别的一个理解：
  我们要解决什么情况下的道路问题 其实我觉得这点挺重要的，因为很多计算机视觉的问题在不同的要求之下有各种各样的方法。我觉得很有必要弄清楚自己需要的目标，我是要解决什么样的问题。道路识别问题可以分为结构化的道路和非结构化的道路。结构化的道路就是比较标准的道路，有着清晰地道路线，高速公路，城市公路，这些都是典型的结构化道路。而非结构化道路就是往往没有规则，没有明显的道路线或者根本没有道路线，显然，这样的道路识别比较复杂。因为我自己还是一个菜鸟，所以我一直以来看的问题都是针对结构化的道路。
@@ -110,10 +110,10 @@ opencvsharp版本 using System; using System.Collections.Generic; using System.L
     
     <item>
       <title>计算机视觉领域的一些牛人博客，超有实力的研究机构等的网站链接</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/</link>
+      <link>https://madneal.com/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/</link>
       <pubDate>Sat, 11 Apr 2015 12:47:41 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/</guid>
+      <guid>https://madneal.com/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/</guid>
       <description>转载：http://blog.csdn.net/carson2005/article/details/6601109
 提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005
  以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的朋友可以多关注这些网站，多了解一些CV的具体应用。搞研究的朋友也可以从中了解到很多牛人的研究动态、招生情况等。总之，我认为，知识只有分享才能产生更大的价值，真诚希望下面的链接能对朋友们有所帮助。  （1）googleResearch； http://research.google.com/index.html （2）MIT博士，汤晓欧学生林达华； http://people.csail.mit.edu/dhlin/index.html （3）MIT博士后Douglas Lanman； http://web.media.mit.edu/~dlanman/ （4）opencv中文网站； http://www.opencv.org.cn/index.php/%E9%A6%96%E9%A1%B5 （5）Stanford大学vision实验室； http://vision.stanford.edu/research.html （6）Stanford大学博士崔靖宇； http://www.stanford.edu/~jycui/ （7）UCLA教授朱松纯； http://www.stat.ucla.edu/~sczhu/ （8）中国人工智能网； http://www.chinaai.org/ （9）中国视觉网； http://www.china-vision.net/ （10）中科院自动化所； http://www.ia.cas.cn/ （11）中科院自动化所李子青研究员； http://www.cbsr.ia.ac.cn/users/szli/ （12）中科院计算所山世光研究员； http://www.jdl.ac.cn/user/sgshan/ （13）人脸识别主页； http://www.face-rec.org/ （14）加州大学伯克利分校CV小组； http://www.eecs.berkeley.edu/Research/Projects/CS/vision/
@@ -125,10 +125,10 @@ http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
     
     <item>
       <title>关于计算机视觉研究</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/</link>
+      <link>https://madneal.com/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/</link>
       <pubDate>Sat, 11 Apr 2015 12:44:04 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/</guid>
+      <guid>https://madneal.com/post/%E5%85%B3%E4%BA%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%A0%94%E7%A9%B6/</guid>
       <description>本文是UCLA教授朱松纯的见解，我翻译下作为见解，尽管以后不一定做这些东西，但我觉得这些道理还是有价值的。
  我们如何知道我们是不是在以错误的方式做研究？ 视觉问题是一个在现代科学以及工程上一个非常具有挑战性和潜力的问题，因为它非常复杂并且包罗万象。对于如此复杂的一个问题，我们必须十分谨慎地选择一个长期有效的解决方案以免走入一个死胡同中。人们喜欢享受能够感觉到的进程，但实际地研究过程就回事十分枯燥无味的在普通人的眼中。
  视觉问题是一个可以用机器学习来解决的分类问题吗？ 经常有些学生说：视觉问题是不是仅仅只是机器学习地应用而已，他们经常是这么觉得。如果是这样的话，那么对于视觉问题的研究者来说，他们的任务仅仅只是设计好的特征而已就可以了。这个问题真的是对视觉问题的侮辱，这反映了对与视觉问题的误解并将其简单的划分为分类问题。这对于我来说毫不奇怪，因为现在的年轻一代不仅不知道Ulf Genander（模式理论之父）同时也不知道David Marr（计算机视觉之父）。打个比方来说，机器学习的方法就好像是三千年来中国中国中药临床经验总结出来的方法。古代的人们由于对于现代医学缺乏足够的认知，他们往往尝试不同的药材组合，就像机器学习的研究者尝试不同的特征。这些成分通过不同的权重被混合在一起，然后通过煎煮最后变成一味中药，这是一个迭代回归的过程。据信这些药可以治疗一切疾病包括癌症，禽流感等等，而不需要理解这些药的生物作用或者相应的病理机制。所有你需要做的仅仅是找到正确的成分然后以合适的比例把它们混合在一起。理论上来说，这是现实可行的，就像机器学习保证可以解决所有问题如果机器学习能够找到足够的特征和例子。但是问题是：组成成分的范围如此之广，我们如何才能有效地找到合适的组成成分呢？对于视觉问题，我们需要研究图像的复杂的结构，以及丰富的空间和他们的组成部分，还有各种各样的模型和代表。
@@ -139,10 +139,10 @@ http://www.cs.cmu.edu/afs/cs/project/cil/ftp/html/vision.html
     
     <item>
       <title>OPENCV</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/opencv/</link>
+      <link>https://madneal.com/post/opencv/</link>
       <pubDate>Sat, 11 Apr 2015 11:22:35 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/opencv/</guid>
+      <guid>https://madneal.com/post/opencv/</guid>
       <description>[转载] http://blog.csdn.net/carson2005/article/details/6979806
 尽管之前写过一篇关于OpenCV的介绍（http://blog.csdn.net/carson2005/article/details/5822149），但依然有朋友对其不甚了解。所以，经常能碰到有人问我诸如以下一些问题：OpenCV能不能实现人脸识别？OpenCV有没有车辆检测的API？OpenCV有没有三维重建的函数？面对这样的问题，我也很困惑。到底该如何给他们解释，才能让它们明白，OpenCV确实很强大，但还没有他们想象中的那么强大。其实，OpenCV的全称，是Open source Computer Vision Library,开放源代码计算机视觉库。也就是说，它是一套关于计算机视觉的开放源代码的API函数库。这也就意味着，(1)不管是科学研究，还是商业应用，都可以利用它来作开发;(2)所有API函数的源代码都是公开的，你可以看到其内部实现的程序步骤；(3)你可以修改OpenCV的源代码，编译生成你需要的特定API函数。但是，作为一个库，它所提供的，仅仅是一些常用的，经典的，大众化的算法的API。一个典型的计算机视觉算法，应该包含以下一些步骤：(1)数据获取（对OpenCV来说，就是图片）；(2)预处理;(3)特征提取;(4)特征选择;(5)分类器设计与训练;(6)分类判别;而OpenCV对这六个部分，分别（记住这个词）提供了API。下面我分别就这六个部分对一些常见问题进行必要的解释。 对于数据获取，计算机视觉领域的数据，无非就是图片和视频两种。图片，有bmp,jpg,png,tiff&amp;hellip;.各种压缩和非压缩格式。所以，对压缩格式的图片而言，OpenCV内部必然包含了对应的图片解压缩函数(一般都是包含了开源的图片解压函数库，例如，对于jpg压缩格式而言，就包含了libjpg开源库)。而对于视频而言，常见的有.rmvb,.avi,.asf等格式，不同的格式，代表着不同的视频压缩算法(对于AVI格式，尽管都是avi格式，但内部的压缩算法仍然不相同。具体原因请参考我的另一篇博客:http://blog.csdn.net/carson2005/article/details/6314089)，也就需要对应的解压算法来解压。尽管OpenCV提供了一些读写视频文件的API，但是，它也仅仅是一个接口而已，其内部，依然需要调用相应的视频编解码器的API来进行解码。常用的视频编解码器有：xvid,ffmpeg等。也就是说，如果你想利用OpenCV来进行视频读写之类的操作，是需要安装此类视频编解码器的。安装了相应的视频解码器之后，你就可以调用OpenCV的视频相关API来进行视频文件的读取操作了，当然，视频文件被解码之后，变成了一张一张的图片，然后才能被OpenCV所处理。另外，还有一种情况，就是数据来自于相机，包括数字相机和模拟相机。不管是哪种相机，你都要想办法获取到相机发送给PC的图片数据（PC在内存里面接收到的来自相机的数据可能是jpg格式，也可能是bmp格式）。如果，你在PC内存中接收到的是相机发送过来的jpg压缩格式，还需要进行图片数据的内存解压。关于相机和OpenCV的这部分内容，请见我另一篇博客：
 http://blog.csdn.net/carson2005/article/details/6243476

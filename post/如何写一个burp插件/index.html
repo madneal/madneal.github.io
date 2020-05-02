@@ -34,7 +34,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
  命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
 Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：" />
-    <meta name="twitter:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -46,8 +46,8 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
  命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
 Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：" />
-  <meta property="og:url" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -55,8 +55,8 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -82,18 +82,18 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -128,7 +128,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -149,7 +149,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
             
               is-active
             ">
-            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
@@ -163,12 +163,12 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
             
             
             ">
-            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -212,7 +212,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
       
 
       <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -224,7 +224,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
       
 
       <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -312,13 +312,13 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
       
       <ul class="post-tags">
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/web-%E5%AE%89%E5%85%A8%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91"><span class="tag">Web 安全，安全开发</span></a></li>
+          <li><a href="https://madneal.com/tags/web-%E5%AE%89%E5%85%A8%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91"><span class="tag">Web 安全，安全开发</span></a></li>
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/burp"><span class="tag">Burp</span></a></li>
+          <li><a href="https://madneal.com/tags/burp"><span class="tag">Burp</span></a></li>
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/burp-%E6%8F%92%E4%BB%B6"><span class="tag">Burp 插件</span></a></li>
+          <li><a href="https://madneal.com/tags/burp-%E6%8F%92%E4%BB%B6"><span class="tag">Burp 插件</span></a></li>
         
       </ul>
       
@@ -380,7 +380,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
   });
 </script>
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>

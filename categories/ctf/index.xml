@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ctf on Neal&#39;s Blog</title>
-    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/categories/ctf/</link>
+    <link>https://madneal.com/categories/ctf/</link>
     <description>Recent content in Ctf on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Thu, 23 Aug 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://madneal.com/categories/ctf/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>web 狗之writeup--phone</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/</link>
+      <link>https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/</link>
       <pubDate>Thu, 23 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/</guid>
+      <guid>https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/</guid>
       <description>鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
 打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
 注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！

@@ -34,7 +34,7 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
 正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
 数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&amp;quot;11&amp;quot;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
 Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
-    <meta name="twitter:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -46,8 +46,8 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
 正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
 数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&amp;quot;11&amp;quot;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
 Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
-  <meta property="og:url" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -55,8 +55,8 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -82,18 +82,18 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -128,7 +128,7 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -149,7 +149,7 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
             
               is-active
             ">
-            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
@@ -163,12 +163,12 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
             
             
             ">
-            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -212,7 +212,7 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
       
 
       <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -224,7 +224,7 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
       
 
       <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -350,9 +350,9 @@ There only 111111 people use the same phone as you</p>
       
       <ul class="post-tags">
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/ctf"><span class="tag">CTF</span></a></li>
+          <li><a href="https://madneal.com/tags/ctf"><span class="tag">CTF</span></a></li>
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/web"><span class="tag">WEB</span></a></li>
+          <li><a href="https://madneal.com/tags/web"><span class="tag">WEB</span></a></li>
         
       </ul>
       
@@ -414,7 +414,7 @@ There only 111111 people use the same phone as you</p>
   });
 </script>
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>

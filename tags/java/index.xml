@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Java on Neal&#39;s Blog</title>
-    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/java/</link>
+    <link>https://madneal.com/tags/java/</link>
     <description>Recent content in Java on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Tue, 09 Oct 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://madneal.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>lucene 中 query 的实现</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
       <description>Lucene 中的 query 支持多种形式，包括多种 query:
  TermQuery BooleanQuery WildcardQuery PhraseQuery PrefixQuery MultiPhraseQuery FuzzyQuery RegexpQuery TermRangeQuery PointRangeQuery ConstantScoreQuery DisjunctionMaxQuery MatchAllDocsQuery  通过不同的 query 实现需要的 query 来进行搜索，也可以将不同的 query 进行组合使用。这些 query 都是 Query 类的继承类。Query 类是一个抽象类，包含了一些基本方法的，而具体实现取决于具体的类。今天主要是想通过源码阅读来了解 RegexpQuery 的具体实现。
 RegexpQuery 的继承关系是 Query =&amp;gt; MultiTermQuery =&amp;gt; AutomatonQuery =&amp;gt; RegexpQuery，可见 RegexpQuery 的实现还依赖于 MultiTermQuery 以及 AutomatonQuery。MultiTermQuery 也是一个继承 Query 的抽象类。MultiTermQuery 也是需要通过继承来进行实现，可以通过 MultiTermQuery 来组合多个 term 的 query，另外一方面，</description>
@@ -25,10 +25,10 @@ RegexpQuery 的继承关系是 Query =&amp;gt; MultiTermQuery =&amp;gt; Automato
     
     <item>
       <title>理解 OutOfMemoryError 异常</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/</link>
+      <link>https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/</link>
       <pubDate>Sat, 26 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/</guid>
+      <guid>https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/</guid>
       <description>OutOfMemoryError 异常应该可以算得上是一个非常棘手的问题。JAVA 的程序员不用像苦逼的 C 语言程序员手动地管理内存，JVM 帮助他们分配内存，释放内存。但是当遇到内存相关的问题，就比如 OutOfMemoryError，如何去排查并且解决就变成一个非常令人头疼的问题。在 JAVA 中，所有的对象都存储在堆中，通常如果 JVM 无法再分配新的内存，内存耗尽，并且垃圾回收器无法及时回收内存，就会抛出 OutOfMemoryError。
 我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
 java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。

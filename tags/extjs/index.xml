@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Extjs on Neal&#39;s Blog</title>
-    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/extjs/</link>
+    <link>https://madneal.com/tags/extjs/</link>
     <description>Recent content in Extjs on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Wed, 22 Feb 2017 21:40:16 +0000</lastBuildDate>
     
-	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/extjs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://madneal.com/tags/extjs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ext.js性能优化漫谈</title>
-      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</link>
+      <link>https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</link>
       <pubDate>Wed, 22 Feb 2017 21:40:16 +0000</pubDate>
       
-      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</guid>
+      <guid>https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</guid>
       <description>Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
 尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
 事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：

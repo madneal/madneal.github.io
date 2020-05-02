@@ -36,7 +36,7 @@ Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览
 Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
 其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
 对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：" />
-    <meta name="twitter:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
   
 
   
@@ -49,8 +49,8 @@ Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览
 Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
 其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
 对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：" />
-  <meta property="og:url" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
+  <meta property="og:url" content="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" />
+  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
 
 
 
@@ -58,8 +58,8 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" />
+<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -85,18 +85,18 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://madneal.com/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
 
 
   
@@ -131,7 +131,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -152,7 +152,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
             
               is-active
             ">
-            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/">Home</a>
+            <a href="https://madneal.com/">Home</a>
           </li>
       
         <li class="menu-item
@@ -166,12 +166,12 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
             
             
             ">
-            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/">Tags</a>
+            <a href="https://madneal.com/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -215,7 +215,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
       
 
       <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -227,7 +227,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
       
 
       <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -405,11 +405,11 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
       
       <ul class="post-tags">
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/web-%E5%AE%89%E5%85%A8"><span class="tag">Web 安全</span></a></li>
+          <li><a href="https://madneal.com/tags/web-%E5%AE%89%E5%85%A8"><span class="tag">Web 安全</span></a></li>
         
-          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/chrome-%E6%8F%92%E4%BB%B6"><span class="tag">Chrome 插件</span></a></li>
+          <li><a href="https://madneal.com/tags/chrome-%E6%8F%92%E4%BB%B6"><span class="tag">Chrome 插件</span></a></li>
         
       </ul>
       
@@ -471,7 +471,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
   });
 </script>
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+<script src="https://madneal.com/js/bundle.js"></script>
 
 
 <script>
