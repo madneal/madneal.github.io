@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sftp on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/sftp/</link>
+    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/sftp/</link>
     <description>Recent content in Sftp on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Thu, 28 Jul 2016 17:09:59 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/sftp/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/sftp/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>sftp没有关闭session导致服务器sshd进程未关闭</title>
-      <link>https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/</link>
       <pubDate>Thu, 28 Jul 2016 17:09:59 +0000</pubDate>
       
-      <guid>https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/</guid>
       <description>项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; + hostname + &amp;quot;|Port:&amp;quot; + port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; + hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; + userName + &amp;quot;|Password:&amp;quot; + password); } catch (Exception ex) { logger.</description>
     </item>

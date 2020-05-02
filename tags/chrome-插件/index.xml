@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Chrome 插件 on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/chrome-%E6%8F%92%E4%BB%B6/</link>
+    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/chrome-%E6%8F%92%E4%BB%B6/</link>
     <description>Recent content in Chrome 插件 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sat, 28 Sep 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/chrome-%E6%8F%92%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/chrome-%E6%8F%92%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>被动扫描器之插件篇</title>
-      <link>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</link>
       <pubDate>Sat, 28 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</guid>
       <description>本文首发于 freebuf, https://www.freebuf.com/articles/web/219818.html
 最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，r-forwarder 以及 r-forwarder-burp，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。
 Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。
@@ -29,10 +29,10 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
     
     <item>
       <title>持续发布 Chrome 插件</title>
-      <link>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</link>
       <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</guid>
       <description>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
 介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
 Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。

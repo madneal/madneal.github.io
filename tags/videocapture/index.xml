@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Videocapture on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/videocapture/</link>
+    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/videocapture/</link>
     <description>Recent content in Videocapture on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sun, 12 Apr 2015 13:16:58 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/videocapture/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/videocapture/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>opencv视频流的读取和处理</title>
-      <link>https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</link>
       <pubDate>Sun, 12 Apr 2015 13:16:58 +0000</pubDate>
       
-      <guid>https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</guid>
       <description>Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</description>
     </item>
     

@@ -38,7 +38,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
  利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
 function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。" />
-    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
   
 
   
@@ -52,8 +52,8 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
  利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
 function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。" />
-  <meta property="og:url" content="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta property="og:url" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
 
 
 
@@ -61,8 +61,8 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" />
-<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -88,18 +88,18 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://madneal.com/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
 
 
   
@@ -134,7 +134,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
     
     
   <header class="site-header">
-  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -155,7 +155,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
             
               is-active
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/">Home</a>
           </li>
       
         <li class="menu-item
@@ -169,12 +169,12 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
             
             
             ">
-            <a href="https://madneal.com/tags/">Tags</a>
+            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
-  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -218,7 +218,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
       
 
       <li class="social-item">
-        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -230,7 +230,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
       
 
       <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -250,7 +250,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 
 <p>首先你可以通过这个<a href="https://portal.qiniu.com/signup?code=3ln7n4xpfyuky">链接</a>注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。</p>
 
-<p><img src="https://madneal.com/img/bV4hoV" alt="clipboard.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/bV4hoV" alt="clipboard.png" /></p>
 
 <p>创建好存储空间（bucket）就已经完成了私有图库的第一步。</p>
 
@@ -276,7 +276,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">policy</span>;
 }
 </code></pre></div>
-<p><img src="https://madneal.com/img/bV4ho8" alt="clipboard.png" /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/bV4ho8" alt="clipboard.png" /></p>
 
 <p>按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的<a href="http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken">在线示例</a>，通过整理形成了自己的 <a href="https://github.com/neal1991/image-host/blob/master/js/token.js">token.js</a>。</p>
 
@@ -356,14 +356,14 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/js"><span class="tag">Js</span></a></li>
+          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/js"><span class="tag">Js</span></a></li>
         
-          <li><a href="https://madneal.com/tags/chrome-extension"><span class="tag">Chrome Extension</span></a></li>
+          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/chrome-extension"><span class="tag">Chrome Extension</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>784</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>797</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -420,7 +420,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
   });
 </script>
 
-<script src="https://madneal.com/js/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
 <script>

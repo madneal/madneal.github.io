@@ -30,7 +30,7 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
 定义 假设n个随机变量x1,x2,&amp;hellip;.xn,由n个随机变量s1,s2,&amp;hellip;sn组成，并且这n个随机变量是相互独立的，可以用下面的公示表达： 为了表达的方便，我们可以用向量的形式来表达： x = As 这个只不过是ICA最基本的定义，在很多实际问题中，应该包含了噪声。但是为了简化问题，我们这里忽略了噪声。因为如果模型中包含噪音，处理起来将会十分困难，而且大多数不包含噪音的模型已经能够解决很多问题，所以这里我们就将噪声先忽略。
 ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立的基本原则，同时，基本上可以说只需要这个原则我们就可以估计这个模型。 独立成分必须是非高斯分布的。高斯分布的高阶累计量是0，但是高阶信息对于ICA的模型的估计却是十分必要的。 为了简化，我们假设未知的混合矩阵A是一个方阵。  白化 白化是一种比不相关性要稍微强一些的性质。对一个零均值的随即向量y进行白化处理，就是让它的组成成分不相关，并且让变量的方差相等。也就是说，变量y的协方差矩阵是单位矩阵： 为什么独立成分是非高斯的 ICA最基本的限制条件就是独立成分必须是非高斯分布的，这或许也是ICA早期没有流行起来的原因。我们假设变量x1和x2是高斯分布的，不相关的，且方差相等： 下面的图表示联合概率分布，可以看出，我们无法判断任何关于变量x1和x2的方向信息，这就是为什么混合矩阵A不能被估计出来的原因： 峭度 在这我们讲述一个利用峭度来进行ICA模型估计的方法，ICA的估计方法很多，这只是最基础的一个方法。 对于变量y峭度可以由下面的公式定义： 峭度是可正可负的，高斯分布变量的峭度是0，这也是为什么独立成分必须是非高斯分布的原因之一。峭度为负的变量分布称为次高斯分布，峭度为正的变量的分布则为超高斯分布，下图分别是拉普拉斯分布（超高斯分布）和均匀分布（次高斯分布）： 基于峭度的梯度算法 我们经常利用峭度的绝对值或者平方来进行求解： 我们通过优化这个目标函数来估计ICA模型，z表示白化后的观察数据x。 实际上，我们是使峭度极大化。我们会从某个方向向量w开始，然后计算在什么方向峭度的增长最快，我们则将方向向量w向这个方向移动。 峭度绝对值的梯度可以如下计算： 下面是一个快速不动点算法基于峭度计算的流程图： ## ICA估计的主要方法 ##   通过极大化非高斯性来估计 通过极大似然性来估计 通过极小互信息来估计 通过张量的方法来估计 通过非线性分解和非线性PCA来估计 这里，我们只是讲了其中的一个基础方法之一，并不就是最好的方法。  ICA算法的思想可以用下面的公式来描述： ICA method = objective funtion &#43; optimization algorithm
 引用 [1]Hyvärinen A, Karhunen J, Oja E. Independent component analysis[M]. John Wiley &amp;amp; Sons, 2004. [2]Hyvärinen A, Oja E." />
-    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
   
 
   
@@ -40,8 +40,8 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
 定义 假设n个随机变量x1,x2,&amp;hellip;.xn,由n个随机变量s1,s2,&amp;hellip;sn组成，并且这n个随机变量是相互独立的，可以用下面的公示表达： 为了表达的方便，我们可以用向量的形式来表达： x = As 这个只不过是ICA最基本的定义，在很多实际问题中，应该包含了噪声。但是为了简化问题，我们这里忽略了噪声。因为如果模型中包含噪音，处理起来将会十分困难，而且大多数不包含噪音的模型已经能够解决很多问题，所以这里我们就将噪声先忽略。
 ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立的基本原则，同时，基本上可以说只需要这个原则我们就可以估计这个模型。 独立成分必须是非高斯分布的。高斯分布的高阶累计量是0，但是高阶信息对于ICA的模型的估计却是十分必要的。 为了简化，我们假设未知的混合矩阵A是一个方阵。  白化 白化是一种比不相关性要稍微强一些的性质。对一个零均值的随即向量y进行白化处理，就是让它的组成成分不相关，并且让变量的方差相等。也就是说，变量y的协方差矩阵是单位矩阵： 为什么独立成分是非高斯的 ICA最基本的限制条件就是独立成分必须是非高斯分布的，这或许也是ICA早期没有流行起来的原因。我们假设变量x1和x2是高斯分布的，不相关的，且方差相等： 下面的图表示联合概率分布，可以看出，我们无法判断任何关于变量x1和x2的方向信息，这就是为什么混合矩阵A不能被估计出来的原因： 峭度 在这我们讲述一个利用峭度来进行ICA模型估计的方法，ICA的估计方法很多，这只是最基础的一个方法。 对于变量y峭度可以由下面的公式定义： 峭度是可正可负的，高斯分布变量的峭度是0，这也是为什么独立成分必须是非高斯分布的原因之一。峭度为负的变量分布称为次高斯分布，峭度为正的变量的分布则为超高斯分布，下图分别是拉普拉斯分布（超高斯分布）和均匀分布（次高斯分布）： 基于峭度的梯度算法 我们经常利用峭度的绝对值或者平方来进行求解： 我们通过优化这个目标函数来估计ICA模型，z表示白化后的观察数据x。 实际上，我们是使峭度极大化。我们会从某个方向向量w开始，然后计算在什么方向峭度的增长最快，我们则将方向向量w向这个方向移动。 峭度绝对值的梯度可以如下计算： 下面是一个快速不动点算法基于峭度计算的流程图： ## ICA估计的主要方法 ##   通过极大化非高斯性来估计 通过极大似然性来估计 通过极小互信息来估计 通过张量的方法来估计 通过非线性分解和非线性PCA来估计 这里，我们只是讲了其中的一个基础方法之一，并不就是最好的方法。  ICA算法的思想可以用下面的公式来描述： ICA method = objective funtion &#43; optimization algorithm
 引用 [1]Hyvärinen A, Karhunen J, Oja E. Independent component analysis[M]. John Wiley &amp;amp; Sons, 2004. [2]Hyvärinen A, Oja E." />
-  <meta property="og:url" content="https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta property="og:url" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
 
 
 
@@ -49,8 +49,8 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/" />
-<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -76,18 +76,18 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://madneal.com/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
 
 
   
@@ -122,7 +122,7 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
     
     
   <header class="site-header">
-  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -143,7 +143,7 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
             
               is-active
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/">Home</a>
           </li>
       
         <li class="menu-item
@@ -157,12 +157,12 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
             
             
             ">
-            <a href="https://madneal.com/tags/">Tags</a>
+            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
-  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -206,7 +206,7 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
       
 
       <li class="social-item">
-        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -218,7 +218,7 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
       
 
       <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -312,14 +312,14 @@ ICA的起源可以来源于一个鸡尾酒会问题，我们假设三个观测�
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="tag">机器学习</span></a></li>
+          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="tag">机器学习</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="tag">统计数据</span></a></li>
+          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="tag">统计数据</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1826</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1839</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -376,7 +376,7 @@ ICA的起源可以来源于一个鸡尾酒会问题，我们假设三个观测�
   });
 </script>
 
-<script src="https://madneal.com/js/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
 <script>

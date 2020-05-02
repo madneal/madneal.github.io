@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Winform开发 on Neal&#39;s Blog</title>
-    <link>https://madneal.com/categories/winform%E5%BC%80%E5%8F%91/</link>
+    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/categories/winform%E5%BC%80%E5%8F%91/</link>
     <description>Recent content in Winform开发 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sun, 20 Dec 2015 13:23:21 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/categories/winform%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/categories/winform%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>installsheild2011打包程序internal build error 6213</title>
-      <link>https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/</link>
       <pubDate>Sun, 20 Dec 2015 13:23:21 +0000</pubDate>
       
-      <guid>https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/</guid>
       <description>今天打包一个安装程序，总是出现报错，internal build error -6213，然后搜遍都没有找到什么解决方案。看到一个帖子，说是因为installsheild里面的build的时候自动扫描.NET依赖库造成的原因，要把这个自动扫描功能给关掉，但是他说的在什么地方关说的不是很清楚，所以我一直找不到。 http://1978l.blog.163.com/blog/static/4494441620098704049756/原文帖子如下 后来找了半天，终于找到地方了。 如图1，图2所示，把components里面所有.NET scan at Build设置为none,这个可能是这个软件的bug把，我使用的是2011版本，免费的版本。 真心的，我实验室解决问题的能手，实验室这些妹子如果没有我，我都不知道她们该怎么活下去。</description>
     </item>
     
     <item>
       <title>剑指offer--字符串</title>
-      <link>https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
       <pubDate>Sat, 14 Nov 2015 14:49:14 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
       <description>C/C++中每个字符串都以字符&amp;rsquo;\0&amp;rsquo;作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C++把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
 int main() { char str1[] = &amp;quot;hello world&amp;quot;; char str2[] = &amp;quot;hello world&amp;quot;; char* str3 = &amp;quot;hello world&amp;quot;; char* str4 = &amp;quot;hello world&amp;quot;; if(str1 == str2) printf(&amp;quot;str1 and str2 are same.\n&amp;quot;); else printf(&amp;quot;str1 and str2 are not same.\n&amp;quot;); if(str3 == str4) printf(&amp;quot;str3 and str4 are same.\n&amp;quot;); else printf(&amp;quot;str3 and str4 are not same.\n&amp;quot;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&amp;rdquo;hello world&amp;rdquo;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&amp;rdquo;hello world&amp;rdquo;在内存中的地址就可以了。由于&amp;rdquo;hello world&amp;rdquo;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
 在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
@@ -35,10 +35,10 @@ String str = &amp;quot;hello&amp;quot;; str.ToUpper(); str.</description>
     
     <item>
       <title>剑指offer学习--实现单例模式</title>
-      <link>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Fri, 13 Nov 2015 12:48:17 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
       <description>只能生成一个实例的类是为了实现单例模式的类型。
 加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
 public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，.</description>
@@ -46,10 +46,10 @@ public sealed class Singleton { private Singelton() { } private static object sy
     
     <item>
       <title>实现combobox模糊查询的时候报错 InvalidArgument=“0”的值对于“index”无效</title>
-      <link>https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/</link>
       <pubDate>Sat, 02 May 2015 17:51:23 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/</guid>
       <description>因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
  List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); //绑定原始数据源 List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
 ************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp;amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp;amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)  我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。</description>
@@ -57,19 +57,19 @@ public sealed class Singleton { private Singelton() { } private static object sy
     
     <item>
       <title>如何将网络流转化为内存流 C#</title>
-      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</link>
       <pubDate>Tue, 28 Apr 2015 11:45:14 +0000</pubDate>
       
-      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</guid>
       <description>//将获取的文件流转化为内存流 public static MemoryStream ConvertStreamToMemoryStream(Stream stream) { MemoryStream memoryStream = new MemoryStream(); if (stream != null) { byte[] buffer = ReadFull(stream); if (buffer != null) { var binaryWriter = new BinaryWriter(memoryStream); binaryWriter.Write(buffer); } } return memoryStream; } public static byte[] ReadFull(Stream input) { byte[] buffer = new byte[16 * 1024]; using (MemoryStream ms = new MemoryStream()) { int read; while ((read = input.Read(buffer, 0, buffer.Length)) &amp;gt; 0) { ms.Write(buffer, 0, read); } return ms.</description>
     </item>
     
     <item>
       <title>datagridview里面的checkbox全选和取消全选</title>
-      <link>https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/</link>
       <pubDate>Wed, 22 Apr 2015 10:25:19 +0000</pubDate>
       
-      <guid>https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/</guid>
       <description> 全选 设置全选button，选中所有的checkbox
  private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i++) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;True&amp;quot;; } else continue; } }  取消全选 设置取消全选button，取消选中的所有checkbox
  private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i++) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;False&amp;quot;; } else continue; } }  </description>
@@ -77,10 +77,10 @@ public sealed class Singleton { private Singelton() { } private static object sy
     
     <item>
       <title>winform中进行post上传文件</title>
-      <link>https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</link>
       <pubDate>Fri, 17 Apr 2015 18:04:50 +0000</pubDate>
       
-      <guid>https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</guid>
       <description>winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
  private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &amp;quot;POST&amp;quot;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&amp;quot;md5data&amp;quot;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</description>
     </item>

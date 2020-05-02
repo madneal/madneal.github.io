@@ -34,7 +34,7 @@ Qradar Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 
 Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 QIDNAME(qid) 来获取事件名称，RULENAME(123) 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。
 下面就是我在使用过程中一些小经验：
 引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。" />
-    <meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
   
 
   
@@ -46,8 +46,8 @@ Qradar Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 
 Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 QIDNAME(qid) 来获取事件名称，RULENAME(123) 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。
 下面就是我在使用过程中一些小经验：
 引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。" />
-  <meta property="og:url" content="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" />
-  <meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
+  <meta property="og:url" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/img/avatar.jpg" />
 
 
 
@@ -55,8 +55,8 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" />
-<link rel="alternative" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="canonical" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -82,18 +82,18 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://madneal.com/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://madneal.com/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://madneal.com/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://madneal.com/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://madneal.com/css/bundle.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
 
 
   
@@ -128,7 +128,7 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
     
     
   <header class="site-header">
-  <img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
@@ -149,7 +149,7 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
             
               is-active
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/">Home</a>
           </li>
       
         <li class="menu-item
@@ -163,12 +163,12 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
             
             
             ">
-            <a href="https://madneal.com/tags/">Tags</a>
+            <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/">Tags</a>
           </li>
       
     </ul>
   </nav>
-  <img src="https://madneal.com/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
   <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
@@ -212,7 +212,7 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
       
 
       <li class="social-item">
-        <a href="https://madneal.com/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -224,7 +224,7 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
       
 
       <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -300,14 +300,14 @@ GROUP BY sourceip,EventName
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/siem"><span class="tag">Siem</span></a></li>
+          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/siem"><span class="tag">Siem</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>541</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>554</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -364,7 +364,7 @@ GROUP BY sourceip,EventName
   });
 </script>
 
-<script src="https://madneal.com/js/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
 <script>

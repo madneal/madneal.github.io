@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lucene on Neal&#39;s Blog</title>
-    <link>https://madneal.com/tags/lucene/</link>
+    <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/lucene/</link>
     <description>Recent content in Lucene on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Tue, 09 Oct 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://madneal.com/tags/lucene/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/tags/lucene/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>lucene 中 query 的实现</title>
-      <link>https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
       <description>Lucene 中的 query 支持多种形式，包括多种 query:
  TermQuery BooleanQuery WildcardQuery PhraseQuery PrefixQuery MultiPhraseQuery FuzzyQuery RegexpQuery TermRangeQuery PointRangeQuery ConstantScoreQuery DisjunctionMaxQuery MatchAllDocsQuery  通过不同的 query 实现需要的 query 来进行搜索，也可以将不同的 query 进行组合使用。这些 query 都是 Query 类的继承类。Query 类是一个抽象类，包含了一些基本方法的，而具体实现取决于具体的类。今天主要是想通过源码阅读来了解 RegexpQuery 的具体实现。
 RegexpQuery 的继承关系是 Query =&amp;gt; MultiTermQuery =&amp;gt; AutomatonQuery =&amp;gt; RegexpQuery，可见 RegexpQuery 的实现还依赖于 MultiTermQuery 以及 AutomatonQuery。MultiTermQuery 也是一个继承 Query 的抽象类。MultiTermQuery 也是需要通过继承来进行实现，可以通过 MultiTermQuery 来组合多个 term 的 query，另外一方面，</description>
