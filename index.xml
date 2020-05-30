@@ -7,22 +7,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://madneal.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Logstash 技巧之处理不同的 output</title>
+      <link>https://madneal.com/logshsh%E6%8A%80%E5%B7%A7%E4%B9%8B%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E7%9A%84output/</link>
+      <pubDate>Mon, 18 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/logshsh%E6%8A%80%E5%B7%A7%E4%B9%8B%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E7%9A%84output/</guid>
+      <description>之前在用 Logstash 遇到了一个棘手的小问题，一直没找到好的解决方案，后来找到了一个有用的插件，分享一下。场景是这样的，Logstash 有两个 output，一个是 output 到 Kafka，另外一个则是 ES。但是对于 Kafka，希望能够移除日志中的 @timestamp 字段，对于 ES 则希望能够进行保留。
+在 filter 里面，其实可以使用 mutate 插件来修改字段的，但是在 output 里面，我没有找到有什么办法可以来进行区分。这个问题困扰了很长时间，直到别人告诉我一个新的插件，clone。通过 clone 插件，可以将事件备份一份，并且</description>
+    </item>
+    
+    <item>
       <title>网络安全分析的瑞士军刀--zeek</title>
-      <link>https://madneal.com/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</link>
+      <link>https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</guid>
-      <description>Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
+      <guid>https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</guid>
+      <description>本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
+Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
 安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
 sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel  这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
 Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C++17 的语言特性。而一般镜像源默认的 cmake 版本是4+版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</description>
+依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.</description>
     </item>
     
     <item>
@@ -80,19 +91,6 @@ Kali: 10.10.16.61
 HayStack is an easy box in hack the box. But it does isn&amp;rsquo;t easy at all. It&amp;rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
 Information Enumeration As usual, nmap is utilized to detect detailed ports and services.
 # Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.</description>
-    </item>
-    
-    <item>
-      <title>Haystack - hack the box</title>
-      <link>https://madneal.com/haystack/</link>
-      <pubDate>Fri, 29 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/haystack/</guid>
-      <description>介绍 目标: 10.10.10.115(Linux)
-Kali: 10.10.16.61
-HayStack is an easy box in hack the box. But it does isn&amp;rsquo;t easy at all. It&amp;rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
-HayStack 在 HTB 里面的难度评级是简单，但其实它一点都不简单。在一堆西班牙语中找到用户名和密码真的好头痛。 对于 root 权限，你应该对 ELK 有基本的理解。因此，这台机器还是比较新颖的。随带提一句，前段时间出现的 Kibana RCE 漏洞就可以拿来利用。
-信息枚举 As usual, nmap is utilized to detect detailed ports and services.</description>
     </item>
     
     <item>
