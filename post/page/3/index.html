@@ -224,6 +224,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" class="post-link">如何写一个 burp 插件</a></h3>
+    <p class="post-meta">@Neal · Aug 31, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Burp 是 Web 安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
+如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
+ 配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 “Edit Configurations” 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
+ 命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/check-cve/" class="post-link">cve check</a></h3>
     <p class="post-meta">@Neal · Jul 4, 2019 · 2 min read</p>
   </header>
@@ -376,29 +394,6 @@ POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-A
 HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
-    <p class="post-meta">@Neal · Feb 2, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：4 Tips for Better API Security in 2019
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 
-无论是在科技媒体亦或是分析报告中，2018年 “API”以及“安全”变得越来越常见，-或者更糟糕，“API” 以及“违规”一起出现在头条中。
-APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
-但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
-实际上，API 安全的要求正在成为一种共识：
- 在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
- OWASP Top 10是一个备受推崇的 Web 安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
   </footer>
 </article>
 
