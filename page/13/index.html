@@ -217,6 +217,19 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/wwdc2015/" class="post-link">WWDC2015</a></h3>
+    <p class="post-meta">@Neal · Jun 9, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary"> ios9功能  Proactive：整合siri、联系人、日历以及第三方应用。 Notes： 可调节字体、插图片、支持手写注记等功能。 Maps： 加入新公交试图，Transit提供公交系统和换乘细节。 News：聚合新闻应用，可根据西兴趣选择不同的新闻源。 电池续航：充满殿后设备使用时间延长1小时。 安装包更小，只有1.3G。 用户隐私：数据只会保存在本地，不会上传到云。  OS X EI Capitan  新增多种触控板手势。 safari增加固定标签页功能。 窗口自适应功能，不必手动调整窗口大小和拖动窗口。 Spotlight能够理解日常语言。 Metal首次引入图形管理接口。 swift2将在今年年底开源。 split view将自动并排两个app共用一个屏幕。 邮箱app增强全屏显示功能。  ipad最新功能  quick type键盘 传说中的分屏 支持“画中画”功能  </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/wwdc2015/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/" class="post-link">道路模型--linear-parabolic model</a></h3>
     <p class="post-meta">@Neal · May 18, 2015 · 1 min read</p>
   </header>
@@ -346,22 +359,6 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
  private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &#34;POST&#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&#34;md5data&#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" class="post-link">sqlite操作</a></h3>
-    <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。
-sqlite3 .separator &#39;,&#39; .import filename tablename  导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
-datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(‘now’,‘localtime’)。
-database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/">Read More →</a>
   </footer>
 </article>
 

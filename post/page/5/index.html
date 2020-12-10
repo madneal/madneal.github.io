@@ -224,6 +224,30 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/" class="post-link">Elasticsearch 团队开发章程</a></h3>
+    <p class="post-meta">@Neal · Jun 16, 2018 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：Elasticsearch Team Development Constitution
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 前言 我们作为 Elasticsearch 核心开发人员团队希望尽可能快地向可靠，健壮，安全，可扩展且易于使用的系统迁移。我们希望为创新而努力，取代传统的构造和功能，删除脆弱的代码，并致力于改善用户体验，同时在我们快速变化的同时保持用户增长。
+对于我们来说，拥有一个团队的前进方向的共识是非常重要的，甚至更重要的是团队为什么要走上一条特定的路。当 Elasticsearch 创立之初时，它具有无尽的灵活性，易用性和丰富的 API。我们这帮年轻的团队成立了一家公司，并且突然用户数井喷式发展。支持组织几乎无法满足越来越多的客户，这是幸福的烦恼。然而，随着用户数量的增长，事情发生的可能性也越来越大，不幸的是，这比我们聘用支持工程师的速度要快得多。我们了解到，大多数灵活性来自宽松处理，从大多数情况下可行的功能，但不是全部。例如，用户可以使用请求发送的脚本基本上是一个远程代码执行引擎，如果出错，它是致命的。即使最基本的功能，比如设置，也非常灵活，但非常脆弱。在没有单位的情况下指定一个数字是很好的，除非许多用户不知道默认单位是什么。我们只是试图做正确的事情，结果证明并不是总是对的。
+现在我们处于不同的位置。我们的用户基数比 2013 年的用户基数大得多，但我们的支持机构并没有以同样的速度增长。是的，我们处理比 2013 年更多的支持案例，但这在我们当时的系统中是不可能的。现在我们已经从一个脆弱而灵活的系统转向了范围较窄的软件。我们定义了更多的边界：更严格的输入验证，允许我们对权限进行细粒度控制的安全模型，甚至还有一个插件模型，可以以极大的灵活性来添加风险更高的功能。
+但等等，我们还差得远呢！仍然有无穷无尽的问题会造成致命的后果。聚合可以通过一个请求来撑爆服务器。用户感觉需要运行 30&#43;GB 堆的 Elasticsearch。我们仍然提供了 27 种指定布尔值的不同方式。这份清单还有其它内容…
+我们对我们的用户，支持组织，云托管团队和第三方提供商负有巨大责任，提供可靠，稳健，安全且易于使用的系统。出于这个原因，我们都应该努力创新，取代传统的构造和功能，删除脆弱的代码，并改善用户体验。我们与其他公司相比的优势是我们的创新，创新需要速度。我们必须在留住用户的同时下采取行动并接受变革创新。
+以下章节是用于设计，重构或从 Elasticsearch 代码库中删除代码的原则和指导原则的集合。这些点是无序的，大部分是未分类的，应该被看作是 Elasticsearch 团队内软件开发的一个组成部分。
+设计特性  *过程优于结果*。 我们多年来一直遵循这种方法，这使我们能够随着时间的推移做出巨大的变化，而不会因大量的请求而产生巨大的响应。例如，补齐建议程序在 Elasticsearch 的早期版本中添加，而不支持实时更新和特定的删除。这意味着删除 Elasticsearch 中的文档不会立即反映在建议中。这是一个很难的问题，大约三年后，我们增加了对 Lucene 建议器和 Elasticsearch 的 bitset 过滤器的支持。与此同时，对于许多用户来说，这是一个可以接受的解决方案，修复了许多错误，并朝着基于文档的建议器发展。这就是过程优于结果。
+ *为今天设计！谨慎使用抽象*。 计算机科学教授教育学生以灵活性和信息隐藏的名义广泛使用抽象层。当然 Elasticsearch 广泛使用抽象; 没有任何涉及数百万行代码的项目可以以其他方式进行工作并生存。但经验表明，过度或过早的抽象可能与过早优化一样有害。抽象应该用于所需的级别，不要再进一步。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" class="post-link">理解 OutOfMemoryError 异常</a></h3>
     <p class="post-meta">@Neal · May 26, 2018 · 2 min read</p>
   </header>
@@ -383,28 +407,6 @@ DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %
 后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" class="post-link">出去就餐并且理解Express.js的基本知识</a></h3>
-    <p class="post-meta">@Neal · Nov 12, 2017 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端……你可能并不会很顺利。
-是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
-当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
-有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
-下面是我们将会涉及到的四个关键部分：
- The require statements Middleware Routing App.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/">Read More →</a>
   </footer>
 </article>
 
