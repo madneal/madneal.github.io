@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://madneal.com/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>从一个开放重定向绕过到apache/dubbo的bug</title>
+      <link>https://madneal.com/redirect/</link>
+      <pubDate>Sun, 03 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/redirect/</guid>
+      <description>近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题。
+之前，有给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，业务代码类似如下。
+public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.</description>
+    </item>
     
     <item>
       <title>寻找你的第一个漏洞</title>
