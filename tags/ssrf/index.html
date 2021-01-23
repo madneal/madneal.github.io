@@ -220,8 +220,23 @@
     </header>
     
     
-      <p>There's nothing here.<br>Create an interesting post with the command:</p>
-      <p><code>$ hugo new post/hello-world.md</code></p>
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">一个开放重定向绕过引发的血案</a></h3>
+    <p class="post-meta">@Neal · Jan 3, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
+  </footer>
+</article>
+
+      
     
     
   </section>
