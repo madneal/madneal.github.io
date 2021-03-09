@@ -223,6 +223,23 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript 能否修改 Referer 请求头</a></h3>
+    <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
+其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求头，当然这一方面也是出于安全方面的考虑。当然除了 Referer 请求头之外，还有其它请求头也被禁止通过 JavaScript 操作。
+Referer 请求头属于 Forbidden header，这种请求头无法通过程序来修改，浏览器客户端一般会禁止这种行为。以 Proxy- 和 Sec- 开头的请求头都属于 Fobidden header name，还包括以下这些请求头：
+Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via  可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
+可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
     <p class="post-meta">@Neal · Mar 7, 2021 · 1 min read</p>
   </header>
@@ -394,22 +411,6 @@ MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyB
 public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="post-link">Kibana 任意代码执行漏洞</a></h3>
-    <p class="post-meta">@Neal · Oct 17, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">今日，有人公开了 Kibana 任意代码执行漏洞（CVE-2019-7609）的 POC。这个漏洞的主要原理是因为 Kibana 中的 Timelion 中具有原形链污染漏洞，因此可以导致指定变量的原型链污染，通过传递 NODE 环境变量参数，利用 Kibana 的 Canvas 会创建新进程的特性可以达到远程执行命令的效果。
-在本地尝试搭建环境复现，忙活了半天，一开始尝试的是 6.4.2 版本的 Kibana。尝试执行命令的时候，发现一直没有效果，才发现这个漏洞的利用还有一个重要的环节。在导致原型链污染之后，还需要点击 Canvas 菜单，因为点击 Canvas 菜单，Kibana 会尝试创建一个新的进程，从而可以达到远程命令执行的效果。不过在 Kibana 6.5 版本之前，Canvas 不是默认安装在 Kibana 中的。可以通过 kibana-plugin 去安装 Canvas 插件，不过我后来还是选择使用 6.5.4 版本，同时注意相应 elasticsearch 也需要升级到 6.5.4 版本。最后在使用反弹命令的时候，遇到了一点问题，可能与机器系统版本相关，可以多尝试几种命令。
-漏洞的利用过程其实不是特别复杂，注意几点即可：
- 漏洞的影响的版本是 5.6.15 版本以及 6.6.1 版本以前。 Kibana 需要安装了 Canvas 插件。 目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。  原型链攻击 如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 proto 属性直接去修改 prototype。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 

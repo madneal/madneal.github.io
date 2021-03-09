@@ -226,6 +226,23 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript 能否修改 Referer 请求头</a></h3>
+    <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
+其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求头，当然这一方面也是出于安全方面的考虑。当然除了 Referer 请求头之外，还有其它请求头也被禁止通过 JavaScript 操作。
+Referer 请求头属于 Forbidden header，这种请求头无法通过程序来修改，浏览器客户端一般会禁止这种行为。以 Proxy- 和 Sec- 开头的请求头都属于 Fobidden header name，还包括以下这些请求头：
+Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via  可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
+可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
     <p class="post-meta">@Neal · Mar 7, 2021 · 1 min read</p>
   </header>
@@ -421,27 +438,6 @@ Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，
 依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
-    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp; x = 0, x = 0</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
   </footer>
 </article>
 
