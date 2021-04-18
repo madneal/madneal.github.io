@@ -223,6 +223,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" class="post-link">MyBatis 和 SQL 注入的恩恩怨怨</a></h3>
+    <p class="post-meta">@Neal · Oct 30, 2019 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于安全客平台
+MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
+起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
+public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E7%99%BE%E5%AE%9D%E7%AE%B1/" class="post-link">1024献礼，全栈工程师进击</a></h3>
     <p class="post-meta">@Neal · Oct 20, 2019 · 2 min read</p>
   </header>
@@ -368,24 +384,6 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
    port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/cronos-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
-    <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
-值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
-CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
-下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
-HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
   </footer>
 </article>
 
