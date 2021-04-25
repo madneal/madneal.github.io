@@ -223,23 +223,6 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">GShark 重大重构重新发布</a></h3>
-    <p class="post-meta">@Neal · Apr 17, 2021 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
-架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
-所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
- 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
-rm -rf ./releases/* cd web npm run build cd ../ # build for mac cd server GOOS=darwin GOARCH=amd64 go build cd ../releases mkdir gshark_darwin_amd64 cd gshark_darwin_amd64 mv ../../server/gshark . cp -rf ../../server/resource .</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gshark/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript能否修改Referer请求头</a></h3>
     <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
   </header>
