@@ -219,6 +219,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" class="post-link">matlab调试技巧</a></h3>
+    <p class="post-meta">@Neal · Oct 13, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Matlab的调试总体分为，直接调试和间接调试。 1.直接调试： （1）去掉句末的分号； （2）单独调试一个函数：将第一行的函数声明注释掉，并定义输入量，以脚本方式执行 M 文件； （3）适当地方添加输出变量值的语句； （4）添加keyboard命令；
+2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try…catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try…catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try…catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/" class="post-link">柯西分布</a></h3>
     <p class="post-meta">@Neal · Oct 12, 2015 · 1 min read</p>
   </header>
@@ -344,25 +358,6 @@ MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成�
   <p class="post-summary">IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。 1. 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 2. 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 3. IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 4. 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 5. 每个读写操作都是请求 IndexDB随时随地都在使用请求 6. 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 7. NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/markdown%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99/" class="post-link">markdown语法规则</a></h3>
-    <p class="post-meta">@Neal · Oct 6, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">标题 标题是每篇文章最常用的格式，在markdown中如果要定义标题的话，只要在这段文字之前加#号就可以了。 # 一级标题 ## 二级标题 ### 三级标题 以此类推，总共六级标题，建议在#号之后加上一个空格，这是标准的markdown语法。 列表 列表主要分为有序列表和无序列表。只需要在文字前加上-或*即可变成无序列表，有序列表直接在文字前加上1. 2. 3. 符号和要在文字之前加一个空格就可以了。 * 1 * 2 * 3 *
- 1 2 3  引用 如果你要饮用一段话的话，那么你只要在引用的文字前加上&gt;这种尖括号就可以了 &gt; 这是我要引用的文字
-图片和链接 插入链接和图片的方法很像，区别在于一个感叹号 图片为：![](){ImgCap}{/ImgCap} 链接为：[]()
-粗体和斜体 粗体和斜体也很简单，用两个*包含一段文本就是粗体的语法，用一个*包含一段文本就斜体的语法。 这是粗体 这是粗体
-表格 |Tables | are | cool| |——- | ——- | —–| |col1 | clo2 | col3 |
-分割线 分割线的语法只需要三个*号就可以了 分割线上
-分割线下</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/markdown%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99/">Read More →</a>
   </footer>
 </article>
 
