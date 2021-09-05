@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>富文本场景下的 XSS</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; &#43; &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="富文本场景下的 XSS" />
+    <meta name="twitter:description" content="富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; &#43; &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
+    <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="富文本场景下的 XSS" />
+  <meta property="og:description" content="富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; &#43; &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
+  <meta property="og:url" content="https://madneal.com/post/stored-xss/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://madneal.com/post/stored-xss/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">富文本场景下的 XSS</h1>
+      <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 <code>v-html</code> 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。</p>
+
+<p>前端的过滤方案，可以尝试使用开源的 <code>[js-xss](https://github.com/leizongmin/js-xss)</code>。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。</p>
+
+<pre><code>// nodejs 中使用
+var xss = require(&quot;xss&quot;);
+var html = xss('&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;');
+console.log(html);
+</code></pre>
+
+<pre><code>// 浏览器中使用
+&lt;script src=&quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  // apply function filterXSS in the same way
+  var html = filterXSS('&lt;script&gt;alert(&quot;xss&quot;);&lt;/scr' + &quot;ipt&gt;&quot;);
+  alert(html);
+&lt;/script&gt;
+</code></pre>
+
+<p>一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xssFilter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">xss</span>.<span style="color:#a6e22e">FilterXSS</span>({
+    <span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
+});
+<span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xssFilter</span>.<span style="color:#a6e22e">process</span>(<span style="color:#e6db74">&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;</span>);
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xssFilter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">xss</span>.<span style="color:#a6e22e">FilterXSS</span>({
+  <span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">whiteList</span><span style="color:#f92672">:</span> {
+      <span style="color:#a6e22e">position</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/^fixed|relative$/</span>,
+      <span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+      <span style="color:#a6e22e">left</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+    },
+  },
+});
+<span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xssFilter</span>.<span style="color:#a6e22e">process</span>(<span style="color:#e6db74">&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;</span>);
+</code></pre></div>
+<p>其实 js-xss 的原理并不是很复杂，如果去扒一下源码，原理其实主要就是实现标签和属性的白名单过滤，这样的方案简单有效。因为默认配置了大部分标签以及属性的白名单方案，所以一般可以做到开箱即用，当然如果有定制化的需求需要进一步定制化函数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getDefaultWhiteList</span>() {
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;target&#34;</span>, <span style="color:#e6db74">&#34;href&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>],
+    <span style="color:#a6e22e">abbr</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;title&#34;</span>],
+    <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">area</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;shape&#34;</span>, <span style="color:#e6db74">&#34;coords&#34;</span>, <span style="color:#e6db74">&#34;href&#34;</span>, <span style="color:#e6db74">&#34;alt&#34;</span>],
+    <span style="color:#a6e22e">article</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">aside</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">audio</span><span style="color:#f92672">:</span> [
+      <span style="color:#e6db74">&#34;autoplay&#34;</span>,
+      <span style="color:#e6db74">&#34;controls&#34;</span>,
+      <span style="color:#e6db74">&#34;crossorigin&#34;</span>,
+      <span style="color:#e6db74">&#34;loop&#34;</span>,
+      <span style="color:#e6db74">&#34;muted&#34;</span>,
+      <span style="color:#e6db74">&#34;preload&#34;</span>,
+      <span style="color:#e6db74">&#34;src&#34;</span>,
+    ],
+    <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">bdi</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;dir&#34;</span>],
+    <span style="color:#a6e22e">bdo</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;dir&#34;</span>],
+    <span style="color:#a6e22e">big</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">blockquote</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;cite&#34;</span>],
+    <span style="color:#a6e22e">br</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">caption</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">center</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">cite</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">col</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>],
+    <span style="color:#a6e22e">colgroup</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>],
+    <span style="color:#a6e22e">dd</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">del</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;datetime&#34;</span>],
+    <span style="color:#a6e22e">details</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;open&#34;</span>],
+    <span style="color:#a6e22e">div</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">dl</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">dt</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">em</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">figcaption</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">figure</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">font</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;color&#34;</span>, <span style="color:#e6db74">&#34;size&#34;</span>, <span style="color:#e6db74">&#34;face&#34;</span>],
+    <span style="color:#a6e22e">footer</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">h1</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">h2</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">h3</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">h4</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">h5</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">h6</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">header</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">hr</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">i</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">img</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;src&#34;</span>, <span style="color:#e6db74">&#34;alt&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;height&#34;</span>],
+    <span style="color:#a6e22e">ins</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;datetime&#34;</span>],
+    <span style="color:#a6e22e">li</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">mark</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">nav</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">ol</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">p</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">pre</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">section</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">small</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">span</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">sub</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">summary</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">sup</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">strong</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">strike</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">table</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;border&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">tbody</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">td</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;colspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">tfoot</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">th</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;colspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">thead</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">tr</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+    <span style="color:#a6e22e">tt</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">u</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">ul</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">video</span><span style="color:#f92672">:</span> [
+      <span style="color:#e6db74">&#34;autoplay&#34;</span>,
+      <span style="color:#e6db74">&#34;controls&#34;</span>,
+      <span style="color:#e6db74">&#34;crossorigin&#34;</span>,
+      <span style="color:#e6db74">&#34;loop&#34;</span>,
+      <span style="color:#e6db74">&#34;muted&#34;</span>,
+      <span style="color:#e6db74">&#34;playsinline&#34;</span>,
+      <span style="color:#e6db74">&#34;poster&#34;</span>,
+      <span style="color:#e6db74">&#34;preload&#34;</span>,
+      <span style="color:#e6db74">&#34;src&#34;</span>,
+      <span style="color:#e6db74">&#34;height&#34;</span>,
+      <span style="color:#e6db74">&#34;width&#34;</span>,
+    ],
+  };
+}
+</code></pre></div>
+<p>另外前端过滤的时机一般是选择数据在页面渲染之前。在 vue 中，选择在 <code>created()</code> 做过滤即可。不过在 JS 中有一种绕过过滤的方案，就是在过滤函数之前让 JS 报错，那么这样过滤函数就不会执行了，从而导致绕过。</p>
+
+<p>这么看来，在数据储存之前，后端做过滤也不失为一个稳妥的方案。因为公司是以 golang 为主的技术栈，就讨论一下 golang 方面的技术方案。<a href="https://github.com/microcosm-cc/bluemonday">bluemonday</a> 是一款 golang 的 HTML 过滤器，相对于 js-xss 来说，这个库的可定制性更高。</p>
+
+<p>基于默认的过滤策略：</p>
+
+<pre><code>Hello &lt;STYLE&gt;.XSS{background-image:url(&quot;javascript:alert('XSS')&quot;);}&lt;/STYLE&gt;&lt;A CLASS=XSS&gt;&lt;/A&gt;World
+</code></pre>
+
+<p>会被过滤为</p>
+
+<p><code>Hello World</code></p>
+
+<p>而对于：</p>
+
+<pre><code>&lt;a href=&quot;http://www.google.com/&quot;&gt;
+  &lt;img src=&quot;https://ssl.gstatic.com/accounts/ui/logo_2x.png&quot;/&gt;
+&lt;/a&gt;
+</code></pre>
+
+<p>大部分内容不会变化，只是给 a 标签增加了一个 rel 属性，更安全。</p>
+
+<pre><code>&lt;a href=&quot;http://www.google.com/&quot; rel=&quot;nofollow&quot;&gt;
+  &lt;img src=&quot;https://ssl.gstatic.com/accounts/ui/logo_2x.png&quot;/&gt;
+&lt;/a&gt;
+</code></pre>
+
+<p>默认的策略使用 bluemonday 非常方便：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+<span style="color:#f92672">import</span> (
+  <span style="color:#e6db74">&#34;fmt&#34;</span>
+  <span style="color:#e6db74">&#34;github.com/microcosm-cc/bluemonday&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+  <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bluemonday</span>.<span style="color:#a6e22e">UGCPolicy</span>()
+  <span style="color:#a6e22e">html</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Sanitize</span>(<span style="color:#e6db74">&#34;&lt;a onblur=&#34;</span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">secret</span>)<span style="color:#e6db74">&#34; href=&#34;</span><span style="color:#a6e22e">http</span>:<span style="color:#75715e">//www.google.com&#34;&gt;Google&lt;/a&gt;&#34;)
+</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">html</span>)
+}</code></pre></div>
+<p>另外定制性真的特别强大，语义性好，傻瓜式入门，可以便捷地自定义过滤策略。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bluemonday</span>.<span style="color:#a6e22e">NewPolicy</span>()
+<span style="color:#75715e">// 标签白名单
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElements</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;strong&#34;</span>)
+<span style="color:#75715e">// 正则表达式白名单
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElementMatch</span>(<span style="color:#a6e22e">regex</span>.<span style="color:#a6e22e">MustCompile</span>(<span style="color:#e6db74">&#34;^my-element-&#34;</span>))</code></pre></div>
+<p>其实从原理上来说，bluemonday 与 js-xss 并没有本质的区别，主要就是基于标签和属性的过滤，可以基于自己的技术场景去选择。不过记得一点是两种方案过滤时机的选择。</p>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://s2.ax1x.com/2019/08/19/m1jSLd.jpg" alt="m1jSLd.jpg">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/web-%E5%AE%89%E5%85%A8"><span class="tag">Web 安全</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/xss"><span class="tag">XSS</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/js"><span class="tag">JS</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/go"><span class="tag">GO</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2021 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
