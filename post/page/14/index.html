@@ -226,6 +226,19 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/" class="post-link">道路模型--linear-parabolic model</a></h3>
+    <p class="post-meta">@Neal · May 18, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform”,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。 好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示： 这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下： 这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出 因为在xm两边的函数值是相等的，并且导数也是相等的。 从而我们就能得到下面的公式： 这样我们可以把c和e用别的变量来表达 因此我们可以把最终的道路模型参数用下面的函数来表达 这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。 Reference Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/" class="post-link">常用颜色的RGB分布</a></h3>
     <p class="post-meta">@Neal · May 10, 2015 · 1 min read</p>
   </header>
@@ -358,20 +371,6 @@ datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获�
 database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/iplimage-versus-mat/" class="post-link">Iplimage versus Mat</a></h3>
-    <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary"> 我们可能经常面临这样的困惑，Iplimage和Mat这两种数据结构，我们应该用哪一种数据结构。 Iplimage一开始就存在opencv库之中，他来源于Intel的另外一个函数库Intel Image Processing Library(IPL)，这是一种非常重要的数据结构。在经典书籍里面的sample用的基本都是Iplimage这个数据结构。但是这是一种C风格的数据结构，你必须为他分配以及释放内存。 Mat则是一种新的数据结构，越来越多的人也在使用这种数据结构了，因为它是面向对象的。所以我们不需要自己来为它管理内存。它是通过计数的方式来进行引用，如果它的引用计数为0的话，那么它就会自动释放内存。 老实说，用什么数据结构，我也不知道。因为我觉得有些方法，Mat数据结构还不具备，有的方法只有运用Iplimage才可以。
-将Iplimage转化为Mat IplImage* ipl; Mat m = cvarrToMat(ipl);  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/iplimage-versus-mat/">Read More →</a>
   </footer>
 </article>
 
