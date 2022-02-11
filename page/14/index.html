@@ -219,6 +219,23 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/" class="post-link">PCA算法和实例</a></h3>
+    <p class="post-meta">@Neal · Jun 20, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">PCA算法 算法步骤： 假设有m条n维数据。 1. 将原始数据按列组成n行m列矩阵X 2. 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3. 求出协方差矩阵C=1/mXXT 4. 求出协方差矩阵的特征值以及对应的特征向量 5. 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6. Y=PX即为降维到k维后的数据
+实例 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
+然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2⁄5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：
+因此我们的矩阵P是： 可以验证协方差矩阵C的对角化： 最好我们用P的第一行诚意数据矩阵，就得到了降维后的数据表示： 降维后的投影结果如下图： PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同的正交方向上没有相关性。 因此，PCA也存在一些限制，例如它可以很好地解除线性相关，但是对于高阶相关性就没有办法了。对于存在高阶相关性的数据，可以考虑Kernel PCA,通过Kernel将非线性相关转化为线性相关。另外，PCA假设数据各特征分布在正交方向上，如果在非正交方向上存在几个方差较大的方向，PCA的效果就大打折扣。 PCA是一种无参数技术，也就是说面对同样的数据，如果不考虑清晰，谁来做结果都一样，没有主观参数的介入，所以PCA便于通用实现，但是本身没有个性化的优化。
+本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/wwdc2015/" class="post-link">WWDC2015</a></h3>
     <p class="post-meta">@Neal · Jun 9, 2015 · 1 min read</p>
   </header>
@@ -347,20 +364,6 @@ ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立
  边缘像素提取 我们使用Canny边缘检测来获得边缘映射和边缘定位映射。选择方差σ = 1 并且模板的尺寸是9*1在X方向和Y方向上进行高斯卷积。边缘映射是通过一个合适的阈值处理得到的结果。在图表1中，图b是通过Canny边缘检测得到的边缘映射，图c则是边缘定位映射。  通过霍夫变化检测直线 检测到的边缘点将被用于对直线参数空间中可能的存在的线进行投票。图像被水平地分为几个部分，如图2a所示，为了适应因为道路弯曲从而导致道路消失点的变化。图像部分自下而上高度越来越小。每个图像分割部分都有它们自己的直线参数空间，每个图像分割部分中边缘点分别为可能的直线进行投票。通过对于规范化后的累加空间的阈值处理，直线分割最终能够在每一个图像分割部分中检测出来。  地平线和消失点检测 每一个图像分割部分中检测到的直线都是成对出现的，任意一队直线的相交部分会为另外一个霍夫空间中的消失点进行投票。投票的权重是根据最后一步产生的成对直线的规范化累加值决定的。这个过程在每个图像分割部分中分别重复，但是会在相同的霍夫空间中投票。 霍夫空间中对于每一列的投票会归总起来从来检测可能的消失点。获得投票最多的一行将会被选择座位地平线在图像平面中，如下图所示： 对于每个图像分割部分来说，它的消失点由地平线附近投票最多的点所决定。所有检测到的消失点可以再图4b中看到。注意一点，对于图像部分5，没有消失点存在，因为在这个图像分割部分并没有检测到直线。  根据检测的道路线估计道路中间线的参数k 对于消失点进行投票的直线被认为是每个图像分割部分中道路线。从图像最下面的图像分割部分往上，挑选出在各个图像分割部分中的左右两边挑选出最接近去中间一列的检测到的道路线。如果这两条道路线在这个图像分割部分中并不存在，这个过程就会在更高的图像分割部分中进行，知道获得需要的道路线。图6表示两条直线L1和L2在图像分割部分4中，因为没有直线存在图像分割部分5中。 然后连接图像分割部分4中的消失点和P-l4和P-r4的中点P-m4（直线L1和直线L2的相交的部分） 参数k可以通过以下公式进行估计： 对于图7中中间线的估计的例子如下所示： 从图像分割部分4开始，因为图像分割部分5中不存在消失点，我们假设这个部分的消失点跟在分割部分4中的消失点。延伸通过vp4和P-m4交于图像分割部分5的P-m5点。同样的，我们在图像分割部分3中我们也能够检测到消失点。直线（vp3-P-m3)交于图像分割部分2的底部的P-m2处。同样的道理，适用于以上的部分 通过构建道路中间线，通过参数k和道路中间线我们可以估计处道路的两条边缘线，图8给出了例子  计算道路模型的控制点来接近检测的道路中间线 可以利用很多方法来计算B-spline中的控制点通过中间线。因为B-spline后面的部分会准确地逼近道路边缘，这里我们只是粗略地使用B-spline来接近检测到的道路中间线。 我们是通过使用3个不同的控制点来构成两个部分的B-spline。为了让B-spline通过第一个和最后一个控制点，我们使用三倍的第一个和最后一个控制点。因此事实上一共有7个控制点，3个第一个控制点和3个最后一个控制点都是相同的。 我们首先选择P-m0和P-m5分别代表道路模型中的第一个控制点Q0和最后一个控制点Q2.节点P1的选择取决于图9中β1和β2的值。如果β1和β2的值不等于0，我们则选择P-m作为Q1。即P1=P-m，P-m是P-m1和P-m2的中点。如果β1为0，而β2不等于0.我们则选择P-m1作为P1(Q1).其他的情况，我们则选择P-m2作为P1(Q1).因此控制点Q1可以通过下面的公式计算： 实验结果   引用： Wang, Yue, Eam Khwang Teoh, and Dinggang Shen. “Lane detection and tracking using B-Snake.” Image and Vision computing 22.4 (2004): 269-280.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-link">winform中进行post上传文件</a></h3>
-    <p class="post-meta">@Neal · Apr 17, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
- private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &#34;POST&#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&#34;md5data&#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">Read More →</a>
   </footer>
 </article>
 

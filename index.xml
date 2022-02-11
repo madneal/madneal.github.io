@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 21 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Jan 2022 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://madneal.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>文武双全，看我如何过CISSP</title>
+      <link>https://madneal.com/post/cissp-domain1/</link>
+      <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/cissp-domain1/</guid>
+      <description>2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
+考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
+备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
+OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
+ Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</description>
+    </item>
     
     <item>
       <title>安全运营平台从0到1</title>
@@ -30,15 +43,6 @@
 事件管理 事件管理和漏洞管理也不太相同，所以事件管理的流程会被单独作为另外一个流程来进行管理。事件不同于漏洞，它往往也没有上文提到的各种的环境。事件的处理往往也是一个点对点的过程，安全工程师确认了安全事件，将事件上报给对应的处理人，处理人处理完毕，安全工程师验证没有问题，安全事件就可以关闭了。目前的安全事件的功能还是比较弱化的，主要还是用于事件的处理流程。不过未来事件流程最重要的方面是和其它安全平台的对接，包括与 SIME、IDS 等安全产品对接，并且能够将事件直接分发给对应的处理人，提高事件的处理效率。
 安全能力 作为安全运营平台，SAST 以及 DAST 也是作为应用安全重要的补充能力。SAST 以及 DAST 市面上都有很多成熟的产品，也有很多公司采取自研方案。对于这两种产品最重要的能力就是数据的打通，如何将这两种产品扫描出来的漏洞直接转化为实际有效的漏洞。前期对于这种漏洞比较好的处理方式，可能是先同步数据，然后安全运营平台作为一个审核平台，这些数据经过安全工程师的审核和加工，有效的数据将转化为漏洞进行上报。另外一个重要的方面就是组件成分分析，这也是近几年非常火的一个概念。因为目前的软件开发都是大概率依赖于第三方组件，不管是商业的还是开源的、前端的、后端的以及各种语言的，这些组件的风险都有可能会对你自己应用带来风险。做好应用的组件分析，知道应用的依赖关系，能够快速地在紧急安全漏洞爆发初做到较快的响应处置。当然，这些都建立在资产都能够与这些信息打通的基础上，这样才能做联动响应，根据资产去盘点漏洞，同时也能够根据漏洞去看哪些资产受影响。
 安全运营平台除了这些大的方面，其实也有很多细节方面需要考虑。比如像漏洞级别的定级，不同级别的漏洞对应着不同的威胁程度，那么其要求的修复时间也是不相同的。对于漏洞的响应时间应该是按照自然日来算的，因为攻击者并不会因为是休息日就鸣金收兵的。对于漏洞的定级，其实业界有一个比较成熟的定级模型，叫做 DREAD，即：</description>
-    </item>
-    
-    <item>
-      <title>CISSP备考笔记--安全与风险管理</title>
-      <link>https://madneal.com/cissp-domain1/</link>
-      <pubDate>Mon, 06 Sep 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/cissp-domain1/</guid>
-      <description>本文作为 CISSP 备考笔记系列的第一篇，主要讲解笔者在备考 CISSP 的一些经验，本文主要针对第一个 domain，即安全与风险管理。安全与风险管理作为 CISSP 占比最多的 domain 之一，其重要性不言而喻，其在企业中的实际作用也是非常重要的。</description>
     </item>
     
     <item>
