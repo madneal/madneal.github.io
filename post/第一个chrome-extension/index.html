@@ -22,14 +22,6 @@ var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i)
 
   
   
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@gohugoio" />
-    <meta name="twitter:title" content="第一个chrome extension" />
-    <meta name="twitter:description" content="如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
-{ &amp;quot;manifest_version&amp;quot;: 2, &amp;quot;name&amp;quot;: &amp;quot;弹幕增强&amp;quot;, &amp;quot;description&amp;quot;: &amp;quot;This extension provides you a good experience of sending danmu at douyu&amp;quot;, &amp;quot;version&amp;quot;: &amp;quot;1.0&amp;quot;, &amp;quot;browser_action&amp;quot;: { &amp;quot;default_icon&amp;quot;: &amp;quot;icon.png&amp;quot;, &amp;quot;default_popup&amp;quot;: &amp;quot;popup.html&amp;quot; }, &amp;quot;content_scripts&amp;quot; : [{ &amp;quot;matches&amp;quot;: [ &amp;quot;http://*/*&amp;quot;, &amp;quot;https://*/*&amp;quot; ], &amp;quot;js&amp;quot; : [&amp;quot;app.js&amp;quot;], &amp;quot;run_at&amp;quot;: &amp;quot;document_end&amp;quot; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&amp;rdquo;里面定义的是extension的相关内容，&amp;rdquo;default_icon&amp;rdquo;即是插件的图标，&amp;rdquo;default_popup&amp;rdquo;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。&amp;rdquo;content_script&amp;rdquo;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&amp;rdquo;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，&amp;rdquo;content_script&amp;rdquo;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script&amp;rdquo;:
-var times = 1000; for (var i = 0; i &amp;lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console." />
-    <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-  
 
   
   <meta property="og:type" content="article" />
@@ -286,7 +278,7 @@ for (var i = 0; i &lt; times; i ++) {
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1804</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1816</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
