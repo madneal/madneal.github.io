@@ -211,6 +211,21 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" class="post-link">利用tesseract-ocr进行验证码识别</a></h3>
+    <p class="post-meta">@Neal · Apr 26, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
+convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif  这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
+tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" class="post-link">模拟.net post请求属性</a></h3>
     <p class="post-meta">@Neal · Apr 25, 2016 · 1 min read</p>
   </header>
@@ -378,20 +393,6 @@ InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[
 国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/" class="post-link">latex如何给表格添加注释</a></h3>
-    <p class="post-meta">@Neal · Dec 10, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
-\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/">Read More →</a>
   </footer>
 </article>
 
