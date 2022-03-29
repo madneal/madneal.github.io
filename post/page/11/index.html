@@ -220,6 +220,19 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/" class="post-link">installsheild2011打包程序internal build error 6213</a></h3>
+    <p class="post-meta">@Neal · Dec 20, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">今天打包一个安装程序，总是出现报错，internal build error -6213，然后搜遍都没有找到什么解决方案。看到一个帖子，说是因为installsheild里面的build的时候自动扫描.NET依赖库造成的原因，要把这个自动扫描功能给关掉，但是他说的在什么地方关说的不是很清楚，所以我一直找不到。 http://1978l.blog.163.com/blog/static/4494441620098704049756/原文帖子如下 后来找了半天，终于找到地方了。 如图1，图2所示，把components里面所有.NET scan at Build设置为none,这个可能是这个软件的bug把，我使用的是2011版本，免费的版本。 真心的，我实验室解决问题的能手，实验室这些妹子如果没有我，我都不知道她们该怎么活下去。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-link">常用的正则表达式</a></h3>
     <p class="post-meta">@Neal · Dec 15, 2015 · 1 min read</p>
   </header>
@@ -406,21 +419,6 @@ var ev = ev || window.event document.documentElement.clientWidth || document.bod
 obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-link">每日一练--直接插入排序</a></h3>
-    <p class="post-meta">@Neal · Oct 28, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]….A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
-//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
-// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; }  今天一练，到此结束。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">Read More →</a>
   </footer>
 </article>
 
