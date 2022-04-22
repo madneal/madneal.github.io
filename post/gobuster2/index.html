@@ -16,7 +16,7 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录包括的功能，其主要命令行配置项包括以下内容：
+  <meta name="description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
 Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;quot;200,204,301,302,307,401,403&amp;quot;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;quot;gobuster/3." />
 
   
@@ -25,7 +25,7 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="gobuster源码阅读--dir篇" />
-  <meta property="og:description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录包括的功能，其主要命令行配置项包括以下内容：
+  <meta property="og:description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
 Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;quot;200,204,301,302,307,401,403&amp;quot;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;quot;gobuster/3." />
   <meta property="og:url" content="https://madneal.com/post/gobuster2/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
@@ -221,7 +221,7 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
     </header>
     <article class="post-content">
 
-<p>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 <code>dir</code> 模块。<code>dir</code> 模块主要是实现目录包括的功能，其主要命令行配置项包括以下内容：</p>
+<p>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 <code>dir</code> 模块。<code>dir</code> 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：</p>
 
 <pre><code>Usage:
   gobuster dir [flags]
@@ -359,18 +359,21 @@ Global Flags:
 <p>咋一看我没看明白这里的 <code>Scan</code> 的含义，因为它没有任何的定义。后来才明白这种语法是 Golang 中的 Label，类似于 <code>C/C++</code> 中的 <code>goto</code> 的语法。这种语法其实在很多语言都不推荐使用，有的语言甚至根本就没有这种语法。这种写法在日常的业务场景中不太经常碰到，笔者没有使用过这种写法。不过这里如此写的原因应该是用了 <code>for</code> 和 <code>select</code>，如果直接使用 <code>break</code> 是没有办法退出的。这一块逻辑的作用主要是用于获取扫描用的字典。</p>
 
 <h2 id="核心-worker">核心 worker</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">workerGroup</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+<span style="color:#a6e22e">workerGroup</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>)
+<span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>)
 
-<pre><code>	var workerGroup sync.WaitGroup
-	workerGroup.Add(g.Opts.Threads)
-	wordChan := make(chan string, g.Opts.Threads)
-
-	for i := 0; i &lt; g.Opts.Threads; i++ {
-		go g.worker(ctx, wordChan, &amp;workerGroup)
-	}
-</code></pre>
-
+<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">worker</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">wordChan</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">workerGroup</span>)
+}</code></pre></div>
 <p>以上代码是扫描任务执行的核心逻辑，通过 <code>Threads</code> 来控制扫描任务的并发数量。通过 <code>worker</code> 进入，可以看到的也是依据 <code>workChan</code> 来进行扫描任务的爆破。<code>worker</code> 中的核心函数为 <code>g.plugin.Run</code>，其它的主要也是任务的结束以及一些超时的处理。值得注意的是 gobuster 中各个模块都是通过 <code>libgobuster/interfaces.go</code> 中的 <code>GobusterPlugin</code> 来实现的。找到对应的实现方法。不过 <code>Run</code> 函数的逻辑也变得非常直白了，主要是通过 <code>urlsToCheck</code> 来构建需要扫描的 url 链接，比如是否扫描备份文件或者指定后缀路径。最终请求的结果，如果状态码不在 <code>StatusCodesBlacklistParsed</code> 中或者状态码在 <code>StatusCodesParsed</code> 则认为其为有效结果。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">GobusterPlugin</span> <span style="color:#66d9ef">interface</span> {
+	<span style="color:#a6e22e">Name</span>() <span style="color:#66d9ef">string</span>
+	<span style="color:#a6e22e">RequestsPerRun</span>() <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">PreRun</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Result</span>) <span style="color:#66d9ef">error</span>
+	<span style="color:#a6e22e">GetConfigString</span>() (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>)
+}</code></pre></div>
 <h2 id="总结">总结</h2>
 
 <p>至此，dir 模块的主要实现逻辑基本上讲清楚了。gobuster 实现的逻辑还是非常清晰的，因为 Golang 的并发优势，所以其在做这种网络操作上有着天生的优势，并发的写法也会方便很多。</p>
