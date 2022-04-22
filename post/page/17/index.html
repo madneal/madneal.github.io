@@ -5,7 +5,10 @@
   <meta charset="utf-8" />
 
   
-  <title>matlab批量修改变量的名称</title>
+  <title>
+  Posts
+   | Neal 的博客
+</title>
 
   
   
@@ -16,16 +19,16 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="使用matlab做实验的时候，保存的文件里面的变量名都是一样的 ，所以希望能够把变量名全部都重命名。我举个个例子，假设我一堆文件，文件名分别是gds1,gds2,gds2,&amp;hellip;.. 但是实际上load进来之后的变量名称都是gds，所以我希望能够把变量名能够改成相对应的文件名称。在这里，我使用了eval这个函数，这个函数到是一个非常方便的选择。 %% 变量批量重命名 clear all rootname = &#39;gds&#39;; extension = &#39;.mat&#39;; for i = 1:n variable = [rootname,int2str(i)]; filename = [variable,extension]; load(filename); eval([&#39;gds&#39;,num2str(i),&#39;=&#39;,&#39;gds&#39;,&#39;;&#39;]); save(filename,variable); clear gds variable filename; end clear all" />
+  <meta name="description" content="" />
 
   
   
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="matlab批量修改变量的名称" />
-  <meta property="og:description" content="使用matlab做实验的时候，保存的文件里面的变量名都是一样的 ，所以希望能够把变量名全部都重命名。我举个个例子，假设我一堆文件，文件名分别是gds1,gds2,gds2,&amp;hellip;.. 但是实际上load进来之后的变量名称都是gds，所以我希望能够把变量名能够改成相对应的文件名称。在这里，我使用了eval这个函数，这个函数到是一个非常方便的选择。 %% 变量批量重命名 clear all rootname = &#39;gds&#39;; extension = &#39;.mat&#39;; for i = 1:n variable = [rootname,int2str(i)]; filename = [variable,extension]; load(filename); eval([&#39;gds&#39;,num2str(i),&#39;=&#39;,&#39;gds&#39;,&#39;;&#39;]); save(filename,variable); clear gds variable filename; end clear all" />
-  <meta property="og:url" content="https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/" />
+  <meta property="og:title" content="Posts" />
+  <meta property="og:description" content="" />
+  <meta property="og:url" content="https://madneal.com/post/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
@@ -34,7 +37,7 @@
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/" />
+<link rel="canonical" href="https://madneal.com/post/" />
 <link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
@@ -100,10 +103,6 @@
     
     <div class="suspension">
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
-      
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
-        
       
     </div>
     
@@ -212,64 +211,41 @@
   </nav>
 </header>
 
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">matlab批量修改变量的名称</h1>
-      <p class="post-meta">@Neal · Sep 8, 2015 · 1 min read</p>
+  <section class="main post-list">
+    <header class="list-header offscreen">
+      <h2 class="list-label">Posts List</h2>
     </header>
-    <article class="post-content"><p>使用matlab做实验的时候，保存的文件里面的变量名都是一样的 ，所以希望能够把变量名全部都重命名。我举个个例子，假设我一堆文件，文件名分别是gds1,gds2,gds2,&hellip;.. 但是实际上load进来之后的变量名称都是gds，所以我希望能够把变量名能够改成相对应的文件名称。在这里，我使用了eval这个函数，这个函数到是一个非常方便的选择。
-<code>%% 变量批量重命名
-clear all
-rootname = 'gds';
-extension = '.mat';
-for i = 1:n
-    variable = [rootname,int2str(i)];
-    filename = [variable,extension];
-    load(filename);
-    eval(['gds',num2str(i),'=','gds',';']);
-    save(filename,variable);
-    clear gds variable filename;
-end
-clear all</code></p>
+    
+    
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/" class="post-link">一个简单的输入输出算法题</a></h3>
+    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
+题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
+输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
+样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
+代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m;	} cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; }  这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">Read More →</a>
+  </footer>
 </article>
-    <footer class="post-footer">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+
       
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/matlab"><span class="tag">Matlab</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/eval"><span class="tag">Eval</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2418</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
     
     
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+      <footer class="list-footer">
+        <nav class="pagination">
+          <h3 class="offscreen">Pagination</h3>
+          
+            <a class="pagination-previous" href="https://madneal.com/post/page/16/">← Newer Posts</a>
+          
+          
+        </nav>
+      </footer>
     
   </section>
   <footer class="site-footer">
