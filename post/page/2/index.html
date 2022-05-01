@@ -220,6 +220,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
+    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html);  // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/mihoyo/" class="post-link">米哈游内推</a></h3>
     <p class="post-meta">@Neal · Aug 7, 2021 · 1 min read</p>
   </header>
@@ -407,35 +423,6 @@ https://www.bilibili.com/video/BV1Qp4y167cC/
 总结 这么一套折腾下来，差不多花了两千五左右，总体效果还是不错的。一个好的办公桌面真的会让人身心愉悦（可能是花了钱的缘故）。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%A2%88%E6%A4%8E/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%94%AE%E7%9B%98/" class="post-link">键盘简史</a></h3>
-    <p class="post-meta">@Neal · Nov 7, 2020 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">铁打的程序员，流水的键盘。作为一名全栈工程师，怎么能没几把好键盘。今天，就和大家分享一下这几年我体验的这些键盘。当然我并不是一个键盘发烧友，只是喜欢体验不同的键盘的手感，好的键盘真的会带给人写代码的愉悦（当然这种愉悦感最多也就持续一天）。键盘的种类主要可能就是薄膜键盘、静电容以及机械，然后每一种下面又分为好多种。这几个大类我都有体验过，那就讲讲使用这些键盘的感受是如何的。
-性价比高的 IKBC 茶轴 入机械键盘坑的时候应该是当初还是做前端开发实习生的时候，当初就有好几个小伙伴在用机械键盘。当时就心痒痒，后来选择了 IKBC 的 C87 的白色茶轴，应该就四百左右。IKBC 算是性价比比较高的一款机械键盘，适合新手入坑。茶轴也挺适合机械键盘新入手的小伙伴，它既不会像青轴那么激进，但是同时又有比较强的段落感，所以码字还是比较带劲的。
-当时拆箱的照片已经不见了，只有当初在实习公司的照片了，还有那两台特别戳的显示器。这款键盘后来出掉了，因为后来键盘很多了，而且这款我也不会再用了。
-
-
-信仰之 Filco 青轴 机械键盘这玩意，基本一入坑就想换，就跟女生买包一样，买了一个还想买一个。如果机械键盘没有买过 Filco 就感觉始终没有到头。Filco 算是机械键盘里面比较 TOP 的品牌，被众多网友奉为退烧键盘。自从入了机械键盘坑之后就一直心痒痒要买 Filco。不久后我就入了 Filco 的 104 圣手二代青轴，当初也是双十一活动，九百就拿下了，这款键盘平常都要一千多。其实双模的肯定很爽，但因为价格原因还是选择了有线版本。另外，有兴趣的同学以后也考虑入侧刻的，比正刻的骚气一点。
-Filco 的手感不用说了，那种轻快感，啪啪啪，震撼心魄，才拿到手的那段时间那真的不要太爽。不过青轴的缺点就是噪音比较大，当时办公室的人估计都想捶我。再好的键盘用多了也会腻，再加上噪音比较大，不过这个键盘我还是用了蛮久的，只是后来又入了新的键盘，这款键盘就闲置了。老实说，这款键盘的手感真的非常优秀，基本可以算我拥有的键盘里面手感最好的了。
-
-另外一点就是 Filco 的大键不好安装，Filco 的大轴基本都是有平衡杆的，平衡杆是通过龙豆固定，对于我这种手残党来说，真的好难装，没有 Leopold 的卫星轴安装方便。
-
-舒适的 Leopold 红轴 当青轴体验完之后，就很想体验那种有段落感截然不同的轴体。另外工作之后也希望不要使用那么高调的 Filco 青轴，正式工作的时候就入了 Leopold 的红轴。Leopold 可以算得上是和 Filco 并驾齐驱的机械键盘品牌之一。大 L 对于键盘的调教一点都不输于 Filco。
-红轴的手感相比青轴段落感会弱很多，会有一点点闷的感觉，但是那种触感感觉还是很OK 的。红轴感觉就是相对于青轴更有一种成熟的感觉，感觉也更容易接受。
-
-Leopold VS IKBC
-
-不一样的 NIZ 静电容 在体验过3把机械键盘之后，我也很想尝试静电容键盘。HHKB 作为静电容键盘的头牌，也被很多程序猿所追求。之前实习的时候我也稍微体验过别人的这把键盘，手感的确有求。这款键盘键位排布我不是很喜欢，键位对于来说太少了。最不能接受的就是价格。后来还是选择了价格更加亲民的 NIZ 的静电容键盘 X87 35g。35g是按压压力，另外还有 45g的。
-NIZ 键盘能够完美地适配 mac 电脑。键盘的外观还是比较朴素的，这也是我比较喜欢的风格。我一向不太追求花里胡哨的风格，之前选择的也都是比较低调的，灯厂那种风格的确不是特别适合我。静电容键盘的手感和机械键盘的手感完全不同，尤其是和青轴相比的话，没有那种段落感，更多的是直上直下，可能一开始会特别不习惯。静电容键盘可能稍微比较类似于红轴，但是和红轴相比，可能会更绵密，更软一点，当然声音也会更轻一点。NIZ 支持多种编程方式，不过我也没那种需求，就使用默认的就可以了。后来，还是觉得键帽太单调了，还是换了几个键帽作为点缀。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%94%AE%E7%9B%98/">Read More →</a>
   </footer>
 </article>
 
