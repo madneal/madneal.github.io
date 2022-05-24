@@ -18,8 +18,8 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; &#43; &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; &#43; &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss." />
 
   
   
@@ -29,15 +29,14 @@ const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
   <meta property="og:title" content="富文本场景下的 XSS" />
   <meta property="og:description" content="富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; &#43; &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; &#43; &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss." />
   <meta property="og:url" content="https://madneal.com/post/stored-xss/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/stored-xss/" />
@@ -224,179 +223,158 @@ const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter." />
       <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
     </header>
     <article class="post-content"><p>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 <code>v-html</code> 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。</p>
-
 <p>前端的过滤方案，可以尝试使用开源的 <code>[js-xss](https://github.com/leizongmin/js-xss)</code>。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。</p>
-
-<pre><code>// nodejs 中使用
-var xss = require(&quot;xss&quot;);
-var html = xss('&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;');
+<pre tabindex="0"><code>// nodejs 中使用
+var xss = require(&#34;xss&#34;);
+var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;);
 console.log(html);
-</code></pre>
-
-<pre><code>// 浏览器中使用
-&lt;script src=&quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&quot;&gt;&lt;/script&gt;
+</code></pre><pre tabindex="0"><code>// 浏览器中使用
+&lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt;
 &lt;script&gt;
   // apply function filterXSS in the same way
-  var html = filterXSS('&lt;script&gt;alert(&quot;xss&quot;);&lt;/scr' + &quot;ipt&gt;&quot;);
+  var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; + &#34;ipt&gt;&#34;);
   alert(html);
 &lt;/script&gt;
-</code></pre>
-
-<p>一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xssFilter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">xss</span>.<span style="color:#a6e22e">FilterXSS</span>({
-    <span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
-});
-<span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xssFilter</span>.<span style="color:#a6e22e">process</span>(<span style="color:#e6db74">&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;</span>);
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xssFilter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">xss</span>.<span style="color:#a6e22e">FilterXSS</span>({
-  <span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">whiteList</span><span style="color:#f92672">:</span> {
-      <span style="color:#a6e22e">position</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/^fixed|relative$/</span>,
-      <span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-      <span style="color:#a6e22e">left</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-    },
-  },
-});
-<span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xssFilter</span>.<span style="color:#a6e22e">process</span>(<span style="color:#e6db74">&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;</span>);
-</code></pre></div>
-<p>其实 js-xss 的原理并不是很复杂，如果去扒一下源码，原理其实主要就是实现标签和属性的白名单过滤，这样的方案简单有效。因为默认配置了大部分标签以及属性的白名单方案，所以一般可以做到开箱即用，当然如果有定制化的需求需要进一步定制化函数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getDefaultWhiteList</span>() {
-  <span style="color:#66d9ef">return</span> {
-    <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;target&#34;</span>, <span style="color:#e6db74">&#34;href&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>],
-    <span style="color:#a6e22e">abbr</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;title&#34;</span>],
-    <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">area</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;shape&#34;</span>, <span style="color:#e6db74">&#34;coords&#34;</span>, <span style="color:#e6db74">&#34;href&#34;</span>, <span style="color:#e6db74">&#34;alt&#34;</span>],
-    <span style="color:#a6e22e">article</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">aside</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">audio</span><span style="color:#f92672">:</span> [
-      <span style="color:#e6db74">&#34;autoplay&#34;</span>,
-      <span style="color:#e6db74">&#34;controls&#34;</span>,
-      <span style="color:#e6db74">&#34;crossorigin&#34;</span>,
-      <span style="color:#e6db74">&#34;loop&#34;</span>,
-      <span style="color:#e6db74">&#34;muted&#34;</span>,
-      <span style="color:#e6db74">&#34;preload&#34;</span>,
-      <span style="color:#e6db74">&#34;src&#34;</span>,
-    ],
-    <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">bdi</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;dir&#34;</span>],
-    <span style="color:#a6e22e">bdo</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;dir&#34;</span>],
-    <span style="color:#a6e22e">big</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">blockquote</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;cite&#34;</span>],
-    <span style="color:#a6e22e">br</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">caption</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">center</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">cite</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">col</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>],
-    <span style="color:#a6e22e">colgroup</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>],
-    <span style="color:#a6e22e">dd</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">del</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;datetime&#34;</span>],
-    <span style="color:#a6e22e">details</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;open&#34;</span>],
-    <span style="color:#a6e22e">div</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">dl</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">dt</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">em</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">figcaption</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">figure</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">font</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;color&#34;</span>, <span style="color:#e6db74">&#34;size&#34;</span>, <span style="color:#e6db74">&#34;face&#34;</span>],
-    <span style="color:#a6e22e">footer</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">h1</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">h2</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">h3</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">h4</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">h5</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">h6</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">header</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">hr</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">i</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">img</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;src&#34;</span>, <span style="color:#e6db74">&#34;alt&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;height&#34;</span>],
-    <span style="color:#a6e22e">ins</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;datetime&#34;</span>],
-    <span style="color:#a6e22e">li</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">mark</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">nav</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">ol</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">p</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">pre</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">section</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">small</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">span</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">sub</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">summary</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">sup</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">strong</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">strike</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">table</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;border&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">tbody</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">td</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;colspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">tfoot</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">th</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;colspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">thead</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">tr</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
-    <span style="color:#a6e22e">tt</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">u</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">ul</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">video</span><span style="color:#f92672">:</span> [
-      <span style="color:#e6db74">&#34;autoplay&#34;</span>,
-      <span style="color:#e6db74">&#34;controls&#34;</span>,
-      <span style="color:#e6db74">&#34;crossorigin&#34;</span>,
-      <span style="color:#e6db74">&#34;loop&#34;</span>,
-      <span style="color:#e6db74">&#34;muted&#34;</span>,
-      <span style="color:#e6db74">&#34;playsinline&#34;</span>,
-      <span style="color:#e6db74">&#34;poster&#34;</span>,
-      <span style="color:#e6db74">&#34;preload&#34;</span>,
-      <span style="color:#e6db74">&#34;src&#34;</span>,
-      <span style="color:#e6db74">&#34;height&#34;</span>,
-      <span style="color:#e6db74">&#34;width&#34;</span>,
-    ],
-  };
-}
-</code></pre></div>
-<p>另外前端过滤的时机一般是选择数据在页面渲染之前。在 vue 中，选择在 <code>created()</code> 做过滤即可。不过在 JS 中有一种绕过过滤的方案，就是在过滤函数之前让 JS 报错，那么这样过滤函数就不会执行了，从而导致绕过。</p>
-
+</code></pre><p>一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xssFilter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">xss</span>.<span style="color:#a6e22e">FilterXSS</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xssFilter</span>.<span style="color:#a6e22e">process</span>(<span style="color:#e6db74">&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;</span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">xssFilter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">xss</span>.<span style="color:#a6e22e">FilterXSS</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">css</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">whiteList</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">position</span><span style="color:#f92672">:</span> <span style="color:#e6db74">/^fixed|relative$/</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">top</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">left</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">html</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">xssFilter</span>.<span style="color:#a6e22e">process</span>(<span style="color:#e6db74">&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;</span>);
+</span></span></code></pre></div><p>其实 js-xss 的原理并不是很复杂，如果去扒一下源码，原理其实主要就是实现标签和属性的白名单过滤，这样的方案简单有效。因为默认配置了大部分标签以及属性的白名单方案，所以一般可以做到开箱即用，当然如果有定制化的需求需要进一步定制化函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getDefaultWhiteList</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;target&#34;</span>, <span style="color:#e6db74">&#34;href&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">abbr</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;title&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">address</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">area</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;shape&#34;</span>, <span style="color:#e6db74">&#34;coords&#34;</span>, <span style="color:#e6db74">&#34;href&#34;</span>, <span style="color:#e6db74">&#34;alt&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">article</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">aside</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">audio</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;autoplay&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;controls&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;crossorigin&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;loop&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;muted&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;preload&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;src&#34;</span>,
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bdi</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;dir&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bdo</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;dir&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">big</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">blockquote</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;cite&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">br</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">caption</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">center</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cite</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">code</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">col</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">colgroup</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>, <span style="color:#e6db74">&#34;span&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dd</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">del</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;datetime&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">details</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;open&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">div</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dl</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dt</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">em</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">figcaption</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">figure</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">font</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;color&#34;</span>, <span style="color:#e6db74">&#34;size&#34;</span>, <span style="color:#e6db74">&#34;face&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">footer</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h1</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h2</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h3</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h4</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h5</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h6</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">header</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hr</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">i</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">img</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;src&#34;</span>, <span style="color:#e6db74">&#34;alt&#34;</span>, <span style="color:#e6db74">&#34;title&#34;</span>, <span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;height&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ins</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;datetime&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">li</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mark</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nav</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ol</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pre</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">section</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">small</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">span</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sub</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">summary</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sup</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">strong</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">strike</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">table</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;border&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tbody</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">td</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;colspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tfoot</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">th</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;width&#34;</span>, <span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;colspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">thead</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tr</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;rowspan&#34;</span>, <span style="color:#e6db74">&#34;align&#34;</span>, <span style="color:#e6db74">&#34;valign&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tt</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">u</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ul</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">video</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;autoplay&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;controls&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;crossorigin&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;loop&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;muted&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;playsinline&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;poster&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;preload&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;src&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;height&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">&#34;width&#34;</span>,
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>另外前端过滤的时机一般是选择数据在页面渲染之前。在 vue 中，选择在 <code>created()</code> 做过滤即可。不过在 JS 中有一种绕过过滤的方案，就是在过滤函数之前让 JS 报错，那么这样过滤函数就不会执行了，从而导致绕过。</p>
 <p>这么看来，在数据储存之前，后端做过滤也不失为一个稳妥的方案。因为公司是以 golang 为主的技术栈，就讨论一下 golang 方面的技术方案。<a href="https://github.com/microcosm-cc/bluemonday">bluemonday</a> 是一款 golang 的 HTML 过滤器，相对于 js-xss 来说，这个库的可定制性更高。</p>
-
 <p>基于默认的过滤策略：</p>
-
-<pre><code>Hello &lt;STYLE&gt;.XSS{background-image:url(&quot;javascript:alert('XSS')&quot;);}&lt;/STYLE&gt;&lt;A CLASS=XSS&gt;&lt;/A&gt;World
-</code></pre>
-
-<p>会被过滤为</p>
-
+<pre tabindex="0"><code>Hello &lt;STYLE&gt;.XSS{background-image:url(&#34;javascript:alert(&#39;XSS&#39;)&#34;);}&lt;/STYLE&gt;&lt;A CLASS=XSS&gt;&lt;/A&gt;World
+</code></pre><p>会被过滤为</p>
 <p><code>Hello World</code></p>
-
 <p>而对于：</p>
-
-<pre><code>&lt;a href=&quot;http://www.google.com/&quot;&gt;
-  &lt;img src=&quot;https://ssl.gstatic.com/accounts/ui/logo_2x.png&quot;/&gt;
+<pre tabindex="0"><code>&lt;a href=&#34;http://www.google.com/&#34;&gt;
+  &lt;img src=&#34;https://ssl.gstatic.com/accounts/ui/logo_2x.png&#34;/&gt;
 &lt;/a&gt;
-</code></pre>
-
-<p>大部分内容不会变化，只是给 a 标签增加了一个 rel 属性，更安全。</p>
-
-<pre><code>&lt;a href=&quot;http://www.google.com/&quot; rel=&quot;nofollow&quot;&gt;
-  &lt;img src=&quot;https://ssl.gstatic.com/accounts/ui/logo_2x.png&quot;/&gt;
+</code></pre><p>大部分内容不会变化，只是给 a 标签增加了一个 rel 属性，更安全。</p>
+<pre tabindex="0"><code>&lt;a href=&#34;http://www.google.com/&#34; rel=&#34;nofollow&#34;&gt;
+  &lt;img src=&#34;https://ssl.gstatic.com/accounts/ui/logo_2x.png&#34;/&gt;
 &lt;/a&gt;
-</code></pre>
-
-<p>默认的策略使用 bluemonday 非常方便：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-<span style="color:#f92672">import</span> (
-  <span style="color:#e6db74">&#34;fmt&#34;</span>
-  <span style="color:#e6db74">&#34;github.com/microcosm-cc/bluemonday&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-  <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bluemonday</span>.<span style="color:#a6e22e">UGCPolicy</span>()
-  <span style="color:#a6e22e">html</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Sanitize</span>(<span style="color:#e6db74">&#34;&lt;a onblur=&#34;</span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">secret</span>)<span style="color:#e6db74">&#34; href=&#34;</span><span style="color:#a6e22e">http</span>:<span style="color:#75715e">//www.google.com&#34;&gt;Google&lt;/a&gt;&#34;)
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">html</span>)
-}</code></pre></div>
-<p>另外定制性真的特别强大，语义性好，傻瓜式入门，可以便捷地自定义过滤策略。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bluemonday</span>.<span style="color:#a6e22e">NewPolicy</span>()
-<span style="color:#75715e">// 标签白名单
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElements</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;strong&#34;</span>)
-<span style="color:#75715e">// 正则表达式白名单
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElementMatch</span>(<span style="color:#a6e22e">regex</span>.<span style="color:#a6e22e">MustCompile</span>(<span style="color:#e6db74">&#34;^my-element-&#34;</span>))</code></pre></div>
-<p>其实从原理上来说，bluemonday 与 js-xss 并没有本质的区别，主要就是基于标签和属性的过滤，可以基于自己的技术场景去选择。不过记得一点是两种方案过滤时机的选择。</p>
+</code></pre><p>默认的策略使用 bluemonday 非常方便：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;github.com/microcosm-cc/bluemonday&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bluemonday</span>.<span style="color:#a6e22e">UGCPolicy</span>()
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">html</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Sanitize</span>(<span style="color:#e6db74">&#34;&lt;a onblur=&#34;</span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">secret</span>)<span style="color:#e6db74">&#34; href=&#34;</span><span style="color:#a6e22e">http</span>:<span style="color:#75715e">//www.google.com&#34;&gt;Google&lt;/a&gt;&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">html</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>另外定制性真的特别强大，语义性好，傻瓜式入门，可以便捷地自定义过滤策略。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bluemonday</span>.<span style="color:#a6e22e">NewPolicy</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 标签白名单
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElements</span>(<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;strong&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 正则表达式白名单
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElementMatch</span>(<span style="color:#a6e22e">regex</span>.<span style="color:#a6e22e">MustCompile</span>(<span style="color:#e6db74">&#34;^my-element-&#34;</span>))
+</span></span></code></pre></div><p>其实从原理上来说，bluemonday 与 js-xss 并没有本质的区别，主要就是基于标签和属性的过滤，可以基于自己的技术场景去选择。不过记得一点是两种方案过滤时机的选择。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -415,13 +393,13 @@ console.log(html);
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>254</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>267</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -475,7 +453,7 @@ console.log(html);
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

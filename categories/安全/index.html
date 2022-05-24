@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/categories/%E5%AE%89%E5%85%A8/" />
@@ -245,8 +244,8 @@
   
   <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html);  // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</p>
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
@@ -280,7 +279,7 @@ rm -rf ./releases/* cd web npm run build cd .</p>
   <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
 其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求头，当然这一方面也是出于安全方面的考虑。当然除了 Referer 请求头之外，还有其它请求头也被禁止通过 JavaScript 操作。
 Referer 请求头属于 Forbidden header，这种请求头无法通过程序来修改，浏览器客户端一般会禁止这种行为。以 Proxy- 和 Sec- 开头的请求头都属于 Fobidden header name，还包括以下这些请求头：
-Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via  可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
+Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via 可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
 可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
@@ -331,7 +330,7 @@ AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安
     <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
   </header>
   
-  <p class="post-summary"> 最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
+  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
 理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
 @0x1ntegral
   专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
@@ -342,7 +341,7 @@ AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安
  多读文章
  @shail_official
  读代码，先专注于公开的部分。阅读单元测试。
-坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
+  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
  总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
 Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
   <footer class="post-footer">
@@ -360,9 +359,9 @@ Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-ti
   <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
 Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
 安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel  这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
+sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
 Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.</p>
+依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
   </footer>
@@ -454,7 +453,7 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

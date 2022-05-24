@@ -1,17 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gobuster on Neal&#39;s Blog</title>
+    <title>gobuster on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/gobuster/</link>
-    <description>Recent content in Gobuster on Neal&#39;s Blog</description>
+    <description>Recent content in gobuster on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://madneal.com/tags/gobuster/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/gobuster/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>gobuster源码阅读--终篇</title>
       <link>https://madneal.com/post/gobuster3/</link>
@@ -21,8 +17,8 @@
       <description>在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
 在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
 dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&amp;#34;%s.%s&amp;#34;, guid, d.options.Domain)) if err == nil { d.isWildcard = true d.wildcardIps.AddRange(wildcardIps) if !d.options.WildcardForced { return &amp;amp;ErrWildcard{wildcardIps: d.wildcardIps} } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.s3.amazonaws.com/?max-keys=%d url 的请求访问结果。可以在 github 上随便找一个公开的链接访问看看。</description>
+wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&amp;#34;%s.%s&amp;#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
+s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.</description>
     </item>
     
     <item>
@@ -32,7 +28,7 @@ s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑�
       
       <guid>https://madneal.com/post/gobuster2/</guid>
       <description>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;quot;200,204,301,302,307,401,403&amp;quot;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;quot;gobuster/3.</description>
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3.</description>
     </item>
     
     <item>
@@ -43,8 +39,8 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
       <guid>https://madneal.com/post/gobuster1/</guid>
       <description>gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
 入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { var cancel context.CancelFunc mainContext, cancel = context.WithCancel(context.Background()) defer cancel() signalChan := make(chan os.Signal, 1) signal.Notify(signalChan, os.Interrupt) defer func() { signal.Stop(signalChan) cancel() }() go func() { select { case &amp;lt;-signalChan: fmt.Println(&amp;#34;\n[!] Keyboard interrupt detected, terminating.</description>
+func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt.</description>
     </item>
     
   </channel>

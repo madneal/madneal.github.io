@@ -19,9 +19,9 @@
   <meta name="description" content="本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
 Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
 安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel  这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
+sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
 Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7." />
+依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3." />
 
   
   
@@ -32,16 +32,15 @@ Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，
   <meta property="og:description" content="本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
 Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
 安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel  这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
+sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
 Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7." />
+依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3." />
   <meta property="og:url" content="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" />
@@ -227,39 +226,21 @@ Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，
       <h1 class="post-title">网络安全分析的瑞士军刀--zeek</h1>
       <p class="post-meta">@Neal · Apr 18, 2020 · 4 min read</p>
     </header>
-    <article class="post-content">
-
-<p>本文首发于 Freebuf 平台，<a href="https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM">https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM</a></p>
-
+    <article class="post-content"><p>本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM</p>
 <p>Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。</p>
-
 <h2 id="安装">安装</h2>
-
 <p>Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：</p>
-
-<pre><code>sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel
-</code></pre>
-
-<p>这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 <code>libpcap-devel</code>，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 <code>libpcap</code> 以及 <code>libpcap-devel</code> 即可。</p>
-
+<pre tabindex="0"><code>sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel
+</code></pre><p>这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 <code>libpcap-devel</code>，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 <code>libpcap</code> 以及 <code>libpcap-devel</code> 即可。</p>
 <p>Mac 上需要的依赖更少一点，首先需要确保安装了 <code>xcode-select</code>，如果没有安装，可以通过 <code>xcode-select --install</code> 来进行安装。Mac 上只需要安装依赖 <code>cmake, swig, openssl, bison</code> 即可，可以通过 Homebrew 来进行安装。</p>
-
 <p>依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github <a href="https://github.com/zeek/zeek/releases">Release</a> 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C++17 的语言特性。而一般镜像源默认的 cmake 版本是4+版本，所以如果你的服务器也无法上互联网，建议可以安装 3.0.0 版本。</p>
-
-<pre><code>./configure &amp; make &amp; make install
-</code></pre>
-
-<p>安装使用上面的命令就可以了，不过 <code>make</code> 的时间还是比较长的，这个取决于你机器的性能，不过一般安装还是需要半个小时到一个小时，这也是因为 C++ 编译速度比较慢的原因。</p>
-
+<pre tabindex="0"><code>./configure &amp; make &amp; make install
+</code></pre><p>安装使用上面的命令就可以了，不过 <code>make</code> 的时间还是比较长的，这个取决于你机器的性能，不过一般安装还是需要半个小时到一个小时，这也是因为 C++ 编译速度比较慢的原因。</p>
 <h2 id="集群安装">集群安装</h2>
-
 <p>集群安装的方式和单机的方式不太一样。之前在测试环境使用的都是单机模式，集群则可以管理多个实例，后来我也尝试了通过集群的方式来进行安装。如果需要配置集群的话，建议安装 PF_RING，PF_RING 可以加速网络包的速度。对于 Zeek 集群上的每个 worker 都是需要安装 PF_RING，但只需要在 manager 上安装 Zeek 就可以了，可以通过 zeekctl 在其它 worker 上安装 Zeek。不过需要确保可以通过 ssh 到其它 woker 机器上，可以通过公钥的形式来实现，将 manager 的公钥放到其它 worker 的 authorized_keys 中。</p>
-
 <p>PF_RING 的安装步骤相对来说多了一些，但也是按照说明安装即可。和上面的单机安装方式不同的是集群安装的方式的时候，安装 Zeek 需要配置前缀。</p>
-
 <p>安装 PF_RING</p>
-
-<pre><code>tar xvzf PF_RING-5.6.2.tar.gz
+<pre tabindex="0"><code>tar xvzf PF_RING-5.6.2.tar.gz
 cd PF_RING-5.6.2/userland/lib
 ./configure --prefix=/opt/pfring
 make install
@@ -277,51 +258,31 @@ make
 make install
 
 modprobe pf_ring enable_tx_capture=0 min_num_slots=32768
-</code></pre>
-
-<p>安装 Zeek</p>
-
-<pre><code>./configure --with-pcap=/opt/pfring
+</code></pre><p>安装 Zeek</p>
+<pre tabindex="0"><code>./configure --with-pcap=/opt/pfring
 make 
 make install
-</code></pre>
-
-<p>确保 Zeek 正确关联到了 PF_RING 中的 libpcap 库中</p>
-
-<pre><code>ldd /usr/local/zeek/bin/zeek | grep pcap
+</code></pre><p>确保 Zeek 正确关联到了 PF_RING 中的 libpcap 库中</p>
+<pre tabindex="0"><code>ldd /usr/local/zeek/bin/zeek | grep pcap
       libpcap.so.1 =&gt; /opt/pfring/lib/libpcap.so.1 (0x00007fa6d7d24000)
-</code></pre>
-
-<p>接着就是通过 PF_RING 来进行 Zeekctl 的配置，Zeek 的安装路径一般都在 <code>/usr/local/zeek</code>。通过 <code>/usr/local/zeek/etc/node.cfg</code> 来进行集群结点的配置，在集群配置中，manager, proxy 以及 worker 是必须的，如果不设置 logger，默认将 manager 作为 logger。</p>
-
-<pre><code>[worker-1]
+</code></pre><p>接着就是通过 PF_RING 来进行 Zeekctl 的配置，Zeek 的安装路径一般都在 <code>/usr/local/zeek</code>。通过 <code>/usr/local/zeek/etc/node.cfg</code> 来进行集群结点的配置，在集群配置中，manager, proxy 以及 worker 是必须的，如果不设置 logger，默认将 manager 作为 logger。</p>
+<pre tabindex="0"><code>[worker-1]
 type=worker
 host=10.0.0.50
 interface=eth0
 lb_method=pf_ring
 lb_procs=10
 pin_cpus=2,3,4,5,6,7,8,9,10,11
-</code></pre>
-
-<p>接下来只需要通过 <code>zeekctl install</code> 就会在其它实例上来进行安装了。如果安装过程中出现了问题，可以通过 <code>zeekctl diag woker-1</code> 来排查具体的原因。</p>
-
+</code></pre><p>接下来只需要通过 <code>zeekctl install</code> 就会在其它实例上来进行安装了。如果安装过程中出现了问题，可以通过 <code>zeekctl diag woker-1</code> 来排查具体的原因。</p>
 <h2 id="zeek-结合被动扫描器的玩法">Zeek 结合被动扫描器的玩法</h2>
-
 <p>上面讲的都是 Zeek 的安装，下面聊一下 Zeek 和被动扫描器的结合。被动扫描器的效果往往取决于流量的质量和数量，在我们的实际实践中，发现通过 Zeek 获取的流量占我们被动扫描器测试流量的绝大一部分。Zeek 对于 http 解析的日志都会存储在 /usr/local/zeek/logs 中。如果 Zeek 是启动状态，那么 http.log 的路径会在 /usr/local/zeel/logs/current 中，而历史日志则会被打包。如果使用 Zeek 去捕获流量的时候，日志往往会占很大的存储，所以要记得修改 Zeek 日志的存储路径，否则很容易就把系统盘塞满。</p>
-
-<h3 id="通过脚本自定义-http-log">通过脚本自定义 http.log</h3>
-
+<h3 id="通过脚本自定义-httplog">通过脚本自定义 http.log</h3>
 <p>http.log 中其实已经包含了丰富的字段，常见的一些字段如下：</p>
-
-<pre><code># ts          uid          orig_h        orig_p  resp_h         resp_p
+<pre tabindex="0"><code># ts          uid          orig_h        orig_p  resp_h         resp_p
 1311627961.8  HSH4uV8KVJg  192.168.1.100 52303   192.150.187.43 80
-</code></pre>
-
-<p>不过里面还有一些信息是缺失的，比如一些 http 请求头以及 POST 请求的请求体，为了添加这些字段，可以通过自定义 Zeek 脚本来实现，Zeek 脚本的能力真的非常强大，通过脚本其实有很多更高级的玩法。</p>
-
+</code></pre><p>不过里面还有一些信息是缺失的，比如一些 http 请求头以及 POST 请求的请求体，为了添加这些字段，可以通过自定义 Zeek 脚本来实现，Zeek 脚本的能力真的非常强大，通过脚本其实有很多更高级的玩法。</p>
 <h4 id="添加请求头">添加请求头</h4>
-
-<pre><code>@load base/protocols/http/main
+<pre tabindex="0"><code>@load base/protocols/http/main
 
 module HTTP;
 
@@ -351,48 +312,45 @@ event http_header(c: connection, is_orig: bool, name: string, value: string) &am
                 if ( log_client_header_names )
                         {
 				switch ( name ) {
-                                case &quot;HOST&quot;:
+                                case &#34;HOST&#34;:
                                     c$http$header_host = value;
                                     break;
-                                case &quot;ACCEPT&quot;:
+                                case &#34;ACCEPT&#34;:
                                     c$http$header_accept = value;
                                     break;
-                                case &quot;ACCEPT-CHARSET&quot;:
+                                case &#34;ACCEPT-CHARSET&#34;:
                                     c$http$header_accept_charset = value;
                                     break;
-                                case &quot;ACCEPT-ENCODING&quot;:
+                                case &#34;ACCEPT-ENCODING&#34;:
 				                    c$http$header_accept_encoding = value;
                                     break;
-                                case &quot;ACCEPT-LANGUAGE&quot;:
+                                case &#34;ACCEPT-LANGUAGE&#34;:
                                     c$http$header_accept_language = value;
                                     break;
-                                case &quot;ACCEPT-RANGES&quot;:
+                                case &#34;ACCEPT-RANGES&#34;:
                                     c$http$header_accept_ranges = value;
                                     break;
-                                case &quot;AUTHORIZATION&quot;:
+                                case &#34;AUTHORIZATION&#34;:
                                     c$http$header_authorization = value;
                                     break;
-                                case &quot;CONNECTION&quot;:
+                                case &#34;CONNECTION&#34;:
                                     c$http$header_connection = value;
                                     break;
-                                case &quot;COOKIE&quot;:
+                                case &#34;COOKIE&#34;:
                                     c$http$header_cookie = value;
                                     break;
-                                case &quot;CONTENT-LENGTH&quot;:
+                                case &#34;CONTENT-LENGTH&#34;:
                                     c$http$header_content_length = value;
                                     break;
-                                case &quot;CONTENT-TYPE&quot;:
+                                case &#34;CONTENT-TYPE&#34;:
                                     c$http$header_content_type = value;
                                     break;
                                 }
 			}
                 }
         }
-</code></pre>
-
-<h4 id="添加-post-请求体">添加 POST 请求体</h4>
-
-<pre><code>export {
+</code></pre><h4 id="添加-post-请求体">添加 POST 请求体</h4>
+<pre tabindex="0"><code>export {
 	## The length of POST bodies to extract.
 	const http_post_body_length = 200 &amp;redef;
 }
@@ -407,7 +365,7 @@ event log_post_bodies(f: fa_file, data: string)
 		{
 		local c: connection = f$conns[cid];
 		if ( ! c$http?$postdata )
-			c$http$postdata = &quot;&quot;;
+			c$http$postdata = &#34;&#34;;
 
 		# If we are already above the captured size here, just return.
 		if ( |c$http$postdata| &gt; http_post_body_length )
@@ -416,107 +374,74 @@ event log_post_bodies(f: fa_file, data: string)
 		c$http$postdata = c$http$postdata + data;
 		if ( |c$http$postdata| &gt; http_post_body_length )
 			{
-			c$http$postdata = c$http$postdata[0:http_post_body_length] + &quot;...&quot;;
+			c$http$postdata = c$http$postdata[0:http_post_body_length] + &#34;...&#34;;
 			}
 		}
 	}
 
 event file_over_new_connection(f: fa_file, c: connection, is_orig: bool)
 	{
-	if ( is_orig &amp;&amp; c?$http &amp;&amp; c$http?$method &amp;&amp; c$http$method == &quot;POST&quot; )
+	if ( is_orig &amp;&amp; c?$http &amp;&amp; c$http?$method &amp;&amp; c$http$method == &#34;POST&#34; )
 		{
 		Files::add_analyzer(f, Files::ANALYZER_DATA_EVENT, [$stream_event=log_post_bodies]);
 		}
 	}
-</code></pre>
-
-<p>通过上述的脚本就可以添加一些请求头以及 POST 请求的请求体，完整的脚本可以参考 <a href="https://github.com/neal1991/http-custom">http-custom</a>。脚本编写完毕，需要通过 zeekctl 部署才能生效，步骤也非常简单。</p>
-
-<pre><code>mv http-custom /usr/local/bro/share/bro/base/protocols
-echo '@load base/protocols/http-custom' &gt;&gt; /usr/local/bro/share/bro/site/local.bro
+</code></pre><p>通过上述的脚本就可以添加一些请求头以及 POST 请求的请求体，完整的脚本可以参考 <a href="https://github.com/neal1991/http-custom">http-custom</a>。脚本编写完毕，需要通过 zeekctl 部署才能生效，步骤也非常简单。</p>
+<pre tabindex="0"><code>mv http-custom /usr/local/bro/share/bro/base/protocols
+echo &#39;@load base/protocols/http-custom&#39; &gt;&gt; /usr/local/bro/share/bro/site/local.bro
 zeekctl deploy
-</code></pre>
-
-<p>对于被动扫描器，我们目前的方案是通过 Filebeat 去采集日志然后输出给 Logstash 做处理，处理完毕之后再输出到 Kafka。</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/25/JsZ5tI.png" alt="JsZ5tI.png" /></p>
-
+</code></pre><p>对于被动扫描器，我们目前的方案是通过 Filebeat 去采集日志然后输出给 Logstash 做处理，处理完毕之后再输出到 Kafka。</p>
+<p><img src="https://s1.ax1x.com/2020/04/25/JsZ5tI.png" alt="JsZ5tI.png"></p>
 <p>Filebeat 加 Logstash 适用于多种场景，在日常的各种日志采集场景都能派上用场。通过 Logstash 可以完成日志灵活的处理，因为 Logstash 里面包含了各种丰富的插件，几乎可以完成对于日志的任何操作。比如为了保证 POST 请求体保证传输的正确性，可以通过 base64 来进行编码。通过 <a href="https://github.com/tiwilliam/logstash-filter-base64">logstash-filter-base64</a> 可以遍历地实现字段的编码或者解码。通过 filter 中的 mutate 插件可以增加字段或者删除字段。</p>
-
-<pre><code>base64 {
-     field =&gt; &quot;postdata&quot;
-     action =&gt; &quot;encode&quot;
+<pre tabindex="0"><code>base64 {
+     field =&gt; &#34;postdata&#34;
+     action =&gt; &#34;encode&#34;
    }
-</code></pre>
-
-<p>通过这种方案还有一个优势就是我们还可以将我们的日志输出到别的地方，比如 es，这个也可以方便后续排查日志问题。</p>
-
+</code></pre><p>通过这种方案还有一个优势就是我们还可以将我们的日志输出到别的地方，比如 es，这个也可以方便后续排查日志问题。</p>
 <p>不过我在后面又发现了一种新的方案，可以通过 Zeek 的插件，将 http.log 直接输出到 Kafka，这个方案的优点主要是更高效，同时也节省了一些成本，毕竟 Logstash 需要的机器性能还是比较大的。对于这个方案主要是两个问题，第一个问题是首先需要处理好日志的格式，这样保证后续处理地便利性；第二个问题是如何将日志直接从 Zeek 输出到 Kafka。其实我是先解决了第一个问题再解决第二个问题的，因为第二个问题的处理的方式更灵活，得益于 Zeek 脚本的便利性，肯定是可以实现的。</p>
-
-<p><a href="https://imgchr.com/i/JhNRET"><img src="https://s1.ax1x.com/2020/04/27/JhNRET.png" alt="JhNRET.png" /></a></p>
-
+<p><a href="https://imgchr.com/i/JhNRET"><img src="https://s1.ax1x.com/2020/04/27/JhNRET.png" alt="JhNRET.png"></a></p>
 <p><a href="https://github.com/apache/metron-bro-plugin-kafka">metron-bro-plugin-kafka</a> 是 Apache 官方的一个 Bro 的插件，不过因为 Zeek3.0.0 是可以兼容的，所以这个插件是可以使用的。这个插件有两种安装方式，一种是通过 bro-pkg (Bro 的官方包管理工具)来进行安装，另外一种则是通过手工安装。由于网络的原因，我更推荐使用手工安装的方式，我尝试通过 bro-pkg 的方式来进行安装，速度特别慢。</p>
-
 <ol>
 <li>安装 librdkafka</li>
 </ol>
-
-<pre><code>curl -L https://github.com/edenhill/librdkafka/archive/v0.11.5.tar.gz | tar xvz
+<pre tabindex="0"><code>curl -L https://github.com/edenhill/librdkafka/archive/v0.11.5.tar.gz | tar xvz
 cd librdkafka-0.11.5/
 ./configure --enable-sasl
 make
 sudo make install
-</code></pre>
-
-<ol>
+</code></pre><ol start="2">
 <li>安装插件</li>
 </ol>
-
-<pre><code>./configure --bro-dist=$BRO_SRC
+<pre tabindex="0"><code>./configure --bro-dist=$BRO_SRC
 make
 sudo make install
-</code></pre>
-
-<p>这里有一个坑就是安装文档根本就没有说 $BRO_SRC 是哪个路径，所以安装的时候总是报错，后来才弄清楚这个路径其实就是当初 Zeek 解压后的路径，即 Zeek 安装包的路径。</p>
-
-<ol>
+</code></pre><p>这里有一个坑就是安装文档根本就没有说 $BRO_SRC 是哪个路径，所以安装的时候总是报错，后来才弄清楚这个路径其实就是当初 Zeek 解压后的路径，即 Zeek 安装包的路径。</p>
+<ol start="3">
 <li>验证结果</li>
 </ol>
-
-<pre><code>zeek -N Apache::Kafka
+<pre tabindex="0"><code>zeek -N Apache::Kafka
 Apache::Kafka - Writes logs to Kafka (dynamic, version 0.3)
-</code></pre>
-
-<p>接着就是将 http 的日志进行处理，因为在原始的 http.log 中有还多字段是我们并不需要的。在研究了官方文档之后，可以通过 <a href="https://docs.zeek.org/en/master/frameworks/logging.html#filters">Filters</a> 可以定义一个新的日志文件，可以拷贝其它的日志输出到新的文件，可以自定义字段，方式比较灵活。另外还可以通过 Writer 可以将日志写入到 sqlite 数据库中。不过，这里我们主要是通过插件将日志写入到 Kafka。</p>
-
+</code></pre><p>接着就是将 http 的日志进行处理，因为在原始的 http.log 中有还多字段是我们并不需要的。在研究了官方文档之后，可以通过 <a href="https://docs.zeek.org/en/master/frameworks/logging.html#filters">Filters</a> 可以定义一个新的日志文件，可以拷贝其它的日志输出到新的文件，可以自定义字段，方式比较灵活。另外还可以通过 Writer 可以将日志写入到 sqlite 数据库中。不过，这里我们主要是通过插件将日志写入到 Kafka。</p>
 <p>我们的目标是获取 http.log 中的部分字段，所以可以通过 Filters 来实现日志文件的复制并且对日志字段进行过滤，基于 KafkaWriter 将日志文件直接写入到 Kafka 中。为了定义 Filter，在 <code>/usr/local/zeek/share/zeek/base/protocols/http/main.zeek</code> 的 zeek_init 函数中进行定义：</p>
-
-<pre><code>event zeek_init() &amp;priority=5
+<pre tabindex="0"><code>event zeek_init() &amp;priority=5
      {
-     Log::create_stream(HTTP::LOG, [$columns=Info, $ev=log_http, $path=&quot;http&quot;]);
+     Log::create_stream(HTTP::LOG, [$columns=Info, $ev=log_http, $path=&#34;http&#34;]);
      Analyzer::register_for_ports(Analyzer::ANALYZER_HTTP, ports);
      local filter: Log::Filter =
          [
-         $name=&quot;kafka-http&quot;,
-         $include=set(&quot;host&quot;,&quot;id.resp_p&quot;,&quot;uri&quot;),
+         $name=&#34;kafka-http&#34;,
+         $include=set(&#34;host&#34;,&#34;id.resp_p&#34;,&#34;uri&#34;),
          $writer=Log::WRITER_KAFKAWRITER
          ];
       Log::add_filter(HTTP::LOG, filter);
      }
-</code></pre>
-
-<p>另外，记得在 <code>/usr/local/zeek/share/zeek/site/local.zeek</code> 中定义 Kafka 的 topic 和 Broker:</p>
-
-<pre><code>redef Kafka::topic_name = &quot;bro-test&quot;;
+</code></pre><p>另外，记得在 <code>/usr/local/zeek/share/zeek/site/local.zeek</code> 中定义 Kafka 的 topic 和 Broker:</p>
+<pre tabindex="0"><code>redef Kafka::topic_name = &#34;bro-test&#34;;
 redef Kafka::kafka_conf = table(
-    [&quot;metadata.broker.list&quot;] = &quot;127.0.0.1:9092&quot;
+    [&#34;metadata.broker.list&#34;] = &#34;127.0.0.1:9092&#34;
 );
-</code></pre>
-
-<p>最后记得使用 <code>zeekctl deploy</code> 重新部署一下，这样脚本就生效了，日志就可以直接写入到 Kafka 中，大大提高效率。</p>
-
+</code></pre><p>最后记得使用 <code>zeekctl deploy</code> 重新部署一下，这样脚本就生效了，日志就可以直接写入到 Kafka 中，大大提高效率。</p>
 <h2 id="总结">总结</h2>
-
 <p>其实 Zeek 很有喝多高级玩法，你完全可以将 Zeek 改造成一个 IDS 产品。Zeek 脚本的强大能力赋予其无限的可能性，比如在流量中发现 sql 注入。本文主要就是就 Zeek 的安装部署以及结合被动扫描器的一些用法的介绍。后续如果更进一步地探索，会做更多的分享。</p>
 </article>
     <footer class="post-footer">
@@ -532,13 +457,13 @@ redef Kafka::kafka_conf = table(
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>753</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>766</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -592,7 +517,7 @@ redef Kafka::kafka_conf = table(
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

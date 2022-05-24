@@ -16,13 +16,13 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
+  <meta name="description" content="原文链接 原文链接似乎翻墙才可以访问   译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
 Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
 当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
 在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
- 选择节点元素  如果你熟悉jquery的话，你应该知道$(&amp;lsquo;.class&amp;rsquo;)和$(&amp;lsquo;#id&amp;rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。
-同样你可以在console使用同样的方式来访问元素。$(&amp;lsquo;tagName&amp;rsquo;) $(&amp;lsquo;.class&amp;rsquo;) $(&amp;lsquo;#id&amp;rsquo;)和document.querySelector(&amp;ldquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
-你可以用$$(&amp;lsquo;tagName&amp;rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
+ 选择节点元素  如果你熟悉jquery的话，你应该知道$(&amp;rsquo;.class&amp;rsquo;)和$(&amp;rsquo;#id&amp;rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。
+同样你可以在console使用同样的方式来访问元素。$(&amp;rsquo;tagName&amp;rsquo;) $(&amp;rsquo;.class&amp;rsquo;) $(&amp;rsquo;#id&amp;rsquo;)和document.querySelector(&amp;rsquo;&amp;rsquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
+你可以用$$(&amp;rsquo;tagName&amp;rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
 2.将你的浏览器转化成一个编辑器
 你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
 你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
@@ -32,13 +32,13 @@ document.body.contentEditable = true
 如果希望找到某个特定事件的监听，你可以这么做：
 getEventListeners($(&amp;lsquo;selector&amp;rsquo;)).eventName[0].listener
 这将展示所有和这个事件相关的监听。比如：
-getEventListeners($(&amp;lsquo;.firstName&amp;rsquo;)).click[0].listener
+getEventListeners($(&amp;rsquo;.firstName&amp;rsquo;)).click[0].listener
 4.监听事件
 如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
- monitorEvents($(&amp;lsquo;selector&amp;rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),&amp;lsquo;eventName&amp;rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),[&amp;lsquo;eventName1&amp;rsquo;,&amp;lsquo;eventName2&amp;rsquo;….])将会监听符合这个选择器的事件。 unmonitorEvents($(&amp;lsquo;selector&amp;rsquo;))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
-console里面有一个很重要的函数叫做console.time(&amp;lsquo;labelTime&amp;rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&amp;lsquo;labelName&amp;rsquo;)能够结束相应的计时器。
+ monitorEvents($(&amp;lsquo;selector&amp;rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),&amp;rsquo;eventName&amp;rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),[&amp;rsquo;eventName1&amp;rsquo;,&amp;rsquo;eventName2&amp;rsquo;….])将会监听符合这个选择器的事件。 unmonitorEvents($(&amp;lsquo;selector&amp;rsquo;))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
+console里面有一个很重要的函数叫做console.time(&amp;rsquo;labelTime&amp;rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&amp;rsquo;labelName&amp;rsquo;)能够结束相应的计时器。
 比如我们想看到一个循环的执行时间，我们可以做如下处理：
-console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &amp;lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6." />
+console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &amp;lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345." />
 
   
   
@@ -46,13 +46,13 @@ console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="你可能不知道谷歌浏览器开发工具的其他用处" />
-  <meta property="og:description" content="原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
+  <meta property="og:description" content="原文链接 原文链接似乎翻墙才可以访问   译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
 Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
 当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
 在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
- 选择节点元素  如果你熟悉jquery的话，你应该知道$(&amp;lsquo;.class&amp;rsquo;)和$(&amp;lsquo;#id&amp;rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。
-同样你可以在console使用同样的方式来访问元素。$(&amp;lsquo;tagName&amp;rsquo;) $(&amp;lsquo;.class&amp;rsquo;) $(&amp;lsquo;#id&amp;rsquo;)和document.querySelector(&amp;ldquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
-你可以用$$(&amp;lsquo;tagName&amp;rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
+ 选择节点元素  如果你熟悉jquery的话，你应该知道$(&amp;rsquo;.class&amp;rsquo;)和$(&amp;rsquo;#id&amp;rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。
+同样你可以在console使用同样的方式来访问元素。$(&amp;rsquo;tagName&amp;rsquo;) $(&amp;rsquo;.class&amp;rsquo;) $(&amp;rsquo;#id&amp;rsquo;)和document.querySelector(&amp;rsquo;&amp;rsquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
+你可以用$$(&amp;rsquo;tagName&amp;rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
 2.将你的浏览器转化成一个编辑器
 你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
 你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
@@ -62,20 +62,19 @@ document.body.contentEditable = true
 如果希望找到某个特定事件的监听，你可以这么做：
 getEventListeners($(&amp;lsquo;selector&amp;rsquo;)).eventName[0].listener
 这将展示所有和这个事件相关的监听。比如：
-getEventListeners($(&amp;lsquo;.firstName&amp;rsquo;)).click[0].listener
+getEventListeners($(&amp;rsquo;.firstName&amp;rsquo;)).click[0].listener
 4.监听事件
 如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
- monitorEvents($(&amp;lsquo;selector&amp;rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),&amp;lsquo;eventName&amp;rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),[&amp;lsquo;eventName1&amp;rsquo;,&amp;lsquo;eventName2&amp;rsquo;….])将会监听符合这个选择器的事件。 unmonitorEvents($(&amp;lsquo;selector&amp;rsquo;))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
-console里面有一个很重要的函数叫做console.time(&amp;lsquo;labelTime&amp;rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&amp;lsquo;labelName&amp;rsquo;)能够结束相应的计时器。
+ monitorEvents($(&amp;lsquo;selector&amp;rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),&amp;rsquo;eventName&amp;rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(&amp;lsquo;selector&amp;rsquo;),[&amp;rsquo;eventName1&amp;rsquo;,&amp;rsquo;eventName2&amp;rsquo;….])将会监听符合这个选择器的事件。 unmonitorEvents($(&amp;lsquo;selector&amp;rsquo;))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
+console里面有一个很重要的函数叫做console.time(&amp;rsquo;labelTime&amp;rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&amp;rsquo;labelName&amp;rsquo;)能够结束相应的计时器。
 比如我们想看到一个循环的执行时间，我们可以做如下处理：
-console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &amp;lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6." />
+console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &amp;lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345." />
   <meta property="og:url" content="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/" />
@@ -263,65 +262,42 @@ console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i
     </header>
     <article class="post-content"><ul>
 <li>原文链接 原文链接似乎翻墙才可以访问</li>
+</ul>
+<ul>
 <li>译者：neal</li>
 <li>github: <a href="https://github.com/neal1991">https://github.com/neal1991</a></li>
 </ul>
-
 <p>你可能不知道谷歌浏览器开发工具的其他用处</p>
-
 <p>Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.</p>
-
 <p>当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。</p>
-
 <p>在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。</p>
-
 <ol>
 <li>选择节点元素</li>
 </ol>
-
-<p>如果你熟悉jquery的话，你应该知道$(&lsquo;.class&rsquo;)和$(&lsquo;#id&rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。</p>
-
-<p>同样你可以在console使用同样的方式来访问元素。$(&lsquo;tagName&rsquo;) $(&lsquo;.class&rsquo;) $(&lsquo;#id&rsquo;)和document.querySelector(&ldquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。</p>
-
-<p>你可以用$$(&lsquo;tagName&rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组</p>
-
+<p>如果你熟悉jquery的话，你应该知道$(&rsquo;.class&rsquo;)和$(&rsquo;#id&rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。</p>
+<p>同样你可以在console使用同样的方式来访问元素。$(&rsquo;tagName&rsquo;) $(&rsquo;.class&rsquo;) $(&rsquo;#id&rsquo;)和document.querySelector(&rsquo;&rsquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。</p>
+<p>你可以用$$(&rsquo;tagName&rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组</p>
 <p>2.将你的浏览器转化成一个编辑器</p>
-
 <p>你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。</p>
-
 <p>你不需要检测html中的元素。取而代之，你只要去console里面输入以下：</p>
-
 <p>document.body.contentEditable = true</p>
-
 <p>3.寻找dom中元素绑定的事件</p>
-
 <p>当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(&lsquo;selector&rsquo;))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：</p>
-
 <p>如果希望找到某个特定事件的监听，你可以这么做：</p>
-
 <p>getEventListeners($(&lsquo;selector&rsquo;)).eventName[0].listener</p>
-
 <p>这将展示所有和这个事件相关的监听。比如：</p>
-
-<p>getEventListeners($(&lsquo;.firstName&rsquo;)).click[0].listener</p>
-
+<p>getEventListeners($(&rsquo;.firstName&rsquo;)).click[0].listener</p>
 <p>4.监听事件</p>
-
 <p>如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：</p>
-
 <ul>
 <li>monitorEvents($(&lsquo;selector&rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。</li>
-<li>monitorEvents($(&lsquo;selector&rsquo;),&lsquo;eventName&rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。</li>
-<li>monitorEvents($(&lsquo;selector&rsquo;),[&lsquo;eventName1&rsquo;,&lsquo;eventName2&rsquo;….])将会监听符合这个选择器的事件。</li>
+<li>monitorEvents($(&lsquo;selector&rsquo;),&rsquo;eventName&rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。</li>
+<li>monitorEvents($(&lsquo;selector&rsquo;),[&rsquo;eventName1&rsquo;,&rsquo;eventName2&rsquo;….])将会监听符合这个选择器的事件。</li>
 <li>unmonitorEvents($(&lsquo;selector&rsquo;))这个会停止监听并且在console里面显示出所有的事件。</li>
 </ul>
-
 <p>5.找到语句块执行的时间</p>
-
-<p>console里面有一个很重要的函数叫做console.time(&lsquo;labelTime&rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&lsquo;labelName&rsquo;)能够结束相应的计时器。</p>
-
+<p>console里面有一个很重要的函数叫做console.time(&rsquo;labelTime&rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&rsquo;labelName&rsquo;)能够结束相应的计时器。</p>
 <p>比如我们想看到一个循环的执行时间，我们可以做如下处理：</p>
-
 <pre><code>console.time('myTime'); //Starts the timer with label - myTime
 
 for(var i=0; i &lt; 100000; i++){
@@ -332,33 +308,21 @@ console.timeEnd('mytime'); //Ends the timer with Label - myTime
 
 //Output - myTime:12345.00 ms
 </code></pre>
-
 <p>6.将变量的值以表格形式呈现</p>
-
 <p>当我们有如下的一个数组的时候：</p>
-
 <pre><code>var myArray=[{a:1,b:2,c:3},{a:1,b:2,c:3,d:4},{k:11,f:22},{a:1,b:2,c:3}]
 </code></pre>
-
 <p>我们可以使用console.table(variableName)从而以表格的形式更好地展现数据的属性。</p>
-
 <p>7.在dom中检测元素</p>
-
 <p>你可以直接在console里面检测元素：</p>
-
 <ul>
 <li>inspect($(&lsquo;selector&rsquo;))将会检测符合这个在选择器的元素并且会跳转到匹配这个选择器的dom中。</li>
 <li>$0,$1,$2能够帮助你检测最近检测过的元素。</li>
 </ul>
-
 <p>8.列出与纳素的属性</p>
-
 <p>如果你希望列出元素所有的属性，你可以直接在console里面输入dir($(&lsquo;selector&rsquo;))返回dom元素中的相关属性。</p>
-
 <p>9.取到上次最近结果的值</p>
-
 <p>你可以把console当作一个计算器来时用。你可以使用$_来获取最近的结果。如下所示：</p>
-
 <pre><code>2+3+4
 9 //- The Answer of the SUM is 9
 
@@ -374,9 +338,7 @@ Math.sqrt($_)
 $_
 9 // As the Last Result is 9
 </code></pre>
-
 <p>10.清楚cosole和缓存</p>
-
 <p>如果你希望清楚console和它的缓存，你可以输入clear()就可以了。</p>
 </article>
     <footer class="post-footer">
@@ -392,13 +354,13 @@ $_
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2045</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2058</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -452,7 +414,7 @@ $_
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

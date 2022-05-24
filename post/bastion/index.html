@@ -43,7 +43,6 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/bastion/" />
@@ -229,27 +228,16 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
       <h1 class="post-title">Bastion -- Hack the box</h1>
       <p class="post-meta">@Neal · Sep 22, 2019 · 6 min read</p>
     </header>
-    <article class="post-content">
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4RxRs.png" alt="E4RxRs.png" /></p>
-
+    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/05/13/E4RxRs.png" alt="E4RxRs.png"></p>
 <h2 id="介绍">介绍</h2>
-
 <p>目标： 10.10.10.134 (Windows)</p>
-
 <p>Kali：10.10.16.65</p>
-
 <p>In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.</p>
-
 <p>总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。</p>
-
 <h2 id="信息枚举">信息枚举</h2>
-
 <p>Firstly, detect the open ports:</p>
-
 <p>首先，探测开放端口</p>
-
-<pre><code># Nmap 7.70 scan initiated Sun May  5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134
+<pre tabindex="0"><code># Nmap 7.70 scan initiated Sun May  5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134
 Warning: 10.10.10.134 giving up on port because retransmission cap hit (10).
 Nmap scan report for 10.10.10.134
 Host is up (0.33s latency).
@@ -264,13 +252,9 @@ PORT      STATE SERVICE
 49667/tcp open  unknown
 49668/tcp open  unknown
 49670/tcp open  unknown
-</code></pre>
-
-<p>From the open ports, it can be induced that the box may be a windows machine that opens ssh service. Then try to obtain the detailed services of these open ports:</p>
-
+</code></pre><p>From the open ports, it can be induced that the box may be a windows machine that opens ssh service. Then try to obtain the detailed services of these open ports:</p>
 <p>从上面开放的端口，我们可以推导出这是一台开放了 ssh 服务的 windows 机器。接着尝试获取这些开放端口对应的服务：</p>
-
-<pre><code># Nmap 7.70 scan initiated Sun May  5 12:29:46 2019 as: nmap -A -oN services 10.10.10.134
+<pre tabindex="0"><code># Nmap 7.70 scan initiated Sun May  5 12:29:46 2019 as: nmap -A -oN services 10.10.10.134
 Nmap scan report for 10.10.10.134
 Host is up (0.53s latency).
 Not shown: 996 closed ports
@@ -327,112 +311,56 @@ HOP RTT       ADDRESS
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Sun May  5 12:30:42 2019 -- 1 IP address (1 host up) scanned in 56.60 seconds
-</code></pre>
-
-<h2 id="利用">利用</h2>
-
+</code></pre><h2 id="利用">利用</h2>
 <p>There seem to be nothing special. For a normal box, http service will be the starting. For this box, we should try smb service for port 445. For smb service exploitation in kali, we choose to use smbmap, smbclient, enum4linux, etc. Let&rsquo;s try smbclient:</p>
-
 <p>上面的信息看起来并没有什么特别的。一般的靶机，http 服务往往都是突破口。对于这个靶机，我们应该注意到开放在 445 端口的 smb 服务（445 端口往往也是 windows 机器的突破口）。在 kali 上进行 smb 服务的探测，我们可以选择使用 smbmap, smbclient, enum4linux 等。我们先来试一下 smbclient：</p>
-
-<pre><code>smbclient -L 10.10.10.134
-</code></pre>
-
-<p><img src="https://s2.ax1x.com/2019/05/12/E4k8CF.png" alt="E4k8CF.png" /></p>
-
+<pre tabindex="0"><code>smbclient -L 10.10.10.134
+</code></pre><p><img src="https://s2.ax1x.com/2019/05/12/E4k8CF.png" alt="E4k8CF.png"></p>
 <p>With smbclient, we can see the smb shares of this box without any password. Try to access the share by <code>smbclient //10.10.10.134/sharename</code>. But the three shares cannot be accessed except <code>Backups</code>.</p>
-
 <p>通过 smbclient，我们可以在不使用密码的情况下看到这台靶机的共享。通过 <code>smbclient //10.10.10.134/sharename</code> 来尝试访问共享路径，我们发现只有 <code>Backups</code> 是可以访问的。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/12/E4kygH.png" alt="E4kygH.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/12/E4kygH.png" alt="E4kygH.png"></p>
 <p>Access to the share of <code>Backups</code>: <code>smbclient //10.10.10.134/Backups</code>:</p>
-
 <p>访问共享 <code>Backups</code>: <code>smbclient //10.10.10.134/Backups</code>：</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4dx2D.png" alt="E4dx2D.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E4dx2D.png" alt="E4dx2D.png"></p>
 <p>There is a note.txt in the share:</p>
-
 <p>总共享路径可以发现一个 note.txt 文件。</p>
-
-<pre><code>Sysadmins: please don't transfer the entire backup file locally, the VPN to the subsidiary office is too slow.
-</code></pre>
-
-<p>It does is a hint for something useful in the exploitation. It is inconvenient to access files by smbclient, as you cannot browse the file directly. So try to mount the shared folder to kali:</p>
-
+<pre tabindex="0"><code>Sysadmins: please don&#39;t transfer the entire backup file locally, the VPN to the subsidiary office is too slow.
+</code></pre><p>It does is a hint for something useful in the exploitation. It is inconvenient to access files by smbclient, as you cannot browse the file directly. So try to mount the shared folder to kali:</p>
 <p>对于这个利用过程，这个提示还是有用的。通过 smbclient 来访问文件不太方便，因为我们不能够直接浏览文件。所以将这个共享文件夹挂载到 kali 上：</p>
-
-<pre><code>mount -t cifs //10.10.10.134/Backups -o user=guest,password= /mnt/backups
-</code></pre>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E40VT1.png" alt="E40VT1.png" /></p>
-
+<pre tabindex="0"><code>mount -t cifs //10.10.10.134/Backups -o user=guest,password= /mnt/backups
+</code></pre><p><img src="https://s2.ax1x.com/2019/05/13/E40VT1.png" alt="E40VT1.png"></p>
 <p>Here, we can access the files directly. It may be a backup folder. After some exploration, we have found some interesting files.</p>
-
 <p>这样我们就可以直接访问文件了。这个可能是一个备份文件夹。在一些尝试之后，我们发现了一些有趣的文件。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E40w6g.png" alt="E40w6g.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E40w6g.png" alt="E40w6g.png"></p>
 <p>VHD(virtual hard disk) files seem to be very interesting. According to the wiki, <code>VHD is a file format which represents a virtual hard disk drive (HDD). It may contain what is found on a physical HDD, such as disk partitions and a file system, which in turn can contain files and folders. It is typically used as the hard disk of a virtual machine</code>. So we may find more interesting contents in the VHD files. There are two vhd files, one is 37M, and the other is 5.1 G. The larger one seems to be attractive to us. But it will be inconvenient to download the whole vhd file. According to the discussions in the forum, the author has said that you don&rsquo;t have to download the vhd file. Try to mount the vhd file to kai:</p>
-
 <p>VHD(虚拟硬盘)文件看起来很有用。根据维基百科，<code>VVHD是表示虚拟硬盘驱动器（HDD）的文件格式。它可能包含物理HDD上的内容，例如磁盘分区和文件系统，而后者又可以包含文件和文件夹。它通常用作虚拟机的硬盘。</code>所以这个 VHD 文件里面可能包含了更有用的信息。这里面有 2 个 VHD 文件，一个是 37M，一个是 5.1G。毫无疑问，这个大的可能更有用。但是要把整个 VHD 文件下载下来实在是太困难了，尤其是在这样的网络下。而且靶机的作者也在论坛里面说过你根本不需要将整个 VHD 文件下载下来。那就将 VHD 文件挂载到 kali：</p>
-
-<pre><code>guestmount --add /mnt/backups/WindowsImageBackup/L4mpje-PC/Backup\ 2019-02-22\ 124351/9b9cfbc4-369e-11e9-a17c-806e6f6e6963.vhd --inspector --ro /mnt/vhd
-</code></pre>
-
-<p>The operation may cost some time if the network is not very stable. Then, the vhd file in mounted successfully. It seems to be an OS disk. There seem nothing special. Security Account Manager(SAM) is the database file in Windows which stores user passwords. Try to access the SAM files, <code>samdump2</code> can be utilized to dump the hash.</p>
-
+<pre tabindex="0"><code>guestmount --add /mnt/backups/WindowsImageBackup/L4mpje-PC/Backup\ 2019-02-22\ 124351/9b9cfbc4-369e-11e9-a17c-806e6f6e6963.vhd --inspector --ro /mnt/vhd
+</code></pre><p>The operation may cost some time if the network is not very stable. Then, the vhd file in mounted successfully. It seems to be an OS disk. There seem nothing special. Security Account Manager(SAM) is the database file in Windows which stores user passwords. Try to access the SAM files, <code>samdump2</code> can be utilized to dump the hash.</p>
 <p>在网络不是很稳定的情况下这个操作还是蛮耗时的。接着，这个 VHD 文件就挂载成功了。这应该是一个系统硬盘，没有什么特别的信息。但是我们可以在里面发现一个 SAM 文件。安全帐户管理器（SAM）是 Windows 中用于存储用户密码的数据库文件。尝试访问 SAM 文件，<code>samdump2</code> 可以将哈希导出。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E40w6g.png" alt="E40w6g.png" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4syKU.png" alt="E4syKU.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E40w6g.png" alt="E40w6g.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/13/E4syKU.png" alt="E4syKU.png"></p>
 <p>From the dumped hash, the hash of L4mpje seems to be useful. We can access <a href="https://hashkiller.co.uk/Cracker">HashKiller</a> to crack the hash.</p>
-
 <p>从上面导出的哈希，L4mpje 的哈希看起来很有用。我们可以使用在线哈希破解网站 <a href="https://hashkiller.co.uk/Cracker">HashKiller</a> 来破解哈希。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4yEin.png" alt="E4yEin.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E4yEin.png" alt="E4yEin.png"></p>
 <p>We cracked it! As we know the box opens ssh service, so try to access ssh with the user of L4mpje. Of course, we are in.</p>
-
 <p>很容易我们就破解了这个哈希。而且据我们一开始获取的信息，这台靶机是开放了 ssh 服务的，所以我们尝试使用 L4mpje 作为用户名来登录。很幸运，我们进来了。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4yzk9.png" alt="E4yzk9.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E4yzk9.png" alt="E4yzk9.png"></p>
 <h2 id="privilege-escalation">Privilege escalation·</h2>
-
 <h2 id="提权">提权</h2>
-
 <p>After login with user L4mpje, we find that we have relatively limited permission. PrivEsc is often vulnerable to some specific software vulnerability. It is significant to see the program files of the box.</p>
-
 <p>在使用 L4mpje 用户登录成功后，我们发现我们的权限很有限。一般提权可以利用某些软件的漏洞来完成。所以，探测这个靶机安装了哪些软件很有意义。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4chPs.png" alt="E4chPs.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E4chPs.png" alt="E4chPs.png"></p>
 <p>We can find an interesting folder <code>mRemoteNG</code>. <a href="https://github.com/mRemoteNG/mRemoteNG">It</a> is an open source remote connections management tool. But there is a problem that the connections user information can be obtained by the config files. For this box, someone has created a tool to crack the password in this config file. The config file is store is the AppData folder.</p>
-
 <p>我们发现了一个有趣的文件夹 <code>mRemoteNG</code>。<a href="https://github.com/mRemoteNG/mRemoteNG">它</a>是一个开源的远程连接管理工具。它曾经有一个漏洞，可以通过配置文件获取用户的连接信息。对于这台靶机，已经有人创建了一个工具来破解这个配置文件中的密码。配置文件存储在 AppData 文件夹中。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E4g4Te.png" alt="E4g4Te.png" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E42wct.png" alt="E42wct.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/13/E4g4Te.png" alt="E4g4Te.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/13/E42wct.png" alt="E42wct.png"></p>
 <p>It seems that the password of Administrator is stored in the XML file. Someone has created <a href="https://github.com/kmahyyg/mremoteng-decrypt">mremoteng-decrypt</a> to crack the password. It is so convenient thanks to his awesome work.</p>
-
 <p>看起来 Administrator 的密码存储在 XML 文件中。我们可以利用 <a href="https://github.com/kmahyyg/mremoteng-decrypt">mremoteng-decrypt</a> 这个工具来破解密码。</p>
-
-<pre><code>java -jar decipher_mremoteng.jar &quot;aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==&quot;
-</code></pre>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E42O3R.png" alt="E42O3R.png" /></p>
-
+<pre tabindex="0"><code>java -jar decipher_mremoteng.jar &#34;aEWNFV5uGcjUHF0uS17QTdT9kVqtKCPeoC0Nw5dmaPFjNQ2kt/zO5xDqE4HdVmHAowVRdC7emf7lWWA10dQKiw==&#34;
+</code></pre><p><img src="https://s2.ax1x.com/2019/05/13/E42O3R.png" alt="E42O3R.png"></p>
 <p>Wow, we get the password of Administrator.</p>
-
 <p>最终，我们获取了 Administrator 的密码。</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/13/E42xu6.png" alt="E42xu6.png" /></p>
+<p><img src="https://s2.ax1x.com/2019/05/13/E42xu6.png" alt="E42xu6.png"></p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -447,13 +375,13 @@ OS and Service detection performed. Please report any incorrect results at https
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>962</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>975</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -507,7 +435,7 @@ OS and Service detection performed. Please report any incorrect results at https
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

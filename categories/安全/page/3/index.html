@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/categories/%E5%AE%89%E5%85%A8/" />
@@ -259,9 +258,9 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
 Logstash Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
 filter logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
 geoip 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
-geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] }  日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
-#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken  针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
-DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken}  通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] } 日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken 针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken} 通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
 后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
@@ -282,7 +281,7 @@ LICENSE: MIT
  服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
 典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
 下面的是PHP中容易收到SSRF的一个例子。
-&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
+&lt;?php  /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;];  /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;);  /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;);  /** * Dump the contents of the image */ fpassthru($image); } 在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
   </footer>
@@ -335,7 +334,7 @@ LICENSE: MIT
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

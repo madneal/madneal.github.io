@@ -18,7 +18,7 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
 模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = { &amp;#34;a&amp;#34;: &amp;#34;13413&amp;#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
+doc = Docxtpl(filename) context = {  &amp;#34;a&amp;#34;: &amp;#34;13413&amp;#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
 from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2." />
 
   
@@ -29,7 +29,7 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
   <meta property="og:title" content="利用 python 生成可视化报告" />
   <meta property="og:description" content="Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
 模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = { &amp;#34;a&amp;#34;: &amp;#34;13413&amp;#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
+doc = Docxtpl(filename) context = {  &amp;#34;a&amp;#34;: &amp;#34;13413&amp;#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
 from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2." />
   <meta property="og:url" content="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
@@ -37,7 +37,6 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" />
@@ -223,59 +222,54 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
       <h1 class="post-title">利用 python 生成可视化报告</h1>
       <p class="post-meta">@Neal · Aug 16, 2018 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。</p>
-
+    <article class="post-content"><p>Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。</p>
 <h2 id="模板">模板</h2>
-
 <p>docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 <code>{{}}</code> 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 <code>render</code> 来渲染模板即可。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">doc <span style="color:#f92672">=</span> Docxtpl(filename)
-context <span style="color:#f92672">=</span> {
-    <span style="color:#e6db74">&#34;a&#34;</span>: <span style="color:#e6db74">&#34;13413&#34;</span>
-}
-doc<span style="color:#f92672">.</span>Render(context)</code></pre></div>
-<p>那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> docxtpl <span style="color:#f92672">import</span> DocxTemplate, InlineImage
-<span style="color:#75715e"># for height and width you have to use millimeters (Mm), inches or points(Pt) class :</span>
-<span style="color:#f92672">from</span> docx.shared <span style="color:#f92672">import</span> Mm, Inches, Pt
-<span style="color:#f92672">import</span> jinja2
-<span style="color:#f92672">from</span> jinja2.utils <span style="color:#f92672">import</span> Markup
-
-tpl<span style="color:#f92672">=</span>DocxTemplate(<span style="color:#e6db74">&#39;test_files/inline_image_tpl.docx&#39;</span>)
-
-context <span style="color:#f92672">=</span> {
-    <span style="color:#e6db74">&#39;myimage&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/python_logo.png&#39;</span>,width<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">20</span>)),
-    <span style="color:#e6db74">&#39;myimageratio&#39;</span>: InlineImage(tpl, <span style="color:#e6db74">&#39;test_files/python_jpeg.jpg&#39;</span>, width<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">30</span>), height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">60</span>)),
-
-    <span style="color:#e6db74">&#39;frameworks&#39;</span> : [{<span style="color:#e6db74">&#39;image&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/django.png&#39;</span>,height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
-                      <span style="color:#e6db74">&#39;desc&#39;</span> : <span style="color:#e6db74">&#39;The web framework for perfectionists with deadlines&#39;</span>},
-
-                    {<span style="color:#e6db74">&#39;image&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/zope.png&#39;</span>,height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
-                     <span style="color:#e6db74">&#39;desc&#39;</span> : <span style="color:#e6db74">&#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;</span>},
-
-                    {<span style="color:#e6db74">&#39;image&#39;</span>: InlineImage(tpl, <span style="color:#e6db74">&#39;test_files/pyramid.png&#39;</span>, height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
-                     <span style="color:#e6db74">&#39;desc&#39;</span>: <span style="color:#e6db74">&#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;</span>},
-
-                    {<span style="color:#e6db74">&#39;image&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/bottle.png&#39;</span>,height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
-                     <span style="color:#e6db74">&#39;desc&#39;</span> : <span style="color:#e6db74">&#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;</span>},
-
-                    {<span style="color:#e6db74">&#39;image&#39;</span>: InlineImage(tpl, <span style="color:#e6db74">&#39;test_files/tornado.png&#39;</span>, height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
-                     <span style="color:#e6db74">&#39;desc&#39;</span>: <span style="color:#e6db74">&#39;Tornado is a Python web framework and asynchronous networking library.&#39;</span>},
-                    ]
-}
-<span style="color:#75715e"># testing that it works also when autoescape has been forced to True</span>
-jinja_env <span style="color:#f92672">=</span> jinja2<span style="color:#f92672">.</span>Environment(autoescape<span style="color:#f92672">=</span>True)
-tpl<span style="color:#f92672">.</span>render(context, jinja_env)
-tpl<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;test_files/inline_image.docx&#39;</span>)</code></pre></div>
-<p>同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 <a href="https://github.com/elapouya/python-docx-template/tree/master/tests">test</a>，里面有各种例子可以参考。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>doc <span style="color:#f92672">=</span> Docxtpl(filename)
+</span></span><span style="display:flex;"><span>context <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;a&#34;</span>: <span style="color:#e6db74">&#34;13413&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>doc<span style="color:#f92672">.</span>Render(context)
+</span></span></code></pre></div><p>那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> docxtpl <span style="color:#f92672">import</span> DocxTemplate, InlineImage
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># for height and width you have to use millimeters (Mm), inches or points(Pt) class :</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> docx.shared <span style="color:#f92672">import</span> Mm, Inches, Pt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jinja2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> jinja2.utils <span style="color:#f92672">import</span> Markup
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tpl<span style="color:#f92672">=</span>DocxTemplate(<span style="color:#e6db74">&#39;test_files/inline_image_tpl.docx&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;myimage&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/python_logo.png&#39;</span>,width<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">20</span>)),
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;myimageratio&#39;</span>: InlineImage(tpl, <span style="color:#e6db74">&#39;test_files/python_jpeg.jpg&#39;</span>, width<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">30</span>), height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">60</span>)),
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;frameworks&#39;</span> : [{<span style="color:#e6db74">&#39;image&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/django.png&#39;</span>,height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#39;desc&#39;</span> : <span style="color:#e6db74">&#39;The web framework for perfectionists with deadlines&#39;</span>},
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    {<span style="color:#e6db74">&#39;image&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/zope.png&#39;</span>,height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>                     <span style="color:#e6db74">&#39;desc&#39;</span> : <span style="color:#e6db74">&#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;</span>},
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    {<span style="color:#e6db74">&#39;image&#39;</span>: InlineImage(tpl, <span style="color:#e6db74">&#39;test_files/pyramid.png&#39;</span>, height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>                     <span style="color:#e6db74">&#39;desc&#39;</span>: <span style="color:#e6db74">&#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;</span>},
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    {<span style="color:#e6db74">&#39;image&#39;</span> : InlineImage(tpl,<span style="color:#e6db74">&#39;test_files/bottle.png&#39;</span>,height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>                     <span style="color:#e6db74">&#39;desc&#39;</span> : <span style="color:#e6db74">&#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;</span>},
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                    {<span style="color:#e6db74">&#39;image&#39;</span>: InlineImage(tpl, <span style="color:#e6db74">&#39;test_files/tornado.png&#39;</span>, height<span style="color:#f92672">=</span>Mm(<span style="color:#ae81ff">10</span>)),
+</span></span><span style="display:flex;"><span>                     <span style="color:#e6db74">&#39;desc&#39;</span>: <span style="color:#e6db74">&#39;Tornado is a Python web framework and asynchronous networking library.&#39;</span>},
+</span></span><span style="display:flex;"><span>                    ]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># testing that it works also when autoescape has been forced to True</span>
+</span></span><span style="display:flex;"><span>jinja_env <span style="color:#f92672">=</span> jinja2<span style="color:#f92672">.</span>Environment(autoescape<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>tpl<span style="color:#f92672">.</span>render(context, jinja_env)
+</span></span><span style="display:flex;"><span>tpl<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;test_files/inline_image.docx&#39;</span>)
+</span></span></code></pre></div><p>同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 <a href="https://github.com/elapouya/python-docx-template/tree/master/tests">test</a>，里面有各种例子可以参考。</p>
 <h2 id="matplotlib">Matplotlib</h2>
-
 <p>Matplotlib 是一个非常好的可视化作图工具，可以利用它制作各种图例。主要讲plt.几个使用的时候遇到的一些小问题。第一个就是图例上的中文乱码，需要设置图例的文字字体：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#34;font.sans.serif&#34;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;SimHei&#34;</span>]</code></pre></div>
-<p>第二个情况就是图例中的 label 很有可能重叠，所以可以将 label 旋转：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>xtick(obj[<span style="color:#e6db74">&#34;group_labels&#34;</span>], rotation<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)</code></pre></div></article>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#34;font.sans.serif&#34;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;SimHei&#34;</span>]
+</span></span></code></pre></div><p>第二个情况就是图例中的 label 很有可能重叠，所以可以将 label 旋转：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xtick(obj[<span style="color:#e6db74">&#34;group_labels&#34;</span>], rotation<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)
+</span></span></code></pre></div></article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
         <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
@@ -289,13 +283,13 @@ tpl<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;tes
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1364</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1377</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -349,7 +343,7 @@ tpl<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;tes
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

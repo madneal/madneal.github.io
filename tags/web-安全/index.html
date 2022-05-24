@@ -6,7 +6,7 @@
 
   
   <title>
-  Tag → web-安全
+  Tag → web 安全
   
    | Neal 的博客
 </title>
@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/web-%E5%AE%89%E5%85%A8/" />
@@ -221,8 +220,8 @@
   
   <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html);  // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</p>
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
@@ -263,7 +262,7 @@ LICENSE: MIT
  这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
 什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
  通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
  该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
@@ -300,7 +299,7 @@ LICENSE: MIT
   <p class="post-summary">本文首发于安全客平台
 MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
 起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.</p>
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
   </footer>
@@ -354,8 +353,8 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
   <p class="post-summary">Burp 是 Web 安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
 如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
  配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 “Edit Configurations” 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
- 命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
-java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar 部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
 Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/">Read More →</a>
@@ -397,7 +396,7 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
 CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
 下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
 HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
@@ -441,7 +440,7 @@ HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Cont
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

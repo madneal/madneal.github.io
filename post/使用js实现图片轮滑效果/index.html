@@ -17,7 +17,7 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt; &amp;lt;title&amp;gt;document&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;style.css&amp;quot;&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;javascript.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div id=&amp;quot;flash&amp;quot;&amp;gt; &amp;lt;ul id=&amp;quot;pic&amp;quot;&amp;gt; &amp;lt;li style=&amp;quot;display:block&amp;quot;&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot; &amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol id=&amp;quot;num&amp;quot;&amp;gt; &amp;lt;li class=&amp;quot;activate&amp;quot;&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;6&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot; class=&amp;quot;arrow&amp;quot; id=&amp;quot;left&amp;quot;&amp;gt;&amp;amp;lt;&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot; class=&amp;quot;arrow&amp;quot; id=&amp;quot;right&amp;quot;&amp;gt;&amp;amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;  图像的原路径我就不制定了，css文件
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;document&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;style.css&amp;#34;&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34; src=&amp;#34;javascript.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div id=&amp;#34;flash&amp;#34;&amp;gt; &amp;lt;ul id=&amp;#34;pic&amp;#34;&amp;gt; &amp;lt;li style=&amp;#34;display:block&amp;#34;&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34; &amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol id=&amp;#34;num&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;activate&amp;#34;&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;6&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;a href=&amp;#34;javascript:;&amp;#34; class=&amp;#34;arrow&amp;#34; id=&amp;#34;left&amp;#34;&amp;gt;&amp;amp;lt;&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;#34;javascript:;&amp;#34; class=&amp;#34;arrow&amp;#34; id=&amp;#34;right&amp;#34;&amp;gt;&amp;amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 图像的原路径我就不制定了，css文件
 * { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li." />
 
   
@@ -27,7 +27,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="使用js实现图片轮滑效果" />
   <meta property="og:description" content="经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
-&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt; &amp;lt;title&amp;gt;document&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;style.css&amp;quot;&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;javascript.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div id=&amp;quot;flash&amp;quot;&amp;gt; &amp;lt;ul id=&amp;quot;pic&amp;quot;&amp;gt; &amp;lt;li style=&amp;quot;display:block&amp;quot;&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot; &amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol id=&amp;quot;num&amp;quot;&amp;gt; &amp;lt;li class=&amp;quot;activate&amp;quot;&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;6&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot; class=&amp;quot;arrow&amp;quot; id=&amp;quot;left&amp;quot;&amp;gt;&amp;amp;lt;&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;quot;javascript:;&amp;quot; class=&amp;quot;arrow&amp;quot; id=&amp;quot;right&amp;quot;&amp;gt;&amp;amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;  图像的原路径我就不制定了，css文件
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html lang=&amp;#34;en&amp;#34;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#34;UTF-8&amp;#34;&amp;gt; &amp;lt;title&amp;gt;document&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;style.css&amp;#34;&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34; src=&amp;#34;javascript.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;div id=&amp;#34;flash&amp;#34;&amp;gt; &amp;lt;ul id=&amp;#34;pic&amp;#34;&amp;gt; &amp;lt;li style=&amp;#34;display:block&amp;#34;&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34; &amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;img src=&amp;#34;&amp;#34;&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol id=&amp;#34;num&amp;#34;&amp;gt; &amp;lt;li class=&amp;#34;activate&amp;#34;&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;4&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;5&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;6&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;a href=&amp;#34;javascript:;&amp;#34; class=&amp;#34;arrow&amp;#34; id=&amp;#34;left&amp;#34;&amp;gt;&amp;amp;lt;&amp;lt;/a&amp;gt; &amp;lt;a href=&amp;#34;javascript:;&amp;#34; class=&amp;#34;arrow&amp;#34; id=&amp;#34;right&amp;#34;&amp;gt;&amp;amp;gt;&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 图像的原路径我就不制定了，css文件
 * { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li." />
   <meta property="og:url" content="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
@@ -35,7 +35,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/" />
@@ -223,44 +222,40 @@
     </header>
     <article class="post-content"><p>经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。
 首先贴出html代码：</p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
+<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
 &lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta charset=&#34;UTF-8&#34;&gt;
     &lt;title&gt;document&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;javascript.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt;
+    &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;div id=&quot;flash&quot;&gt;
-    &lt;ul id=&quot;pic&quot;&gt;
-        &lt;li style=&quot;display:block&quot;&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot; &gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
+&lt;div id=&#34;flash&#34;&gt;
+    &lt;ul id=&#34;pic&#34;&gt;
+        &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
     &lt;/ul&gt;
-    &lt;ol id=&quot;num&quot;&gt;
-        &lt;li class=&quot;activate&quot;&gt;1&lt;/li&gt;
+    &lt;ol id=&#34;num&#34;&gt;
+        &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt;
         &lt;li&gt;2&lt;/li&gt;
         &lt;li&gt;3&lt;/li&gt;
         &lt;li&gt;4&lt;/li&gt;
         &lt;li&gt;5&lt;/li&gt;
         &lt;li&gt;6&lt;/li&gt;
     &lt;/ol&gt;
-    &lt;a href=&quot;javascript:;&quot; class=&quot;arrow&quot; id=&quot;left&quot;&gt;&amp;lt;&lt;/a&gt;
-    &lt;a href=&quot;javascript:;&quot; class=&quot;arrow&quot; id=&quot;right&quot;&gt;&amp;gt;&lt;/a&gt;
+    &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt;
+    &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
-
-<p>图像的原路径我就不制定了，css文件</p>
-
-<pre><code>* {
+</code></pre><p>图像的原路径我就不制定了，css文件</p>
+<pre tabindex="0"><code>* {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -339,21 +334,18 @@ a
 {
     right: 2%;
 }
-</code></pre>
-
-<p>js代码：</p>
-
-<pre><code>function $(id) {
-    return typeof id==='string'?document.getElementById(id):id;
+</code></pre><p>js代码：</p>
+<pre tabindex="0"><code>function $(id) {
+    return typeof id===&#39;string&#39;?document.getElementById(id):id;
 }
 window.onload=function(){
     var index=0;
     var timer=null;
-    var pic=$(&quot;pic&quot;).getElementsByTagName(&quot;li&quot;);
-    var num=$(&quot;num&quot;).getElementsByTagName(&quot;li&quot;);
-    var flash=$(&quot;flash&quot;);
-    var left=$(&quot;left&quot;);
-    var right=$(&quot;right&quot;);
+    var pic=$(&#34;pic&#34;).getElementsByTagName(&#34;li&#34;);
+    var num=$(&#34;num&#34;).getElementsByTagName(&#34;li&#34;);
+    var flash=$(&#34;flash&#34;);
+    var left=$(&#34;left&#34;);
+    var right=$(&#34;right&#34;);
     //单击左箭头
     left.onclick=function()
     {
@@ -400,17 +392,15 @@ window.onload=function(){
     {
         console.log(index)
         for(var j=0;j&lt;num.length;j++){
-            pic[j].style.display=&quot;none&quot;;
-            num[j].className=&quot;&quot;;
+            pic[j].style.display=&#34;none&#34;;
+            num[j].className=&#34;&#34;;
         }
-        pic[curindex].style.display=&quot;block&quot;;
-        num[curindex].className=&quot;active&quot;;
+        pic[curindex].style.display=&#34;block&#34;;
+        num[curindex].className=&#34;active&#34;;
         index=curindex;
     }
 }
-</code></pre>
-
-<p>如果想看结果可以上<a href="http://neal1991.pythonanywhere.com，这个有实现结果的。">http://neal1991.pythonanywhere.com，这个有实现结果的。</a></p>
+</code></pre><p>如果想看结果可以上http://neal1991.pythonanywhere.com，这个有实现结果的。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -423,13 +413,13 @@ window.onload=function(){
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2393</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2406</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -483,7 +473,7 @@ window.onload=function(){
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

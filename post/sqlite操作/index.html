@@ -17,8 +17,8 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。
-sqlite3 .separator &#39;,&#39; .import filename tablename  导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
-datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&amp;lsquo;now&amp;rsquo;,&amp;lsquo;localtime&amp;rsquo;)。
+sqlite3 .separator &amp;#39;,&amp;#39; .import filename tablename 导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
+datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&amp;rsquo;now&amp;rsquo;,&amp;rsquo;localtime&amp;rsquo;)。
 database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close" />
 
   
@@ -28,8 +28,8 @@ database is locked 读完数据库一定要关闭，无论是reader还是dataset
   <meta property="og:type" content="article" />
   <meta property="og:title" content="sqlite操作" />
   <meta property="og:description" content="导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。
-sqlite3 .separator &#39;,&#39; .import filename tablename  导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
-datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&amp;lsquo;now&amp;rsquo;,&amp;lsquo;localtime&amp;rsquo;)。
+sqlite3 .separator &amp;#39;,&amp;#39; .import filename tablename 导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
+datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&amp;rsquo;now&amp;rsquo;,&amp;rsquo;localtime&amp;rsquo;)。
 database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close" />
   <meta property="og:url" content="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
@@ -37,7 +37,6 @@ database is locked 读完数据库一定要关闭，无论是reader还是dataset
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" />
@@ -223,28 +222,17 @@ database is locked 读完数据库一定要关闭，无论是reader还是dataset
       <h1 class="post-title">sqlite操作</h1>
       <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<h2 id="导入excel到表格">导入excel到表格</h2>
-
+    <article class="post-content"><h2 id="导入excel到表格">导入excel到表格</h2>
 <p>本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。
 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。</p>
-
-<pre><code>sqlite3
-.separator ','
+<pre tabindex="0"><code>sqlite3
+.separator &#39;,&#39;
 .import filename tablename
-</code></pre>
-
-<h2 id="导入文件乱码">导入文件乱码</h2>
-
+</code></pre><h2 id="导入文件乱码">导入文件乱码</h2>
 <p>经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。</p>
-
-<h2 id="datatime-函数时间出错">datatime()函数时间出错</h2>
-
-<p>使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&lsquo;now&rsquo;,&lsquo;localtime&rsquo;)。</p>
-
+<h2 id="datatime函数时间出错">datatime()函数时间出错</h2>
+<p>使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&rsquo;now&rsquo;,&rsquo;localtime&rsquo;)。</p>
 <h2 id="database-is-locked">database is locked</h2>
-
 <p>读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</p>
 </article>
     <footer class="post-footer">
@@ -260,13 +248,13 @@ database is locked 读完数据库一定要关闭，无论是reader还是dataset
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2582</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2595</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -320,7 +308,7 @@ database is locked 读完数据库一定要关闭，无论是reader还是dataset
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

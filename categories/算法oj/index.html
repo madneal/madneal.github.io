@@ -6,7 +6,7 @@
 
   
   <title>
-  Category → 算法oj
+  Category → 算法OJ
   
    | Neal 的博客
 </title>
@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/categories/%E7%AE%97%E6%B3%95oj/" />
@@ -250,10 +249,9 @@ We try to figure out this problem step by step.</p>
     <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1 2 8 9 2 4 9 12
-4 7 10 13 6 8 11 15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
+  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1	2	8	9 2	4	9	12 4	7	10	13 6	8	11	15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
 从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
-bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; }  </p>
+bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">Read More →</a>
   </footer>
@@ -267,8 +265,8 @@ bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matri
   </header>
   
   <p class="post-summary">现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]….A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
-//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
-// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; }  今天一练，到此结束。</p>
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; 下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; } 今天一练，到此结束。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">Read More →</a>
   </footer>
@@ -281,7 +279,7 @@ bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matri
     <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary"> 题目 Description
+  <p class="post-summary">题目 Description
 歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
 每行一个偶数n（4 &lt; n &lt;= 20000）
 Output
@@ -289,7 +287,7 @@ Output
 Sample Input
 8 10 1000 Sample Output
 3 5 5 5 491 509
-代码 #include&lt;stdio.h&gt; #include&lt;math.h&gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&#34;%d&#34;,&amp;n) != EOF) { for (i = n/2;i &gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;&amp;isPrime(j)) { printf(&#34;%d %d\n&#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  </p>
+代码 #include&lt;stdio.h&gt; #include&lt;math.h&gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&#34;%d&#34;,&amp;n) != EOF) { for (i = n/2;i &gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;&amp;isPrime(j)) { printf(&#34;%d %d\n&#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">Read More →</a>
   </footer>
@@ -338,7 +336,7 @@ How can you tell an extrovert from an</p>
 题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
 输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
 样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
-代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m;	} cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; }  这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
+代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m;	} cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; } 这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">Read More →</a>
   </footer>
@@ -381,7 +379,7 @@ How can you tell an extrovert from an</p>
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

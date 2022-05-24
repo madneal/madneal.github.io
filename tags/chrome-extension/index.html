@@ -6,7 +6,7 @@
 
   
   <title>
-  Tag → chrome-extension
+  Tag → chrome extension
   
    | Neal 的博客
 </title>
@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/chrome-extension/" />
@@ -226,7 +225,7 @@
 文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
  利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
-function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。</p>
+function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date()).getTime() &#43; 3600  }  return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/">Read More →</a>
   </footer>
@@ -269,7 +268,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

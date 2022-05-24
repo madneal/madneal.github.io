@@ -49,7 +49,6 @@ Service worker就好像它的内部有一个有一个shared worker ：
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" />
@@ -235,246 +234,185 @@ Service worker就好像它的内部有一个有一个shared worker ：
       <h1 class="post-title">service worker介绍</h1>
       <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<blockquote>
+    <article class="post-content"><blockquote>
 <p>原文：<a href="https://github.com/w3c/ServiceWorker/blob/master/explainer.md">Service workers explained</a></p>
-
 <p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
-
 <p>welcome to star my <a href="https://github.com/neal1991">articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
-
 <p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
 </blockquote>
-
 <h2 id="那么它是什么">那么它是什么？</h2>
-
 <p>Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：</p>
-
 <ul>
 <li>无法解释（<a href="https://extensiblewebmanifesto.org/">Extensible Web Manifesto</a> 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。</li>
 <li>难以自然地构建一个离线优先地web应用。</li>
 <li>缺乏可以利用很多提出功能的上下文执行。</li>
 </ul>
-
 <p>我们也注意到了声明解决方案(<a href="https://gears.google.com">Google Gears</a>, <a href="http://www.sitepen.com/blog/category/dojo-offline/">Dojo Offline</a>以及<a href="http://alistapart.com/article/application-cache-is-a-douchebag">HTML5 AppCache</a>都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：</p>
-
 <p>Service worker就好像它的内部有一个有一个<a href="https://html.spec.whatwg.org/multipage/workers.html#sharedworker">shared worker</a> ：</p>
-
 <ul>
 <li>在它自己的全局脚本上下文中运行（通常是在它自己的线程中）</li>
 <li>不会和特定的页面绑定</li>
 <li>不能够访问DOM</li>
 </ul>
-
 <p>不像shared worker，它：</p>
-
 <ul>
 <li>即使没有页面也能够运行</li>
 <li>如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的）</li>
 <li>拥有一个定义的升级模式</li>
 <li>只允许HTTPS（更多的是在这一点上）</li>
 </ul>
-
 <p>我们可以利用service workers：</p>
-
 <ul>
 <li>利用网络拦截可以让让网站<a href="https://www.youtube.com/watch?v=px-J9Ghvcx4">更快以及/或者支持离线使用</a></li>
 <li>作为其它&rsquo;background&rsquo;功能的基础比如<a href="http://updates.html5rocks.com/2015/03/push-notificatons-on-the-open-web">消息推送</a>以及<a href="https://github.com/slightlyoff/BackgroundSync/blob/master/explainer.md">后台同步</a></li>
 </ul>
-
 <h2 id="开始">开始</h2>
-
 <p>首先你需要注册一个service worker:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
-  <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/my-app/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">reg</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Yey!&#39;</span>, <span style="color:#a6e22e">reg</span>);
-  }).<span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Boo!&#39;</span>, <span style="color:#a6e22e">err</span>);
-  });
-}
-</code></pre></div>
-<p>在这个例子中，<code>/my-app/sw.js</code>就是service worker脚本的位置，并且它控制那些页面的URL以<code>/my-app/</code>开头。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#39;serviceWorker&#39;</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">navigator</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">navigator</span>.<span style="color:#a6e22e">serviceWorker</span>.<span style="color:#a6e22e">register</span>(<span style="color:#e6db74">&#39;/my-app/sw.js&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">reg</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Yey!&#39;</span>, <span style="color:#a6e22e">reg</span>);
+</span></span><span style="display:flex;"><span>  }).<span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Boo!&#39;</span>, <span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在这个例子中，<code>/my-app/sw.js</code>就是service worker脚本的位置，并且它控制那些页面的URL以<code>/my-app/</code>开头。</p>
 <p><code>.register</code>返回一个promise。如果你以前没接触过promise的话，可以看看<a href="http://www.html5rocks.com/en/tutorials/es6/promises/">HTML5Rocks article</a>。</p>
-
 <p>一些限制：</p>
-
 <ul>
-<li>注册页面必须安全地提供（没有证书错误的HTTPS）</li>
-
-<li><p>service worker和页面必须同源，尽管你可使用 <a href="https://html.spec.whatwg.org/multipage/workers.html#apis-available-to-workers:dom-workerglobalscope-importscripts"><code>importScripts</code></a>去导入其它地方的脚本</p></li>
-
-<li><p>作为必须的范围</p></li>
+<li>
+<p>注册页面必须安全地提供（没有证书错误的HTTPS）</p>
+</li>
+<li>
+<p>service worker和页面必须同源，尽管你可使用 <a href="https://html.spec.whatwg.org/multipage/workers.html#apis-available-to-workers:dom-workerglobalscope-importscripts"><code>importScripts</code></a>去导入其它地方的脚本</p>
+</li>
+<li>
+<p>作为必须的范围</p>
+</li>
 </ul>
-
 <h3 id="只有你说https">只有你说HTTPS？</h3>
-
 <p>使用service worker，你可以劫持请求，进行不同的响应，并且过滤响应。这些功能都很强大。尽管你可以将这些能力用在好的地方，但是中间人可能不会。为了避免这一点，你只能在HTTPS上提供的页面上注册service worker，所以我们知道浏览器接收的service worker没有在网络种没有被篡改。</p>
-
 <p>Github Pages是由HTTPS提供服务的，所以是一个绝佳的展示demo的地方。</p>
-
 <h2 id="初始生命周期">初始生命周期</h2>
-
 <p>当你调用<code>.register</code>之后，你的service worker会经历三个阶段</p>
-
 <ol>
 <li>Download</li>
 <li>Install</li>
 <li>Activate</li>
 </ol>
-
 <p>你可以使用事件和<code>install</code>以及<code>activate</code>进行交互：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
-    <span style="color:#a6e22e">fetchStuffAndInitDatabases</span>()
-  );
-});
-
-<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#75715e">// You&#39;re good to go!
-</span><span style="color:#75715e"></span>});
-</code></pre></div>
-<p>你可以向<code>event.waitUntill</code>传递一个promise从而来继承这个过程。一旦<code>activate</code>事件被触发了，你的service worker就可以控制页面了！</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fetchStuffAndInitDatabases</span>()
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// You&#39;re good to go!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><p>你可以向<code>event.waitUntill</code>传递一个promise从而来继承这个过程。一旦<code>activate</code>事件被触发了，你的service worker就可以控制页面了！</p>
 <h2 id="那么我现在可以控制页面了">那么我现在可以控制页面了？</h2>
-
 <p>额，不完全是。当document浏览时，它会选择一个service worker作为它的控制器，因此你使用<code>.register</code>注册的document并不是被控制的，因为那并不是service worker首次加载的地方。</p>
-
 <p>如果你刷新document，它将会是在service worker的控制之下。你可以通过<code>navigator.serviceWorker.controller</code>来看一下是哪个service worker在进行控制，如果没有的话结果就会是<code>null</code>。</p>
-
-<p>注意：当你从一个service worker更新到另外一个的时候，可能会有一点点不一点。我们会进入“Updating&rdquo;阶段。</p>
-
+<p>注意：当你从一个service worker更新到另外一个的时候，可能会有一点点不一点。我们会进入“Updating&quot;阶段。</p>
 <p>如果使用shift来重载网页的话，加载就会有控制器了，这样做是为了测试CSS以及JS变化。</p>
-
 <p>Document通常是和一个service worker存在于整个声明周期，或者根本就没有service worker。然而，service worker可以调用<code>self.skipWaiting()</code>(<a href="https://w3c.github.io/ServiceWorker/#service-worker-global-scope-skipwaiting">spec</a>) 来立刻接管范围内的所有页面。</p>
-
 <h2 id="网络截获">网络截获</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>);
-});
-</code></pre></div>
-<p>你可以利用fetch事件：</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>你可以利用fetch事件：</p>
 <ul>
 <li>在你的service worker作用域下浏览</li>
 <li>任何被这些页面触发的请求，甚至是对其他源的请求</li>
 </ul>
-
 <p>这意味着你可以监听所有对于这个页面的请求，CSS,JS，图片，XHR，图标等等所有。</p>
-
 <ul>
 <li>iframes &amp; <code>&lt;object&gt;</code>&ndash;这些将根据它们的资源URL选择其控制器</li>
 <li>Service workers - 对于service worker的fetch/update请求不会通过service worker</li>
 <li>请求是在service worker之内出发的 - 否则你会获得一个循环</li>
 </ul>
-
 <p><code>request</code>对象会给你关于这个request的信息，比如它的URL，方法以及头部。但是最有趣的是，他可以劫持请求并且给出不同的响应。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Response</span>(<span style="color:#e6db74">&#34;Hello world!&#34;</span>));
-});
-</code></pre></div>
-<p><a href="https://jakearchibald.github.io/isserviceworkerready/demos/manual-response/">这是一个 demo</a>.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(<span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Response</span>(<span style="color:#e6db74">&#34;Hello world!&#34;</span>));
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p><a href="https://jakearchibald.github.io/isserviceworkerready/demos/manual-response/">这是一个 demo</a>.</p>
 <p><code>.repondWith</code>使用一个<code>Reponse</code>对象或者一个解析后的promise。上面我们是在创建一个手工的response。这个<code>Reponse</code>对象来自于 <a href="https://fetch.spec.whatwg.org/#response-class">Fetch Spec</a>.。在这个规范里面同样也存在着<code>fetch()</code>方法，它会返回一个promise作为响应，这意味着你可以在任何地方获取你的响应。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">/\.jpg$/</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">url</span>)) {
-    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(
-      <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;//www.google.co.uk/logos/…3-hp.gif&#39;</span>, {
-        <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;no-cors&#39;</span>
-      })
-    );
-  }
-});
-</code></pre></div>
-<p>在上面，我捕获了以<code>.jpg</code>结尾的请求并且将Google doodle作为响应。<code>fetch()</code>请求默认是 <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a>，但是通过设置<code>no-cors</code>我可用使用这个响应，即使他不能跨域访问headers（尽管我们不能利用JavaScript访问内容）。<a href="https://jakearchibald.github.io/isserviceworkerready/demos/img-rewrite/">这是demo</a>.</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#e6db74">/\.jpg$/</span>.<span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>.<span style="color:#a6e22e">url</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;//www.google.co.uk/logos/…3-hp.gif&#39;</span>, {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;no-cors&#39;</span>
+</span></span><span style="display:flex;"><span>      })
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>在上面，我捕获了以<code>.jpg</code>结尾的请求并且将Google doodle作为响应。<code>fetch()</code>请求默认是 <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a>，但是通过设置<code>no-cors</code>我可用使用这个响应，即使他不能跨域访问headers（尽管我们不能利用JavaScript访问内容）。<a href="https://jakearchibald.github.io/isserviceworkerready/demos/img-rewrite/">这是demo</a>.</p>
 <p>Promise能够让你从一个方法返回到另外一个方法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(
-    <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>).<span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">function</span>() {
-      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Response</span>(<span style="color:#e6db74">&#34;Request failed!&#34;</span>);
-    })
-  );
-});
-</code></pre></div>
-<p>Service worker是带有一个cache API，使得以后可以方便的存储响应以便重用。不久之后，但是第一点</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>).<span style="color:#66d9ef">catch</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Response</span>(<span style="color:#e6db74">&#34;Request failed!&#34;</span>);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>Service worker是带有一个cache API，使得以后可以方便的存储响应以便重用。不久之后，但是第一点</p>
 <h2 id="更新一个service-worker">更新一个service worker</h2>
-
 <p>Service worker的生命周期是建立在Chrome的更新模型上的：在后台尽可能多地做，不要打扰用户，当当前版本关闭的时候完成更新。</p>
-
 <p>无论何时你在你的service worker作用域内浏览页面，浏览器都会在后台检查更新。如果这个脚本是字节不同的，那么它就会被认为是一个新的版本，并且被安装（注意：只有这个脚本被检查，而不是外部的<code>importScripts</code>）。然而，老版本的会持续对页面的控制直到所有使用它的tab都被关闭了（除非在install的过程中调用<code>.replace()</code>）。接着这个老版本的就会被回收从而新的版本开始接管。</p>
-
 <p>这样做是为了避免同时运行两个版本的service worker在不同的tab中。我们当前的策略是： <a href="https://twitter.com/jaffathecake/status/502779501936652289">“cross fingers, hope it doesn’t happen”</a>.</p>
-
 <p>注意：更新遵顼header中worker脚本的新鲜度（比如<code>max-age</code>），除非<code>max-age</code>大于24个小时，否则最多只能保持24个小时。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#75715e">// this happens while the old version is still in control
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
-    <span style="color:#a6e22e">fetchStuffAndInitDatabases</span>()
-  );
-});
-
-<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#75715e">// the old version is gone now, do what you couldn&#39;t
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// do while it was still around
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
-    <span style="color:#a6e22e">schemaMigrationAndCleanup</span>()
-  )
-});
-</code></pre></div>
-<p><a href="https://www.youtube.com/watch?v=VEshtDMHYyA">下面是实践中的实现</a>：</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// this happens while the old version is still in control
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fetchStuffAndInitDatabases</span>()
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;activate&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// the old version is gone now, do what you couldn&#39;t
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// do while it was still around
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">schemaMigrationAndCleanup</span>()
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p><a href="https://www.youtube.com/watch?v=VEshtDMHYyA">下面是实践中的实现</a>：</p>
 <p>不幸的是，刷新一个tab不足够收集到旧的woker兵器让新的进行接管。浏览期在上传当前页面之前向下一个页面发送请求，所以不存在当前active worker被释放。</p>
-
 <p>最简单的方法是关闭然后重新打开这个tab（cmd+w，然后cmd+shift+t Mac），或者shift+reload然后就是正常的重新加载了。</p>
-
 <h2 id="缓存">缓存</h2>
-
 <p>Service worker带有一个<a href="https://w3c.github.io/ServiceWorker/#cache-objects">caching API</a>能够让你产生由请求作为键值的store。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#75715e">// pre cache a load of stuff:
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
-    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#39;myapp-static-v1&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>([
-        <span style="color:#e6db74">&#39;/&#39;</span>,
-        <span style="color:#e6db74">&#39;/styles/all.css&#39;</span>,
-        <span style="color:#e6db74">&#39;/styles/imgs/bg.png&#39;</span>,
-        <span style="color:#e6db74">&#39;/scripts/all.js&#39;</span>
-      ]);
-    })
-  )
-});
-
-<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
-  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(
-    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cachedResponse</span>) {
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cachedResponse</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>);
-    })
-  );
-});
-</code></pre></div>
-<p>在缓存之内匹配类似于浏览器的缓存。方法，URL以及<code>vary</code>header都被考虑在内，但是header的新鲜度被忽略了。缓存的东西只有在你手动移除的时候才生效。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;install&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// pre cache a load of stuff:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">waitUntil</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">open</span>(<span style="color:#e6db74">&#39;myapp-static-v1&#39;</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cache</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cache</span>.<span style="color:#a6e22e">addAll</span>([
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/styles/all.css&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/styles/imgs/bg.png&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;/scripts/all.js&#39;</span>
+</span></span><span style="display:flex;"><span>      ]);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  )
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">respondWith</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">caches</span>.<span style="color:#a6e22e">match</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>).<span style="color:#a6e22e">then</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">cachedResponse</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cachedResponse</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">request</span>);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>在缓存之内匹配类似于浏览器的缓存。方法，URL以及<code>vary</code>header都被考虑在内，但是header的新鲜度被忽略了。缓存的东西只有在你手动移除的时候才生效。</p>
 <p>你可以通过<code>cache.put(request, response)</code>向缓存中添加独立的条目，包括你自己产生的。你也可以控制匹配，<a href="https://w3c.github.io/ServiceWorker/#cache-query-options-dictionary">忽略其它的</a>，比如查询字符串，方法以及vary header。</p>
-
 <h2 id="其它service-worker相关的标准">其它service worker相关的标准</h2>
-
 <p>由于service worker可以及时地调动事件，及时未打开页面，也可以在后台偶尔调用其它功能：</p>
-
 <ul>
 <li><a href="http://w3c.github.io/push-api/">Push</a></li>
 <li><a href="https://github.com/slightlyoff/BackgroundSync">Background sync</a></li>
 <li><a href="https://github.com/slightlyoff/Geofencing">Geofencing</a></li>
 </ul>
-
 <h2 id="总结">总结</h2>
-
 <p>这份文档只是简要地介绍了service worker的能力，并不是售空页面或者service worker实例的所有的可用的API。也不涉及创作，修改以及更新应用程序的service worker。通过这个，希望能够引导你理解service worker中的promise以及对于URL友好的以及可伸缩的默认支持离线使用的web应用的丰富的promise。</p>
-
 <h2 id="acknowledgments">Acknowledgments</h2>
-
 <p>Many thanks to <a href="http://www.ubelly.com/thecritters/">Web Personality of the Year nominee</a> Jake (“B.J.”) Archibald, David Barrett-Kahn, Anne van Kesteren, Michael Nordman, Darin Fisher, Alec Flett, Andrew Betts, Chris Wilson, Aaron Boodman, Dave Herman, Jonas Sicking, Greg Billock, Karol Klepacki, Dan Dascalescu, and Christian Liebel for their comments and contributions to this document and to the discussions that have informed it.</p>
 </article>
     <footer class="post-footer">
@@ -490,13 +428,13 @@ Service worker就好像它的内部有一个有一个shared worker ：
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1834</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1847</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -550,7 +488,7 @@ Service worker就好像它的内部有一个有一个shared worker ：
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

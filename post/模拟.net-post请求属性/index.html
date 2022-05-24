@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" />
@@ -219,8 +218,8 @@
     </header>
     <article class="post-content"><p>这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。
 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。
-<img src="http://img.blog.csdn.net/20160425164929447" alt="这里写图片描述" />
-<img src="http://img.blog.csdn.net/20160425164913259" alt="这里写图片描述" />
+<img src="http://img.blog.csdn.net/20160425164929447" alt="这里写图片描述">
+<img src="http://img.blog.csdn.net/20160425164913259" alt="这里写图片描述">
 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。
 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。
 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。
@@ -238,13 +237,13 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2206</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2219</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -298,7 +297,7 @@
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

@@ -17,8 +17,8 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
-var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this." />
+基本模式 var Parent = function(){ this.name = &amp;#39;parent&amp;#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &amp;#39;child&amp;#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &amp;#39;parent&amp;#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this." />
 
   
   
@@ -27,15 +27,14 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
   <meta property="og:type" content="article" />
   <meta property="og:title" content="javascript的继承模式" />
   <meta property="og:description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
-var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this." />
+基本模式 var Parent = function(){ this.name = &amp;#39;parent&amp;#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &amp;#39;child&amp;#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &amp;#39;parent&amp;#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this." />
   <meta property="og:url" content="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" />
@@ -221,15 +220,11 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
       <h1 class="post-title">javascript的继承模式</h1>
       <p class="post-meta">@Neal · Oct 24, 2015 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<p>在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充：
+    <article class="post-content"><p>在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充：
 <a href="http://segmentfault.com/a/1190000000766541">http://segmentfault.com/a/1190000000766541</a></p>
-
 <h2 id="基本模式">基本模式</h2>
-
-<pre><code>var Parent = function(){
-	this.name = 'parent';
+<pre tabindex="0"><code>var Parent = function(){
+	this.name = &#39;parent&#39;;
 ｝;
 Parent.prototype.getName = function(){
 	return this.name;
@@ -237,7 +232,7 @@ Parent.prototype.getName = function(){
 Parent.prototype.obj = {a:1};
 
 var Child = function(){
-	this.name = 'child';
+	this.name = &#39;child&#39;;
 }
 Child.protytype = new Parent();
 
@@ -246,14 +241,11 @@ var child = new Child();
 
 console.log(parent.getName());//parent
 console.log(child.getName());//child
-</code></pre>
-
-<p>这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的<code>protytype</code>
-<img src="http://img.blog.csdn.net/20151024131631757" alt="这里写图片描述" />
+</code></pre><p>这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的<code>protytype</code>
+<img src="http://img.blog.csdn.net/20151024131631757" alt="这里写图片描述">
 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：</p>
-
-<pre><code>var Parent = function(name){
-	this.name = name || 'parent';
+<pre tabindex="0"><code>var Parent = function(name){
+	this.name = name || &#39;parent&#39;;
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -262,23 +254,19 @@ Parent.prototype.obj = {a:1};
 
 var Child = function(name)
 {
-	this.name = name || 'child';
+	this.name = name || &#39;child&#39;;
 };
 Child.prototype = new Parent();
 
-var parent = new Parent('myParent');
-var child = new Child('myChild');
+var parent = new Parent(&#39;myParent&#39;);
+var child = new Child(&#39;myChild&#39;);
 
 console.log(parent.getName());//myParent
 console.log(child.getName());//myChild
-</code></pre>
-
-<p>上述还只是初始化<code>name</code>属性，如果初始化工作不断增加，这种方式也不是很方便。</p>
-
+</code></pre><p>上述还只是初始化<code>name</code>属性，如果初始化工作不断增加，这种方式也不是很方便。</p>
 <h2 id="借用构造函数">借用构造函数</h2>
-
-<pre><code>var Parent = function(name){
-	this.name = name || 'parent';
+<pre tabindex="0"><code>var Parent = function(name){
+	this.name = name || &#39;parent&#39;;
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -290,17 +278,14 @@ var Child = function(name){
 }
 Child.prototype = new Parent();
 
-var parent = new Parent('myParent');
-var child = new Child('myChild');
+var parent = new Parent(&#39;myParent&#39;);
+var child = new Child(&#39;myChild&#39;);
 
 console.log(parent.getNmae());//myParent
 console.log(child.getName());//myChild
-</code></pre>
-
-<p>上面这种方法在子类构造函数中通过<code>apply</code>调用父类的构造函数进行相同的的初始化工作，这样不管负累做了多少初始化工作，子类可以执行同样的初始化工作。但是上面这种实现方法存在一个问题，父类构造函数被执行了两次，一次是在子类构造函数中，椅子是在赋值子类原型的时候，这是多余的，我们可以做以下改进：</p>
-
-<pre><code>var Parent = function(name){
-	this.name = name || 'parent';
+</code></pre><p>上面这种方法在子类构造函数中通过<code>apply</code>调用父类的构造函数进行相同的的初始化工作，这样不管负累做了多少初始化工作，子类可以执行同样的初始化工作。但是上面这种实现方法存在一个问题，父类构造函数被执行了两次，一次是在子类构造函数中，椅子是在赋值子类原型的时候，这是多余的，我们可以做以下改进：</p>
+<pre tabindex="0"><code>var Parent = function(name){
+	this.name = name || &#39;parent&#39;;
 };
 Parent.prototypr.getName = function(){
 	return this.name;
@@ -312,22 +297,17 @@ var Child = function(name){
 ｝；
 Child.protytype = Parent.protytype;
 
-var parent = new Parent('myParent')
-var child = new Child('myChild');
+var parent = new Parent(&#39;myParent&#39;)
+var child = new Child(&#39;myChild&#39;);
 
 console.log(parent.getName());//myParent
 console.log(child.getName());//myChild
-</code></pre>
-
-<p>这样我们只需要在子类构造函数中执行一次父类的构造函数，同时又可以继承父类原型中的属性，这也比较原型的初衷，就是吧需要复用的内容放在原型中，我们可以继承原型中可复用的内容
-<img src="http://img.blog.csdn.net/20151024140246905" alt="这里写图片描述" /></p>
-
+</code></pre><p>这样我们只需要在子类构造函数中执行一次父类的构造函数，同时又可以继承父类原型中的属性，这也比较原型的初衷，就是吧需要复用的内容放在原型中，我们可以继承原型中可复用的内容
+<img src="http://img.blog.csdn.net/20151024140246905" alt="这里写图片描述"></p>
 <h2 id="临时构造函数模式">临时构造函数模式</h2>
-
 <p>上面借用构造函数模式还是存在问题，它把父类的原型直接赋值给子类的原型，这会造成一个问题，就是如果对子类的原型做了修改，那么这个修改同时也会影响到父类的原型，进而影响父类对象。</p>
-
-<pre><code>var Parent = function(name){
-	this.name = name || 'parent';
+<pre tabindex="0"><code>var Parent = function(name){
+	this.name = name || &#39;parent&#39;;
 }；
 Parent.prototype.getName = function(){
 	return this.name;
@@ -341,21 +321,16 @@ var F = new function(){};
 F.prototype = Parent.prototype;
 Child.prototype = new F();
 
-var parent = new Parent('myParent');
-var child = new Child('myChild');
+var parent = new Parent(&#39;myParent&#39;);
+var child = new Child(&#39;myChild&#39;);
 
 console.log(parent.getName());//myParent
 console.log(child.getName());/myChild
-</code></pre>
-
-<p>这样做事在子类原型和父类原型之间加入一个临时的构造函数<code>F</code>，切断了子类原型和父类原型之间的联系，这样子类原型的修改就不会影响到父类原型。</p>
-
+</code></pre><p>这样做事在子类原型和父类原型之间加入一个临时的构造函数<code>F</code>，切断了子类原型和父类原型之间的联系，这样子类原型的修改就不会影响到父类原型。</p>
 <h2 id="继续讨论">继续讨论</h2>
-
 <p>上面可以刻到的我们在Parent的<code>prototype</code>属性中加入一个<code>obj</code>对象字面量属性，但是一直没有使用</p>
-
-<pre><code>var Parent = function(name){
-	this.name = name || 'parent';
+<pre tabindex="0"><code>var Parent = function(name){
+	this.name = name || &#39;parent&#39;;
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -369,20 +344,17 @@ var F = new function(){};
 F.prototype = Parent.prototype;
 Child.prototype = new F();
 
-var parent = new Parent('myParent');
-var child = new Child('myChild');
+var parent = new Parent(&#39;myParent&#39;);
+var child = new Child(&#39;myChild&#39;);
 
 console.log(child.obj.a);//1
 console.log(parent.obj.a);//1
 child.obj.a = 2;
 console.log(child.obj.a);//2
 console.log(parent.obj.a);//2
-</code></pre>
-
-<p>在上面这种情况，当我们把<code>child</code>对象<code>obj.a</code>修改的时候，同时父类的原型中的<code>obj.a</code>也会被修改。原因是因为当访问<code>child.obj.a</code>的时候，我们会沿着原型链一直找到父类的<code>prototype</code>中，然后找到了<code>obj</code>属性，然后对<code>obj.a</code>进行修改.</p>
-
-<pre><code>var Parent = function(name){
-	this.name = name || 'parent';
+</code></pre><p>在上面这种情况，当我们把<code>child</code>对象<code>obj.a</code>修改的时候，同时父类的原型中的<code>obj.a</code>也会被修改。原因是因为当访问<code>child.obj.a</code>的时候，我们会沿着原型链一直找到父类的<code>prototype</code>中，然后找到了<code>obj</code>属性，然后对<code>obj.a</code>进行修改.</p>
+<pre tabindex="0"><code>var Parent = function(name){
+	this.name = name || &#39;parent&#39;;
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -396,16 +368,15 @@ var F = new function(){};
 F.prototype = Parent.prototype;
 Child.prototype = new F();
 
-var parent = new Parent('myParent');
-var child = new Child('myChild');
+var parent = new Parent(&#39;myParent&#39;);
+var child = new Child(&#39;myChild&#39;);
 
 console.log(child.obj.a);//1
 console.log(parent.obj.a);//1
 child.obj.a = 2;
 console.log(child.obj.a);//2
 console.log(parent.obj.a);//2
-</code></pre>
-</article>
+</code></pre></article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
         <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
@@ -419,13 +390,13 @@ console.log(parent.obj.a);//2
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2390</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2403</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -479,7 +450,7 @@ console.log(parent.obj.a);//2
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

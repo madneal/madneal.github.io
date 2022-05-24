@@ -1,17 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nodejs on Neal&#39;s Blog</title>
+    <title>nodejs on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/nodejs/</link>
-    <description>Recent content in Nodejs on Neal&#39;s Blog</description>
+    <description>Recent content in nodejs on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 12 Nov 2017 17:12:53 +0000</lastBuildDate>
-    
-	<atom:link href="https://madneal.com/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 12 Nov 2017 17:12:53 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>出去就餐并且理解Express.js的基本知识</title>
       <link>https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/</link>
@@ -37,7 +33,7 @@ LICENSE: MIT
       
       <guid>https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.</description>
+router.get(&amp;#39;/&amp;#39;, function(req, res, next) {  // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&amp;gt; {  res.render(&amp;#39;index&amp;#39;, {  title: &amp;#39;express&amp;#39;,  docs: docs  })  }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.</description>
     </item>
     
     <item>
@@ -56,13 +52,13 @@ router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#3
       
       <guid>https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/</guid>
       <description>最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
-Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;rdquo;callback hell&amp;rdquo;或&amp;rdquo;pyramid of doom&amp;rdquo;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
+ Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;quot;callback hell&amp;quot;或&amp;quot;pyramid of doom&amp;quot;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
 后续传递风格
 为什么会有坑？这要从后续传递风格（continuation-passing style&amp;ndash;CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
 这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
 在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) }  像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
- 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</description>
+module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) } 像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
+ 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&amp;#39;fs&amp;#39;) var path = require(&amp;#39;path&amp;#39;) module.</description>
     </item>
     
     <item>
@@ -72,7 +68,7 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
       
       <guid>https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
       <description>最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。</description>
+var request = require(&amp;#39;request&amp;#39;); var cheerio = request(&amp;#39;cheerio&amp;#39;); var iconv = require(&amp;#39;iconv-lite&amp;#39;); request ({ url : &amp;#39;http://www.taobao.com&amp;#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&amp;#39;gbk&amp;#39;); var $ = cheerio.load(body); console.log($(&amp;#39;head title&amp;#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。</description>
     </item>
     
   </channel>

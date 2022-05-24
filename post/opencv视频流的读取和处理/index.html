@@ -16,7 +16,8 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。" />
+  <meta name="description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;#34;d:\\road.avi&amp;#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;#34;No input image&amp;#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;#34;Example&amp;#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;#34;Example&amp;#34;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; } 要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。
+处理视频帧 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。 首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog." />
 
   
   
@@ -24,14 +25,14 @@
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="opencv视频流的读取和处理" />
-  <meta property="og:description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }  要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。" />
+  <meta property="og:description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;#34;d:\\road.avi&amp;#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;#34;No input image&amp;#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;#34;Example&amp;#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;#34;Example&amp;#34;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; } 要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。
+处理视频帧 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。 首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog." />
   <meta property="og:url" content="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" />
@@ -220,8 +221,7 @@
     <article class="post-content"><ol>
 <li>Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码</li>
 </ol>
-
-<pre><code>#include&lt;opencv2\core\core.hpp&gt;
+<pre tabindex="0"><code>#include&lt;opencv2\core\core.hpp&gt;
 #include&lt;opencv2\imgproc\imgproc.hpp&gt;
 #include&lt;opencv2\highgui\highgui.hpp&gt;
 #include&lt;iostream&gt;
@@ -230,11 +230,11 @@ using namespace std;
 
 int main()
 {
-	VideoCapture capture(&quot;d:\\road.avi&quot;);
+	VideoCapture capture(&#34;d:\\road.avi&#34;);
 	//检测视频是否读取成功
 	if (!capture.isOpened())
 	{
-		cout &lt;&lt; &quot;No input image&quot;;
+		cout &lt;&lt; &#34;No input image&#34;;
 		return 1;
 	}
 
@@ -242,7 +242,7 @@ int main()
 	double rate = capture.get(CV_CAP_PROP_FPS);
 	bool stop = false;
 	Mat frame;
-	namedWindow(&quot;Example&quot;);
+	namedWindow(&#34;Example&#34;);
 
 	int delay = 1000/rate;
 
@@ -250,24 +250,19 @@ int main()
 	{
 		if (!capture.read(frame))
 			break;
-		imshow(&quot;Example&quot;,frame);
+		imshow(&#34;Example&#34;,frame);
 		if (waitKey(delay) &gt;= 0)
 			stop = true;
 	}
 	return 0;
 }
-
-</code></pre>
-
-<p>要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
-
-<ol>
+</code></pre><p>要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。</p>
+<ol start="2">
 <li>处理视频帧
 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。
-首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子<a href="http://blog.csdn.net/neal1991/article/details/45009377有介绍）。这个喊出可以接受一个Mat对象然后输出处理之后的Mat对象。">http://blog.csdn.net/neal1991/article/details/45009377有介绍）。这个喊出可以接受一个Mat对象然后输出处理之后的Mat对象。</a></li>
+首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog.csdn.net/neal1991/article/details/45009377有介绍）。这个喊出可以接受一个Mat对象然后输出处理之后的Mat对象。</li>
 </ol>
-
-<pre><code>void processFrame(Mat&amp; img, Mat&amp; out);
+<pre tabindex="0"><code>void processFrame(Mat&amp; img, Mat&amp; out);
 
 
     // 对视频的每帧做Canny算子边缘检测
@@ -280,18 +275,15 @@ void canny(Mat&amp; img, Mat&amp; out)
     // 对像素进行翻转
     threshold(out,out,128,255,THRESH_BINARY_INV);
 }
-</code></pre>
-
-<p>定义好一个视频处理类，它将与一个回调函数相关联。使用该类，可以创建一个实例，制定输入的视频文件，绑定回调函数，然后开始对每一帧进行处理，要调用这个视频处理类，只需要在main函数添加就可以了：</p>
-
-<pre><code>	// 首先创建实例
+</code></pre><p>定义好一个视频处理类，它将与一个回调函数相关联。使用该类，可以创建一个实例，制定输入的视频文件，绑定回调函数，然后开始对每一帧进行处理，要调用这个视频处理类，只需要在main函数添加就可以了：</p>
+<pre tabindex="0"><code>	// 首先创建实例
     VideoProcessor processor;
     // 打开视频文件
-    processor.setInput(&quot;e:\\road.avi&quot;);
+    processor.setInput(&#34;e:\\road.avi&#34;);
     
     // 分别为输入和输出视频
-    processor.displayInput(&quot;Input Video&quot;);
-    processor.displayOutput(&quot;Output Video&quot;);
+    processor.displayInput(&#34;Input Video&#34;);
+    processor.displayOutput(&#34;Output Video&#34;);
     // 以原始帧率播放视频
     processor.setDelay(1000./processor.getFrameRate());
     // 设置处理回调函数
@@ -299,8 +291,7 @@ void canny(Mat&amp; img, Mat&amp; out)
     // 开始帧处理过程
     processor.run();
     waitKey();
-</code></pre>
-</article>
+</code></pre></article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
         <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
@@ -314,13 +305,13 @@ void canny(Mat&amp; img, Mat&amp; out)
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2585</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2598</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -374,7 +365,7 @@ void canny(Mat&amp; img, Mat&amp; out)
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

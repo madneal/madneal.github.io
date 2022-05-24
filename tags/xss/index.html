@@ -6,7 +6,7 @@
 
   
   <title>
-  Tag → xss
+  Tag → XSS
   
    | Neal 的博客
 </title>
@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/xss/" />
@@ -221,8 +220,8 @@
   
   <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html);  // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</p>
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
@@ -259,7 +258,7 @@ LICENSE: MIT
  这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
 什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
  通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
  该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
@@ -276,7 +275,7 @@ LICENSE: MIT
   <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
 Kali: 10.10.16.65
 Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.</p>
+Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
   </footer>
@@ -343,7 +342,7 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

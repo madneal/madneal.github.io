@@ -1,17 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Poi on Neal&#39;s Blog</title>
+    <title>poi on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/poi/</link>
-    <description>Recent content in Poi on Neal&#39;s Blog</description>
+    <description>Recent content in poi on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 26 Nov 2017 16:29:33 +0000</lastBuildDate>
-    
-	<atom:link href="https://madneal.com/tags/poi/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 26 Nov 2017 16:29:33 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/poi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>POI读取文件的最佳实践</title>
       <link>https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</link>
@@ -20,7 +16,7 @@
       <guid>https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</guid>
       <description>POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
 word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
- private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.</description>
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;#34;&amp;#34;; try { if (filePath.endsWith(&amp;#34;doc&amp;#34;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;#34;docx&amp;#34;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.</description>
     </item>
     
   </channel>

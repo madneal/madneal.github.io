@@ -34,7 +34,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/" />
@@ -269,9 +268,9 @@ Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任
     <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool 原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com   在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
- 成对出现的名称以及相应的值{ name1: value1 }
- Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+  成对出现的名称以及相应的值{ name1: value1 }
+  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
   遗憾的是，这个对象字面量可能会出现下面这样的情况：
 var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
   <footer class="post-footer">
@@ -286,7 +285,7 @@ var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNu
     <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}‘.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
+  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}’.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
   </footer>
@@ -328,12 +327,12 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
   </header>
   
   <p class="post-summary">最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
-Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为”callback hell”或”pyramid of doom”，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
+ Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&#34;callback hell&#34;或&#34;pyramid of doom&#34;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
 后续传递风格
 为什么会有坑？这要从后续传递风格（continuation-passing style–CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
 这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
 在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) }  像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
+module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) } 像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
  用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/">Read More →</a>
@@ -348,8 +347,8 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
   </header>
   
   <p class="post-summary">因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
-convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif  这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
-tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition</p>
+convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif 这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
+tesseract 1.tif result 是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">Read More →</a>
   </footer>
@@ -376,7 +375,7 @@ tesseract 1.tif result  是不是很简单？ 在github上面写了一个nodejs�
   </header>
   
   <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
+var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
@@ -431,7 +430,7 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

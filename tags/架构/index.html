@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/%E6%9E%B6%E6%9E%84/" />
@@ -222,7 +221,7 @@
   <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
 之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.</p>
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
   </footer>
@@ -235,7 +234,7 @@ public static String checkUrlSafety(String url, List&lt;String&gt; domainWhiteli
     <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
   </header>
   
-  <p class="post-summary"> 最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
+  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
 理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
 @0x1ntegral
   专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
@@ -246,7 +245,7 @@ public static String checkUrlSafety(String url, List&lt;String&gt; domainWhiteli
  多读文章
  @shail_official
  读代码，先专注于公开的部分。阅读单元测试。
-坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
+  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
  总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
 Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
   <footer class="post-footer">
@@ -291,7 +290,7 @@ Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-ti
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

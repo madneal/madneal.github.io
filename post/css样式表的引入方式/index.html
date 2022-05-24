@@ -17,7 +17,7 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
-&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;css文件&amp;quot;&amp;gt; @import &amp;quot;css文件&amp;quot;  显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。" />
+&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;css文件&amp;#34;&amp;gt; @import &amp;#34;css文件&amp;#34; 显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。" />
 
   
   
@@ -26,14 +26,13 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="css样式表的引入方式" />
   <meta property="og:description" content="一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
-&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;css文件&amp;quot;&amp;gt; @import &amp;quot;css文件&amp;quot;  显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。" />
+&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;css文件&amp;#34;&amp;gt; @import &amp;#34;css文件&amp;#34; 显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。" />
   <meta property="og:url" content="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/" />
@@ -220,14 +219,10 @@
       <p class="post-meta">@Neal · Oct 6, 2015 · 1 min read</p>
     </header>
     <article class="post-content"><p>一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：</p>
+<pre tabindex="0"><code>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt;
 
-<pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css文件&quot;&gt;
-
-@import &quot;css文件&quot;
-
-</code></pre>
-
-<p>显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于<link>是html标记，而@import是css语法。<link>标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
+@import &#34;css文件&#34;
+</code></pre><p>显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于<!-- raw HTML omitted -->是html标记，而@import是css语法。<!-- raw HTML omitted -->标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -242,13 +237,13 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2408</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2421</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -302,7 +297,7 @@
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

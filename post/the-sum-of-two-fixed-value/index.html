@@ -39,7 +39,6 @@ We try to figure out this problem step by step." />
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/the-sum-of-two-fixed-value/" />
@@ -226,48 +225,42 @@ We try to figure out this problem step by step." />
       <p class="post-meta">@Neal · Oct 26, 2016 · 2 min read</p>
     </header>
     <article class="post-content"><p>the sum of two fixed value</p>
-
 <p>description</p>
-
 <p>Input an array and an integer, fina a pair of number in the array so that the sum is equals to the inputed integer. If there are several pairs, you can output any pair. For example, if the input array is [1,2,4,5,7,11,15] and an integer 15, because 4 + 11 = 15, hence output 4 and 11.</p>
-
 <p>analysis and solution</p>
-
 <p>We try to figure out this problem step by step. (we should notice the difference of ordered and unordered.)</p>
-
 <p>The simle method is to list all the conditions.  Namely select two numbers from the array to judge whether equals to the two numbers. The time complexity is O(n^2). Obviously, we need find a more efficient method.</p>
-
 <p>method1: hash map</p>
-
 <p>If the problem has a serious requrement for the time complexity, we may consider &ldquo;exchange time with room&rdquo;. Namely, for the given number, we can whether the other number exists in the array. The time complexity is O(1) and need to query n times, hence the total time complexity is O(n). But the preqeruirement is that we need an O(n) room to construct the hash map.</p>
-
 <p>method2:  sorting and move to the middle</p>
-
 <p>If the array is unordered, we should make it ordered firstly. For example, for each a[i], find whether sum - a[i] exists in the original array, and we can use binary search to find sum - arr[i], and it needs long time. Hence, added with the sorting time complexity, the total complexity is O(nlogn + nlogn) = O(nlogn), and the room complexity is O(1).</p>
-
-<p>If the array is ordered, let two pointers begin and end to point to the begin and end of the array. Let begin = 0, end = n -1, and begin++, end—, and judge if a[begin]+a[end] equals to the given sum.
-- When a[begin] + a[end] &gt; sum, we need to let the value of a[begin] + a[end] decrease. Hence begin will not change, and end—.
-- When a[begin] + a[end]sum, we need to increase the value of a[begin] + a[end]. Hence end will not change, and begin++.</p>
-
-<pre><code>function twoSum(a, sum) {
-  var begin = 0;
-  var len = a.length;
-  var end = len - 1;
-  while (begin &lt; end) {
-    var curSum = a[begin] + a[end];
-    if (curSum === sum) {
-      console.log(a[begin] + ' ' + a[end]);
-      break;
-    } else {
-      if (curSum &lt; sum) {
-        begin ++;
-      } else {
-        end --;
-      }
-    }
-  }
+<p>If the array is ordered, let two pointers begin and end to point to the begin and end of the array. Let begin = 0, end = n -1, and begin++, end—, and judge if a[begin]+a[end] equals to the given sum.</p>
+<ul>
+<li>
+<p>When a[begin] + a[end] &gt; sum, we need to let the value of a[begin] + a[end] decrease. Hence begin will not change, and end—.</p>
+</li>
+<li>
+<p>When a[begin] + a[end]sum, we need to increase the value of a[begin] + a[end]. Hence end will not change, and begin++.</p>
+<p>function twoSum(a, sum) {
+var begin = 0;
+var len = a.length;
+var end = len - 1;
+while (begin &lt; end) {
+var curSum = a[begin] + a[end];
+if (curSum === sum) {
+console.log(a[begin] + &rsquo; &rsquo; + a[end]);
+break;
+} else {
+if (curSum &lt; sum) {
+begin ++;
+} else {
+end &ndash;;
 }
-</code></pre>
+}
+}
+}</p>
+</li>
+</ul>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -280,13 +273,13 @@ We try to figure out this problem step by step." />
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2022</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2035</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -340,7 +333,7 @@ We try to figure out this problem step by step." />
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

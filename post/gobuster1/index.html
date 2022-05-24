@@ -18,8 +18,8 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
 入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { var cancel context.CancelFunc mainContext, cancel = context.WithCancel(context.Background()) defer cancel() signalChan := make(chan os.Signal, 1) signal.Notify(signalChan, os.Interrupt) defer func() { signal.Stop(signalChan) cancel() }() go func() { select { case &amp;lt;-signalChan: fmt.Println(&amp;#34;\n[!] Keyboard interrupt detected, terminating." />
+func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt." />
 
   
   
@@ -29,15 +29,14 @@ func Execute() { var cancel context.CancelFunc mainContext, cancel = context.Wit
   <meta property="og:title" content="gobuster源码阅读--入口篇" />
   <meta property="og:description" content="gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
 入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { var cancel context.CancelFunc mainContext, cancel = context.WithCancel(context.Background()) defer cancel() signalChan := make(chan os.Signal, 1) signal.Notify(signalChan, os.Interrupt) defer func() { signal.Stop(signalChan) cancel() }() go func() { select { case &amp;lt;-signalChan: fmt.Println(&amp;#34;\n[!] Keyboard interrupt detected, terminating." />
+func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt." />
   <meta property="og:url" content="https://madneal.com/post/gobuster1/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/gobuster1/" />
@@ -223,45 +222,39 @@ func Execute() { var cancel context.CancelFunc mainContext, cancel = context.Wit
       <h1 class="post-title">gobuster源码阅读--入口篇</h1>
       <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p><a href="https://github.com/OJ/gobuster">gobuster</a> 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。</p>
-
+    <article class="post-content"><p><a href="https://github.com/OJ/gobuster">gobuster</a> 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。</p>
 <h2 id="入口">入口</h2>
-
 <p>得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 <code>main.go</code> 的文件，gobuster 也不例外。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Execute</span>()
-}</code></pre></div>
-<p>这里即是作为程序的入口来展开这次代码之旅。<code>Execute</code> 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 <code>context</code> 以及 <code>Signal</code>，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。<code>Notify</code> 函数负责将 signal 一直传送到管道 <code>c</code>，这个函数可以一直调用。直到调用 <code>sinal.Stop</code> 的时候，<code>signalChan</code> 中的 sinal 则会被清空。这一段代码里面的内容主要是 <code>signal</code> 这一块的内容，可以参考 Golang 的<a href="https://pkg.go.dev/os/signal#Notify">官方文档</a>，里面讲的非常的详细。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Execute</span>() {
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">CancelFunc</span>
-	<span style="color:#a6e22e">mainContext</span>, <span style="color:#a6e22e">cancel</span> = <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
-	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
-
-	<span style="color:#a6e22e">signalChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Signal</span>, <span style="color:#ae81ff">1</span>)
-	<span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">Notify</span>(<span style="color:#a6e22e">signalChan</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Interrupt</span>)
-	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-		<span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">Stop</span>(<span style="color:#a6e22e">signalChan</span>)
-		<span style="color:#a6e22e">cancel</span>()
-	}()
-	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-		<span style="color:#66d9ef">select</span> {
-		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">signalChan</span>:
-			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;\n[!] Keyboard interrupt detected, terminating.&#34;</span>)
-			<span style="color:#a6e22e">cancel</span>()
-		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">mainContext</span>.<span style="color:#a6e22e">Done</span>():
-		}
-	}()
-
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
-	}
-}</code></pre></div>
-<h2 id="cmd">cmd</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Execute</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这里即是作为程序的入口来展开这次代码之旅。<code>Execute</code> 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 <code>context</code> 以及 <code>Signal</code>，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。<code>Notify</code> 函数负责将 signal 一直传送到管道 <code>c</code>，这个函数可以一直调用。直到调用 <code>sinal.Stop</code> 的时候，<code>signalChan</code> 中的 sinal 则会被清空。这一段代码里面的内容主要是 <code>signal</code> 这一块的内容，可以参考 Golang 的<a href="https://pkg.go.dev/os/signal#Notify">官方文档</a>，里面讲的非常的详细。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Execute</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">CancelFunc</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">mainContext</span>, <span style="color:#a6e22e">cancel</span> = <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">signalChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Signal</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">Notify</span>(<span style="color:#a6e22e">signalChan</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Interrupt</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">Stop</span>(<span style="color:#a6e22e">signalChan</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">signalChan</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;\n[!] Keyboard interrupt detected, terminating.&#34;</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">mainContext</span>.<span style="color:#a6e22e">Done</span>():
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rootCmd</span>.<span style="color:#a6e22e">Execute</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="cmd">cmd</h2>
 <p>gobuster 中的 <code>cmd</code> 模块主要为其程序的命令行控制，可将其视作为程序的输入。通过命令行传入的各种参数，从而运行相应的命令来执行操作。<code>cmd</code> 下的几个文件也分别对应了 gobuster 的几个模块功能，包括以下：</p>
-
 <ul>
 <li>dir.go</li>
 <li>dns.go</li>
@@ -270,16 +263,10 @@ func Execute() { var cancel context.CancelFunc mainContext, cancel = context.Wit
 <li>s3.go</li>
 <li>vhost.go</li>
 </ul>
-
 <p><code>cmd</code> 模块的功能很大程序上是基于 <a href="https://github.com/spf13/cobra">cobra</a>。这个库主要是作为 Goland 的 CLI 的交互使用，功能非常强大。社区有很多 CLI 工具都有使用这个库，那么如果以后考虑开发 CLI 工具的话，必然会考虑到这个库。在上述的几个模块中，都具有两个非常类似的函数，分别为 <code>init</code> 以及 <code>parse*Options</code> 函数，分别进行命令的注册工作以及命令行参数的初始化工作。在 <code>root.go</code> 中进行了一些全局配置项的初始化工作。</p>
-
 <p>在命令行参数中，会包含两项内容，一项为 <code>commad</code>，另一项则为 <code>flag</code>，以下示例为例，<code>server</code> 是 <code>command</code>，<code>port</code> 是 <code>flag</code>。</p>
-
-<pre><code>hugo server --port=1234
-</code></pre>
-
-<p>关于这些配置项的数据结构分别存放在以下目录中的 <code>options.go</code> 中：</p>
-
+<pre tabindex="0"><code>hugo server --port=1234
+</code></pre><p>关于这些配置项的数据结构分别存放在以下目录中的 <code>options.go</code> 中：</p>
 <ul>
 <li>gobusterdir</li>
 <li>gobusterdns</li>
@@ -289,10 +276,8 @@ func Execute() { var cancel context.CancelFunc mainContext, cancel = context.Wit
 <li>gobusters3</li>
 <li>gobustervhost</li>
 </ul>
-
 <p><code>HTTPOptions</code> 也会作为一些基础配置项集成到其它的配置项中。</p>
-
-<pre><code>// gobusterdir/options.go
+<pre tabindex="0"><code>// gobusterdir/options.go
 type OptionsDir struct {
 	libgobuster.HTTPOptions
 	Extensions                 string
@@ -308,10 +293,7 @@ type OptionsDir struct {
 	DiscoverBackup             bool
 	ExcludeLength              []int
 }
-</code></pre>
-
-<h2 id="总结">总结</h2>
-
+</code></pre><h2 id="总结">总结</h2>
 <p>本文是 gobuster 的第一次探索，主要是看了下程序的入口以及一些配置项的初始化工作，后续会阅读每个对应模块的具体实现细节。</p>
 </article>
     <footer class="post-footer">
@@ -334,8 +316,8 @@ type OptionsDir struct {
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -389,7 +371,7 @@ type OptionsDir struct {
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

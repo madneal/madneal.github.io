@@ -17,7 +17,7 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。" />
+var request = require(&amp;#39;request&amp;#39;); var cheerio = request(&amp;#39;cheerio&amp;#39;); var iconv = require(&amp;#39;iconv-lite&amp;#39;); request ({ url : &amp;#39;http://www.taobao.com&amp;#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&amp;#39;gbk&amp;#39;); var $ = cheerio.load(body); console.log($(&amp;#39;head title&amp;#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。" />
 
   
   
@@ -26,14 +26,13 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
   <meta property="og:type" content="article" />
   <meta property="og:title" content="nodejs爬虫编码问题" />
   <meta property="og:description" content="最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。" />
+var request = require(&amp;#39;request&amp;#39;); var cheerio = request(&amp;#39;cheerio&amp;#39;); var iconv = require(&amp;#39;iconv-lite&amp;#39;); request ({ url : &amp;#39;http://www.taobao.com&amp;#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&amp;#39;gbk&amp;#39;); var $ = cheerio.load(body); console.log($(&amp;#39;head title&amp;#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。" />
   <meta property="og:url" content="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" />
@@ -220,28 +219,25 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
       <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><p>最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。
-<img src="http://img.blog.csdn.net/20160416170259695" alt="这里写图片描述" />
+<img src="http://img.blog.csdn.net/20160416170259695" alt="这里写图片描述">
 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。</p>
-
-<pre><code>var request = require('request');
-var cheerio = request('cheerio');
-var iconv = require('iconv-lite');
+<pre tabindex="0"><code>var request = require(&#39;request&#39;);
+var cheerio = request(&#39;cheerio&#39;);
+var iconv = require(&#39;iconv-lite&#39;);
 
 request ({
-	url : 'http://www.taobao.com',
+	url : &#39;http://www.taobao.com&#39;,
 	encodeing = null
 	},function(err,res,body){
 	if (err) throw err;
 	// decode the content of the website
-	body = iconv.decode(body,'gbk');
+	body = iconv.decode(body,&#39;gbk&#39;);
 
 	var $ = cheerio.load(body);
 
-	console.log($('head title').text());
+	console.log($(&#39;head title&#39;).text());
 }）
-</code></pre>
-
-<p>或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
+</code></pre><p>或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -254,13 +250,13 @@ request ({
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2215</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2228</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -314,7 +310,7 @@ request ({
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

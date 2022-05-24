@@ -39,7 +39,6 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" />
@@ -225,153 +224,106 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
       <h1 class="post-title">持续发布 Chrome 插件</h1>
       <p class="post-meta">@Neal · May 27, 2019 · 3 min read</p>
     </header>
-    <article class="post-content">
-
-<p>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 <a href="https://github.com/neal1991/image-host">image-host</a>。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。</p>
-
+    <article class="post-content"><p>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 <a href="https://github.com/neal1991/image-host">image-host</a>。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。</p>
 <h2 id="介绍">介绍</h2>
-
 <p>CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考<a href="https://hackernoon.com/continuous-integration-circleci-vs-travis-ci-vs-jenkins-41a1c2bd95f5">这篇文章</a>。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。</p>
-
 <h2 id="google-api">Google API</h2>
-
 <p>首先，创建一个 Google API 项目，可以直接点击<a href="https://console.developers.google.com/projectcreate?organizationId=0">这个链接</a>创建。</p>
-
-<p><img src="https://s2.ax1x.com/2019/06/02/VG6DzV.png" alt="VG6DzV.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/06/02/VG6DzV.png" alt="VG6DzV.png"></p>
 <p>在创建项目之后，我们需要开启 &ldquo;Chrome Web Store API&rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。</p>
-
-<p><img src="https://s2.ax1x.com/2019/06/02/VGW99s.png" alt="VGW99s.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/06/02/VGW99s.png" alt="VGW99s.png"></p>
 <p>在 ENABLE 这个 API 之后，就可以点击 &ldquo;CREATE CREDENTIALS&rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</p>
-
-<p><img src="https://s2.ax1x.com/2019/06/02/VGWwvt.png" alt="VGWwvt.png" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/06/07/VwGYRK.png" alt="VwGYRK.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/06/02/VGWwvt.png" alt="VGWwvt.png"></p>
+<p><img src="https://s2.ax1x.com/2019/06/07/VwGYRK.png" alt="VwGYRK.png"></p>
 <p>在创建 OAuth client ID 之前，你需要填写一些信息，你需要在 OAuth consent screen 填写一些东西，可以就填写一下 Application name，其它的可以暂时先不填。接着你就可以创建 OAuth client ID 了，选择 Other 类型来进行创建。这样你的 client ID 以及 client secret 就创建好了。</p>
-
-<p><img src="https://s2.ax1x.com/2019/06/07/VwG5on.png" alt="VwG5on.png" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/06/07/VwG7WV.png" alt="VwG7WV.png" /></p>
-
-<p><a href="https://imgchr.com/i/VwGjeJ"><img src="https://s2.ax1x.com/2019/06/07/VwGjeJ.png" alt="VwGjeJ.png" /></a></p>
-
+<p><img src="https://s2.ax1x.com/2019/06/07/VwG5on.png" alt="VwG5on.png"></p>
+<p><img src="https://s2.ax1x.com/2019/06/07/VwG7WV.png" alt="VwG7WV.png"></p>
+<p><a href="https://imgchr.com/i/VwGjeJ"><img src="https://s2.ax1x.com/2019/06/07/VwGjeJ.png" alt="VwGjeJ.png"></a></p>
 <p>通过访问下面的链接来生成一个 code。记得使用你自己的 client ID 来替换下面链接中的 <code>$CLIENT_ID</code>。访问链接后，会弹出授权链接，允许之后就会出现 code 了，保存好这个信息。</p>
-
-<pre><code>https://accounts.google.com/o/oauth2/auth?response_type=code&amp;scope=https://www.googleapis.com/auth/chromewebstore&amp;client_id=$CLIENT_ID&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob
-</code></pre>
-
-<p><a href="https://imgchr.com/i/VwJ4XD"><img src="https://s2.ax1x.com/2019/06/07/VwJ4XD.png" alt="VwJ4XD.png" /></a></p>
-
-<p><a href="https://imgchr.com/i/VwJjc8"><img src="https://s2.ax1x.com/2019/06/07/VwJjc8.png" alt="VwJjc8.png" /></a></p>
-
+<pre tabindex="0"><code>https://accounts.google.com/o/oauth2/auth?response_type=code&amp;scope=https://www.googleapis.com/auth/chromewebstore&amp;client_id=$CLIENT_ID&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob
+</code></pre><p><a href="https://imgchr.com/i/VwJ4XD"><img src="https://s2.ax1x.com/2019/06/07/VwJ4XD.png" alt="VwJ4XD.png"></a></p>
+<p><a href="https://imgchr.com/i/VwJjc8"><img src="https://s2.ax1x.com/2019/06/07/VwJjc8.png" alt="VwJjc8.png"></a></p>
 <p>现在我们应该有 3 个字段信息， client ID, client secret 以及我们刚刚获取的 code。下面我们要做的就是获取一个叫做 refresh token 的东西。你可以按照以下命令来获取 refresh token，你需要使用 curl 以及 jq 这两个工具。和上面一样，记得替换下面命令中相对应的变量。因为需要访问谷歌，你需要确保你的终端可以访问谷歌。在成功执行这个命令之后，就可以获取 refresh token 了，保存好这个信息。</p>
-
-<pre><code>curl &quot;https://accounts.google.com/o/oauth2/token&quot; -d &quot;client_id=$CLIENT_ID&amp;client_secret=$CLIENT_SECRET&amp;code=$CODE&amp;grant_type=authorization_code&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&quot; | jq '.refresh_token'
-</code></pre>
-
-<p>最后一步就是获取 Chrome 插件的 Application ID。这一步是最简单的了，你只要访问你的 Chrome 插件，就可以在插件的 URL 中可以看到这个插件的 Application ID 了。现在我们已经拿到了我们所有需要的信息，下面就是如何使用 CirecleCI 来进行配置来完成发布任务了。</p>
-
-<p><a href="https://imgchr.com/i/Vwt6Rx"><img src="https://s2.ax1x.com/2019/06/07/Vwt6Rx.png" alt="Vwt6Rx.png" /></a></p>
-
-<pre><code>curl &quot;https://accounts.google.com/o/oauth2/token&quot; -d &quot;client_id=235111551101-bv1v37f62thpa48jv58rojbjpkjjis7e.apps.googleusercontent.com&amp;client_secret=cxCM40gME_odlELuVr4B9eSD&amp;code=4/YgFSGSQuhSec7WDVF-4x4YOEOp9moHZ8Bm0pgUIxSY9x9EzvE7_sjIo&amp;grant_type=authorization_code&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&quot; | jq '.refresh_token'
-</code></pre>
-
-<h2 id="circleci-配置">CircleCI 配置</h2>
-
+<pre tabindex="0"><code>curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=$CLIENT_ID&amp;client_secret=$CLIENT_SECRET&amp;code=$CODE&amp;grant_type=authorization_code&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq &#39;.refresh_token&#39;
+</code></pre><p>最后一步就是获取 Chrome 插件的 Application ID。这一步是最简单的了，你只要访问你的 Chrome 插件，就可以在插件的 URL 中可以看到这个插件的 Application ID 了。现在我们已经拿到了我们所有需要的信息，下面就是如何使用 CirecleCI 来进行配置来完成发布任务了。</p>
+<p><a href="https://imgchr.com/i/Vwt6Rx"><img src="https://s2.ax1x.com/2019/06/07/Vwt6Rx.png" alt="Vwt6Rx.png"></a></p>
+<pre tabindex="0"><code>curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=235111551101-bv1v37f62thpa48jv58rojbjpkjjis7e.apps.googleusercontent.com&amp;client_secret=cxCM40gME_odlELuVr4B9eSD&amp;code=4/YgFSGSQuhSec7WDVF-4x4YOEOp9moHZ8Bm0pgUIxSY9x9EzvE7_sjIo&amp;grant_type=authorization_code&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq &#39;.refresh_token&#39;
+</code></pre><h2 id="circleci-配置">CircleCI 配置</h2>
 <p>为了使用 CircleCI，你需要在仓库中创建文件夹 <code>.circleci</code>，在这个文件夹中创建文件 <code>config.yaml</code>。确保你创建正确的文件夹和文件名，否则 CircleCI 会一直没办法工作并且不好排查到原因。我就是因为文件夹名字弄错了，看了好久。。。一般的配置文件的环境配置如下所示。注意我们使用的是 <a href="https://circleci.com/features/">CircleCI 2.0</a>版本。你还可以选择 docker 中操作系统的版本。你也可以通过 <code>environment</code> 来设置环境变量。</p>
-
-<pre><code>version: 2
+<pre tabindex="0"><code>version: 2
 jobs:
   build:
     docker:
       - image: ubuntu:16.04
     environment:
       - APP_ID: &lt;INSERT-APP-ID&gt;
-</code></pre>
-
-<p>你可以通过 <code>steps</code> 来配置步骤，其实这和 Travis 基本类似，通过配置步骤来进行配置，比如安装依赖，进行测试，发布等。在这里，我们主要会安装上面我们使用过的工具：<code>curl</code> 以及 <code>jq</code>。</p>
-
-<pre><code> steps:
+</code></pre><p>你可以通过 <code>steps</code> 来配置步骤，其实这和 Travis 基本类似，通过配置步骤来进行配置，比如安装依赖，进行测试，发布等。在这里，我们主要会安装上面我们使用过的工具：<code>curl</code> 以及 <code>jq</code>。</p>
+<pre tabindex="0"><code> steps:
       - checkout
       - run:
-          name: &quot;Install Dependencies&quot;
+          name: &#34;Install Dependencies&#34;
           command: |
             apt-get update
             apt-get -y install curl jq
             # You can also install Yarn, NPM, or anything else you need to use to build and test your extension.
-</code></pre>
-
-<p>Chrome 插件的打包其实比较简单。只要将文件夹打包成 zip 压缩文件即可。这里，选择使用 <code>git archive</code> 命令来打包压缩文件，这样做的好处是不会把 <code>.git</code> 文件夹打包进去。所以，以下配置可用于打包 Chrome 插件的压缩文件。</p>
-
-<pre><code>- run:
-    name: &quot;Package Extension&quot;
+</code></pre><p>Chrome 插件的打包其实比较简单。只要将文件夹打包成 zip 压缩文件即可。这里，选择使用 <code>git archive</code> 命令来打包压缩文件，这样做的好处是不会把 <code>.git</code> 文件夹打包进去。所以，以下配置可用于打包 Chrome 插件的压缩文件。</p>
+<pre tabindex="0"><code>- run:
+    name: &#34;Package Extension&#34;
     command: git archive -o pointless.zip HEAD
-</code></pre>
-
-<p>接下来就是利用 Chrome Store API 来进行 Chrome 插件的发布了。 Chrome Store API 使用 access token 来进行认证操作。但是 access token 有效期只有 40 分钟。幸好我们可以利用 refresh token 来获取新的 access token。通过这个 access token 我们可以上传压缩文件并且发布插件。</p>
-
-<pre><code>  - run:
-        name: &quot;Upload &amp; Publish Extension to the Google Chrome Store&quot;
+</code></pre><p>接下来就是利用 Chrome Store API 来进行 Chrome 插件的发布了。 Chrome Store API 使用 access token 来进行认证操作。但是 access token 有效期只有 40 分钟。幸好我们可以利用 refresh token 来获取新的 access token。通过这个 access token 我们可以上传压缩文件并且发布插件。</p>
+<pre tabindex="0"><code>  - run:
+        name: &#34;Upload &amp; Publish Extension to the Google Chrome Store&#34;
           command: |
-        if [ &quot;${CIRCLE_BRANCH}&quot; == &quot;master&quot; ]; then
-            ACCESS_TOKEN=$(curl &quot;https://accounts.google.com/o/oauth2/token&quot; -d &quot;client_id=${CLIENT_ID}&amp;client_secret=${CLIENT_SECRET}&amp;refresh_token=${REFRESH_TOKEN}&amp;grant_type=refresh_token&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&quot; | jq -r .access_token)
-            curl -H &quot;Authorization: Bearer ${ACCESS_TOKEN}&quot; -H &quot;x-goog-api-version: 2&quot; -X PUT -T pointless.zip -v &quot;https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}&quot;
-            curl -H &quot;Authorization: Bearer ${ACCESS_TOKEN}&quot; -H &quot;x-goog-api-version: 2&quot; -H &quot;Content-Length: 0&quot; -X POST -v &quot;https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish&quot;
+        if [ &#34;${CIRCLE_BRANCH}&#34; == &#34;master&#34; ]; then
+            ACCESS_TOKEN=$(curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=${CLIENT_ID}&amp;client_secret=${CLIENT_SECRET}&amp;refresh_token=${REFRESH_TOKEN}&amp;grant_type=refresh_token&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq -r .access_token)
+            curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -X PUT -T pointless.zip -v &#34;https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}&#34;
+            curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -H &#34;Content-Length: 0&#34; -X POST -v &#34;https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish&#34;
         fi
-</code></pre>
-
-<p>不过这里有一点值得注意的是，这里面有一些敏感信息，包括 <code>CLIENT_ID</code>，<code>CLIENT_SECRET</code>以及 <code>REFRESH_TOKEN</code> 这些信息。我们不希望在脚本里面直接配这些信息。那么我们就需要在环境变量中配置这些变量的信息了。可以在 CircleCI 里面来进行环境变脸的配置，找到对应的 project 来进行环境变量的配置。</p>
-
-<p><img src="https://s2.ax1x.com/2019/06/07/V09fTs.png" alt="V09fTs.png" /></p>
-
+</code></pre><p>不过这里有一点值得注意的是，这里面有一些敏感信息，包括 <code>CLIENT_ID</code>，<code>CLIENT_SECRET</code>以及 <code>REFRESH_TOKEN</code> 这些信息。我们不希望在脚本里面直接配这些信息。那么我们就需要在环境变量中配置这些变量的信息了。可以在 CircleCI 里面来进行环境变脸的配置，找到对应的 project 来进行环境变量的配置。</p>
+<p><img src="https://s2.ax1x.com/2019/06/07/V09fTs.png" alt="V09fTs.png"></p>
 <p>你也可以通过配置工作流将不同的步骤分开独立，并且支持步骤之间的依赖，比如 build 工作流依赖于 test 工作流，如果 test 工作流没有完成，就没有办法进行 build 工作流。同时，还可以进行条件的过滤，比如只针对特定的分支，或者特定的标签。下面是我的 Chrome 插件 <a href="https://github.com/neal1991/image-host">image-host</a> 的完整的配置文件。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">version: <span style="color:#ae81ff">2</span>
-workflows:
-  version: <span style="color:#ae81ff">2</span>
-  main:
-    jobs:
-      - build
-      - publish:
-          requires:
-            - build
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-jobs:
-  build:
-    docker:
-      - image: cibuilds/chrome-extension:latest
-    steps:
-      - checkout
-      - run:
-          name: <span style="color:#e6db74">&#34;Package Extension&#34;</span>
-          command: git archive -o image-host.zip HEAD
-      - persist_to_workspace:
-          root: /root/project
-          paths:
-            - image-host.zip    
-  publish:
-    docker:
-      - image: cibuilds/chrome-extension:latest
-    steps:
-      - attach_workspace:
-          at: /root/project
-      - run:
-          name: <span style="color:#e6db74">&#34;Upload &amp; Publish Extension to the Google Chrome Store&#34;</span>
-          command: <span style="color:#e6db74">|
-</span><span style="color:#e6db74">            if [ &#34;${CIRCLE_BRANCH}&#34; == &#34;master&#34; ]; then
-</span><span style="color:#e6db74">              ACCESS_TOKEN=$(curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=${CLIENT_ID}&amp;client_secret=${CLIENT_SECRET}&amp;refresh_token=${REFRESH_TOKEN}&amp;grant_type=refresh_token&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq -r .access_token)
-</span><span style="color:#e6db74">              curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -X PUT -T image-host.zip -v &#34;https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}&#34;
-</span><span style="color:#e6db74">              curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -H &#34;Content-Length: 0&#34; -X POST -v &#34;https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish&#34;
-</span><span style="color:#e6db74">            fi</span></code></pre></div>
-<h2 id="总结">总结</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">workflows</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">version</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">main</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">publish</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">requires</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">filters</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">tags</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">only</span>: <span style="color:#ae81ff">/^v\d+\.\d+\.\d+$/</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">docker</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">cibuilds/chrome-extension:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">checkout</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">run</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Package Extension&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">command</span>: <span style="color:#ae81ff">git archive -o image-host.zip HEAD</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">persist_to_workspace</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">root</span>: <span style="color:#ae81ff">/root/project</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#ae81ff">image-host.zip    </span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">publish</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">docker</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">cibuilds/chrome-extension:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">attach_workspace</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">at</span>: <span style="color:#ae81ff">/root/project</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">run</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;Upload &amp; Publish Extension to the Google Chrome Store&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">command</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            if [ &#34;${CIRCLE_BRANCH}&#34; == &#34;master&#34; ]; then
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              ACCESS_TOKEN=$(curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=${CLIENT_ID}&amp;client_secret=${CLIENT_SECRET}&amp;refresh_token=${REFRESH_TOKEN}&amp;grant_type=refresh_token&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq -r .access_token)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -X PUT -T image-host.zip -v &#34;https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -H &#34;Content-Length: 0&#34; -X POST -v &#34;https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            fi</span>            
+</span></span></code></pre></div><h2 id="总结">总结</h2>
 <p>CircleCi 是一款还不错的持续发布工具，结合 Github 其实还有还多更高级的用法，后续可以在更多的项目中尝试这个工具。</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="https://circleci.com/blog/continuously-deploy-a-chrome-extension/">https://circleci.com/blog/continuously-deploy-a-chrome-extension/</a></li>
 </ul>
@@ -389,13 +341,13 @@ jobs:
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1080</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1093</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -449,7 +401,7 @@ jobs:
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

@@ -18,7 +18,7 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理
 for (var i = 0,len = collection.length;i &amp;lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &amp;lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;amp;&amp;amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &amp;gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; }; 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套
-collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { if (collection[i]." />
+collection = _.groupBy(collection,&amp;#39;name&amp;#39;); for (var i in collection) { if (collection[i]." />
 
   
   
@@ -28,14 +28,13 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
   <meta property="og:title" content="判断数组中元素多个属性是否重复" />
   <meta property="og:description" content="js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理
 for (var i = 0,len = collection.length;i &amp;lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &amp;lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;amp;&amp;amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &amp;gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; }; 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套
-collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { if (collection[i]." />
+collection = _.groupBy(collection,&amp;#39;name&amp;#39;); for (var i in collection) { if (collection[i]." />
   <meta property="og:url" content="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" />
@@ -223,7 +222,7 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
     </header>
     <article class="post-content"><p>js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组<code>[{name:'neal',age:'18'},{name:'neal',age:'18'},{name:'jane',age:'20'}]</code>.假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。
 这种问题有一个比较死的方法就是拿两个循环来做处理</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-var isUnique = function(collection) {" data-lang="var isUnique = function(collection) {">	for (var i = 0,len = collection.length;i &lt; len;i++) {
+<pre tabindex="0"><code class="language-var" data-lang="var">	for (var i = 0,len = collection.length;i &lt; len;i++) {
 		var count = 0;
 		for (var j = 0;j &lt; len;j++) {
 			if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) {
@@ -238,13 +237,12 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
 		}
 	}
 	return collection;
-};</code></pre></div>
-<p>另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套</p>
-
-<pre><code>collection = _.groupBy(collection,'name');
+};
+</code></pre><p>另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套</p>
+<pre tabindex="0"><code>collection = _.groupBy(collection,&#39;name&#39;);
 for (var i in collection) {
 	if (collection[i].length &gt; 1) {
-		col = _.groupBy(collection[i],'age');
+		col = _.groupBy(collection[i],&#39;age&#39;);
 		for (var j in col) {
 		if (col[j].length &gt; 1) {
 		_.map(col[j], function(ele) {
@@ -258,9 +256,7 @@ for (var i in collection) {
 		arr1[i].flag = false;
 	}
 }
-</code></pre>
-
-<p>这个方法是按照name,age进行groupby，然后遍历，找出对象长度大于一的来进行加属性的操作。</p>
+</code></pre><p>这个方法是按照name,age进行groupby，然后遍历，找出对象长度大于一的来进行加属性的操作。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -273,13 +269,13 @@ for (var i in collection) {
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2139</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2152</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -333,7 +329,7 @@ for (var i in collection) {
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

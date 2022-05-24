@@ -43,7 +43,6 @@ Intention actions 字段添加新的 tag
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/goland/" />
@@ -229,55 +228,34 @@ Intention actions 字段添加新的 tag
       <h1 class="post-title">goland-2022.01版本最新实用功能</h1>
       <p class="post-meta">@Neal · May 1, 2022 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 <code>JSON</code> 的解析。因为 Go 中的 <code>JSON</code> 的解析，一般来说需要定义对应 <code>JSON</code> 的 struct。或者使用 <code>interface{}</code> 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。</p>
-
+    <article class="post-content"><p>在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 <code>JSON</code> 的解析。因为 Go 中的 <code>JSON</code> 的解析，一般来说需要定义对应 <code>JSON</code> 的 struct。或者使用 <code>interface{}</code> 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。</p>
 <p>在 Goland 2022.01 最新版本中，终于迎来了在 <code>JSON</code> 方面解析的便捷功能。在最新版本中，只要将 <code>JSON</code>  粘贴到 IDE 中就会提示是否转化为 <code>struct</code> 类型，所有的字段都会被生成，相对于以前的一个个的手动的定义要方便太多太多了。</p>
-
-<p><img src="https://s2.loli.net/2022/05/01/vrSC83Kauqls1UY.gif" alt="go_converting_json_to_struct.animated.gif" /></p>
-
+<p><img src="https://s2.loli.net/2022/05/01/vrSC83Kauqls1UY.gif" alt="go_converting_json_to_struct.animated.gif"></p>
 <p>还可以使用 Action 来进行转换动作，<code>Generate Go Type form JSON</code>：</p>
-
-<p><img src="https://s2.loli.net/2022/05/01/3vfFiJLTnHZ7h5q.gif" alt="go_modify_json_for_a_struct_in_a_separate_dialog.animated.gif" /></p>
-
+<p><img src="https://s2.loli.net/2022/05/01/3vfFiJLTnHZ7h5q.gif" alt="go_modify_json_for_a_struct_in_a_separate_dialog.animated.gif"></p>
 <p>同时还可以添加新的 tag，key 以及修改 key 的代码风格，调用来说一般使用 <code>alt+enter</code> 快捷键即可。</p>
-
 <h2 id="intention-actions">Intention actions</h2>
-
 <p>字段添加新的 tag</p>
-
 <ol>
 <li>点击 <code>struct</code> 的字段然后按 <code>alt+enter</code></li>
 <li>选择 <code>Add key to tags</code></li>
 </ol>
-
-<p><img src="https://s2.loli.net/2022/05/01/GQ4BeAxFrzinKPw.gif" alt="go_add_new_tags_to_a_struct_field.animated.gif" /></p>
-
+<p><img src="https://s2.loli.net/2022/05/01/GQ4BeAxFrzinKPw.gif" alt="go_add_new_tags_to_a_struct_field.animated.gif"></p>
 <p>修改 key</p>
-
 <ol>
 <li>点击 <code>struct</code> 的字段然后按 <code>alt+enter</code></li>
 <li>选择 <code>Update key value in tags</code></li>
 </ol>
-
-<p><img src="https://s2.loli.net/2022/05/01/fEBJmDLhl8KeoIa.gif" alt="go_modify_keys_in_field_tags.animated.gif" /></p>
-
+<p><img src="https://s2.loli.net/2022/05/01/fEBJmDLhl8KeoIa.gif" alt="go_modify_keys_in_field_tags.animated.gif"></p>
 <p>修改 key 的代码风格</p>
-
 <ol>
 <li>点击 <code>struct</code> 的字段然后按 <code>alt+enter</code></li>
 <li>选择 <code>Change field name style in tags</code></li>
 </ol>
-
-<p><img src="https://s2.loli.net/2022/05/01/vfxXRiu8U9QGN2h.gif" alt="go_change_code_style_of_tag_keys.animated.gif" /></p>
-
+<p><img src="https://s2.loli.net/2022/05/01/vfxXRiu8U9QGN2h.gif" alt="go_change_code_style_of_tag_keys.animated.gif"></p>
 <h2 id="代码补全">代码补全</h2>
-
 <p>当修改 key 的时候，Goland 会展示最有可能的候选值。比如，<code>json</code> 会建议 <code>omitempty</code>，<code>xml</code> 会建议 <code>attr</code>，<code>cdata</code>，<code>chardata</code> 以及 <code>innerxml</code> 等。</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="https://www.jetbrains.com/help/go/working-with-json.html#intention-actions-json">https://www.jetbrains.com/help/go/working-with-json.html#intention-actions-json</a></li>
 </ul>
@@ -300,8 +278,8 @@ Intention actions 字段添加新的 tag
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -355,7 +333,7 @@ Intention actions 字段添加新的 tag
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

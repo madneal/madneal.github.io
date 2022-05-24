@@ -34,7 +34,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/" />
@@ -224,12 +223,12 @@
     <p class="post-meta">@Neal · Mar 5, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary"> 面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
+  <p class="post-summary">面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
 事件捕获和事件冒泡 事件流描述的是从页面中接收事件的顺序,也可理解为事件在页面中传播的顺序。 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：
-&lt;body&gt; &lt;div id=&#34;outer&#34;&gt; &lt;div id=&#34;inner&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt;  这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&gt;outer-&gt;body。然而捕获事件流的顺序则截然想法：body-&gt;outer-&gt;innner。
+&lt;body&gt; &lt;div id=&#34;outer&#34;&gt; &lt;div id=&#34;inner&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt; 这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&gt;outer-&gt;body。然而捕获事件流的顺序则截然想法：body-&gt;outer-&gt;innner。
 DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。还是以上面的代码为例，单击inner则会按照下面的顺序触发事件：document-&gt;html-&gt;body-&gt;outer-&gt;ineer-&gt;outer-&gt;body-&gt;html-&gt;document。在DOM事件流中，实际的目标inner在捕获阶段不会接受到事件。这意味着在捕获阶段，事件到outer就停止了，下一个阶段是“处于目标”阶段，于是事件在inner 上发生，并在事件处理中呗看成是冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
 事件处理程序 响应某个时间的函数叫做事件处理程序。DOM0级的事件处理程序很简单,onclick就是常用的DOM0级事件处理函数，只会在冒泡阶段被处理。 而DOM2级事件定义了两个方法用于处理置顶和删除事件处理程序的操作addEventListener()和removeEventListener()，所有DOM节点都包含这两个方法，并且它们都接受3个参数：要处理的事件名，作为事件处理的函数和一个布尔值。最后这个布尔值参数如果是true，表示在捕获阶段调用事件处理程序，反之则是在事件冒泡阶段处理程序。DOM2级方法添加事件处理程序的好处是可以添加多个事件处理程序，会按照添加顺序被处理（无论是捕获还是冒泡）。 而IE不同的它有自己的方法attachEvent()和detachEvent,这两个接受相同的两个参数：事件处理程序名称和事件处理程序函数。
-跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } }  </p>
+跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
   </footer>
@@ -255,12 +254,15 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
     <p class="post-meta">@Neal · Mar 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
-img标签alt属性和title属性的区别
+  <p class="post-summary">html语义话  img标签alt属性和title属性的区别
 alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
  css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
 div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：      给浮动元素添加 overflow:auto样式 为最后浮动元素设置如下样式： .clearfix:after{ visibility:hidden; display:block; content:” “; clear:both; height:0; } .</p>
+ 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
+ ajax 基本实现步骤  1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&lt;post/get&gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
+XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置 1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求 2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求 3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成 4 loaded 请求已经完全接受
+ 取消a链接默认跳转行为  href属性设置为javascript:void(0)
+ 水平垂直居中  居中文告中的字句：text-align;center 对于div：margin: 0 auto</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
@@ -277,7 +279,7 @@ div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firef
 欢迎大家提意见，补充^^
 Revised Date(v4): 2007/10/03 (修改: ICES) Revised Date(v3): 2007/07/15 (追加:CEC, AUS-AI, ICCS) Revised Date(v2): 2007/06/05(追加:GECCO, ICONIP) Revised Date(v1): 2007/05/29
 写这个段子纯粹是因为受了南大周志华教授写的AI Conferences那篇文章的影响,于是起了写一篇自己心目中的conferences tier list的念头. List中的会议评价主要根据我本人这几年接触到的会议论文集的质量,参加会议过程的感观,CiteSeer的那个Estimated impact of publication venues in Computer Science,会议的专业性-我本人偏重evolvable hardware,大部分的LNCS出版的会议和少量的其他重要相关会议将做探讨. grade A 的会议是演化硬件方向最权威的国际会议,其中发表的论文大多有一读的价值. B 的会议也是质量非常不错的会议, C 的会议, 我个人认为去发表论文还是不错的,但是通常不会在这个档次的会议proceeding中找参考论文.D 的会议,通常是一些发表论文数量超过500篇,或者永远在中国国内打转的＂国际＂会议.
-grade A:
+ grade A:
 ICES (A0): International Conference on Evolvable Systems: From Biology to Hareware. 基本上是从90年代evolvable hardware(EHW)的研究引起学术界的关注就开始举行的重要会议.EHW方面最重要的2个会议之一.首次举行是在1995年的瑞士(当时还不叫 ICES,96年才开始现在的名字),基本上当时的EHW开创性人物瑞士的Eduardo Sanchez,日本的Tetsuya Higuchi等人都参加了这次会议.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/">Read More →</a>
@@ -319,7 +321,7 @@ ICES (A0): International Conference on Evolvable Systems: From Biology to Harewa
   </header>
   
   <p class="post-summary">正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
-数字：1*$
+数字：^[0-9]*$
 n位的数字：^\d{n}$
 至少n位的数字：^\d{n,}$
 m-n位的数字：^\d{m,n}$
@@ -327,29 +329,29 @@ m-n位的数字：^\d{m,n}$
 非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
 带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
 正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
-有两位小数的正实数：2&#43;(.[0-9]{2})?$
-有1~3位小数的正实数：3&#43;(.[0-9]{1,3})?$
-非零的正整数：4\d$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]*$
+有两位小数的正实数：^[0-9]&#43;(.[0-9]{2})?$
+有1~3位小数的正实数：^[0-9]&#43;(.[0-9]{1,3})?$
+非零的正整数：^[1-9]\d*$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]$
 非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
-非负整数：^\d&#43;$ 或 5\d*|0$
+非负整数：^\d&#43;$ 或 ^[1-9]\d*|0$
 非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
-非负浮点数：^\d&#43;(.\d&#43;)?$ 或 6\d.\d|0.\d[1-9]\d|0?.0&#43;|0$
-非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d.\d|0.\d[1-9]\d))|0?.0&#43;|0$
-正浮点数：7\d.\d|0.\d[1-9]\d$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
-负浮点数：^-([1-9]\d.\d|0.\d[1-9]\d)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
-浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d.\d|0.\d[1-9]\d|0?.0&#43;|0)$
+非负浮点数：^\d&#43;(.\d&#43;)?$ 或 ^[1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0&#43;|0$
+非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d*.\d*|0.\d*[1-9]\d*))|0?.0&#43;|0$
+正浮点数：^[1-9]\d*.\d*|0.\d*[1-9]\d*$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
+负浮点数：^-([1-9]\d*.\d*|0.\d*[1-9]\d*)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
+浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0&#43;|0)$
 二、校验字符的表达式
-汉字：8{0,}$
-英文和数字：9&#43;$ 或 10{4,40}$
+汉字：^[\u4e00-\u9fa5]{0,}$
+英文和数字：^[A-Za-z0-9]&#43;$ 或 ^[A-Za-z0-9]{4,40}$
 长度为3-20的所有字符：^.{3,20}$
-由26个英文字母组成的字符串：11&#43;$
-由26个大写英文字母组成的字符串：12&#43;$
-由26个小写英文字母组成的字符串：13&#43;$
-由数字和26个英文字母组成的字符串：14&#43;$
+由26个英文字母组成的字符串：^[A-Za-z]&#43;$
+由26个大写英文字母组成的字符串：^[A-Z]&#43;$
+由26个小写英文字母组成的字符串：^[a-z]&#43;$
+由数字和26个英文字母组成的字符串：^[A-Za-z0-9]&#43;$
 由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
-中文、英文、数字包括下划线：15&#43;$
-中文、英文、数字但不包括下划线等符号：16&#43;$ 或 17{2,20}$
-可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;‘,;=?$\x22]&#43;
+中文、英文、数字包括下划线：^[\u4E00-\u9FA5A-Za-z0-9_]&#43;$
+中文、英文、数字但不包括下划线等符号：^[\u4E00-\u9FA5A-Za-z0-9]&#43;$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$
+可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;’,;=?$\x22]&#43;
 禁止输入含有~的字符：[^~\x22]&#43;
 三、特殊需求表达式
 Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
@@ -386,21 +388,19 @@ InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[
   
   <p class="post-summary">python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
 1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
-int a = 1; int b = 2; int c = a &#43; b;  1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法(a,b) 4.将结果分配给c
+int a = 1; int b = 2; int c = a &#43; b; 1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法&lt;int,int&gt;(a,b) 4.将结果分配给c
 在python中，同样的
-a = 1 b = 2 c = a &#43; b  1.分配1给a
- 设置一个对象，然后将它的类型设置为整数 将它的值设为1 2.分配2给b
- 设置一个对象，然后将它的类型设置为整数
- 将它的值设为2 3.调用一个二进制加法(a,b)
- 寻找一个类型在对象中
- a是一个整数，它的值是a
- 寻找一个类型在对象中
- b是一个整数，它的值是b
- 调用一个二进制加法
- 返回结果，结果是一个整数 4.产生一个对象c
- 将一个对象的类型设置为整数
- 将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
-  2.</p>
+a = 1 b = 2 c = a &#43; b 1.分配1给a
+  设置一个对象，然后将它的类型设置为整数
+  将它的值设为1 2.分配2给b
+  设置一个对象，然后将它的类型设置为整数
+  将它的值设为2 3.调用一个二进制加法(a,b)
+  寻找一个类型在对象中
+  a是一个整数，它的值是a
+  寻找一个类型在对象中
+  b是一个整数，它的值是b
+  调用一个二进制加法
+  返回结果，结果是一个整数 4.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
   </footer>
@@ -468,7 +468,7 @@ a = 1 b = 2 c = a &#43; b  1.分配1给a
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

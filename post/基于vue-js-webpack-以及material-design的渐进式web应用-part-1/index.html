@@ -27,13 +27,12 @@ LICENSE: MIT
 看一下下面的PWA！看起来很像原生的app，是不是？
 推特渐进式web应用
 从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
- 你可以选择任何你喜欢的框架来进行开发；
- 一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
- 很容易获得：不需要通过应用商店来下载。
+  你可以选择任何你喜欢的框架来进行开发；
+  一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+  很容易获得：不需要通过应用商店来下载。
   然而，在2017年早期，PWA仍然面临一些限制条件：
- Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
- 一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
-  教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。" />
+  Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+  一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。" />
 
   
   
@@ -52,20 +51,18 @@ LICENSE: MIT
 看一下下面的PWA！看起来很像原生的app，是不是？
 推特渐进式web应用
 从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
- 你可以选择任何你喜欢的框架来进行开发；
- 一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
- 很容易获得：不需要通过应用商店来下载。
+  你可以选择任何你喜欢的框架来进行开发；
+  一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+  很容易获得：不需要通过应用商店来下载。
   然而，在2017年早期，PWA仍然面临一些限制条件：
- Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
- 一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
-  教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。" />
+  Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+  一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。" />
   <meta property="og:url" content="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/" />
@@ -251,123 +248,98 @@ LICENSE: MIT
       <h1 class="post-title">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</h1>
       <p class="post-meta">@Neal · May 11, 2017 · 5 min read</p>
     </header>
-    <article class="post-content">
-
-<h1 id="基于vue-js-webpack-以及material-design的渐进式web应用-part-1">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</h1>
-
+    <article class="post-content"><h1 id="基于vue-js-webpack-以及material-design的渐进式web应用-part-1">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</h1>
 <p>原文：<a href="https://blog.sicara.com/a-progressive-web-application-with-vue-js-webpack-material-design-part-1-c243e2e6e402">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</a></p>
-
 <p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
-
 <p>welcome to star my <a href="https://github.com/neal1991">articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
-
 <p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
-
-<p>渐进式web应用是大势所趋。越来越多的大公司开始使用这些技术（比如推特：<a href="https://mobile.twitter.com/）。">https://mobile.twitter.com/）。</a></p>
-
+<p>渐进式web应用是大势所趋。越来越多的大公司开始使用这些技术（比如推特：https://mobile.twitter.com/）。</p>
 <p>想象你可以在地铁中浏览一个web应用，这个应用能够向用户推送通知并且提供实时的数据，以及提供类似于app的浏览，这些就是PWA的大致的能力。</p>
-
 <p>渐进式web应用（PWA）是一个web应用能够提供给用户一种类似于app的体验。PWA得益于现代web科技创新（Service Workers, Native APIS, JS famework）以及提升的web应用质量标准。</p>
-
-<p><img src="http://p0.qhimg.com/t0167435df73cd96e04.png" alt="" /></p>
-
+<p><img src="http://p0.qhimg.com/t0167435df73cd96e04.png" alt=""></p>
 <p>如果你想了解更多关于PWA，请访问这个很棒的<a href="https://developers.google.com/web/progressive-web-apps/">Google developer page</a>。</p>
-
 <p>看一下下面的PWA！看起来很像原生的app，是不是？</p>
-
-<p><img src="http://p0.qhimg.com/t014b3078d2d2f39234.png" alt="" /></p>
-
+<p><img src="http://p0.qhimg.com/t014b3078d2d2f39234.png" alt=""></p>
 <p>推特渐进式web应用</p>
-
 <p>从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：</p>
-
 <ul>
-<li><p>你可以选择任何你喜欢的框架来进行开发；</p></li>
-
-<li><p>一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；</p></li>
-
-<li><p>很容易获得：不需要通过应用商店来下载。</p></li>
+<li>
+<p>你可以选择任何你喜欢的框架来进行开发；</p>
+</li>
+<li>
+<p>一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；</p>
+</li>
+<li>
+<p>很容易获得：不需要通过应用商店来下载。</p>
+</li>
 </ul>
-
 <p>然而，在2017年早期，PWA仍然面临一些限制条件：</p>
-
 <ul>
-<li><p>Safari不支持一些基本的PWA特性，比如 <a href="https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API">Service workers</a>，但是苹果公司似乎已经准备开始着手了；</p></li>
-
-<li><p>一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面<a href="https://whatwebcando.today/">What web can do</a>。</p></li>
+<li>
+<p>Safari不支持一些基本的PWA特性，比如 <a href="https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API">Service workers</a>，但是苹果公司似乎已经准备开始着手了；</p>
+</li>
+<li>
+<p>一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面<a href="https://whatwebcando.today/">What web can do</a>。</p>
+</li>
 </ul>
-
 <h3 id="教程目标">教程目标</h3>
-
 <p>本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。</p>
-
 <p>为了让事情保持挑战性，我们打算构建一个猫图信息app：CropChat！CropChat用户能够阅读主流的猫的图片，并且能够打开他们了解更多细节以及上传新的猫的图片（首先从互联网，接着是从设备驱动或者照相机）。</p>
-
 <p>这个教程将会分为几个部分，它们将会连续地进行发布</p>
-
 <ul>
-<li><p>[Part 1]  Lite基于Vue JS, Webpack 以及Material Design的渐进式web应用</p></li>
-
-<li><p>[Part 2] 基于Vue-Resource以及VueFire将App和远程的API进行连接</p></li>
-
-<li><p>[Part 3] 基于Service Worker来实现离线模式</p></li>
-
-<li><p>[Part 4] 访问设备照相机来拍照</p></li>
-
-<li><p>[Part 5] 访问设备驱动来上传图片</p></li>
-
-<li><p>[Part 6] 实现推送通知</p></li>
-
-<li><p>[Part 7] 访问设备地址</p></li>
+<li>
+<p>[Part 1]  Lite基于Vue JS, Webpack 以及Material Design的渐进式web应用</p>
+</li>
+<li>
+<p>[Part 2] 基于Vue-Resource以及VueFire将App和远程的API进行连接</p>
+</li>
+<li>
+<p>[Part 3] 基于Service Worker来实现离线模式</p>
+</li>
+<li>
+<p>[Part 4] 访问设备照相机来拍照</p>
+</li>
+<li>
+<p>[Part 5] 访问设备驱动来上传图片</p>
+</li>
+<li>
+<p>[Part 6] 实现推送通知</p>
+</li>
+<li>
+<p>[Part 7] 访问设备地址</p>
+</li>
 </ul>
-
 <h3 id="我们的pwa的基本组件">我们的PWA的基本组件</h3>
-
 <p>我们的渐进式web应用是基于你喜欢的现在组件！</p>
-
 <ul>
-<li><p><a href="https://vuejs.org/">VueJS 2</a>视图层： 通过利用<a href="https://getmdl.io/">Material Design Lite</a>来渲染视图</p></li>
-
-<li><p><a href="https://github.com/vuejs/vue-router">Vue-Router</a>：处理SPA路由</p></li>
-
-<li><p><a href="https://github.com/pagekit/vue-resource">Vue-Resource</a> &amp; <a href="https://github.com/vuejs/vuefire">Vuefire</a>：  处理和<a href="https://firebase.google.com/">Firebase</a>数据库的通信</p></li>
-
-<li><p><a href="https://developers.google.com/web/fundamentals/getting-started/primers/service-workers">Service Worker</a>：处理离线模式并且保持数据更新</p></li>
-
-<li><p><a href="https://webpack.github.io/">Webpack</a> &amp; <a href="https://github.com/vuejs/vue-loader">Vue-loader</a>：构建我们的应用，提供热加载 build our application, provides hot reload, ES2016 and pre-processors.</p></li>
+<li>
+<p><a href="https://vuejs.org/">VueJS 2</a>视图层： 通过利用<a href="https://getmdl.io/">Material Design Lite</a>来渲染视图</p>
+</li>
+<li>
+<p><a href="https://github.com/vuejs/vue-router">Vue-Router</a>：处理SPA路由</p>
+</li>
+<li>
+<p><a href="https://github.com/pagekit/vue-resource">Vue-Resource</a> &amp; <a href="https://github.com/vuejs/vuefire">Vuefire</a>：  处理和<a href="https://firebase.google.com/">Firebase</a>数据库的通信</p>
+</li>
+<li>
+<p><a href="https://developers.google.com/web/fundamentals/getting-started/primers/service-workers">Service Worker</a>：处理离线模式并且保持数据更新</p>
+</li>
+<li>
+<p><a href="https://webpack.github.io/">Webpack</a> &amp; <a href="https://github.com/vuejs/vue-loader">Vue-loader</a>：构建我们的应用，提供热加载 build our application, provides hot reload, ES2016 and pre-processors.</p>
+</li>
 </ul>
-
 <p>让我们开始part 1！</p>
-
 <h3 id="part-1-lite基于vuejs-webpack-以及-material-design-lite创建一个单页面应用">[PART 1] Lite基于VueJS, Webpack 以及 Material Design Lite创建一个单页面应用</h3>
-
 <p>如果你不熟悉VueJS 2,我强烈建议你阅读<a href="https://vuejs.org/v2/guide/">官方教程</a>。</p>
-
 <h3 id="构建vuejs-app基础">构建VueJS APP基础</h3>
-
 <p>我们打算利用<a href="https://github.com/vuejs/vue-cli">Vue-cli</a>来创建我们的应用：</p>
-
-<pre><code>`npm install -g vue-cli`
-
-</code></pre>
-
-<p>Vue-cli自带一些模板。我们将会选择webpack模板。<a href="https://webpack.github.io/">Webpack</a>是一个对于Javascript应用的现代模块打包工具，它能够处理并且构建我们的资源。Vue-cli将使用Webpack，vue-loader（热加载！），JS linter以及测试套件来创建一个虚拟的VueJS应用。</p>
-
-<pre><code>`vue init webpack cropchat`
-
-</code></pre>
-
-<p>你可能会问一些问题。下面是我使用过的配置：</p>
-
-<pre><code>`This will install Vue 2.x version of the template.`
-
-</code></pre>
-
-<pre><code> `For Vue 1.x use: vue init webpack#1.0 cropchat`
-
-</code></pre>
-
-<pre><code>? Project name cropchat
+<pre tabindex="0"><code>`npm install -g vue-cli`
+</code></pre><p>Vue-cli自带一些模板。我们将会选择webpack模板。<a href="https://webpack.github.io/">Webpack</a>是一个对于Javascript应用的现代模块打包工具，它能够处理并且构建我们的资源。Vue-cli将使用Webpack，vue-loader（热加载！），JS linter以及测试套件来创建一个虚拟的VueJS应用。</p>
+<pre tabindex="0"><code>`vue init webpack cropchat`
+</code></pre><p>你可能会问一些问题。下面是我使用过的配置：</p>
+<pre tabindex="0"><code>`This will install Vue 2.x version of the template.`
+</code></pre><pre tabindex="0"><code> `For Vue 1.x use: vue init webpack#1.0 cropchat`
+</code></pre><pre tabindex="0"><code>? Project name cropchat
 ? Project description Image messenging application
 ? Author Charles BOCHET &lt;charlesb@theodo.fr&gt;
 ? Vue build standalone
@@ -376,107 +348,64 @@ LICENSE: MIT
 ? Pick an ESLint preset Standard
 ? Setup unit tests with Karma + Mocha? Yes
 ? Setup e2e tests with Nightwatch? No
-
-</code></pre>
-
-<pre><code> `vue-cli · Generated &quot;cropchat&quot;.`
-
-</code></pre>
-
-<p>这个过程会创建一个包含以下子文件夹的项目文件夹：</p>
-
+</code></pre><pre tabindex="0"><code> `vue-cli · Generated &#34;cropchat&#34;.`
+</code></pre><p>这个过程会创建一个包含以下子文件夹的项目文件夹：</p>
 <ul>
-<li><p>build: 包含webpack以及vue-loader配置文件</p></li>
-
-<li><p>config: 包含我们的app配置（环境，参数等等）</p></li>
-
-<li><p>src: 我们应用的源代码</p></li>
-
-<li><p>static: 图片，css以及其它的公共资源</p></li>
-
-<li><p>test: Karma &amp; Mocha创建的单元测试文件</p></li>
+<li>
+<p>build: 包含webpack以及vue-loader配置文件</p>
+</li>
+<li>
+<p>config: 包含我们的app配置（环境，参数等等）</p>
+</li>
+<li>
+<p>src: 我们应用的源代码</p>
+</li>
+<li>
+<p>static: 图片，css以及其它的公共资源</p>
+</li>
+<li>
+<p>test: Karma &amp; Mocha创建的单元测试文件</p>
+</li>
 </ul>
-
 <p>然后运行：</p>
-
-<pre><code>cd cropchat
+<pre tabindex="0"><code>cd cropchat
 npm install
 npm run dev
-
-</code></pre>
-
-<p>这将会在你的浏览器打开<code>localhost:8080</code>：</p>
-
-<p><img src="http://p0.qhimg.com/t015505db9d169c619f.png" alt="" /></p>
-
+</code></pre><p>这将会在你的浏览器打开<code>localhost:8080</code>：</p>
+<p><img src="http://p0.qhimg.com/t015505db9d169c619f.png" alt=""></p>
 <h3 id="通过一个合适的manifest让它可以进行安装">通过一个合适的Manifest让它可以进行安装：</h3>
-
 <p>PWA的最大优点之一就是容易安装并且分享。让我们别再等待了！</p>
-
 <p>为了这样做，我们需要添加一个manifest.json文件并且在index.html文件中进行声明。</p>
-
 <p><code>pwa-manifest-webpack-plugin</code>能够让我们在应用构建的时候生成文件：</p>
-
-<pre><code>`npm i pwa-manifest-webpack-plugin --save`
-
-</code></pre>
-
-<p>我们接着能够通过编辑<code>build/webpack.dev.conf.js</code> 以及<code>build/webpack.prod.conf.js</code>来更新构建过程。</p>
-
+<pre tabindex="0"><code>`npm i pwa-manifest-webpack-plugin --save`
+</code></pre><p>我们接着能够通过编辑<code>build/webpack.dev.conf.js</code> 以及<code>build/webpack.prod.conf.js</code>来更新构建过程。</p>
 <p>在顶部引入<code>pwa-manifest-webpack-plugin</code> ：</p>
-
-<pre><code>var path = require('path')
-var manifestPlugin = require('pwa-manifest-webpack-plugin')
-
-</code></pre>
-
-<p>并且将它添加到插件：</p>
-
-<pre><code>plugins: [
+<pre tabindex="0"><code>var path = require(&#39;path&#39;)
+var manifestPlugin = require(&#39;pwa-manifest-webpack-plugin&#39;)
+</code></pre><p>并且将它添加到插件：</p>
+<pre tabindex="0"><code>plugins: [
   new manifestPlugin({
-    name: 'CropChat',
-    description: 'CropChat - Image Messenger Application',
-    display: 'fullscreen',
+    name: &#39;CropChat&#39;,
+    description: &#39;CropChat - Image Messenger Application&#39;,
+    display: &#39;fullscreen&#39;,
     icon: {
-      src: path.resolve('src/assets/logo.png'),
+      src: path.resolve(&#39;src/assets/logo.png&#39;),
       sizes: [200]
     }
   }),
-
-</code></pre>
-
-<p>最后，在 <code>index.html</code>中声明使用<code>manifest.json</code>：</p>
-
-<pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-&lt;link rel=&quot;manifest&quot; href=&quot;./manifest.json&quot;&gt;
-
-</code></pre>
-
-<p>你可能需要重启你的应用：来这样做，杀掉之间的进程并且再次运行：</p>
-
-<pre><code>`npm run dev`
-
-</code></pre>
-
-<p>就是它了！让我们在手机设备上安装CropChat。有多种方式可以从不同的手机设备上访问<code>localhost:8080</code>。我最喜欢就是使用<a href="https://ngrok.com/">ngrok</a>。</p>
-
+</code></pre><p>最后，在 <code>index.html</code>中声明使用<code>manifest.json</code>：</p>
+<pre tabindex="0"><code>&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, initial-scale=1.0&#34;&gt;
+&lt;link rel=&#34;manifest&#34; href=&#34;./manifest.json&#34;&gt;
+</code></pre><p>你可能需要重启你的应用：来这样做，杀掉之间的进程并且再次运行：</p>
+<pre tabindex="0"><code>`npm run dev`
+</code></pre><p>就是它了！让我们在手机设备上安装CropChat。有多种方式可以从不同的手机设备上访问<code>localhost:8080</code>。我最喜欢就是使用<a href="https://ngrok.com/">ngrok</a>。</p>
 <p>Ngrok是一种服务，可以远程登录您的本地环境，免费！</p>
-
 <p>安装它：</p>
-
-<pre><code>`npm install -G ngrok`
-
-</code></pre>
-
-<p>接着，运行：</p>
-
-<pre><code>`ngrok http 8080`
-
-</code></pre>
-
-<p>那应该会给你以下的输出：</p>
-
-<pre><code>ngrok by @inconshreveable                                                                   (Ctrl+C to quit)
+<pre tabindex="0"><code>`npm install -G ngrok`
+</code></pre><p>接着，运行：</p>
+<pre tabindex="0"><code>`ngrok http 8080`
+</code></pre><p>那应该会给你以下的输出：</p>
+<pre tabindex="0"><code>ngrok by @inconshreveable                                                                   (Ctrl+C to quit)
 
 Session Status                online                                                                        
 Version                       2.1.18                                                                        
@@ -487,306 +416,219 @@ Forwarding                    https://5ef29506.ngrok.io -&gt; localhost:8080
 
 Connections                   ttl     opn     rt1     rt5     p50     p90                                   
                               39      3       0.01    0.01    120.01  881.89
-
-</code></pre>
-
-<p>通过你的手机浏览ngrok的url <code>http://5ef29506.ngrok.io</code> 。你可以在你的设备桌面添加！</p>
-
-<p><img src="http://p0.qhimg.com/t013f3749db09517261.png" alt="" /></p>
-
-<p><img src="http://p0.qhimg.com/t01d4ca0a2d61fc0a70.png" alt="" /><img src="http://p0.qhimg.com/t01e9913ace27e7b1ad.png" alt="" /><img src="http://p0.qhimg.com/t0134bba83d0d53d338.png" alt="" /></p>
-
+</code></pre><p>通过你的手机浏览ngrok的url <code>http://5ef29506.ngrok.io</code> 。你可以在你的设备桌面添加！</p>
+<p><img src="http://p0.qhimg.com/t013f3749db09517261.png" alt=""></p>
+<p><img src="http://p0.qhimg.com/t01d4ca0a2d61fc0a70.png" alt=""><img src="http://p0.qhimg.com/t01e9913ace27e7b1ad.png" alt=""><img src="http://p0.qhimg.com/t0134bba83d0d53d338.png" alt=""></p>
 <p>Cropchat的源代码能够在GitHub <a href="https://github.com/charlesBochet/vueJSPwa/tree/master/cropchat">here</a>上能够访问。Git历史符合教程的步骤：你可以在下面的commit <a href="https://github.com/charlesBochet/vueJSPwa/commit/5ff77fd3cd71a988fad9c187d57e87ea80d670f0">5ff77fd3cd71a988fad9c187d57e87ea80d670f0</a>种发现这个步骤的变化</p>
-
 <p>想了解更多关于ngrok，你可以阅读Matthieu Auger的文章：<a href="http://www.theodo.fr/blog/2016/06/expose-your-local-environment-to-the-world-with-ngrok/">Expose your local environment to the world with ngrok</a></p>
-
 <h3 id="创建视图框架和句柄路由">创建视图框架和句柄路由</h3>
-
 <p>既然我们已经具有合适的基础，那么我们打算开始构建CropChat的特性。CropChat具有三个视图：</p>
-
 <ul>
-<li><p>Home View: 展示一个猫的图片列表</p></li>
-
-<li><p>Detail View: 展示特定猫的图片的细节（在Home View种点击访问）</p></li>
-
-<li><p>Post View: 能够让用户上传一个新的图片</p></li>
+<li>
+<p>Home View: 展示一个猫的图片列表</p>
+</li>
+<li>
+<p>Detail View: 展示特定猫的图片的细节（在Home View种点击访问）</p>
+</li>
+<li>
+<p>Post View: 能够让用户上传一个新的图片</p>
+</li>
 </ul>
-
 <p>创建一个具有以下框架的<code>src/component/HomeView.vue</code> 视图：</p>
-
-<pre><code>&lt;template&gt;
-  &lt;ul class=&quot;list&quot;&gt;
+<pre tabindex="0"><code>&lt;template&gt;
+  &lt;ul class=&#34;list&#34;&gt;
   &lt;/ul&gt;
 &lt;/template&gt;
-
-</code></pre>
-
-<pre><code>&lt;script&gt;
+</code></pre><pre tabindex="0"><code>&lt;script&gt;
 export default {
 }
 &lt;/script&gt;
-
-</code></pre>
-
-<pre><code>&lt;style scoped&gt;
+</code></pre><pre tabindex="0"><code>&lt;style scoped&gt;
   .list {
     width: 100%;
     padding: 0;
   }
 &lt;/style&gt;
-
-</code></pre>
-
-<p>对于<code>src/component/DetailView.vue</code>视图也是一样的：</p>
-
-<pre><code>&lt;template&gt;
-  &lt;div class=&quot;card-image&quot;&gt;
+</code></pre><p>对于<code>src/component/DetailView.vue</code>视图也是一样的：</p>
+<pre tabindex="0"><code>&lt;template&gt;
+  &lt;div class=&#34;card-image&#34;&gt;
   &lt;/div&gt;
 &lt;/template&gt;
-
-</code></pre>
-
-<pre><code>&lt;script&gt;
+</code></pre><pre tabindex="0"><code>&lt;script&gt;
 export default {
 }
 &lt;/script&gt;
-
-</code></pre>
-
-<pre><code>&lt;style scoped&gt;
+</code></pre><pre tabindex="0"><code>&lt;style scoped&gt;
 &lt;/style&gt;
-
-</code></pre>
-
-<p>对于 <code>src/component/PostView.vue</code>也是一样的：</p>
-
-<pre><code>&lt;template&gt;
-  &lt;div class=&quot;waiting&quot;&gt;
+</code></pre><p>对于 <code>src/component/PostView.vue</code>也是一样的：</p>
+<pre tabindex="0"><code>&lt;template&gt;
+  &lt;div class=&#34;waiting&#34;&gt;
     Not yet available
   &lt;/div&gt;
 &lt;/template&gt;
-
-</code></pre>
-
-<pre><code>&lt;script&gt;
+</code></pre><pre tabindex="0"><code>&lt;script&gt;
 export default {
 }
 &lt;/script&gt;
-
-</code></pre>
-
-<pre><code>&lt;style scoped&gt;
+</code></pre><pre tabindex="0"><code>&lt;style scoped&gt;
   .waiting {
     padding: 10px;
     color: #555;
   }
 &lt;/style&gt;
-
-</code></pre>
-
-<p>最终，更新路由文件 <code>src/router/index.js</code>：</p>
-
-<pre><code>import Vue from 'vue'
-import Router from 'vue-router'
-import HomeView from 'components/HomeView'
-import DetailView from 'components/DetailView'
-import PostView from 'components/PostView'
-
-</code></pre>
-
-<pre><code>`Vue.use(Router)`
-
-</code></pre>
-
-<pre><code>export default new Router({
+</code></pre><p>最终，更新路由文件 <code>src/router/index.js</code>：</p>
+<pre tabindex="0"><code>import Vue from &#39;vue&#39;
+import Router from &#39;vue-router&#39;
+import HomeView from &#39;components/HomeView&#39;
+import DetailView from &#39;components/DetailView&#39;
+import PostView from &#39;components/PostView&#39;
+</code></pre><pre tabindex="0"><code>`Vue.use(Router)`
+</code></pre><pre tabindex="0"><code>export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: &#39;/&#39;,
+      name: &#39;home&#39;,
       component: HomeView
     },
     {
-      path: '/detail/:id',
-      name: 'detail',
+      path: &#39;/detail/:id&#39;,
+      name: &#39;detail&#39;,
       component: DetailView
     },
     {
-      path: '/post',
-      name: 'post',
+      path: &#39;/post&#39;,
+      name: &#39;post&#39;,
       component: PostView
     }
   ]
 })
-
-</code></pre>
-
-<p>也移除没有使用的Hello.vue视图。你应该你能够直接看到影响你手机app的变化（热加载很棒，是不是？）</p>
-
+</code></pre><p>也移除没有使用的Hello.vue视图。你应该你能够直接看到影响你手机app的变化（热加载很棒，是不是？）</p>
 <p>Git commit: <a href="https://github.com/charlesBochet/vueJSPwa/commit/22ab9a2058dae8f7689b8635ff52d89652675aa6">22ab9a2058dae8f7689b8635ff52d89652675aa6</a></p>
-
 <h3 id="安装-material-design-lite">安装 Material Design Lite</h3>
-
 <p>不知道Material Design Lite？它是一个轻量级的并且容易在你的web应用上实现<a href="https://material.io/guidelines/">Material Design</a> 的框架。</p>
-
 <p>你可以在这看到更多的文档：<a href="https://getmdl.io/">Get MDL.io</a></p>
-
 <p>更新依赖：</p>
-
-<pre><code>`npm install material-design-lite --save`
-
-</code></pre>
-
-<p>更新<code>src/App.vue</code>来导入MDL样式并且加载MDL模块：</p>
-
-<pre><code>&lt;script&gt;
-require('material-design-lite')
+<pre tabindex="0"><code>`npm install material-design-lite --save`
+</code></pre><p>更新<code>src/App.vue</code>来导入MDL样式并且加载MDL模块：</p>
+<pre tabindex="0"><code>&lt;script&gt;
+require(&#39;material-design-lite&#39;)
 ...
 &lt;/script&gt;
-
-</code></pre>
-
-<pre><code>&lt;style&gt;
-  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-  @import url('https://code.getmdl.io/1.2.1/material.blue-red.min.css');
+</code></pre><pre tabindex="0"><code>&lt;style&gt;
+  @import url(&#39;https://fonts.googleapis.com/icon?family=Material+Icons&#39;);
+  @import url(&#39;https://code.getmdl.io/1.2.1/material.blue-red.min.css&#39;);
 &lt;/style&gt;
-
-</code></pre>
-
-<p>Git commit: <a href="https://github.com/charlesBochet/vueJSPwa/commit/b726b40488132c400dd861bd397f61b15e81631e">b726b40488132c400dd861bd397f61b15e81631e</a></p>
-
+</code></pre><p>Git commit: <a href="https://github.com/charlesBochet/vueJSPwa/commit/b726b40488132c400dd861bd397f61b15e81631e">b726b40488132c400dd861bd397f61b15e81631e</a></p>
 <h3 id="为你的单页面应用提供一个导航栏">为你的单页面应用提供一个导航栏：</h3>
-
 <p>更新主要组件<code>src/App.vue</code>种的模块部分：</p>
-
-<pre><code>&lt;template&gt;
-  &lt;div class=&quot;mdl-layout mdl-js-layout mdl-layout--fixed-header&quot;&gt;
-    &lt;header class=&quot;mdl-layout__header&quot;&gt;
-      &lt;div class=&quot;mdl-layout__header-row&quot;&gt;
-        &lt;span class=&quot;mdl-layout-title&quot;&gt;CropChat&lt;/span&gt;
+<pre tabindex="0"><code>&lt;template&gt;
+  &lt;div class=&#34;mdl-layout mdl-js-layout mdl-layout--fixed-header&#34;&gt;
+    &lt;header class=&#34;mdl-layout__header&#34;&gt;
+      &lt;div class=&#34;mdl-layout__header-row&#34;&gt;
+        &lt;span class=&#34;mdl-layout-title&#34;&gt;CropChat&lt;/span&gt;
       &lt;/div&gt;
     &lt;/header&gt;
-    &lt;div class=&quot;mdl-layout__drawer&quot;&gt;
-      &lt;span class=&quot;mdl-layout-title&quot;&gt;CropChat&lt;/span&gt;
-      &lt;nav class=&quot;mdl-navigation&quot;&gt;
-        &lt;a class=&quot;mdl-navigation__link&quot; href=&quot;/#/&quot; @click=&quot;hideMenu&quot;&gt;Home&lt;/a&gt;
-        &lt;a class=&quot;mdl-navigation__link&quot; href=&quot;/#/post&quot; @click=&quot;hideMenu&quot;&gt;Post a picture&lt;/a&gt;
+    &lt;div class=&#34;mdl-layout__drawer&#34;&gt;
+      &lt;span class=&#34;mdl-layout-title&#34;&gt;CropChat&lt;/span&gt;
+      &lt;nav class=&#34;mdl-navigation&#34;&gt;
+        &lt;a class=&#34;mdl-navigation__link&#34; href=&#34;/#/&#34; @click=&#34;hideMenu&#34;&gt;Home&lt;/a&gt;
+        &lt;a class=&#34;mdl-navigation__link&#34; href=&#34;/#/post&#34; @click=&#34;hideMenu&#34;&gt;Post a picture&lt;/a&gt;
       &lt;/nav&gt;
     &lt;/div&gt;
-    &lt;main class=&quot;mdl-layout__content&quot;&gt;
-      &lt;div class=&quot;page-content&quot;&gt;
+    &lt;main class=&#34;mdl-layout__content&#34;&gt;
+      &lt;div class=&#34;page-content&#34;&gt;
         &lt;router-view&gt;&lt;/router-view&gt;
       &lt;/div&gt;
     &lt;/main&gt;
   &lt;/div&gt;
 &lt;/template&gt;
-
-</code></pre>
-
-<p>因为Material Design Lite不是特别为单页面应用构建的，因此在用户点击菜单链接的时候我们需要隐藏burger菜单：</p>
-
-<pre><code>&lt;script&gt;
+</code></pre><p>因为Material Design Lite不是特别为单页面应用构建的，因此在用户点击菜单链接的时候我们需要隐藏burger菜单：</p>
+<pre tabindex="0"><code>&lt;script&gt;
 ...
 export default {
-  name: 'app',
+  name: &#39;app&#39;,
   methods: {
     hideMenu: function () {
-      document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
-      document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
+      document.getElementsByClassName(&#39;mdl-layout__drawer&#39;)[0].classList.remove(&#39;is-visible&#39;)
+      document.getElementsByClassName(&#39;mdl-layout__obfuscator&#39;)[0].classList.remove(&#39;is-visible&#39;)
     }
   }
 }
 &lt;/script&gt;
-
-</code></pre>
-
-<p><img src="http://p0.qhimg.com/t01ad688da96c8d8880.png" alt="" /></p>
-
-<p><img src="http://p0.qhimg.com/t014ca5be7fe44493bf.png" alt="" /></p>
-
+</code></pre><p><img src="http://p0.qhimg.com/t01ad688da96c8d8880.png" alt=""></p>
+<p><img src="http://p0.qhimg.com/t014ca5be7fe44493bf.png" alt=""></p>
 <p>Git commit: <a href="https://github.com/charlesBochet/vueJSPwa/commit/829d0af767a9f7cba13355296d9da79384d80099">829d0af767a9f7cba13355296d9da79384d80099</a></p>
-
 <h3 id="传播视图并将你的应用带到生活">传播视图并将你的应用带到生活</h3>
-
 <p>我们还没有连接一个后台的服务。我们现在打算暂时使用假数据。</p>
-
 <p>创建一个<code>src/data.js</code>文件：</p>
-
-<pre><code>export default {
+<pre tabindex="0"><code>export default {
   pictures: [
     {
-      'id': 0,
-      'url': 'http://25.media.tumblr.com/tumblr_m40h4ksiUa1qbyxr0o1_400.gif',
-      'comment': 'A cat game',
-      'info': 'Posted by Kevin on Friday'
+      &#39;id&#39;: 0,
+      &#39;url&#39;: &#39;http://25.media.tumblr.com/tumblr_m40h4ksiUa1qbyxr0o1_400.gif&#39;,
+      &#39;comment&#39;: &#39;A cat game&#39;,
+      &#39;info&#39;: &#39;Posted by Kevin on Friday&#39;
     },
     {
-      'id': 1,
-      'url': 'http://25.media.tumblr.com/tumblr_lhd7n9Qec01qgnva2o1_500.jpg',
-      'comment': 'Tatoo &amp; cat',
-      'info': 'Posted by Charles on Tuesday'
+      &#39;id&#39;: 1,
+      &#39;url&#39;: &#39;http://25.media.tumblr.com/tumblr_lhd7n9Qec01qgnva2o1_500.jpg&#39;,
+      &#39;comment&#39;: &#39;Tatoo &amp; cat&#39;,
+      &#39;info&#39;: &#39;Posted by Charles on Tuesday&#39;
     },
     {
-      'id': 2,
-      'url': 'http://24.media.tumblr.com/tumblr_m4j2atctRm1qejbiro1_1280.jpg',
-      'comment': 'Santa cat',
-      'info': 'Posted by Richard on Monday'
+      &#39;id&#39;: 2,
+      &#39;url&#39;: &#39;http://24.media.tumblr.com/tumblr_m4j2atctRm1qejbiro1_1280.jpg&#39;,
+      &#39;comment&#39;: &#39;Santa cat&#39;,
+      &#39;info&#39;: &#39;Posted by Richard on Monday&#39;
     },
     {
-      'id': 3,
-      'url': 'http://25.media.tumblr.com/tumblr_m3rmbwhVB51qhwmnpo1_1280.jpg',
-      'comment': 'Mexico cat',
-      'info': 'Posted by Richard on Monday'
+      &#39;id&#39;: 3,
+      &#39;url&#39;: &#39;http://25.media.tumblr.com/tumblr_m3rmbwhVB51qhwmnpo1_1280.jpg&#39;,
+      &#39;comment&#39;: &#39;Mexico cat&#39;,
+      &#39;info&#39;: &#39;Posted by Richard on Monday&#39;
     },
     {
-      'id': 4,
-      'url': 'http://24.media.tumblr.com/tumblr_mceknxs4Lo1qd477zo1_500.jpg',
-      'comment': 'Curious cat',
-      'info': 'Posted by Richard on Monday'
+      &#39;id&#39;: 4,
+      &#39;url&#39;: &#39;http://24.media.tumblr.com/tumblr_mceknxs4Lo1qd477zo1_500.jpg&#39;,
+      &#39;comment&#39;: &#39;Curious cat&#39;,
+      &#39;info&#39;: &#39;Posted by Richard on Monday&#39;
     }
   ]
 }
-
-</code></pre>
-
-<p>在<code>HomeView.vue</code> script部分中导入数据并且将图片链接到对应的细节视图：</p>
-
-<pre><code>&lt;script&gt;
-import data from '../data'
+</code></pre><p>在<code>HomeView.vue</code> script部分中导入数据并且将图片链接到对应的细节视图：</p>
+<pre tabindex="0"><code>&lt;script&gt;
+import data from &#39;../data&#39;
 export default {
   methods: {
     displayDetails (id) {
-      this.$router.push({ name: 'detail', params: { id: id }})
+      this.$router.push({ name: &#39;detail&#39;, params: { id: id }})
  }
   },
   data () {
     return {
-      'pictures': data.pictures
+      &#39;pictures&#39;: data.pictures
     }
   }
 }
 &lt;/script&gt;
-
-</code></pre>
-
-<p>更新<code>HomeView.vue</code> 模板和样式：</p>
-
-<pre><code>&lt;template&gt;
+</code></pre><p>更新<code>HomeView.vue</code> 模板和样式：</p>
+<pre tabindex="0"><code>&lt;template&gt;
   &lt;div&gt;
-    &lt;div class=&quot;mdl-grid&quot;&gt;
-      &lt;div class=&quot;mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone&quot;&gt;&lt;/div&gt;
-      &lt;div class=&quot;mdl-cell mdl-cell--6-col mdl-cell--4-col-phone&quot;&gt;
-        &lt;div v-for=&quot;picture in this.$data.pictures&quot; class=&quot;image-card&quot; @click=&quot;displayDetails(picture.id)&quot;&gt;
-          &lt;div class=&quot;image-card__picture&quot;&gt;
-            &lt;img :src=&quot;picture.url&quot; /&gt;
+    &lt;div class=&#34;mdl-grid&#34;&gt;
+      &lt;div class=&#34;mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone&#34;&gt;&lt;/div&gt;
+      &lt;div class=&#34;mdl-cell mdl-cell--6-col mdl-cell--4-col-phone&#34;&gt;
+        &lt;div v-for=&#34;picture in this.$data.pictures&#34; class=&#34;image-card&#34; @click=&#34;displayDetails(picture.id)&#34;&gt;
+          &lt;div class=&#34;image-card__picture&#34;&gt;
+            &lt;img :src=&#34;picture.url&#34; /&gt;
           &lt;/div&gt;
-          &lt;div class=&quot;image-card__comment mdl-card__actions&quot;&gt;
+          &lt;div class=&#34;image-card__comment mdl-card__actions&#34;&gt;
             &lt;span&gt;{{ picture.comment }}&lt;/span&gt;
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-    &lt;a class=&quot;add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored&quot; href=&quot;/#/post&quot;&gt;
-      &lt;i class=&quot;material-icons&quot;&gt;add&lt;/i&gt;
+    &lt;a class=&#34;add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored&#34; href=&#34;/#/post&#34;&gt;
+      &lt;i class=&#34;material-icons&#34;&gt;add&lt;/i&gt;
     &lt;/a&gt;
   &lt;/div&gt;
 &lt;/template&gt;
@@ -819,50 +661,40 @@ export default {
     font-weight: bold;
   }
 &lt;/style&gt;
-
-</code></pre>
-
-<p>对<code>DetailView.vue</code>进行同样的操作：</p>
-
-<pre><code>&lt;template&gt;
-  &lt;div class=&quot;mdl-grid&quot;&gt;
-    &lt;div class=&quot;mdl-cell mdl-cell--8-col&quot;&gt;
-      &lt;div class=&quot;picture&quot;&gt;
-        &lt;img :src=&quot;this.$data.pictures[$route.params.id].url&quot; /&gt;
+</code></pre><p>对<code>DetailView.vue</code>进行同样的操作：</p>
+<pre tabindex="0"><code>&lt;template&gt;
+  &lt;div class=&#34;mdl-grid&#34;&gt;
+    &lt;div class=&#34;mdl-cell mdl-cell--8-col&#34;&gt;
+      &lt;div class=&#34;picture&#34;&gt;
+        &lt;img :src=&#34;this.$data.pictures[$route.params.id].url&#34; /&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;info&quot;&gt;
+      &lt;div class=&#34;info&#34;&gt;
         &lt;span&gt;{{ this.$data.pictures[$route.params.id].info }}&lt;/span&gt;
       &lt;/div&gt;
     &lt;/div&gt;
-    &lt;div class=&quot;mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet&quot;&gt;
-      &lt;div class=&quot;comment&quot;&gt;
+    &lt;div class=&#34;mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet&#34;&gt;
+      &lt;div class=&#34;comment&#34;&gt;
         &lt;span&gt;{{ this.$data.pictures[$route.params.id].comment }}&lt;/span&gt;
       &lt;/div&gt;
-      &lt;div class=&quot;actions&quot;&gt;
-        &lt;a class=&quot;mdl-button mdl-js-button mdl-button--raised mdl-button--colored&quot; href=&quot;/#/post&quot;&gt;
+      &lt;div class=&#34;actions&#34;&gt;
+        &lt;a class=&#34;mdl-button mdl-js-button mdl-button--raised mdl-button--colored&#34; href=&#34;/#/post&#34;&gt;
           ANSWER
         &lt;/a&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/template&gt;
-
-</code></pre>
-
-<pre><code>&lt;script&gt;
-import data from '../data'
+</code></pre><pre tabindex="0"><code>&lt;script&gt;
+import data from &#39;../data&#39;
 export default {
   data () {
     return {
-      'pictures': data.pictures
+      &#39;pictures&#39;: data.pictures
     }
   }
 }
 &lt;/script&gt;
-
-</code></pre>
-
-<pre><code>&lt;style scoped&gt;
+</code></pre><pre tabindex="0"><code>&lt;style scoped&gt;
   .picture &gt; img {
     color: #fff;
     width:100%;
@@ -881,47 +713,40 @@ export default {
     text-align: center;
   }
 &lt;/style&gt;
-
-</code></pre>
-
-<p>Git commit: <a href="https://github.com/charlesBochet/vueJSPwa/commit/39360f251da153c780cd148dc3cf234348bb1e87">39360f251da153c780cd148dc3cf234348bb1e87</a></p>
-
+</code></pre><p>Git commit: <a href="https://github.com/charlesBochet/vueJSPwa/commit/39360f251da153c780cd148dc3cf234348bb1e87">39360f251da153c780cd148dc3cf234348bb1e87</a></p>
 <p>关于&rsquo;href&rsquo;链接的使用：我推荐使用vuejs的组件但是在这我想使代码尽可能的简单。</p>
-
 <h3 id="最后的结果">最后的结果</h3>
-
 <p>我们完成了，CropChat完成啦！</p>
-
-<p><img src="http://p0.qhimg.com/t01426ec795f7e96349.png" alt="" /></p>
-
-<p><img src="http://p0.qhimg.com/t01be1c11b6c06f9969.png" alt="" /></p>
-
+<p><img src="http://p0.qhimg.com/t01426ec795f7e96349.png" alt=""></p>
+<p><img src="http://p0.qhimg.com/t01be1c11b6c06f9969.png" alt=""></p>
 <p><strong>源代码能够在GitHub repository访问：</strong> <a href="https://github.com/charlesBochet/vueJSPwa">https://github.com/charlesBochet/vueJSPwa</a></p>
-
 <h3 id="conclusions">Conclusions</h3>
-
 <p>我希望我已经令你确信你能够利用VueJS和Webpack就可以简单地创建web应用。总结来说：</p>
-
 <ul>
-<li><p>Vue-cli可以在命令行种创建一个虚拟的VueJS + Webpack应用</p></li>
-
-<li><p>通过添加Manifest.json文件让你的web应用能够安装</p></li>
-
-<li><p>使用Vue-Router以及Material Design来创建一个类似于app用户体验的应用</p></li>
+<li>
+<p>Vue-cli可以在命令行种创建一个虚拟的VueJS + Webpack应用</p>
+</li>
+<li>
+<p>通过添加Manifest.json文件让你的web应用能够安装</p>
+</li>
+<li>
+<p>使用Vue-Router以及Material Design来创建一个类似于app用户体验的应用</p>
+</li>
 </ul>
-
 <p>然而，CropChat还依然不是一个渐进式web应用：让我们看一下PWA的需求清单：</p>
-
 <p>一半的需求还没有满足。在下一个部分将会有其它的目标。未完待续！</p>
-
-<p><img src="http://p0.qhimg.com/t015f3ce37f416cf068.png" alt="" />
-&gt; 译者注：
-&gt; 安利几个我之前翻译过的其它的关于PWA的文章以及我自己的PWA小应用：
-*   <a href="https://github.com/neal1991/articles-translator/blob/master/Twitter%20Lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDReact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8.md">Twitter Lite以及大规模的高性能React渐进式网络应用</a>
-*   <a href="https://github.com/neal1991/articles-translator/blob/master/Service%20worker%E4%BB%8B%E7%BB%8D.md">Service worker介绍</a>
-*   <a href="https://neal1991.github.io/pwa/">weather app</a>
-*   <a href="https://neal1991.github.io/subway-shanghai/">subway-shanghai</a>
-    ​</p>
+<p><img src="http://p0.qhimg.com/t015f3ce37f416cf068.png" alt=""></p>
+<blockquote>
+<p>译者注：
+安利几个我之前翻译过的其它的关于PWA的文章以及我自己的PWA小应用：</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/neal1991/articles-translator/blob/master/Twitter%20Lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDReact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8.md">Twitter Lite以及大规模的高性能React渐进式网络应用</a></li>
+<li><a href="https://github.com/neal1991/articles-translator/blob/master/Service%20worker%E4%BB%8B%E7%BB%8D.md">Service worker介绍</a></li>
+<li><a href="https://neal1991.github.io/pwa/">weather app</a></li>
+<li><a href="https://neal1991.github.io/subway-shanghai/">subway-shanghai</a>
+​</li>
+</ul>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -940,13 +765,13 @@ export default {
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1825</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1838</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -1000,7 +825,7 @@ export default {
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

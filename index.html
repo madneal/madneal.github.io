@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="generator" content="Hugo 0.99.1" />
 
   <meta charset="utf-8" />
 
@@ -27,7 +28,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/" />
@@ -115,8 +115,6 @@
       
       
         <li class="menu-item
-            
-              is-active
             
             
             ">
@@ -211,198 +209,18 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/goland-plugin/" class="post-link">第一款Goland的SCA插件开发之旅</a></h3>
-    <p class="post-meta">@Neal · May 3, 2022 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/" class="post-link">Posts</a></h3>
+    <p class="post-meta">@Neal · May 3, 2022 · 0 min read</p>
   </header>
   
-  <p class="post-summary">插件开发，是一件即快乐又痛苦的事情。快乐的是你可以根据自己的需求通过插件来进行实现，比如经常看到的 Chrome 的插件开发。插件对于应用的原生生态有着很大的益处，往往那些特别优秀的插件甚至会被官方收编或者在正式功能中加入插件的功能。痛苦的是你需要去看文档，看插件开发的各种文档，如果文档不详细的话，痛苦加倍。程序猿最讨厌的事就是看别人的文档以及自己写文档。当然，除了文档，作为小白你还会踩到各种各样的坑。
-先吐槽 五一期间，疫情实在是憋得无趣，于是就成生了编写一款 Goland 上的 SCA 检测的插件的想法。Jetbrains 作为一个 IDE 开发公司，通过 Java 的语言生态开发出 IDEA 全家桶系列如此精美并且功能强大的 IDE 产品。其背后的技术能力不得不让人折服。IDE 是程序猿开发的生产力，而 Jetbrains 公司则是生产力的生产力。这几天，笔者就在着力开发一款针对 Goland 的第一款 SCA 检测插件。相较于以往 Chrome 或者 Burp 的插件开发而言，Jetbrains 插件开发的难度大大提升，主要是因为以下几点原因：
-API 文档过于简单 IntelliJ 只提供了官方的文档地址。这里面包含了一些 API 的实现以及介绍，但是太简单了。全篇中几乎找不到相关实现的示例代码，通常只有寥寥数语的介绍。举一个例子，希望能够通过插件能够创建文件，在找遍了官方的文档后，只发现了以下内容：
-文档里面提到可以使用 PsiDirectory 中的 add 方法来保存 PSI 文件，但它没说 HOW！那怎么办，只能去 Github 中去搜索代码关键字，然后扒别人的代码去看别人是如何实现的，这绝对是一个非常痛苦的过程，尤其是你看的是一个实现很糟糕的插件。
-API 复杂性 由于 IDEA 强大的生态，其 API 要考虑到兼容性以及很多特性，所以 API 中很多的含义不好理解。其本身也是包含了很多复杂的配置项，同时还需要综合考虑插件是通过什么样的形式去实现。
-太“强大的”官方模板 官方提供了一个创建插件的模板。首先承认的一点是这个模板的功能非常强大，涵盖插件开发、单元测试、质量检查、发布的整个生命周期，并且与 Github 无缝集成。不过作为模板，它包含的内容是不是太多了呢？这个模板的 README 几乎看了3遍之后才知道里面包含了哪些内容。实际上，对于一个小白来说，这个过程挺痛苦的，甚至可能有的人看了一下就萌发了退意。里面的一些模块，比如单元测试模块以及覆盖率检查这些模块，可以作为可选项，并不一定要默认就包含进去。
-Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 .</p>
+  <p class="post-summary"></p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/goland-plugin/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/goland/" class="post-link">goland-2022.01版本最新实用功能</a></h3>
-    <p class="post-meta">@Neal · May 1, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 JSON 的解析。因为 Go 中的 JSON 的解析，一般来说需要定义对应 JSON 的 struct。或者使用 interface{} 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。
-在 Goland 2022.01 最新版本中，终于迎来了在 JSON 方面解析的便捷功能。在最新版本中，只要将 JSON 粘贴到 IDE 中就会提示是否转化为 struct 类型，所有的字段都会被生成，相对于以前的一个个的手动的定义要方便太多太多了。
-还可以使用 Action 来进行转换动作，Generate Go Type form JSON：
-同时还可以添加新的 tag，key 以及修改 key 的代码风格，调用来说一般使用 alt&#43;enter 快捷键即可。
-Intention actions 字段添加新的 tag
- 点击 struct 的字段然后按 alt&#43;enter 选择 Add key to tags  修改 key
- 点击 struct 的字段然后按 alt&#43;enter 选择 Update key value in tags  修改 key 的代码风格</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/goland/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
-    <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
-在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
-dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&#34;%s.%s&#34;, guid, d.options.Domain)) if err == nil { d.isWildcard = true d.wildcardIps.AddRange(wildcardIps) if !d.options.WildcardForced { return &amp;ErrWildcard{wildcardIps: d.wildcardIps} } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.s3.amazonaws.com/?max-keys=%d url 的请求访问结果。可以在 github 上随便找一个公开的链接访问看看。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster1/" class="post-link">gobuster源码阅读--入口篇</a></h3>
-    <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
-入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { var cancel context.CancelFunc mainContext, cancel = context.WithCancel(context.Background()) defer cancel() signalChan := make(chan os.Signal, 1) signal.Notify(signalChan, os.Interrupt) defer func() { signal.Stop(signalChan) cancel() }() go func() { select { case &lt;-signalChan: fmt.Println(&#34;\n[!] Keyboard interrupt detected, terminating.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster1/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster2/" class="post-link">gobuster源码阅读--dir篇</a></h3>
-    <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &#34;gobuster/3.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster2/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sast/" class="post-link">SAST 测试中要测量的三个参数</a></h3>
-    <p class="post-meta">@Neal · Mar 28, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：3 parameters to measure SAST testing
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 在我们之前的博客中，为什么你不能仅使用列表、测试套件和基准测试来比较 SAST 工具，我们探索了当今常用来评估和比较 SAST 测试工具的各种工具和指标。我们还研究了为什么这些工具可能会产生不一致的结果并且对于评估 SAST 测试工具可能根本不可靠的一些原因。
-相反，在评估 SAST 测试工具时，你需要考虑 3 个参数：
- 准确性 完整性 任意其它独特价值  在本文中，我们将探索这些参数并研究测量它们的方法。在评估 SAST 测试工具时，有两种相关类型的测量 - 定量（意味着结果的数量与“误报”）和定性（特别是语言深度和支持）。
-定量方面 以下对准确性和完整性的定义起初有点复杂，因为它们实际上是同一枚硬币的两面。数学上不可能（根据赖斯定理）进行完美的静态程序分析。人们可能会认为增加建议的数量会发现所有可能的问题。可悲的是，这也会将误报 (FPs) 的数量达到干扰让结果无法处理的级别。SAST 测试供应商可以使用一些技巧来改进结果，但在数学上完美是不可能的。
-准确性 在 SAST 测试的上下文中，准确性被松散地定义为具有最高数量的 TP（真正类，即实际问题的发现），同时保持最少数量的 FPs（误报，因此是错误的）。
-准确性尤其重要。高准确率意味着我们可以获得更有价值的结果，以及更少的“噪音”（不相关的、无法操作的报告）。“噪音”也是阻碍开发者使用 SAST 测试产品的第一大因素，这就是为什么准确性越高，整体开发者体验就越令人满意的原因。
-为了计算准确性，你首先需要对结果进行分类。那么公式就是 TP*100/(TP&#43;FP)。这将产生一个介于 1 到 100 之间的数字。数字越大，准确度越高。例如，找到 140 个 TP 和 40 个 FP 的工具的准确率为 77.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sast/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/webpack/" class="post-link">hey,我能看到你的源码哎</a></h3>
-    <p class="post-meta">@Neal · Mar 7, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
-通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。
-目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 devtool 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。
-module.exports = { ... devtool: &#39;source-map&#39;, ... }  市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。
-不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 chrome://net-export 可以捕获请求，通过 https://netlog-viewer.appspot.com/#events 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。
-毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 source-map 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/webpack/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/go-report/" class="post-link">基于golang实现报告生成技术方案</a></h3>
-    <p class="post-meta">@Neal · Feb 23, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
-最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
-这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
-&lt;iframe src=&#34;%s&#34; frameborder=0 width=&#34;1000&#34; height=&#34;600&#34;&gt;&lt;/iframe&gt;  同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/go-report/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/cissp-domain1/" class="post-link">文武双全，看我如何过CISSP</a></h3>
-    <p class="post-meta">@Neal · Jan 28, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
-考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
-备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
-OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
- Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/cissp-domain1/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sop/" class="post-link">安全运营平台从0到1</a></h3>
-    <p class="post-meta">@Neal · Jan 21, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/266237
-笔者作为某公司的安全开发独自一人负责安全运营平台的开发，经过数个月的折腾以及其他安全同学的合作，目前该平台已经运营了几百个安全漏洞以及一些安全事件，其它一些安全能力也在慢慢地接入中。在之前的公司，笔者也是作为安全工程师负责平台架构部门的安全运营，当时我们也有几个开发来负责安全运营平台的开发。安全运营平台其实可以作为一个公司偏向应用安全的基建之一，或许可以将它看做偏向于应用安全的 SIEM。所以，基于本文，也想分享一下在安全运营平台建设和开发的过程中的经验。在整个建设过程，开发工作只是一部分，体系的建设和实现也不可或缺，所以很多做法也是需要结合公司的实际情况，并一定就能够完全通用。
-开发 安全运营平台的开发技术选型其实和其它后台业务类型的系统并不会有太大的区别。目前大多数应用系统都是采用前后端分离的方式，前端大多数是类似于 vue-admin 类型的技术方案。后端框架见仁见智，选择适合内部开发的语言即可。笔者之前最早实习的时候就是干前端开发的，后来干安全也是经常会写安全工具的代码，所以常用的语言也是都略懂一些，所以也就扛起了这个平台的开发工作。
-最初的技术选型是想选择 gin-vue-admin，这是个前后端分离方案。后端基于 go 的 gin 框架，前端是和 vue-admin 比较类似的前端方案。这个轮子用起来不错，有很多开箱即用的功能，权限方面管理也非常方便。不过最终还是没有采取这个方案，因为内部的大多数应用都是基于内部自研的 go 微服务框架，其部署运维也与该方案息息相关。如果不使用内部的框架在部署方面则会麻烦很多，考虑到后期的运维，最终还是选择了基于内部的微服务框架开发。不过，这样做的最大的问题就是学习成本，因为这个内部框架与外部的 web 框架差异较大，而且作为安全的唯一开发也是两眼一抹黑，只能跟在开发大佬后面跪舔，才慢慢把应用的雏形搭建起来。前端框架比较简单，主要是基于 element 的 Vue 框架。
-其实在开发过程中要说技术难度有多大也不见得，和其它的业务系统其实没有太大的区别。主要就是各种和头发丝一样琐碎细小的业务需求，所以开发过程就好比把这些头发丝一根根捡起来捋直了，所以有时候也是比较痛苦的过程。前端的用户体验和设计也是痛点之一，本身安全在开发就比较缺乏，尤其是设计方面。不过安全运营平台主要面向的也是内部的用户，主要就是安全工程师和开发，所以和面向外部客户的应用相比，要求也会稍微低一点。
-需求建设 对于安全运营平台的大致规划是按照下面的框架来进行划分的，大多数公司的安全运营平台也会比较类似。安全运营平台的核心是应用安全的运营，漏洞管理作为安全运营平台的核心之一，也往往是安全运营平台被开发所熟知的方面之一。另外一方面就是集成各种安全工具的数据，包括像扫描工具，包括 SAST 以及 DAST 的扫描，将这些数据能够转换成实际的漏洞来推动。
-漏洞管理 漏洞管理作为安全运营平台的最基础的一方面，同时也是其核心。漏洞的本质其实也是一个 bug，只不过它被赋予了安全这一属性，摇生一变被称为漏洞。那么漏洞自然就和开发日常处理的 bug 会稍微有一些不同。Bug 的处理流程相对来说会简单一点，测试把 bug 提给开发，开发确认之后修复完成，测试验证通过就可以了。安全漏洞的处理过程其实也是基于这一个过程的演化，这也是因为安全漏洞的特殊性，安全漏洞是一种特殊的 bug。一方面，安全漏洞的机密性要求更高，漏洞的可见范围越小越好，一般仅限定为要处理的人及它的直属领导，而不是任意一个人都可以查看漏洞，这样也是为了避免万一有人通过漏洞信息来进行利用。另外一方面，漏洞的处理流程相对来说会更复杂一点。在现实业务中，可能会有各种各样的场景。正常来说，一个应用应该具备测试环境、UAT 环境、生产环境。漏洞应该在之前的环境中被验证通过后，再进行下个环境的验证，这样的好处也是避免一开始就没有修复，导致返工，也降低了风险。但是往往也有不少应用并不同时都有这些环境，比如第三方采购的应用，一般都没有前两个环境，大多数是布在生产上的。也有的应用可能也没有 UAT 环境，就只有测试环境和生产环境。我们的做法是有提供两种模式给开发选择，开发可以选择默认模式，则这三种环境都有，开发也可以选择不带 UAT 环境的。针对于只有一种环境，我们的做法是把主动权交给安全工程师，安全工程师在复测完成后可以直接关闭漏洞，不过这个的弊端就是有时候安全工程师忘记直接关闭这个漏洞。
-漏洞在被确认之前可能还有一些例外情况，包括像漏洞的忽略以及漏洞的接受。漏洞的忽略主要是漏洞的一些误报，这个主要是安全工程师可能对于业务有些了解还不充分导致的一些信息差，另外还有就是有些漏洞可能就是正常的业务需求。漏洞的接受则是这的确是一个漏洞，但往往漏洞修复非常困难，或者漏洞修复对业务的影响非常大，但是漏洞的危害程度没有达到高危及以上的那种程度。其实对于这种情况一般有两种处理，一种就是安全把漏洞提给开发，但是开发就是不太愿意修复这个漏洞，这个漏洞状态就一直保持着，如果哪天开发憋不住了，或者状态场景发生了变化，他们就完成了这个漏洞的修复。另外一种情况就是业务方接受漏洞并且不修复，这种可以理解为风险接受。其实在 CISSP 中的风险管理中就有这样的概念，如果采取安全措施的代价大于资产的实际价值，那么业务方可以选择接受风险。不过对于这种情景，是需要经过业务方领导的审批，确保业务方能够明确意识到这个漏洞潜在的风险。
-漏洞另外一个重要的内容就是和资产的联动。一个成熟的 cmdb 对于安全来说真的太重要了。因为这可以帮助安全迅速的定位到明确的责任人，从而确保漏洞的及时修复，其实这也涵盖其它的安全内容，包括像安全事件，甚至在安全应急响应中，好的 cmdb 对于安全来说真的非常重要。不过，安全往往不是作为 cmdb 的第一责任人，一般 cmdb 的运维职责是落在运维方，安全起到的作用是反馈和治理。安全在使用数据的过程中，及时反馈，从而帮助数据修正，这样达到一个良性进化的过程。
-事件管理 事件管理和漏洞管理也不太相同，所以事件管理的流程会被单独作为另外一个流程来进行管理。事件不同于漏洞，它往往也没有上文提到的各种的环境。事件的处理往往也是一个点对点的过程，安全工程师确认了安全事件，将事件上报给对应的处理人，处理人处理完毕，安全工程师验证没有问题，安全事件就可以关闭了。目前的安全事件的功能还是比较弱化的，主要还是用于事件的处理流程。不过未来事件流程最重要的方面是和其它安全平台的对接，包括与 SIME、IDS 等安全产品对接，并且能够将事件直接分发给对应的处理人，提高事件的处理效率。
-安全能力 作为安全运营平台，SAST 以及 DAST 也是作为应用安全重要的补充能力。SAST 以及 DAST 市面上都有很多成熟的产品，也有很多公司采取自研方案。对于这两种产品最重要的能力就是数据的打通，如何将这两种产品扫描出来的漏洞直接转化为实际有效的漏洞。前期对于这种漏洞比较好的处理方式，可能是先同步数据，然后安全运营平台作为一个审核平台，这些数据经过安全工程师的审核和加工，有效的数据将转化为漏洞进行上报。另外一个重要的方面就是组件成分分析，这也是近几年非常火的一个概念。因为目前的软件开发都是大概率依赖于第三方组件，不管是商业的还是开源的、前端的、后端的以及各种语言的，这些组件的风险都有可能会对你自己应用带来风险。做好应用的组件分析，知道应用的依赖关系，能够快速地在紧急安全漏洞爆发初做到较快的响应处置。当然，这些都建立在资产都能够与这些信息打通的基础上，这样才能做联动响应，根据资产去盘点漏洞，同时也能够根据漏洞去看哪些资产受影响。
-安全运营平台除了这些大的方面，其实也有很多细节方面需要考虑。比如像漏洞级别的定级，不同级别的漏洞对应着不同的威胁程度，那么其要求的修复时间也是不相同的。对于漏洞的响应时间应该是按照自然日来算的，因为攻击者并不会因为是休息日就鸣金收兵的。对于漏洞的定级，其实业界有一个比较成熟的定级模型，叫做 DREAD，即：</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sop/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/">Read More →</a>
   </footer>
 </article>
 
       
     
-    
-      <footer class="list-footer">
-        <nav class="pagination">
-          <h3 class="offscreen">Pagination</h3>
-          
-          
-            <a class="pagination-next" href="https://madneal.com/page/2/">Older Posts →</a>
-          
-        </nav>
-      </footer>
     
   </section>
   <footer class="site-footer">
@@ -414,7 +232,7 @@ OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

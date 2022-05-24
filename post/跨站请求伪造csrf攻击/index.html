@@ -20,7 +20,7 @@
 值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
 CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
 下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;amp;to=PO BOX 1198 DUBLIN 2&amp;amp;amount=10&amp;amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;amp;to=PO BOX 1198 DUBLIN 2&amp;amp;amount=10&amp;amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
 HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2." />
 
   
@@ -33,7 +33,7 @@ HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Cont
 值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
 CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
 下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;amp;to=PO BOX 1198 DUBLIN 2&amp;amp;amount=10&amp;amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;amp;to=PO BOX 1198 DUBLIN 2&amp;amp;amount=10&amp;amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
 HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2." />
   <meta property="og:url" content="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
@@ -41,7 +41,6 @@ HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Cont
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" />
@@ -227,32 +226,20 @@ HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Cont
       <h1 class="post-title">跨站请求伪造（CSRF）攻击</h1>
       <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<p><img src="https://s2.ax1x.com/2019/02/21/kRIUNn.png" alt="kRIUNn.png" /></p>
-
+    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/02/21/kRIUNn.png" alt="kRIUNn.png"></p>
 <h2 id="概述">概述</h2>
-
 <p>跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。</p>
-
 <p>值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。</p>
-
 <h2 id="csrf-的工作原理">CSRF 的工作原理</h2>
-
 <p>CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。</p>
-
 <p>下面就是一个例子在机票供应商那里购买飞机票：</p>
-
-<pre><code>POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1
+<pre tabindex="0"><code>POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1
 Host: ticketmeister
 User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1
 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K
 ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008
-</code></pre>
-
-<p>响应代表购买飞机票的 POST 请求已经成功执行：</p>
-
-<pre><code>HTTP/1.0 200 OK
+</code></pre><p>响应代表购买飞机票的 POST 请求已经成功执行：</p>
+<pre tabindex="0"><code>HTTP/1.0 200 OK
 Date: Fri, 02 May 2008 10:01:20 GMT
 Server: IBM_HTTP_Server
 Content-Type: text/xml;charset=ISO-8859-1
@@ -260,79 +247,48 @@ Content-Language: en-US
 X-Cache: MISS from app-proxy-2.proxy.ie
 Connection: close
 
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt;
 &lt;pge_data&gt; Ticket Purchased, Thank you for your custom.
 &lt;/pge_data&gt;
-</code></pre>
-
-<h2 id="如何定位存在潜在漏洞的代码">如何定位存在潜在漏洞的代码</h2>
-
+</code></pre><h2 id="如何定位存在潜在漏洞的代码">如何定位存在潜在漏洞的代码</h2>
 <p>这个问题比较容易检测到，可能的补救措施就是警告用户这可能是一个 CSRF 攻击（比如在微信里面点击一个未知链接，微信可能会警告危险性，当然这并不是一个完美的解决方案）。只要应用接受一个精心构造的 HTTP 请求并且这个请求符合应用的业务逻辑，那么这个 CSRF 攻击就可以成功（我们设定用户已经登陆到攻击的目标应用）。</p>
-
 <p>我们要确保页面的链接都是带有唯一标识的，假如任意一个 HTTP 请求没有和唯一的标识相关联，那么这个应用就可能会遭受攻击。Session ID 并不足够，因为当用户已经被授权的情况下，当用户点击恶意链接的时候，session ID 也会随着请求一起发送。</p>
-
-<h3 id="以眼还眼-以请求还请求">以眼还眼，以请求还请求</h3>
-
+<h3 id="以眼还眼以请求还请求">以眼还眼，以请求还请求</h3>
 <p>当应用接收到一个 HTTP 请求时，应该检查业务逻辑来评估请求的合法性，而不是简单地立马执行，而是应该响应另外一个请求，要求用户输入密码。这也是大多数网上交易的时候，比如支付宝或者手机银行转账等操作，都是需要用户再次输入密码，从而避免遭受攻击。</p>
-
 <p>总的来说，如果应用对于来自授权用户的请求无法验证这个请求在用户 session 有效的时间段内的唯一性，那么就有可能会有 CSRF 的攻击的风险。</p>
-
 <h2 id="防范-csrf-攻击">防范 CSRF 攻击</h2>
-
 <p>检查请求是否带有合法的 session cookie 是不足够的，我们需要检查每一个发送给应用的请求是否带有独特的标识。CSRF 攻击请求不会带有这种唯一并且有效的标识。CSRF 攻击请求不会带有这种唯一标识的原因是：这种独特的 ID 渲染在页面的隐藏区域，只有在链接或者按钮被点击的时候，HTTP 请求才会带上这一独特 ID，因为它是随机的，并且针对每一个链接或者请求来说它都是动态以及随机的。</p>
-
 <p>当页面交付给用户时，有一个清单是需要遵守的。这个清单里面包含对于制定页面每个链接的有效的独特 ID。这些独特的 ID 是通过安全的随机生成器成产，比如 J2EE 中的 SecureRandom。来自于页面的请求都应该添加上这一独特 ID，这些 ID 并不用展示给用户。维护用户 session 有效期内独特 ID 的清单，应用应该检查对于制定请求携带的独特 ID 是否有效。如果不存在独特的 ID，终止用户的 session 以及将错误展示给用户。</p>
-
 <h3 id="基本防护手段">基本防护手段</h3>
-
 <h4 id="基于-token-的防护措施">基于 token 的防护措施</h4>
-
 <p>这种防护措施是针对 CSRF 攻击最通用也是最推荐的防护手段。这种防护可以通过有状态的（同步口令模式）或者无状态（基于加密/哈希的口令模式）。很多框架已经自带实现同步口令模式防御，因此强烈推荐使用框架自带的防护措施。如果外部组件实现的 CSRF 防御也可以使用。基于加密的口令模式利用的是加密，而不是基于口令的验证。这比较适用于不希望保持服务段状态的应用。在认证成功之后，服务器会生成一个特殊的口令，包括用户的 ID，时间戳以及服务器端生成的随机数。这个口令只有被解密后才能够获取用户的 ID 以及时间戳，从而进行验证。基于 HMAC 的口令模式是一种加密函数能够帮助保证消息的完整性。这是另外一种不需要保持服务端状态的防护措施，和基于加密的口令模式类似，但有两点不同：</p>
-
 <ul>
 <li>使用强 HMAC 函数而不是普通的加密函数来生成口令</li>
 <li>包含一个称为“操作”的额外字段来表示操作的目的（比如可能是 form tag/ajax call)</li>
 </ul>
-
 <h3 id="自动-csrf-防护技术">自动 CSRF 防护技术</h3>
-
 <p>基于口令的防护技术被广泛地使用，这种技术有一个最大的问题就是需要人工去添加。如果开发者忘记对某个操作添加口令，那么就有可能遭受 CSRF 攻击。为了避免这种情况，可以通过自动化添加口框来避免 CSRF 攻击：</p>
-
 <ul>
 <li>对于默认表单标签/ajax 调用通过编写包装器（在使用时自动添加令牌）并教育你的开发人员使用这些包装器而不是标准标签。虽然这种方法比纯粹依赖开发人员添加令牌更好，但也容易被人忘记。 默认情况下，当使用自定义<code>&lt;form:form&gt;</code> 标记时，<a href="https://docs.spring.io/spring-security/site/docs/3.2.0.CI-SNAPSHOT/reference/html/csrf.html">Spring Security</a> 会使用此技术添加 CSRF 令牌，你可以在验证其在你正在使用的 Spring Security 版本中启用并正确配置后选择使用。</li>
 <li>在使用的 Web 渲染框架中编写一个钩子（可以捕获流量并在渲染给客户之前将令牌添加到容易遭受 CSRF 攻击的资源）。由于很难分析特定响应何时进行任何状态更改（因此需要令牌），因此你可能希望在所有容易遭受 CSRF 攻击的资源中包含令牌（例如：在所有 POST响应中包含令牌）。这是一种推荐的方法，但你需要考虑它可能产生的性能成本。</li>
 <li>通过客户端脚本在用户浏览器中渲染页面时，获取在客户端自动添加的令牌（CSRF Guard使用此方法）。你需要考虑任何可能的 JavaScript 劫持攻击。</li>
 </ul>
-
 <p>CSRF 防护应该尽量使用框架默认自带的防护措施，尽量避免自己做自定义的口令系统。比如，.NET 自带对于资源的 CSRF 攻击防护。</p>
-
 <h3 id="进一步的防御措施">进一步的防御措施</h3>
-
 <h4 id="验证标准头的-origin">验证标准头的 origin</h4>
-
 <p>这种防护措施包含两个步骤，都依赖于对于 HTTP 请求头值的检查：</p>
-
 <ol>
 <li>获取请求的 origin 来自于哪里（源 origin），可以通过 Origin 或者 Refer 来获取</li>
 <li>获取请求的目标 origin。</li>
 </ol>
-
 <p>在服务器端，对这两步都应该进行验证，如果符合的话，那么请求就被认为是合法请求（同源请求），如果不符合的，请求就会被丢弃（意味着请求是跨域的）。这种方法之所以有效是因为通过程序化方式（比如 XSS 中的 JS）无法修改这些值，只有浏览器可以设置。</p>
-
 <h4 id="用户交互">用户交互</h4>
-
 <p>提交交易的时候通过进一步的用户交互可以防范 CSRF 攻击，比如转账，要求用户做额外操作，比如要求用户输入密码来验证身份。因为 CSRF 的攻击者并不会知道用户的密码因此这个交易无法在用户不知情的情况下发起 CSRF 攻击。</p>
-
 <p>基于 token 可以实现对于 CSRF 的基本防护（有状态的、无状态的）。只有对于高度敏感的操作，才应该使用需要用户进一步交互的操作（比如输入密码，输入短信验证码），但是这种防护措施的可能的影响就是用户体验不是很友好。应该在已经实现基于 token 的防护手段时才进一步考虑进一步的防护手段。</p>
-
 <h4 id="尽量避免-xss-漏洞">尽量避免 XSS 漏洞</h4>
-
 <p>尽管 XSS 漏洞不是 CSRF 攻击的必要条件。但是可以利用 XSS 来绕过一些 CSRF 的防护措施，比如基于 token，cookie 双向验证，refer 以及 origin限制等。这是因为页面上的 XSS 可以利用异步请求从相应中获取生成的口令并基于此生成伪造的请求。但是 XSS 没有办法绕过一些挑战响应的防护措施，比如验证码，重新验证或者一次性密码。</p>
-
 <h3 id="哪一些措施不能阻止-csrf">哪一些措施不能阻止 CSRF</h3>
-
 <p>以下措施可能只能增加 CSRF 攻击的难度或者根本无法阻止 CSRF 攻击：</p>
-
 <ul>
 <li>使用加密 cookie（基本没啥用）</li>
 <li>只接受 POST 请求（CSRF 也可以构造 POST 请求）</li>
@@ -340,15 +296,11 @@ Connection: close
 <li>URL 重写（会引入新的问题）</li>
 <li>HTTPS （虽然不能直接起作用，但是上 HTTPS 准没错）</li>
 </ul>
-
 <h2 id="总结">总结</h2>
-
 <p>CSRF 漏洞相对于其它的 web 型漏洞，比如 XSS 漏洞以及 SQL 注入漏洞可能并没有那么常见，就觉得危害没有那么大。这种观点显然就不恰当的。CSRF 漏洞的影响程度很大程度上取决于用户的身份以及执行攻击功能的危害程度，如果受害者的权限越高，CSRF 攻击执行的操作危害性越大，那么 CSRF 的影响就显而易见了。虽然说 CSRF 漏洞可能受影响较大的是用户本身，但是这对应用的提供者影响也是比较重大的。因此，CSRF 漏洞也是不可以忽略的。且 CSRF 漏洞的防御措施不是单一的，以上也只是讨论了大部分通用的防御措施，也还有其它的防御措施可以考虑。针对 CSRF 攻击，应该在做好基本的防护措施以外，才考虑进一步的防御措施，从而提高 CSRF 攻击的难度。但如果什么都不做，那么就等于等着让别人攻击了。前不久，facebook 还爆出了一个价值 25000 美金的 CSRF 漏洞。因此，CSRF 漏洞的危害性不可忽略，应做好相应的防护措施。</p>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
-<li><a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF">https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF</a>)</li>
+<li><a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)">https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)</a></li>
 <li><a href="https://www.owasp.org/index.php/Category:OWASP_Code_Review_Project">https://www.owasp.org/index.php/Category:OWASP_Code_Review_Project</a></li>
 </ul>
 </article>
@@ -365,13 +317,13 @@ Connection: close
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1175</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1188</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -425,7 +377,7 @@ Connection: close
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

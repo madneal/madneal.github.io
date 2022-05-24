@@ -53,7 +53,6 @@ dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成�
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/" />
@@ -239,39 +238,22 @@ dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成�
       <h1 class="post-title">Latex--入门系列二</h1>
       <p class="post-meta">@Neal · Dec 6, 2016 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>Latex 专业的参考</p>
-
+    <article class="post-content"><p>Latex 专业的参考</p>
 <p>tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，<a href="http://latex.knobs-dials.com">Arbitrary reference </a>.所以将会翻译出来，供初学者学习
 基本的使用</p>
-
 <h2 id="基本的使用">基本的使用</h2>
-
 <h3 id="tex会产生什么">TeX会产生什么</h3>
-
 <p>最基本的来说，你会生成一个.tex文件，即你的文档，即<code>youfile.tex</code>。</p>
-
 <p>运行<code>latex you file.tex</code>可以让TeX工作并且生成<code>your file.dvi</code>，这是当下的输出。dvi是一个独立的排版语言。</p>
-
 <p>因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。</p>
-
 <p>dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用<code>pdflatex yourfile.tex</code>。</p>
-
 <h3 id="输出文件">输出文件:</h3>
-
 <p>LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(<code>.aux</code>文件是引用的，<code>toc</code>是给章头用的等等)，这些数据下次运行还可以继续使用。</p>
-
 <p>注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。</p>
-
 <p>如果你用的是unix的系统，我建议你可以看看<a href="http://www.pps.jussieu.fr/~beffara/soft/rubber/">rubber</a>。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。</p>
-
 <p>一个<code>.log</code>文件也会产生，它是tex文件编译产生的一些相关信息。</p>
-
 <p>注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。</p>
-
 <h3 id="其他可能输出的格式">其他可能输出的格式</h3>
-
 <p>除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过<code>dvips</code>软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个<a href="http://www.utdallas.edu/~cantrell/online/tex-pdf.html">字体渲染的问题</a>。对于pdf，我建议你使用<code>pdflatex</code>或者类似的工具从而避免字体的一系列问题。你必须将所有的<code>.ps/.eps</code>文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</p>
 </article>
     <footer class="post-footer">
@@ -285,13 +267,13 @@ dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1981</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1994</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -345,7 +327,7 @@ dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

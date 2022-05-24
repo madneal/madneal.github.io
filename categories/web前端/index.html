@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/categories/web%E5%89%8D%E7%AB%AF/" />
@@ -255,10 +254,11 @@ LICENSE: MIT
 如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
 JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
 引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：’setTimeout’）。然而这些API并不是由引擎提供的。
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
 那么，它们是从哪来的呢？
 事实证明这有一点复杂。
-因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
@@ -279,7 +279,7 @@ LICENSE: MIT
 根据维基百科：
  不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
  Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
-const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5); console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5]  这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
+const arrayA = [1, 2, 3]; arrayA.push(4);  const arrayB = arrayA; arrayB.push(5);  console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5] 这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -288,7 +288,7 @@ const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5);
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
     <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
   
@@ -306,12 +306,11 @@ CSDN CSDN是我开启个人技术博客的地方，感兴趣的地方去我的�
 Medium 国外的一个博客平台，访问需要翻墙。这是国外一个专门写story的地方，样式很好看，应该算得上是国外非常知名的一个博客平台了。当然了，里面的内容也是多姿多彩的，同时里面的技术文章质量也有很多很高的文章。现在国内技术圈翻译的大多数文章基本都是来自于这个平台。
 Quora 国外一个和知乎一样的网站。不过知乎由于国内人数优势，火爆异常。Quora则是不温不火，而且上面还有不少华人。我关注过一段时间，但貌似都没什么特别的内容。 以上基本就是我所有的对于一些博客平台的了解，可能不包含所有，但基本都是我自己的个人的亲身经历。可能部分言辞颇为激烈，但也都是我的肺腑之言。
 微信公众号 微信公众号作为一种特殊的平台，现在也成为一种传播渠道，有点类似于报看订阅的形式。但这不一定是一种非常有效的传播方式，感觉深度还是不够的，我比较喜欢在电脑上看文章，因为在手机上看文章难以持续地专注于一篇有内容的文章，一般就只能浅尝则止。所以我一般都是把链接转到我的微信PC版，然后再用浏览器打开，下面介绍一些我关注的一些技术类公众号：
- 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。
-Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
+ 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。  Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
 star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（当然也有很多是骗star的）。其实，现在很多人看到一个项目都会去star，但是后续是否会关注，当然也就不一定了。曾经有一段时间，我对star深深着迷（其实现在还是很着迷），我每天都希望有人能给我的项目star，看着别人上千的star我都会超级羡慕。但我其实也能够深深体会到做一个开源项目的不容易，开发者有一个idea往往很简单，但是要去实现它，推广它，完善它。这真的很难很难，而且还会有各种各样形形色色的人问你各种问题，给你提出各种要求，这些都是很痛苦的。但是我依然希望自己有一天还是能够成为一名出色的开源项目的开发者。下面我就挑一些我star的项目来讲一讲：
- prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。</p>
+ prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。 sw-precache &amp; sw-toolbox：谷歌关于pwa的相关工具，值得关注。 chrome-remote-interface：师妹介绍我的一个调用headless Chrome的工具，文档阅读起来比较痛苦，可以码，虽然你也不一定看。 hammer.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
   </footer>
 </article>
 
@@ -333,13 +332,12 @@ LICENSE: MIT
 看一下下面的PWA！看起来很像原生的app，是不是？
 推特渐进式web应用
 从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
- 你可以选择任何你喜欢的框架来进行开发；
- 一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
- 很容易获得：不需要通过应用商店来下载。
+  你可以选择任何你喜欢的框架来进行开发；
+  一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+  很容易获得：不需要通过应用商店来下载。
   然而，在2017年早期，PWA仍然面临一些限制条件：
- Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
- 一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
-  教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。</p>
+  Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+  一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
   </footer>
@@ -378,13 +376,13 @@ Service worker就好像它的内部有一个有一个shared worker ：
 译者：neal1991
 welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
-让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
+  让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
  创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
 在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
 下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
 对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
 经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
-const plugins = [ // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({ names: [ &#39;vendor&#39;, &#39;manifest&#39;], minChunks: Infinity }), // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.optimize.CommonChunkPlugin({ async: true, children: true, minChunks: 4 }) ];   添加细粒度，基于路由的代码分割。为了加快初始化和主页timeline渲染，app的整体大小可能会更大，文件会在sesiion期间内按需分块在40个代码块之中。–Nicolas Gallagher</p>
+const plugins = [  // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({  names: [ &#39;vendor&#39;, &#39;manifest&#39;],  minChunks: Infinity  }),  // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
@@ -398,7 +396,7 @@ const plugins = [ // 提取vendor和webpack模块的manifest  new webpack.optimi
   </header>
   
   <p class="post-summary">progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
-var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = []; cityConfig.forEach(function(city) { request.get(url &#43; city) .end(function(err, res) { $ = cheerio.</p>
+var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = [];  cityConfig.forEach(function(city) { 	request.get(url &#43; city) 	.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/">Read More →</a>
   </footer>
@@ -412,7 +410,7 @@ var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var
   </header>
   
   <p class="post-summary">如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
-{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action”里面定义的是extension的相关内容，”default_icon”即是插件的图标，”default_popup”就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。”content_script”是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js”则是插入到页面的js文件，你还可以插入css文件。需要注意的是，”content_script”虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
+{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] } manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&#34;里面定义的是extension的相关内容，“default_icon&#34;即是插件的图标，“default_popup&#34;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。“content_script&#34;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&#34;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，“content_script&#34;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
 var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/">Read More →</a>
@@ -429,7 +427,7 @@ var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { s
   <p class="post-summary">Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
 尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
 事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
-listeners: { load: onFirstLoadData, single: true }  在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
+listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
 避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
 减少border布局 不需要一下再加载所有的元素
 批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
@@ -485,7 +483,7 @@ listeners: { load: onFirstLoadData, single: true }  在页面渲染之后，尽�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

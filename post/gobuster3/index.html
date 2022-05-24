@@ -19,8 +19,8 @@
   <meta name="description" content="在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
 在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
 dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&amp;#34;%s.%s&amp;#34;, guid, d.options.Domain)) if err == nil { d.isWildcard = true d.wildcardIps.AddRange(wildcardIps) if !d.options.WildcardForced { return &amp;amp;ErrWildcard{wildcardIps: d.wildcardIps} } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.s3.amazonaws.com/?max-keys=%d url 的请求访问结果。可以在 github 上随便找一个公开的链接访问看看。" />
+wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&amp;#34;%s.%s&amp;#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
+s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s." />
 
   
   
@@ -31,15 +31,14 @@ s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑�
   <meta property="og:description" content="在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
 在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
 dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&amp;#34;%s.%s&amp;#34;, guid, d.options.Domain)) if err == nil { d.isWildcard = true d.wildcardIps.AddRange(wildcardIps) if !d.options.WildcardForced { return &amp;amp;ErrWildcard{wildcardIps: d.wildcardIps} } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.s3.amazonaws.com/?max-keys=%d url 的请求访问结果。可以在 github 上随便找一个公开的链接访问看看。" />
+wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&amp;#34;%s.%s&amp;#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
+s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s." />
   <meta property="og:url" content="https://madneal.com/post/gobuster3/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/gobuster3/" />
@@ -225,54 +224,38 @@ s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑�
       <h1 class="post-title">gobuster源码阅读--终篇</h1>
       <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>在搞完 gobuster 系列源码阅读的<a href="https://madneal.com/post/gobuster1/">第一篇</a>以及<a href="https://madneal.com/post/gobuster2/">dir篇</a>之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。</p>
-
+    <article class="post-content"><p>在搞完 gobuster 系列源码阅读的<a href="https://madneal.com/post/gobuster1/">第一篇</a>以及<a href="https://madneal.com/post/gobuster2/">dir篇</a>之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。</p>
 <p>在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 <code>libgobuster/interfaces.go</code> 中接口的实现。而 <code>PreRun</code> 以及 <code>Run</code> 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。</p>
-
 <h2 id="dns">dns</h2>
-
 <p>对于 <code>dns</code> 模块中的 <code>PreRun</code>，其内部也有一个 <code>ErrWildcard</code> 的实现。其实现过程也有一点类似于 <code>dir</code> 模块。通过将 <code>uid</code> 和 <code>domain</code> 进行拼接，理论上这个域名应该不存在，会报一个 <code>no such host</code> 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 <code>ErrWildcard</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">wildcardIps</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">dnsLookup</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s.%s&#34;</span>, <span style="color:#a6e22e">guid</span>, <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">Domain</span>))
-<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">isWildcard</span> = <span style="color:#66d9ef">true</span>
-    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">wildcardIps</span>.<span style="color:#a6e22e">AddRange</span>(<span style="color:#a6e22e">wildcardIps</span>)
-    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">WildcardForced</span> {
-        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ErrWildcard</span>{<span style="color:#a6e22e">wildcardIps</span>: <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">wildcardIps</span>}
-    }
-}</code></pre></div>
-<p>在通过 <code>PreRun</code> 函数之后，即是 <code>Run</code> 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">wildcardIps</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">dnsLookup</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s.%s&#34;</span>, <span style="color:#a6e22e">guid</span>, <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">Domain</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">isWildcard</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">wildcardIps</span>.<span style="color:#a6e22e">AddRange</span>(<span style="color:#a6e22e">wildcardIps</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">WildcardForced</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ErrWildcard</span>{<span style="color:#a6e22e">wildcardIps</span>: <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">wildcardIps</span>}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在通过 <code>PreRun</code> 函数之后，即是 <code>Run</code> 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。</p>
 <h2 id="s3">s3</h2>
-
 <p>s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 <code>https://%s.s3.amazonaws.com/?max-keys=%d</code> url 的请求访问结果。可以在 github 上随便找一个公开的链接访问看看。</p>
-
-<p><img src="https://s2.loli.net/2022/04/22/3hgmbpGaYCiZ6E4.png" alt="image.png" /></p>
-
+<p><img src="https://s2.loli.net/2022/04/22/3hgmbpGaYCiZ6E4.png" alt="image.png"></p>
 <p>如果是一个实际存在的 bucket，则会返回 xml 内容。否则的话，状态响应码则为 400 或者 404。另外在 s3 模块中 <code>Run</code> 函数的实现还会对获取的 xml 内容进行解析。</p>
-
 <h2 id="vhost">vhost</h2>
-
 <p>vhost 模块的 <code>PreRun</code> 函数亦是做了一些检查工作，不过里面做一项比较特别的工作。在该函数中分别会正常请求一次，再请求一次 uid 和 domain 拼接起来的 Host 的响应体，分别为 <code>normalBody</code> 以及 <code>abnormalBody</code>。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// request default vhost for normalBody
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">body</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">URL</span>, <span style="color:#a6e22e">libgobuster</span>.<span style="color:#a6e22e">RequestOptions</span>{<span style="color:#a6e22e">ReturnBody</span>: <span style="color:#66d9ef">true</span>})
-<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">normalBody</span> = <span style="color:#a6e22e">body</span>
-
-<span style="color:#75715e">// request non existent vhost for abnormalBody
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">subdomain</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>( <span style="color:#e6db74">&#34;%s.%s&#34;</span>, <span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">New</span>(), <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">domain</span>)
-<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">body</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">URL</span>, <span style="color:#a6e22e">libgobuster</span>.<span style="color:#a6e22e">RequestOptions</span>{<span style="color:#a6e22e">Host</span>: <span style="color:#a6e22e">subdomain</span>, <span style="color:#a6e22e">ReturnBody</span>: <span style="color:#66d9ef">true</span>})
-<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">abnormalBody</span> = <span style="color:#a6e22e">body</span></code></pre></div>
-<p>在 <code>Run</code> 函数的处理逻辑中，通过将响应体的内容和 <code>normalBody</code> 与 <code>abnormalBody</code> 进行对比，如果都不一样的话，则为有效 Host。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// request default vhost for normalBody
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">body</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">URL</span>, <span style="color:#a6e22e">libgobuster</span>.<span style="color:#a6e22e">RequestOptions</span>{<span style="color:#a6e22e">ReturnBody</span>: <span style="color:#66d9ef">true</span>})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">normalBody</span> = <span style="color:#a6e22e">body</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// request non existent vhost for abnormalBody
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">subdomain</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>( <span style="color:#e6db74">&#34;%s.%s&#34;</span>, <span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">New</span>(), <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">domain</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">body</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">URL</span>, <span style="color:#a6e22e">libgobuster</span>.<span style="color:#a6e22e">RequestOptions</span>{<span style="color:#a6e22e">Host</span>: <span style="color:#a6e22e">subdomain</span>, <span style="color:#a6e22e">ReturnBody</span>: <span style="color:#66d9ef">true</span>})
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">abnormalBody</span> = <span style="color:#a6e22e">body</span>
+</span></span></code></pre></div><p>在 <code>Run</code> 函数的处理逻辑中，通过将响应体的内容和 <code>normalBody</code> 与 <code>abnormalBody</code> 进行对比，如果都不一样的话，则为有效 Host。</p>
 <h2 id="fuzz">fuzz</h2>
-
 <p>fuzz 模块基本上与 dir 模块的内容接近，只不过它是通过 fuzz 的形式来进行枚举，通过替换 url 中的执行词来进行 fuzz 操作。</p>
-
 <p>除了以上的模块，其它的主要是一些辅助的公共函数，比如数据结构的处理以及发送请求的方法。</p>
-
 <h2 id="总结">总结</h2>
-
 <p>至此，gobuster 的源码基本阅读完了。简单梳理一下 gobuster 整体的结构，<code>libgobuster</code> 作为核心部分，主要包含公共配置项以及接口的定义。<code>cli</code> 模块主要为对应各个模块的命令行执行。剩余的则为各个模块所对应的具体的实现。gobuster 的源码相对来说比较简短精悍，没有晦涩难懂的语法，非常适合源码的阅读。同时，其在并发请求上的处理也非常有借鉴意义，非常适合作为造轮子的参考工具。</p>
 </article>
     <footer class="post-footer">
@@ -295,8 +278,8 @@ s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑�
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -350,7 +333,7 @@ s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

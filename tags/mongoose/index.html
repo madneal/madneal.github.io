@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/mongoose/" />
@@ -220,7 +219,7 @@
   </header>
   
   <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.</p>
+router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&gt; {  res.render(&#39;index&#39;, {  title: &#39;express&#39;,  docs: docs  })  }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
   </footer>
@@ -263,7 +262,7 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

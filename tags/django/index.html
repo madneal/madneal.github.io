@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/django/" />
@@ -224,7 +223,7 @@
 开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
 进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
 from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
@@ -252,9 +251,11 @@ from django.contrib import admin from .models import Question,Choice //Register 
   </header>
   
   <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
-建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.</p>
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
+ django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
+创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
@@ -267,10 +268,10 @@ from django.db import models class Question(models.</p>
     <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令”pip install MySQL-python”就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入”make install”这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
-mysql -u &lt;your username&gt; -p&lt;yourpassword&gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
+  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目：
+ 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&#34;pip install MySQL-python&#34;就可以了。 解压项目文件代码。 进入src文件夹下，输入&#34;make install&#34;这样会自动安装所有的依赖库。 现在我们可以创建一个数据库：web_dev_tutorial  mysql -u &lt;your username&gt; -p&lt;yourpassword&gt; 注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } } 把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
 MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
-MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入”make”,你将会看到： ｀ MYSQL_HOST = ‘127.</p>
+MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&#34;make&#34;,你将会看到： ｀ MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Read More →</a>
   </footer>
@@ -284,7 +285,8 @@ MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成�
   </header>
   
   <p class="post-summary">在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
-一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC： 1. Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 2. View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 3. Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。</p>
+一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：
+ Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。  </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/">Read More →</a>
   </footer>
@@ -327,7 +329,7 @@ MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

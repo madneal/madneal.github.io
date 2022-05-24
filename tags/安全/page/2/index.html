@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/" />
@@ -222,7 +221,7 @@
   <p class="post-summary">本文首发于安全客平台
 MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
 起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.</p>
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
   </footer>
@@ -236,8 +235,7 @@ public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuil
   </header>
   
   <p class="post-summary">作为一名梦想成为一名全栈工程师的男人，收集工具，积攒武器库是一个必要环节。本文主要是自己这些年在学习中积攒的一些工具，这一篇主要是在线网站，以后会介绍其它的工具。
- 学术篇  CODECOGD gallery latext 符号 Conference Portal  前端  Plunker realfavicongenerator Iconfont  安全  CTF 在线工具 Online Tools pcapfix cmd5 jwt rot13 beautifier ook spectrum-analyzer app.any.run HashKiller  开发  codebottle regexr programiz playground downgit devhints  写作工具  作图工具 图床 squoosh markdown 转微信公众号 百度脑图  效率工具  cvmkr smallpdf remove  总结  学术篇 CODECOGD 这个网站对于一些不能支持 latex 公式的地方很好用，可以直接通过引入带有公式代码的链接生产图片。
-gallery Gallery 是一个包含很多 Latex 模板的网站，里面的模板包含学术论文，书籍，简历，幻灯片等等。这个网站就是可以在线编译 TEX 文件，这样就不需要在本地搭建 TEX 环境了。做个简历或者幻灯片还是很方便的，或者测试一下某些语法。</p>
+ 学术篇  CODECOGD gallery latext 符号 Conference Portal   前端  Plunker realfavicongenerator Iconfont   安全  CTF 在线工具 Online Tools pcapfix cmd5 jwt rot13 beautifier ook spectrum-analyzer app.any.run HashKiller   开发  codebottle regexr programiz playground downgit devhints   写作工具  作图工具 图床 squoosh markdown 转微信公众号 百度脑图   效率工具  cvmkr smallpdf remove   总结  学术篇 CODECOGD 这个网站对于一些不能支持 latex 公式的地方很好用，可以直接通过引入带有公式代码的链接生产图片。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E7%99%BE%E5%AE%9D%E7%AE%B1/">Read More →</a>
   </footer>
@@ -288,8 +286,8 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
   <p class="post-summary">Burp 是 Web 安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
 如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
  配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 “Edit Configurations” 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
- 命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
-java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar 部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
 Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/">Read More →</a>
@@ -306,7 +304,7 @@ Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只�
   <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
 Kali: 10.10.16.65
 Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.</p>
+Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
   </footer>
@@ -339,7 +337,7 @@ Infomation Enumeration Firstly, gather open ports and services:
   <p class="post-summary">Introduction Target: 10.10.10.68 (OS: Linux)
 Kali linux: 10.10.16.44
 Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http  Only port 80 is open, it may be an easy box.</p>
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/bashed-hack-the-box/">Read More →</a>
   </footer>
@@ -354,8 +352,8 @@ Information Enumeration Firstly, detect the open ports:
   
   <p class="post-summary">Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
 Information Enumeration Firstly, detect the open ports:
-nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75  There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
-nmap -sC -sV -oA services 10.10.10.75  Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.</p>
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75 There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
+nmap -sC -sV -oA services 10.10.10.75 Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/nibbles-hack-the-box/">Read More →</a>
   </footer>
@@ -371,8 +369,8 @@ nmap -sC -sV -oA services 10.10.10.75  Nothing special found. The only clue may 
   <p class="post-summary">Introduction Target machine: 10.10.10.13(OS: linux)
 Kali linux: 10.10.16.44
 Enumeration Firstly, detect the open ports:
-nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13  3 ports is open, detect the detailed services:
-namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the relation of ports of ports and services as following:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
    port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/cronos-hack-the-box/">Read More →</a>
@@ -428,7 +426,7 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the rela
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

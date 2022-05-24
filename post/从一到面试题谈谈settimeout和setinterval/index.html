@@ -18,9 +18,9 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
 假如我们尝试使用 setTimeout 去实现：
-for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { setTimeout(function() { console.log(i); }, i * 1000); }  这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
+for (var i = 0; i &amp;lt; 5; i&#43;&#43;) {  setTimeout(function() {  console.log(i);  }, i * 1000); } 这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
 因此，对于上述的代码块，每一个 setTimeout 函数都被添加到了任务队列中。然后，这还涉及到了函数作用于的问题。因为当任务队列中的函数执行的时候，其作用域其实是全局作用域。setTimeout 中的打印函数执行的时候就会在全局作用域中寻找变量 i，而此时全局作用域的变量 i 的值已经变成 5 了。这也就是为什么打印的数字都是 5。那么应该如何达到我们一开始预期的效果呢？这里我们就需要考虑到函数执行上下文的问题，可以通过立即执行函数（IIFE）来改变函数作用域。
-for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function() { console." />
+for (var i = 0; i &amp;lt; 5; i&#43;&#43;) {  (function(i) {  setTimeout(function() {  console." />
 
   
   
@@ -30,16 +30,15 @@ for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function(
   <meta property="og:title" content="从一道面试题谈谈 setTimeout 和 setInterval" />
   <meta property="og:description" content="最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
 假如我们尝试使用 setTimeout 去实现：
-for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { setTimeout(function() { console.log(i); }, i * 1000); }  这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
+for (var i = 0; i &amp;lt; 5; i&#43;&#43;) {  setTimeout(function() {  console.log(i);  }, i * 1000); } 这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
 因此，对于上述的代码块，每一个 setTimeout 函数都被添加到了任务队列中。然后，这还涉及到了函数作用于的问题。因为当任务队列中的函数执行的时候，其作用域其实是全局作用域。setTimeout 中的打印函数执行的时候就会在全局作用域中寻找变量 i，而此时全局作用域的变量 i 的值已经变成 5 了。这也就是为什么打印的数字都是 5。那么应该如何达到我们一开始预期的效果呢？这里我们就需要考虑到函数执行上下文的问题，可以通过立即执行函数（IIFE）来改变函数作用域。
-for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function() { console." />
+for (var i = 0; i &amp;lt; 5; i&#43;&#43;) {  (function(i) {  setTimeout(function() {  console." />
   <meta property="og:url" content="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/" />
@@ -226,68 +225,55 @@ for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function(
       <p class="post-meta">@Neal · Apr 21, 2018 · 1 min read</p>
     </header>
     <article class="post-content"><p>最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？</p>
-
 <p>假如我们尝试使用 setTimeout 去实现：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-    <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
-        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>);
-    }, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
-}
-</code></pre></div>
-<p>这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>    }, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。</p>
 <p>因此，对于上述的代码块，每一个 setTimeout 函数都被添加到了任务队列中。然后，这还涉及到了函数作用于的问题。因为当任务队列中的函数执行的时候，其作用域其实是全局作用域。setTimeout 中的打印函数执行的时候就会在全局作用域中寻找变量 i，而此时全局作用域的变量 i 的值已经变成 5 了。这也就是为什么打印的数字都是 5。那么应该如何达到我们一开始预期的效果呢？这里我们就需要考虑到函数执行上下文的问题，可以通过立即执行函数（IIFE）来改变函数作用域。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-    (<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">i</span>) {
-        <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
-            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>);
-        }, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
-    })(<span style="color:#a6e22e">i</span>);
-}
-</code></pre></div>
-<p>你可以将这段代码执行一下，可以看看执行的效果，应该就可以达到预期的效果了。通过立即执行函数改变函数运行的作用域，并且将要打印的变量传入到函数参数中，如此就能打印出正确的数字了。那么除了 setTimeout，我们是不是还有其它的方法呢？答案是有的，我们可以使用 setInterval 方法。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">i</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>        }, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>);
+</span></span><span style="display:flex;"><span>    })(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>你可以将这段代码执行一下，可以看看执行的效果，应该就可以达到预期的效果了。通过立即执行函数改变函数运行的作用域，并且将要打印的变量传入到函数参数中，如此就能打印出正确的数字了。那么除了 setTimeout，我们是不是还有其它的方法呢？答案是有的，我们可以使用 setInterval 方法。</p>
 <p>根据 MDN 文档，<code>WindowOrWorkerGlobalScope</code> 的 <code>setInterval()</code> 方法重复调用一个函数或执行一个代码段，在每次调用之间具有固定的时间延迟。主要有两种使用方法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">intervalID</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>[, <span style="color:#a6e22e">param1</span>, <span style="color:#a6e22e">param2</span>, ...]);
-<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">intervalID</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">code</span>, <span style="color:#a6e22e">delay</span>);
-</code></pre></div>
-<p><code>intervalID</code> 是函数执行的唯一辨识符，可以作为参数传给 <code>clearInterval()</code>。第二种方法不推荐使用，主要处于安全原因考虑。那么我该如何使用 <code>setInterval()</code> 方法来达到预期的效果呢？</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span>() {
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>);
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) {
-        <span style="color:#a6e22e">clearInterval</span>(<span style="color:#a6e22e">a</span>);
-    }
-}, <span style="color:#ae81ff">1000</span>);
-</code></pre></div>
-<p>这样就可以了，setInterval 在设置的时间间隔后都会去执行，如果我们不使用 <code>clearInterval()</code> 方法的话，那么函数就会一直执行。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">intervalID</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>[, <span style="color:#a6e22e">param1</span>, <span style="color:#a6e22e">param2</span>, ...]);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">intervalID</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">code</span>, <span style="color:#a6e22e">delay</span>);
+</span></span></code></pre></div><p><code>intervalID</code> 是函数执行的唯一辨识符，可以作为参数传给 <code>clearInterval()</code>。第二种方法不推荐使用，主要处于安全原因考虑。那么我该如何使用 <code>setInterval()</code> 方法来达到预期的效果呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">setInterval</span>(<span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">clearInterval</span>(<span style="color:#a6e22e">a</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}, <span style="color:#ae81ff">1000</span>);
+</span></span></code></pre></div><p>这样就可以了，setInterval 在设置的时间间隔后都会去执行，如果我们不使用 <code>clearInterval()</code> 方法的话，那么函数就会一直执行。</p>
 <p>那还有没有其它的方法呢，比如 promise?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">i</span>) =&gt; {
-  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
-    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
-      <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">i</span>);
-    }, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
-  })
-}
-
-<span style="color:#a6e22e">Fn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
-  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">i</span>);
-    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>);
-  }
-}
-<span style="color:#a6e22e">Fn</span>()
-</code></pre></div>
-<p>这样我们通过 promise 可以实现“同步”地逐个打印的效果。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">i</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">reject</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">resolve</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>    }, <span style="color:#a6e22e">i</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Fn</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fn</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">res</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Fn</span>()
+</span></span></code></pre></div><p>这样我们通过 promise 可以实现“同步”地逐个打印的效果。</p>
 <p>以上就是对于这个面试题的解答，以及介绍了一下 setTimeout 和 setInterval 的区别，如果大家还有更好的解决思路的话，欢迎留言。</p>
-
 <p>以上。</p>
-
 <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-
-<p><img src="https://s1.ax1x.com/2018/02/17/9tMvlT.jpg" alt="9tMvlT.jpg" /></p>
+<p><img src="https://s1.ax1x.com/2018/02/17/9tMvlT.jpg" alt="9tMvlT.jpg"></p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -302,13 +288,13 @@ for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function(
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1481</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1494</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -362,7 +348,7 @@ for (var i = 0; i &amp;lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function(
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

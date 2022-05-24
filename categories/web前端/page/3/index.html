@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/categories/web%E5%89%8D%E7%AB%AF/" />
@@ -232,12 +231,15 @@
     <p class="post-meta">@Neal · Mar 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">html语义话  定义文章 定义页面内容之外的内容 定义声音内容 定义图形 定义命令按钮 定义下拉列表 定义元素的细节 定义对话框或者窗口 定义figure元素标题 定义媒介内容的分组以及它们的标题 定义section或page的页脚 定义section或page的页眉 定义有记号的文本 定义预定义范围内的度量 定义导航链接 定义任何类型的进度条 为元素定义可见的标题 定义日期／时间 定义视频
-img标签alt属性和title属性的区别
+  <p class="post-summary">html语义话  img标签alt属性和title属性的区别
 alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
  css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
 div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：      给浮动元素添加 overflow:auto样式 为最后浮动元素设置如下样式： .clearfix:after{ visibility:hidden; display:block; content:” “; clear:both; height:0; } .</p>
+ 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
+ ajax 基本实现步骤  1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&lt;post/get&gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
+XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置 1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求 2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求 3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成 4 loaded 请求已经完全接受
+ 取消a链接默认跳转行为  href属性设置为javascript:void(0)
+ 水平垂直居中  居中文告中的字句：text-align;center 对于div：margin: 0 auto</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
@@ -258,9 +260,9 @@ css选择符号有哪些 标签选择符 类选择符 ID选择符
 什么是语义话的HTML？ 直观的认识标签，对于搜索引擎抓取有好处
 清除浮动的几种方式以及优缺点： 1 使用空标签清除浮动 clear:both（理论上可以清楚任何标签，缺点增加无意义的标签） 2 使用overflow:auto 3 使用afert伪元素清除浮动
 IE和标准下有哪些兼容性的写法
-var ev = ev || window.event document.documentElement.clientWidth || document.body.clientWidth var target = ev.srcElement || ev.target  闭包就是能够读取其他函数内部变量的函数
+var ev = ev || window.event document.documentElement.clientWidth || document.body.clientWidth var target = ev.srcElement || ev.target 闭包就是能够读取其他函数内部变量的函数
 添加，插入，替换，删除，到某个节点的方法
-obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </p>
+obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/">Read More →</a>
   </footer>
@@ -276,8 +278,8 @@ obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </p>
   <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
 github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
 配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34;  上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</p>
+git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34; 上面的分别是设置用户名和邮箱
+建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
   </footer>
@@ -291,7 +293,7 @@ git config --global user.name &#34;username&#34; git config --global user.email 
   </header>
   
   <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
 var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
@@ -306,13 +308,14 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
   </header>
   
   <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
-padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px  new method:
-padding:0px 20px 30px 10px // top right bottom left respectively  同理：
-margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px  margin:0px 20px 30px 10px  如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
-padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px  the new method:
-padding:20px  如果上下值和左右值分别一样呢： the old method:
-margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px  the new method
-margin:0px 20px // top and bottom right and left respectively  border的属性设置: the old method</p>
+padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px new method:
+padding:0px 20px 30px 10px // top right bottom left respectively 同理：
+margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px margin:0px 20px 30px 10px 如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
+padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px the new method:
+padding:20px 如果上下值和左右值分别一样呢： the old method:
+margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px the new method
+margin:0px 20px // top and bottom right and left respectively border的属性设置: the old method
+border-width:thin border-style:solid boder-color black the new method:</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
   </footer>
@@ -326,9 +329,9 @@ margin:0px 20px // top and bottom right and left respectively  border的属性�
   </header>
   
   <p class="post-summary">pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
-git clone https://github.com/&lt;username&gt;/my-first-blog.git  产生一个virtualenv
-cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate  数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
-import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application())  ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
+git clone https://github.com/&lt;username&gt;/my-first-blog.git 产生一个virtualenv
+cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate 数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
+import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application()) ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
@@ -342,7 +345,7 @@ import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; 
   </header>
   
   <p class="post-summary">经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
-&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;document&lt;/title&gt; &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt; &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;flash&#34;&gt; &lt;ul id=&#34;pic&#34;&gt; &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ol id=&#34;num&#34;&gt; &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;li&gt;4&lt;/li&gt; &lt;li&gt;5&lt;/li&gt; &lt;li&gt;6&lt;/li&gt; &lt;/ol&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;  图像的原路径我就不制定了，css文件
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;document&lt;/title&gt; &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt; &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;flash&#34;&gt; &lt;ul id=&#34;pic&#34;&gt; &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ol id=&#34;num&#34;&gt; &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;li&gt;4&lt;/li&gt; &lt;li&gt;5&lt;/li&gt; &lt;li&gt;6&lt;/li&gt; &lt;/ol&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 图像的原路径我就不制定了，css文件
 * { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/">Read More →</a>
@@ -361,7 +364,7 @@ import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; 
 开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
 进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
 from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
@@ -430,7 +433,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

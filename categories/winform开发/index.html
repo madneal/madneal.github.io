@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/categories/winform%E5%BC%80%E5%8F%91/" />
@@ -233,9 +232,9 @@
   </header>
   
   <p class="post-summary">C/C&#43;&#43;中每个字符串都以字符’\0’作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
-int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把”hello world”的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向”hello world”在内存中的地址就可以了。由于”hello world”是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; } str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&#34;hello world&#34;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&#34;hello world&#34;在内存中的地址就可以了。由于&#34;hello world&#34;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
 在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
-String str = &#34;hello&#34;; str.ToUpper(); str.</p>
+String str = &#34;hello&#34;; str.ToUpper(); str.Inser(0,&#34;world&#34;); 虽然我们对str做了ToUpper和Insert两个操作，但操作的结果都是生一个新的String实例并在返回值中返回，str本身的内容都不会发生改变，因此str最终的内容不变。由此可见，试图多次改变String的内容，改变之后的值只可以通过返回值得到。用String做连续多次修改，每一次修改都会产生一个临时对象，这样开销太大。为此C#定义一个新的与字符串相关的类型StringBuilder，它能容纳修改后的结果。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/">Read More →</a>
   </footer>
@@ -250,7 +249,7 @@ String str = &#34;hello&#34;; str.ToUpper(); str.</p>
   
   <p class="post-summary">只能生成一个实例的类是为了实现单例模式的类型。
 加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，.</p>
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } } 利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } } 由于C#中调用静态构造函数时初始化静态变量，.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
@@ -264,8 +263,8 @@ public sealed class Singleton { private Singelton() { } private static object sy
   </header>
   
   <p class="post-summary">因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
- List&lt;string&gt; listOnit = new List&lt;string&gt;(); //绑定原始数据源 List&lt;string&gt; listNew = new List&lt;string&gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; }  这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
-************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)  我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。</p>
+ List&lt;string&gt; listOnit = new List&lt;string&gt;(); //绑定原始数据源 List&lt;string&gt; listNew = new List&lt;string&gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; } 这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
+************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam) 我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/">Read More →</a>
   </footer>
@@ -291,9 +290,9 @@ public sealed class Singleton { private Singelton() { } private static object sy
     <p class="post-meta">@Neal · Apr 22, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary"> 全选 设置全选button，选中所有的checkbox
- private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &#34;True&#34;; } else continue; } }  取消全选 设置取消全选button，取消选中的所有checkbox
- private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &#34;False&#34;; } else continue; } }  </p>
+  <p class="post-summary">全选 设置全选button，选中所有的checkbox
+ private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &#34;True&#34;; } else continue; } } 取消全选 设置取消全选button，取消选中的所有checkbox
+ private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &#34;False&#34;; } else continue; } } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/">Read More →</a>
   </footer>
@@ -350,7 +349,7 @@ public sealed class Singleton { private Singelton() { } private static object sy
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

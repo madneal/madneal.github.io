@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/javascript/" />
@@ -222,7 +221,7 @@
   <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
 其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求头，当然这一方面也是出于安全方面的考虑。当然除了 Referer 请求头之外，还有其它请求头也被禁止通过 JavaScript 操作。
 Referer 请求头属于 Forbidden header，这种请求头无法通过程序来修改，浏览器客户端一般会禁止这种行为。以 Proxy- 和 Sec- 开头的请求头都属于 Fobidden header name，还包括以下这些请求头：
-Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via  可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
+Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via 可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
 可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
@@ -238,9 +237,9 @@ Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Req
   
   <p class="post-summary">最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
 假如我们尝试使用 setTimeout 去实现：
-for (var i = 0; i &lt; 5; i&#43;&#43;) { setTimeout(function() { console.log(i); }, i * 1000); }  这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
+for (var i = 0; i &lt; 5; i&#43;&#43;) {  setTimeout(function() {  console.log(i);  }, i * 1000); } 这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
 因此，对于上述的代码块，每一个 setTimeout 函数都被添加到了任务队列中。然后，这还涉及到了函数作用于的问题。因为当任务队列中的函数执行的时候，其作用域其实是全局作用域。setTimeout 中的打印函数执行的时候就会在全局作用域中寻找变量 i，而此时全局作用域的变量 i 的值已经变成 5 了。这也就是为什么打印的数字都是 5。那么应该如何达到我们一开始预期的效果呢？这里我们就需要考虑到函数执行上下文的问题，可以通过立即执行函数（IIFE）来改变函数作用域。
-for (var i = 0; i &lt; 5; i&#43;&#43;) { (function(i) { setTimeout(function() { console.</p>
+for (var i = 0; i &lt; 5; i&#43;&#43;) {  (function(i) {  setTimeout(function() {  console.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/">Read More →</a>
   </footer>
@@ -289,10 +288,11 @@ LICENSE: MIT
 如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
 JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
 引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：’setTimeout’）。然而这些API并不是由引擎提供的。
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
 那么，它们是从哪来的呢？
 事实证明这有一点复杂。
-因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
@@ -313,7 +313,7 @@ LICENSE: MIT
 根据维基百科：
  不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
  Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
-const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5); console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5]  这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
+const arrayA = [1, 2, 3]; arrayA.push(4);  const arrayB = arrayA; arrayB.push(5);  console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5] 这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -322,7 +322,7 @@ const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5);
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
     <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
   
@@ -340,12 +340,11 @@ CSDN CSDN是我开启个人技术博客的地方，感兴趣的地方去我的�
 Medium 国外的一个博客平台，访问需要翻墙。这是国外一个专门写story的地方，样式很好看，应该算得上是国外非常知名的一个博客平台了。当然了，里面的内容也是多姿多彩的，同时里面的技术文章质量也有很多很高的文章。现在国内技术圈翻译的大多数文章基本都是来自于这个平台。
 Quora 国外一个和知乎一样的网站。不过知乎由于国内人数优势，火爆异常。Quora则是不温不火，而且上面还有不少华人。我关注过一段时间，但貌似都没什么特别的内容。 以上基本就是我所有的对于一些博客平台的了解，可能不包含所有，但基本都是我自己的个人的亲身经历。可能部分言辞颇为激烈，但也都是我的肺腑之言。
 微信公众号 微信公众号作为一种特殊的平台，现在也成为一种传播渠道，有点类似于报看订阅的形式。但这不一定是一种非常有效的传播方式，感觉深度还是不够的，我比较喜欢在电脑上看文章，因为在手机上看文章难以持续地专注于一篇有内容的文章，一般就只能浅尝则止。所以我一般都是把链接转到我的微信PC版，然后再用浏览器打开，下面介绍一些我关注的一些技术类公众号：
- 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。
-Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
+ 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。  Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
 star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（当然也有很多是骗star的）。其实，现在很多人看到一个项目都会去star，但是后续是否会关注，当然也就不一定了。曾经有一段时间，我对star深深着迷（其实现在还是很着迷），我每天都希望有人能给我的项目star，看着别人上千的star我都会超级羡慕。但我其实也能够深深体会到做一个开源项目的不容易，开发者有一个idea往往很简单，但是要去实现它，推广它，完善它。这真的很难很难，而且还会有各种各样形形色色的人问你各种问题，给你提出各种要求，这些都是很痛苦的。但是我依然希望自己有一天还是能够成为一名出色的开源项目的开发者。下面我就挑一些我star的项目来讲一讲：
- prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。</p>
+ prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。 sw-precache &amp; sw-toolbox：谷歌关于pwa的相关工具，值得关注。 chrome-remote-interface：师妹介绍我的一个调用headless Chrome的工具，文档阅读起来比较痛苦，可以码，虽然你也不一定看。 hammer.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
   </footer>
 </article>
 
@@ -356,13 +355,13 @@ star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（�
     <p class="post-meta">@Neal · Oct 3, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
+  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问   译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
 Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
 当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
 在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
- 选择节点元素  如果你熟悉jquery的话，你应该知道$(‘.class’)和$(‘#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
-同样你可以在console使用同样的方式来访问元素。$(‘tagName’) $(‘.class’) $(‘#id’)和document.querySelector(“)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
-你可以用$$(‘tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
+ 选择节点元素  如果你熟悉jquery的话，你应该知道$(’.class’)和$(’#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
+同样你可以在console使用同样的方式来访问元素。$(’tagName’) $(’.class’) $(’#id’)和document.querySelector(’’)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
+你可以用$$(’tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
 2.将你的浏览器转化成一个编辑器
 你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
 你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
@@ -372,13 +371,13 @@ document.body.contentEditable = true
 如果希望找到某个特定事件的监听，你可以这么做：
 getEventListeners($(‘selector’)).eventName[0].listener
 这将展示所有和这个事件相关的监听。比如：
-getEventListeners($(‘.firstName’)).click[0].listener
+getEventListeners($(’.firstName’)).click[0].listener
 4.监听事件
 如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
- monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),‘eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[‘eventName1’,‘eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
-console里面有一个很重要的函数叫做console.time(‘labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(‘labelName’)能够结束相应的计时器。
+ monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),’eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[’eventName1’,’eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
+console里面有一个很重要的函数叫做console.time(’labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(’labelName’)能够结束相应的计时器。
 比如我们想看到一个循环的执行时间，我们可以做如下处理：
-console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6.</p>
+console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">Read More →</a>
   </footer>
@@ -391,9 +390,9 @@ console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i
     <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool 原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com   在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
- 成对出现的名称以及相应的值{ name1: value1 }
- Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+  成对出现的名称以及相应的值{ name1: value1 }
+  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
   遗憾的是，这个对象字面量可能会出现下面这样的情况：
 var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
   <footer class="post-footer">
@@ -408,7 +407,7 @@ var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNu
     <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}‘.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
+  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}’.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
   </footer>
@@ -476,7 +475,7 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

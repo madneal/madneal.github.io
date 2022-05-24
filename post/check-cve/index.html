@@ -19,7 +19,7 @@
   <meta name="description" content="今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
 可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
 可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
-# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv." />
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &amp;#39;w&amp;#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &amp;#39;w&amp;#39;, newline=&amp;#39;&amp;#39;) as f: writer = csv." />
 
   
   
@@ -30,14 +30,13 @@
   <meta property="og:description" content="今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
 可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
 可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
-# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv." />
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &amp;lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &amp;#39;w&amp;#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &amp;#39;w&amp;#39;, newline=&amp;#39;&amp;#39;) as f: writer = csv." />
   <meta property="og:url" content="https://madneal.com/post/check-cve/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/check-cve/" />
@@ -224,71 +223,65 @@
       <p class="post-meta">@Neal · Jul 4, 2019 · 2 min read</p>
     </header>
     <article class="post-content"><p>今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。</p>
-
 <p>可以通过 <a href="https://cve.circl.lu/api/">https://cve.circl.lu/api/</a> 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，</p>
-
-<p><img src="https://s2.ax1x.com/2019/07/04/ZUIwgH.png" alt="ZUIwgH.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/07/04/ZUIwgH.png" alt="ZUIwgH.png"></p>
 <p>可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。</p>
-
-<pre><code># check if file modified in the last several days
+<pre tabindex="0"><code># check if file modified in the last several days
 def check_file_modified(filename, days):
     file_modify_time = getmtime(filename)
     return time() - file_modify_time &lt; (days * 3600 * 1000)
 
 
 def write_json(filename, result):
-    with open(filename, 'w') as f:
+    with open(filename, &#39;w&#39;) as f:
         dump(result, f, indent=2)
 
 
 def write_csv(filename, result, header):
-    with open(filename, 'w', newline='') as f:
-        writer = csv.writer(f, delimiter=',')
+    with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f:
+        writer = csv.writer(f, delimiter=&#39;,&#39;)
         writer.writerow(header)
         for ele in result:
-            writer.writerow([ele[&quot;id&quot;], ele[&quot;last-modified&quot;], ele[&quot;cvss&quot;], ele[&quot;summary&quot;]])
+            writer.writerow([ele[&#34;id&#34;], ele[&#34;last-modified&#34;], ele[&#34;cvss&#34;], ele[&#34;summary&#34;]])
 
 
 def search(params, options):
-    url = &quot;https://cve.circl.lu/api/search/&quot; + params
+    url = &#34;https://cve.circl.lu/api/search/&#34; + params
     print(url)
-    filename = f&quot;{params.replace('/', '-')}.json&quot;
+    filename = f&#34;{params.replace(&#39;/&#39;, &#39;-&#39;)}.json&#34;
     try:
         if isfile(filename) and check_file_modified(filename, 3):
-            with open(filename, 'r') as f:
+            with open(filename, &#39;r&#39;) as f:
                 result = loads(f.read())
         else:
             res = get(url)
             if res.status_code == 200:
-                with open(filename, 'w') as f:
+                with open(filename, &#39;w&#39;) as f:
                     f.write(res.text)
                 result = loads(res.text)
             else:
-                print(&quot;Request failed: %d&quot;.format(res.status_code))
+                print(&#34;Request failed: %d&#34;.format(res.status_code))
         cve_result = []
         for ele in result:
             if has_cve(ele, options.vendor, options.product, options.version, options.edition):
                 obj = {
-                    &quot;id&quot;: ele[&quot;id&quot;],
-                    &quot;last-modified&quot;: ele[&quot;last-modified&quot;],
-                    &quot;cvss&quot;: ele[&quot;cvss&quot;],
-                    &quot;summary&quot;: ele[&quot;summary&quot;]
+                    &#34;id&#34;: ele[&#34;id&#34;],
+                    &#34;last-modified&#34;: ele[&#34;last-modified&#34;],
+                    &#34;cvss&#34;: ele[&#34;cvss&#34;],
+                    &#34;summary&#34;: ele[&#34;summary&#34;]
                 }
                 cve_result.append(obj)
             else:
                 continue
-        print(f&quot;{options.vendor}:{options.product}:{options.version}:{options.edition} &quot;
-              f&quot;has impacted by {len(cve_result)} cve&quot;)
-        if options.output is None or options.output == &quot;csv&quot;:
-            write_csv(&quot;result.csv&quot;, cve_result, [&quot;id&quot;, &quot;last-modified&quot;, &quot;cvss&quot;, &quot;summary&quot;])
+        print(f&#34;{options.vendor}:{options.product}:{options.version}:{options.edition} &#34;
+              f&#34;has impacted by {len(cve_result)} cve&#34;)
+        if options.output is None or options.output == &#34;csv&#34;:
+            write_csv(&#34;result.csv&#34;, cve_result, [&#34;id&#34;, &#34;last-modified&#34;, &#34;cvss&#34;, &#34;summary&#34;])
         else:
-            write_json(&quot;result.json&quot;, cve_result)
+            write_json(&#34;result.json&#34;, cve_result)
     except Exception as e:
         print(e)
-</code></pre>
-
-<p>完整的项目地址可以参考 <a href="https://github.com/neal1991/check-cve/blob/master/check-cve.py">https://github.com/neal1991/check-cve/blob/master/check-cve.py</a></p>
+</code></pre><p>完整的项目地址可以参考 <a href="https://github.com/neal1991/check-cve/blob/master/check-cve.py">https://github.com/neal1991/check-cve/blob/master/check-cve.py</a></p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -301,13 +294,13 @@ def search(params, options):
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1042</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1055</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -361,7 +354,7 @@ def search(params, options):
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

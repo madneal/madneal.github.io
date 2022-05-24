@@ -17,7 +17,8 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
-一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC： 1. Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 2. View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 3. Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。" />
+一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：
+ Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。  " />
 
   
   
@@ -26,14 +27,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="全栈开发教学学习系列1——前言" />
   <meta property="og:description" content="在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
-一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC： 1. Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 2. View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 3. Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。" />
+一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：
+ Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。  " />
   <meta property="og:url" content="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/" />
@@ -219,19 +220,20 @@
       <h1 class="post-title">全栈开发教学学习系列1——前言</h1>
       <p class="post-meta">@Neal · Oct 7, 2015 · 1 min read</p>
     </header>
-    <article class="post-content"><p>在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，<a href="http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。">http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。</a>
+    <article class="post-content"><p>在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。
 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：</p>
-
 <p>一. 客户端服务器模型和MVC设计模式
 首先用一张图来简单的描述一下：
-<img src="http://img.blog.csdn.net/20151007095922693" alt="这里写图片描述" />
+<img src="http://img.blog.csdn.net/20151007095922693" alt="这里写图片描述">
 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。
 <strong>MVC 架构模式</strong>
-这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：
-1. Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。
-2.  View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。
-3.  Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。
-当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。</p>
+这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：</p>
+<ol>
+<li>Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。</li>
+<li>View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。</li>
+<li>Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。
+当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。</li>
+</ol>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -244,13 +246,13 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2407</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2420</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -304,7 +306,7 @@
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

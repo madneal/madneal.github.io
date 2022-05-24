@@ -19,7 +19,7 @@
   <meta name="description" content="本文首发于安全客平台
 MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
 起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&amp;#34;(display_name like &amp;#39;%&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;); sb.append(&amp;#34;org like &amp;#39;&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;); sb." />
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&amp;#34;(display_name like &amp;#39;%&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;);  sb.append(&amp;#34;org like &amp;#39;&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;);  sb." />
 
   
   
@@ -30,14 +30,13 @@ public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuil
   <meta property="og:description" content="本文首发于安全客平台
 MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
 起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&amp;#34;(display_name like &amp;#39;%&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;); sb.append(&amp;#34;org like &amp;#39;&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;); sb." />
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&amp;#34;(display_name like &amp;#39;%&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;);  sb.append(&amp;#34;org like &amp;#39;&amp;#34; &#43; keyword &#43; &amp;#34;%&amp;#39; or &amp;#34;);  sb." />
   <meta property="og:url" content="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" />
@@ -223,228 +222,200 @@ public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuil
       <h1 class="post-title">MyBatis 和 SQL 注入的恩恩怨怨</h1>
       <p class="post-meta">@Neal · Oct 30, 2019 · 4 min read</p>
     </header>
-    <article class="post-content">
-
-<p>本文首发于安全客平台</p>
-
-<p><img src="https://p4.ssl.qhimg.com/t019817257e653fdf5e.jpg" alt="" /></p>
-
+    <article class="post-content"><p>本文首发于安全客平台</p>
+<p><img src="https://p4.ssl.qhimg.com/t019817257e653fdf5e.jpg" alt=""></p>
 <p>MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）</p>
-
 <h2 id="起源">起源</h2>
-
 <p>写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Criteria <span style="color:#a6e22e">addKeywordTo</span><span style="color:#f92672">(</span>String keyword<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-  StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder<span style="color:#f92672">();</span>
-  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(display_name like &#39;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39; or &#34;</span><span style="color:#f92672">);</span>
-  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;org like &#39;&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39; or &#34;</span><span style="color:#f92672">);</span>
-  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status like &#39;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39; or &#34;</span><span style="color:#f92672">);</span>
-  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;id like &#39;&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39;) &#34;</span><span style="color:#f92672">);</span>
-  addCriterion<span style="color:#f92672">(</span>sb<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
-  <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>Criteria<span style="color:#f92672">)</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span>
-<span style="color:#f92672">}</span></code></pre></div>
-<p>很明显，需求是希望实现 <code>diaplay_name</code>, <code>org</code>, <code>status</code> 以及 <code>id</code> 的模糊查询，但开发在这里自己创建了一个 <code>addKeywordTo</code> 方法，通过这个方法创建了一个涉及多个字段的模糊查询条件。有一个有趣的现象，在内网发现的绝大多数 SQL 注入的注入点基本都是模糊查询的地方。可能很多开发往往觉得模糊查询是不是就不会存在 SQL 注入的问题。分析一下这个开发为什么会这么写，在他没有意识到这样的写法存在 SQL 注入问题的时候，这样的写法他可能认为是最省事的，到时直接把查询条件拼进去就可以了。以上代码是问题的核心，我们再看一下对应的 xml 文件：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">  <span style="color:#f92672">&lt;sql</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Example_Where_Clause&#34;</span> <span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;where</span> <span style="color:#f92672">&gt;</span>
-      <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;oredCriteria&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;criteria&#34;</span> <span style="color:#a6e22e">separator=</span><span style="color:#e6db74">&#34;or&#34;</span> <span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criteria.valid&#34;</span> <span style="color:#f92672">&gt;</span>
-          <span style="color:#f92672">&lt;trim</span> <span style="color:#a6e22e">prefix=</span><span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#a6e22e">suffix=</span><span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#a6e22e">prefixOverrides=</span><span style="color:#e6db74">&#34;and&#34;</span> <span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;criteria.criteria&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;criterion&#34;</span> <span style="color:#f92672">&gt;</span>
-              <span style="color:#f92672">&lt;choose</span> <span style="color:#f92672">&gt;</span>
-                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.noValue&#34;</span> <span style="color:#f92672">&gt;</span>
-                  and ${criterion.condition}
-                <span style="color:#f92672">&lt;/when&gt;</span>
-                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.singleValue&#34;</span> <span style="color:#f92672">&gt;</span>
-                  and ${criterion.condition} #{criterion.value}
-                <span style="color:#f92672">&lt;/when&gt;</span>
-                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.betweenValue&#34;</span> <span style="color:#f92672">&gt;</span>
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                <span style="color:#f92672">&lt;/when&gt;</span>
-                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.listValue&#34;</span> <span style="color:#f92672">&gt;</span>
-                  and ${criterion.condition}
-                  <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;criterion.value&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;listItem&#34;</span> <span style="color:#a6e22e">open=</span><span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#a6e22e">close=</span><span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#a6e22e">separator=</span><span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">&gt;</span>
-                    #{listItem}
-                  <span style="color:#f92672">&lt;/foreach&gt;</span>
-                <span style="color:#f92672">&lt;/when&gt;</span>
-              <span style="color:#f92672">&lt;/choose&gt;</span>
-            <span style="color:#f92672">&lt;/foreach&gt;</span>
-          <span style="color:#f92672">&lt;/trim&gt;</span>
-        <span style="color:#f92672">&lt;/if&gt;</span>
-      <span style="color:#f92672">&lt;/foreach&gt;</span>
-    <span style="color:#f92672">&lt;/where&gt;</span>
-  <span style="color:#f92672">&lt;/sql&gt;</span>
-
-    <span style="color:#f92672">&lt;select</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;selectByExample&#34;</span> <span style="color:#a6e22e">resultMap=</span><span style="color:#e6db74">&#34;BaseResultMap&#34;</span> <span style="color:#a6e22e">parameterType=</span><span style="color:#e6db74">&#34;com.doctor.mybatisdemo.domain.userExample&#34;</span> <span style="color:#f92672">&gt;</span>
-    select
-    <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;distinct&#34;</span> <span style="color:#f92672">&gt;</span>
-      distinct
-    <span style="color:#f92672">&lt;/if&gt;</span>
-    <span style="color:#f92672">&lt;include</span> <span style="color:#a6e22e">refid=</span><span style="color:#e6db74">&#34;Base_Column_List&#34;</span> <span style="color:#f92672">/&gt;</span>
-    from user
-    <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;_parameter != null&#34;</span> <span style="color:#f92672">&gt;</span>
-      <span style="color:#f92672">&lt;include</span> <span style="color:#a6e22e">refid=</span><span style="color:#e6db74">&#34;Example_Where_Clause&#34;</span> <span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;/if&gt;</span>
-    <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;orderByClause != null&#34;</span> <span style="color:#f92672">&gt;</span>
-      order by ${orderByClause}
-    <span style="color:#f92672">&lt;/if&gt;</span>
-  <span style="color:#f92672">&lt;/select&gt;</span></code></pre></div>
-<p>我们再回过头看一下上面 JAVA 代码中的 <code>addCriterion</code> 方法，这个方法是通过 MyBatis generator 生成的。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addCriterion</span><span style="color:#f92672">(</span>String condition<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>condition <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Value for condition cannot be null&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-    criteria<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Criterion<span style="color:#f92672">(</span>condition<span style="color:#f92672">));</span>
-<span style="color:#f92672">}</span></code></pre></div>
-<p>这里的 <code>addCriterion</code> 方法只传入了一个字符串参数，这里其实使用了重载，还有其它的 <code>addCriterion</code> 方法传入的参数个数不同。这里使用的方法只传入了一个参数，被理解为 <code>condition</code>，因此只是添加了一个只有 <code>condition</code> 的 Criterion。现在再来看 xml 中的 <code>Example_Where_Clause</code>，在遍历 criteria 时，由于 criterion 只有 condition 没有 value,那么只会进去条件 <code>criterion.noValue</code>，这样整个 SQL 注入的形成就很清晰了。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.noValue&#34;</span> <span style="color:#f92672">&gt;</span>
-    and ${criterion.condition}
-<span style="color:#f92672">&lt;/when&gt;</span></code></pre></div>
-<h3 id="正确写法">正确写法</h3>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Criteria <span style="color:#a6e22e">addKeywordTo</span><span style="color:#f92672">(</span>String keyword<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  StringBuilder sb <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> StringBuilder<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;(display_name like &#39;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39; or &#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;org like &#39;&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39; or &#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;status like &#39;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39; or &#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  sb<span style="color:#f92672">.</span><span style="color:#a6e22e">append</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;id like &#39;&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#39;) &#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  addCriterion<span style="color:#f92672">(</span>sb<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>Criteria<span style="color:#f92672">)</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>很明显，需求是希望实现 <code>diaplay_name</code>, <code>org</code>, <code>status</code> 以及 <code>id</code> 的模糊查询，但开发在这里自己创建了一个 <code>addKeywordTo</code> 方法，通过这个方法创建了一个涉及多个字段的模糊查询条件。有一个有趣的现象，在内网发现的绝大多数 SQL 注入的注入点基本都是模糊查询的地方。可能很多开发往往觉得模糊查询是不是就不会存在 SQL 注入的问题。分析一下这个开发为什么会这么写，在他没有意识到这样的写法存在 SQL 注入问题的时候，这样的写法他可能认为是最省事的，到时直接把查询条件拼进去就可以了。以上代码是问题的核心，我们再看一下对应的 xml 文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>  <span style="color:#f92672">&lt;sql</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Example_Where_Clause&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;where</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;oredCriteria&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;criteria&#34;</span> <span style="color:#a6e22e">separator=</span><span style="color:#e6db74">&#34;or&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criteria.valid&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;trim</span> <span style="color:#a6e22e">prefix=</span><span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#a6e22e">suffix=</span><span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#a6e22e">prefixOverrides=</span><span style="color:#e6db74">&#34;and&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;criteria.criteria&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;criterion&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;choose</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.noValue&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                  and ${criterion.condition}
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/when&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.singleValue&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                  and ${criterion.condition} #{criterion.value}
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/when&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.betweenValue&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/when&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.listValue&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                  and ${criterion.condition}
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;foreach</span> <span style="color:#a6e22e">collection=</span><span style="color:#e6db74">&#34;criterion.value&#34;</span> <span style="color:#a6e22e">item=</span><span style="color:#e6db74">&#34;listItem&#34;</span> <span style="color:#a6e22e">open=</span><span style="color:#e6db74">&#34;(&#34;</span> <span style="color:#a6e22e">close=</span><span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#a6e22e">separator=</span><span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>                    #{listItem}
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">&lt;/foreach&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&lt;/when&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">&lt;/choose&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;/foreach&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">&lt;/trim&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;/foreach&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/where&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/sql&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;select</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;selectByExample&#34;</span> <span style="color:#a6e22e">resultMap=</span><span style="color:#e6db74">&#34;BaseResultMap&#34;</span> <span style="color:#a6e22e">parameterType=</span><span style="color:#e6db74">&#34;com.doctor.mybatisdemo.domain.userExample&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    select
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;distinct&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      distinct
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;include</span> <span style="color:#a6e22e">refid=</span><span style="color:#e6db74">&#34;Base_Column_List&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    from user
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;_parameter != null&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&lt;include</span> <span style="color:#a6e22e">refid=</span><span style="color:#e6db74">&#34;Example_Where_Clause&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;if</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;orderByClause != null&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>      order by ${orderByClause}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/if&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/select&gt;</span>
+</span></span></code></pre></div><p>我们再回过头看一下上面 JAVA 代码中的 <code>addCriterion</code> 方法，这个方法是通过 MyBatis generator 生成的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addCriterion</span><span style="color:#f92672">(</span>String condition<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>condition <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Value for condition cannot be null&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    criteria<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Criterion<span style="color:#f92672">(</span>condition<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>这里的 <code>addCriterion</code> 方法只传入了一个字符串参数，这里其实使用了重载，还有其它的 <code>addCriterion</code> 方法传入的参数个数不同。这里使用的方法只传入了一个参数，被理解为 <code>condition</code>，因此只是添加了一个只有 <code>condition</code> 的 Criterion。现在再来看 xml 中的 <code>Example_Where_Clause</code>，在遍历 criteria 时，由于 criterion 只有 condition 没有 value,那么只会进去条件 <code>criterion.noValue</code>，这样整个 SQL 注入的形成就很清晰了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.noValue&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>    and ${criterion.condition}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/when&gt;</span>
+</span></span></code></pre></div><h3 id="正确写法">正确写法</h3>
 <p>既然上面的写法不正确，那正确的写法应该是什么呢？第一种，我们可以用一种非常简单直接的方法，在 <code>addKeywordTo</code> 方法里面 对 keword 进行过滤，这样其实也可以避免 SQL 注入。通过正则匹配将 keyword 里面所有非字母或者数字的字符都替换成空字符串，这样自然也就不可能存在 SQL 注入了。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">keyword <span style="color:#f92672">=</span> keyword<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;[^a-zA-Z0-9\\s+]&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span></code></pre></div>
-<p>但是这种写法并不是一种科学的写法，这样的写法存在一种弊端，就是如果你的 keyword 需要包含符号该怎么办，那么你是不是就要考虑更多的情况，是不是就需要添加更多的逻辑判断，是不是就存在被绕过的可能了？那么正确的写法应该是什么呢？其实 <a href="http://mybatis.org/generator/generatedobjects/exampleClassUsage.html">mybatis 官网</a> 已经给出了 Complex Queries 的范例：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> TestTableExample example <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TestTableExample<span style="color:#f92672">();</span>
-
-  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField1EqualTo</span><span style="color:#f92672">(</span>5<span style="color:#f92672">)</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField2IsNull</span><span style="color:#f92672">();</span>
-
-  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField3NotEqualTo</span><span style="color:#f92672">(</span>9<span style="color:#f92672">)</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField4IsNotNull</span><span style="color:#f92672">();</span>
-
-  List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> field5Values <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;();</span>
-  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>8<span style="color:#f92672">);</span>
-  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>11<span style="color:#f92672">);</span>
-  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>14<span style="color:#f92672">);</span>
-  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>22<span style="color:#f92672">);</span>
-
-  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField5In</span><span style="color:#f92672">(</span>field5Values<span style="color:#f92672">);</span>
-
-  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField6Between</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> 7<span style="color:#f92672">);</span></code></pre></div>
-<p>上面等同的 SQL 语句是：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"> where <span style="color:#f92672">(</span>field1 <span style="color:#f92672">=</span> 5 and field2 is <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
-     or <span style="color:#f92672">(</span>field3 <span style="color:#f92672">&lt;&gt;</span> 9 and field4 is not <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
-     or <span style="color:#f92672">(</span>field5 <span style="color:#a6e22e">in</span> <span style="color:#f92672">(</span>8<span style="color:#f92672">,</span> 11<span style="color:#f92672">,</span> 14<span style="color:#f92672">,</span> 22<span style="color:#f92672">))</span>
-     or <span style="color:#f92672">(</span>field6 between 3 and 7<span style="color:#f92672">)</span></code></pre></div>
-<p>现在让我们将一开始的 <code>addKeywordTo</code> 方法进行改造：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addKeywordTo</span><span style="color:#f92672">(</span>String keyword<span style="color:#f92672">,</span> UserExample userExample<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andDisplayNameLike</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
-  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andOrgLike</span><span style="color:#f92672">(</span>keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
-  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andStatusLike</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
-  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andIdLike</span><span style="color:#f92672">(</span>keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
-<span style="color:#f92672">}</span></code></pre></div>
-<p>这样的写法才是一种比较标准的写法了。<code>or()</code> 方法会产生一个新的 Criteria 对象，添加到 oredCriteria 中，并返回这个 Criteria 对象，从而可以链式表达，为其添加 Criterion。这样添加的的 Criteria 就是包含 condition 以及 value 的，在做条件查询的时候，就会进入到 <code>criterion.singleValue</code> 中，那么 keyword 参数只会传入到 value 中，而 value 是通过 <code>#{}</code> 传入的。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.singleValue&#34;</span> <span style="color:#f92672">&gt;</span>
-  and ${criterion.condition} #{criterion.value}
-<span style="color:#f92672">&lt;/when&gt;</span></code></pre></div>
-<p>总结以下，导致这个 SQL 注入的原因还是开发没有按照规范来写，自己造轮子写了一个方法来进行模糊查询，殊不知带来了 SQL 注入漏洞。其实，Mybatis generator 已经为每个字段生成了丰富的方法，只要合理使用，就一定可以避免 SQL 注入问题。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/01/KHvCy6.png" alt="KHvCy6.png" /></p>
-
-<h2 id="使用-可以避免-sql-注入吗">使用 #{} 可以避免 SQL 注入吗</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>keyword <span style="color:#f92672">=</span> keyword<span style="color:#f92672">.</span><span style="color:#a6e22e">replaceAll</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;[^a-zA-Z0-9\\s+]&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>但是这种写法并不是一种科学的写法，这样的写法存在一种弊端，就是如果你的 keyword 需要包含符号该怎么办，那么你是不是就要考虑更多的情况，是不是就需要添加更多的逻辑判断，是不是就存在被绕过的可能了？那么正确的写法应该是什么呢？其实 <a href="http://mybatis.org/generator/generatedobjects/exampleClassUsage.html">mybatis 官网</a> 已经给出了 Complex Queries 的范例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> TestTableExample example <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TestTableExample<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField1EqualTo</span><span style="color:#f92672">(</span>5<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField2IsNull</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField3NotEqualTo</span><span style="color:#f92672">(</span>9<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField4IsNotNull</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> field5Values <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;();</span>
+</span></span><span style="display:flex;"><span>  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>8<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>11<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>14<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  field5Values<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>22<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField5In</span><span style="color:#f92672">(</span>field5Values<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  example<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">andField6Between</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> 7<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>上面等同的 SQL 语句是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> where <span style="color:#f92672">(</span>field1 <span style="color:#f92672">=</span> 5 and field2 is <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>     or <span style="color:#f92672">(</span>field3 <span style="color:#f92672">&lt;&gt;</span> 9 and field4 is not <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>     or <span style="color:#f92672">(</span>field5 <span style="color:#a6e22e">in</span> <span style="color:#f92672">(</span>8<span style="color:#f92672">,</span> 11<span style="color:#f92672">,</span> 14<span style="color:#f92672">,</span> 22<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>     or <span style="color:#f92672">(</span>field6 between 3 and 7<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>现在让我们将一开始的 <code>addKeywordTo</code> 方法进行改造：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addKeywordTo</span><span style="color:#f92672">(</span>String keyword<span style="color:#f92672">,</span> UserExample userExample<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andDisplayNameLike</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andOrgLike</span><span style="color:#f92672">(</span>keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andStatusLike</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;%&#34;</span> <span style="color:#f92672">+</span> keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  userExample<span style="color:#f92672">.</span><span style="color:#a6e22e">or</span><span style="color:#f92672">().</span><span style="color:#a6e22e">andIdLike</span><span style="color:#f92672">(</span>keyword <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;%&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>这样的写法才是一种比较标准的写法了。<code>or()</code> 方法会产生一个新的 Criteria 对象，添加到 oredCriteria 中，并返回这个 Criteria 对象，从而可以链式表达，为其添加 Criterion。这样添加的的 Criteria 就是包含 condition 以及 value 的，在做条件查询的时候，就会进入到 <code>criterion.singleValue</code> 中，那么 keyword 参数只会传入到 value 中，而 value 是通过 <code>#{}</code> 传入的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;when</span> <span style="color:#a6e22e">test=</span><span style="color:#e6db74">&#34;criterion.singleValue&#34;</span> <span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>  and ${criterion.condition} #{criterion.value}
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/when&gt;</span>
+</span></span></code></pre></div><p>总结以下，导致这个 SQL 注入的原因还是开发没有按照规范来写，自己造轮子写了一个方法来进行模糊查询，殊不知带来了 SQL 注入漏洞。其实，Mybatis generator 已经为每个字段生成了丰富的方法，只要合理使用，就一定可以避免 SQL 注入问题。</p>
+<p><img src="https://s2.ax1x.com/2019/11/01/KHvCy6.png" alt="KHvCy6.png"></p>
+<h2 id="使用--可以避免-sql-注入吗">使用 #{} 可以避免 SQL 注入吗</h2>
 <p>如果你猛地一看到这个问题，你可能会觉得迟疑？使用 <code>#{}</code> 就可以彻底杜绝 SQL 注入么，不一定吧。但如果你仔细分析一下，你就会发现答案是肯定的。具体的原因让我和你娓娓道来。</p>
-
 <p>首先我们需要先搞清楚 MyBatis 中 <code>#{}</code> 是如何声明的。当参数通过 <code>#{}</code> 声明的，参数就会通过 PreparedStatement 来执行，即预编译的方式来执行。预编译你应该不陌生，因为在 JDBC 中就已经有了预编译的接口。这也对应了开头文中我们提到的一点，MyBatis 并不是能解决 SQL 注入的核心，预编译才是。预编译不仅可以对 SQL 语句进行转义，避免 SQL 注入，还可以增加执行效率。MyBatis 底层其实也是通过 JDBC 来实现的。以 MyBatis 3.3.1 为例，jdbc 中的 SqlRunner 就设计到具体 SQL 语句的实现。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/02/KqtZxe.png" alt="KqtZxe.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/11/02/KqtZxe.png" alt="KqtZxe.png"></p>
 <p>以 update 方法为例,可以看到就是通过 JAVA 中 PreparedStatement 来实现 sql 语句的预编译。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>String sql<span style="color:#f92672">,</span> Object<span style="color:#f92672">...</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException <span style="color:#f92672">{</span>
-    PreparedStatement ps <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">connection</span><span style="color:#f92672">.</span><span style="color:#a6e22e">prepareStatement</span><span style="color:#f92672">(</span>sql<span style="color:#f92672">);</span>
-    <span style="color:#66d9ef">int</span> var4<span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">setParameters</span><span style="color:#f92672">(</span>ps<span style="color:#f92672">,</span> args<span style="color:#f92672">);</span>
-        var4 <span style="color:#f92672">=</span> ps<span style="color:#f92672">.</span><span style="color:#a6e22e">executeUpdate</span><span style="color:#f92672">();</span>
-    <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-            ps<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>SQLException var11<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-            <span style="color:#f92672">;</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#66d9ef">return</span> var4<span style="color:#f92672">;</span>
-<span style="color:#f92672">}</span></code></pre></div>
-<p>值得注意的一点是，这里的 PreparedStatement 严格意义上来说并不是完全等同于预编译。其实预编译分为客户端的预编译以及客户端的预编译，4.1 之后的 MySql 服务器端已经支持了预编译功能。很多主流持久层框架(MyBatis，Hibernate)其实都没有真正的用上预编译，预编译是要我们自己在参数列表上面配置的，如果我们不手动开启，JDBC 驱动程序 5.0.5 以后版本 默认预编译都是关闭的。需要通过配置参数来进行开启：</p>
-
-<pre><code>jdbc:mysql://localhost:3306/mybatis?&amp;useServerPrepStmts=true&amp;cachePrepStmts=true
-</code></pre>
-
-<p>数据库 SQL 执行包含多个阶段如下图所示，但我们这里针对于 SQL 语句客户端的预编译在发送到服务端之前就已经完成了。在服务器端主要考虑的就是性能问题，这不是本文的重点。当然，每一个数据库实现的预编译方式可能都有一些差别。但是对于防止 SQL 注入，在 MyBatis 中只要使用 <code>#{}</code> 就可以了，因为这样就会实现 SQL 语句的参数化，避免直接引入恶意的 SQL 语句并执行。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/02/KqIDBj.png" alt="KqIDBj.png" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">update</span><span style="color:#f92672">(</span>String sql<span style="color:#f92672">,</span> Object<span style="color:#f92672">...</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    PreparedStatement ps <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">connection</span><span style="color:#f92672">.</span><span style="color:#a6e22e">prepareStatement</span><span style="color:#f92672">(</span>sql<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> var4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">setParameters</span><span style="color:#f92672">(</span>ps<span style="color:#f92672">,</span> args<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        var4 <span style="color:#f92672">=</span> ps<span style="color:#f92672">.</span><span style="color:#a6e22e">executeUpdate</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span> <span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            ps<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>SQLException var11<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> var4<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>值得注意的一点是，这里的 PreparedStatement 严格意义上来说并不是完全等同于预编译。其实预编译分为客户端的预编译以及客户端的预编译，4.1 之后的 MySql 服务器端已经支持了预编译功能。很多主流持久层框架(MyBatis，Hibernate)其实都没有真正的用上预编译，预编译是要我们自己在参数列表上面配置的，如果我们不手动开启，JDBC 驱动程序 5.0.5 以后版本 默认预编译都是关闭的。需要通过配置参数来进行开启：</p>
+<pre tabindex="0"><code>jdbc:mysql://localhost:3306/mybatis?&amp;useServerPrepStmts=true&amp;cachePrepStmts=true
+</code></pre><p>数据库 SQL 执行包含多个阶段如下图所示，但我们这里针对于 SQL 语句客户端的预编译在发送到服务端之前就已经完成了。在服务器端主要考虑的就是性能问题，这不是本文的重点。当然，每一个数据库实现的预编译方式可能都有一些差别。但是对于防止 SQL 注入，在 MyBatis 中只要使用 <code>#{}</code> 就可以了，因为这样就会实现 SQL 语句的参数化，避免直接引入恶意的 SQL 语句并执行。</p>
+<p><img src="https://s2.ax1x.com/2019/11/02/KqIDBj.png" alt="KqIDBj.png"></p>
 <h2 id="mybatis-generator-的使用">MyBatis generator 的使用</h2>
-
 <p>对于使用 MyBatis，MyBatis generator 肯定是必不可少的使用工具。MyBatis 是针对 MyBatis 以及 iBATIS 的代码生成工具，支持 MyBatis 的所有版本以及 iBATIS 2.2.0 版本以上。因为在现实的业务开发中，肯定会涉及到很多表，开发不可能自己一个去手写相应的文件。通过 MyBatis generator 就可以生成相应的 POJO 文件、 SQL Map XML 文件以及可选的 JAVA 客户端代码。常用的使用 MyBatis generator 的方式是直接通过使用 Maven 的 mybatis-generator-maven-plugin 插件，只要准备好配置文件以及数据库相关信息，就可以通过这个插件生成相应代码了。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
- <span style="color:#75715e">&lt;!DOCTYPE generatorConfiguration PUBLIC &#34;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&#34;&gt;</span>
-<span style="color:#f92672">&lt;generatorConfiguration&gt;</span>
-    <span style="color:#f92672">&lt;context</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;MysqlTables&#34;</span> <span style="color:#a6e22e">targetRuntime=</span><span style="color:#e6db74">&#34;MyBatis3&#34;</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;commentGenerator&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;suppressAllComments&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;suppressDate&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;/commentGenerator&gt;</span>
-        
-        <span style="color:#75715e">&lt;!-- 数据库链接URL、用户名、密码 --&gt;</span>
-        <span style="color:#f92672">&lt;jdbcConnection</span> <span style="color:#a6e22e">driverClass=</span><span style="color:#e6db74">&#34;com.mysql.cj.jdbc.Driver&#34;</span>
-                        <span style="color:#a6e22e">connectionURL=</span><span style="color:#e6db74">&#34;jdbc:mysql://localhost:3306/mybaits_test&#34;</span>
-                        <span style="color:#a6e22e">userId=</span><span style="color:#e6db74">&#34;xxx&#34;</span>
-                        <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;xxx&#34;</span><span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;/jdbcConnection&gt;</span>
-        
-        <span style="color:#f92672">&lt;javaTypeResolver&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;forceBigDecimals&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;/javaTypeResolver&gt;</span>
-        
-        <span style="color:#f92672">&lt;javaModelGenerator</span> <span style="color:#a6e22e">targetPackage=</span><span style="color:#e6db74">&#34;com.doctor.mybatisdemo.domain&#34;</span> <span style="color:#a6e22e">targetProject=</span><span style="color:#e6db74">&#34;src/main/java/&#34;</span><span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;constructorBased&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;enableSubPackages&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;trimStrings&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;/javaModelGenerator&gt;</span>
-        
-        <span style="color:#f92672">&lt;sqlMapGenerator</span> <span style="color:#a6e22e">targetPackage=</span><span style="color:#e6db74">&#34;myBatisGeneratorDemoConfig&#34;</span> <span style="color:#a6e22e">targetProject=</span><span style="color:#e6db74">&#34;src/main/resources&#34;</span><span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;enableSubPackages&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;/sqlMapGenerator&gt;</span>
-        
-        <span style="color:#f92672">&lt;javaClientGenerator</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;XMLMAPPER&#34;</span> <span style="color:#a6e22e">targetPackage=</span><span style="color:#e6db74">&#34;com.doctor.mybatisdemo.dao&#34;</span> <span style="color:#a6e22e">targetProject=</span><span style="color:#e6db74">&#34;src/main/java/&#34;</span><span style="color:#f92672">&gt;</span>
-            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;enableSubPackages&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;/javaClientGenerator&gt;</span>
-        
-<span style="color:#75715e">&lt;!--         要生成那些表(更改tableName和domainObjectName就可以) --&gt;</span>
-        <span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">tableName=</span><span style="color:#e6db74">&#34;user&#34;</span> <span style="color:#a6e22e">domainObjectName=</span><span style="color:#e6db74">&#34;user&#34;</span><span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;/context&gt;</span>
-<span style="color:#f92672">&lt;/generatorConfiguration&gt;</span></code></pre></div>
-<p><img src="https://s2.ax1x.com/2019/11/02/Kq7dgK.png" alt="Kq7dgK.png" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">&lt;!DOCTYPE generatorConfiguration PUBLIC &#34;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&#34; &#34;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&#34;&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;generatorConfiguration&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;context</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;MysqlTables&#34;</span> <span style="color:#a6e22e">targetRuntime=</span><span style="color:#e6db74">&#34;MyBatis3&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;commentGenerator&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;suppressAllComments&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;suppressDate&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/commentGenerator&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">&lt;!-- 数据库链接URL、用户名、密码 --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;jdbcConnection</span> <span style="color:#a6e22e">driverClass=</span><span style="color:#e6db74">&#34;com.mysql.cj.jdbc.Driver&#34;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">connectionURL=</span><span style="color:#e6db74">&#34;jdbc:mysql://localhost:3306/mybaits_test&#34;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">userId=</span><span style="color:#e6db74">&#34;xxx&#34;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">password=</span><span style="color:#e6db74">&#34;xxx&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/jdbcConnection&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;javaTypeResolver&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;forceBigDecimals&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/javaTypeResolver&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;javaModelGenerator</span> <span style="color:#a6e22e">targetPackage=</span><span style="color:#e6db74">&#34;com.doctor.mybatisdemo.domain&#34;</span> <span style="color:#a6e22e">targetProject=</span><span style="color:#e6db74">&#34;src/main/java/&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;constructorBased&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;enableSubPackages&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;trimStrings&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/javaModelGenerator&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;sqlMapGenerator</span> <span style="color:#a6e22e">targetPackage=</span><span style="color:#e6db74">&#34;myBatisGeneratorDemoConfig&#34;</span> <span style="color:#a6e22e">targetProject=</span><span style="color:#e6db74">&#34;src/main/resources&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;enableSubPackages&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/sqlMapGenerator&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;javaClientGenerator</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#34;XMLMAPPER&#34;</span> <span style="color:#a6e22e">targetPackage=</span><span style="color:#e6db74">&#34;com.doctor.mybatisdemo.dao&#34;</span> <span style="color:#a6e22e">targetProject=</span><span style="color:#e6db74">&#34;src/main/java/&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">&lt;property</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#34;enableSubPackages&#34;</span> <span style="color:#a6e22e">value=</span><span style="color:#e6db74">&#34;false&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;/javaClientGenerator&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!--         要生成那些表(更改tableName和domainObjectName就可以) --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">tableName=</span><span style="color:#e6db74">&#34;user&#34;</span> <span style="color:#a6e22e">domainObjectName=</span><span style="color:#e6db74">&#34;user&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/context&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/generatorConfiguration&gt;</span>
+</span></span></code></pre></div><p><img src="https://s2.ax1x.com/2019/11/02/Kq7dgK.png" alt="Kq7dgK.png"></p>
 <p>在这里我想强调的是一个关键参数的配置，即 <code>targetRuntime</code> 参数。这个参数有2种配置项，即 <code>MyBatis3</code> 和 <code>MyBatis3Simple</code>，<code>MyBatis3</code> 为默认配置项。MyBatis3Simple 只会生成基本的增删改查，而 MyBatis3 会生成带条件的增删改查，所有的条件都在 XXXexample 中封装。使用 MyBatis3 时，enableSelectByExample，enableDeleteByExample，enableCountByExample 以及 enableUpdateByExample 这些属性为 true，就会生成相应的动态语句。这也就是我们上述 <code>Example_Where_Clause</code> 生成的原因。</p>
-
 <p>如果使用配置项 <code>MyBatis3Simple</code>，那么生成的 SQL Map XML 文件将非常简单，只包含一些基本的方法，也不会产生上面的动态方法。可以这么说，如果你使用 <code>MyBatis3Simple</code> 话，并且不额外改造，因为里面所有的变量都是通过 <code>#{}</code> 引入，就不可能会有 SQL 注入的问题。但是现实业务中往往涉及到复杂的查询条件，而且一般开发使用的都是祖传配置文件，所以到底是使用 <code>MyBatis3</code> 还是 <code>MyBatis3Simple</code>，还是需要具体问题，具体看待。不过如果你是使用默认配置，你就需要当心了，谨记一点，外部传入的参数是极有可能是不安全的，是不可以直接引入处理的。意思到这一点，就基本可以很好地避免 SQL 注入问题了。</p>
-
 <p>我创建了一个 Github 仓库 <a href="https://github.com/neal1991/mb-generator">mb-generator</a>，这个仓库里面的 mybatis3 分支以及 mybatis3simple 分支分别是使用不同的配置项生成的代码，你可以去看一看生成的代码具体差别有哪一些，可以看一看使用不同配置项的具体差别。</p>
-
 <h2 id="总结">总结</h2>
-
 <p>这篇文章从内网的一个 SQL 注入漏洞引发的对 MyBatis 的使用问题思考，对 MyBatis 中 <code>#{}</code> 工作的原理以及 Mybatis generator 的使用多个方面做了进一步的思考。可以总结以下几点：</p>
-
 <ul>
 <li>能不使用拼接就不要使用拼接，这应该也是避免 SQL 注入最基本的原则</li>
 <li>在使用 <code>${}</code> 传入变量的时候，一定要注意变量的引入和过滤，避免直接通过 <code>${}</code> 传入外部变量</li>
 <li>不要自己造轮子，尤其是在安全方面，其实在这个问题上，框架已经提供了标准的方法。如果按照规范开发的话，也不会导致 SQL 注入问题</li>
 <li>可以注意 MyBatis 中 <code>targetRuntime</code> 的配置，如果不需要复杂的条件查询的话，建议直接使用 <code>MyBatis3Simple</code>。这样可以更好地直接杜绝风险，因为一旦有风险点，就有发生问题的可能</li>
 </ul>
-
 <h2 id="reference">Reference</h2>
-
 <ul>
 <li><a href="https://blog.csdn.net/Marvel__Dead/article/details/69486947">https://blog.csdn.net/Marvel__Dead/article/details/69486947</a></li>
 <li><a href="https://www.jianshu.com/p/7ef5499d5f60">https://www.jianshu.com/p/7ef5499d5f60</a></li>
 </ul>
-
 <p>本文由安全客原创发布
 转载，请参考转载声明，注明出处： <a href="https://www.anquanke.com/post/id/190170">https://www.anquanke.com/post/id/190170</a>
 安全客 - 有思想的安全新媒体</p>
@@ -464,13 +435,13 @@ public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuil
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>924</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>937</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -524,7 +495,7 @@ public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuil
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

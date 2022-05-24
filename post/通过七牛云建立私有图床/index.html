@@ -23,7 +23,7 @@
 文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
  利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
-function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。" />
+function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date()).getTime() &#43; 3600  }  return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token." />
 
   
   
@@ -38,14 +38,13 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
  利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
-function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。" />
+function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date()).getTime() &#43; 3600  }  return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token." />
   <meta property="og:url" content="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" />
@@ -231,113 +230,84 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
       <h1 class="post-title">通过七牛云建立私有图床</h1>
       <p class="post-meta">@Neal · Feb 25, 2018 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<p>七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。</p>
-
+    <article class="post-content"><p>七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。</p>
 <h2 id="注册账户">注册账户</h2>
-
 <p>首先你可以通过这个<a href="https://portal.qiniu.com/signup?code=3ln7n4xpfyuky">链接</a>注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。</p>
-
-<p><img src="https://madneal.com/img/bV4hoV" alt="clipboard.png" /></p>
-
+<p><img src="https://madneal.com/img/bV4hoV" alt="clipboard.png"></p>
 <p>创建好存储空间（bucket）就已经完成了私有图库的第一步。</p>
-
 <h2 id="开发">开发</h2>
-
 <p>在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在<a href="https://developer.qiniu.com/sdk#official-sdk">官方 SDK 文档</a>获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 <a href="https://developer.qiniu.com/kodo/sdk/1283/javascript">js SDK 文档</a>。</p>
-
 <p>文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：</p>
-
 <ul>
 <li>利用<a href="https://developer.qiniu.com/sdk#sdk">七牛服务端 SDK </a>构建后端服务</li>
 <li>利用七牛底层 API 构建服务，详见七牛<a href="https://developer.qiniu.com/kodo/manual/1206/put-policy">上传策略</a>和上传凭证(<a href="https://developer.qiniu.com/kodo/manual/1208/upload-token">https://developer.qiniu.com/kodo/manual/1208/upload-token</a>)</li>
 </ul>
-
 <p>第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。</p>
-
 <p>上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 + 3600s。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">genPolicy</span>(<span style="color:#a6e22e">scope</span>) {
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">policy</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">scope</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">scope</span>,
-    <span style="color:#a6e22e">deadline</span><span style="color:#f92672">:</span> (<span style="color:#66d9ef">new</span> Date()).<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">3600</span>
-  }
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">policy</span>;
-}
-</code></pre></div>
-<p><img src="https://madneal.com/img/bV4ho8" alt="clipboard.png" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">genPolicy</span>(<span style="color:#a6e22e">scope</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">policy</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scope</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">scope</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">deadline</span><span style="color:#f92672">:</span> (<span style="color:#66d9ef">new</span> Date()).<span style="color:#a6e22e">getTime</span>() <span style="color:#f92672">+</span> <span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">policy</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://madneal.com/img/bV4ho8" alt="clipboard.png"></p>
 <p>按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的<a href="http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken">在线示例</a>，通过整理形成了自己的 <a href="https://github.com/neal1991/image-host/blob/master/js/token.js">token.js</a>。</p>
-
 <p>完成本地 token 的，我的开发就完成了一大步。这个拓展需要两个界面的设置，就是包括图片上传页面以及七牛云存储配置页面。关于这两个页面的设计，我也就不一一赘述，主要讲几点：</p>
-
 <h3 id="七牛云信息存储">七牛云信息存储</h3>
-
 <p>为了上传图片，我们需要配置 AK，SK，bucket 以及 domain。这些都可以在七牛云的控制台里面获取，因此我们需要在首次打开拓展的时候检查是否具有这些数据。至于这些配置信息保存在什么地方，一开始打算采取的是 chrome.storage 来进行存储，这样做的好处是可以利用账号同步数据，但缺点是操作不方便，是异步的。后来还是决定使用 localStorage，一来使用起来非常方便，二是我们并不是特别需要账号同步。因此，我们首先会检查配置信息是否存储在 localStorage，否则就打开配置页：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">keys</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;ak&#39;</span>, <span style="color:#e6db74">&#39;sk&#39;</span>, <span style="color:#e6db74">&#39;bucket&#39;</span>, <span style="color:#e6db74">&#39;domain&#39;</span>];
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isConfig</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-  
-  <span style="color:#a6e22e">keys</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">key</span> =&gt; {
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">localStorage</span>[<span style="color:#a6e22e">key</span>]) {
-      <span style="color:#a6e22e">isConfig</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-    }
-  })
-
-  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isConfig</span>) {
-    <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">create</span>({<span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;options.html&#39;</span>});
-  }
-</code></pre></div>
-<p><img src="http://ozfo4jjxb.bkt.clouddn.com/Snipaste_2018-02-25_10-04-52.png" alt="options" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">keys</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;ak&#39;</span>, <span style="color:#e6db74">&#39;sk&#39;</span>, <span style="color:#e6db74">&#39;bucket&#39;</span>, <span style="color:#e6db74">&#39;domain&#39;</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isConfig</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">keys</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">key</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">localStorage</span>[<span style="color:#a6e22e">key</span>]) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">isConfig</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isConfig</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">create</span>({<span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;options.html&#39;</span>});
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p><img src="http://ozfo4jjxb.bkt.clouddn.com/Snipaste_2018-02-25_10-04-52.png" alt="options"></p>
 <p>另外一个问题是如果配置页打开时，无法在拓展程序弹出页面添加图片，暂时不知道是什么原因导致的。解决办法是在保存配置之后，设置延时关闭当前 tab。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">          <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
-          <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">query</span>({<span style="color:#a6e22e">currentWindow</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">active</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>}, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">tabs</span>) {
-            <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#a6e22e">tabs</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">id</span>);
-          })
-        }, <span style="color:#ae81ff">1500</span>)
-</code></pre></div>
-<p>目前图片有有种上传方式：即选择文件上传或者拖着拖放图片上传，这个主要是通过七牛云的官方 SDK 来实现。SDK 提供了多种事件绑定。另外值得注意的一点       是 FileUploaded 事件返回的 info.res 是一个字符串，需要序列化成 json 格式来使用。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">query</span>({<span style="color:#a6e22e">currentWindow</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">active</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>}, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">tabs</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">remove</span>(<span style="color:#a6e22e">tabs</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">id</span>);
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>      }, <span style="color:#ae81ff">1500</span>)
+</span></span></code></pre></div><p>目前图片有有种上传方式：即选择文件上传或者拖着拖放图片上传，这个主要是通过七牛云的官方 SDK 来实现。SDK 提供了多种事件绑定。另外值得注意的一点       是 FileUploaded 事件返回的 info.res 是一个字符串，需要序列化成 json 格式来使用。</p>
 <p>另外值得一提的是利用 css 的 :hover 的属性来实现链接格式 button 的出现，只需要点击 button 就可以将链接复制到剪切板。</p>
-
-<p>  <img src="https://user-images.githubusercontent.com/12164075/36637212-0f51287a-1a12-11e8-920a-c45f20cbf2e7.gif" alt="upload" /></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">copyToClipboard</span>(<span style="color:#a6e22e">input</span>) {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;textarea&#39;</span>);
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">fontsize</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;12pt&#39;</span>
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">border</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">padding</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">margin</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">position</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;absolute&#39;</span>
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;-9999px&#39;</span>
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;readonly&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">input</span>
-
-    document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">el</span>)
-    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">select</span>()
-
-    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">success</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-    <span style="color:#66d9ef">try</span> {
-      <span style="color:#a6e22e">success</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">execCommand</span>(<span style="color:#e6db74">&#39;copy&#39;</span>, <span style="color:#66d9ef">true</span>);
-    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) { }
-
-    document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#a6e22e">el</span>);
-
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">success</span>;
-  }
-</code></pre></div>
-<h2 id="拓展安装">拓展安装</h2>
-
+<p>  <img src="https://user-images.githubusercontent.com/12164075/36637212-0f51287a-1a12-11e8-920a-c45f20cbf2e7.gif" alt="upload"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">copyToClipboard</span>(<span style="color:#a6e22e">input</span>) {
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;textarea&#39;</span>);
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">fontsize</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;12pt&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">border</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">padding</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">margin</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;0&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">position</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;absolute&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">style</span>.<span style="color:#a6e22e">left</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;-9999px&#39;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#39;readonly&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">input</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">el</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">select</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">success</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">success</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">execCommand</span>(<span style="color:#e6db74">&#39;copy&#39;</span>, <span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span> } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">removeChild</span>(<span style="color:#a6e22e">el</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">success</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="拓展安装">拓展安装</h2>
 <p>这个拓展最终也在 chrome 商店上架了。拓展的安装方式有两种，第一种就是去<a href="https://chrome.google.com/webstore/detail/%E4%B8%83%E7%89%9B%E4%BA%91%E5%9B%BE%E5%BA%8A/fmpbbmjlniogoldpglopponaibclkjdg?utm_source=chrome-ntp-icon">chrome 商店</a>去安装，这种方式是推荐的，不过需要科学上网。另外一种就是去<a href="https://chrome.google.com/webstore/detail/%E4%B8%83%E7%89%9B%E4%BA%91%E5%9B%BE%E5%BA%8A/fmpbbmjlniogoldpglopponaibclkjdg?utm_source=chrome-ntp-icon">项目仓库</a>下载项目文件，然后在 chrome://extensions 选择以开发者模式加载已解压的拓展程序。</p>
-
 <h2 id="结语">结语</h2>
-
 <p>现在各种图床层出不穷，我这也是重复造轮子。但是在理解 SDK 以及探索其使用，并且最终形成这个拓展程序的过程还是非常有意思的。陆陆续续花了一个多礼拜的时间完成这个拓展程序的开发，目前拓展程序仍然为 beta 版本，欢迎大家使用，有任何建议可以在 <a href="https://github.com/neal1991/image-host">https://github.com/neal1991/image-host</a> 提 issue，欢迎 star 以及 pr。</p>
-
 <p>以上</p>
-
 <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-
-<p><img src="https://s1.ax1x.com/2018/02/17/9tMvlT.jpg" alt="9tMvlT.jpg" /></p>
+<p><img src="https://s1.ax1x.com/2018/02/17/9tMvlT.jpg" alt="9tMvlT.jpg"></p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -352,13 +322,13 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1536</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1549</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -412,7 +382,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

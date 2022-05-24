@@ -47,7 +47,6 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" />
@@ -233,92 +232,66 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
       <h1 class="post-title">让你的SQL盲注快起来</h1>
       <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<p>本文首发于 Freebuf 平台，<a href="https://www.freebuf.com/articles/web/231741.html">https://www.freebuf.com/articles/web/231741.html</a></p>
-
+    <article class="post-content"><p>本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html</p>
 <p>SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的  SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。</p>
-
 <p>与或运算
 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。</p>
-
 <p>与运算
 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1</p>
-
 <p>即：两位同时为“1”，结果才为“1”，否则为0</p>
-
 <p>或运算
 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1</p>
-
 <p>即：参加运算的两个对象只要有一个为1，其值为1</p>
-
 <p>假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：</p>
-
 <p>1 &amp; x = 0,  x = 0</p>
-
 <p>1 &amp; x = 1,  x = 1</p>
-
 <p>所以通过与运算，假设其中的一个数据是已知的，那么另外的值就很好确定了。</p>
-
 <p>通过与运算盲注</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/19/JuhTS0.png" alt="JuhTS0.png" /></p>
-
+<p><img src="https://s1.ax1x.com/2020/04/19/JuhTS0.png" alt="JuhTS0.png"></p>
 <p>看到这里，你可能还是一头雾水，与运算和盲注有啥关系？假设一个数字 104，我们可以将它转化为二进制，即 <code>104 = 64 + 32 + 8 = 2 ^ 6 + 2 ^ 5 + 2 ^ 3</code>，我们可以将它以比特位的形式将它表示出来：</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/19/JuhOw4.png" alt="JuhOw4.png" /></p>
-
+<p><img src="https://s1.ax1x.com/2020/04/19/JuhOw4.png" alt="JuhOw4.png"></p>
 <p>那么我们可以将104与 <code>1，2，4，8，16，32，64，128</code> 进行与运算，就可以获得每个比特位上的数据。</p>
-
 <p>与1进行运算</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4k0e.png" alt="Ju4k0e.png" /></p>
-
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4k0e.png" alt="Ju4k0e.png"></p>
 <p>和2进行与运算</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4ZtA.png" alt="Ju4ZtA.png" /></p>
-
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4ZtA.png" alt="Ju4ZtA.png"></p>
 <p>和4进行与运算</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4efI.png" alt="Ju4efI.png" /></p>
-
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4efI.png" alt="Ju4efI.png"></p>
 <p>通过这样的方式，我们就可以确定104每个比特位上的数据是什么。那这和我们SQL盲注又有什么关系呢？对于SQL盲注，我们往往会使用到 substring，我们会对结果的每一个字符来进行枚举，将字符与可能字符来进行比较，这样枚举的效率可能会不太好，往往需要比较很多次。对于一个 acsii 字符，其范围是在0-127之间，那么只需要7个比特位就足够了。那么如果使用与运算的方式，我们只需要比较7次就可以确定这个字符的 ascii 码。通过与运算的方式，可以显著地提高效率，减少比较次数，而且往往字符越多，提升的效果就越明显。</p>
-
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4MX8.png" alt="Ju4MX8.png" /></p>
-
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4MX8.png" alt="Ju4MX8.png"></p>
 <p>Talk is cheap, show me the code. 这里我们通过 python 的方式来实现：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_by_and</span>(word):
-    <span style="color:#66d9ef">for</span> ele <span style="color:#f92672">in</span> word:
-        ele_b, times <span style="color:#f92672">=</span> get_character(ele)
-        <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Guess the value {ele_b}:{chr(ele_b)} with {times} times&#34;</span>)
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_character</span>(char):
-    char_b <span style="color:#f92672">=</span> ord(char)
-    value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    times <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">7</span>):
-        times <span style="color:#f92672">=</span> times <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-        <span style="color:#66d9ef">if</span> char_b <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> i):
-            value <span style="color:#f92672">=</span> value <span style="color:#f92672">+</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> i)
-    <span style="color:#66d9ef">return</span> value, times
-
-<span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;main&#34;</span>:
-    compute_by_and(<span style="color:#e6db74">&#34;hello&#34;</span>)</code></pre></div>
-<p>很明显，每一个字符仅仅只需要7次比较就可以知道这个字符是什么字符了。如果没有数据支撑，这个结果可能对比不是很明显，那我们可以通过其与普通的枚举方式来进行对比，我们选取3个字符来进行对比，<code>myapp,myapp_card,myapp_card_perform</code>。我们枚举的方式选取 <code>string.printable</code>，这个也包含了所有的 ascii 字符。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> string
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">brute_force</span>(word):
-    times <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    <span style="color:#66d9ef">for</span> ele <span style="color:#f92672">in</span> word:
-        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> string<span style="color:#f92672">.</span>printable:
-            times <span style="color:#f92672">=</span> times <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-            <span style="color:#66d9ef">if</span> ele <span style="color:#f92672">==</span> c:
-                <span style="color:#66d9ef">break</span>
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;Brute force {word} with {times} times&#34;</span>)
-
-<span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;main&#34;</span>:
-    brute_force(<span style="color:#e6db74">&#34;hello_world&#34;</span>)</code></pre></div>
-<table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_by_and</span>(word):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ele <span style="color:#f92672">in</span> word:
+</span></span><span style="display:flex;"><span>        ele_b, times <span style="color:#f92672">=</span> get_character(ele)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Guess the value </span><span style="color:#e6db74">{</span>ele_b<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">{</span>chr(ele_b)<span style="color:#e6db74">}</span><span style="color:#e6db74"> with </span><span style="color:#e6db74">{</span>times<span style="color:#e6db74">}</span><span style="color:#e6db74"> times&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_character</span>(char):
+</span></span><span style="display:flex;"><span>    char_b <span style="color:#f92672">=</span> ord(char)
+</span></span><span style="display:flex;"><span>    value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    times <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">7</span>):
+</span></span><span style="display:flex;"><span>        times <span style="color:#f92672">=</span> times <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> char_b <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> i):
+</span></span><span style="display:flex;"><span>            value <span style="color:#f92672">=</span> value <span style="color:#f92672">+</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> i)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> value, times
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;main&#34;</span>:
+</span></span><span style="display:flex;"><span>    compute_by_and(<span style="color:#e6db74">&#34;hello&#34;</span>)
+</span></span></code></pre></div><p>很明显，每一个字符仅仅只需要7次比较就可以知道这个字符是什么字符了。如果没有数据支撑，这个结果可能对比不是很明显，那我们可以通过其与普通的枚举方式来进行对比，我们选取3个字符来进行对比，<code>myapp,myapp_card,myapp_card_perform</code>。我们枚举的方式选取 <code>string.printable</code>，这个也包含了所有的 ascii 字符。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> string
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">brute_force</span>(word):
+</span></span><span style="display:flex;"><span>    times <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ele <span style="color:#f92672">in</span> word:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> string<span style="color:#f92672">.</span>printable:
+</span></span><span style="display:flex;"><span>            times <span style="color:#f92672">=</span> times <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ele <span style="color:#f92672">==</span> c:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Brute force </span><span style="color:#e6db74">{</span>word<span style="color:#e6db74">}</span><span style="color:#e6db74"> with </span><span style="color:#e6db74">{</span>times<span style="color:#e6db74">}</span><span style="color:#e6db74"> times&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;main&#34;</span>:
+</span></span><span style="display:flex;"><span>    brute_force(<span style="color:#e6db74">&#34;hello_world&#34;</span>)
+</span></span></code></pre></div><table>
 <thead>
 <tr>
 <th></th>
@@ -327,7 +300,6 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
 <th>myapp_card_perform</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>枚举</td>
@@ -335,7 +307,6 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
 <td>276</td>
 <td>526</td>
 </tr>
-
 <tr>
 <td>与运算</td>
 <td>35</td>
@@ -344,9 +315,7 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
 </tr>
 </tbody>
 </table>
-
 <h1 id="总结">总结</h1>
-
 <p>通过上面的对比，我们可以看出在SQL盲注中，如果通过与运算来进行盲注，可以大大提升盲注的效率，减少请求的次数，这对于我们的测试的帮助意义还是比较大的。</p>
 </article>
     <footer class="post-footer">
@@ -362,13 +331,13 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>772</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>785</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -422,7 +391,7 @@ SQL 注入是当前 Web 安全中最常见的安全问题之一，其危害性�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

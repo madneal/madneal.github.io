@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on Neal&#39;s Blog</title>
@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://madneal.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>第一款Goland的SCA插件开发之旅</title>
       <link>https://madneal.com/post/goland-plugin/</link>
@@ -50,8 +46,8 @@ Intention actions 字段添加新的 tag
       <guid>https://madneal.com/post/stored-xss/</guid>
       <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; + &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</description>
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
     </item>
     
     <item>
@@ -80,7 +76,7 @@ Condition3 startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages
 Condition4 startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages
 这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
 代码实现 Show me the code.
-func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startIndex := p - step endIndex := p + step if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages { startIndex = 1 endIndex = startIndex + 2 * step } else if startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { endIndex = pages startIndex = pages - 2 * step } else if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { startIndex = 1 endIndex = pages } // handle some special cases 	if startIndex &amp;lt; 1 { startIndex = 1 } if endIndex &amp;gt; pages { endIndex = pages } for i := startIndex; i &amp;lt;= endIndex; i++ { pageList = append(pageList, i) } return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</description>
+func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	startIndex := p - step 	endIndex := p + step  	if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages { 	startIndex = 1 	endIndex = startIndex + 2 * step 	} else if startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { 	endIndex = pages 	startIndex = pages - 2 * step 	} else if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { 	startIndex = 1 	endIndex = pages 	} 		// handle some special cases 	if startIndex &amp;lt; 1 { 	startIndex = 1 	}  	if endIndex &amp;gt; pages { 	endIndex = pages 	}  	for i := startIndex; i &amp;lt;= endIndex; i++ { 	pageList = append(pageList, i) 	}  	return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</description>
     </item>
     
   </channel>

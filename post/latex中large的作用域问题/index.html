@@ -33,7 +33,6 @@ I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are righ
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" />
@@ -220,17 +219,17 @@ I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are righ
       <p class="post-meta">@Neal · Jan 6, 2017 · 1 min read</p>
     </header>
     <article class="post-content"><p>在毕业论文的写作过程中，遇到了一个<code>\large</code> 作用域的问题。假设下面有三种写法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-[latex]" data-lang="[latex]">I am cool \large{you are right}, yeah, yeah, yeah
+<pre tabindex="0"><code class="language-[latex]" data-lang="[latex]">I am cool \large{you are right}, yeah, yeah, yeah
 I am cool {\large you are right}, yeah, yeah, yeah
 I am cool 
 \begin{large}
 you are right
-\end{large}, yeah, yeah, yeah</code></pre></div>
-<p>我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？
+\end{large}, yeah, yeah, yeah
+</code></pre><p>我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？
 下面且看这三个命令的分别显示结果：
-<img src="http://img.blog.csdn.net/20170106220409363?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large1" />
-<img src="http://img.blog.csdn.net/20170106220438270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large2" />
-<img src="http://img.blog.csdn.net/20170106220457091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large3" />
+<img src="http://img.blog.csdn.net/20170106220409363?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large1">
+<img src="http://img.blog.csdn.net/20170106220438270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large2">
+<img src="http://img.blog.csdn.net/20170106220457091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large3">
 很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面<code>\large</code> 的影响，也变成了放大的字体。这就是<code>\large</code>的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</p>
 </article>
     <footer class="post-footer">
@@ -244,13 +243,13 @@ you are right
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1950</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1963</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -304,7 +303,7 @@ you are right
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

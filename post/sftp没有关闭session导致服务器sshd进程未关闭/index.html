@@ -17,7 +17,7 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger." />
+ protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;#34;HostName:&amp;#34; &#43; hostname &#43; &amp;#34;|Port:&amp;#34; &#43; port); logger.debug(&amp;#34;Session created&amp;#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;#34;StrictHostKeyChecking&amp;#34;, &amp;#34;no&amp;#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;#34;sftp&amp;#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;#34;Failed to connect FTP server &amp;#34; &#43; hostname); return false; } logger.debug(&amp;#34;Username:&amp;#34; &#43; userName &#43; &amp;#34;|Password:&amp;#34; &#43; password); } catch (Exception ex) { logger." />
 
   
   
@@ -26,14 +26,13 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="sftp没有关闭session导致服务器sshd进程未关闭" />
   <meta property="og:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger." />
+ protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;#34;HostName:&amp;#34; &#43; hostname &#43; &amp;#34;|Port:&amp;#34; &#43; port); logger.debug(&amp;#34;Session created&amp;#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;#34;StrictHostKeyChecking&amp;#34;, &amp;#34;no&amp;#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;#34;sftp&amp;#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;#34;Failed to connect FTP server &amp;#34; &#43; hostname); return false; } logger.debug(&amp;#34;Username:&amp;#34; &#43; userName &#43; &amp;#34;|Password:&amp;#34; &#43; password); } catch (Exception ex) { logger." />
   <meta property="og:url" content="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/" />
@@ -220,43 +219,37 @@
       <p class="post-meta">@Neal · Jul 28, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><p>项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。
-<img src="http://img.blog.csdn.net/20160728170459770" alt="这里写图片描述" />
+<img src="http://img.blog.csdn.net/20160728170459770" alt="这里写图片描述">
 连接sftp代码：</p>
-
-<pre><code> protected boolean connectToServer() {
+<pre tabindex="0"><code> protected boolean connectToServer() {
         try {
             JSch jsch = new JSch();
             jsch.getSession(userName, hostname, port);
             Session sshSession = jsch.getSession(userName, hostname, port);
-            logger.debug(&quot;HostName:&quot; + hostname + &quot;|Port:&quot; + port);
-            logger.debug(&quot;Session created&quot;);
+            logger.debug(&#34;HostName:&#34; + hostname + &#34;|Port:&#34; + port);
+            logger.debug(&#34;Session created&#34;);
             sshSession.setPassword(password);
             Properties sshConfig = new Properties();
-            sshConfig.put(&quot;StrictHostKeyChecking&quot;, &quot;no&quot;);
+            sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;);
             sshSession.setConfig(sshConfig);
             sshSession.setTimeout(TIMEOUT); //ms
             sshSession.connect();
-            sftp = (ChannelSftp) sshSession.openChannel(&quot;sftp&quot;);
+            sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;);
             sftp.connect();
             if (!sftp.isConnected()) {
-                logger.error(&quot;Failed to connect FTP server &quot; + hostname);
+                logger.error(&#34;Failed to connect FTP server &#34; + hostname);
                 return false;
             }
-            logger.debug(&quot;Username:&quot; + userName + &quot;|Password:&quot; + password);
+            logger.debug(&#34;Username:&#34; + userName + &#34;|Password:&#34; + password);
         } catch (Exception ex) {
             logger.error(ex);
         }
         return true;
     }
-</code></pre>
-
-<p>其实每次执行完都会</p>
-
-<pre><code> sftp.quit();
- sftp.disconnet();
-</code></pre>
-
-<p>但是进程还是在，后来觉得应该是session没有关闭。后来证明的确是这样的，虽然sftp退出了，但是session还是存在的。解决办法很简单，只要在<code>sftp.quit()</code> 之前加上 <code>sftp.getSession().disconnect()</code> 就可以了。</p>
+</code></pre><p>其实每次执行完都会</p>
+<pre tabindex="0"><code>sftp.quit();
+sftp.disconnet();
+</code></pre><p>但是进程还是在，后来觉得应该是session没有关闭。后来证明的确是这样的，虽然sftp退出了，但是session还是存在的。解决办法很简单，只要在<code>sftp.quit()</code> 之前加上 <code>sftp.getSession().disconnect()</code> 就可以了。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -271,13 +264,13 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2112</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2125</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -331,7 +324,7 @@
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

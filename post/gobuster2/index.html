@@ -17,7 +17,7 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;quot;200,204,301,302,307,401,403&amp;quot;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;quot;gobuster/3." />
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3." />
 
   
   
@@ -26,14 +26,13 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="gobuster源码阅读--dir篇" />
   <meta property="og:description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;quot;200,204,301,302,307,401,403&amp;quot;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;quot;gobuster/3." />
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3." />
   <meta property="og:url" content="https://madneal.com/post/gobuster2/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/gobuster2/" />
@@ -219,11 +218,8 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
       <h1 class="post-title">gobuster源码阅读--dir篇</h1>
       <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
     </header>
-    <article class="post-content">
-
-<p>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 <code>dir</code> 模块。<code>dir</code> 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：</p>
-
-<pre><code>Usage:
+    <article class="post-content"><p>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 <code>dir</code> 模块。<code>dir</code> 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：</p>
+<pre tabindex="0"><code>Usage:
   gobuster dir [flags]
 
 Flags:
@@ -232,150 +228,138 @@ Flags:
   -e, --expanded                      Expanded mode, print full URLs
   -x, --extensions string             File extension(s) to search for
   -r, --follow-redirect               Follow redirects
-  -H, --headers stringArray           Specify HTTP headers, -H 'Header1: val1' -H 'Header2: val2'
+  -H, --headers stringArray           Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39;
   -h, --help                          help for dir
   -l, --include-length                Include the length of the body in the output
   -k, --no-tls-validation             Skip TLS certificate verification
-  -n, --no-status                     Don't print status codes
+  -n, --no-status                     Don&#39;t print status codes
   -P, --password string               Password for Basic Auth
   -p, --proxy string                  Proxy to use for requests [http(s)://host:port]
-  -s, --status-codes string           Positive status codes (will be overwritten with status-codes-blacklist if set) (default &quot;200,204,301,302,307,401,403&quot;)
+  -s, --status-codes string           Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;)
   -b, --status-codes-blacklist string Negative status codes (will override status-codes if set)
       --timeout duration              HTTP Timeout (default 10s)
   -u, --url string                    The target URL
-  -a, --useragent string              Set the User-Agent string (default &quot;gobuster/3.1.0&quot;)
+  -a, --useragent string              Set the User-Agent string (default &#34;gobuster/3.1.0&#34;)
   -U, --username string               Username for Basic Auth
   -d, --discover-backup               Upon finding a file search for backup files
       --wildcard                      Force continued operation when wildcard found
 
 Global Flags:
-  -z, --no-progress       Don't display progress
+  -z, --no-progress       Don&#39;t display progress
   -o, --output string     Output file to write results to (defaults to stdout)
-  -q, --quiet             Don't print the banner and other noise
+  -q, --quiet             Don&#39;t print the banner and other noise
   -t, --threads int       Number of concurrent threads (default 10)
       --delay duration    Time each thread waits between requests (e.g. 1500ms)
   -v, --verbose           Verbose output (errors)
   -w, --wordlist string   Path to the wordlist
-</code></pre>
-
-<p><code>dir</code> 模块的调用在前文中提到过，也是依据 cobra 的命令行来进行控制，入口函数为 <code>cmd/dir.go</code> 中的 <code>runDir</code> 函数。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// 全局配置项初始化
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parseDirOptions</span>()
-<span style="color:#75715e">// dir 配置项初始化
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">plugin</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gobusterdir</span>.<span style="color:#a6e22e">NewGobusterDir</span>(<span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>)</code></pre></div>
-<p><code>cli.Gobuster</code> 是整个 CLI 程序的入口，是 gobuster 的核心函数。所有模块的功能都是通过该入口进入，这个函数有三个参数，分别为 <code>ctx</code>, <code>opts</code> 以及 <code>plugin</code>。后面两个分别为全局的配置项以及各个模块所属的配置项内容。</p>
-
+</code></pre><p><code>dir</code> 模块的调用在前文中提到过，也是依据 cobra 的命令行来进行控制，入口函数为 <code>cmd/dir.go</code> 中的 <code>runDir</code> 函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 全局配置项初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parseDirOptions</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dir 配置项初始化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">plugin</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gobusterdir</span>.<span style="color:#a6e22e">NewGobusterDir</span>(<span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>)
+</span></span></code></pre></div><p><code>cli.Gobuster</code> 是整个 CLI 程序的入口，是 gobuster 的核心函数。所有模块的功能都是通过该入口进入，这个函数有三个参数，分别为 <code>ctx</code>, <code>opts</code> 以及 <code>plugin</code>。后面两个分别为全局的配置项以及各个模块所属的配置项内容。</p>
 <h2 id="errwildcard">ErrWildcard</h2>
-
 <p>在 <code>dir</code> 模块有一个单独的内容想提及一下就是 <code>ErrWildcard</code>，这是针对 <code>wildcard response</code> 的一种报错。经常会听到泛解析，那么 <code>wildcard response</code> 是什么含义呢？</p>
-
 <p>HTTP 的请求状态码都被赋予了特定的含义，比如 200、404、403。但是现在很多公司的业务响应已经不区分状态码了，所有请求的状态码统统都是 200，这一点在国内尤其更为明显，也算得上是中国特色了。对于这种情形，根据状态码去判断请求的响应状态就不可以了，因为已经无法区分了。</p>
-
 <p>这个错误的产生主要是来源于 <code>func (d *GobusterDir) PreRun</code> 函数，这也是 gobuster 每个模块通用的函数之一。这个函数主要的逻辑是生成一个随机 uid，然后将这个 uid 拼接到 url 中进行访问，获取返回的状态码。如果 <code>StatusCodesBlacklistParsed</code> 中不包含这个状态码或者 <code>StatusCodesParsed</code> 中包含这个状态码，则会产生 <code>ErrWildcard</code>。这代表着状态码返回可能是异常的，因为按照常理来说，uid 拼接的 url 一定是一个不存在的 url。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">guid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">New</span>()
-<span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s%s&#34;</span>, <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">URL</span>, <span style="color:#a6e22e">guid</span>)
-<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">UseSlash</span> {
-    <span style="color:#a6e22e">url</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s/&#34;</span>, <span style="color:#a6e22e">url</span>)
-}
-
-<span style="color:#a6e22e">wildcardResp</span>, <span style="color:#a6e22e">wildcardLength</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">libgobuster</span>.<span style="color:#a6e22e">RequestOptions</span>{})
-<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesBlacklistParsed</span>.<span style="color:#a6e22e">Length</span>() &gt; <span style="color:#ae81ff">0</span> {
-    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesBlacklistParsed</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ErrWildcard</span>{<span style="color:#a6e22e">url</span>: <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">statusCode</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>, <span style="color:#a6e22e">length</span>: <span style="color:#a6e22e">wildcardLength</span>}
-    }
-} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesParsed</span>.<span style="color:#a6e22e">Length</span>() &gt; <span style="color:#ae81ff">0</span> {
-    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesParsed</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>) {
-        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ErrWildcard</span>{<span style="color:#a6e22e">url</span>: <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">statusCode</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>, <span style="color:#a6e22e">length</span>: <span style="color:#a6e22e">wildcardLength</span>}
-    }
-} <span style="color:#66d9ef">else</span> {
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;StatusCodes and StatusCodesBlacklist are both not set which should not happen&#34;</span>)
-}</code></pre></div>
-<p>在本地起一个最简单的 server：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>                                                                              
-
-<span style="color:#f92672">import</span> (                                                                                  
-    <span style="color:#e6db74">&#34;fmt&#34;</span>                                                                                
-    <span style="color:#e6db74">&#34;net/http&#34;</span>                                                                           
-)    
-     
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HelloHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {                              
-    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">200</span>)                                                                   
-    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>)                                                              
-}    
-     
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {                                                                            
-    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">HelloHandler</span>)                                                   
-    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>)                                                    
-}</code></pre></div>
-<p>上面的 server 无论请求任何路径，返回的状态响应码都是 200，这种情形下，就会产生 <code>ErrWildcard</code>。假如将状态码响应返回始终设置为 404，则不会产生这种错误。这种错误的产生在枚举国内应用的情况是经常发生的。</p>
-
-<p><img src="https://s2.loli.net/2022/04/22/DN8OojprshBYmUq.jpg" alt="image.jpg" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">guid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">uuid</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s%s&#34;</span>, <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">URL</span>, <span style="color:#a6e22e">guid</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">UseSlash</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">url</span> = <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s/&#34;</span>, <span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wildcardResp</span>, <span style="color:#a6e22e">wildcardLength</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">libgobuster</span>.<span style="color:#a6e22e">RequestOptions</span>{})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesBlacklistParsed</span>.<span style="color:#a6e22e">Length</span>() &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesBlacklistParsed</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ErrWildcard</span>{<span style="color:#a6e22e">url</span>: <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">statusCode</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>, <span style="color:#a6e22e">length</span>: <span style="color:#a6e22e">wildcardLength</span>}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesParsed</span>.<span style="color:#a6e22e">Length</span>() &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">StatusCodesParsed</span>.<span style="color:#a6e22e">Contains</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">ErrWildcard</span>{<span style="color:#a6e22e">url</span>: <span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">statusCode</span>: <span style="color:#f92672">*</span><span style="color:#a6e22e">wildcardResp</span>, <span style="color:#a6e22e">length</span>: <span style="color:#a6e22e">wildcardLength</span>}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Errorf</span>(<span style="color:#e6db74">&#34;StatusCodes and StatusCodesBlacklist are both not set which should not happen&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在本地起一个最简单的 server：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>                                                                              
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (                                                                                  
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>                                                                                
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;net/http&#34;</span>                                                                           
+</span></span><span style="display:flex;"><span>)    
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">HelloHandler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {                              
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">WriteHeader</span>(<span style="color:#ae81ff">200</span>)                                                                   
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello&#34;</span>)                                                              
+</span></span><span style="display:flex;"><span>}    
+</span></span><span style="display:flex;"><span>     
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {                                                                            
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">HelloHandler</span>)                                                   
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>)                                                    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面的 server 无论请求任何路径，返回的状态响应码都是 200，这种情形下，就会产生 <code>ErrWildcard</code>。假如将状态码响应返回始终设置为 404，则不会产生这种错误。这种错误的产生在枚举国内应用的情况是经常发生的。</p>
+<p><img src="https://s2.loli.net/2022/04/22/DN8OojprshBYmUq.jpg" alt="image.jpg"></p>
 <p>再次回归到主线分析过程中的 Gobuster 函数。在这个函数中，抛开一些配置项的初始化以及打印的过程，核心内容包括以下内容：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
-
-<span style="color:#a6e22e">outputMutex</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>)
-<span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">outputType</span>{
-    <span style="color:#a6e22e">Mu</span>:              <span style="color:#a6e22e">outputMutex</span>,
-    <span style="color:#a6e22e">MaxCharsWritten</span>: <span style="color:#ae81ff">0</span>,
-}
-
-<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">resultWorker</span>(<span style="color:#a6e22e">gobuster</span>, <span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">OutputFilename</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>, <span style="color:#a6e22e">o</span>)
-
-<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">errorWorker</span>(<span style="color:#a6e22e">gobuster</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>, <span style="color:#a6e22e">o</span>)
-
-<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">Quiet</span> <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">NoProgress</span> {
-    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">progressWorker</span>(<span style="color:#a6e22e">ctxCancel</span>, <span style="color:#a6e22e">gobuster</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>, <span style="color:#a6e22e">o</span>)
-}</code></pre></div>
-<p>以上的几个 goroutine 分别负责不同的任务，并且最终需要确保这些 goroutine 都执行完毕。<code>resultWorker</code> 和 <code>errorWorker</code> 分别负责结果写入到文件中以及错误的输出，并且通过读写锁来控制输出的写入或者读的场景。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">outputMutex</span> <span style="color:#f92672">:=</span> new(<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">o</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">outputType</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Mu</span>:              <span style="color:#a6e22e">outputMutex</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">MaxCharsWritten</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">resultWorker</span>(<span style="color:#a6e22e">gobuster</span>, <span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">OutputFilename</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>, <span style="color:#a6e22e">o</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">errorWorker</span>(<span style="color:#a6e22e">gobuster</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>, <span style="color:#a6e22e">o</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">Quiet</span> <span style="color:#f92672">&amp;&amp;</span> !<span style="color:#a6e22e">opts</span>.<span style="color:#a6e22e">NoProgress</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">progressWorker</span>(<span style="color:#a6e22e">ctxCancel</span>, <span style="color:#a6e22e">gobuster</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">wg</span>, <span style="color:#a6e22e">o</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>以上的几个 goroutine 分别负责不同的任务，并且最终需要确保这些 goroutine 都执行完毕。<code>resultWorker</code> 和 <code>errorWorker</code> 分别负责结果写入到文件中以及错误的输出，并且通过读写锁来控制输出的写入或者读的场景。</p>
 <h2 id="label">Label</h2>
-
 <p><code>Run</code> 函数中有一个比较少见的语法：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Scan</span>:
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scan</span>() {
-		<span style="color:#66d9ef">select</span> {
-		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
-			<span style="color:#66d9ef">break</span> <span style="color:#a6e22e">Scan</span>
-		<span style="color:#66d9ef">default</span>:
-			<span style="color:#a6e22e">word</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Text</span>()
-			<span style="color:#a6e22e">perms</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">processPatterns</span>(<span style="color:#a6e22e">word</span>)
-			<span style="color:#75715e">// add the original word
-</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">word</span>
-			<span style="color:#75715e">// now create perms
-</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">perms</span> {
-				<span style="color:#66d9ef">select</span> {
-				<span style="color:#75715e">// need to check here too otherwise wordChan will block
-</span><span style="color:#75715e"></span>				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
-					<span style="color:#66d9ef">break</span> <span style="color:#a6e22e">Scan</span>
-				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">w</span>:
-				}
-			}
-		}
-	}</code></pre></div>
-<p>咋一看我没看明白这里的 <code>Scan</code> 的含义，因为它没有任何的定义。后来才明白这种语法是 Golang 中的 Label，类似于 <code>C/C++</code> 中的 <code>goto</code> 的语法。这种语法其实在很多语言都不推荐使用，有的语言甚至根本就没有这种语法。这种写法在日常的业务场景中不太经常碰到，笔者没有使用过这种写法。不过这里如此写的原因应该是用了 <code>for</code> 和 <code>select</code>，如果直接使用 <code>break</code> 是没有办法退出的。这一块逻辑的作用主要是用于获取扫描用的字典。</p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">Scan</span>:
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Scan</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span> <span style="color:#a6e22e">Scan</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">word</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Text</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">perms</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">processPatterns</span>(<span style="color:#a6e22e">word</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// add the original word
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">word</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// now create perms
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">perms</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// need to check here too otherwise wordChan will block
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">break</span> <span style="color:#a6e22e">Scan</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">w</span>:
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span></code></pre></div><p>咋一看我没看明白这里的 <code>Scan</code> 的含义，因为它没有任何的定义。后来才明白这种语法是 Golang 中的 Label，类似于 <code>C/C++</code> 中的 <code>goto</code> 的语法。这种语法其实在很多语言都不推荐使用，有的语言甚至根本就没有这种语法。这种写法在日常的业务场景中不太经常碰到，笔者没有使用过这种写法。不过这里如此写的原因应该是用了 <code>for</code> 和 <code>select</code>，如果直接使用 <code>break</code> 是没有办法退出的。这一块逻辑的作用主要是用于获取扫描用的字典。</p>
 <h2 id="核心-worker">核心 worker</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">workerGroup</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
-<span style="color:#a6e22e">workerGroup</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>)
-<span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>)
-
-<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">worker</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">wordChan</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">workerGroup</span>)
-}</code></pre></div>
-<p>以上代码是扫描任务执行的核心逻辑，通过 <code>Threads</code> 来控制扫描任务的并发数量。通过 <code>worker</code> 进入，可以看到的也是依据 <code>workChan</code> 来进行扫描任务的爆破。<code>worker</code> 中的核心函数为 <code>g.plugin.Run</code>，其它的主要也是任务的结束以及一些超时的处理。值得注意的是 gobuster 中各个模块都是通过 <code>libgobuster/interfaces.go</code> 中的 <code>GobusterPlugin</code> 来实现的。找到对应的实现方法。不过 <code>Run</code> 函数的逻辑也变得非常直白了，主要是通过 <code>urlsToCheck</code> 来构建需要扫描的 url 链接，比如是否扫描备份文件或者指定后缀路径。最终请求的结果，如果状态码不在 <code>StatusCodesBlacklistParsed</code> 中或者状态码在 <code>StatusCodesParsed</code> 则认为其为有效结果。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">GobusterPlugin</span> <span style="color:#66d9ef">interface</span> {
-	<span style="color:#a6e22e">Name</span>() <span style="color:#66d9ef">string</span>
-	<span style="color:#a6e22e">RequestsPerRun</span>() <span style="color:#66d9ef">int</span>
-	<span style="color:#a6e22e">PreRun</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span>
-	<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Result</span>) <span style="color:#66d9ef">error</span>
-	<span style="color:#a6e22e">GetConfigString</span>() (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>)
-}</code></pre></div>
-<h2 id="总结">总结</h2>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">workerGroup</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">workerGroup</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">Opts</span>.<span style="color:#a6e22e">Threads</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">worker</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">wordChan</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">workerGroup</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>以上代码是扫描任务执行的核心逻辑，通过 <code>Threads</code> 来控制扫描任务的并发数量。通过 <code>worker</code> 进入，可以看到的也是依据 <code>workChan</code> 来进行扫描任务的爆破。<code>worker</code> 中的核心函数为 <code>g.plugin.Run</code>，其它的主要也是任务的结束以及一些超时的处理。值得注意的是 gobuster 中各个模块都是通过 <code>libgobuster/interfaces.go</code> 中的 <code>GobusterPlugin</code> 来实现的。找到对应的实现方法。不过 <code>Run</code> 函数的逻辑也变得非常直白了，主要是通过 <code>urlsToCheck</code> 来构建需要扫描的 url 链接，比如是否扫描备份文件或者指定后缀路径。最终请求的结果，如果状态码不在 <code>StatusCodesBlacklistParsed</code> 中或者状态码在 <code>StatusCodesParsed</code> 则认为其为有效结果。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">GobusterPlugin</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span>() <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">RequestsPerRun</span>() <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">PreRun</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Run</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">chan</span><span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Result</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">GetConfigString</span>() (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="总结">总结</h2>
 <p>至此，dir 模块的主要实现逻辑基本上讲清楚了。gobuster 实现的逻辑还是非常清晰的，因为 Golang 的并发优势，所以其在做这种网络操作上有着天生的优势，并发的写法也会方便很多。</p>
 </article>
     <footer class="post-footer">
@@ -398,8 +382,8 @@ Global Flags:
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -453,7 +437,7 @@ Global Flags:
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

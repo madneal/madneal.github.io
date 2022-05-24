@@ -21,8 +21,8 @@
 开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
 进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin." />
+from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&amp;#39;pub_date&amp;#39;,&amp;#39;question_text&amp;#39;] list_display = (&amp;#39;question_text&amp;#39;,&amp;#39;pub_date&amp;#39;,&amp;#39;was_published_recently&amp;#39;) list_filter = [&amp;#39;pub_date&amp;#39;] search_fields = [&amp;#39;question_text&amp;#39;] fieldsets = [ (None,{&amp;#39;fields&amp;#39;:[&amp;#39;question_text&amp;#39;]}), (&amp;#39;Date information&amp;#39;,{&amp;#39;fields&amp;#39;:[&amp;#39;pub_date&amp;#39;],&amp;#39;classes&amp;#39;:[&amp;#39;collapse&amp;#39;]}), ] inlines = [ChoiceInline] admin." />
 
   
   
@@ -35,15 +35,14 @@ from django.contrib import admin from .models import Question,Choice //Register 
 开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
 进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin." />
+from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&amp;#39;pub_date&amp;#39;,&amp;#39;question_text&amp;#39;] list_display = (&amp;#39;question_text&amp;#39;,&amp;#39;pub_date&amp;#39;,&amp;#39;was_published_recently&amp;#39;) list_filter = [&amp;#39;pub_date&amp;#39;] search_fields = [&amp;#39;question_text&amp;#39;] fieldsets = [ (None,{&amp;#39;fields&amp;#39;:[&amp;#39;question_text&amp;#39;]}), (&amp;#39;Date information&amp;#39;,{&amp;#39;fields&amp;#39;:[&amp;#39;pub_date&amp;#39;],&amp;#39;classes&amp;#39;:[&amp;#39;collapse&amp;#39;]}), ] inlines = [ChoiceInline] admin." />
   <meta property="og:url" content="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" />
@@ -229,40 +228,25 @@ from django.contrib import admin from .models import Question,Choice //Register 
       <h1 class="post-title">Django学习——开发你的第一个Django应用2</h1>
       <p class="post-meta">@Neal · Oct 11, 2015 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。</p>
-
+    <article class="post-content"><p>接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。</p>
 <h2 id="产生一个管理员用户">产生一个管理员用户</h2>
-
 <p>首先我们需要产生一个管理员用户，运行如下命令；
 <code>python manage.py createsuperuser</code>
 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。</p>
-
 <h2 id="开发服务器">开发服务器</h2>
-
 <p>Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器：
 <code>python manage.py runserver</code>
-现在打开浏览器，输入<a href="http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。">http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。</a></p>
-
+现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。</p>
 <h2 id="进入管理员网站">进入管理员网站</h2>
-
 <p>当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。</p>
-
 <h2 id="在管理员中修改poll应用">在管理员中修改poll应用</h2>
-
 <p>在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开<code>polls/admin.py</code></p>
-
-<pre><code>from django.contrid import admin
+<pre tabindex="0"><code>from django.contrid import admin
 from .models import Question
 admin.site.register(Question)
-</code></pre>
-
-<h2 id="定制管理员表单">定制管理员表单</h2>
-
+</code></pre><h2 id="定制管理员表单">定制管理员表单</h2>
 <p>现在我们来开始定制管理员表单，打卡<code>polls/admin.py</code></p>
-
-<pre><code>from django.contrib import admin
+<pre tabindex="0"><code>from django.contrib import admin
 from .models import Question,Choice
 //Register your models here.
 
@@ -271,20 +255,18 @@ class ChoiceInline(admin.TabularInline):
     extra = 3
 
 class QuestionAdmin(admin.ModelAdmin):
-    #fields = ['pub_date','question_text']
-    list_display = ('question_text','pub_date','was_published_recently')
-    list_filter = ['pub_date']
-    search_fields = ['question_text']
+    #fields = [&#39;pub_date&#39;,&#39;question_text&#39;]
+    list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;)
+    list_filter = [&#39;pub_date&#39;]
+    search_fields = [&#39;question_text&#39;]
     fieldsets = [
-        (None,{'fields':['question_text']}),
-        ('Date information',{'fields':['pub_date'],'classes':['collapse']}),
+        (None,{&#39;fields&#39;:[&#39;question_text&#39;]}),
+        (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}),
     ]
     inlines = [ChoiceInline]
 
 admin.site.register(Question,QuestionAdmin)
-</code></pre>
-
-<p>这里面他做了很多细节的改变，他是一个个的加进去，好麻烦，我这给的就是最终的一个版本，主要里面增加一个收缩的功能。</p>
+</code></pre><p>这里面他做了很多细节的改变，他是一个个的加进去，好麻烦，我这给的就是最终的一个版本，主要里面增加一个收缩的功能。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -299,13 +281,13 @@ admin.site.register(Question,QuestionAdmin)
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2403</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2416</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -359,7 +341,7 @@ admin.site.register(Question,QuestionAdmin)
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

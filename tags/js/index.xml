@@ -1,17 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Js on Neal&#39;s Blog</title>
+    <title>js on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/js/</link>
-    <description>Recent content in Js on Neal&#39;s Blog</description>
+    <description>Recent content in js on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 30 Aug 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://madneal.com/tags/js/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 30 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/js/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>富文本场景下的 XSS</title>
       <link>https://madneal.com/post/stored-xss/</link>
@@ -20,8 +16,8 @@
       <guid>https://madneal.com/post/stored-xss/</guid>
       <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;quot;xss&amp;quot;); var html = xss(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/script&amp;gt;&#39;); console.log(html);  // 浏览器中使用 &amp;lt;script src=&amp;quot;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&amp;lt;script&amp;gt;alert(&amp;quot;xss&amp;quot;);&amp;lt;/scr&#39; + &amp;quot;ipt&amp;gt;&amp;quot;); alert(html); &amp;lt;/script&amp;gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</description>
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
     </item>
     
     <item>
@@ -35,7 +31,7 @@ const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</descript
  fork it finish it  仓库信息  仓库名称：Front-end-tutorial 主要内容：这是一个博客，里面主要是前端开发的内容，内容设计比较广泛，包括 HTML, CSS, JS 以及流行的框架，以及前端开发的其他内容。 消灭计划：内容较多，打算主要消化一些感兴趣的内容，主要应该集中于原生的东西或者一些性能方面的知识。  作战内容 JavaScript 深拷贝 深拷贝可以说是一个老生重谈的问题，几乎每一个前端面试都可能会问这样的问题。Js 中的对象都是引用，所以浅拷贝时，修改拷贝后的对象会影响原对象。原仓库中其实讲的并不是很深入，我反倒是觉得评论里面的一篇文章深入剖析 JavaScript 的深复制讲得更好。
 有很多第三方库实现了对于对象的深拷贝。
  jQuery: $.extend(true, {}, sourceObject) loadsh: _.clone(sourceObject, true) 或者 _.cloneDeep(sourceObject)  另外有一个神奇的方法就是借助于 JSON 的 parse 和 stringify 方法，当时我才看到这个方法的时候惊为天人，这个方法还可以用来判断两个对象是否相等。当然，这个方法还是有一些限制，因为正确处理的对象只能是使用 json 可以表示的数据结构，对于函数可能就无能为力了。原文作者实现了一个深拷贝的方法，不过考虑了很多情况，在这里我们就实现一个简单版的深拷贝把。
-function deepCopy(obj) { const result = {}; for (const key in obj) { if (obj.</description>
+function deepCopy(obj) {  const result = {};  for (const key in obj) {  if (obj.</description>
     </item>
     
     <item>
@@ -51,7 +47,7 @@ function deepCopy(obj) { const result = {}; for (const key in obj) { if (obj.</d
 文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
  利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 + 3600s。
-function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() + 3600 } return policy; }  按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。</description>
+function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date()).getTime() + 3600  }  return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.</description>
     </item>
     
     <item>
@@ -61,7 +57,7 @@ function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).
       
       <guid>https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.</description>
+router.get(&amp;#39;/&amp;#39;, function(req, res, next) {  // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&amp;gt; {  res.render(&amp;#39;index&amp;#39;, {  title: &amp;#39;express&amp;#39;,  docs: docs  })  }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.</description>
     </item>
     
   </channel>

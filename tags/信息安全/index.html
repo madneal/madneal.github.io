@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" />
@@ -243,7 +242,7 @@ LICENSE: MIT
  服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
 典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
 下面的是PHP中容易收到SSRF的一个例子。
-&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
+&lt;?php  /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;];  /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;);  /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;);  /** * Dump the contents of the image */ fpassthru($image); } 在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
   </footer>
@@ -286,7 +285,7 @@ LICENSE: MIT
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

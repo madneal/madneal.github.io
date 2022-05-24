@@ -16,7 +16,8 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。 1. 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 2. 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 3. IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 4. 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 5. 每个读写操作都是请求 IndexDB随时随地都在使用请求 6. 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 7. NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。" />
+  <meta name="description" content="IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。
+ 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 每个读写操作都是请求 IndexDB随时随地都在使用请求 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。  " />
 
   
   
@@ -24,14 +25,14 @@
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="indexDB的概念" />
-  <meta property="og:description" content="IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。 1. 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 2. 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 3. IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 4. 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 5. 每个读写操作都是请求 IndexDB随时随地都在使用请求 6. 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 7. NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。" />
+  <meta property="og:description" content="IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。
+ 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 每个读写操作都是请求 IndexDB随时随地都在使用请求 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。  " />
   <meta property="og:url" content="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/" />
@@ -217,21 +218,23 @@
       <h1 class="post-title">indexDB的概念</h1>
       <p class="post-meta">@Neal · Oct 7, 2015 · 1 min read</p>
     </header>
-    <article class="post-content"><p>IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。
-1. 以key/value成对保存数据
-IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。
-2. 交易数据库模型
-IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。
-3.  IndexDB大部分的异步API
-IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。
-4. 通过监听DOM事件取得执行结果
-数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。
-5. 每个读写操作都是请求
-IndexDB随时随地都在使用请求
-6. 面向对象
-IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。
-7. NOSQL的数据库系统
-IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。</p>
+    <article class="post-content"><p>IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。</p>
+<ol>
+<li>以key/value成对保存数据
+IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。</li>
+<li>交易数据库模型
+IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。</li>
+<li>IndexDB大部分的异步API
+IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。</li>
+<li>通过监听DOM事件取得执行结果
+数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。</li>
+<li>每个读写操作都是请求
+IndexDB随时随地都在使用请求</li>
+<li>面向对象
+IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。</li>
+<li>NOSQL的数据库系统
+IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。</li>
+</ol>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -244,13 +247,13 @@ IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2407</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2420</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -304,7 +307,7 @@ IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

@@ -17,9 +17,9 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="visual studio崩溃 你是不是经常会遇到一编辑combox，visual studio就会立马崩溃。一直都无法理解是什么原因，然后后来发现居然是因为有道的截屏翻译，关掉截屏翻译就好了。
-combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Items.Add(dr[0]); }  自动补全的功能 我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。
+combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Items.Add(dr[0]); } 自动补全的功能 我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。
 模糊查询 上面那个自动补全的功能只能实现从左到右进行匹配，而不能进行模糊匹配。假设我们的combobox里面有“张三“，如果输入”张“可以进行匹配，但是我们如果输入”三“的话就无法实现匹配，而combobox自身并没有这个属性，所以我们需要自己写一个方法来实现。
- List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); //用于模糊查询 private void BindComboBox() { string str = &amp;quot;select License from tb_drug&amp;quot;; SQLiteDataReader sdr = sh.getcom(str); while (sdr.Read()) { if (sdr[0].ToString() != &amp;quot; &amp;quot; &amp;amp;&amp;amp; sdr[0].ToString() != null) listOnit.Add(sdr[0].ToString()); } sdr.Close(); this.comboBox1.Items.AddRange(listOnit.ToArray()); } private void comboBox1_TextUpdate(object sender, EventArgs e) { this." />
+ List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); //用于模糊查询 private void BindComboBox() { string str = &amp;#34;select License from tb_drug&amp;#34;; SQLiteDataReader sdr = sh.getcom(str); while (sdr.Read()) { if (sdr[0].ToString() != &amp;#34; &amp;#34; &amp;amp;&amp;amp; sdr[0].ToString() != null) listOnit.Add(sdr[0].ToString()); } sdr.Close(); this.comboBox1.Items.AddRange(listOnit.ToArray()); } private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); foreach (var item in listOnit) { if (item." />
 
   
   
@@ -28,16 +28,15 @@ combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Item
   <meta property="og:type" content="article" />
   <meta property="og:title" content="combox系列问题集" />
   <meta property="og:description" content="visual studio崩溃 你是不是经常会遇到一编辑combox，visual studio就会立马崩溃。一直都无法理解是什么原因，然后后来发现居然是因为有道的截屏翻译，关掉截屏翻译就好了。
-combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Items.Add(dr[0]); }  自动补全的功能 我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。
+combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Items.Add(dr[0]); } 自动补全的功能 我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。
 模糊查询 上面那个自动补全的功能只能实现从左到右进行匹配，而不能进行模糊匹配。假设我们的combobox里面有“张三“，如果输入”张“可以进行匹配，但是我们如果输入”三“的话就无法实现匹配，而combobox自身并没有这个属性，所以我们需要自己写一个方法来实现。
- List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); //用于模糊查询 private void BindComboBox() { string str = &amp;quot;select License from tb_drug&amp;quot;; SQLiteDataReader sdr = sh.getcom(str); while (sdr.Read()) { if (sdr[0].ToString() != &amp;quot; &amp;quot; &amp;amp;&amp;amp; sdr[0].ToString() != null) listOnit.Add(sdr[0].ToString()); } sdr.Close(); this.comboBox1.Items.AddRange(listOnit.ToArray()); } private void comboBox1_TextUpdate(object sender, EventArgs e) { this." />
+ List&amp;lt;string&amp;gt; listOnit = new List&amp;lt;string&amp;gt;(); List&amp;lt;string&amp;gt; listNew = new List&amp;lt;string&amp;gt;(); //用于模糊查询 private void BindComboBox() { string str = &amp;#34;select License from tb_drug&amp;#34;; SQLiteDataReader sdr = sh.getcom(str); while (sdr.Read()) { if (sdr[0].ToString() != &amp;#34; &amp;#34; &amp;amp;&amp;amp; sdr[0].ToString() != null) listOnit.Add(sdr[0].ToString()); } sdr.Close(); this.comboBox1.Items.AddRange(listOnit.ToArray()); } private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); foreach (var item in listOnit) { if (item." />
   <meta property="og:url" content="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/" />
@@ -223,40 +222,29 @@ combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Item
       <h1 class="post-title">combox系列问题集</h1>
       <p class="post-meta">@Neal · Apr 14, 2015 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<h2 id="visual-studio崩溃">visual studio崩溃</h2>
-
+    <article class="post-content"><h2 id="visual-studio崩溃">visual studio崩溃</h2>
 <p>你是不是经常会遇到一编辑combox，visual studio就会立马崩溃。一直都无法理解是什么原因，然后后来发现居然是因为有道的截屏翻译，关掉截屏翻译就好了。</p>
-
 <h2 id="combox绑定数据源">combox绑定数据源</h2>
-
-<pre><code>            SqliteDataReader dr;
+<pre tabindex="0"><code>            SqliteDataReader dr;
             if (dr.Read())
             {
                 this.comboBox1.Items.Add(dr[0]);
             }
-</code></pre>
-
-<h2 id="自动补全的功能">自动补全的功能</h2>
-
+</code></pre><h2 id="自动补全的功能">自动补全的功能</h2>
 <p>我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。</p>
-
 <h2 id="模糊查询">模糊查询</h2>
-
 <p>上面那个自动补全的功能只能实现从左到右进行匹配，而不能进行模糊匹配。假设我们的combobox里面有“张三“，如果输入”张“可以进行匹配，但是我们如果输入”三“的话就无法实现匹配，而combobox自身并没有这个属性，所以我们需要自己写一个方法来实现。</p>
-
-<pre><code>        List&lt;string&gt; listOnit = new List&lt;string&gt;();
+<pre tabindex="0"><code>        List&lt;string&gt; listOnit = new List&lt;string&gt;();
         List&lt;string&gt; listNew = new List&lt;string&gt;();
         
         //用于模糊查询
         private void BindComboBox()
         {
-            string str = &quot;select License from tb_drug&quot;;
+            string str = &#34;select License from tb_drug&#34;;
             SQLiteDataReader sdr = sh.getcom(str);
             while (sdr.Read())
             {
-                if (sdr[0].ToString() != &quot; &quot; &amp;&amp; sdr[0].ToString() != null)
+                if (sdr[0].ToString() != &#34; &#34; &amp;&amp; sdr[0].ToString() != null)
                     listOnit.Add(sdr[0].ToString());               
             }
             sdr.Close();
@@ -279,8 +267,7 @@ combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Item
             Cursor = Cursors.Default;
             this.comboBox1.DroppedDown = true;
         }
-</code></pre>
-</article>
+</code></pre></article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
         <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
@@ -294,13 +281,13 @@ combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Item
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2583</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2596</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -354,7 +341,7 @@ combox绑定数据源  SqliteDataReader dr; if (dr.Read()) { this.comboBox1.Item
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

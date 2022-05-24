@@ -69,7 +69,6 @@ How can you tell an extrovert from an" />
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/" />
@@ -255,71 +254,38 @@ How can you tell an extrovert from an" />
       <h1 class="post-title">ROT13加密和解密</h1>
       <p class="post-meta">@Neal · Apr 11, 2015 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<h2 id="问题">问题</h2>
-
+    <article class="post-content"><h2 id="问题">问题</h2>
 <p>ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。</p>
-
 <p>应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。</p>
-
 <p>例如，下面的英文笑话，精华句被ROT13所隐匿：</p>
-
 <p>How can you tell an extrovert from an</p>
-
 <p>introvert at NSA? Va gur ryringbef,</p>
-
 <p>gur rkgebireg ybbxf ng gur BGURE thl&rsquo;f fubrf.</p>
-
 <p>通过ROT13转换，该笑话的解答揭露如下：</p>
-
 <p>Ubj pna lbh gryy na rkgebireg sebz na</p>
-
 <p>vagebireg ng AFN? In the elevators,</p>
-
 <p>the extrovert looks at the OTHER guy&rsquo;s shoes.</p>
-
 <p>第二次使用ROT13将恢复为原文。</p>
-
 <p>Input</p>
-
 <p>第1行：一个整数T（1≤T≤10）为问题数。</p>
-
 <p>接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。</p>
-
 <p>Output</p>
-
 <p>对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。</p>
-
 <p>然后对应每个问题在一行中输出经过ROT13加密后的一段文字。</p>
-
 <p>Sample Input</p>
-
 <p>3</p>
-
 <p>How can you tell an extrovert from an</p>
-
 <p>introvert at NSA? Va gur ryringbef,</p>
-
 <p>gur rkgebireg ybbxf ng gur BGURE thl&rsquo;f fubrf.</p>
-
 <p>Sample Output</p>
-
 <p>case #0:</p>
-
 <p>Ubj pna lbh gryy na rkgebireg sebz na</p>
-
 <p>case #1:</p>
-
 <p>vagebireg ng AFN? In the elevators,</p>
-
 <p>case #2:</p>
-
 <p>the extrovert looks at the OTHER guy&rsquo;s shoes.</p>
-
 <h2 id="代码">代码</h2>
-
-<pre><code>#include&lt;stdio.h&gt;
+<pre tabindex="0"><code>#include&lt;stdio.h&gt;
 #include&lt;string.h&gt;
 char str[1010];
 char tmp[1010];
@@ -354,11 +320,11 @@ int main()
 	int cas = 0;
 	int T;
 	int num[1010];
-	scanf(&quot;%d&quot;,&amp;T);
-	strcpy(str,&quot;&quot;);
+	scanf(&#34;%d&#34;,&amp;T);
+	strcpy(str,&#34;&#34;);
 	while(T--)
 	{
-	while(strcmp(str,&quot;&quot;)==0)
+	while(strcmp(str,&#34;&#34;)==0)
 	gets(str);
 	memset(num,0,sizeof(num[0]));
 	int len = strlen(str);
@@ -366,24 +332,23 @@ int main()
 	{
 		num[i] = Encry(str[i]);
 	}
-	printf(&quot;case #%d:\n&quot;,cas++);
+	printf(&#34;case #%d:\n&#34;,cas++);
 	for(int i = 0;i &lt; len;i ++)
 	{
 		if(i == len - 1)
 	{
-		printf(&quot;%c\n&quot;,num[i]);
+		printf(&#34;%c\n&#34;,num[i]);
 	}
 	else
 	{
-		printf(&quot;%c&quot;,num[i]);
+		printf(&#34;%c&#34;,num[i]);
 	}
 	}
-	strcpy(str,&quot;&quot;);
+	strcpy(str,&#34;&#34;);
 }
 return 0;
 }
-</code></pre>
-</article>
+</code></pre></article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
         <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
@@ -399,13 +364,13 @@ return 0;
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2586</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2599</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
       <div id="disqus_thread"></div>
-<script>
-    var disqus_config = function () {
+<script type="application/javascript">
+    window.disqus_config = function () {
     
     
     
@@ -459,7 +424,7 @@ return 0;
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

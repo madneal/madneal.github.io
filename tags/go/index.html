@@ -6,7 +6,7 @@
 
   
   <title>
-  Tag → go
+  Tag → Go
   
    | Neal 的博客
 </title>
@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/go/" />
@@ -259,8 +258,8 @@ Intention actions 字段添加新的 tag
   
   <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html);  // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt;  一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.</p>
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
@@ -297,7 +296,7 @@ Condition3 startIndex &lt; 1 &amp;&amp; endIndex &gt; pages
 Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
 这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
 代码实现 Show me the code.
-func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startIndex := p - step endIndex := p &#43; step if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { startIndex = 1 endIndex = startIndex &#43; 2 * step } else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { endIndex = pages startIndex = pages - 2 * step } else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { startIndex = 1 endIndex = pages } // handle some special cases 	if startIndex &lt; 1 { startIndex = 1 } if endIndex &gt; pages { endIndex = pages } for i := startIndex; i &lt;= endIndex; i&#43;&#43; { pageList = append(pageList, i) } return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
+func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	startIndex := p - step 	endIndex := p &#43; step  	if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { 	startIndex = 1 	endIndex = startIndex &#43; 2 * step 	} else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { 	endIndex = pages 	startIndex = pages - 2 * step 	} else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { 	startIndex = 1 	endIndex = pages 	} 		// handle some special cases 	if startIndex &lt; 1 { 	startIndex = 1 	}  	if endIndex &gt; pages { 	endIndex = pages 	}  	for i := startIndex; i &lt;= endIndex; i&#43;&#43; { 	pageList = append(pageList, i) 	}  	return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
   </footer>
@@ -340,7 +339,7 @@ func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startI
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

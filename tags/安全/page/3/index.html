@@ -31,7 +31,6 @@
 
 
 
-<meta name="generator" content="Hugo 0.46" />
 
 
 <link rel="canonical" href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/" />
@@ -223,7 +222,7 @@
 值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
 CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
 下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008  响应代表购买飞机票的 POST 请求已经成功执行：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
 HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
@@ -246,8 +245,8 @@ LICENSE: MIT
 APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
 但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
 实际上，API 安全的要求正在成为一种共识：
- 在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
- OWASP Top 10是一个备受推崇的 Web 安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
+  在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
+  OWASP Top 10是一个备受推崇的 Web 安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
   </footer>
@@ -267,8 +266,8 @@ LICENSE: MIT
  上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
 我们的 EdgeLogic 引擎将样本检测为 “exploit CVE-2013-3346”，与前一个相同。
  https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
-上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。 * https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection
-打开后，伪装成 IRS 文件的 PDF 看起来很正常。</p>
+上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。
+ https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection  打开后，伪装成 IRS 文件的 PDF 看起来很正常。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
@@ -335,7 +334,7 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
   
   <p class="post-summary">前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) { var imgElement = document.createElement(&#39;img&#39;); var canvasEle = document.createElement(&#39;canvas&#39;); imgElement[&#39;crossOrigin&#39;] = true; imgElement[&#39;onload&#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&#39;2d&#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext.</p>
+var createImgElement = function(urla, b) {  var imgElement = document.createElement(&#39;img&#39;);  var canvasEle = document.createElement(&#39;canvas&#39;);  imgElement[&#39;crossOrigin&#39;] = true;  imgElement[&#39;onload&#39;] = function() {  canvasEle.width = this.width;  canvasEle.height = this.height;  var canvasContext = canvasEle.getContext(&#39;2d&#39;)  canvasContext.drawImage(this, 0, 0, this.width, this.height);  for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height),  cancasDataLength = canvasContext.data.length, arr = [], i = 0;  i &lt; cancasDataLength;  i &#43;= 4) {  var code = canvasContext.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -388,7 +387,7 @@ var createImgElement = function(urla, b) { var imgElement = document.createEleme
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
