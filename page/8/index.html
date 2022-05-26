@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="generator" content="Hugo 0.99.1" />
 
   <meta charset="utf-8" />
 
@@ -23,7 +24,6 @@
 
   
   
-
 
 
 
@@ -116,11 +116,9 @@
       
         <li class="menu-item
             
-              is-active
-            
             
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://madneal.com/post">Home</a>
           </li>
       
         <li class="menu-item
@@ -206,8 +204,6 @@
     <header class="list-header offscreen">
       <h2 class="list-label">All Posts</h2>
     </header>
-    
-    
       
         <article class="post-entry">
   <header class="post-header">
@@ -216,8 +212,8 @@
   </header>
   
   <p class="post-summary">Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
-Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装: * 将 export-medium clone 或者下载到本地。 * 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹
-这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
+Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装:
+ 将 export-medium clone 或者下载到本地。 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹  这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
 目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
 仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</p>
   <footer class="post-footer">
@@ -233,7 +229,7 @@ Medium 文章格式显示地非常优雅，但是存在一个问题。众所周�
   </header>
   
   <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.</p>
+router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&gt; {  res.render(&#39;index&#39;, {  title: &#39;express&#39;,  docs: docs  })  }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
   </footer>
@@ -260,10 +256,11 @@ LICENSE: MIT
 如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
 JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
 引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：’setTimeout’）。然而这些API并不是由引擎提供的。
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
 那么，它们是从哪来的呢？
 事实证明这有一点复杂。
-因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。</p>
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
@@ -283,7 +280,7 @@ LICENSE: MIT
  服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
 典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
 下面的是PHP中容易收到SSRF的一个例子。
-&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); }  在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
+&lt;?php  /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;];  /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;);  /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;);  /** * Dump the contents of the image */ fpassthru($image); } 在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
   </footer>
@@ -304,7 +301,7 @@ LICENSE: MIT
 根据维基百科：
  不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
  Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
-const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5); console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5]  这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
+const arrayA = [1, 2, 3]; arrayA.push(4);  const arrayB = arrayA; arrayB.push(5);  console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5] 这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -313,7 +310,7 @@ const arrayA = [1, 2, 3]; arrayA.push(4); const arrayB = arrayA; arrayB.push(5);
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
     <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
   
@@ -331,12 +328,11 @@ CSDN CSDN是我开启个人技术博客的地方，感兴趣的地方去我的�
 Medium 国外的一个博客平台，访问需要翻墙。这是国外一个专门写story的地方，样式很好看，应该算得上是国外非常知名的一个博客平台了。当然了，里面的内容也是多姿多彩的，同时里面的技术文章质量也有很多很高的文章。现在国内技术圈翻译的大多数文章基本都是来自于这个平台。
 Quora 国外一个和知乎一样的网站。不过知乎由于国内人数优势，火爆异常。Quora则是不温不火，而且上面还有不少华人。我关注过一段时间，但貌似都没什么特别的内容。 以上基本就是我所有的对于一些博客平台的了解，可能不包含所有，但基本都是我自己的个人的亲身经历。可能部分言辞颇为激烈，但也都是我的肺腑之言。
 微信公众号 微信公众号作为一种特殊的平台，现在也成为一种传播渠道，有点类似于报看订阅的形式。但这不一定是一种非常有效的传播方式，感觉深度还是不够的，我比较喜欢在电脑上看文章，因为在手机上看文章难以持续地专注于一篇有内容的文章，一般就只能浅尝则止。所以我一般都是把链接转到我的微信PC版，然后再用浏览器打开，下面介绍一些我关注的一些技术类公众号：
- 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。
-Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
+ 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。  Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
 star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（当然也有很多是骗star的）。其实，现在很多人看到一个项目都会去star，但是后续是否会关注，当然也就不一定了。曾经有一段时间，我对star深深着迷（其实现在还是很着迷），我每天都希望有人能给我的项目star，看着别人上千的star我都会超级羡慕。但我其实也能够深深体会到做一个开源项目的不容易，开发者有一个idea往往很简单，但是要去实现它，推广它，完善它。这真的很难很难，而且还会有各种各样形形色色的人问你各种问题，给你提出各种要求，这些都是很痛苦的。但是我依然希望自己有一天还是能够成为一名出色的开源项目的开发者。下面我就挑一些我star的项目来讲一讲：
- prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。</p>
+ prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。 sw-precache &amp; sw-toolbox：谷歌关于pwa的相关工具，值得关注。 chrome-remote-interface：师妹介绍我的一个调用headless Chrome的工具，文档阅读起来比较痛苦，可以码，虽然你也不一定看。 hammer.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2---%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/">Read More →</a>
   </footer>
 </article>
 
@@ -358,13 +354,12 @@ LICENSE: MIT
 看一下下面的PWA！看起来很像原生的app，是不是？
 推特渐进式web应用
 从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
- 你可以选择任何你喜欢的框架来进行开发；
- 一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
- 很容易获得：不需要通过应用商店来下载。
+  你可以选择任何你喜欢的框架来进行开发；
+  一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+  很容易获得：不需要通过应用商店来下载。
   然而，在2017年早期，PWA仍然面临一些限制条件：
- Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
- 一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
-  教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。</p>
+  Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+  一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
   </footer>
@@ -401,10 +396,10 @@ Service worker就好像它的内部有一个有一个shared worker ：
   
   <p class="post-summary">Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
 但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
-var cacheName = &#39;subway&#39;; var filesToCache = [ &#39;/&#39;, &#39;index.html&#39;, &#39;image/transfer.png&#39;, &#39;dist/alloy_finger.js&#39;, &#39;app.css&#39; ]; self.addEventListener(&#39;install&#39;, function(e) { console.log(&#39;service worker install&#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&#39;serviceworker caching app shell&#39;); return cache.addAll(filesToCache); })); });  可以看出我们在 install 事件后通过在 cache 里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+var cacheName = &#39;subway&#39;; var filesToCache = [ 	&#39;/&#39;, 	&#39;index.html&#39;, 	&#39;image/transfer.png&#39;, 	&#39;dist/alloy_finger.js&#39;, 	&#39;app.css&#39; ];  self.addEventListener(&#39;install&#39;, function(e) { 	console.log(&#39;service worker install&#39;); 	e.waitUntil(caches.open(cacheName).then(function(cache) { 	console.log(&#39;serviceworker caching app shell&#39;); 	return cache.addAll(filesToCache); 	})); }); 可以看出我们在 install 事件后通过在 cache 里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
 Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
 sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
-gulp.task(&#39;generate-sw&#39;, function(callback) { var path = require(&#39;path&#39;); var swPrecache = require(&#39;sw-precache&#39;); swPrecache.write(path.join(&#39;sw.js&#39;), { staticFileGlobs: [ &#39;app.js&#39;, &#39;dist/alloy_finger.js&#39;, &#39;dist/app.css&#39;, &#39;image/*.{png}&#39;, &#39;index.html&#39;, &#39;/&#39; ] }, callback) })  我们通过利用 sw-precache 来生成 sw.</p>
+gulp.task(&#39;generate-sw&#39;, function(callback) { 	var path = require(&#39;path&#39;); 	var swPrecache = require(&#39;sw-precache&#39;);  	swPrecache.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/">Read More →</a>
   </footer>
@@ -421,13 +416,13 @@ gulp.task(&#39;generate-sw&#39;, function(callback) { var path = require(&#39;pa
 译者：neal1991
 welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
-让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
+  让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
  创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
 在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
 下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
 对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
 经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
-const plugins = [ // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({ names: [ &#39;vendor&#39;, &#39;manifest&#39;], minChunks: Infinity }), // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.optimize.CommonChunkPlugin({ async: true, children: true, minChunks: 4 }) ];   添加细粒度，基于路由的代码分割。为了加快初始化和主页timeline渲染，app的整体大小可能会更大，文件会在sesiion期间内按需分块在40个代码块之中。–Nicolas Gallagher</p>
+const plugins = [  // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({  names: [ &#39;vendor&#39;, &#39;manifest&#39;],  minChunks: Infinity  }),  // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
@@ -458,7 +453,7 @@ const plugins = [ // 提取vendor和webpack模块的manifest  new webpack.optimi
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

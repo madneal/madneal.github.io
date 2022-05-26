@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="generator" content="Hugo 0.99.1" />
 
   <meta charset="utf-8" />
 
@@ -23,7 +24,6 @@
 
   
   
-
 
 
 
@@ -116,11 +116,9 @@
       
         <li class="menu-item
             
-              is-active
-            
             
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://madneal.com/post">Home</a>
           </li>
       
         <li class="menu-item
@@ -206,8 +204,6 @@
     <header class="list-header offscreen">
       <h2 class="list-label">All Posts</h2>
     </header>
-    
-    
       
         <article class="post-entry">
   <header class="post-header">
@@ -216,9 +212,9 @@
   </header>
   
   <p class="post-summary">pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
-git clone https://github.com/&lt;username&gt;/my-first-blog.git  产生一个virtualenv
-cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate  数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
-import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application())  ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
+git clone https://github.com/&lt;username&gt;/my-first-blog.git 产生一个virtualenv
+cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate 数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
+import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application()) ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
@@ -232,7 +228,7 @@ import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; 
   </header>
   
   <p class="post-summary">经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。 首先贴出html代码：
-&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;document&lt;/title&gt; &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt; &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;flash&#34;&gt; &lt;ul id=&#34;pic&#34;&gt; &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ol id=&#34;num&#34;&gt; &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;li&gt;4&lt;/li&gt; &lt;li&gt;5&lt;/li&gt; &lt;li&gt;6&lt;/li&gt; &lt;/ol&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;  图像的原路径我就不制定了，css文件
+&lt;!DOCTYPE html&gt; &lt;html lang=&#34;en&#34;&gt; &lt;head&gt; &lt;meta charset=&#34;UTF-8&#34;&gt; &lt;title&gt;document&lt;/title&gt; &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt; &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;div id=&#34;flash&#34;&gt; &lt;ul id=&#34;pic&#34;&gt; &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt; &lt;/ul&gt; &lt;ol id=&#34;num&#34;&gt; &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;li&gt;4&lt;/li&gt; &lt;li&gt;5&lt;/li&gt; &lt;li&gt;6&lt;/li&gt; &lt;/ol&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt; &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt; 图像的原路径我就不制定了，css文件
 * { margin: 0; padding: 0; list-style: none; } a { text-decoration: none; color: #fff; } #flash { width: 730px; height: 454px; margin: 100px auto; position: relative; cursor: pointer; } #pic li { position: absolute; top: 0; left: 0; z-index: 1; display: none; } #num { position: absolute; left: 40%; bottom: 10px; z-index: 2; cursor:default; } #num li { float: left; width: 20px; height: 20px; border-radius: 50%; background: #666; margin: 3px; line-height: 20px; text-align: center; color: #fff; cursor: pointer; } #num li.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/">Read More →</a>
@@ -247,10 +243,10 @@ import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; 
   </header>
   
   <p class="post-summary">定义一个空的类型，里面没有任何成员函数和成员变量，对该类型求sizeof,得到的结果是多少？ 答案是1。空类型中的实例中不包含任何信息，本来求sizeof应该是0，但是当我们声明该类型的实例的时候，他必须在内存中占有一定的空间，否则无法使用这些实例。至于占用多少内存，由编译器决定。Visual Studio中每个空类型的实例占用1字节的空间。
- 如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
+  如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
   那如果把析构函数标记为虚函数呢？ C&#43;&#43;的编译器一旦发现一个类型中有虚函数，就会为该类型生成虚函数表，并在该类型中的每一个实例中添加一个指向虚函数表的指针。在32位的机器上，一个指针占4字节的空间，因此求sizeof是4；如果是64位的机器，那么结果就是8.
 分析下面代码运行结果：
-class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&lt;&lt;value&lt;&lt;endl; } }; int main() { A a = 10; A b = a; b.print(); }  在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C&#43;&#43;的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;other)，也就是把传值参数改为常量引用。
+class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&lt;&lt;value&lt;&lt;endl; } }; int main() { A a = 10; A b = a; b.print(); } 在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C&#43;&#43;的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;other)，也就是把传值参数改为常量引用。
 C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什么区别？ 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public,而在class中默认的是private。 那么在C#中呢？ C#和C&#43;&#43;不一样。在C#中如果没有标明成员函数或者成员变量的访问权限，struct和class都是private。struct和class的区别是struct定义的是值类型，值类型的实例在栈上分配内存；而class定义的是引用类型，引用类型的实例是在堆上分配内存的。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/">Read More →</a>
@@ -296,7 +292,7 @@ C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什�
 开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
 进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
 from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
@@ -324,9 +320,11 @@ from django.contrib import admin from .models import Question,Choice //Register 
   </header>
   
   <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
-建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.</p>
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
+ django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
+创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
@@ -352,10 +350,10 @@ from django.db import models class Question(models.</p>
     <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令”pip install MySQL-python”就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入”make install”这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
-mysql -u &lt;your username&gt; -p&lt;yourpassword&gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
+  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目：
+ 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&#34;pip install MySQL-python&#34;就可以了。 解压项目文件代码。 进入src文件夹下，输入&#34;make install&#34;这样会自动安装所有的依赖库。 现在我们可以创建一个数据库：web_dev_tutorial  mysql -u &lt;your username&gt; -p&lt;yourpassword&gt; 注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } } 把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
 MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
-MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入”make”,你将会看到： ｀ MYSQL_HOST = ‘127.</p>
+MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&#34;make&#34;,你将会看到： ｀ MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Read More →</a>
   </footer>
@@ -386,7 +384,7 @@ MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

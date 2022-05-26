@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="generator" content="Hugo 0.99.1" />
 
   <meta charset="utf-8" />
 
@@ -23,7 +24,6 @@
 
   
   
-
 
 
 
@@ -116,11 +116,9 @@
       
         <li class="menu-item
             
-              is-active
-            
             
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://madneal.com/post">Home</a>
           </li>
       
         <li class="menu-item
@@ -206,8 +204,6 @@
     <header class="list-header offscreen">
       <h2 class="list-label">All Posts</h2>
     </header>
-    
-    
       
         <article class="post-entry">
   <header class="post-header">
@@ -216,9 +212,9 @@
   </header>
   
   <p class="post-summary">C/C&#43;&#43;中每个字符串都以字符’\0’作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
-int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把”hello world”的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向”hello world”在内存中的地址就可以了。由于”hello world”是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; } str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&#34;hello world&#34;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&#34;hello world&#34;在内存中的地址就可以了。由于&#34;hello world&#34;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
 在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
-String str = &#34;hello&#34;; str.ToUpper(); str.</p>
+String str = &#34;hello&#34;; str.ToUpper(); str.Inser(0,&#34;world&#34;); 虽然我们对str做了ToUpper和Insert两个操作，但操作的结果都是生一个新的String实例并在返回值中返回，str本身的内容都不会发生改变，因此str最终的内容不变。由此可见，试图多次改变String的内容，改变之后的值只可以通过返回值得到。用String做连续多次修改，每一次修改都会产生一个临时对象，这样开销太大。为此C#定义一个新的与字符串相关的类型StringBuilder，它能容纳修改后的结果。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/">Read More →</a>
   </footer>
@@ -231,10 +227,9 @@ String str = &#34;hello&#34;; str.ToUpper(); str.</p>
     <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1 2 8 9 2 4 9 12
-4 7 10 13 6 8 11 15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
+  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1	2	8	9 2	4	9	12 4	7	10	13 6	8	11	15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
 从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
-bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; }  </p>
+bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">Read More →</a>
   </footer>
@@ -249,7 +244,7 @@ bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matri
   
   <p class="post-summary">只能生成一个实例的类是为了实现单例模式的类型。
 加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，.</p>
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } } 利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } } 由于C#中调用静态构造函数时初始化静态变量，.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
@@ -284,9 +279,9 @@ css选择符号有哪些 标签选择符 类选择符 ID选择符
 什么是语义话的HTML？ 直观的认识标签，对于搜索引擎抓取有好处
 清除浮动的几种方式以及优缺点： 1 使用空标签清除浮动 clear:both（理论上可以清楚任何标签，缺点增加无意义的标签） 2 使用overflow:auto 3 使用afert伪元素清除浮动
 IE和标准下有哪些兼容性的写法
-var ev = ev || window.event document.documentElement.clientWidth || document.body.clientWidth var target = ev.srcElement || ev.target  闭包就是能够读取其他函数内部变量的函数
+var ev = ev || window.event document.documentElement.clientWidth || document.body.clientWidth var target = ev.srcElement || ev.target 闭包就是能够读取其他函数内部变量的函数
 添加，插入，替换，删除，到某个节点的方法
-obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </p>
+obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/">Read More →</a>
   </footer>
@@ -300,8 +295,8 @@ obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild  </p>
   </header>
   
   <p class="post-summary">现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]….A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
-//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
-// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; }  今天一练，到此结束。</p>
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; 下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; } 今天一练，到此结束。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">Read More →</a>
   </footer>
@@ -331,8 +326,8 @@ clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*
   <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
 github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
 配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34;  上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</p>
+git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34; 上面的分别是设置用户名和邮箱
+建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
   </footer>
@@ -346,7 +341,7 @@ git config --global user.name &#34;username&#34; git config --global user.email 
   </header>
   
   <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
 var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
@@ -361,13 +356,14 @@ var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.pro
   </header>
   
   <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
-padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px  new method:
-padding:0px 20px 30px 10px // top right bottom left respectively  同理：
-margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px  margin:0px 20px 30px 10px  如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
-padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px  the new method:
-padding:20px  如果上下值和左右值分别一样呢： the old method:
-margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px  the new method
-margin:0px 20px // top and bottom right and left respectively  border的属性设置: the old method</p>
+padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px new method:
+padding:0px 20px 30px 10px // top right bottom left respectively 同理：
+margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px margin:0px 20px 30px 10px 如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
+padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px the new method:
+padding:20px 如果上下值和左右值分别一样呢： the old method:
+margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px the new method
+margin:0px 20px // top and bottom right and left respectively border的属性设置: the old method
+border-width:thin border-style:solid boder-color black the new method:</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
   </footer>
@@ -398,7 +394,7 @@ margin:0px 20px // top and bottom right and left respectively  border的属性�
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

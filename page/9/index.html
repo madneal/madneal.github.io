@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta name="generator" content="Hugo 0.99.1" />
 
   <meta charset="utf-8" />
 
@@ -23,7 +24,6 @@
 
   
   
-
 
 
 
@@ -116,11 +116,9 @@
       
         <li class="menu-item
             
-              is-active
-            
             
             ">
-            <a href="https://madneal.com/">Home</a>
+            <a href="https://madneal.com/post">Home</a>
           </li>
       
         <li class="menu-item
@@ -206,8 +204,6 @@
     <header class="list-header offscreen">
       <h2 class="list-label">All Posts</h2>
     </header>
-    
-    
       
         <article class="post-entry">
   <header class="post-header">
@@ -216,7 +212,7 @@
   </header>
   
   <p class="post-summary">progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
-var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = []; cityConfig.forEach(function(city) { request.get(url &#43; city) .end(function(err, res) { $ = cheerio.</p>
+var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = [];  cityConfig.forEach(function(city) { 	request.get(url &#43; city) 	.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/">Read More →</a>
   </footer>
@@ -230,7 +226,7 @@ var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var
   </header>
   
   <p class="post-summary">如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
-{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] }  manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action”里面定义的是extension的相关内容，”default_icon”即是插件的图标，”default_popup”就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。”content_script”是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js”则是插入到页面的js文件，你还可以插入css文件。需要注意的是，”content_script”虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
+{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] } manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&#34;里面定义的是extension的相关内容，“default_icon&#34;即是插件的图标，“default_popup&#34;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。“content_script&#34;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&#34;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，“content_script&#34;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
 var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/">Read More →</a>
@@ -247,7 +243,7 @@ var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { s
   <p class="post-summary">Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
 尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
 事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
-listeners: { load: onFirstLoadData, single: true }  在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
+listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
 避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
 减少border布局 不需要一下再加载所有的元素
 批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
@@ -279,19 +275,17 @@ I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are righ
   
   <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
 TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
-I am text. Yes. %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|} \hline $a_1~~~b$ &amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结  {和}是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
- $是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a&#43;b=c$，输入$$a&#43;b=c$$，那么你的公式就会在段与段之间以块的形式展现。
- %是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
- _和^分别作为下标和上标。你也可以同时使用上标和下标，比如： ~是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
- 实际上，\经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
- &amp;适用于在数组以及表格中定义列的。
- ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
- 一次效果函数，比如使用\ss来获得一个德国字母。
- 状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
- 使用命令取得相应的值，一般是使用{}或者[]。比如：
- \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。
- 口音和发声符号，比如\&#39;{e} \v{o}来产生 使用\begin和end是定义环境，从而和其他内容区分处理，比如：
-  \begin{verbatim} In the verbatim environment, text appears with almost no treatment.</p>
+I am text. Yes.  %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|}  \hline  $a_1~~~b$ &amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结   **{和}**是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
+  **$**是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a&#43;b=c$，输入$$a&#43;b=c$$，那么你的公式就会在段与段之间以块的形式展现。
+  **%**是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
+  **_和^**分别作为下标和上标。你也可以同时使用上标和下标，比如：  **~**是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
+  实际上，\ 经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\ 是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
+  **&amp;**适用于在数组以及表格中定义列的。
+  ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
+  一次效果函数，比如使用\ss来获得一个德国字母。
+  状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
+  使用命令取得相应的值，一般是使用{}或者[]。比如：
+ \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。 口音和发声符号，比如\&#39;{e} \v{o}来产生    使用\begin和end是定义环境，从而和其他内容区分处理，比如：</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/">Read More →</a>
   </footer>
@@ -386,13 +380,13 @@ We try to figure out this problem step by step.</p>
     <p class="post-meta">@Neal · Oct 3, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问 译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
+  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问   译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
 Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
 当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
 在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
- 选择节点元素  如果你熟悉jquery的话，你应该知道$(‘.class’)和$(‘#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
-同样你可以在console使用同样的方式来访问元素。$(‘tagName’) $(‘.class’) $(‘#id’)和document.querySelector(“)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
-你可以用$$(‘tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
+ 选择节点元素  如果你熟悉jquery的话，你应该知道$(’.class’)和$(’#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
+同样你可以在console使用同样的方式来访问元素。$(’tagName’) $(’.class’) $(’#id’)和document.querySelector(’’)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
+你可以用$$(’tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
 2.将你的浏览器转化成一个编辑器
 你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
 你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
@@ -402,13 +396,13 @@ document.body.contentEditable = true
 如果希望找到某个特定事件的监听，你可以这么做：
 getEventListeners($(‘selector’)).eventName[0].listener
 这将展示所有和这个事件相关的监听。比如：
-getEventListeners($(‘.firstName’)).click[0].listener
+getEventListeners($(’.firstName’)).click[0].listener
 4.监听事件
 如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
- monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),‘eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[‘eventName1’,‘eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
-console里面有一个很重要的函数叫做console.time(‘labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(‘labelName’)能够结束相应的计时器。
+ monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),’eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[’eventName1’,’eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
+console里面有一个很重要的函数叫做console.time(’labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(’labelName’)能够结束相应的计时器。
 比如我们想看到一个循环的执行时间，我们可以做如下处理：
-console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.00 ms  6.</p>
+console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">Read More →</a>
   </footer>
@@ -439,7 +433,7 @@ console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
 
 
-<script>
+<script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
