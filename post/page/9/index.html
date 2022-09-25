@@ -219,6 +219,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/" class="post-link">通过利用immutability的能力编写更安全和更整洁的代码</a></h3>
+    <p class="post-meta">@Neal · May 21, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">通过利用immutability的能力编写更安全和更整洁的代码  原文：Write safer and cleaner code by leveraging the power of “Immutability”
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Immutability是函数式编程的重要基础之一。它允许你能编写更安全以及更整洁的代码。我将会通过一些JavaScript例子来向你展示如何来达到immutability。
+根据维基百科：
+ 不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
+ Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
+const arrayA = [1, 2, 3]; arrayA.push(4);  const arrayB = arrayA; arrayB.push(5);  console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5] 这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E8%8F%9C%E9%B8%9F%E7%A8%8B%E5%BA%8F%E5%91%98%E6%88%90%E9%95%BF%E5%8F%B2--%E8%AE%B0-github-1000&#43;-contributions/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
     <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
@@ -396,31 +417,6 @@ listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽�
 I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are right}, yeah, yeah, yeah I am cool \begin{large} you are right \end{large}, yeah, yeah, yeah 我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？ 下面且看这三个命令的分别显示结果： 很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面\large 的影响，也变成了放大的字体。这就是\large的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/" class="post-link">Latex--入门系列三</a></h3>
-    <p class="post-meta">@Neal · Dec 12, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
-TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
-I am text. Yes.  %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|}  \hline  $a_1~~~b$ &amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结   **{和}**是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
-  **$**是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a&#43;b=c$，输入$$a&#43;b=c$$，那么你的公式就会在段与段之间以块的形式展现。
-  **%**是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
-  **_和^**分别作为下标和上标。你也可以同时使用上标和下标，比如：  **~**是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
-  实际上，\ 经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\ 是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
-  **&amp;**适用于在数组以及表格中定义列的。
-  ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
-  一次效果函数，比如使用\ss来获得一个德国字母。
-  状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
-  使用命令取得相应的值，一般是使用{}或者[]。比如：
- \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。 口音和发声符号，比如\&#39;{e} \v{o}来产生    使用\begin和end是定义环境，从而和其他内容区分处理，比如：</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/">Read More →</a>
   </footer>
 </article>
 
