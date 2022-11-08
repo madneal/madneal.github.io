@@ -325,6 +325,22 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="post-link">后渗透的文件传输</a></h3>
+    <p class="post-meta">@Neal · May 16, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
     <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
   </header>
@@ -381,24 +397,6 @@ LICENSE: MIT
  https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection  打开后，伪装成 IRS 文件的 PDF 看起来很正常。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" class="post-link">什么是DDOS</a></h3>
-    <p class="post-meta">@Neal · Jan 4, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
-有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
-DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
-传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
-以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
-DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
   </footer>
 </article>
 

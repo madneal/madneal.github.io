@@ -313,6 +313,22 @@ Information enumeration As usual, use nmap to detect open ports and related serv
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="post-link">后渗透的文件传输</a></h3>
+    <p class="post-meta">@Neal · May 16, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/help-hack-the-box/" class="post-link">Help -- hack the box</a></h3>
     <p class="post-meta">@Neal · Apr 22, 2019 · 5 min read</p>
   </header>
@@ -356,24 +372,6 @@ nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75 There are not too many o
 nmap -sC -sV -oA services 10.10.10.75 Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/nibbles-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/cronos-hack-the-box/" class="post-link">Cronos -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Mar 15, 2019 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">Introduction Target machine: 10.10.10.13(OS: linux)
-Kali linux: 10.10.16.44
-Enumeration Firstly, detect the open ports:
-nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
-namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
-   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/cronos-hack-the-box/">Read More →</a>
   </footer>
 </article>
 

@@ -276,10 +276,10 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
     
     <item>
       <title>后渗透的文件传输</title>
-      <link>https://madneal.com/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</link>
+      <link>https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</link>
       <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</guid>
+      <guid>https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</guid>
       <description>在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
  工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
 web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。

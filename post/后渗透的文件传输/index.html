@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>前端面试题——系列一</title>
+  <title>后渗透的文件传输</title>
 
   
   
@@ -16,32 +16,22 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="html语义话  img标签alt属性和title属性的区别
-alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
- css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
-div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
- ajax 基本实现步骤  1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&amp;lt;post/get&amp;gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
-XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置 1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求 2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求 3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成 4 loaded 请求已经完全接受
- 取消a链接默认跳转行为  href属性设置为javascript:void(0)
- 水平垂直居中  居中文告中的字句：text-align;center 对于div：margin: 0 auto" />
+  <meta name="description" content="在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php " />
 
   
   
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="前端面试题——系列一" />
-  <meta property="og:description" content="html语义话  img标签alt属性和title属性的区别
-alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
- css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
-div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
- ajax 基本实现步骤  1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&amp;lt;post/get&amp;gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
-XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置 1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求 2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求 3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成 4 loaded 请求已经完全接受
- 取消a链接默认跳转行为  href属性设置为javascript:void(0)
- 水平垂直居中  居中文告中的字句：text-align;center 对于div：margin: 0 auto" />
-  <meta property="og:url" content="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" />
+  <meta property="og:title" content="后渗透的文件传输" />
+  <meta property="og:description" content="在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php " />
+  <meta property="og:url" content="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
@@ -49,7 +39,7 @@ XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已�
 
 
 
-<link rel="canonical" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" />
+<link rel="canonical" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" />
 <link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
 
 
@@ -229,122 +219,23 @@ XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已�
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">前端面试题——系列一</h1>
-      <p class="post-meta">@Neal · Mar 1, 2016 · 1 min read</p>
+      <h1 class="post-title">后渗透的文件传输</h1>
+      <p class="post-meta">@Neal · May 16, 2019 · 1 min read</p>
     </header>
-    <article class="post-content"><ul>
-<li>html语义话</li>
-</ul>
-<!-- raw HTML omitted -->
-<p>img标签alt属性和title属性的区别</p>
-<p>alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。</p>
+    <article class="post-content"><p>在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：</p>
 <ul>
-<li>css布局</li>
+<li>工具越简单越好，要求就是方便易用</li>
+<li>最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境</li>
+<li>稳定，这点也很重要</li>
 </ul>
-<p>常见的布局有四种：表格布局，浮动布局，css框架，flexbox
-两列布局，三列布局可以由浮动来实现
-css3已经实现了多列布局，主要属性包括
-column-count
-column-gap
-column-rule-style
-column-rule-width
-column-rule-color
-column-rule
-column-span
-column-width</p>
-<p>div{
--webkit-column-count: 3;   Chorome, Safari, Opera
--moz-column-count :3; Firefox
--column-count:3;
-}</p>
-<ul>
-<li>清除浮动的知识</li>
-</ul>
-<p>在浮动元素后面增加<!-- raw HTML omitted -->标签
-在浮动元后面增加一个清楚浮动层：</p>
-<!-- raw HTML omitted -->
-<ul>
-<li>ajax 基本实现步骤</li>
-</ul>
-<p>1、创建XMLHttpRequest对象
-2、使用XMLHttpRequest对象打开一个连接，制定连接方式&lt;post/get&gt;
-和链接地址以及是否同步
-3、设置请求的头部（请求的类型和请求的编码格式）
-4、设置回调函数
-5、发送请求
-6、更新页面显示</p>
-<p>XMLHttpRequest状态码：
-0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置
-1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求
-2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求
-3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成
-4 loaded 请求已经完全接受</p>
-<ul>
-<li>取消a链接默认跳转行为</li>
-</ul>
-<p>href属性设置为javascript:void(0)</p>
-<ul>
-<li>水平垂直居中</li>
-</ul>
-<p>居中文告中的字句：text-align;center
-对于div：margin: 0 auto</p>
-<ul>
-<li>js数据类型的判断</li>
-</ul>
-<p>typeof</p>
-<ul>
-<li>事件模型</li>
-</ul>
-<p>1、原始事件模型
-2、IE事件模型
-3、DOM2事件模型：捕获，处理，冒泡</p>
-<ul>
-<li>IE和DOM事件绑定的区别</li>
-</ul>
-<p>IE下使用attachEvent/detachEvent函数进行事件绑定和取消
-兼容性不是太好
-a)事件处理函数中的this代表的是window对象，不是DOM对象
-b)同一个事件处理函数只能绑定一次
-c)不同的函数对象，可以重复绑定，不会覆盖</p>
-<p>w3c标准的addEventListener和removeEventListener
-a)事件处理函数中的this是DOM对象，不是window
-b)同一个事件处理函数可以绑定2次，一次用于事件捕获，一次用于事件冒泡
-c)如果绑定的是同一个事件处理函数，并且都是事件冒泡类型或者事件捕获类型，那么只能绑定一次
-d)不同的事件处理函数可以重复绑定</p>
-<ul>
-<li>js中的动画</li>
-</ul>
-<p>使用query方法hide show toggle
-fadein fadeout fade toggle fadeto
-animate来操控css属性</p>
-<ul>
-<li>盒子模型</li>
-</ul>
-<p>由外到内：margin,border,padding,content</p>
-<ul>
-<li>优化网站</li>
-</ul>
-<p>1、减少http请求：
-2、减少服务器响应时间
-3、压缩
-4、浏览器缓存
-5、减少资源，缩小html,js,css
-6、优化图片
-7、优化css，避免重复设置
-8、只是用外部css文件
-9、减少插件的使用
-10、减少重定向</p>
-<ul>
-<li>css3的新属性</li>
-</ul>
-<p>新增加选择器
-@font-face特性
-word-wrap text-overflow
-text-decoration
-multi-column layout
-渐变效果
-阴影和反射效果
-css3的盒子模型</p>
+<p>针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。</p>
+<h2 id="web-服务器">web 服务器</h2>
+<p>通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。</p>
+<h3 id="python2">python2</h3>
+<pre tabindex="0"><code>python -m SimpleHTTPServer 90
+</code></pre><h3 id="python3">python3</h3>
+<pre tabindex="0"><code>python3 -m http.server 80
+</code></pre><h3 id="php">php</h3>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
@@ -352,14 +243,12 @@ css3的盒子模型</p>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF"><span class="tag">前端</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="tag">面试题</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2442</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1272</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
