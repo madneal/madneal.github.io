@@ -219,6 +219,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/" class="post-link">Ext.js性能优化漫谈</a></h3>
+    <p class="post-meta">@Neal · Feb 22, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
+尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
+事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
+listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
+避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
+减少border布局 不需要一下再加载所有的元素
+批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="post-link">latex中large的作用域问题</a></h3>
     <p class="post-meta">@Neal · Jan 6, 2017 · 1 min read</p>
   </header>
@@ -414,23 +433,6 @@ Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&#34;HostName:&#34; &#43; hostname &#43; &#34;|Port:&#34; &#43; port); logger.debug(&#34;Session created&#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&#34;Failed to connect FTP server &#34; &#43; hostname); return false; } logger.debug(&#34;Username:&#34; &#43; userName &#43; &#34;|Password:&#34; &#43; password); } catch (Exception ex) { logger.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link">javascript中的对象字面量为啥这么酷</a></h3>
-    <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
-  成对出现的名称以及相应的值{ name1: value1 }
-  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
-  遗憾的是，这个对象字面量可能会出现下面这样的情况：
-var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
   </footer>
 </article>
 
