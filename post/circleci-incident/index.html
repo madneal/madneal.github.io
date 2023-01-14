@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>CircleCI 20230104 安全事件报告</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="CircleCI 20230104 安全事件报告  原文：[CircleCI incident report for January 4, 2023 security incident(https://circleci.com/blog/jan-4-2023-incident-report/)
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
+我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
+本报告包含:
+ 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
+2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。" />
+
+  
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CircleCI 20230104 安全事件报告" />
+  <meta property="og:description" content="CircleCI 20230104 安全事件报告  原文：[CircleCI incident report for January 4, 2023 security incident(https://circleci.com/blog/jan-4-2023-incident-report/)
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
+我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
+本报告包含:
+ 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
+2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。" />
+  <meta property="og:url" content="https://madneal.com/post/circleci-incident/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+
+
+<link rel="canonical" href="https://madneal.com/post/circleci-incident/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="网络安全, 安全事件, 事件报告, CircleCI" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/post">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">CircleCI 20230104 安全事件报告</h1>
+      <p class="post-meta">@Neal · Jan 14, 2023 · 3 min read</p>
+    </header>
+    <article class="post-content"><h1 id="circleci-20230104-安全事件报告">CircleCI 20230104 安全事件报告</h1>
+<blockquote>
+<p>原文：[CircleCI incident report for January 4, 2023 security incident(https://circleci.com/blog/jan-4-2023-incident-report/)</p>
+<p>译者：<a href="https://github.com/madneal">madneal</a></p>
+<p>welcome to star my <a href="https://github.com/madneal/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
+</blockquote>
+<p><a href="https://circleci.com/blog/january-4-2023-security-alert/">2023 年 1 月 4 日，我们提醒客户</a> 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。</p>
+<p>我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。</p>
+<p><strong>本报告包含:</strong></p>
+<ul>
+<li>发生了什么？</li>
+<li>我们怎么知道这个攻击向量已经关闭并且可以安全构建？</li>
+<li>与客户的沟通和支持</li>
+<li>如何判断我是否受影响？</li>
+<li>可能有助于您的团队进行内部调查的详细信息</li>
+<li>我们从这次事件中学到了什么以及我们下一步将做什么</li>
+<li>关于员工责任与系统保障措施的说明</li>
+<li>安全最佳实践</li>
+<li>结语</li>
+</ul>
+<h2 id="发生了什么">发生了什么？</h2>
+<p><em>除非另有说明，否则所有日期和时间均以 UTC 报告。</em></p>
+<p>2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。</p>
+<p>2022 年 12 月 30 日，我们了解到该客户的 GitHub OAuth 令牌已被未经授权的第三方泄露。尽管该客户能够迅速解决问题，但出于谨慎考虑，我们在 2022 年 12 月 31 日代表客户主动启动了更换所有 GitHub OAuth 令牌的流程。尽管与 GitHub 合作提高 API 速率限制，但轮换过程需要时间 虽然目前尚不清楚其他客户是否受到影响，但我们继续扩大分析范围。</p>
+<p>到 2023 年 1 月 4 日，我们的内部调查已经确定了未经授权的第三方入侵的范围和攻击的进入路径。迄今为止，我们了解到未经授权的第三方利用部署到 CircleCI 工程师笔记本电脑上的恶意软件来窃取有效的、支持 2FA 的 SSO session。这台机器于 2022 年 12 月 16 日遭到入侵。我们的防病毒软件未检测到该恶意软件。我们的调查表明，该恶意软件能够执行 session cookie 盗窃，使他们能够在远程位置冒充目标员工，然后升级为对我们生产系统子集的访问。</p>
+<p>由于目标员工有权生成生产访问令牌作为员工日常职责的一部分，因此未经授权的第三方能够从数据库和存储的子集访问和泄露数据，包括客户环境变量、令牌和密钥。我们有理由相信，未经授权的第三方在 2022 年 12 月 19 日进行了侦察活动。2022 年 12 月 22 日 发生了泄露事件，这是我们生产系统中最后一次未经授权活动的记录。尽管所有泄露的数据都是静态加密的，但第三方从正在运行的进程中提取了加密密钥，使他们能够访问加密数据。</p>
+<p>虽然我们对内部调查的结果充满信心，但我们已聘请第三方网络安全专家协助我们进行调查并验证我们的调查结果。我们迄今为止的发现基于对我们的身份验证、网络和监控工具的分析，以及我们合作伙伴提供的系统日志和日志分析。</p>
+<p>针对这一事件，我们采取了以下行动：</p>
+<ul>
+<li>2023 年 1 月 4 日 16:35 UTC，我们关闭了帐户被盗员工的所有访问权限。</li>
+<li>2023 年 1 月 4 日 28:30 UTC，我们关闭了几乎所有员工的生产访问权限，限制了极少数群体的访问权限以解决运营问题。在此调查期间，我们从未有任何证据表明任何其他员工或他们的设备的凭证已被泄露，但我们采取此行动是为了限制潜在的攻击面。</li>
+<li>2023 年 1 月 4 日 22:30 UTC，我们修改了了所有可能暴露的生产主机，以确保安全的生产机器。</li>
+<li>2023 年 1 月 5 日 03:26 UTC，我们撤销了所有项目 API 令牌。</li>
+<li>2023 年 1 月 6 日 05:00 UTC，我们撤销了在 2023 年 1 月 5 日 00:00 UTC 之前创建的所有个人 API 令牌。</li>
+<li>2023 年 1 月 6 日 06:40 UTC，我们开始与 Atlassian 的合作伙伴合作，代表我们的客户轮换所有 Bitbucket token。这项工作于 2023 年 1 月 6 日 10:15 UTC 完成。</li>
+<li>2023 年 1 月 7 日 07:30 UTC，我们完成了 GitHub OAuth 令牌的修改，该修改是我们于 2022 年 12 月 31 日 04:00 UTC 开始的。</li>
+<li>2023 年 1 月 7 日 18:30 UTC，我们开始与 AWS 的合作伙伴合作，通知客户可能受影响的 AWS token。据我们了解，这些通知已于 2023 年 1 月 12 日 00:00 UTC 时完成。</li>
+</ul>
+<p>在此期间，我们在外部调查人员的支持下继续进行取证调查，在我们的平台上推出额外的安全层，并构建和分发额外的工具（更多详情见下文）以支持我们的客户保护他们的 secrets。</p>
+<h2 id="我们怎么知道这个攻击向量已经关闭并且可以安全构建">我们怎么知道这个攻击向量已经关闭并且可以安全构建？</h2>
+<p>我们相信客户可以安全地在 CircleCI 上构建。</p>
+<p>自从意识到这种攻击以来，我们采取了许多措施，既关闭了攻击向量，又增加了额外的安全层，包括：</p>
+<ul>
+<li>通过我们的 MDM 和 A/V 解决方案添加了针对此次攻击中使用的恶意软件表现出的特定行为的检测和阻止。</li>
+<li>由于我们实施了额外的安全措施，因此仅限极少数员工访问生产环境 我们对我们平台的安全性充满信心，并且没有迹象表明任何其他员工的设备遭到入侵。</li>
+<li>对于保留生产访问权限的员工，我们添加了额外的升级身份验证步骤和控制。 这将帮助我们防止可能的未经授权的生产访问，即使在 2FA 支持的 SSO session 被盗的情况下也是如此。</li>
+<li>跨多个触发器并通过各种第三方供应商对我们在此场景中确定的特定行为模式实施监控和警报。</li>
+</ul>
+<p>我们知道安全工作永远不会结束。除了关闭这个特定的向量，我们还进行了增强和持续的审查，以确保加强对潜在攻击的防御。</p>
+<h2 id="与客户的沟通和支持">与客户的沟通和支持</h2>
+<p>在 2023 年 1 月 4 日 22:30 UTC 完成所有生产主机的轮换后，我们确信我们已经消除了攻击向量和破坏主机的可能性。</p>
+<p>2023 年 1 月 5 日 02:30 UTC，我们发送了披露电子邮件，<a href="https://circleci.com/blog/january-4-2023-security-alert/">在我们的博客上发布了安全通知</a>，通过我们的社交媒体帐户和我们的讨论论坛通知客户，并创建了一篇关于如何执行建议的安全步骤的支持文章。</p>
+<p>我们建议所有客户更改他们的 secrets，包括 OAuth 令牌、项目 API 令牌、SSH 密钥等（有关更多详细信息，请参阅博客文章或讨论文章）。</p>
+<p>此披露启动了与我们客户的积极和持续的沟通期。我们要感谢我们的客户对这一事件的一致响应，以及帮助我们找到机会为您提供额外的工具。我们接受了这些反馈，并作为回应构建并发布了新工具并修改了我们现有的工具，以通过以下方式为客户加快修复速度：</p>
+<ul>
+<li><a href="https://github.com/CircleCI-Public/CircleCI-Env-Inspector">秘密发现脚本</a> 以创建可操作的秘密轮换列表。</li>
+<li>CircleCI API 的两个关键变化：
+<ul>
+<li>返回结帐密钥的 SHA-256 签名的新功能，以便更好地匹配 GitHub UI。</li>
+<li><code>updated_at</code> 字段已添加到 Contexts API 中，以便客户可以验证这些变量是否已成功轮换。</li>
+</ul>
+</li>
+<li>免费和付费计划的所有客户都可以访问审计日志，以帮助客户审查 CircleCI 平台活动。</li>
+</ul>
+<p>我们感谢客户就我们可以改进沟通的地方提供的所有反馈，包括让事件在我们的渠道中更加明显的机会。</p>
+<h2 id="我怎么知道我是否受到了影响">我怎么知道我是否受到了影响？</h2>
+<h3 id="我的数据有风险吗">我的数据有风险吗？</h3>
+<p>在此事件中，未经授权的行为者于 2022 年 12 月 22 日窃取了客户信息，其中包括第三方系统的环境变量、密钥和令牌。如果您在此期间将机密信息存储在我们的平台上，请假设它们已被访问并采取建议的缓解措施。我们建议您从 2022 年 12 月 16 日开始调查系统中的可疑活动，并在我们于 2023 年 1 月 4 日披露后完成机密修改之日结束。2023 年 1 月 5 日之后进入系统的任何内容都可以被认为是安全的。</p>
+<h3 id="是否有未经授权的行为者使用该数据访问我的任何系统">是否有未经授权的行为者使用该数据访问我的任何系统？</h3>
+<p>由于此事件涉及第三方系统的密钥和令牌外泄，我们无法知道您的 secret 是否被用于未经授权访问这些第三方系统。 我们在下面提供了一些详细信息，以帮助客户进行调查。</p>
+<p><strong>在发布时，只有不到 5 位客户通知我们由于此事件而未经授权访问第三方系统。</strong></p>
+<h2 id="可能有助于您的团队进行内部调查的详细信息">可能有助于您的团队进行内部调查的详细信息</h2>
+<p>在第三方取证调查员的帮助下，我们最近确认了可能有助于客户进行审计和调查的更多详细信息。</p>
+<h3 id="影响日期">影响日期：</h3>
+<ul>
+<li>我们在 2022 年 12 月 19 日看到未经授权的第三方访问，数据泄露发生在 2022 年 12 月 22 日。</li>
+<li>我们没有证据表明 2022 年 12 月 19 日之前有影响客户的活动。出于谨慎考虑，我们建议您调查从 2022 年 12 月 16 日事件开始到 1 月之后修改 secret 之间的这段时间系统中存在异常活动。</li>
+</ul>
+<h3 id="识别为被威胁行为者使用的-ip-地址">识别为被威胁行为者使用的 IP 地址：</h3>
+<ul>
+<li>178.249.214.10</li>
+<li>89.36.78.75</li>
+<li>89.36.78.109</li>
+<li>89.36.78.135</li>
+<li>178.249.214.25</li>
+<li>72.18.132.58</li>
+<li>188.68.229.52</li>
+<li>111.90.149.55</li>
+</ul>
+<h3 id="data-centers-and-vpn-providers-identified-as-being-used-by-the-threat-actor">Data centers and VPN providers identified as being used by the threat actor:</h3>
+<h3 id="数据中心和-vpn-提供商被识别为被威胁行为者使用">数据中心和 VPN 提供商被识别为被威胁行为者使用：</h3>
+<ul>
+<li>Datacamp Limited</li>
+<li>Globalaxs Quebec Noc</li>
+<li>Handy Networks, LLC</li>
+<li>Mullvad VPN</li>
+</ul>
+<h3 id="malicious-files-to-search-for-and-remove">Malicious files to search for and remove:</h3>
+<h3 id="搜索和删除的恶意文件">搜索和删除的恶意文件：</h3>
+<ul>
+<li>/private/tmp/.svx856.log</li>
+<li>/private/tmp/.ptslog</li>
+<li>PTX-Player.dmg (SHA256: 8913e38592228adc067d82f66c150d87004ec946e579d4a00c53b61444ff35bf)</li>
+<li>PTX.app</li>
+</ul>
+<h3 id="拦截以下域名">拦截以下域名</h3>
+<ul>
+<li>potrax[.]com</li>
+</ul>
+<h3 id="查看-github-审核日志文件以查找意外命令例如">查看 GitHub 审核日志文件以查找意外命令，例如：</h3>
+<ul>
+<li>repo.download_zip</li>
+</ul>
+<h2 id="我们从这次事件中学到了什么以及我们接下来要做什么">我们从这次事件中学到了什么以及我们接下来要做什么</h2>
+<p><strong>我们了解到：虽然我们有适当的工具来阻止和检测攻击，但总有机会加强我们的安全态势。</strong></p>
+<p>我们拥有的身份验证、安全和跟踪工具使我们能够全面诊断和修复问题。随着恶意攻击者越来越复杂，我们正在不断改进我们的安全标准并推动最佳实践以保持领先于未来的威胁。我们将越来越积极地使用安全工具。展望未来，为了支持更保守的立场并防止攻击者不当访问我们的系统，我们将优化现有工具的配置以创建额外的防御层。</p>
+<h3 id="我们的计划">我们的计划：</h3>
+<p>首先，我们将为所有客户启动定期自动 OAuth 令牌轮换。 我们的计划还包括从 OAuth 到 GitHub 应用程序的转变，使我们能够在令牌中实施更精细的权限。我们还计划完成对我们所有工具配置的全面分析，包括第三方审查。我们将继续采取其他措施，包括扩大告警范围、减少会话信任、添加额外的身份验证因素以及执行更定期的访问轮换。最后，我们将使我们的系统权限更加短暂，严格限制从类似事件中获得的任何令牌的目标值。</p>
+<h3 id="我们学习到我们可以让客户更轻松地采用我们最先进的安全功能">我们学习到：我们可以让客户更轻松地采用我们最先进的安全功能。</h3>
+<p>通过 CircleCI 的发展，我们不断引入功能来提高客户构建管道的安全性。虽然客户可以使用高级安全功能，但我们可以做更多工作来提高这些功能的采用率。</p>
+<h3 id="我们的计划-1">我们的计划：</h3>
+<p>客户必须更容易无缝地采用可用的最新和最先进的安全功能，包括 OIDC 和 IP 范围。我们还在探索其他主动步骤，例如，自动令牌过期和未使用 secret 的通知。我们将使我们的客户更简单、更方便地创建和维护高度安全的管道，在智能管理风险的同时实现云的每一个优势。</p>
+<h2 id="关于员工责任与系统保障措施的说明">关于员工责任与系统保障措施的说明</h2>
+<p>我们想说清楚。虽然一名员工的笔记本电脑通过这种复杂的攻击被利用，但安全事件是系统故障。作为一个组织，我们的责任是建立多层防护措施来抵御所有攻击向量。</p>
+<h2 id="安全最佳实践">安全最佳实践</h2>
+<p>鉴于成熟和有动机的攻击者越来越多，我们致力于与我们的客户分享最佳实践，以加强我们对未来不可避免的尝试的集体防御。以下是客户可以用来提高管道安全性的建议：</p>
+<ul>
+<li>尽可能使用 <a href="https://circleci.com/docs/openid-connect-tokens/">OIDC 令牌</a> 以避免在 CircleCI 中存储长期存在的凭据。</li>
+<li>利用 <a href="https://circleci.com/docs/ip-ranges/">IP 范围</a> 将您系统的入站连接限制为仅已知 IP 地址。</li>
+<li>使用 <a href="https://circleci.com/docs/contexts/">Contexts</a> 合并共享机密并将对机密的访问限制为特定项目，然后可以[通过 API 自动轮换](<a href="https://circleci.com">https://circleci.com</a> /docs/contexts/#rotating-environment-variables）。</li>
+<li>对于特权访问和其他控制，您可以选择使用 <a href="https://circleci.com/docs/runner-overview/#circleci-runner-use-cases">runners</a>，它允许您将 CircleCI 平台连接到 您自己的计算和环境，包括 IP 限制和 IAM 管理。</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>我们知道没有合适的时间来响应关键系统上的安全事件，我们要衷心感谢所有在事件发生后立即采取行动的客户。正是通过这种集体行动，我们将能够更有力地应对未来的威胁。我们还亲眼目睹了我们客户社区的力量和慷慨，你们中的许多人前往我们的讨论论坛分享知识并互相帮助。感谢您在我们努力解决此事件时的支持和耐心。</p>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="tag">网络安全</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8%E4%BA%8B%E4%BB%B6"><span class="tag">安全事件</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E4%BA%8B%E4%BB%B6%E6%8A%A5%E5%91%8A"><span class="tag">事件报告</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2023 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
