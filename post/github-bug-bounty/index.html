@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>为什么 2022 年是漏洞赏金奖破纪录的一年</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="为什么 2022 年是漏洞赏金奖破纪录的一年  原文：Why 2022 was a record-breaking year in bug bounty awards
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 每年，GitLab 的应用安全团队 都会回顾 GitLab 漏洞赏金计划的亮点。
+对于整个行业的安全团队来说，2022 年是忙碌的一年，我们很幸运收到了大量出色的报告，帮助我们确保 GitLab 及其客户的安全。 随着我们在 2021 年 11 月 增加我们的漏洞赏金奖励金额和研究人员参与度的提高，我们在 2022 年期间奖励超过 100 万美元，打破了新纪录！
+如果没有我们的漏洞赏金社区的合作，我们就不会取得今天的成就，我们认为这些奖励非常有益，而且钱花得值。
+2022 年的数字  在 221 份有效报告中获得总计 1,055,770 美元的奖金，高于去年的 337,780 美元！ 三名研究人员在他们的多份报告中获得了 10 万美元以上的收入，另外七名研究人员的收入超过了 2 万美元。 2022年共收到424名研究人员的920份报告。 解决了 158 份有效报告并公开了 94 份 - 今年，我们收到了一些信息泄漏报告，与漏洞不同，这些报告不需要公开 GitLab 问题。 今年有 138 名安全研究人员提交了一份以上的报告，表明他们对我们的计划做出了积极的贡献。 向提交三份或更多有效报告的研究人员授予八份 GitLab Ultimate 许可证。  注：数据为截至 2022 年 12 月 16 日。" />
+
+  
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="为什么 2022 年是漏洞赏金奖破纪录的一年" />
+  <meta property="og:description" content="为什么 2022 年是漏洞赏金奖破纪录的一年  原文：Why 2022 was a record-breaking year in bug bounty awards
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 每年，GitLab 的应用安全团队 都会回顾 GitLab 漏洞赏金计划的亮点。
+对于整个行业的安全团队来说，2022 年是忙碌的一年，我们很幸运收到了大量出色的报告，帮助我们确保 GitLab 及其客户的安全。 随着我们在 2021 年 11 月 增加我们的漏洞赏金奖励金额和研究人员参与度的提高，我们在 2022 年期间奖励超过 100 万美元，打破了新纪录！
+如果没有我们的漏洞赏金社区的合作，我们就不会取得今天的成就，我们认为这些奖励非常有益，而且钱花得值。
+2022 年的数字  在 221 份有效报告中获得总计 1,055,770 美元的奖金，高于去年的 337,780 美元！ 三名研究人员在他们的多份报告中获得了 10 万美元以上的收入，另外七名研究人员的收入超过了 2 万美元。 2022年共收到424名研究人员的920份报告。 解决了 158 份有效报告并公开了 94 份 - 今年，我们收到了一些信息泄漏报告，与漏洞不同，这些报告不需要公开 GitLab 问题。 今年有 138 名安全研究人员提交了一份以上的报告，表明他们对我们的计划做出了积极的贡献。 向提交三份或更多有效报告的研究人员授予八份 GitLab Ultimate 许可证。  注：数据为截至 2022 年 12 月 16 日。" />
+  <meta property="og:url" content="https://madneal.com/post/github-bug-bounty/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+
+
+<link rel="canonical" href="https://madneal.com/post/github-bug-bounty/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="gitlab, 漏洞赏金, h1" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/post">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">为什么 2022 年是漏洞赏金奖破纪录的一年</h1>
+      <p class="post-meta">@Neal · Jan 16, 2023 · 1 min read</p>
+    </header>
+    <article class="post-content"><h1 id="为什么-2022-年是漏洞赏金奖破纪录的一年">为什么 2022 年是漏洞赏金奖破纪录的一年</h1>
+<blockquote>
+<p>原文：<a href="https://about.gitlab.com/blog/2022/12/19/why-2022-was-a-record-breaking-year-in-bug-bounty-awards/">Why 2022 was a record-breaking year in bug bounty awards</a></p>
+<p>译者：<a href="https://github.com/madneal">madneal</a></p>
+<p>welcome to star my <a href="https://github.com/madneal/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
+</blockquote>
+<p><img src="https://madneal.com/images/blogimages/inside-gitLab-public-bug-bounty-program.png" alt=""></p>
+<p>每年，GitLab 的<a href="https://about.gitlab.com/handbook/security/security-engineering/application-security/">应用安全团队</a> 都会回顾 GitLab 漏洞赏金计划的亮点。</p>
+<p>对于整个行业的安全团队来说，2022 年是忙碌的一年，我们很幸运收到了大量出色的报告，帮助我们确保 GitLab 及其客户的安全。 随着我们在 2021 年 11 月 <a href="https://about.gitlab.com/blog/2021/11/01/3rd-annual-bug-bounty-contest/#-increased-bounties-across-all-bounty-ranges-">增加我们的漏洞赏金奖励金额</a>和研究人员参与度的提高，我们在 2022 年期间<strong>奖励超过 100 万美元</strong>，打破了新纪录！</p>
+<p>如果没有我们的漏洞赏金社区的合作，我们就不会取得今天的成就，我们认为这些奖励非常有益，而且钱花得值。</p>
+<h2 id="2022-年的数字2022-by-the-numbers">2022 年的数字<a href="##2022-by-the-numbers"></a></h2>
+<ul>
+<li>在 221 份有效报告中获得总计 1,055,770 美元的奖金，高于去年的 337,780 美元！</li>
+<li>三名研究人员在他们的多份报告中获得了 10 万美元以上的收入，另外七名研究人员的收入超过了 2 万美元。</li>
+<li>2022年共收到424名研究人员的920份报告。</li>
+<li>解决了 158 份有效报告并公开了 94 份 - 今年，我们收到了一些信息泄漏报告，与漏洞不同，这些报告不需要公开 GitLab 问题。</li>
+<li>今年有 138 名安全研究人员提交了一份以上的报告，表明他们对我们的计划做出了积极的贡献。</li>
+<li>向提交三份或更多有效报告的研究人员授予八份 GitLab Ultimate 许可证。</li>
+</ul>
+<p><em>注：数据为截至 2022 年 12 月 16 日。</em></p>
+<p>您可以在我们的 <a href="https://hackerone.com/gitlab">HackerOne 项目主页</a> 上查看每天更新的项目统计信息。如果您想参与其中，这也是开始我们计划的地方！</p>
+<p>脱颖而出的报告和上报者<a href="##reports-and-reporters-that-stand-out"></a></p>
+<hr>
+<p><strong>我们计划的最有效报告</strong>。祝贺 <a href="https://hackerone.com/joaxcar">@joaxcar</a> 在 2022 年提交了 22 份有效且现已解决的报告。</p>
+<p><strong>来自我们计划新人的最有效报告</strong>， 欢迎并祝贺 <a href="https://hackerone.com/albatraoz">@albatraoz</a> 在 2022 年提出了七份有效且现已解决的报告。</p>
+<p><strong>最佳书面报告</strong>。干得好，谢谢 <a href="https://hackerone.com/yvvdwf">@yvvdwf</a> 编写了一个非常有趣的 <a href="https://gitlab.com/gitlab-org/gitlab/-/issues/371098?_gl=1*w2k5zo*_ga*MTE4NzUwNTYwNC4xNjcyODE5MjA1*_ga_ENFH3X7M5Y*MTY3MzgyOTM5OS4zLjEuMTY3MzgyOTkzOC4wLjAuMA..">远程代码执行错误</a>。代码和根本原因的 walkthrough、创建虚拟恶意服务器的脚本，以及在验证期间与我们的 AppSec 团队的协作非常棒！</p>
+<p><strong>最具创新性的报告</strong>。击掌，<a href="https://hackerone.com/vakzz">@vakzz</a>，他用<a href="https://gitlab.com/gitlab-org/gitlab/-/issues/372165">新颖的本地 <code>git</code> 读取漏洞</a>夺得了旗帜！ 他还对上述 <code>@yvvdwf</code> 的 RCE 进行了<a href="https://gitlab.com/gitlab-org/gitlab/-/issues/371884">简洁的跟进</a>。</p>
+<p><strong>最具影响力的发现</strong>。我们很高兴认识到 <a href="https://hackerone.com/taraszelyk">@taraszelyk</a>，他连续提交的信息披露导致 GitLab 内部发生了许多积极的安全变化。谢谢，Taras！</p>
+<p>我们将与这些研究人员取得联系，寄出 <a href="https://shop.gitlab.com">GitLab Swag Shop</a> 代金券以示感谢。</p>
+<h2 id="2022-年所做的更改changes-made-in-2022">2022 年所做的更改<a href="##changes-made-in-2022"></a></h2>
+<ul>
+<li>我们采用了 HackerOne 的黄金标准安全港声明。请参阅 <a href="https://www.hackerone.com/press-release/hackerone-announces-gold-standard-safe-harbor-improve-protections-good-faith-security">来自 HackerOne 的公告</a>。</li>
+<li>我们推出了 <a href="https://hackerone.com/gitlab#user-content-capture-the-flag-for-20000">20,000 美元的夺旗奖金</a>，<a href="https://gitlab.com/gitlab-org/gitlab/-/issues/372165">已经被获得了一次</a>。</li>
+<li>我们创建了 <a href="https://gitlab.com/gitlab-com/gl-security/appsec/hackerone-questions/">HackerOne Questions</a>，这是一个专门用于在 HackerOne 报告之外与 AppSec 团队联系的空间。</li>
+<li>创建了 <a href="https://madneal.com/handbook/security/security-engineering-and-research/application-security/reproducible-vulnerabilities.html">&ldquo;Reproducible Vulnerabilities&rdquo;</a>，这是我们手册中的全新学习资源，具有可扩展的提示部分，以便您可以挑战自己并学习如何找到真正的安全漏洞。</li>
+<li>继续透明地迭代我们的 <a href="https://gitlab.com/gitlab-com/www-gitlab-com/-/commits/master/sites/handbook/source/handbook/security/security-engineering-and-research/application-security/runbooks/hackerone-process.html.md?_gl=1*q768y9*_ga*MTE4NzUwNTYwNC4xNjcyODE5MjA1*_ga_ENFH3X7M5Y*MTY3MzgyOTM5OS4zLjEuMTY3MzgyOTkzOC4wLjAuMA..">HackerOne 分类流程</a>，以及我们的 <a href="https://gitlab.com/gitlab-com/gl-security/appsec/cvss-calculator/-/commits/master">漏洞赏金计算器</a>，包括标准化非漏洞报告的数量，如信息泄漏。</li>
+</ul>
+<p>今年，我们还继续提供有助于研究人员和其他运行漏洞赏金计划的组织的内容：</p>
+<ul>
+<li>GitLab 博客：<a href="https://about.gitlab.com//blog/2022/07/27/cracking-our-bug-bounty-top-10/">“想开始黑客攻击吗？这是快速深入的方法”</a></li>
+<li>GitLab 博客：<a href="https://about.gitlab.com//blog/2022/02/17/how-gitlab-handles-security-bugs/">“GitLab 如何处理安全漏洞（及其重要性）”</a></li>
+<li>YouTube：<a href="https://www.youtube.com/watch?v=uqvaiml1iV4">NullCon 2022 视频座谈会：“CXO 座谈会：漏洞赏金？太棒了！现在怎么办？”</a></li>
+</ul>
+<p>一如既往，与我们行业最好的安全研究人员（包括许多新人）一起工作真的很高兴。 GitLab 的 AppSec 团队致力于在漏洞赏金计划和奖励的透明度方面成为行业领导者。 <a href="https://gitlab.com/gitlab-com/gl-security/appsec/hackerone-questions/">让我们知道我们在做什么</a> 这样我们就可以迭代我们的程序流程。</p>
+<p>为 2023 年干杯 - 快乐挖洞！</p>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/gitlab"><span class="tag">Gitlab</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E8%B5%8F%E9%87%91"><span class="tag">漏洞赏金</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/h1"><span class="tag">H1</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2023 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

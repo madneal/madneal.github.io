@@ -219,6 +219,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
+    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
+什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
+ 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+ 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
     <p class="post-meta">@Neal · Nov 10, 2019 · 2 min read</p>
   </header>
@@ -385,25 +406,6 @@ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar bur
 Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/" class="post-link">偶遇 XSS 漏洞</a></h3>
-    <p class="post-meta">@Neal · Aug 22, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。
-最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 ReturnURL 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，RAP。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开发，不过目前这个代码仓库已经不维护了，已经迁移到了 rap2-delos。但是 RAP 的 star 数更多，高达 10000&#43;。可以得知，该项目目前应该还有不少人在使用。
-其实这个漏洞的原理非常简单。其实就是 doLogin 请求会传入一个 ReturnURL，而重定向的页面会直接使用 window.location.href 来直接重定向 URL。使用 window.location.href 其实本来就是一种比较危险的行为，尤其是链接的参数取决于外部输入，更有可能导致 dom 型的 XSS 漏洞。同时，这个漏洞也是一个开放重定向漏洞。不过本文就稍微聊一下这个 XSS 漏洞。开源仓库就是有一个好处，可以直接看代码。下面我们就通过代码来简单解释一下原理。
-简单粗暴地在代码仓库中搜索了一下 window.location.href，发现代码仓库中有多处使用了 window.location.href。不过我们很快就发现了一个有趣的代码，正是重定向页面的代码。
-关键代码就是：window.location.href = decodeURIComponent(&#34;$returnUrl&#34;);。这段代码没有对 returnUrl 做任何的处理，而且这段代码就是直接放在 script 标签中。毫无疑问，这种一定会导致 XSS 漏洞，可以通过构造 returnUrl 来闭合双引号从而导致 XSS 漏洞。比如，&#34;alert(/xss/);//，这段代码就可以导致 XSS 漏洞。
-再看看调用这个页面的地方：
- public String doLogin() {  // 增加验证码  Map&lt;String,Object&gt; session = ContextManager.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 

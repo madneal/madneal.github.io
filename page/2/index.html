@@ -207,6 +207,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/goland/" class="post-link">goland-2022.01版本最新实用功能</a></h3>
+    <p class="post-meta">@Neal · May 1, 2022 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 JSON 的解析。因为 Go 中的 JSON 的解析，一般来说需要定义对应 JSON 的 struct。或者使用 interface{} 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。
+在 Goland 2022.01 最新版本中，终于迎来了在 JSON 方面解析的便捷功能。在最新版本中，只要将 JSON 粘贴到 IDE 中就会提示是否转化为 struct 类型，所有的字段都会被生成，相对于以前的一个个的手动的定义要方便太多太多了。
+还可以使用 Action 来进行转换动作，Generate Go Type form JSON：
+同时还可以添加新的 tag，key 以及修改 key 的代码风格，调用来说一般使用 alt&#43;enter 快捷键即可。
+Intention actions 字段添加新的 tag
+ 点击 struct 的字段然后按 alt&#43;enter 选择 Add key to tags  修改 key
+ 点击 struct 的字段然后按 alt&#43;enter 选择 Update key value in tags  修改 key 的代码风格</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/goland/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
     <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
   </header>
@@ -367,22 +386,6 @@ NGP 最值得诟病的就是双车道的高速超车逻辑。经常遇到的情�
 https://events.xiaopeng.com/r18f95.html?token=2cf68377</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/highway/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
-    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
-前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
 </article>
 
