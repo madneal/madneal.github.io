@@ -241,7 +241,7 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> RULENAME(creaeventlist) <span style="color:#66d9ef">FROM</span> events
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> creeventlist <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>
 </span></span></code></pre></div><h2 id="场景案例">场景案例</h2>
-<p>根据我的理解，Qradar 所有的查询归根到底应该都是通过 AQL 来实现的，但是官方并没有提供将普通的查询转换成 AQL 语句的工具。之前我有一些场景想通过 AQL 来实现，但是 IBM 的人说无法实现（此处应有吐槽），后来还是得靠自己来实现。</p>
+<p>根据我的理解，Qradar 所有的查询归根到底应该都是通过 AQL 来实现的，但是官方并没有提供将普通的查询转换成 AQL 语句的工具。之前我有一些场景想通过 AQL 来实现，但是 IBM 的人说无法实现（此处应有吐槽），后来还是得靠自己来实现。</p>
 <h3 id="某-ip-某事件发生的时间大于特定的值">某 IP 某事件发生的时间大于特定的值</h3>
 <p>可能说起来有那么一点点绕，但这个场景还是蛮有必要的。因为经常有一些安全事件很长时间都没有即是处置，那我们如何将这些事件捞出来呢。即该事件（sourceip 指定）的第一次出现的时间和最近出现一次的时间的时间间隔大于特定的指，那么我们就可以通过这样的语句来把这样的事件找出来了。</p>
 <pre tabindex="0"><code>SELECT QIDNAME(qid) AS EventName, MIN(starttime) AS FirstTime, MAX(starttime) AS LastTime
@@ -249,7 +249,7 @@ FROM events
 WHERE LastTime - FirstTime &gt; xxxx
 GROUP BY sourceip,EventName
 </code></pre><h3 id="查询当前月份的事件">查询当前月份的事件</h3>
-<p>IBM 与日期相关的函数主要就是4个，即 <code>LAST, START, STOP, NOW</code>。日期实现的逻辑太单一了，你只能指定具体的起始时间以及终止时间或者是 <code>LAST 1 DAYS</code> 这种。但是有一个非常普遍的场景就是我需要知道当前月份的情况，这就无法通过这几个关键词直接来实现，因为 <code>Current Month IS NOT LAST 30 DAYS</code>.那么我们需要介绍一个函数 <code>DATEFORMAT</code>,通过这个函数我们可以将时间转化为字符串类型，结合 <code>NOW</code> 以及 <code>START, STOP</code> 函数，既可以实现。</p>
+<p>IBM 与日期相关的函数主要就是4个，即 <code>LAST, START, STOP, NOW</code>。日期实现的逻辑太单一了，你只能指定具体的起始时间以及终止时间或者是 <code>LAST 1 DAYS</code> 这种。但是有一个非常普遍的场景就是我需要知道当前月份的情况，这就无法通过这几个关键词直接来实现，因为 <code>Current Month IS NOT LAST 30 DAYS</code>.那么我们需要介绍一个函数 <code>DATEFORMAT</code>,通过这个函数我们可以将时间转化为字符串类型，结合 <code>NOW</code> 以及 <code>START, STOP</code> 函数，既可以实现。</p>
 <p><img src="https://s1.ax1x.com/2018/10/26/i612ng.png" alt="i612ng.png"></p>
 <p>那么我么就可以写出函数：</p>
 <pre tabindex="0"><code>CONCAT(SUBSTRING(DATEFORMAT(NOW(), &#39;yyyy-MM-dd&#39;), 0, 8), 01 00:00)
