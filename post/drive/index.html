@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Google Drive 的信息监控</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
+Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
+通过 OAuth 来使用 Drive API 也需要三个步骤：
+ 启用 API 配置 OAuth 应用 生成 Credentials  详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token." />
+
+  
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Google Drive 的信息监控" />
+  <meta property="og:description" content="对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
+Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
+通过 OAuth 来使用 Drive API 也需要三个步骤：
+ 启用 API 配置 OAuth 应用 生成 Credentials  详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token." />
+  <meta property="og:url" content="https://madneal.com/post/drive/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+
+
+<link rel="canonical" href="https://madneal.com/post/drive/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="开发, Google Drive, API" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/post">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Google Drive 的信息监控</h1>
+      <p class="post-meta">@Neal · Aug 28, 2023 · 3 min read</p>
+    </header>
+    <article class="post-content"><p>对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。</p>
+<h2 id="auth">Auth</h2>
+<p>如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个<a href="https://developers.google.com/cloud-search/docs/guides/delegation">文档</a>。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。</p>
+<p>通过 OAuth 来使用 Drive API 也需要三个步骤：</p>
+<ol>
+<li>启用 API</li>
+<li>配置 OAuth 应用</li>
+<li>生成 Credentials</li>
+</ol>
+<p>详细介绍可以参考谷歌的<a href="https://developers.google.com/drive/api/quickstart/go">文档</a>介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token.json。对于内部应用，生成的 token.json 包含 refresh_token 的话，这个 token 是不会过期的。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;context&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;encoding/json&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;log&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;net/http&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;golang.org/x/oauth2&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;golang.org/x/oauth2/google&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;google.golang.org/api/drive/v3&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;google.golang.org/api/option&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Retrieve a token, saves the token, then returns the generated client.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getClient</span>(<span style="color:#a6e22e">config</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">Config</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Client</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// The file token.json stores the user&#39;s access and refresh tokens, and is
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// created automatically when the authorization flow completes for the first
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// time.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">tokFile</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;token.json&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tokenFromFile</span>(<span style="color:#a6e22e">tokFile</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">tok</span> = <span style="color:#a6e22e">getTokenFromWeb</span>(<span style="color:#a6e22e">config</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">saveToken</span>(<span style="color:#a6e22e">tokFile</span>, <span style="color:#a6e22e">tok</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">Client</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">tok</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Request a token from the web, then returns the retrieved token.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getTokenFromWeb</span>(<span style="color:#a6e22e">config</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">Config</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">Token</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">authURL</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">AuthCodeURL</span>(<span style="color:#e6db74">&#34;state-token&#34;</span>, <span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">AccessTypeOffline</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Go to the following link in your browser then type the &#34;</span><span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;authorization code: \n%v\n&#34;</span>, <span style="color:#a6e22e">authURL</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">authCode</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Scan</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">authCode</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to read authorization code %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">Exchange</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">TODO</span>(), <span style="color:#a6e22e">authCode</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to retrieve token from web %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tok</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Retrieves a token from a local file.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">tokenFromFile</span>(<span style="color:#a6e22e">file</span> <span style="color:#66d9ef">string</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">Token</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">file</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">Token</span>{}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewDecoder</span>(<span style="color:#a6e22e">f</span>).<span style="color:#a6e22e">Decode</span>(<span style="color:#a6e22e">tok</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tok</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Saves a token to a file path.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">saveToken</span>(<span style="color:#a6e22e">path</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">token</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">oauth2</span>.<span style="color:#a6e22e">Token</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Saving credential file to: %s\n&#34;</span>, <span style="color:#a6e22e">path</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">f</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">OpenFile</span>(<span style="color:#a6e22e">path</span>, <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">O_RDWR</span>|<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">O_CREATE</span>|<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">O_TRUNC</span>, <span style="color:#ae81ff">0600</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to cache oauth token: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">json</span>.<span style="color:#a6e22e">NewEncoder</span>(<span style="color:#a6e22e">f</span>).<span style="color:#a6e22e">Encode</span>(<span style="color:#a6e22e">token</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">ReadFile</span>(<span style="color:#e6db74">&#34;credentials.json&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to read client secret file: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// If modifying these scopes, delete your previously saved token.json.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">google</span>.<span style="color:#a6e22e">ConfigFromJSON</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">drive</span>.<span style="color:#a6e22e">DriveMetadataReadonlyScope</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to parse client secret file to config: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getClient</span>(<span style="color:#a6e22e">config</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">srv</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">drive</span>.<span style="color:#a6e22e">NewService</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">option</span>.<span style="color:#a6e22e">WithHTTPClient</span>(<span style="color:#a6e22e">client</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to retrieve Drive client: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">srv</span>.<span style="color:#a6e22e">Files</span>.<span style="color:#a6e22e">List</span>().<span style="color:#a6e22e">PageSize</span>(<span style="color:#ae81ff">10</span>).
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">Fields</span>(<span style="color:#e6db74">&#34;nextPageToken, files(id, name)&#34;</span>).<span style="color:#a6e22e">Do</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatalf</span>(<span style="color:#e6db74">&#34;Unable to retrieve files: %v&#34;</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Files:&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Files</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;No files found.&#34;</span>)
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Files</span> {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s (%s)\n&#34;</span>, <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">i</span>.<span style="color:#a6e22e">Id</span>)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>完整的项目代码可以参考 GitHub 上面的<a href="https://github.com/googleworkspace/go-samples/blob/main/drive/quickstart/quickstart.go">代码仓库</a>。上面有完整的代码， <code>go run quickstart.go</code> 即可运行获取 token 文件。</p>
+<h2 id="检索">检索</h2>
+<p>在我们获取 credentials.json 以及 token.json 文件之后，就已经能够完成 API 的鉴权。Files.List API 是进行文件检索的核心 API。完整的搜索语法可以参考 Google 的<a href="https://developers.google.com/drive/api/guides/ref-search-terms">文档</a>。</p>
+<p><img src="https://s2.loli.net/2023/09/07/spyaPztHqLovZ69.png" alt="image.png"></p>
+<p>另外一个重要的实现就是 API 的翻页功能。不过 API 的翻页和其它普通的翻页不太一样，因为它不是使用普通的 page_no 来进行翻页。它是通过 pageToken 来进行翻页，而 pageToken 是随机字符串，而不是普通的数字。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getResults</span>(<span style="color:#a6e22e">keyword</span>, <span style="color:#a6e22e">query</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pageToken</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">results</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">File</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">service</span>.<span style="color:#a6e22e">Files</span>.<span style="color:#a6e22e">List</span>().<span style="color:#a6e22e">PageSize</span>(<span style="color:#ae81ff">10</span>).<span style="color:#a6e22e">Fields</span>(<span style="color:#e6db74">&#34;nextPageToken,files(*)&#34;</span>).
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">Q</span>(<span style="color:#a6e22e">query</span>).<span style="color:#a6e22e">Corpus</span>(<span style="color:#e6db74">&#34;domain&#34;</span>).
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">PageToken</span>(<span style="color:#a6e22e">pageToken</span>).<span style="color:#a6e22e">Do</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">results</span> = append(<span style="color:#a6e22e">results</span>, <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">file</span>())
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">NextPageToken</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pageToken</span> = <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">NextPageToken</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>通过 <code>Fields</code> 可以指定响应里面返回的字段，通过 Corpus 可以限定域内资源的搜索。</p>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E5%BC%80%E5%8F%91"><span class="tag">开发</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2023 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

@@ -207,6 +207,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" class="post-link">被动扫描器之插件篇</a></h3>
+    <p class="post-meta">@Neal · Sep 28, 2019 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于 freebuf, https://www.freebuf.com/articles/web/219818.html
+最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，r-forwarder 以及 r-forwarder-burp，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。
+Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。
+简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
+Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
+其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
+对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gproxy/" class="post-link">真香系列之 Golang 升级</a></h3>
     <p class="post-meta">@Neal · Sep 23, 2019 · 1 min read</p>
   </header>
@@ -357,30 +376,6 @@ Infomation Enumeration Firstly, gather open ports and services:
 # Nmap 7.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/help-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" class="post-link">使用浏览器作为代理从公网攻击内网</a></h3>
-    <p class="post-meta">@Neal · Apr 15, 2019 · 6 min read</p>
-  </header>
-  
-  <p class="post-summary">介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
-虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
-由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
-恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
-可疑行为：公网到局域网的连接 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
-如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
-这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
-在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
-同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
-Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
- 受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/">Read More →</a>
   </footer>
 </article>
 
