@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>Google Drive 的信息监控</title>
+  <title>Google Drive 的信息检索</title>
 
   
   
@@ -26,7 +26,7 @@ Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Google Drive 的信息监控" />
+  <meta property="og:title" content="Google Drive 的信息检索" />
   <meta property="og:description" content="对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
 Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
 通过 OAuth 来使用 Drive API 也需要三个步骤：
@@ -219,7 +219,7 @@ Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">Google Drive 的信息监控</h1>
+      <h1 class="post-title">Google Drive 的信息检索</h1>
       <p class="post-meta">@Neal · Aug 28, 2023 · 3 min read</p>
     </header>
     <article class="post-content"><p>对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。</p>
@@ -359,7 +359,7 @@ Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">results</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>通过 <code>Fields</code> 可以指定响应里面返回的字段，通过 Corpus 可以限定域内资源的搜索。</p>
+</span></span></code></pre></div><p>通过 <code>Fields</code> 可以指定响应里面返回的字段，通过 Corpus 可以限定域内资源的搜索。至此，基本上可以实现通过关键词实现对 Google Drive 信息的检索。虽然 Google Drive 支持关键词的全文搜索，但是搜索结果不支持展示匹配的上下文，这是唯一一个比较欠缺的地方。</p>
 </article>
     <footer class="post-footer">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
