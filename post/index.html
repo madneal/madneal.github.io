@@ -219,6 +219,28 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/git-undo/" class="post-link">如何使用 Git 撤消（几乎）任何操作</a></h3>
+    <p class="post-meta">@Neal · Nov 12, 2023 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：How to undo (almost) anything with Git
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 任何版本控制系统最有用的功能之一就是能够“撤消”错误。在 Git 中，“撤消”可能意味着许多略有不同的事情。
+当你进行新的 commit 时，Git 会及时存储你的仓库在该特定时刻的快照；之后，你可以使用 Git 返回到项目的早期版本。
+在这篇文章中，我将介绍一些你可能想要“撤消”所做更改的常见场景，以及使用 Git 执行此操作的最佳方法。
+撤销一个“public”修改 场景： 你刚刚运行了 git push，将你的修改 push 到 GitHub，现在意识到有一个 commit 有问题。你想把这个 commit 撤销。
+撤销： git revert &lt;SHA&gt;
+结果： git revert 将创建一个与给定 SHA 相反的新 commit。如果旧 commit 是“matter”，则新 commit 是“anti-matter”——旧 commit 中删除的任何内容都将添加到新 commit 中，而旧 commit 中添加的任何内容都将在新 commit 中删除。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/git-undo/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/drive/" class="post-link">Google Drive 的信息检索</a></h3>
     <p class="post-meta">@Neal · Aug 28, 2023 · 3 min read</p>
   </header>
@@ -406,30 +428,6 @@ HR 也提到了招聘负责人经常存在的一些错误做法：
 另外一点就是 HR 要在整个过程中需要保持和候选人的接触，这样让候选人感觉到他们一直被持续关注。尤其是遇到那种面试官出差或者请假的状态。这样避免候选人认为整个流程已经慌了。而且有的公司投递简历，石沉大海，没有任何响应的行为也非常不好。这些都有可能为公司带来一些负面影响。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/hr/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/go-vuln-management/" class="post-link">Go 的漏洞管理</a></h3>
-    <p class="post-meta">@Neal · Sep 7, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Vulnerability Management for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 我们很高兴地宣布 Go 对漏洞管理的新支持，这是我们帮助 Go 开发人员了解可能影响他们的已知漏洞的第一步。
-这篇文章概述了当前可用的内容以及该项目的后续计划。
-概述 Go 提供工具来分析你的代码库来发现已知漏洞。该工具由 Go 漏洞数据库提供支持，该数据库由 Go 安全团队规划。Go 的工具通过仅显示代码实际调用的函数中的漏洞来减少结果中的噪音。
-Go 漏洞数据库 Go 漏洞数据库 (https://vuln.go.dev) 是有关公共 Go 模块中可导入包中已知漏洞的综合信息源。
-漏洞数据来自现有来源（例如 CVE 和 GHSA）以及来自 Go 包维护者的直接报告。Go 安全团队会审查这些信息并将其添加到数据库中。
-我们鼓励包维护者在他们自己的项目中提供有关公共漏洞的信息，并更新其 Go 包中漏洞的现有信息。我们的目标是使报告过程成为一个非常容易的过程，因此请向我们反馈任何改进的建议。
-Go 漏洞数据库可以在浏览器中的 pkg.go.dev/vuln 中查看。 有关数据库的更多信息，请参阅 go.dev/security/vuln/database。
-使用 govulcheck 检测漏洞 新的 govulncheck 命令是一种低噪音、可靠的方式，让 Go 用户了解可能影响他们项目的已知漏洞。 Govulncheck 分析你的代码库并仅根据代码中的哪些函数传递调用易受攻击的函数来发现实际影响你的漏洞。 要开始使用 govulncheck，你可以从项目中运行以下命令：</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/go-vuln-management/">Read More →</a>
   </footer>
 </article>
 

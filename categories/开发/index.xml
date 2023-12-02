@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 28 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何使用 Git 撤消（几乎）任何操作</title>
+      <link>https://madneal.com/post/git-undo/</link>
+      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/git-undo/</guid>
+      <description>原文：How to undo (almost) anything with Git
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 任何版本控制系统最有用的功能之一就是能够“撤消”错误。在 Git 中，“撤消”可能意味着许多略有不同的事情。
+当你进行新的 commit 时，Git 会及时存储你的仓库在该特定时刻的快照；之后，你可以使用 Git 返回到项目的早期版本。
+在这篇文章中，我将介绍一些你可能想要“撤消”所做更改的常见场景，以及使用 Git 执行此操作的最佳方法。
+撤销一个“public”修改 场景： 你刚刚运行了 git push，将你的修改 push 到 GitHub，现在意识到有一个 commit 有问题。你想把这个 commit 撤销。
+撤销： git revert &amp;lt;SHA&amp;gt;
+结果： git revert 将创建一个与给定 SHA 相反的新 commit。如果旧 commit 是“matter”，则新 commit 是“anti-matter”——旧 commit 中删除的任何内容都将添加到新 commit 中，而旧 commit 中添加的任何内容都将在新 commit 中删除。</description>
+    </item>
+    
     <item>
       <title>Google Drive 的信息检索</title>
       <link>https://madneal.com/post/drive/</link>
