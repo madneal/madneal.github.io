@@ -207,6 +207,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="post-link">Kibana 任意代码执行漏洞</a></h3>
+    <p class="post-meta">@Neal · Oct 17, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">今日，有人公开了 Kibana 任意代码执行漏洞（CVE-2019-7609）的 POC。这个漏洞的主要原理是因为 Kibana 中的 Timelion 中具有原形链污染漏洞，因此可以导致指定变量的原型链污染，通过传递 NODE 环境变量参数，利用 Kibana 的 Canvas 会创建新进程的特性可以达到远程执行命令的效果。
+在本地尝试搭建环境复现，忙活了半天，一开始尝试的是 6.4.2 版本的 Kibana。尝试执行命令的时候，发现一直没有效果，才发现这个漏洞的利用还有一个重要的环节。在导致原型链污染之后，还需要点击 Canvas 菜单，因为点击 Canvas 菜单，Kibana 会尝试创建一个新的进程，从而可以达到远程命令执行的效果。不过在 Kibana 6.5 版本之前，Canvas 不是默认安装在 Kibana 中的。可以通过 kibana-plugin 去安装 Canvas 插件，不过我后来还是选择使用 6.5.4 版本，同时注意相应 elasticsearch 也需要升级到 6.5.4 版本。最后在使用反弹命令的时候，遇到了一点问题，可能与机器系统版本相关，可以多尝试几种命令。
+漏洞的利用过程其实不是特别复杂，注意几点即可：
+ 漏洞的影响的版本是 5.6.15 版本以及 6.6.1 版本以前。 Kibana 需要安装了 Canvas 插件。 目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。  原型链攻击 如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 proto 属性直接去修改 prototype。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/" class="post-link">Pornhub Web 开发者访谈</a></h3>
     <p class="post-meta">@Neal · Oct 13, 2019 · 1 min read</p>
   </header>
@@ -375,22 +391,6 @@ Holiday is an insane box officially. It’s really difficult to get the user per
 Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="post-link">后渗透的文件传输</a></h3>
-    <p class="post-meta">@Neal · May 16, 2019 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
- 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
-web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
-python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">Read More →</a>
   </footer>
 </article>
 
