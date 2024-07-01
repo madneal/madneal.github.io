@@ -207,6 +207,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" class="post-link">什么是DDOS</a></h3>
+    <p class="post-meta">@Neal · Jan 4, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-link">GShark-监测你的 Github 敏感信息泄露</a></h3>
     <p class="post-meta">@Neal · Oct 31, 2018 · 2 min read</p>
   </header>
@@ -363,24 +381,6 @@ for (var i = 0; i &lt; 5; i&#43;&#43;) {  setTimeout(function() {  console.log(i
 for (var i = 0; i &lt; 5; i&#43;&#43;) {  (function(i) {  setTimeout(function() {  console.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/" class="post-link">消灭 star 大作战--Front-end-tutorial</a></h3>
-    <p class="post-meta">@Neal · Apr 7, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">写在前面 Github star 往往非常简单，点击一个按钮，就 star 了。但是你还去看它么，这就未必了。因此很多库长年累月的堆积在你的 star list 里面无人问津。因此，会有这样一个具有一个非常中二的名字的计划。对于 star 仓库，从后往前，一个个理解消化，不要让它无意义地堆积。
-操作步骤：
- fork it finish it  仓库信息  仓库名称：Front-end-tutorial 主要内容：这是一个博客，里面主要是前端开发的内容，内容设计比较广泛，包括 HTML, CSS, JS 以及流行的框架，以及前端开发的其他内容。 消灭计划：内容较多，打算主要消化一些感兴趣的内容，主要应该集中于原生的东西或者一些性能方面的知识。  作战内容 JavaScript 深拷贝 深拷贝可以说是一个老生重谈的问题，几乎每一个前端面试都可能会问这样的问题。Js 中的对象都是引用，所以浅拷贝时，修改拷贝后的对象会影响原对象。原仓库中其实讲的并不是很深入，我反倒是觉得评论里面的一篇文章深入剖析 JavaScript 的深复制讲得更好。
-有很多第三方库实现了对于对象的深拷贝。
- jQuery: $.extend(true, {}, sourceObject) loadsh: _.clone(sourceObject, true) 或者 _.cloneDeep(sourceObject)  另外有一个神奇的方法就是借助于 JSON 的 parse 和 stringify 方法，当时我才看到这个方法的时候惊为天人，这个方法还可以用来判断两个对象是否相等。当然，这个方法还是有一些限制，因为正确处理的对象只能是使用 json 可以表示的数据结构，对于函数可能就无能为力了。原文作者实现了一个深拷贝的方法，不过考虑了很多情况，在这里我们就实现一个简单版的深拷贝把。
-function deepCopy(obj) {  const result = {};  for (const key in obj) {  if (obj.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/">Read More →</a>
   </footer>
 </article>
 

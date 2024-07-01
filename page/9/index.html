@@ -207,6 +207,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/" class="post-link">消灭 star 大作战--Front-end-tutorial</a></h3>
+    <p class="post-meta">@Neal · Apr 7, 2018 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">写在前面 Github star 往往非常简单，点击一个按钮，就 star 了。但是你还去看它么，这就未必了。因此很多库长年累月的堆积在你的 star list 里面无人问津。因此，会有这样一个具有一个非常中二的名字的计划。对于 star 仓库，从后往前，一个个理解消化，不要让它无意义地堆积。
+操作步骤：
+ fork it finish it  仓库信息  仓库名称：Front-end-tutorial 主要内容：这是一个博客，里面主要是前端开发的内容，内容设计比较广泛，包括 HTML, CSS, JS 以及流行的框架，以及前端开发的其他内容。 消灭计划：内容较多，打算主要消化一些感兴趣的内容，主要应该集中于原生的东西或者一些性能方面的知识。  作战内容 JavaScript 深拷贝 深拷贝可以说是一个老生重谈的问题，几乎每一个前端面试都可能会问这样的问题。Js 中的对象都是引用，所以浅拷贝时，修改拷贝后的对象会影响原对象。原仓库中其实讲的并不是很深入，我反倒是觉得评论里面的一篇文章深入剖析 JavaScript 的深复制讲得更好。
+有很多第三方库实现了对于对象的深拷贝。
+ jQuery: $.extend(true, {}, sourceObject) loadsh: _.clone(sourceObject, true) 或者 _.cloneDeep(sourceObject)  另外有一个神奇的方法就是借助于 JSON 的 parse 和 stringify 方法，当时我才看到这个方法的时候惊为天人，这个方法还可以用来判断两个对象是否相等。当然，这个方法还是有一些限制，因为正确处理的对象只能是使用 json 可以表示的数据结构，对于函数可能就无能为力了。原文作者实现了一个深拷贝的方法，不过考虑了很多情况，在这里我们就实现一个简单版的深拷贝把。
+function deepCopy(obj) {  const result = {};  for (const key in obj) {  if (obj.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/" class="post-link">如何做一个完美的页码跳转</a></h3>
     <p class="post-meta">@Neal · Mar 28, 2018 · 1 min read</p>
   </header>
@@ -367,37 +385,6 @@ Medium 文章格式显示地非常优雅，但是存在一个问题。众所周�
 router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&gt; {  res.render(&#39;index&#39;, {  title: &#39;express&#39;,  docs: docs  })  }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" class="post-link">JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</a></h3>
-    <p class="post-meta">@Neal · Sep 13, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
-正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
-如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
-因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
-概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
-在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
-如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
-如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
-JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
-引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
-那么，它们是从哪来的呢？
-事实证明这有一点复杂。
-因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
-接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
 </article>
 

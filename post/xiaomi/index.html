@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>Home Assistant 小米全屋智能</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="小米的门铃，免费的云存储时间只有 72 小时，希望保存更多时间的视频，只能去充钱。后来网上搜了一下，通过 Home Assistant 的小米插件可以实现这样的功能。刚好家里有一台闲置的 Macbook 用来发挥余热不是刚好。其实我之前已经安装好了，只不过手残把镜像文件删掉了，这样刚好出个教程从头来一次。
+Home Assistant 安装 Home Assistant 支持多种安装方案，不过他们主推的是他们自己的一款软硬件一体的方案。其实家里是有一台软路由的，不过软路由担心把网络搞出问题，还是选择使用那台闲置的 Mac。官网里面也包含了 MacOS 的安装方案。因为 Home Assistant 用的是比较低版本的 Linux 系统，所以基本都还是需要使用虚拟机。首先需要安装 VirtualBox。另外就是需要下载 Home Assistant 的镜像文件。对于虚机，有一个推荐的配置，下面都以贴图的形式展现。
+这个步骤里面的虚拟硬盘，记得需要使用前面下载下来的 vdi 文件。
+接着需要把虚机的网络里面去配置桥接，官方文档里面说必须要使用有线连接网络，但是我的笔记本使用 WIFI 也没有什么问题。
+系统全都配置好了之后，就直接启动系统，等待系统初始化好后即可。系统初始化好后，即可进入页面 http://homeassistant.local:8123/ 。一般进入页面的时候可能还需要等待一段时间初始化。
+初始化完成后，创建账户。
+选择家庭地址
+进入主页
+以上就是 Home Assistant 的安装，主要就是一个虚机的配置，其它基本只要下一步就可以。不过这个还是只是第一步，还需要安装 HACS，它是一个插件商店，通过这个商店才可以去安装小米的插件。
+HACS 安装 HACS 需要尝试通过终端去安装，我尝试过直接在虚机里面去直接执行命令，但是是不可以的。需要安装终端插件去执行命令，这里我推荐使用 Terminal &amp;amp; SSH 插件，比另外一款插件好用，另外一款插件总是初始化失败。在设置里面，找到 Add-ons，然后在 ADD-ON 商店里面去搜索，不过这里有一个坑是默认搜不到这个插件的，需要在设置里面把高级模式打开。
+插件安装好了，可以参考官方文档去安装 HACS。按照 Terminal 插件之后就可以直接执行命令：
+wget -O - https://get.hacs.xyz | bash - 安装完毕后，需要重启一下 Home Assistant，可以直接在终端里面通过 reboot 来进行重启。安装重启之后，还需要在 Settings &amp;gt; Devices and Services &amp;gt; Add Integration &amp;gt; HACS 里面添加一下。因为 HACS 需要使用 github 去更新，你可能还需要一个 github 账号来进行配置，输入验证码后，即配置成功。" />
+
+  
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Home Assistant 小米全屋智能" />
+  <meta property="og:description" content="小米的门铃，免费的云存储时间只有 72 小时，希望保存更多时间的视频，只能去充钱。后来网上搜了一下，通过 Home Assistant 的小米插件可以实现这样的功能。刚好家里有一台闲置的 Macbook 用来发挥余热不是刚好。其实我之前已经安装好了，只不过手残把镜像文件删掉了，这样刚好出个教程从头来一次。
+Home Assistant 安装 Home Assistant 支持多种安装方案，不过他们主推的是他们自己的一款软硬件一体的方案。其实家里是有一台软路由的，不过软路由担心把网络搞出问题，还是选择使用那台闲置的 Mac。官网里面也包含了 MacOS 的安装方案。因为 Home Assistant 用的是比较低版本的 Linux 系统，所以基本都还是需要使用虚拟机。首先需要安装 VirtualBox。另外就是需要下载 Home Assistant 的镜像文件。对于虚机，有一个推荐的配置，下面都以贴图的形式展现。
+这个步骤里面的虚拟硬盘，记得需要使用前面下载下来的 vdi 文件。
+接着需要把虚机的网络里面去配置桥接，官方文档里面说必须要使用有线连接网络，但是我的笔记本使用 WIFI 也没有什么问题。
+系统全都配置好了之后，就直接启动系统，等待系统初始化好后即可。系统初始化好后，即可进入页面 http://homeassistant.local:8123/ 。一般进入页面的时候可能还需要等待一段时间初始化。
+初始化完成后，创建账户。
+选择家庭地址
+进入主页
+以上就是 Home Assistant 的安装，主要就是一个虚机的配置，其它基本只要下一步就可以。不过这个还是只是第一步，还需要安装 HACS，它是一个插件商店，通过这个商店才可以去安装小米的插件。
+HACS 安装 HACS 需要尝试通过终端去安装，我尝试过直接在虚机里面去直接执行命令，但是是不可以的。需要安装终端插件去执行命令，这里我推荐使用 Terminal &amp;amp; SSH 插件，比另外一款插件好用，另外一款插件总是初始化失败。在设置里面，找到 Add-ons，然后在 ADD-ON 商店里面去搜索，不过这里有一个坑是默认搜不到这个插件的，需要在设置里面把高级模式打开。
+插件安装好了，可以参考官方文档去安装 HACS。按照 Terminal 插件之后就可以直接执行命令：
+wget -O - https://get.hacs.xyz | bash - 安装完毕后，需要重启一下 Home Assistant，可以直接在终端里面通过 reboot 来进行重启。安装重启之后，还需要在 Settings &amp;gt; Devices and Services &amp;gt; Add Integration &amp;gt; HACS 里面添加一下。因为 HACS 需要使用 github 去更新，你可能还需要一个 github 账号来进行配置，输入验证码后，即配置成功。" />
+  <meta property="og:url" content="https://madneal.com/post/xiaomi/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+
+
+<link rel="canonical" href="https://madneal.com/post/xiaomi/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/post">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">Home Assistant 小米全屋智能</h1>
+      <p class="post-meta">@Neal · Jun 29, 2024 · 2 min read</p>
+    </header>
+    <article class="post-content"><p>小米的门铃，免费的云存储时间只有 72 小时，希望保存更多时间的视频，只能去充钱。后来网上搜了一下，通过 <a href="https://www.home-assistant.io/">Home Assistant</a> 的小米插件可以实现这样的功能。刚好家里有一台闲置的 Macbook 用来发挥余热不是刚好。其实我之前已经安装好了，只不过手残把镜像文件删掉了，这样刚好出个教程从头来一次。</p>
+<h2 id="home-assistant-安装">Home Assistant 安装</h2>
+<p>Home Assistant 支持多种安装方案，不过他们主推的是他们自己的一款软硬件一体的方案。其实家里是有一台软路由的，不过软路由担心把网络搞出问题，还是选择使用那台闲置的 Mac。官网里面也包含了 MacOS 的<a href="https://www.home-assistant.io/installation/macos">安装方案</a>。因为 Home Assistant 用的是比较低版本的 Linux 系统，所以基本都还是需要使用虚拟机。首先需要安装 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>。另外就是需要下载 Home Assistant 的<a href="https://github.com/home-assistant/operating-system/releases/download/12.4/haos_ova-12.4.vdi.zip">镜像文件</a>。对于虚机，有一个推荐的配置，下面都以贴图的形式展现。</p>
+<p><img src="https://s2.loli.net/2024/06/30/iRuLXQxb56kJPzI.png" alt="系统"></p>
+<p><img src="https://s2.loli.net/2024/06/30/eRIdwYPNWmXH2aU.png" alt="配置信息"></p>
+<p>这个步骤里面的虚拟硬盘，记得需要使用前面下载下来的 vdi 文件。</p>
+<p><img src="https://s2.loli.net/2024/06/30/kwIVFbTZmCzlqxH.png" alt="虚拟硬盘"></p>
+<p>接着需要把虚机的网络里面去配置桥接，官方文档里面说必须要使用有线连接网络，但是我的笔记本使用 WIFI 也没有什么问题。</p>
+<p><img src="https://s2.loli.net/2024/06/30/mVqNXzxMaUrcY9s.png" alt="image.png"></p>
+<p>系统全都配置好了之后，就直接启动系统，等待系统初始化好后即可。系统初始化好后，即可进入页面 <a href="http://homeassistant.local:8123/">http://homeassistant.local:8123/</a> 。一般进入页面的时候可能还需要等待一段时间初始化。</p>
+<p><img src="https://s2.loli.net/2024/06/30/x2ovPRMyUTqsI18.png" alt="welcome"></p>
+<p>初始化完成后，创建账户。</p>
+<p><img src="https://s2.loli.net/2024/06/30/Y7O3DGTN2cPsrmt.png" alt="create-user.png"></p>
+<p>选择家庭地址</p>
+<p><img src="https://s2.loli.net/2024/06/30/7OmAfFaQVrBGyPq.png" alt="home-location.png"></p>
+<p>进入主页</p>
+<p><img src="https://s2.loli.net/2024/06/30/zgn7QPflJA4FN3X.png" alt="home-page.png"></p>
+<p>以上就是 Home Assistant 的安装，主要就是一个虚机的配置，其它基本只要下一步就可以。不过这个还是只是第一步，还需要安装 HACS，它是一个插件商店，通过这个商店才可以去安装小米的插件。</p>
+<h2 id="hacs-安装">HACS 安装</h2>
+<p>HACS 需要尝试通过终端去安装，我尝试过直接在虚机里面去直接执行命令，但是是不可以的。需要安装终端插件去执行命令，这里我推荐使用 Terminal &amp; SSH 插件，比另外一款插件好用，另外一款插件总是初始化失败。在设置里面，找到 Add-ons，然后在 ADD-ON 商店里面去搜索，不过这里有一个坑是默认搜不到这个插件的，需要在设置里面把高级模式打开。</p>
+<p><img src="https://s2.loli.net/2024/06/30/XO3NWnDoaB4LKCF.png" alt="advanced-mode.png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/HsdhwSjvabrz5WA.png" alt="terminal.png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/HlDOT32BIinN4MU.png" alt="terminal-start.png"></p>
+<p>插件安装好了，可以参考<a href="https://hacs.xyz/docs/setup/download/">官方文档</a>去安装 HACS。按照 Terminal 插件之后就可以直接执行命令：</p>
+<pre tabindex="0"><code>wget -O - https://get.hacs.xyz | bash -
+</code></pre><p>安装完毕后，需要重启一下 Home Assistant，可以直接在终端里面通过 <code>reboot</code> 来进行重启。安装重启之后，还需要在 Settings &gt; Devices and Services &gt; Add Integration &gt; HACS 里面添加一下。因为 HACS 需要使用 github 去更新，你可能还需要一个 github 账号来进行配置，输入验证码后，即配置成功。</p>
+<p><img src="https://s2.loli.net/2024/06/30/mNkUfxMon7YHJTe.png" alt="GITHUB.png"></p>
+<p>到这里，HACS 的安装就大功告成了。</p>
+<p><img src="https://s2.loli.net/2024/06/30/vCflb8aIqe7Dp4J.png" alt="HACS.png"></p>
+<h2 id="小米插件安装">小米插件安装</h2>
+<p>通过 <a href="https://github.com/al-one/hass-xiaomi-miot">hass-xiaomi-miot</a> 可以小米的插件，插件文档可以参考<a href="https://mp.weixin.qq.com/s/1y_EV6xcg17r743aV-2eRw">这一篇</a>。这个文档里面是之前的老版本的界面，新版的界面已经发生变化了。小米插件安装成功后，也需要重启一下机器。安装完成之后继续选择 xiaomi 集成开始安装，需要通过小米账号来进行集成。小米账号可以支持小米的数字 ID 以及邮箱，就是你的小米账号。</p>
+<p><img src="https://s2.loli.net/2024/06/30/A4COpBN72KjkUr6.png" alt="xiao-integration.png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/AVQJ65bxtwedWUT.png" alt=".png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/6isjUgpFb3v4uBR.png" alt="xiaomi-login.png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/YwucRKIGJsNDVAT.png" alt="exclude.png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/j7yxYeV48SMNfWb.png" alt="overview.png"></p>
+<h2 id="门铃存储方案">门铃存储方案</h2>
+<p>在小米插件安装成功后，可以实现门铃视频的保存方案。创建一个文件 <code>xiaomi_video_autosave.sh</code>，可以通过 Terminal 插件，在 <code>/config</code> 目录下 创建这个文件。</p>
+<pre tabindex="0"><code>cd /config
+vi xiaomi_video_autosave.sh
+</code></pre><pre tabindex="0"><code>#! /bin/bash
+## setting section
+path=&#34;/Volumes/sdb1/xiaomi/&#34;
+video_limit=50000
+
+if [ ! -d $path ];then
+  mkdir $path
+fi
+
+current_file_size=`ls $path|wc -l` 
+video_url=$1
+raw_file_name=`echo $2|sed &#39;s/[^0-9]//g&#39;` 
+file_name=$path$raw_file_name&#34;.mp4&#34;
+
+if [ $current_file_size -ge $video_limit ]; then
+  ls $path -tr|head -n $(($current_file_size-$video_limit+1))|sed &#34;s/^/${path//\//\\\/}/g&#34;|xargs rm
+fi
+
+ffmpeg -i $video_url -acodec copy -vcodec copy -f mp4 $file_name
+</code></pre><p>path：就是存放目录，根据情况修改，格式为/media/xxxxxx/，不要省略结尾的“/”。可以在NAS或其他设备上存储，通过NFS挂载到/media下，见step4
+video_limit：是存储上限，我存的视频大概不到1M一个，可以根据实际情况调整。</p>
+<p>另外记得给脚本添加好执行权限。</p>
+<pre tabindex="0"><code>chmod a+x xiaomi_video_autosave.sh
+</code></pre><pre tabindex="0"><code>shell_command:
+  xiaomi_autosave: &#39;/bin/bash /config/xiaomi_video_autosave.sh &#34;{{state_attr(&#34;camera.madv_mi3iot_c88d_video_doorbell&#34;,&#34;stream_address&#34;)}}&#34; &#34;{{state_attr(&#34;camera.madv_mi3iot_c88d_video_doorbell&#34;,&#34;motion_video_time&#34;)}}&#34; &#39; 
+
+##注意将以上两个camera实体换成你自己的！
+</code></pre><p>接着是自动化流程的配置，可以放在 <code>automation.yaml</code> 中。</p>
+<pre tabindex="0"><code>- id: &#39;1678104080023&#39;
+  alias: door_video_autosave
+  description: &#39;&#39;
+  trigger:
+  - platform: state
+    entity_id:
+    - camera.madv_mi3iot_c88d_video_doorbell  
+    attribute: motion_video_time
+  condition: []
+  action:
+  - service: shell_command.xiaomi_autosave
+    data: {}
+</code></pre><p>最终重启之后，尝试了终于保存视频成功了。</p>
+<h2 id="遗留问题">遗留问题</h2>
+<p>虽然折腾这么一大圈，总算能保存视频了，但是还是有两个遗留问题：</p>
+<ul>
+<li>我想把视频放在 samba 共享里面，但是目前没有办法挂载上去</li>
+<li>我访问 Home Assistant 的时候，经常会丢失连接，即丢失 homeassistant.local 的 DNS 解析，这个目前不知道是什么情况。</li>
+</ul>
+<h2 id="refrence">Refrence</h2>
+<ul>
+<li><a href="https://github.com/al-one/hass-xiaomi-miot/issues/100#issuecomment-903078604">https://github.com/al-one/hass-xiaomi-miot/issues/100#issuecomment-903078604</a></li>
+<li><a href="https://bbs.hassbian.com/thread-20022-1-1.html">https://bbs.hassbian.com/thread-20022-1-1.html</a></li>
+<li><a href="https://medium.com/%E5%BD%BC%E5%BE%97%E6%BD%98%E7%9A%84-swift-ios-app-%E9%96%8B%E7%99%BC%E6%95%99%E5%AE%A4/%E5%AD%B8%E7%BF%92%E6%97%A5%E8%AA%8C-%E5%8D%81%E4%B9%9D-home-assistant%E4%BD%BF%E7%94%A8ssh-ad7c5dda5018">https://medium.com/%E5%BD%BC%E5%BE%97%E6%BD%98%E7%9A%84-swift-ios-app-%E9%96%8B%E7%99%BC%E6%95%99%E5%AE%A4/%E5%AD%B8%E7%BF%92%E6%97%A5%E8%AA%8C-%E5%8D%81%E4%B9%9D-home-assistant%E4%BD%BF%E7%94%A8ssh-ad7c5dda5018</a></li>
+</ul>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E5%85%A8%E5%B1%8B%E5%8F%AA%E8%83%BD"><span class="tag">全屋只能</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%B0%8F%E7%B1%B3"><span class="tag">小米</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2024 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
