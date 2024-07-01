@@ -246,7 +246,7 @@ wget -O - https://get.hacs.xyz | bash - 安装完毕后，需要重启一下 Hom
 <p>这个步骤里面的虚拟硬盘，记得需要使用前面下载下来的 vdi 文件。</p>
 <p><img src="https://s2.loli.net/2024/06/30/kwIVFbTZmCzlqxH.png" alt="虚拟硬盘"></p>
 <p>接着需要把虚机的网络里面去配置桥接，官方文档里面说必须要使用有线连接网络，但是我的笔记本使用 WIFI 也没有什么问题。</p>
-<p><img src="https://s2.loli.net/2024/06/30/mVqNXzxMaUrcY9s.png" alt="image.png"></p>
+<p><img src="https://s2.loli.net/2024/06/30/mVqNXzxMaUrcY9s.png" alt="网络设置"></p>
 <p>系统全都配置好了之后，就直接启动系统，等待系统初始化好后即可。系统初始化好后，即可进入页面 <a href="http://homeassistant.local:8123/">http://homeassistant.local:8123/</a> 。一般进入页面的时候可能还需要等待一段时间初始化。</p>
 <p><img src="https://s2.loli.net/2024/06/30/x2ovPRMyUTqsI18.png" alt="welcome"></p>
 <p>初始化完成后，创建账户。</p>
@@ -268,7 +268,7 @@ wget -O - https://get.hacs.xyz | bash - 安装完毕后，需要重启一下 Hom
 <p>到这里，HACS 的安装就大功告成了。</p>
 <p><img src="https://s2.loli.net/2024/06/30/vCflb8aIqe7Dp4J.png" alt="HACS.png"></p>
 <h2 id="小米插件安装">小米插件安装</h2>
-<p>通过 <a href="https://github.com/al-one/hass-xiaomi-miot">hass-xiaomi-miot</a> 可以小米的插件，插件文档可以参考<a href="https://mp.weixin.qq.com/s/1y_EV6xcg17r743aV-2eRw">这一篇</a>。这个文档里面是之前的老版本的界面，新版的界面已经发生变化了。小米插件安装成功后，也需要重启一下机器。安装完成之后继续选择 xiaomi 集成开始安装，需要通过小米账号来进行集成。小米账号可以支持小米的数字 ID 以及邮箱，就是你的小米账号。</p>
+<p>通过 <a href="https://github.com/al-one/hass-xiaomi-miot">hass-xiaomi-miot</a> 安装小米的插件，插件文档可以参考<a href="https://mp.weixin.qq.com/s/1y_EV6xcg17r743aV-2eRw">这一篇</a>。这个文档里面是之前的老版本的界面，新版的界面已经发生变化。小米插件安装成功后，也需要重启一下机器。安装完成之后继续选择 xiaomi 集成开始安装，需要通过小米账号来进行集成。小米账号可以支持小米的数字 ID 以及邮箱，就是你的小米账号。安装成功后，小米的设备都能够直接在 Overview 中展示。</p>
 <p><img src="https://s2.loli.net/2024/06/30/A4COpBN72KjkUr6.png" alt="xiao-integration.png"></p>
 <p><img src="https://s2.loli.net/2024/06/30/AVQJ65bxtwedWUT.png" alt=".png"></p>
 <p><img src="https://s2.loli.net/2024/06/30/6isjUgpFb3v4uBR.png" alt="xiaomi-login.png"></p>
@@ -319,6 +319,7 @@ video_limit：是存储上限，我存的视频大概不到1M一个，可以根�
   - service: shell_command.xiaomi_autosave
     data: {}
 </code></pre><p>最终重启之后，尝试了终于保存视频成功了。</p>
+<p><img src="https://s2.loli.net/2024/07/01/w8pXvBmZJPjAGFe.png" alt="视频文件"></p>
 <h2 id="遗留问题">遗留问题</h2>
 <p>虽然折腾这么一大圈，总算能保存视频了，但是还是有两个遗留问题：</p>
 <ul>
