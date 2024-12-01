@@ -219,195 +219,193 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
-    <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/" class="post-link">Latex--入门系列三</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
- 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
- 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
- 多读文章
- @shail_official
- 读代码，先专注于公开的部分。阅读单元测试。
-  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
- 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
+  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
+TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
+I am text. Yes.  %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|}  \hline  $a_1~~~b$ &amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结   **{和}**是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
+  **$**是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a&#43;b=c$，输入$$a&#43;b=c$$，那么你的公式就会在段与段之间以块的形式展现。
+  **%**是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
+  **_和^**分别作为下标和上标。你也可以同时使用上标和下标，比如：  **~**是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
+  实际上，\ 经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\ 是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
+  **&amp;**适用于在数组以及表格中定义列的。
+  ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
+  一次效果函数，比如使用\ss来获得一个德国字母。
+  状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
+  使用命令取得相应的值，一般是使用{}或者[]。比如：
+ \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。 口音和发声符号，比如\&#39;{e} \v{o}来产生    使用\begin和end是定义环境，从而和其他内容区分处理，比如：</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" class="post-link">网络安全分析的瑞士军刀--zeek</a></h3>
-    <p class="post-meta">@Neal · Apr 18, 2020 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">Latex--入门系列一</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
-Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
-安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
-Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
+  <p class="post-summary">Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
+TeX, LaTeX以及他们的用法 Tex:排版 Tex是Donald Knuth发明的一种排版语言。排版意味着从结构性的文本到审美的一个标准。在Tex里面，你可以控制文本的根本结构，而不是像word一样，是软件阴影的帮你管理文件的结构，而紧紧给你提供一个图形化的接口。在TeX/LaTeX里面，对于布局和样式都有着默认的合理的设置但是却是可以控制的。
+Tex对于希望控制文本的人是非常友好的，一部分可能是因为它不会帮助你不能控制的东西。当然，简便也是一方面的－当TeX工作正常的时候，它运行的很好并且容易明白，但是当它有问题的时候，将会很麻烦，将会变得难以处理。（这点我深有体会）如果你稍微脱离了他的运作方式或者期望一个不太容易实现的功能，你可能需要头痛一下了。
+还有其他的一些优点和缺点。TeX的公式拍版是它的强项之一。在以前它可能是唯一较为正式的选择，即使像现在可以使用MathML或者MathType的时候，TeX也被认为是使用起来还是比较便利的。假如你以前还没有接触过TeX，那么你可尝试穿件下面的公式：
+在TeX仅仅使用t) = h(t) \otimes g(t) \equiv \int h(\nu) g(t-\nu) d\nu就可以搞定了。是不是看起来挺简单的。
+它的缺点可能是将它用于不是它的目的功能的地方。比如，你希望得到一些奇特的表格，你可能会遇到问题并发现一些替代的解决方法，不过这意味着你需要用一些相应的包并且按照其相应的方式去实现了。
+LATEX：文档编制 LaTeX是围绕TeX的一种文档编制的宏命令，它是一个比较高层次的能够利用它们产生一些比较常用的文档类型。它考虑到很多方面的内容，包括页眉和页尾，表格内容生成，自动两列的样式以及其他更多的细节。LaTeX现在被广泛得应用以及于它和TeX之间可以交换使用。TeX的实现方法大多数可以直接用在LaTeX的文档上面。当然你可以直接写TeX文件，但这不一定有什么用。如果希望看到更多的介绍，你可以参考这个。
+书籍，报告以及PDF LaTeX对于写文章，报告以及书籍有些基本的设置。
+它之所以受到喜爱的原因可能是对于大型的文档不容易搞混样式，于其它的一些工具截然不同，比如微软的word，随着文档长度的增长，它的处理复杂度也在逐渐增长，如果你曾经参与过大型的共同合作的文档项目，那么你将深有体会。
+近些年以来，pafTeX编译器变得流行起来，因为它可以直接编译pdf文件（不需要dvi以及ps文件作为媒介），使用pdflatex 而不是latex，你可使用一些针对pdf的特点。
+包 在TeX和LaTeX里面有各种各样的包，你可以用一些比较怪异的符号，制作一些表格包括输和公式，写活页曲谱，做CAD图，确保首字母大写以及单词拼写正确，或者仅仅只是用一些特别的地方。
+版本变化以及实现 LaTeX最近通用经常写作是LaTeX2e。我认为你是在使用这个版本的。通常这也无关紧要，但是有一些老的命令我不会特别提及。
+注意这个版本以及老版本的LaTeX209是最通用的语言以及实现规范，并不针对特别的包或者实现。
+免费的TeX软件包括通常的’teTeX’也叫做’TeX Live’对于unix系列的系统，以及对于windows系统的’MikTex’。你也可以参考下面相关的软件。
+你可以参考维基百科里面的TeX以及LaTeX。TUG是近些年的一些开发工作和相关文档。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
-    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="post-link">Kibana 任意代码执行漏洞</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp; x = 0, x = 0</p>
+  <p class="post-summary">今日，有人公开了 Kibana 任意代码执行漏洞（CVE-2019-7609）的 POC。这个漏洞的主要原理是因为 Kibana 中的 Timelion 中具有原形链污染漏洞，因此可以导致指定变量的原型链污染，通过传递 NODE 环境变量参数，利用 Kibana 的 Canvas 会创建新进程的特性可以达到远程执行命令的效果。
+在本地尝试搭建环境复现，忙活了半天，一开始尝试的是 6.4.2 版本的 Kibana。尝试执行命令的时候，发现一直没有效果，才发现这个漏洞的利用还有一个重要的环节。在导致原型链污染之后，还需要点击 Canvas 菜单，因为点击 Canvas 菜单，Kibana 会尝试创建一个新的进程，从而可以达到远程命令执行的效果。不过在 Kibana 6.5 版本之前，Canvas 不是默认安装在 Kibana 中的。可以通过 kibana-plugin 去安装 Canvas 插件，不过我后来还是选择使用 6.5.4 版本，同时注意相应 elasticsearch 也需要升级到 6.5.4 版本。最后在使用反弹命令的时候，遇到了一点问题，可能与机器系统版本相关，可以多尝试几种命令。
+漏洞的利用过程其实不是特别复杂，注意几点即可：
+ 漏洞的影响的版本是 5.6.15 版本以及 6.6.1 版本以前。 Kibana 需要安装了 Canvas 插件。 目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。  原型链攻击 如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 proto 属性直接去修改 prototype。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" class="post-link">XSS 漏洞知解 123</a></h3>
-    <p class="post-meta">@Neal · Mar 4, 2020 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" class="post-link">js的事件流理解</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
- 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
- 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
- cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
-盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</p>
+  <p class="post-summary">面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
+事件捕获和事件冒泡 事件流描述的是从页面中接收事件的顺序,也可理解为事件在页面中传播的顺序。 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：
+&lt;body&gt; &lt;div id=&#34;outer&#34;&gt; &lt;div id=&#34;inner&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt; 这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&gt;outer-&gt;body。然而捕获事件流的顺序则截然想法：body-&gt;outer-&gt;innner。
+DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。还是以上面的代码为例，单击inner则会按照下面的顺序触发事件：document-&gt;html-&gt;body-&gt;outer-&gt;ineer-&gt;outer-&gt;body-&gt;html-&gt;document。在DOM事件流中，实际的目标inner在捕获阶段不会接受到事件。这意味着在捕获阶段，事件到outer就停止了，下一个阶段是“处于目标”阶段，于是事件在inner 上发生，并在事件处理中呗看成是冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
+事件处理程序 响应某个时间的函数叫做事件处理程序。DOM0级的事件处理程序很简单,onclick就是常用的DOM0级事件处理函数，只会在冒泡阶段被处理。 而DOM2级事件定义了两个方法用于处理置顶和删除事件处理程序的操作addEventListener()和removeEventListener()，所有DOM节点都包含这两个方法，并且它们都接受3个参数：要处理的事件名，作为事件处理的函数和一个布尔值。最后这个布尔值参数如果是true，表示在捕获阶段调用事件处理程序，反之则是在事件冒泡阶段处理程序。DOM2级方法添加事件处理程序的好处是可以添加多个事件处理程序，会按照添加顺序被处理（无论是捕获还是冒泡）。 而IE不同的它有自己的方法attachEvent()和detachEvent,这两个接受相同的两个参数：事件处理程序名称和事件处理程序函数。
+跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } } </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-link">PWK 以及 OSCP 最常见的问题</a></h3>
-    <p class="post-meta">@Neal · Feb 20, 2020 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript能否修改Referer请求头</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：
-什么是 PWK 以及 OSCP PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。
-官方还推荐完成 OSCP 后还可以考虑以下课程：
- CTP 中的渗透测试技术以及漏洞利用开发功能， AWAE 中的 Web 应用程序安全技能 WIFU 中的无线安全技能  如何以及在哪参加 PWK PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。
-如何注册 PWK 以及 OSCP 考试 一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。
-前提条件 除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。</p>
+  <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
+其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求头，当然这一方面也是出于安全方面的考虑。当然除了 Referer 请求头之外，还有其它请求头也被禁止通过 JavaScript 操作。
+Referer 请求头属于 Forbidden header，这种请求头无法通过程序来修改，浏览器客户端一般会禁止这种行为。以 Proxy- 和 Sec- 开头的请求头都属于 Fobidden header name，还包括以下这些请求头：
+Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via 可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
+可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/haystack/" class="post-link">Haystack - hack the box</a></h3>
-    <p class="post-meta">@Neal · Nov 30, 2019 · 7 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link">javascript的继承模式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">Introduction Target: 10.10.10.115(Linux)
-Kali: 10.10.16.61
-HayStack is an easy box in hack the box. But it does isn’t easy at all. It’s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
-Information Enumeration As usual, nmap is utilized to detect detailed ports and services.
-# Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.</p>
+  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/haystack/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/botnet/" class="post-link">僵尸网络 Stantinko 犯罪活动新增加密货币挖矿</a></h3>
-    <p class="post-meta">@Neal · Nov 29, 2019 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" class="post-link">JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">ESET 研究人员发现，Stantinko 僵尸网络背后的犯罪分子正在向他们控制的肉鸡分发加密货币挖矿模块。
-Stantinko 僵尸网络 的操纵者已经通过一种新方法扩展了其工具集从受其控制的肉鸡中获利。多达 50 万的僵尸网络自 2012 年以来一直保持活跃，主要针对俄罗斯，乌克兰，白俄罗斯和哈萨克斯坦的用户，现在分发了一个加密货币挖矿模块。门罗币是一种加密货币，其汇率在 2019 年在 50 美元至 110 美元之间波动，自 2018 年 8 月以来，它一直是僵尸网络的获利手段。在此之前，僵尸网络进行了点击欺诈，广告注入，社交网络欺诈和密码窃取攻击。
-在本文中，我们将介绍 Stantinko 的加密货币挖矿模块并对其功能进行分析。
-该模块最显着的功能是它的混淆方式阻碍了分析并避免了检测。由于源代码级混淆以及随机性使用，而且 Stantinko 的操纵者会为每个新的受害者编译此模块，因此该模块的每个样本都是唯一的。
-我们将在另一篇文章中为恶意软件分析人员介绍该模块的混淆技术，并提供一种处理其中某些问题的可行方法。
-由于 Stantinko 一直在不断开发新的产品并改进其现有的自定义混淆器和模块，这些混淆器和模块被严重混淆，因此跟踪每个小的改进和修改非常困难。因此，我们决定仅提及和描述与早期样本相比比较重要的调整。最终，在本文中我们打算仅描述模块当前的状态。
-修改后的开源加密货币挖矿软件 Stantinko 的加密货币挖矿模块通过挖掘加密货币来耗尽受感染机器的大部分资源，它是 xmr-stak 的大幅修改后的开源加密货币挖矿版本。为了逃避检测，删除了所有不必要的字符串甚至整个函数。其余的字符串和函数被严重混淆。ESET 安全产品将此恶意软件检测为 Win{32,64}/CoinMiner.Stantinko.。
-挖矿代理的使用 CoinMiner.Stantinko 不会直接与其矿池进行通信，而是通过 IP 地址为从 YouTube 视频的描述中获取的代理进行通信。使用了与银行恶意软件 Casbaneiro 类似的技术在 YouTube 视频描述中隐藏数据。Casbaneiro 使用看起来更为合法的频道和描述，但目的大致相同：存储加密的 C&amp;C。
-此类视频的描述由以十六进制格式的挖矿的代理 IP 地址字符串组成。例如，图1中显示的 YouTube 视频的描述为 “03101f1712dec626”，它对应于两个十六进制格式的 IP 地址- 03101f17 对应于十进制点分四进制格式的 3.16.31[.]23，而 12dec626 对应 18.222.198[.]38。截至本文，格式已稍作调整。 IP地址当前用 “!!!!” 括起来，简化了解析过程，并防止了 YouTube 视频 HTML 结构的更改导致解析器无法正常工作。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/botnet/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
-    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
+  <p class="post-summary">JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
 译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
-什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
- 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
- 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
-    <p class="post-meta">@Neal · Nov 10, 2019 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link">javascript中的对象字面量为啥这么酷</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
   </header>
   
-  <p class="post-summary">原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 摘要 卡巴斯基安全防护是卡巴斯基产品的一部分，过去已成功检测到许多零日攻击。最近，为 Google的 Chrome 浏览器发现了一个未知的新漏洞。我们会立即将此情况报告给 Google Chrome 安全团队。在审核了我们提供的 PoC 之后，Google 确认存在零日漏洞并将其分配为 CVE-2019-13720。 Google 已针对 Windows，Mac 和 Linux 发布了 Chrome 版本78.0.3904.87，我们建议所有 Chrome 用户尽快将其更新为最新版本！你可以点击此处阅读 Google 公告。
-卡巴斯基端点产品借助漏洞利用防御组件检测漏洞。该攻击的裁决是 Exploit.Win32.Generic。
-我们称这些攻击为 Operation WizardOpium。到目前为止，我们还无法与任何已知的威胁者建立明确的联系。与蓝莲花攻击有某些非常弱的代码相似性，尽管这很可能是 false flag。目标网站的配置与最近部署了类似虚假标记攻击的早期 DarkHotel 攻击更加一致。
-卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.</p>
+  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+  成对出现的名称以及相应的值{ name1: value1 }
+  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+  遗憾的是，这个对象字面量可能会出现下面这样的情况：
+var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" class="post-link">MyBatis 和 SQL 注入的恩恩怨怨</a></h3>
-    <p class="post-meta">@Neal · Oct 30, 2019 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" class="post-link">javascript中无法将string转化为json对象</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于安全客平台
-MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
-起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.</p>
+  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}’.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/iplimage-versus-mat/" class="post-link">Iplimage versus Mat</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">我们可能经常面临这样的困惑，Iplimage和Mat这两种数据结构，我们应该用哪一种数据结构。 Iplimage一开始就存在opencv库之中，他来源于Intel的另外一个函数库Intel Image Processing Library(IPL)，这是一种非常重要的数据结构。在经典书籍里面的sample用的基本都是Iplimage这个数据结构。但是这是一种C风格的数据结构，你必须为他分配以及释放内存。 Mat则是一种新的数据结构，越来越多的人也在使用这种数据结构了，因为它是面向对象的。所以我们不需要自己来为它管理内存。它是通过计数的方式来进行引用，如果它的引用计数为0的话，那么它就会自动释放内存。 老实说，用什么数据结构，我也不知道。因为我觉得有些方法，Mat数据结构还不具备，有的方法只有运用Iplimage才可以。
+将Iplimage转化为Mat IplImage* ipl; Mat m = cvarrToMat(ipl); </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/iplimage-versus-mat/">Read More →</a>
   </footer>
 </article>
 
@@ -458,19 +456,6 @@ public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBui
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

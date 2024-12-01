@@ -5,30 +5,11 @@
     <link>https://madneal.com/tags/%E5%8D%8E%E4%B8%9C%E5%B8%88%E5%A4%A7oj/</link>
     <description>Recent content in 华东师大OJ on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 11 Apr 2015 18:16:39 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E5%8D%8E%E4%B8%9C%E5%B8%88%E5%A4%A7oj/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>歌德巴赫猜想</title>
-      <link>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</link>
-      <pubDate>Sat, 11 Apr 2015 18:16:39 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</guid>
-      <description>题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a+b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a+b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;#34;%d&amp;#34;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;#34;%d %d\n&amp;#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i ++) { if(x % i == 0) return false; } return true; } </description>
-    </item>
-    
+    <language>en</language><atom:link href="https://madneal.com/tags/%E5%8D%8E%E4%B8%9C%E5%B8%88%E5%A4%A7oj/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ROT13加密和解密</title>
       <link>https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</link>
-      <pubDate>Sat, 11 Apr 2015 10:16:26 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</guid>
       <description>问题 ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。
@@ -51,6 +32,23 @@ Output
 Sample Input
 3
 How can you tell an extrovert from an</description>
+    </item>
+    
+    <item>
+      <title>歌德巴赫猜想</title>
+      <link>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</guid>
+      <description>题目 Description
+歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a+b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a+b=n, a≤b，而乘积大的那组是5、5。 Input
+每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
+Output
+对应于每个输入的偶数，输出a、一个空格、b、一个换行符
+Sample Input
+8 10 1000 Sample Output
+3 5 5 5 491 509
+代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;#34;%d&amp;#34;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;#34;%d %d\n&amp;#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i ++) { if(x % i == 0) return false; } return true; } </description>
     </item>
     
   </channel>

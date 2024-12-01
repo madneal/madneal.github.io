@@ -219,151 +219,174 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link">javascript中的对象字面量为啥这么酷</a></h3>
-    <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/" class="post-link">基于ELK进行邮箱访问日志的分析</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
-  成对出现的名称以及相应的值{ name1: value1 }
-  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
-  遗憾的是，这个对象字面量可能会出现下面这样的情况：
-var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
+  <p class="post-summary">公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
+系统搭建 系统主要是基于elasticsearch&#43;logstash&#43;filebeat&#43;kibana&#43;nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛应用于日志采集。
+其实在搭这个系统还是比较麻烦的，可是前面有的踩过的坑当时没有及时记录下来，有点忘记了。但是里面就是配置logstash和filebeat配置证书的时候有点麻烦，配置不好会一直没有办法连通。还要注意ES的索引占得空间，其实ES索引还蛮占空间的。
+Logstash Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
+filter logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
+geoip 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
+geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] } 日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken 针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken} 通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" class="post-link">javascript中无法将string转化为json对象</a></h3>
-    <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="post-link">在pythonanywhere部署你的第一个应用</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}’.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
+  <p class="post-summary">pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
+git clone https://github.com/&lt;username&gt;/my-first-blog.git 产生一个virtualenv
+cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate 数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
+import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application()) ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" class="post-link">判断数组中元素多个属性是否重复</a></h3>
-    <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="post-link">回调函数</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理
-for (var i = 0,len = collection.length;i &lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; }; 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套
-collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { if (collection[i].</p>
+  <p class="post-summary">回调函数 在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。
+回调函数的机制  定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。  为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
+代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型–typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
+void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc); void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc); 这两个函数接受以下参数：
+·byte * array：指向元素数组的指针（任意类型）。
+·int size：数组中元素的个数。
+·int elem_size：数组中一个元素的大小，以字节为单位。
+·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。
+回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &lt; elem2) return -1; if(elem1 &gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); } int main(int argc,char* argv[])</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/" class="post-link">moongoose对象无法新增删除属性</a></h3>
-    <p class="post-meta">@Neal · Jun 30, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="post-link">后渗透的文件传输</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">昨天用nodes中的moongoose去查询一个结果遇到一个大坑，这个坑貌似用moongoose可能会遇到。背景是这样的，我在nodejs中去查询document，得到的可以看作是一个对象list。在这个结果集中，我要去寻找这个结果中的某个属性是否和其他的结果重复，并给它添加一个属性作为标志。举例子，我们获得的结果就像是[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;19&#39;}], 我希望把它变成[{name:&#39;neal&#39;,age:&#39;18&#39;,flag:true},{name:&#39;neal&#39;,age:&#39;19&#39;,flag:true}]。奇怪的事情发生了，我无法在这些对象中新增这个flag属性，这肿么可能。我尝试各种方法，但是还是存不进去。 后来去stack overflow一查，发觉居然是mongoose 的问题。。。。我压根没有想过是mongoose的问题。原来mongoose是ODM(object document mapper)，类似于操作关系型数据库的ORM,我们使用mongoose取到的数据结构依赖我们定义的schema结构，因为我们当初没有定义flag属性，所以最终返回的结果就没有这个属性了。 这个问题应该也有很多解决方法，这里就说一下我看到的一些方法。比如事先在schema增加这个属性，但是我觉得有时候就是不想定义这个属性才在后面加的；还有一个就是把返回的结果用toObject()方法进行转化，这样就可以像普通的对象一样增加属性了；其实本质的原因似乎是document .toObjet()里面需要一个vituals :true 的属性来实现，而默认的是false。可能我说的还不是特别透彻，可以去看一下官方的api http://mongoosejs.com/docs/api.html#document_Document-toObject</p>
+  <p class="post-summary">在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/" class="post-link">nodejs回调大坑</a></h3>
-    <p class="post-meta">@Neal · Apr 27, 2016 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/" class="post-link">只要三步，你就可以在github上发布网站了</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
- Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&#34;callback hell&#34;或&#34;pyramid of doom&#34;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
-后续传递风格
-为什么会有坑？这要从后续传递风格（continuation-passing style–CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
-这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
-在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) } 像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
- 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</p>
+  <p class="post-summary">今天，看到github推送了一个新的消息，Publishing with GitHub Pages, now as easy as 1, 2, 3。总结起来就是在github将你的文档或者发布网页将会变得十分简单。 三步：
+ 创建仓库 提交markdown文件 激活Github pages  现在github对于markdown文件真的支持的特别好，比csdn的markdown好多了。老实说，如果不是github在国内的访问速度感人，我早就把我的博客迁移到github上面去了。csdn的博客简直丑到不能忍了。 反正github的这次更新主要是针对GitHub Pages,这样markodown可以方便快捷的渲染成页面，而且还不会影响你现有的项目或者网站。而且还会给你进行一些默认的配置，对于新手来说，的确是非常友好的。当然了，实在不想用的话，还可以在设置里面禁用掉。更多详细情况，可以去GitHub上面去了解，试试看啊！！！</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" class="post-link">利用tesseract-ocr进行验证码识别</a></h3>
-    <p class="post-meta">@Neal · Apr 26, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" class="post-link">剑指offer学习读书笔记--二维数组中的查找</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下载。http://download.csdn.net/detail/neal1991/9502931 一开始我觉得我的验证码还挺好识别的，因为都是数字，如下图： 但是我发觉直接来识别还是来识别不了的，最好还是先要对图片进行一些预处理。说到图片的预处理就要说到另外一个软件了，就是imagemagick，这个是一个开源的图片处理项目，你可以去http://www.imagemagick.org/script/binary-releases.php根据你自己的系统进行相应得下载。这个软件还有相应的开发api，你可以自行的根据需要去下载。记住，这个软件安装后，配置环境变量后，需要重新启动的，一开始我还以为是什么问题呢。后来发现重新启动之后，就生效了，可以直接在cmd中使用。在这我就不说什么别的了。 首先是对图片进行预处理：
-convert 1.jpg -colorspace gray -normalize -threshold 50% 1.tif 这里主要是先做一个灰度图转化，然后进行归一化处理，最后设立一个阈值，进行二值化，这样最后的结果还是比较清晰的，如下图：然后再用tesseract进行识别：
-tesseract 1.tif result 是不是很简单？ 在github上面写了一个nodejs的程序可以直接执行，不过需要安装nodejs,链接如下： https://github.com/neal1991/code-recognition</p>
+  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1	2	8	9 2	4	9	12 4	7	10	13 6	8	11	15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
+从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
+bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; } </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" class="post-link">模拟.net post请求属性</a></h3>
-    <p class="post-meta">@Neal · Apr 25, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-link">剑指offer学习--实现单例模式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</p>
+  <p class="post-summary">只能生成一个实例的类是为了实现单例模式的类型。
+加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } } 利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } } 由于C#中调用静态构造函数时初始化静态变量，.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
-    <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-link">剑指offer学习--初级c&#43;&#43;面试题</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
+  <p class="post-summary">定义一个空的类型，里面没有任何成员函数和成员变量，对该类型求sizeof,得到的结果是多少？ 答案是1。空类型中的实例中不包含任何信息，本来求sizeof应该是0，但是当我们声明该类型的实例的时候，他必须在内存中占有一定的空间，否则无法使用这些实例。至于占用多少内存，由编译器决定。Visual Studio中每个空类型的实例占用1字节的空间。
+  如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
+  那如果把析构函数标记为虚函数呢？ C&#43;&#43;的编译器一旦发现一个类型中有虚函数，就会为该类型生成虚函数表，并在该类型中的每一个实例中添加一个指向虚函数表的指针。在32位的机器上，一个指针占4字节的空间，因此求sizeof是4；如果是64位的机器，那么结果就是8.
+分析下面代码运行结果：
+class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&lt;&lt;value&lt;&lt;endl; } }; int main() { A a = 10; A b = a; b.print(); } 在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C&#43;&#43;的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;other)，也就是把传值参数改为常量引用。
+C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什么区别？ 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public,而在class中默认的是private。 那么在C#中呢？ C#和C&#43;&#43;不一样。在C#中如果没有标明成员函数或者成员变量的访问权限，struct和class都是private。struct和class的区别是struct定义的是值类型，值类型的实例在栈上分配内存；而class定义的是引用类型，引用类型的实例是在堆上分配内存的。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" class="post-link">js的事件流理解</a></h3>
-    <p class="post-meta">@Neal · Mar 5, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-link">剑指offer--字符串</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
-事件捕获和事件冒泡 事件流描述的是从页面中接收事件的顺序,也可理解为事件在页面中传播的顺序。 事件流主要分为两种，即事件捕获和事件冒泡，这二者接受事件处理的顺序不同。假设下面的代码：
-&lt;body&gt; &lt;div id=&#34;outer&#34;&gt; &lt;div id=&#34;inner&#34;&gt;&lt;/div&gt; &lt;/div&gt; &lt;/body&gt; 这两个事件流分别的是IE公司和netspace公司提出来的，冒泡事件流支持的浏览器更多。 冒泡事件流中，事件的传递顺序是从子元素向父元素传递。假设我们给div绑定一个click事件。那么在冒泡事件流中，事件的传递顺序是：inner-&gt;outer-&gt;body。然而捕获事件流的顺序则截然想法：body-&gt;outer-&gt;innner。
-DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。还是以上面的代码为例，单击inner则会按照下面的顺序触发事件：document-&gt;html-&gt;body-&gt;outer-&gt;ineer-&gt;outer-&gt;body-&gt;html-&gt;document。在DOM事件流中，实际的目标inner在捕获阶段不会接受到事件。这意味着在捕获阶段，事件到outer就停止了，下一个阶段是“处于目标”阶段，于是事件在inner 上发生，并在事件处理中呗看成是冒泡阶段的一部分。然后，冒泡阶段发生，事件又传播回文档。
-事件处理程序 响应某个时间的函数叫做事件处理程序。DOM0级的事件处理程序很简单,onclick就是常用的DOM0级事件处理函数，只会在冒泡阶段被处理。 而DOM2级事件定义了两个方法用于处理置顶和删除事件处理程序的操作addEventListener()和removeEventListener()，所有DOM节点都包含这两个方法，并且它们都接受3个参数：要处理的事件名，作为事件处理的函数和一个布尔值。最后这个布尔值参数如果是true，表示在捕获阶段调用事件处理程序，反之则是在事件冒泡阶段处理程序。DOM2级方法添加事件处理程序的好处是可以添加多个事件处理程序，会按照添加顺序被处理（无论是捕获还是冒泡）。 而IE不同的它有自己的方法attachEvent()和detachEvent,这两个接受相同的两个参数：事件处理程序名称和事件处理程序函数。
-跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } } </p>
+  <p class="post-summary">C/C&#43;&#43;中每个字符串都以字符’\0’作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
+int main() { char str1[] = &#34;hello world&#34;; char str2[] = &#34;hello world&#34;; char* str3 = &#34;hello world&#34;; char* str4 = &#34;hello world&#34;; if(str1 == str2) printf(&#34;str1 and str2 are same.\n&#34;); else printf(&#34;str1 and str2 are not same.\n&#34;); if(str3 == str4) printf(&#34;str3 and str4 are same.\n&#34;); else printf(&#34;str3 and str4 are not same.\n&#34;); return 0; } str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&#34;hello world&#34;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&#34;hello world&#34;在内存中的地址就可以了。由于&#34;hello world&#34;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
+String str = &#34;hello&#34;; str.ToUpper(); str.Inser(0,&#34;world&#34;); 虽然我们对str做了ToUpper和Insert两个操作，但操作的结果都是生一个新的String实例并在返回值中返回，str本身的内容都不会发生改变，因此str最终的内容不变。由此可见，试图多次改变String的内容，改变之后的值只可以通过返回值得到。用String做连续多次修改，每一次修改都会产生一个临时对象，这样开销太大。为此C#定义一个新的与字符串相关的类型StringBuilder，它能容纳修改后的结果。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer--%E5%AD%97%E7%AC%A6%E4%B8%B2/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/" class="post-link">百度前端实习生面试（连跪之旅）</a></h3>
-    <p class="post-meta">@Neal · Mar 4, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="post-link">前端面试题——系列一</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。</p>
+  <p class="post-summary">html语义话  img标签alt属性和title属性的区别
+alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
+ css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
+div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
+ 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
+ ajax 基本实现步骤  1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&lt;post/get&gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
+XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置 1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求 2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求 3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成 4 loaded 请求已经完全接受
+ 取消a链接默认跳转行为  href属性设置为javascript:void(0)
+ 水平垂直居中  居中文告中的字句：text-align;center 对于div：margin: 0 auto</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
 </article>
 
@@ -414,19 +437,6 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

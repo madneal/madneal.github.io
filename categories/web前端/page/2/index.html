@@ -214,124 +214,73 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/" class="post-link">你可能不知道谷歌浏览器开发工具的其他用处</a></h3>
-    <p class="post-meta">@Neal · Oct 3, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/" class="post-link">一个神奇却很简单的css特效</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 原文链接似乎翻墙才可以访问   译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
-Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.
-当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。
-在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。
- 选择节点元素  如果你熟悉jquery的话，你应该知道$(’.class’)和$(’#id’)事多的么的重要。你可以根据id或者类名选择相应的元素。
-同样你可以在console使用同样的方式来访问元素。$(’tagName’) $(’.class’) $(’#id’)和document.querySelector(’’)是等同的。这个将返回文档中第一个匹配这个选择器的元素。
-你可以用$$(’tagName’)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组
-2.将你的浏览器转化成一个编辑器
-你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。
-你不需要检测html中的元素。取而代之，你只要去console里面输入以下：
-document.body.contentEditable = true
-3.寻找dom中元素绑定的事件
-当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(‘selector’))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：
-如果希望找到某个特定事件的监听，你可以这么做：
-getEventListeners($(‘selector’)).eventName[0].listener
-这将展示所有和这个事件相关的监听。比如：
-getEventListeners($(’.firstName’)).click[0].listener
-4.监听事件
-如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：
- monitorEvents($(‘selector’))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。 monitorEvents($(‘selector’),’eventName’)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。 monitorEvents($(‘selector’),[’eventName1’,’eventName2’….])将会监听符合这个选择器的事件。 unmonitorEvents($(‘selector’))这个会停止监听并且在console里面显示出所有的事件。  5.找到语句块执行的时间
-console里面有一个很重要的函数叫做console.time(’labelTime’)能够启动一个计时器。另外又一个函数叫做console.timeEnd(’labelName’)能够结束相应的计时器。
-比如我们想看到一个循环的执行时间，我们可以做如下处理：
-console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &lt; 100000; i&#43;&#43;){ 2&#43;4&#43;5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.</p>
+  <p class="post-summary">在网上看到一个前端大牛的主页，觉得他有一个特效特别酷，一开始还以为是要用什么javascript代码来实现，但仔细看一下，发觉只是用几行css代码就搞定了，我觉得挺好的。 他这个效果就是鼠标放在左半部分和右半部分，整个网页的布局颜色会相互变化，我贴上前后两张图来比较一下，你们就明白了。 当鼠标放在左半部分： 当鼠标放在右半部分： 可能静态的图片看不太出效果，但是动态看起来还是比较酷的，最关键的是它的代码其实很简单。
+.panel, .panel-left:hover &#43; .panel-right { background-color: #22c3aa; color: white; } .panel-right, .panel:hover { background-color: white; color: #22c3aa; } .panel-right:hover &#43; img#avatar { transform: rotateY(180deg); } 第一段和第二段代码主要就是背景颜色和主体颜色的改变，他把做面板鼠标移动到上面时的效果和右面板的效果设为一致，从而达到左右颠倒的效果，最后一段代码主要是下面一张图片的旋转180度。 真的是前端的东西很变化莫测，往往很简单的思路能够达到意想不到的效果，我觉得真的是值得我们很多时候多多思考的。 再贴上这个前端大神的网页http://zhangwenli.com/。真的很佩服她，一个女生居然代码写的这么好，看看别人做的东西，再看看自己的东西，简直惭愧不已，我觉得人丑还是多读书，尤其是我这种长的那么丑的人就更应该读了。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/" class="post-link">Bootstrap真的总是好的吗</a></h3>
-    <p class="post-meta">@Neal · Aug 15, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" class="post-link">Twitter Lite以及大规模的高性能React渐进式网络应用</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文地址：Bootstrap considered harmful
-原文作者：Hidde de Vries
-译文出自：neal
-译者： Neal
-个人主页：http://neal1991.pythonanywhere.com
-这些年Bootstrap已经在前端项目中流行起来，它能够带来很多好处。然而，但是如果以你们的团队已经有了在职的前端开发人员，我觉得最好还是不要用Bootstrap，在某些地方，弊大于利。
-Bootstrap的好处是什么 Bootstrap主要是栅格系统，但同时也带来了很多组件的样式表和脚本，包括表格，导航栏，进度条，页码，表单样式，模式和提示文本。在这篇文章，我所说的Bootstrap是包含它的所有功能的。
-Bootstrap是一个很好的工具对于一个纸箱装饰他们的程序但是无须担心结果的样式问题的后端开发人员。如果因为某些原因，预算或者什么的，你的团队没有前端开发人员或者设计人员，Bootstrap是一个绝佳的弥补方法。
-对于设计人员来说，Bootstrap也是有用处的：它可以快速地从设计软件切换到浏览器中，不需要过多担心前端的代码设计。
-即使是对于那些基本只专注于数据但是很少关注UI和布局的前端开发人员来说，Bootstrap也是一个绝佳的工具。
-什么时候你最好别用它 然而，如果你的团队已经拥有了前端开发人员，使用Bootstrap可能会潜在的浪费他们宝贵的时间，并让他们可能从解决实际问题上转移注意力。Bootstrap做的正是前端开发人员所擅长的事情，但是用的是一种很通用的方式。你的网站或者网络app是非常特别的，因此如果你使用一个通用的系统可能会不太合适。这意味着为了实现这种特殊性将会包含很多的异常发生。
-当需要很多异常来复位Bootstrap Bootstrap曾经是被Twitter 的开发人员用于系统化他们网络app的样式。如果你的网站app和他们的样式不一样，这意味着你需要解除他们中的某些样式。
-很多网站和Twitter的样式并不相同。因此，如果他们装载了Bootstrap的时候，他们可能需要卸载很多地方。
-在某些网站上，我看到有9/10的Bootstrap样式已经被网站自己的样式所替代。坦白说，这很荒谬。
-当它让简单的事情变得复杂 CSS是给网站添加一套简单的样式规则，这有时候可能会被重写。当你在你的网站使用Bootstrap的样式的时候，几乎所有的元素都是用一个复杂的样式规则。任何异常都会在它之上表现。问题是大多数网站他们的样式异常都被表现在Bootstrap之上。
-Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任何元素相结合起来，对于需要特别处理的列则要区别对待。很多网站十分简单：它们在小屏幕设备上没有列或者只有一到两列在大一点的屏幕上。
-当它产生技术债务的时候 前端依赖Bootstrap的时间越长，就会牵扯到更多的东西，更多的规则需要设置来覆盖Bootstrap的某些规则。这或多或少地让技术代码背负技术债务，尤其前端代码的部署需要手动的更新。随着依赖的增多，Bootstrap将变得更加难以移除。
-当它命名一些不是你app的规定 命名是一件很困难的事情，为团队的应用中的规定命名需要花费相当多的时间。使用’btn’之类的缩写并不能很好的给组件命名。
-结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。</p>
+  <p class="post-summary">Twitter Lite以及大规模的高性能React渐进式网络应用  原文：Twitter Lite and High Performance React Progressive Web Apps at Scale
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+  让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
+ 创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
+在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
+下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
+对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
+经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
+const plugins = [  // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({  names: [ &#39;vendor&#39;, &#39;manifest&#39;],  minChunks: Infinity  }),  // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link">javascript中的对象字面量为啥这么酷</a></h3>
-    <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" class="post-link">service worker介绍</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
-  成对出现的名称以及相应的值{ name1: value1 }
-  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
-  遗憾的是，这个对象字面量可能会出现下面这样的情况：
-var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
+  <p class="post-summary">原文：Service workers explained
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
+ 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
+Service worker就好像它的内部有一个有一个shared worker ：
+ 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
+ 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
+ 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" class="post-link">javascript中无法将string转化为json对象</a></h3>
-    <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}’.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
+  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
+var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/" class="post-link">判断数组中元素多个属性是否重复</a></h3>
-    <p class="post-meta">@Neal · Jul 1, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理
-for (var i = 0,len = collection.length;i &lt; len;i&#43;&#43;) { var count = 0; for (var j = 0;j &lt; len;j&#43;&#43;) { if (collection[i].name === collection[j].name &amp;&amp; collection[i].age === collection[j].age) { count = count &#43; 1; } } if (count &gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; }; 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套
-collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { if (collection[i].</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/" class="post-link">moongoose对象无法新增删除属性</a></h3>
-    <p class="post-meta">@Neal · Jun 30, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">昨天用nodes中的moongoose去查询一个结果遇到一个大坑，这个坑貌似用moongoose可能会遇到。背景是这样的，我在nodejs中去查询document，得到的可以看作是一个对象list。在这个结果集中，我要去寻找这个结果中的某个属性是否和其他的结果重复，并给它添加一个属性作为标志。举例子，我们获得的结果就像是[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;19&#39;}], 我希望把它变成[{name:&#39;neal&#39;,age:&#39;18&#39;,flag:true},{name:&#39;neal&#39;,age:&#39;19&#39;,flag:true}]。奇怪的事情发生了，我无法在这些对象中新增这个flag属性，这肿么可能。我尝试各种方法，但是还是存不进去。 后来去stack overflow一查，发觉居然是mongoose 的问题。。。。我压根没有想过是mongoose的问题。原来mongoose是ODM(object document mapper)，类似于操作关系型数据库的ORM,我们使用mongoose取到的数据结构依赖我们定义的schema结构，因为我们当初没有定义flag属性，所以最终返回的结果就没有这个属性了。 这个问题应该也有很多解决方法，这里就说一下我看到的一些方法。比如事先在schema增加这个属性，但是我觉得有时候就是不想定义这个属性才在后面加的；还有一个就是把返回的结果用toObject()方法进行转化，这样就可以像普通的对象一样增加属性了；其实本质的原因似乎是document .toObjet()里面需要一个vituals :true 的属性来实现，而默认的是false。可能我说的还不是特别透彻，可以去看一下官方的api http://mongoosejs.com/docs/api.html#document_Document-toObject</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
@@ -339,7 +288,7 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/" class="post-link">nodejs回调大坑</a></h3>
-    <p class="post-meta">@Neal · Apr 27, 2016 · 3 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
   </header>
   
   <p class="post-summary">最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
@@ -358,27 +307,13 @@ module.exports = function (param, cb) { asyncFun1(param, function (er, data) { i
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" class="post-link">模拟.net post请求属性</a></h3>
-    <p class="post-meta">@Neal · Apr 25, 2016 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/" class="post-link">moongoose对象无法新增删除属性</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</p>
+  <p class="post-summary">昨天用nodes中的moongoose去查询一个结果遇到一个大坑，这个坑貌似用moongoose可能会遇到。背景是这样的，我在nodejs中去查询document，得到的可以看作是一个对象list。在这个结果集中，我要去寻找这个结果中的某个属性是否和其他的结果重复，并给它添加一个属性作为标志。举例子，我们获得的结果就像是[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;19&#39;}], 我希望把它变成[{name:&#39;neal&#39;,age:&#39;18&#39;,flag:true},{name:&#39;neal&#39;,age:&#39;19&#39;,flag:true}]。奇怪的事情发生了，我无法在这些对象中新增这个flag属性，这肿么可能。我尝试各种方法，但是还是存不进去。 后来去stack overflow一查，发觉居然是mongoose 的问题。。。。我压根没有想过是mongoose的问题。原来mongoose是ODM(object document mapper)，类似于操作关系型数据库的ORM,我们使用mongoose取到的数据结构依赖我们定义的schema结构，因为我们当初没有定义flag属性，所以最终返回的结果就没有这个属性了。 这个问题应该也有很多解决方法，这里就说一下我看到的一些方法。比如事先在schema增加这个属性，但是我觉得有时候就是不想定义这个属性才在后面加的；还有一个就是把返回的结果用toObject()方法进行转化，这样就可以像普通的对象一样增加属性了；其实本质的原因似乎是document .toObjet()里面需要一个vituals :true 的属性来实现，而默认的是false。可能我说的还不是特别透彻，可以去看一下官方的api http://mongoosejs.com/docs/api.html#document_Document-toObject</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
-    <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/moongoose%E5%AF%B9%E8%B1%A1%E6%97%A0%E6%B3%95%E6%96%B0%E5%A2%9E%E5%88%A0%E9%99%A4%E5%B1%9E%E6%80%A7/">Read More →</a>
   </footer>
 </article>
 
@@ -386,7 +321,7 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" class="post-link">js的事件流理解</a></h3>
-    <p class="post-meta">@Neal · Mar 5, 2016 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
   <p class="post-summary">面试问到js的事件流，当时说的不是很清楚，现在觉得有必要把这个弄清楚。
@@ -397,6 +332,69 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 跨浏览器的事件处理程序 var EventUtil = { addHandler: function(element,type,handler) { if (element.addEventListener) { element.addEventListener(type,handler,false); } else if (element.attachEvent) { element.attachEvent(&#39;on&#39;&#43;type,handler); } else { element[&#39;on&#39;&#43;type] = handler; } }, removeHandler: function(element,type,handler) { if (element.removeEventListener) { element.removeEventListener(type,handler,false); } else(element.detachEvent) { element.detachEvent(&#39;on&#39; &#43;type,handler); } else { element[&#39;on&#39;&#43;type] = null; } } } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link">javascript的继承模式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" class="post-link">JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/" class="post-link">javascript中的对象字面量为啥这么酷</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+  成对出现的名称以及相应的值{ name1: value1 }
+  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+  遗憾的是，这个对象字面量可能会出现下面这样的情况：
+var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
   </footer>
 </article>
 
@@ -447,19 +445,6 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

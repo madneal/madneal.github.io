@@ -214,42 +214,8 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github-rsa/" class="post-link">GitHub 更新了 RSA SSH host key</a></h3>
-    <p class="post-meta">@Neal · Mar 24, 2023 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
-GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
-报错信息可能如下：
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github-rsa/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">多平台的敏感信息检测工具-GShark</a></h3>
-    <p class="post-meta">@Neal · Apr 17, 2021 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi
-GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
-架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
-所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
- 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
-rm -rf ./releases/* cd web npm run build cd .</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gshark/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/programer/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
-    <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
   <p class="post-summary">其实一直以来想写一篇文章总结这几年的技术学习，刚好趁着自己的第一次 github contribution 达到1000&#43;，写篇文章总结以下。本文篇幅较长，我会分为几个章节来分别阐述。
@@ -277,8 +243,26 @@ star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（�
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">多平台的敏感信息检测工具-GShark</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi
+GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
+架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
+所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
+ 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
+rm -rf ./releases/* cd web npm run build cd .</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gshark/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/" class="post-link">只要三步，你就可以在github上发布网站了</a></h3>
-    <p class="post-meta">@Neal · Dec 9, 2016 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
   <p class="post-summary">今天，看到github推送了一个新的消息，Publishing with GitHub Pages, now as easy as 1, 2, 3。总结起来就是在github将你的文档或者发布网页将会变得十分简单。 三步：
@@ -292,7 +276,7 @@ star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（�
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
-    <p class="post-meta">@Neal · Oct 25, 2015 · 2 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
   <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
@@ -302,6 +286,22 @@ git config --global user.name &#34;username&#34; git config --global user.email 
 建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/github-rsa/" class="post-link">GitHub 更新了 RSA SSH host key</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
+GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
+报错信息可能如下：
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/github-rsa/">Read More →</a>
   </footer>
 </article>
 
@@ -340,19 +340,6 @@ git config --global user.name &#34;username&#34; git config --global user.email 
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

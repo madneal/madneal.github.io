@@ -219,222 +219,178 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/xp-problem/" class="post-link">小鹏 P7 之殤</a></h3>
-    <p class="post-meta">@Neal · Sep 25, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/" class="post-link">Ext.js性能优化漫谈</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">不知道这会不会是我最后一次写关于小鹏的文章。虽然我算不上是小鹏的狂热粉丝，但之前也算是好感多一点，之前也分享过几篇文章关于车辆使用以及辅助驾驶方面的经历。但是最近的售后问题实在是我对小鹏失望加失望。
-事情经过 首先描述一下问题发生的一个比较完整的时间线：
-2022.08.13 去上海闵行小鹏服务中心检查辅助驾驶方向盘一直微调的问题，售后技师借口无法试车，不了了之。小鹏闵行服务中心一位女性售后人员在车辆交付之后没有直接交付给顾客，让顾客白白等了将近一个小时，她说她以为我已经走了，她车子都没有交付给我。
-2022.08.22 辅助驾驶出现不可启用的问题，又向远程技术支持反馈问题。远程技术支持反馈是软件 BUG，未得到合理解决。
-2022.08.27 去闵行服务中心继续排查辅助驾驶 NGP 使用时方向盘持续修正的问题，陪同技师经历两个小时左右的试车，最后观察到了问题现象。后技师说可能是软件问题，安装了软件补丁，但实际效果暂未知。
-2022.09.12 辅助驾驶第二次不可用，且无法恢复。电机异响（电机异响的问题其实早就出现了，后面是特别严重，基本上就跟地铁运行的声音一致），去上海闵行小鹏服务中心检查确认电机问题以及辅助驾驶问题，当时售后技师说电机的问题已经非常严重了，需要留店检查维修。当时售后接待人员承诺的代步车权益是每天 3000 积分的补偿方案，从我交车的时间到我提车的时间（这也是后面埋下的伏笔之一）。
-2022.09.18 售后这边提出的维修意见是需要更换电机，更换电机还需要用户去车管所登记去变更电机编号。而且辅助驾驶的问题没有根本解决。打客服电话投诉，投诉受理。
-2022.09.19 售后给出车辆维修表，需要同时更换电机以及辅助驾驶芯片。对于赔偿方案闭口不提，和400客服踢皮球。期间配合进行车管所预约，预约到最早的变更日期是10月24号。期间咨询售后人员，不变更电机号，汽车无法合法上路。
-2022.09.24 售后提出车辆要开始维修，询问代步车权益问题。他说车辆维修之后先拿回去，可是车子换过电机之后需要及时去车管所变更，否则是不可以上路的。售后提出让消费者把一个电机有问题的车子开回去，后面再来修，就为了不承担他们承诺赔付的代步车权益。不知道他们有没有考虑过消费者的生命安全，有没有考虑过道路行人的生命安全。
-下面放上两段9月24日和售后的录音，总结概括就是预约的时间太长了，我们不想赔你代步车权益，你把车子先开回去吧。
-问题总结 其实这一次的问题主要是包括两个问题，一个是电机的质量问题，第二个就是辅助驾驶的问题。小鹏 P7 的电机质量问题，出现这个问题的我并不是唯一的车主，网上搜一搜应该也有很多类似的方案。但是小鹏在解决问题的时候总是非常被动，总是消费者要花费巨大的时间和经历去推动他们去处理。车辆提车不到一年半的时间，行驶里程不足两万五千公里，就出现电机质量问题和辅助驾驶问题，需要更换电机以及辅助驾驶芯片。
-第二个就是辅助驾驶的问题。一直我的观点都是辅助驾驶仅仅就只是辅助驾驶，并不能代替人完全去接管车辆。所以我在使用辅助驾驶的过程中一直都是握着方向盘去使用的。自从提车辅助驾驶使用以来，也一直陆陆续续出现过各种问题。包括出匝道突然靠近马路沿，各种幽灵刹车，使用过程中方向盘一直在不断微调，到最后的辅助驾驶不可用的阶段。当然，一种新兴技术在出现的过程中肯定在所难免会出现一些 Bug，我也经常积极反馈这些问题，并向他们上传日志，甚至配合提供行车记录仪视频。但是，小鹏往往给的答复往往都是模棱两可的，也并没有彻底的修复问题，就说可能是什么 Bug。
-下面这段视频是当初提车没多久，NGP 在使用过程中突然有撞墙的一个举动，在快出匝道的时候突然往墙壁靠拢。还好当时及时接管了。当时也反馈给了他们的远程技术支持，​后来一段时间我都不敢使用 NGP 了。
-后面 ACC 在北横通道又出现两次幽灵刹车的问题：
-后面 ACC 在另外一个地道又连续出现两次幽灵刹车：
-以上基本上就是我三次向他们反馈的问题，其实期间辅助驾驶也是各种小问题不断，比如 NGP 突然降级，速度从80降到60，幽灵刹车问题，莫名其妙勒安全带，以及上面提到的使用过程中方向盘持续调整以及辅助驾驶不可用的问题。而小鹏在解决问题的过程中似乎没有一点点主动性，能听到最多的也就是抱歉。
-小鹏售后处理问题非常有意思的一点是，就是一定要求消费者拍视频举证。如果消费者无法提供举证视频的话，那就不能帮你维修。比如之前喜闻乐见的门把手收不回去的问题，辅助驾驶方向盘调整的问题。特别有意思的是他们要求一定要清楚拍摄辅助驾驶出现问题的时候去拍摄问题，完全没有考虑到可操作性，可能我需要在开车的时候头上一直顶着手机去录影才可以。他们在解决问题的时候从来不想着自己主动去排查问题，而一味地让消费者提供视频证据，并且不考虑实际可行的程度。每次地提问，也只能得到不痛不痒的，毫无帮助的回答。
-这个视频是 9 月 24 号当时拍摄的视频，包括当时出现的辅助驾驶不可启用的问题。并且如果你注意听一下的话，已经可以听到电机的声音非常大了，即使在车辆在高架上行驶，有风噪胎噪的情况下，电机的声音依然非常明显，和地铁行驶的声音差不多。
-总体而言，之前在辅助驾驶使用过程中遇到的问题，我都是积极反馈，上报日志，提供视频证据，从来没有进行过投诉，也没有要过赔偿。可是这次电机质量问题以及辅助驾驶的问题让我真的对小鹏的售后简直是无语加无语，处理问题不主动，出了事情就往消费者身上一推，没有一丝一毫的担当。从来没有站在消费者的角度考虑过问题。
-总结 毫无疑问，目前的新势力造车搞得如火如荼。小鹏在新能源汽车上面的确有自己厉害的地方，P7 当然也有它身上很多的优点。但是如果一个厂家没有办法保证产品质量，没有办法保证售后服务，那么这个品牌在未来的路上可能走得也不会太远，其口碑也会越来越差。</p>
+  <p class="post-summary">Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
+尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
+事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
+listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
+避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
+减少border布局 不需要一下再加载所有的元素
+批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/xp-problem/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/hr/" class="post-link">关于招人的那点小事</a></h3>
-    <p class="post-meta">@Neal · Sep 17, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/" class="post-link">Elasticsearch 团队开发章程</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">今天在 ISC2 里面的 「Building a High-Performing Cybersecurity Team」 课程里面看到一个很有意思的视频。一个资深的 HR 分享了关于招人的一些看法，我觉得是非常有道理。现在不管是作为招聘方还是求职者都感觉很困难，招聘方觉得很难招到满意的人，求职者觉得找不到满意的工作。似乎双方都没有招到自己满意的点，而且现在的招聘市场鱼龙混杂。
-对于招聘方来说，制定好预算，计划好 headcount，把能考虑的东西都考虑进去。当然，这是一种比较理想的情况，而往往在实际中往往可能会有各种各样的意外。但是做好预算，制定好计划，毫无疑问是非常有帮助的。HR 也说她能能够 JD 快速计算出这个岗位在市场上面的价值。
-视频过程中也提到了现实招聘过程中一个比较常见的问题。求职者往往希望要求比预算更高的薪水。虽然这个 HR 的回答我感觉也不太好，但实际上这个问题我觉得也并没有一个很好的解决办法，或者来说根本就没有解决办法。HR 首先承认金钱非常重要，但她认为还是应该避重就轻，尽量避免涉及到这一点。并可以强调企业为这个岗位的预算就在这个特定的区间范围内。显然，HR 也并不同意直接去提高预算的做法。
-HR 也提到了招聘负责人经常存在的一些错误做法：
-  不与 HR 积极合作。很多招聘方写的 JD 只是拍脑袋想出来的，但实际上并不是公司真正需要的。这种情况也很常见，很多人在写 JD 的时候恨不得把所有条件都写上，但是并没有充足的预算支持，并且实际上也并不是需要这样的人。只是把他们认为应该写上的都写上去而已。这样的 JD
-  HR 也强调了需要从头到尾参与整个招聘过程。
-  同时强调了现在是一个候选人的市场。招聘方需要快速的响应，一旦 Offer 批准之后就应该立即行动。可能就在你犹豫的一瞬间，候选人可能就被别的公司抢走了。
-  同时这个访谈里面还提到了一些比较有意思的点。首先提到的一点就是求职网站，这一点很重要，因为这是求职者对你公司的第一印象。有的公司的网络做的很垃圾，体验很糟糕，不仅要上传简历，还要填写给种各样的表单。之前甚至还遇到有银行招聘需要求职者提供身份证照片，简直就离谱。对于这种公司，很多求职者可能在一开始就直接放弃了。毫无疑问，提升这方面的体验非常重要。
-另外一点就是 HR 要在整个过程中需要保持和候选人的接触，这样让候选人感觉到他们一直被持续关注。尤其是遇到那种面试官出差或者请假的状态。这样避免候选人认为整个流程已经慌了。而且有的公司投递简历，石沉大海，没有任何响应的行为也非常不好。这些都有可能为公司带来一些负面影响。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/hr/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/go-vuln-management/" class="post-link">Go 的漏洞管理</a></h3>
-    <p class="post-meta">@Neal · Sep 7, 2022 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Vulnerability Management for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+  <p class="post-summary">原文：Elasticsearch Team Development Constitution
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 我们很高兴地宣布 Go 对漏洞管理的新支持，这是我们帮助 Go 开发人员了解可能影响他们的已知漏洞的第一步。
-这篇文章概述了当前可用的内容以及该项目的后续计划。
-概述 Go 提供工具来分析你的代码库来发现已知漏洞。该工具由 Go 漏洞数据库提供支持，该数据库由 Go 安全团队规划。Go 的工具通过仅显示代码实际调用的函数中的漏洞来减少结果中的噪音。
-Go 漏洞数据库 Go 漏洞数据库 (https://vuln.go.dev) 是有关公共 Go 模块中可导入包中已知漏洞的综合信息源。
-漏洞数据来自现有来源（例如 CVE 和 GHSA）以及来自 Go 包维护者的直接报告。Go 安全团队会审查这些信息并将其添加到数据库中。
-我们鼓励包维护者在他们自己的项目中提供有关公共漏洞的信息，并更新其 Go 包中漏洞的现有信息。我们的目标是使报告过程成为一个非常容易的过程，因此请向我们反馈任何改进的建议。
-Go 漏洞数据库可以在浏览器中的 pkg.go.dev/vuln 中查看。 有关数据库的更多信息，请参阅 go.dev/security/vuln/database。
-使用 govulcheck 检测漏洞 新的 govulncheck 命令是一种低噪音、可靠的方式，让 Go 用户了解可能影响他们项目的已知漏洞。 Govulncheck 分析你的代码库并仅根据代码中的哪些函数传递调用易受攻击的函数来发现实际影响你的漏洞。 要开始使用 govulncheck，你可以从项目中运行以下命令：</p>
+ 前言 我们作为 Elasticsearch 核心开发人员团队希望尽可能快地向可靠，健壮，安全，可扩展且易于使用的系统迁移。我们希望为创新而努力，取代传统的构造和功能，删除脆弱的代码，并致力于改善用户体验，同时在我们快速变化的同时保持用户增长。
+对于我们来说，拥有一个团队的前进方向的共识是非常重要的，甚至更重要的是团队为什么要走上一条特定的路。当 Elasticsearch 创立之初时，它具有无尽的灵活性，易用性和丰富的 API。我们这帮年轻的团队成立了一家公司，并且突然用户数井喷式发展。支持组织几乎无法满足越来越多的客户，这是幸福的烦恼。然而，随着用户数量的增长，事情发生的可能性也越来越大，不幸的是，这比我们聘用支持工程师的速度要快得多。我们了解到，大多数灵活性来自宽松处理，从大多数情况下可行的功能，但不是全部。例如，用户可以使用请求发送的脚本基本上是一个远程代码执行引擎，如果出错，它是致命的。即使最基本的功能，比如设置，也非常灵活，但非常脆弱。在没有单位的情况下指定一个数字是很好的，除非许多用户不知道默认单位是什么。我们只是试图做正确的事情，结果证明并不是总是对的。
+现在我们处于不同的位置。我们的用户基数比 2013 年的用户基数大得多，但我们的支持机构并没有以同样的速度增长。是的，我们处理比 2013 年更多的支持案例，但这在我们当时的系统中是不可能的。现在我们已经从一个脆弱而灵活的系统转向了范围较窄的软件。我们定义了更多的边界：更严格的输入验证，允许我们对权限进行细粒度控制的安全模型，甚至还有一个插件模型，可以以极大的灵活性来添加风险更高的功能。
+但等等，我们还差得远呢！仍然有无穷无尽的问题会造成致命的后果。聚合可以通过一个请求来撑爆服务器。用户感觉需要运行 30&#43;GB 堆的 Elasticsearch。我们仍然提供了 27 种指定布尔值的不同方式。这份清单还有其它内容…
+我们对我们的用户，支持组织，云托管团队和第三方提供商负有巨大责任，提供可靠，稳健，安全且易于使用的系统。出于这个原因，我们都应该努力创新，取代传统的构造和功能，删除脆弱的代码，并改善用户体验。我们与其他公司相比的优势是我们的创新，创新需要速度。我们必须在留住用户的同时下采取行动并接受变革创新。
+以下章节是用于设计，重构或从 Elasticsearch 代码库中删除代码的原则和指导原则的集合。这些点是无序的，大部分是未分类的，应该被看作是 Elasticsearch 团队内软件开发的一个组成部分。
+设计特性   过程优于结果。 我们多年来一直遵循这种方法，这使我们能够随着时间的推移做出巨大的变化，而不会因大量的请求而产生巨大的响应。例如，补齐建议程序在 Elasticsearch 的早期版本中添加，而不支持实时更新和特定的删除。这意味着删除 Elasticsearch 中的文档不会立即反映在建议中。这是一个很难的问题，大约三年后，我们增加了对 Lucene 建议器和 Elasticsearch 的 bitset 过滤器的支持。与此同时，对于许多用户来说，这是一个可以接受的解决方案，修复了许多错误，并朝着基于文档的建议器发展。这就是过程优于结果。
+  为今天设计！谨慎使用抽象。 计算机科学教授教育学生以灵活性和信息隐藏的名义广泛使用抽象层。当然 Elasticsearch 广泛使用抽象; 没有任何涉及数百万行代码的项目可以以其他方式进行工作并生存。但经验表明，过度或过早的抽象可能与过早优化一样有害。抽象应该用于所需的级别，不要再进一步。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/go-vuln-management/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/studio-display/" class="post-link">iMac&#43;Studio Display，双 5k 屏体验</a></h3>
-    <p class="post-meta">@Neal · Aug 12, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" class="post-link">Django学习——开发你的第一个Django应用2</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">选型 之前一直用的显示器是 iMac 2020 款以及明基的 PD2700U 显示器。作为最后一款 intel 芯片的 iMac，显示器比新款的感觉更好一些，毕竟是买显示器送电脑。而明基的这款显示器显示效果也不错，同时也比较护眼，使用体验也很好。这种双屏的组合不论做啥都很爽。
-奈何公司只提供 1080P 的显示器，在 Mac 上面的使用效果和看马赛克差不多。为了提高工作效率。只好忍痛把家里的明基显示器带到公司去使用。而 Studio Display 作为苹果推出时间不久的显示器，之前一直有种草。其显示效果是业界有目共睹的。但是这款显示器的摄像头以及麦克风的收音效果据说都还好，虽然对于我来说没有特别大的区别。
-这款显示器支架有三种版本，普通支架，可升降的支架以及 vesa 版本。vesa 版本和普通支架的价格是一样的，但是普通支架占地方不说，而且调节的范围非常有限。之前明基显示器也是通过乐歌的显示器支架来使用的。之前也一直后悔 iMac 没有选择 vesa 版本，后来还是买一个魔改的配件来配合使用。关于 iMac 的使用体验，可以参考之前的这篇文章。所以这次毫不犹豫地选择了 vesa 版本，不过 vesa 版本等货的周期更长，差不多要晚半个月的时间。最终，也是等了一个半月才拿到了显示器。
-开箱 显示器到手之后就是开箱。说实话，这个箱子和当初的 iMac 有一点类似，箱子都非常大。本来想拍一个开箱视频，但是实在是不好开箱，就简单地录了一点点视频。显示器的包装还是传统的牛皮纸箱加内包装的组合，打开来除了比较大而已，其实还是非常方便的。配件也非常简单，显示器主体，连接在一起的电源线（注意电源线是不能拔掉的），还有一根雷电线，可以直接通过 type-c 接口连接电脑。对于 vesa 版本一开始还想会不会提供螺丝，结果找了半天没有，后来在网上也看了别人的介绍，vesa 版本的确也是没有提供螺丝的。
-简单的开箱视频：
-https://www.bilibili.com/video/BV1NB4y1t7eb
-然后就是把明基显示器拆下来，把新的显示器装上去。过程还是比较简单的，基本就是拆拆螺丝，拧拧螺丝而已。最终显示的效果还是比较满意的，虽然说这款显示器和之前的使用体验上来说可能并没有什么质的飞跃，但是看着就很爽。不过貌似是新的显示器比以前的要更重一些，现在在使用升降桌的时候，升到高的时候，比以前更容易晃动。这可能是相对于以前来说使用体验比较下降的一个点之一吧，不过总体来说并没有什么大的毛病。
-使用体验 这款显示器使用也有将近两个礼拜的时间。说实话和以前的体验并没有本质的区别，可能实际的性价比并没有那么高。但是这款 5k 屏的素质还是非常高的。同时也为了使用这款显示器，也把自己一直使用的 Catalina 系统升级到了最新的版本。老的版本似乎有一些奇怪的 bug，而且还有一些功能不能使用，虽然还是比较喜欢以前的老系统。但最终为了配合使用这款显示器，还是对系统进行了升级。
-不过这款显示器最让人惊艳的可能就是扬声器了，感觉音响的效果非常好，虽然我这个木耳可能并不太会欣赏。但明显可以感觉到和以前的 iMac 自带的扬声器还是有着很大的区别。至于人物自动居中的这些功能对于来说并没有什么卵用，所以也暂且不提。不过这款显示器继承了一个 A13 的芯片，未来可能会升级更多的功能。</p>
+  <p class="post-summary">接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
+产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
+开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
+进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
+在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
+from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
+from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/studio-display/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/shopee/" class="post-link">Shopee 靠谱内推</a></h3>
-    <p class="post-meta">@Neal · Aug 7, 2022 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" class="post-link">Django学习——开发你的第一个Django应用1</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">岗位 目前 Base 有新加坡、上海、深圳、北京等地、覆盖各种岗位，包括开发、QA 、PM 、运营、安全等各种岗位。
-岗位参考链接 https://app.mokahr.com/recommendation-apply/shopee/2964?sharePageId=1477124&amp;recommendCode=NTALl86#/
-校招 https://app.mokahr.com/recommendation-apply/shopee/2964?sharePageId=1480471&amp;recommendCode=NTALl86&amp;codeType=1#/jobs?zhineng=111395
-薪酬范围 可以参考 Boss 直聘上岗位薪酬范围：
-https://www.zhipin.com/gongsir/0e1bc15942b85a7d1nB90ty8.html?ka=company-jobs
-目前股价是非常具有性价比的。
-投递方式 自主投递 https://app.mokahr.com/recommendation-apply/shopee/2964?sharePageId=1477124&amp;recommendCode=NTALl86#/
-点击链接，参考自己心仪的岗位投递即可。
-邮箱投递 邮件标注自己希望投递的岗位以及 BASE ，以及你的个人简历。邮件发送 hacknanahack@gmail.com 即可，邮箱会实时更新进度。
-福利  薪资对标大厂，15 薪保底，现在股价具有性价比。 五险一金&#43;商业保险（试用期即可使用） 15 天年假（新加坡 18 天），14 天带薪病假 无限量水果零食供应，还有冰淇淋供应 年度旅游、季度团建 每月健身补贴（部分 office 是自己的健身房） Orange Day ，公司每个月末周五特色活动，迎接新人、寿星生日等，游戏&#43;下午茶形式 Open Day ，与老板面对面建言献策、自由交流的机会 每年都有五千培训经费，可以用于报名考试学习报销  热招岗位 金融信贷-后端开发专家/Leader
-Shopee Express后台开发专家/Leader
-保险业务后端开发专家/Leader
-Shopee Express 前端开发专家/Leader
-资深/专家数据开发工程师-用户画像方向
-Shopee Express资深Golang开发工程师
-Shopee Express后台开发工程师
-保险技术中高端	Multimedia Center
-金融风控后台负责人
-RTC音视频SDK专家/Leader（深圳）-Multimedia Center
-视频转码后端Leader（深圳）-Multimedia Center</p>
+  <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
+ django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
+创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/shopee/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/shanghai/" class="post-link">停车被蹭的那些小事</a></h3>
-    <p class="post-meta">@Neal · Jul 20, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/" class="post-link">differential evolution代码实例（DE算法）</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第一次人都是直接在现场的，后面都是基本确定了作案对象，但是由于没有直接的视频证据，所以也没有办法。
-第一次是在公司园区的地下停车场，当时一个十字交汇处人一直挺多的，走来走去。我就在那停车等待。大聪明急不可耐的冲了过来，左转，充满自信的把我蹭了个满怀。我当时真的是。。。这个人本来还说要跟我责任一半一半，他说我压了道路线。这里想解释下为什么压道路线的问题，因为右边都是停车位，而且很多车的车头都会露出来，所以会往左边开一点。后来打了110，当场民警是不愿意定责的，不过他还是讲了这个责任主要还是在于他没有把握好距离导致的，最后他还是认了全责。
-https://www.bilibili.com/video/BV16M4y1L73L
-这里的保险过程也比较简单，他报了保险，保险要了双方的驾驶证和行驶证，以及 4s 店的地址。定损由于责任清晰，定损员也没有过来定损，直接通过照片定损的。像这种发生事故其实是特别坑的，保险不会赔偿你的时间，你还要过去修车，修车过程中还要耽误用车。而且如果你的车比较新，别人也不会给你折损费。一开始保险公司定损的价格过低，保险杠当时车灯附近当初已经有好几处已经扭曲了，保险公司想做修复，4s 店说做不了，后来才同意换新的。这里涉及到另外一个潜规则，一般来说保险公司都想能修就修，所以他们会把零件自己带出去修，而车主当然是希望换新的，尤其还是别人的责任的情况。所以，这种情况还是需要 battle，当然一般小的保险公司，甚至包括平安，评价都很不好，赔偿的时候不痛快。好像只有人保比较爽快，但是人保的保费又比较高。当时整个上海都没有保险杠，我顶着破保险杠开了半个多月，然后修车也等了好几天。
-第二次，其实也是在园区停车场，不过这一次当时没有发现，发现的时候已经是第二天。后来去翻了下行车记录仪，应该当时是一辆大众倒车入库的时候蹭到了我车的右前方。但是行车记录仪只有缩时录影，这种一般都是几十秒拍一张照片，而且没有声音，所以这种视频证据也很难拿出来作为直接证据。因为当时是周五，园区的物业只有周一才上班。周一上班的时候才联系上物业。我原本以为车位前面那个圆圆的是摄像头，后来物业那个是检测车位是否占用的，另外一个角度有摄像头，但是被一个大柱子挡住了。当时是通过 imagemagick 把视频分割成照片，然后再自己组合起来合成一个帧率低的一个视频。这样获取到了车牌号，后来报警，通过警察对方联系了我，我把这个视频给她看了，她的车身左侧位置的确是有一道划痕，但是她不承认就是这一次蹭的。她说她自己经常蹭这蹭那，不一定就是我的车蹭的。因为没有直接的视频拍到接触画面，所以这一次事故也没有办法。而且这一次报警，警察连来都不愿意来的。
-https://www.bilibili.com/video/bv14S4y1E7e
-第三次，就是最近的一次了，停在小区。当时车辆有震动告警了，然后我就下去了看了，然后发觉是有工人在搬空调。当时就问他是不是搬空调时不小心蹭到了，对方很激动地否认了。继续报警，警察过来看了，然后看了四周没有摄像头，就说应该不行了。其实当初远处一个摄像头，但当时警察说肯定拍不到，也就没有看了。后来问了邻居，邻居说可以看到的。后来就去找物业看监控，的确是能看到那个时间点，他们在面包车车尾处下货，但是他们的车身已经把前面全部挡住了，所以根本看不到后面。这一次虽然报了警，还去做了笔录，但是依然没有什么卵用，还是得自己去修车。
-所以停车被蹭几乎是个无法解决的问题，这是一个薛定谔的猫，你也不知道什么时候会发生。如果能够遇到素质高的人，能够主动承认就已经非常不错了。当然对于这种情况也想到了以下几种尽可能能够去追回肇事方的方法：
- 监控 行车记录仪 哨兵模式  监控是最有效以及最直接的证据。而且一般监控其实覆盖的距离还是比较远的，所以停车的时候可以尽量找那种摄像头可以覆盖的区域。一般这种区域都是停车场主干道附近，以及一些交汇处。不过这个也需要结合时间段来去找，如果车子有震动告警，这样会比较好找一些。
-接降压线的行车记录仪理论上是可以做到24小时监控的。但是一般会有电压保护，防止小电瓶没有电，所以可能有的时候电压保护就断电了。另外，就是普通的可能是缩时录影，一般一分钟或者几十秒拍一张照片，这种视频也难以作为直接证据。但是如果是正常录制的话，可能录不了特别长的时间，往往可能只能录满几个小时。所以，行车记录仪往往也只能作为辅佐手段之一。
-目前很多新能源汽车已经有哨兵模式了。这种模式下发生震动事件后，会自动记录四周的照片和一点点视频，这个往往是比较好用的。但是小鹏有一个缺点，就是哨兵模式需要手动开启，所以会经常忘记。</p>
+  <p class="post-summary">DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
+clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/shanghai/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/goland-plugin/" class="post-link">第一款Goland的SCA插件开发之旅</a></h3>
-    <p class="post-meta">@Neal · May 3, 2022 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/" class="post-link">datagridview里面的checkbox全选和取消全选</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">插件开发，是一件即快乐又痛苦的事情。快乐的是你可以根据自己的需求通过插件来进行实现，比如经常看到的 Chrome 的插件开发。插件对于应用的原生生态有着很大的益处，往往那些特别优秀的插件甚至会被官方收编或者在正式功能中加入插件的功能。痛苦的是你需要去看文档，看插件开发的各种文档，如果文档不详细的话，痛苦加倍。程序猿最讨厌的事就是看别人的文档以及自己写文档。当然，除了文档，作为小白你还会踩到各种各样的坑。
-先吐槽 五一期间，疫情实在是憋得无趣，于是就成生了编写一款 Goland 上的 SCA 检测的插件的想法。Jetbrains 作为一个 IDE 开发公司，通过 Java 的语言生态开发出 IDEA 全家桶系列如此精美并且功能强大的 IDE 产品。其背后的技术能力不得不让人折服。IDE 是程序猿开发的生产力，而 Jetbrains 公司则是生产力的生产力。这几天，笔者就在着力开发一款针对 Goland 的第一款 SCA 检测插件。相较于以往 Chrome 或者 Burp 的插件开发而言，Jetbrains 插件开发的难度大大提升，主要是因为以下几点原因：
-API 文档过于简单 IntelliJ 只提供了官方的文档地址。这里面包含了一些 API 的实现以及介绍，但是太简单了。全篇中几乎找不到相关实现的示例代码，通常只有寥寥数语的介绍。举一个例子，希望能够通过插件能够创建文件，在找遍了官方的文档后，只发现了以下内容：
-文档里面提到可以使用 PsiDirectory 中的 add 方法来保存 PSI 文件，但它没说 HOW！那怎么办，只能去 Github 中去搜索代码关键字，然后扒别人的代码去看别人是如何实现的，这绝对是一个非常痛苦的过程，尤其是你看的是一个实现很糟糕的插件。
-API 复杂性 由于 IDEA 强大的生态，其 API 要考虑到兼容性以及很多特性，所以 API 中很多的含义不好理解。其本身也是包含了很多复杂的配置项，同时还需要综合考虑插件是通过什么样的形式去实现。
-太“强大的”官方模板 官方提供了一个创建插件的模板。首先承认的一点是这个模板的功能非常强大，涵盖插件开发、单元测试、质量检查、发布的整个生命周期，并且与 Github 无缝集成。不过作为模板，它包含的内容是不是太多了呢？这个模板的 README 几乎看了3遍之后才知道里面包含了哪些内容。实际上，对于一个小白来说，这个过程挺痛苦的，甚至可能有的人看了一下就萌发了退意。里面的一些模块，比如单元测试模块以及覆盖率检查这些模块，可以作为可选项，并不一定要默认就包含进去。
-Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 .</p>
+  <p class="post-summary">全选 设置全选button，选中所有的checkbox
+ private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &#34;True&#34;; } else continue; } } 取消全选 设置取消全选button，取消选中的所有checkbox
+ private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &#34;False&#34;; } else continue; } } </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/goland-plugin/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/goland/" class="post-link">goland-2022.01版本最新实用功能</a></h3>
-    <p class="post-meta">@Neal · May 1, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/check-cve/" class="post-link">cve check</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 JSON 的解析。因为 Go 中的 JSON 的解析，一般来说需要定义对应 JSON 的 struct。或者使用 interface{} 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。
-在 Goland 2022.01 最新版本中，终于迎来了在 JSON 方面解析的便捷功能。在最新版本中，只要将 JSON 粘贴到 IDE 中就会提示是否转化为 struct 类型，所有的字段都会被生成，相对于以前的一个个的手动的定义要方便太多太多了。
-还可以使用 Action 来进行转换动作，Generate Go Type form JSON：
-同时还可以添加新的 tag，key 以及修改 key 的代码风格，调用来说一般使用 alt&#43;enter 快捷键即可。
-Intention actions 字段添加新的 tag
- 点击 struct 的字段然后按 alt&#43;enter 选择 Add key to tags  修改 key
- 点击 struct 的字段然后按 alt&#43;enter 选择 Update key value in tags  修改 key 的代码风格</p>
+  <p class="post-summary">今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
+可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
+可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/goland/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/check-cve/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
-    <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/" class="post-link">css盒子模型设置的缩略形式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
-在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
-dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&#34;%s.%s&#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.</p>
+  <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
+padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px new method:
+padding:0px 20px 30px 10px // top right bottom left respectively 同理：
+margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px margin:0px 20px 30px 10px 如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
+padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px the new method:
+padding:20px 如果上下值和左右值分别一样呢： the old method:
+margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px the new method
+margin:0px 20px // top and bottom right and left respectively border的属性设置: the old method
+border-width:thin border-style:solid boder-color black the new method:</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster2/" class="post-link">gobuster源码阅读--dir篇</a></h3>
-    <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/" class="post-link">css样式表的引入方式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &#34;gobuster/3.</p>
+  <p class="post-summary">一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt; @import &#34;css文件&#34; 显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster2/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/cronos-hack-the-box/" class="post-link">Cronos -- hack the box</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/cronos-hack-the-box/">Read More →</a>
   </footer>
 </article>
 
@@ -485,19 +441,6 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

@@ -214,26 +214,8 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
-    <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
-准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
-另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
-const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; {  let ele = {  cx: circle.cx,  cy: circle.cy,  sroke: circle.stroke,  id: circle.id  };  result.push(ele); }) const str = JSON.stringify(result); 通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
-设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
-组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/" class="post-link">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</a></h3>
-    <p class="post-meta">@Neal · May 11, 2017 · 5 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 5 min read</p>
   </header>
   
   <p class="post-summary">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1] 原文：基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]
@@ -262,7 +244,7 @@ LICENSE: MIT
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" class="post-link">service worker介绍</a></h3>
-    <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
   <p class="post-summary">原文：Service workers explained
@@ -284,7 +266,7 @@ Service worker就好像它的内部有一个有一个shared worker ：
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/" class="post-link">service worker之cache实践--sw-precache</a></h3>
-    <p class="post-meta">@Neal · Apr 22, 2017 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
   <p class="post-summary">Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
@@ -295,6 +277,24 @@ sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来
 gulp.task(&#39;generate-sw&#39;, function(callback) { 	var path = require(&#39;path&#39;); 	var swPrecache = require(&#39;sw-precache&#39;);  	swPrecache.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
+准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
+另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
+const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; {  let ele = {  cx: circle.cx,  cy: circle.cy,  sroke: circle.stroke,  id: circle.id  };  result.push(ele); }) const str = JSON.stringify(result); 通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
   </footer>
 </article>
 
@@ -333,19 +333,6 @@ gulp.task(&#39;generate-sw&#39;, function(callback) { 	var path = require(&#39;p
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

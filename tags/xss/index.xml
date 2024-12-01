@@ -5,38 +5,11 @@
     <link>https://madneal.com/tags/xss/</link>
     <description>Recent content in XSS on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 30 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/xss/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>富文本场景下的 XSS</title>
-      <link>https://madneal.com/post/stored-xss/</link>
-      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/stored-xss/</guid>
-      <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
-前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
-    </item>
-    
-    <item>
-      <title>XSS 漏洞知解 123</title>
-      <link>https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/</link>
-      <pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/</guid>
-      <description>跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
- 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
- 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
- cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
-盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</description>
-    </item>
-    
+    <language>en</language><atom:link href="https://madneal.com/tags/xss/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GMail XSS 漏洞分析</title>
       <link>https://madneal.com/post/xss/</link>
-      <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/xss/</guid>
       <description>原文：XSS in GMail’s AMP4Email via DOM Clobbering
@@ -53,7 +26,7 @@ LICENSE: MIT
     <item>
       <title>Holiday -- hack the box</title>
       <link>https://madneal.com/post/holiday-hack-the-box/</link>
-      <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/holiday-hack-the-box/</guid>
       <description>Introduction Target: 10.10.10.25(Linux)
@@ -63,9 +36,22 @@ Information enumeration As usual, use nmap to detect open ports and related serv
     </item>
     
     <item>
+      <title>XSS 漏洞知解 123</title>
+      <link>https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/</guid>
+      <description>跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
+ 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
+ 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
+ cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
+盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</description>
+    </item>
+    
+    <item>
       <title>使用浏览器作为代理从公网攻击内网</title>
       <link>https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/</guid>
       <description>介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
@@ -80,6 +66,18 @@ Information enumeration As usual, use nmap to detect open ports and related serv
 Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
  受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
 攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</description>
+    </item>
+    
+    <item>
+      <title>富文本场景下的 XSS</title>
+      <link>https://madneal.com/post/stored-xss/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/stored-xss/</guid>
+      <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
     </item>
     
   </channel>

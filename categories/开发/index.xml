@@ -5,73 +5,17 @@
     <link>https://madneal.com/categories/%E5%BC%80%E5%8F%91/</link>
     <description>Recent content in 开发 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>如何使用 Git 撤消（几乎）任何操作</title>
-      <link>https://madneal.com/post/git-undo/</link>
-      <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/git-undo/</guid>
-      <description>原文：How to undo (almost) anything with Git
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 任何版本控制系统最有用的功能之一就是能够“撤消”错误。在 Git 中，“撤消”可能意味着许多略有不同的事情。
-当你进行新的 commit 时，Git 会及时存储你的仓库在该特定时刻的快照；之后，你可以使用 Git 返回到项目的早期版本。
-在这篇文章中，我将介绍一些你可能想要“撤消”所做更改的常见场景，以及使用 Git 执行此操作的最佳方法。
-撤销一个“public”修改 场景： 你刚刚运行了 git push，将你的修改 push 到 GitHub，现在意识到有一个 commit 有问题。你想把这个 commit 撤销。
-撤销： git revert &amp;lt;SHA&amp;gt;
-结果： git revert 将创建一个与给定 SHA 相反的新 commit。如果旧 commit 是“matter”，则新 commit 是“anti-matter”——旧 commit 中删除的任何内容都将添加到新 commit 中，而旧 commit 中添加的任何内容都将在新 commit 中删除。</description>
-    </item>
-    
+    <language>en</language><atom:link href="https://madneal.com/categories/%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google Drive 的信息检索</title>
       <link>https://madneal.com/post/drive/</link>
-      <pubDate>Mon, 28 Aug 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/drive/</guid>
       <description>对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
 Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
 通过 OAuth 来使用 Drive API 也需要三个步骤：
  启用 API 配置 OAuth 应用 生成 Credentials  详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token.</description>
-    </item>
-    
-    <item>
-      <title>基于golang实现报告生成技术方案</title>
-      <link>https://madneal.com/post/go-report/</link>
-      <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/go-report/</guid>
-      <description>最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
-最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
-这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
-&amp;lt;iframe src=&amp;#34;%s&amp;#34; frameborder=0 width=&amp;#34;1000&amp;#34; height=&amp;#34;600&amp;#34;&amp;gt;&amp;lt;/iframe&amp;gt; 同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</description>
-    </item>
-    
-    <item>
-      <title>全栈工程师的成长</title>
-      <link>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</link>
-      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</guid>
-      <description>三年之前，我写过一篇菜鸟程序猿成长史。当时我还是一名踌躇满志的前端开发，立志要在前端领域大展拳脚。当时，前端中的开发最乐此不疲的事就是为了哪个框架最优秀而天天打口水仗。三年过去了，我已经不再是一名前端工程师，变成了一名偶尔怼人和被怼的安全工程师。工作这几年，不管还是在技术学习上，还是工作上，作为一名立志成为一名全栈工程师的人，也分享一下这几年的一些经验。
-软技能篇 这里的软技能篇我指的是一些基础技能，可能这些技能不是能够在很短时间内养成，可能需要一年甚至更长的时间。在我技术学习和实践的过程中，我觉得有个词是非常重要的，即阅读和实践。阅读掌握理论知识，实践让你熟悉技能，掌握技能。其实不管是做开发和做安全，都是一门技术活，和其它的技术工种从本质上来说没有太大的区别，当然天才型选手除外。对于阅读来说，我觉得英语是非常重要的。因为不得不承认，大部分最优秀的技术知识都是通过英语传播的，通过英语，你可以看多更原汁原味的技术文章，国内某些翻译的书籍有时候真的是有点惨不忍睹。另外，往往通过英文关键字也可能更容易找到问题的答案。现在大多数的技术问题，互联网上早就有类似的解决方案，问题是如何正确地检索到。
-坚持，也是做技术的一个比较重要的品质。因为，在我们平常工作的过程中，问题往往不是一下子就能够找到。很多问题需要一直坚持，一直摸索，突然有天拍脑袋说我咋没想到这点。坚持同样适用于技术的学习，只有坚持学习新的技术，才不会被技术所淘汰。行动力，我觉得这也是做技术不可或缺的一个好的品质。想到一个好的点子马上就去实现，想到好的思想可以马上写文章总结，看到好的工具马上就去尝试。在这里我并不想像三年以前一样，把每一个工具都一个个的列出来。我觉得工具只是辅助人去更好的提高效率,但根本还是取决于人本身。所以行动力很重要，如果有好的工具你放在那永远都不会去使用，那也是于事无补的。</description>
-    </item>
-    
-    <item>
-      <title>持续发布 Chrome 插件</title>
-      <link>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</link>
-      <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</guid>
-      <description>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
-介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
-Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
-在创建项目之后，我们需要开启 &amp;ldquo;Chrome Web Store API&amp;rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。
-在 ENABLE 这个 API 之后，就可以点击 &amp;ldquo;CREATE CREDENTIALS&amp;rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</description>
     </item>
     
     <item>
@@ -88,6 +32,60 @@ LICENSE: MIT
 指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
 nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
 图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</description>
+    </item>
+    
+    <item>
+      <title>全栈工程师的成长</title>
+      <link>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</guid>
+      <description>三年之前，我写过一篇菜鸟程序猿成长史。当时我还是一名踌躇满志的前端开发，立志要在前端领域大展拳脚。当时，前端中的开发最乐此不疲的事就是为了哪个框架最优秀而天天打口水仗。三年过去了，我已经不再是一名前端工程师，变成了一名偶尔怼人和被怼的安全工程师。工作这几年，不管还是在技术学习上，还是工作上，作为一名立志成为一名全栈工程师的人，也分享一下这几年的一些经验。
+软技能篇 这里的软技能篇我指的是一些基础技能，可能这些技能不是能够在很短时间内养成，可能需要一年甚至更长的时间。在我技术学习和实践的过程中，我觉得有个词是非常重要的，即阅读和实践。阅读掌握理论知识，实践让你熟悉技能，掌握技能。其实不管是做开发和做安全，都是一门技术活，和其它的技术工种从本质上来说没有太大的区别，当然天才型选手除外。对于阅读来说，我觉得英语是非常重要的。因为不得不承认，大部分最优秀的技术知识都是通过英语传播的，通过英语，你可以看多更原汁原味的技术文章，国内某些翻译的书籍有时候真的是有点惨不忍睹。另外，往往通过英文关键字也可能更容易找到问题的答案。现在大多数的技术问题，互联网上早就有类似的解决方案，问题是如何正确地检索到。
+坚持，也是做技术的一个比较重要的品质。因为，在我们平常工作的过程中，问题往往不是一下子就能够找到。很多问题需要一直坚持，一直摸索，突然有天拍脑袋说我咋没想到这点。坚持同样适用于技术的学习，只有坚持学习新的技术，才不会被技术所淘汰。行动力，我觉得这也是做技术不可或缺的一个好的品质。想到一个好的点子马上就去实现，想到好的思想可以马上写文章总结，看到好的工具马上就去尝试。在这里我并不想像三年以前一样，把每一个工具都一个个的列出来。我觉得工具只是辅助人去更好的提高效率,但根本还是取决于人本身。所以行动力很重要，如果有好的工具你放在那永远都不会去使用，那也是于事无补的。</description>
+    </item>
+    
+    <item>
+      <title>基于golang实现报告生成技术方案</title>
+      <link>https://madneal.com/post/go-report/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/go-report/</guid>
+      <description>最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
+最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
+这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
+&amp;lt;iframe src=&amp;#34;%s&amp;#34; frameborder=0 width=&amp;#34;1000&amp;#34; height=&amp;#34;600&amp;#34;&amp;gt;&amp;lt;/iframe&amp;gt; 同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</description>
+    </item>
+    
+    <item>
+      <title>如何使用 Git 撤消（几乎）任何操作</title>
+      <link>https://madneal.com/post/git-undo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/git-undo/</guid>
+      <description>原文：How to undo (almost) anything with Git
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 任何版本控制系统最有用的功能之一就是能够“撤消”错误。在 Git 中，“撤消”可能意味着许多略有不同的事情。
+当你进行新的 commit 时，Git 会及时存储你的仓库在该特定时刻的快照；之后，你可以使用 Git 返回到项目的早期版本。
+在这篇文章中，我将介绍一些你可能想要“撤消”所做更改的常见场景，以及使用 Git 执行此操作的最佳方法。
+撤销一个“public”修改 场景： 你刚刚运行了 git push，将你的修改 push 到 GitHub，现在意识到有一个 commit 有问题。你想把这个 commit 撤销。
+撤销： git revert &amp;lt;SHA&amp;gt;
+结果： git revert 将创建一个与给定 SHA 相反的新 commit。如果旧 commit 是“matter”，则新 commit 是“anti-matter”——旧 commit 中删除的任何内容都将添加到新 commit 中，而旧 commit 中添加的任何内容都将在新 commit 中删除。</description>
+    </item>
+    
+    <item>
+      <title>持续发布 Chrome 插件</title>
+      <link>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</guid>
+      <description>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
+介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
+Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
+在创建项目之后，我们需要开启 &amp;ldquo;Chrome Web Store API&amp;rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。
+在 ENABLE 这个 API 之后，就可以点击 &amp;ldquo;CREATE CREDENTIALS&amp;rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</description>
     </item>
     
   </channel>

@@ -207,149 +207,178 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/" class="post-link">indexDB的概念</a></h3>
-    <p class="post-meta">@Neal · Oct 7, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" class="post-link">第一个chrome extension</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。
- 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 每个读写操作都是请求 IndexDB随时随地都在使用请求 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。  </p>
+  <p class="post-summary">如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
+{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] } manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&#34;里面定义的是extension的相关内容，“default_icon&#34;即是插件的图标，“default_popup&#34;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。“content_script&#34;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&#34;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，“content_script&#34;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
+var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/markdown%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99/" class="post-link">markdown语法规则</a></h3>
-    <p class="post-meta">@Neal · Oct 6, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/gproxy/" class="post-link">真香系列之 Golang 升级</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">标题 标题是每篇文章最常用的格式，在markdown中如果要定义标题的话，只要在这段文字之前加#号就可以了。
-一级标题 二级标题 三级标题 以此类推，总共六级标题，建议在#号之后加上一个空格，这是标准的markdown语法。 列表 列表主要分为有序列表和无序列表。只需要在文字前加上-或*即可变成无序列表，有序列表直接在文字前加上1. 2. 3. 符号和要在文字之前加一个空格就可以了。
- 1 2 3    1 2 3  引用 如果你要饮用一段话的话，那么你只要在引用的文字前加上&gt;这种尖括号就可以了
- 这是我要引用的文字
- 图片和链接 插入链接和图片的方法很像，区别在于一个感叹号 图片为：{ImgCap}{/ImgCap} 链接为：
-粗体和斜体 粗体和斜体也很简单，用两个包含一段文本就是粗体的语法，用一个包含一段文本就斜体的语法。 这是粗体 这是粗体
-表格
-   Tables are cool     col1 clo2 col3    分割线 分割线的语法只需要三个*号就可以了 分割线上
- 分割线下</p>
+  <p class="post-summary">Golang 以前的依赖管理一直饱受诟病，社区的方案也层出不强，比如 vendor, glide, godep 等。之前的依赖管理一直是依靠 GOPATH 或者将依赖代码下载到本地，这种方式都有劣势。另外由于特殊的网络环境，导致谷歌的大部分包都没有办法下载。才 Golang 1.11 开始，官方已内置了更为强大的 Go modules 来一统多年来 Go 包依赖管理混乱的局面，从 1.13 开始将成为默认配置。配合 Goproxy 来使用来说，真香。这次配合我之前的 golang 开源项目 gshark 升级到 1.13，升级花费的时间不超过 5 分钟，真香。
+升级 Golang 版本 其实升级 Golang 版本是非常简单的，只要移除之前的 Golang，然后复制新版本的 Golang 就可以了。以我之前的 VPS 为例（CentOS,亲测苹果系统可以使用同样的方式升级），之前安装的 Golang 版本是 1.9。
+  移除旧版本 Golang
+rm -rf /usr/local/go   安装新版本 Golang
+wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz   配置 Golang 环境
+如果你之前配置过 Golang 的环境，那么你可以找直接升级。主要只是需要配置 GOROOT 以及 GOPATH 即可，对于 1.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/markdown%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/gproxy/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/" class="post-link">css样式表的引入方式</a></h3>
-    <p class="post-meta">@Neal · Oct 6, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/" class="post-link">百度前端实习生面试（连跪之旅）</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
-&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt; @import &#34;css文件&#34; 显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
+  <p class="post-summary">去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/" class="post-link">如何用latex画一个简单的表格</a></h3>
-    <p class="post-meta">@Neal · Sep 26, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">latex毫无疑问是一个十分强大的论文写作工具，所以掌握它就显得非常有意义，讲一下如何画一个简单的表格，代码如下： \begin{table} \centering \begin{tabular}{||c|c||} \hline algorithm &amp; time complexity\ \hline RM-MEDA &amp; O(NM)\ \hline IRM-MEDA &amp; O(NK)\ \hline \end{tabular} \caption{The time complexity comparing result} \label{TAB1} \end{table} 呈现的效果如下： 是不是很简单
-欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/" class="post-link">matlab批量修改变量的名称</a></h3>
-    <p class="post-meta">@Neal · Sep 8, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/highway/" class="post-link">电车的高速之行</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">使用matlab做实验的时候，保存的文件里面的变量名都是一样的 ，所以希望能够把变量名全部都重命名。我举个个例子，假设我一堆文件，文件名分别是gds1,gds2,gds2,….. 但是实际上load进来之后的变量名称都是gds，所以我希望能够把变量名能够改成相对应的文件名称。在这里，我使用了eval这个函数，这个函数到是一个非常方便的选择。 %% 变量批量重命名 clear all rootname = &#39;gds&#39;; extension = &#39;.mat&#39;; for i = 1:n variable = [rootname,int2str(i)]; filename = [variable,extension]; load(filename); eval([&#39;gds&#39;,num2str(i),&#39;=&#39;,&#39;gds&#39;,&#39;;&#39;]); save(filename,variable); clear gds variable filename; end clear all</p>
+  <p class="post-summary">上周末回了一趟老家，高速来回行驶了800多公里。所以我很想结合这一次的高速的经验分享一下电车的高速形式经验，或许也能帮助一些鹏友解答电车在高速形式上面的问题。我的车之前的文章也提到过，小鹏 P7，长续航智尊版，选配了 NGP 辅助驾驶功能。当然，这篇文章的经验也主要是我本身这次的高速之行的感受，并不一定适用于所有的情况。
+
+续航，谁先倒下？ 新能源车的续航一直是很多人对于其望而却步的主要原因，电车的续航缩水一直为人所诟病。我这辆车的官方续航标准是 NEDC 586公里，当然这个续航一般是达不到的，实际用车的话，一般都是使用 WLTP 标准。充满电，长续航版本的里程显示是504公里（WLTP标准）。如果按照120的限速跑，开空调，开音乐，驾驶能耗是16多一点。基本上500公里的续航应该能跑到将近450公里左右。这对于我回家来说，基本上够用了。
+说实话，我是真实体验到人的续航和车的续航，就我而言，基本都是我先倒下。基本上开了两个小时左右，我就已经觉得很累了。所以，停下来，休息一下吃个饭什么的，还是比较合适的。只不过去程的时候我那个服务器使用的桩功率有一点低，电流只有69A，一般在城市里基本上都是200A左右。当时，也没有换桩，不知道是不是仅仅只是那一个桩的问题。不过返程的时候另外一个服务区的充电桩就还可以，电流差不多有 120 多，基本上就够用了.当然，这是在高速不是特别拥堵的情况下，我的确也没有跑过那种特别极端的情况下，那种情况可能会是另外一种情景。
+辅助驾驶好不好用 这段时间辅助驾驶闹得沸沸扬扬。其实，我是觉得现在很多媒体把辅助驾驶和自动驾驶混淆了。目前国内已经上市的车，是没有车已经达到了自动驾驶的级别。自动驾驶的级别一般划分L1-L5 5个级别，小鹏宣称自己是L2.5，我们暂且也认为其是L2级别。所以，一定要分清辅助驾驶和自动驾驶，目前人还是要时刻保持关注，随时做好接管的准备，千万不要做那种毫无意义的尝试，在危险边缘疯狂试探。
+小鹏的 NGP 目前支持在封闭路段使用，包括城市高架和高速。在拥堵的路段，NGP 的使用体验不是很好，因为它反应比较慢，刹车偏急，起步偏慢，所以拥堵高架体验一般。但是高速上是非常适合 NGP 使用的，800 多公里的路程基本上差不多600多是通过NGP行驶的，这极大减轻了驾驶负担。NGP 基本上在自适应巡航，跟车方面都做的比较完善。因为 NGP 结合了高精度地图，所以可以完美地通过高精度地图来辅助驾驶。所以这个方案和特斯拉的视觉方案不同，这两种方案也是各有千秋。不过依赖于高精度地图的缺点就是有的地图高精度的缺失，辅助驾驶的降级不是很完美。NGP 不能很完美地降级到 LCC。当然，其实在我看来人为接管率并没有很大影响。另外一点，如果长时间使用辅助驾驶的话也会比较疲劳，所以有时接管开一下也是蛮好的。
+NGP 最值得诟病的就是双车道的高速超车逻辑。经常遇到的情况就是在左车道行驶，如果前车行驶速度变慢，就会向右变道超车。但是这种情形一般都是因为右边不远处有一辆慢速行驶的火车。如果变道到右边的车道，马上就会被那辆火车堵住，然后左边就会一直有车经过，这种情形就比较尴尬了。所以，一般双车道的超车行为都会被我立马扼杀在摇篮中。
+综合来说，这次的高速之行对于我来说总体体验还是不错的。如果满分10分的话，应该可以打个7.5分。当然，这一切的体验都是基于这次的高速之行得出的。小鹏 P7 目前来看还是一个综合素质比较出色的新能源汽车，如果有朋友感兴趣的话可以使用我的试驾链接试驾。
+https://events.xiaopeng.com/r18f95.html?token=2cf68377</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/highway/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/" class="post-link">奇异值分解基础(SVD)</a></h3>
-    <p class="post-meta">@Neal · Jun 27, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/" class="post-link">理解 OutOfMemoryError 异常</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要的应用。
-特征值和特征向量 特征值和特征向量是线性代数里面的基础知识，相信大部分人都知道： 很显然，λ就是特征向量v对应的特征值，一个矩阵的一组特征向量都是相互正交的，相信这些大家在线性代数都有学习。特征值分解是将一个矩阵以下面的形式进行分解： 其中Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线上的元素就是一个特征值。 特征值分解可以得到特征值和特征向量，特征值表示的是这个特征值的重要性，而特征向量表示的是这个特征是什么，可以将每一个特征向量理解为一个线性的子空间。不过特征值分解也有很多的局限，比如变换的矩阵必须是方阵。
-奇异值 特征值分解只能针对于方阵，局限性较大，而奇异值分解是一个能够用于任意的矩阵的一种分解方法： 假设A是一个NM的矩阵，那么U是一个NN的方阵（里面的向量是正交的，U里面的向量称为左奇异向量），Σ是一个NM的矩阵（除了对角线的元素都是0，对角线上的元素称为奇异值），V’（V的转置矩阵）是一个NN的矩阵，里面的向量也是正教的，称为右奇异向量。 我们将矩阵A和他的转置矩阵相乘，就可以得到一个方阵，我们利用方阵的求特征值可以得到： 这里面的v，就是我们上面所说的右奇异向量，由此我们可以得到 这里的σ就是上面所说的奇异值，u就是上面说的左奇异向量。奇异值σ跟特征值类似，在矩阵Σ中也是从打到小排列，而且σ的减少特别的快。在很多情况下，前10%的甚至1%的奇异值的和就占了全部的奇异值之和的99%以上了。也就是说，我们可以用前r大的奇异值来近似描述矩阵，因此部分奇异值分解可以如下定义： r是一个远小于m、n的数， 右边的三个矩阵相乘的结果将会是一个接近于A的矩阵，r越接近于n，则相乘的结果越接近于A。而这三个矩阵的面积之和要远远小于原始的矩阵A。
-SVD和PCA## PCA的问题其实是一个基的变换，使得变换后的数据有着最大的方差。方差的大小描述的是一个变量的信息量，我们在讲一个东西的稳定性的时候，往往说要减小方差，如果一个模型的方差很大，那就说明模型不稳定了。但是对于机器学习的数据，方差大反而有意义，不然输入的数据就是同一个点了，那方差九尾0了。 这个假设是一个摄像机采集一个物体运动得到的图片，上面的点表示物体运动的位置，假设我们想用一条直线去拟合这些点，那我们应该选择什么方向的线？当然是图上标有signal的那条线。如果我们把这些点单纯的投影到x轴或者y轴上，最后在x轴和y轴上得到的方差就是相似的。 一般来说方差大的方向就是信号的方向，方差小的方向就是噪声的方向，我们在数据挖掘或者数字信号处理中，往往是要提高信噪比。就上图说，如果我们只保留signal方向的数据，就可以对原始数据进行不错的近似了。 PCA的就是对原始的空间中顺序地找一组相互正教的坐标轴，第一个轴使得方差最大，第二个轴是在与第一个轴相交的平面中使得方差最大，第三个轴也是在与第1,2个轴正交的平面中使得方差最大，这种假设在N维空间中，我们就可以找到N个这样的坐标轴，我们取前r个去近似这个空间，这样就从一个N维的空间压缩到r维的空间，但是我们可以选择r个坐标轴使得空间的压缩使得数据的损失最小。 假设我们矩阵的每一行代表一个样本，每一列代表一个feature，将一个mn的矩阵A进行坐标轴的变化，P就是一个变换的矩阵从一个n维的空间变换到另外一个n维的空间 而将一个mn的矩阵A变成一个m*r的矩阵，我们就会使得本来有n个feature的，变成有r个feature了(r小于n)，这r个其实就是对n个feature的一种提炼，我们把这个称为feature的压缩： 之前的SVD的式子是： 在矩阵的两边同时乘上一个矩阵V，由于v是一个正交的矩阵 我们对SVD分解的式子两边乘以U的转置矩阵U&#39; PCA几乎可以说是对SVD的一种包装，如果我们实现了SVD，那也就实现了PCA。</p>
+  <p class="post-summary">OutOfMemoryError 异常应该可以算得上是一个非常棘手的问题。JAVA 的程序员不用像苦逼的 C 语言程序员手动地管理内存，JVM 帮助他们分配内存，释放内存。但是当遇到内存相关的问题，就比如 OutOfMemoryError，如何去排查并且解决就变成一个非常令人头疼的问题。在 JAVA 中，所有的对象都存储在堆中，通常如果 JVM 无法再分配新的内存，内存耗尽，并且垃圾回收器无法及时回收内存，就会抛出 OutOfMemoryError。
+我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
+java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError 因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
+private void OutOfMemoryErrorTest() {  try {  // do something might lead to OutOfMemoryError error  } catch (Error e) {  e.printStackTrace();  } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/" class="post-link">PCA算法和实例</a></h3>
-    <p class="post-meta">@Neal · Jun 20, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/" class="post-link">独立成分分析（Independent Component Analysis）</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">PCA算法 算法步骤： 假设有m条n维数据。
- 将原始数据按列组成n行m列矩阵X 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 求出协方差矩阵C=1/mXXT 求出协方差矩阵的特征值以及对应的特征向量 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P Y=PX即为降维到k维后的数据  实例## 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
-然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2/5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：
-因此我们的矩阵P是： 可以验证协方差矩阵C的对角化： 最好我们用P的第一行诚意数据矩阵，就得到了降维后的数据表示： 降维后的投影结果如下图： PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同的正交方向上没有相关性。 因此，PCA也存在一些限制，例如它可以很好地解除线性相关，但是对于高阶相关性就没有办法了。对于存在高阶相关性的数据，可以考虑Kernel PCA,通过Kernel将非线性相关转化为线性相关。另外，PCA假设数据各特征分布在正交方向上，如果在非正交方向上存在几个方差较大的方向，PCA的效果就大打折扣。 PCA是一种无参数技术，也就是说面对同样的数据，如果不考虑清晰，谁来做结果都一样，没有主观参数的介入，所以PCA便于通用实现，但是本身没有个性化的优化。
-本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html</p>
+  <p class="post-summary">ICA是一种用于在统计数据中寻找隐藏的因素或者成分的方法。ICA是一种广泛用于盲缘分离的(BBS)方法，用于揭示随机变量或者信号中隐藏的信息。ICA被用于从混合信号中提取独立的信号信息。ICA在20世纪80年代提出来，但是知道90年代中后期才开始逐渐流行起来。 ICA的起源可以来源于一个鸡尾酒会问题，我们假设三个观测点x1,x2,x3,放在房间里同时检测三个人说话，另三个人的原始信号为s1,s2,s3，则求解的过程可以如下图所示：
+定义 假设n个随机变量x1,x2,….xn,由n个随机变量s1,s2,…sn组成，并且这n个随机变量是相互独立的，可以用下面的公示表达： 为了表达的方便，我们可以用向量的形式来表达： x = As 这个只不过是ICA最基本的定义，在很多实际问题中，应该包含了噪声。但是为了简化问题，我们这里忽略了噪声。因为如果模型中包含噪音，处理起来将会十分困难，而且大多数不包含噪音的模型已经能够解决很多问题，所以这里我们就将噪声先忽略。
+ICA的限制条件  独立成分应该是相互之间独立的。这是ICA成立的基本原则，同时，基本上可以说只需要这个原则我们就可以估计这个模型。 独立成分必须是非高斯分布的。高斯分布的高阶累计量是0，但是高阶信息对于ICA的模型的估计却是十分必要的。 为了简化，我们假设未知的混合矩阵A是一个方阵。  白化 白化是一种比不相关性要稍微强一些的性质。对一个零均值的随即向量y进行白化处理，就是让它的组成成分不相关，并且让变量的方差相等。也就是说，变量y的协方差矩阵是单位矩阵： 为什么独立成分是非高斯的 ICA最基本的限制条件就是独立成分必须是非高斯分布的，这或许也是ICA早期没有流行起来的原因。我们假设变量x1和x2是高斯分布的，不相关的，且方差相等： 下面的图表示联合概率分布，可以看出，我们无法判断任何关于变量x1和x2的方向信息，这就是为什么混合矩阵A不能被估计出来的原因： 峭度 在这我们讲述一个利用峭度来进行ICA模型估计的方法，ICA的估计方法很多，这只是最基础的一个方法。 对于变量y峭度可以由下面的公式定义： 峭度是可正可负的，高斯分布变量的峭度是0，这也是为什么独立成分必须是非高斯分布的原因之一。峭度为负的变量分布称为次高斯分布，峭度为正的变量的分布则为超高斯分布，下图分别是拉普拉斯分布（超高斯分布）和均匀分布（次高斯分布）： 基于峭度的梯度算法 我们经常利用峭度的绝对值或者平方来进行求解： 我们通过优化这个目标函数来估计ICA模型，z表示白化后的观察数据x。 实际上，我们是使峭度极大化。我们会从某个方向向量w开始，然后计算在什么方向峭度的增长最快，我们则将方向向量w向这个方向移动。 峭度绝对值的梯度可以如下计算： 下面是一个快速不动点算法基于峭度计算的流程图： ## ICA估计的主要方法 ##   通过极大化非高斯性来估计 通过极大似然性来估计 通过极小互信息来估计 通过张量的方法来估计 通过非线性分解和非线性PCA来估计 这里，我们只是讲了其中的一个基础方法之一，并不就是最好的方法。  ICA算法的思想可以用下面的公式来描述： ICA method = objective funtion &#43; optimization algorithm
+引用 [1]Hyvärinen A, Karhunen J, Oja E. Independent component analysis[M]. John Wiley &amp; Sons, 2004. [2]Hyvärinen A, Oja E. Independent component analysis: algorithms and applications[J].</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%8B%AC%E7%AB%8B%E6%88%90%E5%88%86%E5%88%86%E6%9E%90independent-component-analysis/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/wwdc2015/" class="post-link">WWDC2015</a></h3>
-    <p class="post-meta">@Neal · Jun 9, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%81%AB%E7%9C%BC/" class="post-link">火眼红队工具遭窃</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">ios9功能  Proactive：整合siri、联系人、日历以及第三方应用。 Notes： 可调节字体、插图片、支持手写注记等功能。 Maps： 加入新公交试图，Transit提供公交系统和换乘细节。 News：聚合新闻应用，可根据西兴趣选择不同的新闻源。 电池续航：充满殿后设备使用时间延长1小时。 安装包更小，只有1.3G。 用户隐私：数据只会保存在本地，不会上传到云。  OS X EI Capitan  新增多种触控板手势。 safari增加固定标签页功能。 窗口自适应功能，不必手动调整窗口大小和拖动窗口。 Spotlight能够理解日常语言。 Metal首次引入图形管理接口。 swift2将在今年年底开源。 split view将自动并排两个app共用一个屏幕。 邮箱app增强全屏显示功能。  ipad最新功能  quick type键盘 传说中的分屏 支持“画中画”功能  </p>
+  <p class="post-summary">原文：Unauthorized Access of FireEye Red Team Tools
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 概述 一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。
+您可以在这火眼的 GitHub 仓库中找到策略列表。
+红队工具和技术 红队是一组经过授权和组织的安全专家，模仿潜在的对手针对企业安全状况的攻击或利用能力。我们的红队的目的是通过演示成功攻击的影响并向防御者（即，蓝队）展示防御方法，以改善企业网络安全。过去15年来，我们一直在为全球客户进行红队评估。截至目前，我们已经建立了一套脚本，工具，扫描器和技术，以帮助改善客户的安全状况。不幸的是，这些工具被顶尖攻击者窃取。
+被盗工具的范围从用于自动化侦察的简单脚本到类似于 CobaltStrike和 Metasploit 等公开可用技术的整个框架。许多红队工具已经发布给社区，并已分发到我们的开源虚拟机 CommandoVM 中。
+其中一些工具是公开可用的工具，经过修改可以逃避基本的安全检测机制。其它的工具和框架是我们红队内部定制开发。
+没有零日漏洞或者未知技术 攻击者窃取的红队工具不包含零日漏洞。这些工具采用了世界各地其他红队所使用的众所周知且有据可查的方法。尽管我们认为这种盗窃不会大大提高攻击者的整体能力，但火眼会尽一切努力防止这种情况的发生。
+请务必注意，火眼尚未看到任何对手散布或使用这些工具，我们将继续与安全合作伙伴一起监视任何此类活动。
+有益于社区的检测 为了使社区能够检测到这些工具，我们正在发布防御策略，以帮助组织识别这些工具（如果它们在野出现）。为了应对我们的红队工具的盗窃，我们针对 OpenIOC，Yara，Snort 和 ClamAV 等公开可用技术发布了数百种对策。
+可在此处找到火眼 GitHub 仓库上的对策列表。我们将发布检测，并将随着我们开发新的或改进现有检测的主机，网络和基于文件的指标的重叠对策而继续更新公共存储库。 此外，我们在 GitHub 页面上发布了需要解决的 CVE 列表，以限制红队工具的有效性。
+火眼产品能够帮助客户免于这些工具攻击 火眼的各个团队都在努力制定对策，以保护我们的客户和广大社区。 我们已将这些对策整合到我们的产品中，并与我们的合作伙伴（包括国土安全部）共享了这些对策，这些合作伙伴已将这些对策纳入其产品中，从而为社区提供了广泛的覆盖范围。
+有关可用的检测签名的更多信息，可以在GitHub仓库中找到。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/wwdc2015/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E7%81%AB%E7%9C%BC/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/" class="post-link">道路模型--linear-parabolic model</a></h3>
-    <p class="post-meta">@Neal · May 18, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/" class="post-link">演化计算会议</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
   </header>
   
-  <p class="post-summary">读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&#34;,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。 好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示： 这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下： 这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出 因为在xm两边的函数值是相等的，并且导数也是相等的。 从而我们就能得到下面的公式： 这样我们可以把c和e用别的变量来表达 因此我们可以把最终的道路模型参数用下面的函数来表达 这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。 Reference Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.</p>
+  <p class="post-summary">作为一名演化计算会议的学生，要懂得这方面的会议啦，不过我最熟悉的只是CEC了，其他的会议还真没怎么见过。 【原创】演化计算&amp;演化硬件相关会议评价(07.07.15) Copy to clipboard Posted by: dareios Posted on: 2007-07-13 00:27
+欢迎大家提意见，补充^^
+Revised Date(v4): 2007/10/03 (修改: ICES) Revised Date(v3): 2007/07/15 (追加:CEC, AUS-AI, ICCS) Revised Date(v2): 2007/06/05(追加:GECCO, ICONIP) Revised Date(v1): 2007/05/29
+写这个段子纯粹是因为受了南大周志华教授写的AI Conferences那篇文章的影响,于是起了写一篇自己心目中的conferences tier list的念头. List中的会议评价主要根据我本人这几年接触到的会议论文集的质量,参加会议过程的感观,CiteSeer的那个Estimated impact of publication venues in Computer Science,会议的专业性-我本人偏重evolvable hardware,大部分的LNCS出版的会议和少量的其他重要相关会议将做探讨. grade A 的会议是演化硬件方向最权威的国际会议,其中发表的论文大多有一读的价值. B 的会议也是质量非常不错的会议, C 的会议, 我个人认为去发表论文还是不错的,但是通常不会在这个档次的会议proceeding中找参考论文.D 的会议,通常是一些发表论文数量超过500篇,或者永远在中国国内打转的＂国际＂会议.
+ grade A:
+ICES (A0): International Conference on Evolvable Systems: From Biology to Hareware. 基本上是从90年代evolvable hardware(EHW)的研究引起学术界的关注就开始举行的重要会议.EHW方面最重要的2个会议之一.首次举行是在1995年的瑞士(当时还不叫 ICES,96年才开始现在的名字),基本上当时的EHW开创性人物瑞士的Eduardo Sanchez,日本的Tetsuya Higuchi等人都参加了这次会议.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/" class="post-link">常用颜色的RGB分布</a></h3>
-    <p class="post-meta">@Neal · May 10, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/" class="post-link">消灭 star 大作战--Front-end-tutorial</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">RGB色彩模式是工业界的一种颜色标准，它通过对红（RED）、绿（GREEN）、蓝（BLUE）三种基本颜色的相互组合从而叠加出各种颜色。RGB色彩模式为每一个红、绿、蓝分类了0-255范围内的亮度值。 RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个数字分别表示红、绿、蓝的亮度值，常用的颜色的RGB颜色分布有以下这些：
- 品红色 （255,0,255） 蓝色 （0,0,255） 青色 （0,255,255） 绿色 （0,255,0） 黄色 （255,255,0） 红色 （255,0,0） 紫色 (128,0,128) 深蓝色 （0,128,128） 鸭绿色 （0,128,128） 深绿色 （0,128,0） 橄榄绿 （128,128,0） 栗色 （128,0,0） 黑色 (0,0,0) 灰色 （128,128,128） 银色 （192,192,192） 白色 （255,255,255）  </p>
+  <p class="post-summary">写在前面 Github star 往往非常简单，点击一个按钮，就 star 了。但是你还去看它么，这就未必了。因此很多库长年累月的堆积在你的 star list 里面无人问津。因此，会有这样一个具有一个非常中二的名字的计划。对于 star 仓库，从后往前，一个个理解消化，不要让它无意义地堆积。
+操作步骤：
+ fork it finish it  仓库信息  仓库名称：Front-end-tutorial 主要内容：这是一个博客，里面主要是前端开发的内容，内容设计比较广泛，包括 HTML, CSS, JS 以及流行的框架，以及前端开发的其他内容。 消灭计划：内容较多，打算主要消化一些感兴趣的内容，主要应该集中于原生的东西或者一些性能方面的知识。  作战内容 JavaScript 深拷贝 深拷贝可以说是一个老生重谈的问题，几乎每一个前端面试都可能会问这样的问题。Js 中的对象都是引用，所以浅拷贝时，修改拷贝后的对象会影响原对象。原仓库中其实讲的并不是很深入，我反倒是觉得评论里面的一篇文章深入剖析 JavaScript 的深复制讲得更好。
+有很多第三方库实现了对于对象的深拷贝。
+ jQuery: $.extend(true, {}, sourceObject) loadsh: _.clone(sourceObject, true) 或者 _.cloneDeep(sourceObject)  另外有一个神奇的方法就是借助于 JSON 的 parse 和 stringify 方法，当时我才看到这个方法的时候惊为天人，这个方法还可以用来判断两个对象是否相等。当然，这个方法还是有一些限制，因为正确处理的对象只能是使用 json 可以表示的数据结构，对于函数可能就无能为力了。原文作者实现了一个深拷贝的方法，不过考虑了很多情况，在这里我们就实现一个简单版的深拷贝把。
+function deepCopy(obj) {  const result = {};  for (const key in obj) {  if (obj.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/">Read More →</a>
   </footer>
 </article>
 
@@ -377,19 +406,6 @@ SVD和PCA## PCA的问题其实是一个基的变换，使得变换后的数据�
 
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

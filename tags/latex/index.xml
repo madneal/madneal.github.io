@@ -5,64 +5,11 @@
     <link>https://madneal.com/tags/latex/</link>
     <description>Recent content in latex on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 06 Jan 2017 22:09:53 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/latex/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>latex中large的作用域问题</title>
-      <link>https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</link>
-      <pubDate>Fri, 06 Jan 2017 22:09:53 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</guid>
-      <description>在毕业论文的写作过程中，遇到了一个\large 作用域的问题。假设下面有三种写法：
-I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are right}, yeah, yeah, yeah I am cool \begin{large} you are right \end{large}, yeah, yeah, yeah 我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？ 下面且看这三个命令的分别显示结果： 很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面\large 的影响，也变成了放大的字体。这就是\large的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</description>
-    </item>
-    
-    <item>
-      <title>Latex--入门系列三</title>
-      <link>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/</link>
-      <pubDate>Mon, 12 Dec 2016 15:48:08 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/</guid>
-      <description>Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
-TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
-I am text. Yes.  %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|}  \hline  $a_1~~~b$ &amp;amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结   **{和}**是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
-  **$**是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a+b=c$，输入$$a+b=c$$，那么你的公式就会在段与段之间以块的形式展现。
-  **%**是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
-  **_和^**分别作为下标和上标。你也可以同时使用上标和下标，比如：  **~**是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
-  实际上，\ 经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\ 是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
-  **&amp;amp;**适用于在数组以及表格中定义列的。
-  ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&amp;gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
-  一次效果函数，比如使用\ss来获得一个德国字母。
-  状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
-  使用命令取得相应的值，一般是使用{}或者[]。比如：
- \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。 口音和发声符号，比如\&#39;{e} \v{o}来产生    使用\begin和end是定义环境，从而和其他内容区分处理，比如：</description>
-    </item>
-    
-    <item>
-      <title>Latex--入门系列二</title>
-      <link>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/</link>
-      <pubDate>Tue, 06 Dec 2016 20:24:10 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/</guid>
-      <description>Latex 专业的参考
-tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
-基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
-运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
-因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
-dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
-输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
-注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
-如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
-一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
-注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
-其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</description>
-    </item>
-    
+    <language>en</language><atom:link href="https://madneal.com/tags/latex/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Latex--入门系列一</title>
       <link>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/</link>
-      <pubDate>Sat, 03 Dec 2016 22:54:13 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%80/</guid>
       <description>Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
@@ -83,9 +30,60 @@ LATEX：文档编制 LaTeX是围绕TeX的一种文档编制的宏命令，它是
     </item>
     
     <item>
+      <title>Latex--入门系列三</title>
+      <link>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%B8%89/</guid>
+      <description>Latex 专业的参考 tex对于论文写作或者其他的一些需要排版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习。
+TeX语法 TeX语法，编辑 你可能已经注意到，(La)TeX文档是蠢笨的基本上不包含什么具有特殊意义的符号，经常是依赖环境的并且很容易就可以看得出来。下面有一段LaTeX的代码，你也不用担心你还读不懂它，因为它可能包含不少的特别的符号：
+I am text. Yes.  %comment: a semi-complex table with math in it: \begin{tabular}{|l|r|}  \hline  $a_1~~~b$ &amp;amp; $\sqrt[3]{a_1^2}$ \\ \end{tabular} 最终产生的表格的排版是这个样子的特殊符号的总结   **{和}**是作为一些命令参数来定义一些小块，比如临时的粗黑体在{\bf bold}
+  **$**是用来开始和结束数学模式的，比如一些公式啊，数字之类的。你可以在你文本的任何地方插入$a+b=c$，输入$$a+b=c$$，那么你的公式就会在段与段之间以块的形式展现。
+  **%**是用来注释的，这个是单行注释。如果你要注释大段的代码的时候，为了避免插入过多的百分号，你可以把这些字符放在\iffalse和\fi里面。
+  **_和^**分别作为下标和上标。你也可以同时使用上标和下标，比如：  **~**是一个硬空格，它对于排版是有影响的，它是具有大小的，并且不可分连的空格，就像&amp;amp;nbsp一样的。它很有用比如：A.~Smith以及在引用的图表的时候Figure~\ref{dataflow},这确保了作者姓名或者图片和数字之间不会在行与行之间分隔。（也可以使用其他的办法来解决这个问题，比如mbox，不会强制使用特殊的空格大小）
+  实际上，\ 经常和~拿起来一起来使用。尽管这两者之间还是有区别的：\ 是字间的空格，经常用来告诉LaTeX这不是句子的末尾，一般用于缩写或者标题。(Dr.\ Jones)
+  **&amp;amp;**适用于在数组以及表格中定义列的。
+  ****用于开始一个命令。有一些可能是比较特殊的(\\用于换行，\&amp;gt;用于tab缩进)，一般化的话应该是这样的\commandname。当然这可能会有看起来不太相同的使用方法：
+  一次效果函数，比如使用\ss来获得一个德国字母。
+  状态改变，比如粗体，强调，比如text-{\em a-tron}会产生。（花括号是来限制作用的范围的）
+  使用命令取得相应的值，一般是使用{}或者[]。比如：
+ \textsc{SmallCaps}产生 \caption{Description用于标题说明，一般用于图表。 口音和发声符号，比如\&#39;{e} \v{o}来产生    使用\begin和end是定义环境，从而和其他内容区分处理，比如：</description>
+    </item>
+    
+    <item>
+      <title>Latex--入门系列二</title>
+      <link>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/</guid>
+      <description>Latex 专业的参考
+tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，Arbitrary reference .所以将会翻译出来，供初学者学习 基本的使用
+基本的使用 TeX会产生什么 最基本的来说，你会生成一个.tex文件，即你的文档，即youfile.tex。
+运行latex you file.tex可以让TeX工作并且生成your file.dvi，这是当下的输出。dvi是一个独立的排版语言。
+因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。
+dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用pdflatex yourfile.tex。
+输出文件: LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(.aux文件是引用的，toc是给章头用的等等)，这些数据下次运行还可以继续使用。
+注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。
+如果你用的是unix的系统，我建议你可以看看rubber。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。
+一个.log文件也会产生，它是tex文件编译产生的一些相关信息。
+注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。
+其他可能输出的格式 除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过dvips软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个字体渲染的问题。对于pdf，我建议你使用pdflatex或者类似的工具从而避免字体的一系列问题。你必须将所有的.ps/.eps文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</description>
+    </item>
+    
+    <item>
+      <title>latex中large的作用域问题</title>
+      <link>https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</guid>
+      <description>在毕业论文的写作过程中，遇到了一个\large 作用域的问题。假设下面有三种写法：
+I am cool \large{you are right}, yeah, yeah, yeah I am cool {\large you are right}, yeah, yeah, yeah I am cool \begin{large} you are right \end{large}, yeah, yeah, yeah 我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？ 下面且看这三个命令的分别显示结果： 很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面\large 的影响，也变成了放大的字体。这就是\large的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</description>
+    </item>
+    
+    <item>
       <title>latex如何给表格添加注释</title>
       <link>https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/</link>
-      <pubDate>Thu, 10 Dec 2015 15:41:52 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/</guid>
       <description>在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
@@ -95,7 +93,7 @@ LATEX：文档编制 LaTeX是围绕TeX的一种文档编制的宏命令，它是
     <item>
       <title>latex算法步骤如何去掉序号</title>
       <link>https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/</link>
-      <pubDate>Fri, 06 Nov 2015 19:03:15 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/</guid>
       <description>想去掉latex算法步骤前面的序号，如下 我想去掉每个算法步骤前面的数字序号，1，2，3，因为我已经写了step。我们只需要引用a lgorithmic这个包就可以了，代码如下：
@@ -105,7 +103,7 @@ LATEX：文档编制 LaTeX是围绕TeX的一种文档编制的宏命令，它是
     <item>
       <title>如何用latex画一个简单的表格</title>
       <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/</link>
-      <pubDate>Sat, 26 Sep 2015 08:40:35 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/</guid>
       <description>latex毫无疑问是一个十分强大的论文写作工具，所以掌握它就显得非常有意义，讲一下如何画一个简单的表格，代码如下： \begin{table} \centering \begin{tabular}{||c|c||} \hline algorithm &amp;amp; time complexity\ \hline RM-MEDA &amp;amp; O(NM)\ \hline IRM-MEDA &amp;amp; O(NK)\ \hline \end{tabular} \caption{The time complexity comparing result} \label{TAB1} \end{table} 呈现的效果如下： 是不是很简单

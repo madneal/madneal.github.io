@@ -5,13 +5,81 @@
     <link>https://madneal.com/tags/web%E5%AE%89%E5%85%A8/</link>
     <description>Recent content in web安全 on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
-    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 22 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language><atom:link href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bastion -- Hack the box</title>
+      <link>https://madneal.com/post/bastion/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/bastion/</guid>
+      <description>介绍 目标： 10.10.10.134 (Windows)
+Kali：10.10.16.65
+In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
+总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
+信息枚举 Firstly, detect the open ports:
+首先，探测开放端口
+# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.</description>
+    </item>
+    
+    <item>
+      <title>Chrome 最新零日漏洞</title>
+      <link>https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/</guid>
+      <description>原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 摘要 卡巴斯基安全防护是卡巴斯基产品的一部分，过去已成功检测到许多零日攻击。最近，为 Google的 Chrome 浏览器发现了一个未知的新漏洞。我们会立即将此情况报告给 Google Chrome 安全团队。在审核了我们提供的 PoC 之后，Google 确认存在零日漏洞并将其分配为 CVE-2019-13720。 Google 已针对 Windows，Mac 和 Linux 发布了 Chrome 版本78.0.3904.87，我们建议所有 Chrome 用户尽快将其更新为最新版本！你可以点击此处阅读 Google 公告。
+卡巴斯基端点产品借助漏洞利用防御组件检测漏洞。该攻击的裁决是 Exploit.Win32.Generic。
+我们称这些攻击为 Operation WizardOpium。到目前为止，我们还无法与任何已知的威胁者建立明确的联系。与蓝莲花攻击有某些非常弱的代码相似性，尽管这很可能是 false flag。目标网站的配置与最近部署了类似虚假标记攻击的早期 DarkHotel 攻击更加一致。
+卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.</description>
+    </item>
+    
+    <item>
+      <title>GMail XSS 漏洞分析</title>
+      <link>https://madneal.com/post/xss/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/xss/</guid>
+      <description>原文：XSS in GMail’s AMP4Email via DOM Clobbering
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
+什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
+ 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+ 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</description>
+    </item>
+    
+    <item>
+      <title>gobuster源码阅读--dir篇</title>
+      <link>https://madneal.com/post/gobuster2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/gobuster2/</guid>
+      <description>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3.</description>
+    </item>
+    
+    <item>
+      <title>gobuster源码阅读--入口篇</title>
+      <link>https://madneal.com/post/gobuster1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/gobuster1/</guid>
+      <description>gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
+入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
+func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt.</description>
+    </item>
+    
     <item>
       <title>gobuster源码阅读--终篇</title>
       <link>https://madneal.com/post/gobuster3/</link>
-      <pubDate>Fri, 22 Apr 2022 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/gobuster3/</guid>
       <description>在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
@@ -22,31 +90,35 @@ s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑�
     </item>
     
     <item>
-      <title>gobuster源码阅读--dir篇</title>
-      <link>https://madneal.com/post/gobuster2/</link>
-      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      <title>hey,我能看到你的源码哎</title>
+      <link>https://madneal.com/post/webpack/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/post/gobuster2/</guid>
-      <description>在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3.</description>
+      <guid>https://madneal.com/post/webpack/</guid>
+      <description>最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
+通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。
+目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 devtool 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。
+module.exports = { ... devtool: &amp;#39;source-map&amp;#39;, ... } 市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。
+不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 chrome://net-export 可以捕获请求，通过 https://netlog-viewer.appspot.com/#events 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。
+毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 source-map 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。</description>
     </item>
     
     <item>
-      <title>gobuster源码阅读--入口篇</title>
-      <link>https://madneal.com/post/gobuster1/</link>
-      <pubDate>Thu, 21 Apr 2022 00:00:00 +0000</pubDate>
+      <title>MyBatis 和 SQL 注入的恩恩怨怨</title>
+      <link>https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://madneal.com/post/gobuster1/</guid>
-      <description>gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
-入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt.</description>
+      <guid>https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/</guid>
+      <description>本文首发于安全客平台
+MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
+起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&amp;#34;(display_name like &amp;#39;%&amp;#34; + keyword + &amp;#34;%&amp;#39; or &amp;#34;);  sb.append(&amp;#34;org like &amp;#39;&amp;#34; + keyword + &amp;#34;%&amp;#39; or &amp;#34;);  sb.</description>
     </item>
     
     <item>
       <title>SAST 测试中要测量的三个参数</title>
       <link>https://madneal.com/post/sast/</link>
-      <pubDate>Mon, 28 Mar 2022 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/sast/</guid>
       <description>原文：3 parameters to measure SAST testing
@@ -63,156 +135,9 @@ LICENSE: MIT
     </item>
     
     <item>
-      <title>hey,我能看到你的源码哎</title>
-      <link>https://madneal.com/post/webpack/</link>
-      <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/webpack/</guid>
-      <description>最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
-通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。
-目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 devtool 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。
-module.exports = { ... devtool: &amp;#39;source-map&amp;#39;, ... } 市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。
-不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 chrome://net-export 可以捕获请求，通过 https://netlog-viewer.appspot.com/#events 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。
-毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 source-map 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。</description>
-    </item>
-    
-    <item>
-      <title>富文本场景下的 XSS</title>
-      <link>https://madneal.com/post/stored-xss/</link>
-      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/stored-xss/</guid>
-      <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
-前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
-    </item>
-    
-    <item>
-      <title>让你的SQL盲注快起来</title>
-      <link>https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/</link>
-      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/</guid>
-      <description>本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp;amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp;amp; 0 = 0; 0 &amp;amp; 1 = 0; 1 &amp;amp; 0 = 0; 1 &amp;amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp;amp; x = 0, x = 0</description>
-    </item>
-    
-    <item>
-      <title>GMail XSS 漏洞分析</title>
-      <link>https://madneal.com/post/xss/</link>
-      <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/xss/</guid>
-      <description>原文：XSS in GMail’s AMP4Email via DOM Clobbering
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
-什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
- 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
- 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</description>
-    </item>
-    
-    <item>
-      <title>Chrome 最新零日漏洞</title>
-      <link>https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/</link>
-      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/</guid>
-      <description>原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 摘要 卡巴斯基安全防护是卡巴斯基产品的一部分，过去已成功检测到许多零日攻击。最近，为 Google的 Chrome 浏览器发现了一个未知的新漏洞。我们会立即将此情况报告给 Google Chrome 安全团队。在审核了我们提供的 PoC 之后，Google 确认存在零日漏洞并将其分配为 CVE-2019-13720。 Google 已针对 Windows，Mac 和 Linux 发布了 Chrome 版本78.0.3904.87，我们建议所有 Chrome 用户尽快将其更新为最新版本！你可以点击此处阅读 Google 公告。
-卡巴斯基端点产品借助漏洞利用防御组件检测漏洞。该攻击的裁决是 Exploit.Win32.Generic。
-我们称这些攻击为 Operation WizardOpium。到目前为止，我们还无法与任何已知的威胁者建立明确的联系。与蓝莲花攻击有某些非常弱的代码相似性，尽管这很可能是 false flag。目标网站的配置与最近部署了类似虚假标记攻击的早期 DarkHotel 攻击更加一致。
-卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.</description>
-    </item>
-    
-    <item>
-      <title>MyBatis 和 SQL 注入的恩恩怨怨</title>
-      <link>https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/</link>
-      <pubDate>Wed, 30 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/</guid>
-      <description>本文首发于安全客平台
-MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
-起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&amp;#34;(display_name like &amp;#39;%&amp;#34; + keyword + &amp;#34;%&amp;#39; or &amp;#34;);  sb.append(&amp;#34;org like &amp;#39;&amp;#34; + keyword + &amp;#34;%&amp;#39; or &amp;#34;);  sb.</description>
-    </item>
-    
-    <item>
-      <title>被动扫描器之插件篇</title>
-      <link>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</link>
-      <pubDate>Sat, 28 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</guid>
-      <description>本文首发于 freebuf, https://www.freebuf.com/articles/web/219818.html
-最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，r-forwarder 以及 r-forwarder-burp，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。
-Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。
-简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
-Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
-其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
-对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：</description>
-    </item>
-    
-    <item>
-      <title>Bastion -- Hack the box</title>
-      <link>https://madneal.com/post/bastion/</link>
-      <pubDate>Sun, 22 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/bastion/</guid>
-      <description>介绍 目标： 10.10.10.134 (Windows)
-Kali：10.10.16.65
-In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
-总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
-信息枚举 Firstly, detect the open ports:
-首先，探测开放端口
-# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.</description>
-    </item>
-    
-    <item>
-      <title>如何写一个 burp 插件</title>
-      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/</link>
-      <pubDate>Sat, 31 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/</guid>
-      <description>Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
-如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
- 配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &amp;ldquo;Edit Configurations&amp;rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
-命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
-java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar 部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
-Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</description>
-    </item>
-    
-    <item>
-      <title>偶遇 XSS 漏洞</title>
-      <link>https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/</link>
-      <pubDate>Thu, 22 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/</guid>
-      <description>最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。
-最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 ReturnURL 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，RAP。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开发，不过目前这个代码仓库已经不维护了，已经迁移到了 rap2-delos。但是 RAP 的 star 数更多，高达 10000+。可以得知，该项目目前应该还有不少人在使用。
-其实这个漏洞的原理非常简单。其实就是 doLogin 请求会传入一个 ReturnURL，而重定向的页面会直接使用 window.location.href 来直接重定向 URL。使用 window.location.href 其实本来就是一种比较危险的行为，尤其是链接的参数取决于外部输入，更有可能导致 dom 型的 XSS 漏洞。同时，这个漏洞也是一个开放重定向漏洞。不过本文就稍微聊一下这个 XSS 漏洞。开源仓库就是有一个好处，可以直接看代码。下面我们就通过代码来简单解释一下原理。
-简单粗暴地在代码仓库中搜索了一下 window.location.href，发现代码仓库中有多处使用了 window.location.href。不过我们很快就发现了一个有趣的代码，正是重定向页面的代码。
-关键代码就是：window.location.href = decodeURIComponent(&amp;quot;$returnUrl&amp;quot;);。这段代码没有对 returnUrl 做任何的处理，而且这段代码就是直接放在 script 标签中。毫无疑问，这种一定会导致 XSS 漏洞，可以通过构造 returnUrl 来闭合双引号从而导致 XSS 漏洞。比如，&amp;quot;alert(/xss/);//，这段代码就可以导致 XSS 漏洞。
-再看看调用这个页面的地方：
- public String doLogin() {  // 增加验证码  Map&amp;lt;String,Object&amp;gt; session = ContextManager.</description>
-    </item>
-    
-    <item>
       <title>使用浏览器作为代理从公网攻击内网</title>
       <link>https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/</link>
-      <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/</guid>
       <description>介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
@@ -230,9 +155,50 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
     </item>
     
     <item>
+      <title>偶遇 XSS 漏洞</title>
+      <link>https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/</guid>
+      <description>最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。
+最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 ReturnURL 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，RAP。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开发，不过目前这个代码仓库已经不维护了，已经迁移到了 rap2-delos。但是 RAP 的 star 数更多，高达 10000+。可以得知，该项目目前应该还有不少人在使用。
+其实这个漏洞的原理非常简单。其实就是 doLogin 请求会传入一个 ReturnURL，而重定向的页面会直接使用 window.location.href 来直接重定向 URL。使用 window.location.href 其实本来就是一种比较危险的行为，尤其是链接的参数取决于外部输入，更有可能导致 dom 型的 XSS 漏洞。同时，这个漏洞也是一个开放重定向漏洞。不过本文就稍微聊一下这个 XSS 漏洞。开源仓库就是有一个好处，可以直接看代码。下面我们就通过代码来简单解释一下原理。
+简单粗暴地在代码仓库中搜索了一下 window.location.href，发现代码仓库中有多处使用了 window.location.href。不过我们很快就发现了一个有趣的代码，正是重定向页面的代码。
+关键代码就是：window.location.href = decodeURIComponent(&amp;quot;$returnUrl&amp;quot;);。这段代码没有对 returnUrl 做任何的处理，而且这段代码就是直接放在 script 标签中。毫无疑问，这种一定会导致 XSS 漏洞，可以通过构造 returnUrl 来闭合双引号从而导致 XSS 漏洞。比如，&amp;quot;alert(/xss/);//，这段代码就可以导致 XSS 漏洞。
+再看看调用这个页面的地方：
+ public String doLogin() {  // 增加验证码  Map&amp;lt;String,Object&amp;gt; session = ContextManager.</description>
+    </item>
+    
+    <item>
+      <title>如何写一个 burp 插件</title>
+      <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/</guid>
+      <description>Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
+如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
+ 配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &amp;ldquo;Edit Configurations&amp;rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
+命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar 部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</description>
+    </item>
+    
+    <item>
+      <title>富文本场景下的 XSS</title>
+      <link>https://madneal.com/post/stored-xss/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/stored-xss/</guid>
+      <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
+    </item>
+    
+    <item>
       <title>服务端请求伪造（SSRF）攻击</title>
       <link>https://madneal.com/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</link>
-      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/</guid>
       <description>概述 之前的一片文章讲到过跨站请求伪造（CSRF）攻击，今天讲一个可能更小众的攻击，服务端请求伪造（SSRF）攻击。SSRF，即攻击者利用服务器提供的函数去访问或者更新内部的资源。攻击者可以提供或者修改一个服务器读取或者提交数据的 URL，通过这些 URL，攻击者可能能够读取服务器的配置信息，连接到开启 http 的数据库服务或者向内部的服务（不应该暴露）提交 post 请求。
@@ -240,9 +206,41 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
     </item>
     
     <item>
+      <title>被动扫描器之插件篇</title>
+      <link>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</guid>
+      <description>本文首发于 freebuf, https://www.freebuf.com/articles/web/219818.html
+最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，r-forwarder 以及 r-forwarder-burp，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。
+Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。
+简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
+Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
+其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
+对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：</description>
+    </item>
+    
+    <item>
+      <title>让你的SQL盲注快起来</title>
+      <link>https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/</guid>
+      <description>本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
+SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
+与或运算 与或运算，操作符分别为 &amp;amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp;amp; 0 = 0; 0 &amp;amp; 1 = 0; 1 &amp;amp; 0 = 0; 1 &amp;amp; 1 = 1
+即：两位同时为“1”，结果才为“1”，否则为0
+或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
+即：参加运算的两个对象只要有一个为1，其值为1
+假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
+1 &amp;amp; x = 0, x = 0</description>
+    </item>
+    
+    <item>
       <title>跨站请求伪造（CSRF）攻击</title>
       <link>https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/</link>
-      <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/</guid>
       <description>概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。

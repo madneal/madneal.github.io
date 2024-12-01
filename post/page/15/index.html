@@ -219,32 +219,49 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-link">剑指offer学习--初级c&#43;&#43;面试题</a></h3>
-    <p class="post-meta">@Neal · Oct 21, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-link">每日一练--直接插入排序</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">定义一个空的类型，里面没有任何成员函数和成员变量，对该类型求sizeof,得到的结果是多少？ 答案是1。空类型中的实例中不包含任何信息，本来求sizeof应该是0，但是当我们声明该类型的实例的时候，他必须在内存中占有一定的空间，否则无法使用这些实例。至于占用多少内存，由编译器决定。Visual Studio中每个空类型的实例占用1字节的空间。
-  如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
-  那如果把析构函数标记为虚函数呢？ C&#43;&#43;的编译器一旦发现一个类型中有虚函数，就会为该类型生成虚函数表，并在该类型中的每一个实例中添加一个指向虚函数表的指针。在32位的机器上，一个指针占4字节的空间，因此求sizeof是4；如果是64位的机器，那么结果就是8.
-分析下面代码运行结果：
-class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&lt;&lt;value&lt;&lt;endl; } }; int main() { A a = 10; A b = a; b.print(); } 在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C&#43;&#43;的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;other)，也就是把传值参数改为常量引用。
-C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什么区别？ 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public,而在class中默认的是private。 那么在C#中呢？ C#和C&#43;&#43;不一样。在C#中如果没有标明成员函数或者成员变量的访问权限，struct和class都是private。struct和class的区别是struct定义的是值类型，值类型的实例在栈上分配内存；而class定义的是引用类型，引用类型的实例是在堆上分配内存的。</p>
+  <p class="post-summary">现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]….A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; 下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; } 今天一练，到此结束。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" class="post-link">matlab调试技巧</a></h3>
-    <p class="post-meta">@Neal · Oct 13, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/" class="post-link">歌德巴赫猜想</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">Matlab的调试总体分为，直接调试和间接调试。 1.直接调试： （1）去掉句末的分号； （2）单独调试一个函数：将第一行的函数声明注释掉，并定义输入量，以脚本方式执行 M 文件； （3）适当地方添加输出变量值的语句； （4）添加keyboard命令；
-2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try…catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try…catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try…catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1.</p>
+  <p class="post-summary">题目 Description
+歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
+每行一个偶数n（4 &lt; n &lt;= 20000）
+Output
+对应于每个输入的偶数，输出a、一个空格、b、一个换行符
+Sample Input
+8 10 1000 Sample Output
+3 5 5 5 491 509
+代码 #include&lt;stdio.h&gt; #include&lt;math.h&gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&#34;%d&#34;,&amp;n) != EOF) { for (i = n/2;i &gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;&amp;isPrime(j)) { printf(&#34;%d %d\n&#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; } </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" class="post-link">模拟.net post请求属性</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/">Read More →</a>
   </footer>
 </article>
 
@@ -252,7 +269,7 @@ C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什�
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/" class="post-link">柯西分布</a></h3>
-    <p class="post-meta">@Neal · Oct 12, 2015 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
   <p class="post-summary">柯西分布的概率密度函数是： t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准柯西分布，标准柯西分布的密度函数是： 下面的是标准柯西分布概率密度函数分布图： </p>
@@ -264,108 +281,119 @@ C&#43;&#43;中可以使用struct和class来定义类型，这两种类型有什�
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" class="post-link">Django学习——开发你的第一个Django应用2</a></h3>
-    <p class="post-meta">@Neal · Oct 11, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/cissp-domain1/" class="post-link">文武双全，看我如何过CISSP</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
-产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
-开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
-进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
-在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
+  <p class="post-summary">2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
+考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
+备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
+OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
+ Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/cissp-domain1/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/" class="post-link">如何查找django安装路径</a></h3>
-    <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" class="post-link">数据结构线性表相关操作</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</p>
+  <p class="post-summary">数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
+#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" class="post-link">Django学习——开发你的第一个Django应用1</a></h3>
-    <p class="post-meta">@Neal · Oct 10, 2015 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/xp/" class="post-link">提车二月记--小鹏P7</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
-建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
- django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
-创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</p>
+  <p class="post-summary">P7 提车也有两个月了，行驶基本上也有 2000 多公里。关于提车的介绍，可以参考我之前的那篇文章。经过这两个月的形势，我不仅加深了对 P7 的了解，同时自己的驾驶技术也提高了。下面，就自己这两个月的行驶感受做进一步总结。
+驾驶体验 P7 的驾驶体验总的来说对于我个人来说还是非常优秀的，不过因为可能我也没有开过其它的什么车，发言权不是特别大。不过根据我爸的说法感觉还是不错的，方向盘和刹车都不错，不过刹车在某些情况下会变得很硬，不过可能与 P7 的 AEB 有关系。提到 AEB 还想提一次经历，有一次前面车突然急刹车，然后当时行驶速度比较快，我踩了几脚刹车，最后一脚重踩，可以明显感到 AEB 给刹车加了一把，虽然我自己踩应该也是不会追尾的，不过 AEB 感觉是上了一道双保险。有遇到一些鹏友吐槽 AEB 的，不过目前对于我来说，AEB 没有给我带来任何困扰，反而感觉是多了一份保障。
+说完优点，就说说驾驶体验有点不太好的地方。P7 的悬挂实在是太硬了，稍微有点颠簸路面就感觉非常颠，这一点的体验是比较差的。还有就是感觉低速行驶有一些不太平的路面，左摇右摆特别的明显。
+外观颜值 P7 的颜值可能是很多人买 P7 的重要原因之一。P7 的轿跑风格，那个大溜背，真的人见人爱。特别是和其它的车放在一起的时候，明显可以感觉 P7 的风格别树一帜，让人越看越喜欢。而且感觉上完牌照的 P7 比没上牌照的要好看多了。关于上牌体验，总体来说小鹏的体验还可以，我是自己在网上选号的，推荐网上选，比较方便，我是在电脑上通过网站选号的。虽然 P7 的车长有4.88米，但是由于其大溜背，所以后排空间也是捉襟见肘，不过因为平常后排也不怎么坐人，所以也还好，家里人感觉也还可以。后备箱的话，虽然是比较深的，但是高速不是很高，所以容量也是比较一般的。虽然前备箱也有，但是空间就要小得多的，而且开启也不是很方便，只能通过机械掰两下主驾旁边的开关，使用频率也非常低。
+
+
+车机 小鹏的车机可以说的上是目前国内数一数二的，如果自信点，现在说是第一也不是很过分哈。车即真的非常流畅，没有任何延迟。而且车机上面的有个小优点，就是车机上的车模型的 UI 会和车的实际状态联动，比如车机上的车模型会显示你的实际号牌，并且还会同步汽车的车门开关状态以及车灯的状态，何小鹏不愧是做 UI 的。车机上面的功能划分也比较有逻辑性，会分为几个大类，切换不同的大类基本可以找到自己需要的功能。另外有一点可能有很多鹏友不知道，就是屏幕下拉会有一些功能的快捷设置，这点和手机还是比较类似的，毕竟小鹏的车机体验已经非常接近智能手机了。
+
+不过有一点值得说的是，车机的优秀反而衬托了 APP 的薄弱。目前 APP 的功能实在是太少了，很多车机上可以看到的信息，在 APP 上却看不到。还有历史行程信息，感觉这个对于用户还是非常重要的，但是 APP 里面却看不到，甚至看不到仪表盘上面的那些行驶公里数，就只有一个总的历史公里数。感觉，这方面还是需要改进很多。不过，在车机上打开小 P 头像可以看到上一天的形式记录以及能耗方面，信息还是比较齐全的。
+
+辅助驾驶 目前小鹏的辅助驾驶可以算得上是第一梯队，当然目前华为的极狐还没有正式量产上市。小鹏的 NGP （按导航辅助驾驶）目前的体验已经是非常好的，得益于高德高精度地图的加持，在很多地区体验可能比特斯拉的辅助驾驶体验还要好，当然特斯拉的视觉方案也很强。其实很多人对于汽车的自动辅助驾驶有一点误解，很多人以为自动辅助驾驶其实就是一个功能，其实不然。辅助驾驶里面是包含了很多项的，汽车也是通过视觉感知、雷达感知来获取大量的信息，来提升辅助驾驶能够获取的信息。现在新的辅助驾驶技术已经用上了激光雷达，这也是提高了感知的精度和范围。其实目前已有的方案并没有挖掘充分，P7 其实还是有不少算力冗余的。所以依靠现有的硬件条件，未来做到城市道路的自动辅助驾驶也不是不可能的。目前的辅助驾驶其实是一项项进阶形成的，比如车道偏离预警会在车辆偏离车道线的时候产生告警，不过在高速上有遇到过一些之前的车道线没有清除干净，导致告警并且勒安全带，感觉有点不太好。另外一些盲区安全辅助，在开门的时候有帮助，提醒你身边可能有一些突然冒出来的电动车。其它的就是 ACC, LCC, ALC 了，这些内容都是在智享版本上包含的，如果仅仅只是在城市中行驶，可能已经足够了。不过强大的 NGP 可以帮你在高架以及高速上基本上可以实现 0 干预行车，尤其高速上面的使用体验非常优秀。之前去嘉兴的高速上就使用了 NGP，那天雨下得特别大，视线非常不好，使用 NGP 反而感觉更好一些。即使在那么大雨的情况下，NGP 的使用都非常正常，体验也非常好。尤其是这次 2.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/xp/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/" class="post-link">http响应代码解释</a></h3>
-    <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" class="post-link">持续发布 Chrome 插件</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
   </header>
   
-  <p class="post-summary">200：成功响应 302：找到，但是请求的资源在另外一个不同的url中。 400：错误请求。这个请求不能被服务器所理解，客户端必须修改请求。 401：未认证，这个请求需要用户认证。 404：未找到。服务器没有找到任何和这个请求符合的资源。</p>
+  <p class="post-summary">Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
+介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
+Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
+在创建项目之后，我们需要开启 “Chrome Web Store API”。在 Library 中搜索这个 API， 并且将其 ENABLE。
+在 ENABLE 这个 API 之后，就可以点击 “CREATE CREDENTIALS” 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" class="post-link">全栈开发系列学习2——django项目搭建</a></h3>
-    <p class="post-meta">@Neal · Oct 10, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/xiaopeng/" class="post-link">技术宅的第一辆车--小鹏P7</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目：
- 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&#34;pip install MySQL-python&#34;就可以了。 解压项目文件代码。 进入src文件夹下，输入&#34;make install&#34;这样会自动安装所有的依赖库。 现在我们可以创建一个数据库：web_dev_tutorial  mysql -u &lt;your username&gt; -p&lt;yourpassword&gt; 注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } } 把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
-MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
-MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&#34;make&#34;,你将会看到： ｀ MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306</p>
+  <p class="post-summary">写这篇文章的时候，刚刚从撞车的后悔与悲痛中慢慢恢复而来，也借此机会分享一下这段时间买车的经历吧。前段时间突然勾起来想买车的欲望，就一直想买车。因为是在上海，因为牌照的关系，加上我个人的偏好，所以我只考虑新能源汽车，我对新兴事物的接受度还是非常高的。之前其实主要考虑的就是特斯拉，不过特斯拉由于续航问题和外观原因，感觉和小鹏比还是有一些差距，当然也是因为我的一个买了小鹏朋友的安利。
+买车 买车之前，几乎所有人都反对我买小鹏或者新能源车。我买车没有试驾过其它的车，只试驾了小鹏 P7，当天就订了车。值得吐槽的是，我的销售除了订车当天催我订车之外，几乎没有给过我任何实质性的建议，基本什么问题问她几乎也都是白搭，给我的承诺也没有做到（这个销售的专业能力应该是非常差的）。当然这个是销售的个人原因，和小鹏也没有太大关系的。因为贷款的原因，配车还延迟了一个礼拜，另外值得吐槽的就是中行的贷款，后面还挺麻烦的，提车当天还不能放款，后面我还是选择了全款，白白浪费了一个多礼拜，当然这里面的弯弯绕绕销售也都没有和我说过。
+
+好像大多数销售在推荐车的时候都会推荐智享版，不过因为我本人和自动驾驶也颇有渊源。当初研究生的时候，一开始的时候搞得就是自动驾驶的方向，当时全世界搞这个的人都不多，当时因为没人交流就上也没有硬件去做，当时读论文真的很苦逼，后来为了毕业后面还是换了方向发论文，但也算是和自动驾驶结下了不解之缘。所以，纠结了一下，最后还是选择了长续航版本的智尊版本。
+
+差不多等了一个多月，终于等到提车的日子。提车还是在军工路，特地请假去提车。整体的提车过程还是比较顺利的，基本就是看下车，因为是新车基本上也没有特别好验的。相对来说，交付比我的销售要靠谱很多。后面就是付钱，办理保险和临牌就可以。不得不说，小鹏整体的造型还是不错的，轿跑风格也是比较喜欢。整个车的风格也是越看越喜欢，提车基本就是送了一个小花篮以及水杯和雨伞，其它的没什么礼物了。
+
+
+
+驾驶体验 我本身也是个新手，虽然驾照拿了很多年，但几乎没怎么开过车。小鹏车开起来还是比较简单和舒适的，对于新手来说还是比较友好。小鹏的车机和语音来说，在当前新能源车或者是汽车行业，也都算是数一数二的。语音交互体验比较好，基本上大多数的功能都可以通过语音交互来进行控制，当然语音有时候也有拉跨的时候，不过总体来说还是比较可以的。另外，就是这个车的空间，虽然车长有 4.88 米，但空间感觉还是一般，不过这也很轿跑造型有关系，为了外观，不可避免的牺牲了一些空间。
+小鹏最亮眼的当属于 NGP了，这也是我当初为什么还是选了智尊版的原因（智尊版还需要额外2万的软件费用），因为这真的是小鹏的长处。后面也看了很多评测，感觉真的很香，感觉至少和特斯拉比是强一点的，不过如果和华为相比可能还是要差一些。毕竟目前NGP只能在高速或者高架路上开启。后来，我也体验过一两次，在高架上使用 NGP 实在是太香了，尤其是对于我这种新手来说。NGP的驾驶方式优秀，变道技术也比我好很多，所以高架上用NGP开非常的省心，这也让我庆幸当初的选择没有错。下面的这个视频也是我有天晚上全程使用 NGP 行驶的。
+https://www.bilibili.com/video/BV1wN411f7hs/
+不幸的事 福兮祸之所伏，祸兮福之所倚。快乐的事没过多久，不幸就随之而来。节前的最后一天，在一个十字路口调头，撞到别人车上，结果小鹏也受了比较大的损伤。当时整个人比较懵的，当天就花了很多时间处理保险和事故，然后亲自跟着拖车把车又送回了提车的地方维修。因为配件的原因，维修可能还需要比较长的时间。这几天一直处在深深地自责和后悔中，都怪自己当时不够小心，但世上没有后悔药了，一切也不能挽回。希望自己吃一堑长一智，以后一定要小心小心再小心。
+
+你好，小P！以后我们好好相处吧。
+如果对小鹏感兴趣的话，可以走我的试驾邀请链接试驾。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/xiaopeng/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/" class="post-link">一个神奇却很简单的css特效</a></h3>
-    <p class="post-meta">@Neal · Oct 7, 2015 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">在网上看到一个前端大牛的主页，觉得他有一个特效特别酷，一开始还以为是要用什么javascript代码来实现，但仔细看一下，发觉只是用几行css代码就搞定了，我觉得挺好的。 他这个效果就是鼠标放在左半部分和右半部分，整个网页的布局颜色会相互变化，我贴上前后两张图来比较一下，你们就明白了。 当鼠标放在左半部分： 当鼠标放在右半部分： 可能静态的图片看不太出效果，但是动态看起来还是比较酷的，最关键的是它的代码其实很简单。
-.panel, .panel-left:hover &#43; .panel-right { background-color: #22c3aa; color: white; } .panel-right, .panel:hover { background-color: white; color: #22c3aa; } .panel-right:hover &#43; img#avatar { transform: rotateY(180deg); } 第一段和第二段代码主要就是背景颜色和主体颜色的改变，他把做面板鼠标移动到上面时的效果和右面板的效果设为一致，从而达到左右颠倒的效果，最后一段代码主要是下面一张图片的旋转180度。 真的是前端的东西很变化莫测，往往很简单的思路能够达到意想不到的效果，我觉得真的是值得我们很多时候多多思考的。 再贴上这个前端大神的网页http://zhangwenli.com/。真的很佩服她，一个女生居然代码写的这么好，看看别人做的东西，再看看自己的东西，简直惭愧不已，我觉得人丑还是多读书，尤其是我这种长的那么丑的人就更应该读了。</p>
+  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
+微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
+长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
+微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/" class="post-link">全栈开发教学学习系列1——前言</a></h3>
-    <p class="post-meta">@Neal · Oct 7, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
-一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：
- Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
   </footer>
 </article>
 
@@ -416,19 +444,6 @@ MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成�
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

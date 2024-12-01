@@ -214,58 +214,68 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sop/" class="post-link">安全运营平台从0到1</a></h3>
-    <p class="post-meta">@Neal · Jan 21, 2022 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" class="post-link">Qradar SIEM--查询利器 AQL</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/266237
-笔者作为某公司的安全开发独自一人负责安全运营平台的开发，经过数个月的折腾以及其他安全同学的合作，目前该平台已经运营了几百个安全漏洞以及一些安全事件，其它一些安全能力也在慢慢地接入中。在之前的公司，笔者也是作为安全工程师负责平台架构部门的安全运营，当时我们也有几个开发来负责安全运营平台的开发。安全运营平台其实可以作为一个公司偏向应用安全的基建之一，或许可以将它看做偏向于应用安全的 SIEM。所以，基于本文，也想分享一下在安全运营平台建设和开发的过程中的经验。在整个建设过程，开发工作只是一部分，体系的建设和实现也不可或缺，所以很多做法也是需要结合公司的实际情况，并一定就能够完全通用。
-开发 安全运营平台的开发技术选型其实和其它后台业务类型的系统并不会有太大的区别。目前大多数应用系统都是采用前后端分离的方式，前端大多数是类似于 vue-admin 类型的技术方案。后端框架见仁见智，选择适合内部开发的语言即可。笔者之前最早实习的时候就是干前端开发的，后来干安全也是经常会写安全工具的代码，所以常用的语言也是都略懂一些，所以也就扛起了这个平台的开发工作。
-最初的技术选型是想选择 gin-vue-admin，这是个前后端分离方案。后端基于 go 的 gin 框架，前端是和 vue-admin 比较类似的前端方案。这个轮子用起来不错，有很多开箱即用的功能，权限方面管理也非常方便。不过最终还是没有采取这个方案，因为内部的大多数应用都是基于内部自研的 go 微服务框架，其部署运维也与该方案息息相关。如果不使用内部的框架在部署方面则会麻烦很多，考虑到后期的运维，最终还是选择了基于内部的微服务框架开发。不过，这样做的最大的问题就是学习成本，因为这个内部框架与外部的 web 框架差异较大，而且作为安全的唯一开发也是两眼一抹黑，只能跟在开发大佬后面跪舔，才慢慢把应用的雏形搭建起来。前端框架比较简单，主要是基于 element 的 Vue 框架。
-其实在开发过程中要说技术难度有多大也不见得，和其它的业务系统其实没有太大的区别。主要就是各种和头发丝一样琐碎细小的业务需求，所以开发过程就好比把这些头发丝一根根捡起来捋直了，所以有时候也是比较痛苦的过程。前端的用户体验和设计也是痛点之一，本身安全在开发就比较缺乏，尤其是设计方面。不过安全运营平台主要面向的也是内部的用户，主要就是安全工程师和开发，所以和面向外部客户的应用相比，要求也会稍微低一点。
-需求建设 对于安全运营平台的大致规划是按照下面的框架来进行划分的，大多数公司的安全运营平台也会比较类似。安全运营平台的核心是应用安全的运营，漏洞管理作为安全运营平台的核心之一，也往往是安全运营平台被开发所熟知的方面之一。另外一方面就是集成各种安全工具的数据，包括像扫描工具，包括 SAST 以及 DAST 的扫描，将这些数据能够转换成实际的漏洞来推动。
-漏洞管理 漏洞管理作为安全运营平台的最基础的一方面，同时也是其核心。漏洞的本质其实也是一个 bug，只不过它被赋予了安全这一属性，摇生一变被称为漏洞。那么漏洞自然就和开发日常处理的 bug 会稍微有一些不同。Bug 的处理流程相对来说会简单一点，测试把 bug 提给开发，开发确认之后修复完成，测试验证通过就可以了。安全漏洞的处理过程其实也是基于这一个过程的演化，这也是因为安全漏洞的特殊性，安全漏洞是一种特殊的 bug。一方面，安全漏洞的机密性要求更高，漏洞的可见范围越小越好，一般仅限定为要处理的人及它的直属领导，而不是任意一个人都可以查看漏洞，这样也是为了避免万一有人通过漏洞信息来进行利用。另外一方面，漏洞的处理流程相对来说会更复杂一点。在现实业务中，可能会有各种各样的场景。正常来说，一个应用应该具备测试环境、UAT 环境、生产环境。漏洞应该在之前的环境中被验证通过后，再进行下个环境的验证，这样的好处也是避免一开始就没有修复，导致返工，也降低了风险。但是往往也有不少应用并不同时都有这些环境，比如第三方采购的应用，一般都没有前两个环境，大多数是布在生产上的。也有的应用可能也没有 UAT 环境，就只有测试环境和生产环境。我们的做法是有提供两种模式给开发选择，开发可以选择默认模式，则这三种环境都有，开发也可以选择不带 UAT 环境的。针对于只有一种环境，我们的做法是把主动权交给安全工程师，安全工程师在复测完成后可以直接关闭漏洞，不过这个的弊端就是有时候安全工程师忘记直接关闭这个漏洞。
-漏洞在被确认之前可能还有一些例外情况，包括像漏洞的忽略以及漏洞的接受。漏洞的忽略主要是漏洞的一些误报，这个主要是安全工程师可能对于业务有些了解还不充分导致的一些信息差，另外还有就是有些漏洞可能就是正常的业务需求。漏洞的接受则是这的确是一个漏洞，但往往漏洞修复非常困难，或者漏洞修复对业务的影响非常大，但是漏洞的危害程度没有达到高危及以上的那种程度。其实对于这种情况一般有两种处理，一种就是安全把漏洞提给开发，但是开发就是不太愿意修复这个漏洞，这个漏洞状态就一直保持着，如果哪天开发憋不住了，或者状态场景发生了变化，他们就完成了这个漏洞的修复。另外一种情况就是业务方接受漏洞并且不修复，这种可以理解为风险接受。其实在 CISSP 中的风险管理中就有这样的概念，如果采取安全措施的代价大于资产的实际价值，那么业务方可以选择接受风险。不过对于这种情景，是需要经过业务方领导的审批，确保业务方能够明确意识到这个漏洞潜在的风险。
-漏洞另外一个重要的内容就是和资产的联动。一个成熟的 cmdb 对于安全来说真的太重要了。因为这可以帮助安全迅速的定位到明确的责任人，从而确保漏洞的及时修复，其实这也涵盖其它的安全内容，包括像安全事件，甚至在安全应急响应中，好的 cmdb 对于安全来说真的非常重要。不过，安全往往不是作为 cmdb 的第一责任人，一般 cmdb 的运维职责是落在运维方，安全起到的作用是反馈和治理。安全在使用数据的过程中，及时反馈，从而帮助数据修正，这样达到一个良性进化的过程。
-事件管理 事件管理和漏洞管理也不太相同，所以事件管理的流程会被单独作为另外一个流程来进行管理。事件不同于漏洞，它往往也没有上文提到的各种的环境。事件的处理往往也是一个点对点的过程，安全工程师确认了安全事件，将事件上报给对应的处理人，处理人处理完毕，安全工程师验证没有问题，安全事件就可以关闭了。目前的安全事件的功能还是比较弱化的，主要还是用于事件的处理流程。不过未来事件流程最重要的方面是和其它安全平台的对接，包括与 SIME、IDS 等安全产品对接，并且能够将事件直接分发给对应的处理人，提高事件的处理效率。
-安全能力 作为安全运营平台，SAST 以及 DAST 也是作为应用安全重要的补充能力。SAST 以及 DAST 市面上都有很多成熟的产品，也有很多公司采取自研方案。对于这两种产品最重要的能力就是数据的打通，如何将这两种产品扫描出来的漏洞直接转化为实际有效的漏洞。前期对于这种漏洞比较好的处理方式，可能是先同步数据，然后安全运营平台作为一个审核平台，这些数据经过安全工程师的审核和加工，有效的数据将转化为漏洞进行上报。另外一个重要的方面就是组件成分分析，这也是近几年非常火的一个概念。因为目前的软件开发都是大概率依赖于第三方组件，不管是商业的还是开源的、前端的、后端的以及各种语言的，这些组件的风险都有可能会对你自己应用带来风险。做好应用的组件分析，知道应用的依赖关系，能够快速地在紧急安全漏洞爆发初做到较快的响应处置。当然，这些都建立在资产都能够与这些信息打通的基础上，这样才能做联动响应，根据资产去盘点漏洞，同时也能够根据漏洞去看哪些资产受影响。
-安全运营平台除了这些大的方面，其实也有很多细节方面需要考虑。比如像漏洞级别的定级，不同级别的漏洞对应着不同的威胁程度，那么其要求的修复时间也是不相同的。对于漏洞的响应时间应该是按照自然日来算的，因为攻击者并不会因为是休息日就鸣金收兵的。对于漏洞的定级，其实业界有一个比较成熟的定级模型，叫做 DREAD，即：</p>
+  <p class="post-summary">对于 SIEM 平台来说，好用的查询方式非常重要。之前有体验基于 ELK 搭建的平台，在 kibana 上面是可以通过一些 filter 来做一些过滤并且是支持 lucene 的语法，包括一些简单的逻辑查询以及 wildquery 等等。但是的确是在做一些汇聚之类时不是很方便，一般需要通过 json 来构建更高级的查询语句。后来好像也有转 SQL 之类的插件，但我也没有使用过，总的来说体验比较一般。
+Qradar Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 BUG 一大堆，但架不住别的更差啊），基本上也是属于业界 TOP 5。商业产品的好处就是不用自己太折腾，搞搞就可以用，缺点就是贵。AQL（Ariel Query Language）是 Qradar 中的一种查询语言，与普通的 SQL 的语句类似，但是阉割了一些功能也增加了一些功能。以下是 AQL 的基本流程：
+可以看出 AQL 是一种非常类似于 SQL 的语言，所以基本上你用过 SQL 学会 AQL 也就分分钟的事情，而且你也不会拿它去做特别复杂的嵌套查询（因为它也不支持。。。）
+Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 QIDNAME(qid) 来获取事件名称，RULENAME(123) 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。
+下面就是我在使用过程中一些小经验：
+引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sop/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
-    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-link">PWK 以及 OSCP 最常见的问题</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
-前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
+  <p class="post-summary">OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：
+什么是 PWK 以及 OSCP PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。
+官方还推荐完成 OSCP 后还可以考虑以下课程：
+ CTP 中的渗透测试技术以及漏洞利用开发功能， AWAE 中的 Web 应用程序安全技能 WIFU 中的无线安全技能  如何以及在哪参加 PWK PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。
+如何注册 PWK 以及 OSCP 考试 一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。
+前提条件 除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">多平台的敏感信息检测工具-GShark</a></h3>
-    <p class="post-meta">@Neal · Apr 17, 2021 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" class="post-link">MyBatis 和 SQL 注入的恩恩怨怨</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
   </header>
   
-  <p class="post-summary">GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi
-GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
-架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
-所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
- 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
-rm -rf ./releases/* cd web npm run build cd .</p>
+  <p class="post-summary">本文首发于安全客平台
+MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
+起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gshark/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="post-link">Kibana 任意代码执行漏洞</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">今日，有人公开了 Kibana 任意代码执行漏洞（CVE-2019-7609）的 POC。这个漏洞的主要原理是因为 Kibana 中的 Timelion 中具有原形链污染漏洞，因此可以导致指定变量的原型链污染，通过传递 NODE 环境变量参数，利用 Kibana 的 Canvas 会创建新进程的特性可以达到远程执行命令的效果。
+在本地尝试搭建环境复现，忙活了半天，一开始尝试的是 6.4.2 版本的 Kibana。尝试执行命令的时候，发现一直没有效果，才发现这个漏洞的利用还有一个重要的环节。在导致原型链污染之后，还需要点击 Canvas 菜单，因为点击 Canvas 菜单，Kibana 会尝试创建一个新的进程，从而可以达到远程命令执行的效果。不过在 Kibana 6.5 版本之前，Canvas 不是默认安装在 Kibana 中的。可以通过 kibana-plugin 去安装 Canvas 插件，不过我后来还是选择使用 6.5.4 版本，同时注意相应 elasticsearch 也需要升级到 6.5.4 版本。最后在使用反弹命令的时候，遇到了一点问题，可能与机器系统版本相关，可以多尝试几种命令。
+漏洞的利用过程其实不是特别复杂，注意几点即可：
+ 漏洞的影响的版本是 5.6.15 版本以及 6.6.1 版本以前。 Kibana 需要安装了 Canvas 插件。 目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。  原型链攻击 如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 proto 属性直接去修改 prototype。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 
@@ -273,7 +283,7 @@ rm -rf ./releases/* cd web npm run build cd .</p>
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript能否修改Referer请求头</a></h3>
-    <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
   <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
@@ -289,120 +299,99 @@ Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Req
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
-    <p class="post-meta">@Neal · Mar 7, 2021 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-link">GShark-监测你的 Github 敏感信息泄露</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
-译者：madneal
+  <p class="post-summary">近几年由于 Github 信息泄露导致的信息安全事件屡见不鲜，且规模越来越大。就前段时间华住集团旗下酒店开房记录疑似泄露，涉及近5亿个人信息。后面调查发现疑似是华住的程序员在 Github 上上传的 CMS 项目中包含了华住敏感的服务器及数据库信息，被黑客利用导致信息泄露（这次背锅的还是程序猿）。
+起源 对于大型 IT 公司或者其他行业，这种事件发生的概率实在是太常见了，只不过看影响的范围。现在大家看到的，也仅仅只是传播出来的而已。企业没办法保证所有人都能够遵守规定不要将敏感信息上传到 Github，尤其是对于那种特别依赖于外包的甲方企业，而甲方的开发人员也是一无所知，这种事件发生也就是司空见惯了。
+废话说了一大通（可能是最近看安全大佬的文章看多了），终于要介绍一下我的这个项目，GShark。这个工具主要是基于 golang 实现，这也是第一次学习 golang 的项目，结合 go-macron Web 框架实现的一个系统。其实最初我是看到小米安全开源的 x-patrol 项目。网上这种扫描 Github 敏感信息的工具多如皮毛，我看过那种 star 数上千的项目，感觉实现方式也没有很好。因为说到底，大家都是通过 Github 提供的 API 结合相应的关键字来进行搜索的。但是，x-patrol 的这种实现方式我觉得是比较合理的，通过爬虫爬取信息，并对结果进行审核。所以，最初我是一个 x-patrol 的使用者。使用过程中，也遇到过一些问题，因为这个库似乎就是小米的某个固定的人维护的，文档写的不是特别清晰。中间我有提过 PR，但都被直接拒绝掉了。后来，我就想基于 x-patrol 来实现一套自己的系统，这也就是 GShark 的来由了。目前，这个项目与 x-patrol 已经有着很大的变化，比如移除了本地代码的检测，因为这个场景没有需求，其实我本身自己也实现了一个基于 lucene 的敏感信息检索工具。另外，将前端代码进行了梳理，并使用模板引擎来做模板的嵌套使用。基于 casbin实现基于角色的权限控制等等。
+原理 讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 go-github。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 Advanced Search。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
+译者：neal1991
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
-微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
-长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
-微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
+ 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
+什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
+ 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+ 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
-    <p class="post-meta">@Neal · Sep 6, 2020 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
-终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
-初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
-所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
-AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
+  <p class="post-summary">原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 摘要 卡巴斯基安全防护是卡巴斯基产品的一部分，过去已成功检测到许多零日攻击。最近，为 Google的 Chrome 浏览器发现了一个未知的新漏洞。我们会立即将此情况报告给 Google Chrome 安全团队。在审核了我们提供的 PoC 之后，Google 确认存在零日漏洞并将其分配为 CVE-2019-13720。 Google 已针对 Windows，Mac 和 Linux 发布了 Chrome 版本78.0.3904.87，我们建议所有 Chrome 用户尽快将其更新为最新版本！你可以点击此处阅读 Google 公告。
+卡巴斯基端点产品借助漏洞利用防御组件检测漏洞。该攻击的裁决是 Exploit.Win32.Generic。
+我们称这些攻击为 Operation WizardOpium。到目前为止，我们还无法与任何已知的威胁者建立明确的联系。与蓝莲花攻击有某些非常弱的代码相似性，尽管这很可能是 false flag。目标网站的配置与最近部署了类似虚假标记攻击的早期 DarkHotel 攻击更加一致。
+卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
-    <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/bastion/" class="post-link">Bastion -- Hack the box</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
   </header>
   
-  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
- 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
- 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
- 多读文章
- @shail_official
- 读代码，先专注于公开的部分。阅读单元测试。
-  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
- 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
+  <p class="post-summary">介绍 目标： 10.10.10.134 (Windows)
+Kali：10.10.16.65
+In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
+总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
+信息枚举 Firstly, detect the open ports:
+首先，探测开放端口
+# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/bastion/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" class="post-link">网络安全分析的瑞士军刀--zeek</a></h3>
-    <p class="post-meta">@Neal · Apr 18, 2020 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
-Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
-安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
-Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
+  <p class="post-summary">原文：4 Tips for Better API Security in 2019
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 
+无论是在科技媒体亦或是分析报告中，2018年 “API”以及“安全”变得越来越常见，-或者更糟糕，“API” 以及“违规”一起出现在头条中。
+APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
+但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
+实际上，API 安全的要求正在成为一种共识：
+  在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
+  OWASP Top 10是一个备受推崇的 web安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
-    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp; x = 0, x = 0</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-link">PWK 以及 OSCP 最常见的问题</a></h3>
-    <p class="post-meta">@Neal · Feb 20, 2020 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：
-什么是 PWK 以及 OSCP PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。
-官方还推荐完成 OSCP 后还可以考虑以下课程：
- CTP 中的渗透测试技术以及漏洞利用开发功能， AWAE 中的 Web 应用程序安全技能 WIFU 中的无线安全技能  如何以及在哪参加 PWK PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。
-如何注册 PWK 以及 OSCP 考试 一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。
-前提条件 除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
   </footer>
 </article>
 
@@ -451,19 +440,6 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 
