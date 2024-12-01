@@ -283,6 +283,26 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
 </article>
 
       
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/nilayay/" class="post-link">NilAway：实用的 Go Nil Panic 检测方式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：NilAway: Practical Nil Panic Detection for Go
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
+指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
+nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
+图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/nilayay/">Read More →</a>
+  </footer>
+</article>
+
+      
     
     
   </section>
