@@ -113,6 +113,8 @@ Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严�
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
       
         
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
       
     </div>
     
@@ -224,7 +226,7 @@ Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严�
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">第一款Goland的SCA插件开发之旅</h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+      <p class="post-meta">@Neal · May 3, 2022 · 2 min read</p>
     </header>
     <article class="post-content"><p>插件开发，是一件即快乐又痛苦的事情。快乐的是你可以根据自己的需求通过插件来进行实现，比如经常看到的 Chrome 的插件开发。插件对于应用的原生生态有着很大的益处，往往那些特别优秀的插件甚至会被官方收编或者在正式功能中加入插件的功能。痛苦的是你需要去看文档，看插件开发的各种文档，如果文档不详细的话，痛苦加倍。程序猿最讨厌的事就是看别人的文档以及自己写文档。当然，除了文档，作为小白你还会踩到各种各样的坑。</p>
 <h2 id="先吐槽">先吐槽</h2>
@@ -344,10 +346,30 @@ go 1.16
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>943</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>943</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       
     
   </section>
@@ -382,6 +404,19 @@ go 1.16
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

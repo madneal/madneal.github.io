@@ -214,8 +214,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
+    <p class="post-meta">@Neal · Jan 3, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/programer/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
   
   <p class="post-summary">其实一直以来想写一篇文章总结这几年的技术学习，刚好趁着自己的第一次 github contribution 达到1000&#43;，写篇文章总结以下。本文篇幅较长，我会分为几个章节来分别阐述。
@@ -237,22 +253,6 @@ star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（�
  prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。 sw-precache &amp; sw-toolbox：谷歌关于pwa的相关工具，值得关注。 chrome-remote-interface：师妹介绍我的一个调用headless Chrome的工具，文档阅读起来比较痛苦，可以码，虽然你也不一定看。 hammer.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/programer/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
-起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
-之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
   </footer>
 </article>
 
@@ -291,6 +291,19 @@ public static String checkUrlSafety(String url, List&lt;String&gt; domainWhiteli
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

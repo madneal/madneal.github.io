@@ -115,6 +115,8 @@ function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date(
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
       
         
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
       
     </div>
     
@@ -226,7 +228,7 @@ function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date(
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">通过七牛云建立私有图床</h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+      <p class="post-meta">@Neal · Feb 25, 2018 · 2 min read</p>
     </header>
     <article class="post-content"><p>七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。</p>
 <h2 id="注册账户">注册账户</h2>
@@ -320,10 +322,30 @@ function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date(
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2471</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2471</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       
     
   </section>
@@ -358,6 +380,19 @@ function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date(
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

@@ -214,18 +214,38 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" class="post-link">网络安全分析的瑞士军刀--zeek</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/circleci-incident/" class="post-link">CircleCI 20230104 安全事件报告</a></h3>
+    <p class="post-meta">@Neal · Jan 14, 2023 · 3 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
-Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
-安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
-Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
+  <p class="post-summary">CircleCI 20230104 安全事件报告  原文：CircleCI incident report for January 4, 2023 security incident
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
+我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
+本报告包含:
+ 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
+2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/circleci-incident/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/cissp-domain1/" class="post-link">文武双全，看我如何过CISSP</a></h3>
+    <p class="post-meta">@Neal · Jan 28, 2022 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
+考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
+备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
+OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
+ Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/cissp-domain1/">Read More →</a>
   </footer>
 </article>
 
@@ -233,7 +253,7 @@ Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E7%81%AB%E7%9C%BC/" class="post-link">火眼红队工具遭窃</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Dec 10, 2020 · 1 min read</p>
   </header>
   
   <p class="post-summary">原文：Unauthorized Access of FireEye Red Team Tools
@@ -259,17 +279,17 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/cissp-domain1/" class="post-link">文武双全，看我如何过CISSP</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
+    <p class="post-meta">@Neal · Sep 6, 2020 · 2 min read</p>
   </header>
   
-  <p class="post-summary">2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
-考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
-备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
-OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
- Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</p>
+  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
+终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
+初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
+所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
+AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/cissp-domain1/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
   </footer>
 </article>
 
@@ -277,7 +297,7 @@ OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉�
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
   </header>
   
   <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
@@ -302,38 +322,18 @@ Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-ti
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" class="post-link">网络安全分析的瑞士军刀--zeek</a></h3>
+    <p class="post-meta">@Neal · Apr 18, 2020 · 4 min read</p>
   </header>
   
-  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
-终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
-初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
-所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
-AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
+  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
+Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
+安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
+sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
+Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
+依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/circleci-incident/" class="post-link">CircleCI 20230104 安全事件报告</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">CircleCI 20230104 安全事件报告  原文：CircleCI incident report for January 4, 2023 security incident
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
-我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
-本报告包含:
- 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
-2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/circleci-incident/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
   </footer>
 </article>
 
@@ -372,6 +372,19 @@ LICENSE: MIT
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

@@ -207,44 +207,49 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/" class="post-link">黑产代码解密--利用canvas加载代码</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/" class="post-link">ROT13加密和解密</a></h3>
+    <p class="post-meta">@Neal · Apr 11, 2015 · 2 min read</p>
   </header>
   
-  <p class="post-summary">前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
-最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) {  var imgElement = document.createElement(&#39;img&#39;);  var canvasEle = document.createElement(&#39;canvas&#39;);  imgElement[&#39;crossOrigin&#39;] = true;  imgElement[&#39;onload&#39;] = function() {  canvasEle.width = this.width;  canvasEle.height = this.height;  var canvasContext = canvasEle.getContext(&#39;2d&#39;)  canvasContext.drawImage(this, 0, 0, this.width, this.height);  for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height),  cancasDataLength = canvasContext.data.length, arr = [], i = 0;  i &lt; cancasDataLength;  i &#43;= 4) {  var code = canvasContext.</p>
+  <p class="post-summary">问题 ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。
+应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。
+例如，下面的英文笑话，精华句被ROT13所隐匿：
+How can you tell an extrovert from an
+introvert at NSA? Va gur ryringbef,
+gur rkgebireg ybbxf ng gur BGURE thl’f fubrf.
+通过ROT13转换，该笑话的解答揭露如下：
+Ubj pna lbh gryy na rkgebireg sebz na
+vagebireg ng AFN? In the elevators,
+the extrovert looks at the OTHER guy’s shoes.
+第二次使用ROT13将恢复为原文。
+Input
+第1行：一个整数T（1≤T≤10）为问题数。
+接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。
+Output
+对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。
+然后对应每个问题在一行中输出经过ROT13加密后的一段文字。
+Sample Input
+3
+How can you tell an extrovert from an</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%A2%88%E6%A4%8E/" class="post-link">颈椎康复指南--桌面篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/" class="post-link">一个简单的输入输出算法题</a></h3>
+    <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">最近两个月，颈椎的状态一直不是很好。左右无名指和小拇指一直都有麻的症状。后来去医院做了核磁共振，诊断结果是C3-C6的椎间盘突出。虽然后来吃药加上睡得特别早，慢慢恢复了一些，但是手麻的症状一直没有彻底好。后来，在网上有看到电动升降桌以及显示器支架这两款产品，为(jiu)了(shi)我(xiang)的(hua)颈(qian)椎，我也入了这两款产品。
-电动升降桌 爱否科技有一个视频就是关于电动升降桌的介绍，感兴趣的可以看看。不过我觉得也没啥实用的。电动支架基本也就是贵一点就更好一点，升降更平稳，桌子更稳一点。我也纠结了好几款升降桌，包括京东京造的、网易严选的、乐歌的，价格从 1000 多到 2000 多，最后还是入了乐歌的 E4 双电机升降桌，2000多，是我看的里面最贵的一款，不过这个升降桌送一个显示器支架，后面我还会再说。
-由于这款显示器支架在京东上是厂家发货的，如果是京东发货，隔天应该就到了。厂商发货就很慢了，催了好几次，最后是德邦快递送上门的。快递是拆分成了两个包裹，一个是桌面，另外一个是桌腿以及相关部件（超级重）。
-
-E4 是提供一次免费上门安装的。不过像我这种心急想吃热豆腐的，当然是等不及的。总体来说，升降桌安装难度不能说特别大，基本按照说明书一步步来基本都可以装的上，就是桌腿真的质量特别大，一个人搞起来还是有点够呛。桌子总体来说颜值还可以，桌面是那种光滑的面板材料。桌子升降还是比较平稳的，当然停止的时候会有一种顿挫感，但这也不影响。当然，很多人关心站立办公时桌子会不会晃。实话说，是有一点晃，但还是还可以接受的，但如果你特别敏感的话，可能还是需要考虑一下。
-
-总体来说，电动升降桌这种坐与站切换的方式似乎还是比较理想的。目前因为我使用的时间还不足以体会到明显改善的效果。这款升降桌一共有3个档位的记忆档位，调整上下档位不像其他的升降桌是按键形式，这款升降桌是旋转方式。旋转调整的粒度还是比较细的，调整可以比较精准。一般升降桌都有遇到障碍物方向升降的功能，避免一些意外伤害。这款桌面的承重是 120 千克，所以升降过程还是比较平稳。
-https://www.bilibili.com/video/BV1Qp4y167cC/
-显示器支架 电动升降桌，显示器支架以及人体工程学办公椅，这似乎就已经是颈椎病三件套。双十一在考虑入手电动升降桌之后，我就在考虑入手显示器支架。目前，因为主力使用的是 iMac2020，而且我当初选择的是支架版本，就是那种最普通的版本带底座的。其实 iMac 是有 VESA 孔的款式，这点恐怕很多人都不知道，我也是后来查了才知道的，而且带 VESA 孔的居然还要贵几百块。iMac 有个头疼的问题就是支架如何安装，因为原生的底座无法拆解。找了半天，终于找到一个折中的方案，通过底座中间的圆孔可以安装一个配件来安装显示器支架。选择的是长臂猿一款配件，国外应该也有类似的配件，不过好像更贵一点。
-
-
-通过这个配件可以安装显示器支架，这种方案唯一的问题可能就是没有原生的那么稳定，再加上升降桌的晃动，可能晃动的幅度会更大一点。不过，总体还是一种比较可以接收的方案。
-对于 iMac 支架选择还有一个更重要的问题就是重量。一般的显示器支架都是只支持 3-9 千克的显示器，iMac 整体的净重已经超过 9 千克了，如果使用普通的显示器支架势必会有低头现象。后来我选择了 NB 的 F100A 型号的支架。主要出于两个原因：一是这款显示器支架承重范围更广，可以支持 3-12 千克的重量；二是这款显示器支架性价比高，双十一差不多一百七左右就可搞定。实际入手的体验要比期望中的差一些，第一个还是有低头现象，后来换了一个，好了一点，但还是有点低头的。支架的安装过程不能算复杂，不过如果是第一次安装可能还需要一些时间的，第二次安装就快多了。
-
-另外一款支架是乐歌的 D7A，好像是一款比较老的型号，但是价格好像还挺贵的。安装比 NB 的还简单一点，因为好几个组件都已经安装好了，基本只要固定在桌面就可以了。总体来说，这款支架可能综合方面比 NB 应该还更好一些，颜色也不太一样，偏银色。最后的总体效果我还是比较满意的，后来还是入了小米的显示器挂灯，配合使用效果还不错。显示器还是横屏用比较好，竖屏的确是不是很好用。
-
-总结 这么一套折腾下来，差不多花了两千五左右，总体效果还是不错的。一个好的办公桌面真的会让人身心愉悦（可能是花了钱的缘故）。</p>
+  <p class="post-summary">有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
+题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
+输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
+样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
+代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m;	} cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; } 这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%A2%88%E6%A4%8E/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
@@ -270,6 +275,19 @@ https://www.bilibili.com/video/BV1Qp4y167cC/
 
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

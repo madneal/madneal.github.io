@@ -5,20 +5,43 @@
     <link>https://madneal.com/tags/chrome/</link>
     <description>Recent content in chrome on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://madneal.com/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Wed, 17 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SameSite 的七八事</title>
       <link>https://madneal.com/samesite/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/samesite/</guid>
       <description>起源 本篇文章是讨论关于 SameSite 这一属性的相关内容。这次讨论的缘由是内网的一个需求。内网有一个 SSO 应用，但是在 Chrome 80 版本之后，将会强制实行 SameSite 的属性。即 SameSite 的属性默认为 Lax。而这一变化则会影响到这一应用，因为这个 SSO 使用了 iframe，所以会涉及到 cookie 的跨域。</description>
     </item>
     
     <item>
+      <title>第一个progressive web application，发车！</title>
+      <link>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/</link>
+      <pubDate>Sun, 19 Mar 2017 14:50:10 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/</guid>
+      <description>progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
+var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;fs&amp;#39;); var cityConfig = [&amp;#39;wuhu&amp;#39;, &amp;#39;shanghai&amp;#39;, &amp;#39;beijing&amp;#39;, &amp;#39;hangzhou&amp;#39;, &amp;#39;nanjing&amp;#39;, &amp;#39;wuxi&amp;#39;, &amp;#39;xiamen&amp;#39;, &amp;#39;longyan&amp;#39;]; var cheerio = require(&amp;#39;cheerio&amp;#39;); var url = &amp;#39;http://woeid.rosselliot.co.nz/lookup/&amp;#39;; var attrNames = [&amp;#39;city&amp;#39;, &amp;#39;province&amp;#39;, &amp;#39;country&amp;#39;, &amp;#39;woeid&amp;#39;]; var result = [];  cityConfig.forEach(function(city) { 	request.get(url + city) 	.</description>
+    </item>
+    
+    <item>
+      <title>第一个chrome extension</title>
+      <link>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/</link>
+      <pubDate>Sat, 04 Mar 2017 13:47:34 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/</guid>
+      <description>如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
+{ &amp;#34;manifest_version&amp;#34;: 2, &amp;#34;name&amp;#34;: &amp;#34;弹幕增强&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;This extension provides you a good experience of sending danmu at douyu&amp;#34;, &amp;#34;version&amp;#34;: &amp;#34;1.0&amp;#34;, &amp;#34;browser_action&amp;#34;: { &amp;#34;default_icon&amp;#34;: &amp;#34;icon.png&amp;#34;, &amp;#34;default_popup&amp;#34;: &amp;#34;popup.html&amp;#34; }, &amp;#34;content_scripts&amp;#34; : [{ &amp;#34;matches&amp;#34;: [ &amp;#34;http://*/*&amp;#34;, &amp;#34;https://*/*&amp;#34; ], &amp;#34;js&amp;#34; : [&amp;#34;app.js&amp;#34;], &amp;#34;run_at&amp;#34;: &amp;#34;document_end&amp;#34; }] } manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&amp;quot;里面定义的是extension的相关内容，&amp;ldquo;default_icon&amp;quot;即是插件的图标，&amp;ldquo;default_popup&amp;quot;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。&amp;ldquo;content_script&amp;quot;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&amp;quot;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，&amp;ldquo;content_script&amp;quot;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script&amp;rdquo;:
+var times = 1000; for (var i = 0; i &amp;lt; times; i ++) { (function(i) { setTimeout(function() { console.</description>
+    </item>
+    
+    <item>
       <title>你可能不知道谷歌浏览器开发工具的其他用处</title>
       <link>https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 03 Oct 2016 08:03:50 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/</guid>
       <description>原文链接 原文链接似乎翻墙才可以访问   译者：neal github: https://github.com/neal1991  你可能不知道谷歌浏览器开发工具的其他用处
@@ -44,27 +67,6 @@ getEventListeners($(&amp;rsquo;.firstName&amp;rsquo;)).click[0].listener
 console里面有一个很重要的函数叫做console.time(&amp;rsquo;labelTime&amp;rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&amp;rsquo;labelName&amp;rsquo;)能够结束相应的计时器。
 比如我们想看到一个循环的执行时间，我们可以做如下处理：
 console.time(&#39;myTime&#39;); //Starts the timer with label - myTime for(var i=0; i &amp;lt; 100000; i++){ 2+4+5; } console.timeEnd(&#39;mytime&#39;); //Ends the timer with Label - myTime //Output - myTime:12345.</description>
-    </item>
-    
-    <item>
-      <title>第一个chrome extension</title>
-      <link>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/</guid>
-      <description>如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
-{ &amp;#34;manifest_version&amp;#34;: 2, &amp;#34;name&amp;#34;: &amp;#34;弹幕增强&amp;#34;, &amp;#34;description&amp;#34;: &amp;#34;This extension provides you a good experience of sending danmu at douyu&amp;#34;, &amp;#34;version&amp;#34;: &amp;#34;1.0&amp;#34;, &amp;#34;browser_action&amp;#34;: { &amp;#34;default_icon&amp;#34;: &amp;#34;icon.png&amp;#34;, &amp;#34;default_popup&amp;#34;: &amp;#34;popup.html&amp;#34; }, &amp;#34;content_scripts&amp;#34; : [{ &amp;#34;matches&amp;#34;: [ &amp;#34;http://*/*&amp;#34;, &amp;#34;https://*/*&amp;#34; ], &amp;#34;js&amp;#34; : [&amp;#34;app.js&amp;#34;], &amp;#34;run_at&amp;#34;: &amp;#34;document_end&amp;#34; }] } manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&amp;quot;里面定义的是extension的相关内容，&amp;ldquo;default_icon&amp;quot;即是插件的图标，&amp;ldquo;default_popup&amp;quot;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。&amp;ldquo;content_script&amp;quot;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&amp;quot;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，&amp;ldquo;content_script&amp;quot;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script&amp;rdquo;:
-var times = 1000; for (var i = 0; i &amp;lt; times; i ++) { (function(i) { setTimeout(function() { console.</description>
-    </item>
-    
-    <item>
-      <title>第一个progressive web application，发车！</title>
-      <link>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/</guid>
-      <description>progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
-var request = require(&amp;#39;superagent&amp;#39;); var fs = require(&amp;#39;fs&amp;#39;); var cityConfig = [&amp;#39;wuhu&amp;#39;, &amp;#39;shanghai&amp;#39;, &amp;#39;beijing&amp;#39;, &amp;#39;hangzhou&amp;#39;, &amp;#39;nanjing&amp;#39;, &amp;#39;wuxi&amp;#39;, &amp;#39;xiamen&amp;#39;, &amp;#39;longyan&amp;#39;]; var cheerio = require(&amp;#39;cheerio&amp;#39;); var url = &amp;#39;http://woeid.rosselliot.co.nz/lookup/&amp;#39;; var attrNames = [&amp;#39;city&amp;#39;, &amp;#39;province&amp;#39;, &amp;#39;country&amp;#39;, &amp;#39;woeid&amp;#39;]; var result = [];  cityConfig.forEach(function(city) { 	request.get(url + city) 	.</description>
     </item>
     
   </channel>

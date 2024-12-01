@@ -113,6 +113,8 @@
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
       
         
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
       
     </div>
     
@@ -224,7 +226,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">偶遇 XSS 漏洞</h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+      <p class="post-meta">@Neal · Aug 22, 2019 · 1 min read</p>
     </header>
     <article class="post-content"><p>最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。</p>
 <p>最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 <code>ReturnURL</code> 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，<a href="https://github.com/thx/RAP">RAP</a>。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开发，不过目前这个代码仓库已经不维护了，已经迁移到了 <a href="https://github.com/thx/rap2-delos">rap2-delos</a>。但是 RAP 的 star 数更多，高达 10000+。可以得知，该项目目前应该还有不少人在使用。</p>
@@ -296,10 +298,30 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>1928</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1928</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       
     
   </section>
@@ -334,6 +356,19 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

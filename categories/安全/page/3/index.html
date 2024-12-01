@@ -215,7 +215,7 @@
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/" class="post-link">隐写术-深入研究 PDF 混淆漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Jan 28, 2019 · 1 min read</p>
   </header>
   
   <p class="post-summary">原文：“steganography” - obfuscating PDF exploits in depth
@@ -235,96 +235,94 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" class="post-link">什么是DDOS</a></h3>
+    <p class="post-meta">@Neal · Jan 4, 2019 · 1 min read</p>
   </header>
   
-  <p class="post-summary">概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
-值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
-CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
-下面就是一个例子在机票供应商那里购买飞机票：
-POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
-HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
+  <p class="post-summary">什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-link">GShark-监测你的 Github 敏感信息泄露</a></h3>
+    <p class="post-meta">@Neal · Oct 31, 2018 · 2 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp; x = 0, x = 0</p>
+  <p class="post-summary">近几年由于 Github 信息泄露导致的信息安全事件屡见不鲜，且规模越来越大。就前段时间华住集团旗下酒店开房记录疑似泄露，涉及近5亿个人信息。后面调查发现疑似是华住的程序员在 Github 上上传的 CMS 项目中包含了华住敏感的服务器及数据库信息，被黑客利用导致信息泄露（这次背锅的还是程序猿）。
+起源 对于大型 IT 公司或者其他行业，这种事件发生的概率实在是太常见了，只不过看影响的范围。现在大家看到的，也仅仅只是传播出来的而已。企业没办法保证所有人都能够遵守规定不要将敏感信息上传到 Github，尤其是对于那种特别依赖于外包的甲方企业，而甲方的开发人员也是一无所知，这种事件发生也就是司空见惯了。
+废话说了一大通（可能是最近看安全大佬的文章看多了），终于要介绍一下我的这个项目，GShark。这个工具主要是基于 golang 实现，这也是第一次学习 golang 的项目，结合 go-macron Web 框架实现的一个系统。其实最初我是看到小米安全开源的 x-patrol 项目。网上这种扫描 Github 敏感信息的工具多如皮毛，我看过那种 star 数上千的项目，感觉实现方式也没有很好。因为说到底，大家都是通过 Github 提供的 API 结合相应的关键字来进行搜索的。但是，x-patrol 的这种实现方式我觉得是比较合理的，通过爬虫爬取信息，并对结果进行审核。所以，最初我是一个 x-patrol 的使用者。使用过程中，也遇到过一些问题，因为这个库似乎就是小米的某个固定的人维护的，文档写的不是特别清晰。中间我有提过 PR，但都被直接拒绝掉了。后来，我就想基于 x-patrol 来实现一套自己的系统，这也就是 GShark 的来由了。目前，这个项目与 x-patrol 已经有着很大的变化，比如移除了本地代码的检测，因为这个场景没有需求，其实我本身自己也实现了一个基于 lucene 的敏感信息检索工具。另外，将前端代码进行了梳理，并使用模板引擎来做模板的嵌套使用。基于 casbin实现基于角色的权限控制等等。
+原理 讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 go-github。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 Advanced Search。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" class="post-link">被动扫描器之插件篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/" class="post-link">Qradar SIEM--查询利器 AQL</a></h3>
+    <p class="post-meta">@Neal · Oct 26, 2018 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 freebuf, https://www.freebuf.com/articles/web/219818.html
-最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，r-forwarder 以及 r-forwarder-burp，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。
-Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。
-简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
-Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
-其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
-对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：</p>
+  <p class="post-summary">对于 SIEM 平台来说，好用的查询方式非常重要。之前有体验基于 ELK 搭建的平台，在 kibana 上面是可以通过一些 filter 来做一些过滤并且是支持 lucene 的语法，包括一些简单的逻辑查询以及 wildquery 等等。但是的确是在做一些汇聚之类时不是很方便，一般需要通过 json 来构建更高级的查询语句。后来好像也有转 SQL 之类的插件，但我也没有使用过，总的来说体验比较一般。
+Qradar Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 BUG 一大堆，但架不住别的更差啊），基本上也是属于业界 TOP 5。商业产品的好处就是不用自己太折腾，搞搞就可以用，缺点就是贵。AQL（Ariel Query Language）是 Qradar 中的一种查询语言，与普通的 SQL 的语句类似，但是阉割了一些功能也增加了一些功能。以下是 AQL 的基本流程：
+可以看出 AQL 是一种非常类似于 SQL 的语言，所以基本上你用过 SQL 学会 AQL 也就分分钟的事情，而且你也不会拿它去做特别复杂的嵌套查询（因为它也不支持。。。）
+Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 QIDNAME(qid) 来获取事件名称，RULENAME(123) 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。
+下面就是我在使用过程中一些小经验：
+引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" class="post-link">网络安全分析的瑞士军刀--zeek</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/" class="post-link">基于ELK进行邮箱访问日志的分析</a></h3>
+    <p class="post-meta">@Neal · Nov 16, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
-Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
-安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
-Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
+  <p class="post-summary">公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
+系统搭建 系统主要是基于elasticsearch&#43;logstash&#43;filebeat&#43;kibana&#43;nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛应用于日志采集。
+其实在搭这个系统还是比较麻烦的，可是前面有的踩过的坑当时没有及时记录下来，有点忘记了。但是里面就是配置logstash和filebeat配置证书的时候有点麻烦，配置不好会一直没有办法连通。还要注意ES的索引占得空间，其实ES索引还蛮占空间的。
+Logstash Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
+filter logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
+geoip 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
+geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] } 日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken 针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken} 通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/" class="post-link">什么是服务端伪造（SSRF）</a></h3>
+    <p class="post-meta">@Neal · Aug 6, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+  <p class="post-summary">什么是服务端伪造（SSRF）  原文：GitHub Pages and Single-Page Apps
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
-微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
-长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
-微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
+ 服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
+典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
+下面的是PHP中容易收到SSRF的一个例子。
+&lt;?php  /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;];  /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;);  /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;);  /** * Dump the contents of the image */ fpassthru($image); } 在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
   </footer>
 </article>
 
@@ -373,6 +371,19 @@ LICENSE: MIT
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

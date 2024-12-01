@@ -219,232 +219,165 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%BE%AE%E8%BD%AFvisual-studio-code%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/" class="post-link">微软Visual Studio Code基本特征</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" class="post-link">剑指offer学习读书笔记--二维数组中的查找</a></h3>
+    <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">Visual Studio Code它的核心功能还是作为一个代码编辑器。和其他的代码编辑器一样，VScode采取通用的UI和布局，浏览器在左边，显示所有的文件和文件夹，右边你打开的文件的编辑页面。
-文件，文件夹以及项目 VScode是基于文件和文件夹的，你可以立即开始通过打开一个文件和文件夹。除了这些，VScode能够读不同框架和平台定义的项目文件。比如，如果你打开的文件夹包含一个或者多个package.json，project.json，tsconfig.json,或者ASP.NET 解决方案和项目文件，VScode可以读取这些文件并且利用他们来提供额外的功能比如代码补全功能。
-打开VScode 你可以从命令行利用VScode打开文件，文件夹或者项目。 打开VScode中的一个index.html文件：
-code index.html 打开文件夹c:\src\Contents：
-code c:\src\contents VScode中并不区分是打开文件夹还是打开项目。如果你打开的文件夹包含项目文件，VScode会读取这些文件并且显示这些项目内容在状态栏中。在这你也可以进行不同的项目之间的切换。 打开文件夹c:src\WebApp中包含的项目：
-code c:\src\webapp 换句话说，打开包含项目的文件夹能够有效地打开项目： 打开当前文件夹：
-code . 基本布局 VScode布局简单，能够最大化编辑界面并且也能够留下足够的空间浏览文件夹或者项目的内容。UI可以分成四个部分
- 编辑器 最主要地区域编辑文件。最多可以打开三个编辑页面。 边栏 包括不同的视图，比如你在处理项目时候地浏览器 状态栏 显示你正在打开项目和文件的状态 视图栏 可以让你在不同的视图中进行切换  每次你打开VScode都会恢复到上一次关闭的状态。文件夹布局如下所示。 不是把文件放在不同的tab之中，VScode可以最多同时打开3个编辑器。
-并排编辑 你可以最多可以并排打开3个编辑器。 如果你已经有一个编辑器打开，你可以通过各种不同的途径打开另外的编辑器。
- Ctrl 在浏览器中打开一个文件 comman&#43;\ 将编辑器分成两个 无论何时你打开另外一个文件，编辑器将会激活正在打开的文件。  </p>
+  <p class="post-summary">在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1	2	8	9 2	4	9	12 4	7	10	13 6	8	11	15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
+从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
+bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0) { int row = 0; int col = cols - 1; while(row &lt; rows &amp;&amp; col &gt;= 0) { if (matrix[row*cols &#43; col] == num) { found = true; break; } else if(matrix[row*cols &#43; col] &gt; num) -- col; else &#43;&#43; row; } } return found; } </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%BE%AE%E8%BD%AFvisual-studio-code%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/" class="post-link">常用颜色的RGB分布</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="post-link">剑指offer学习--实现单例模式</a></h3>
+    <p class="post-meta">@Neal · Nov 13, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">RGB色彩模式是工业界的一种颜色标准，它通过对红（RED）、绿（GREEN）、蓝（BLUE）三种基本颜色的相互组合从而叠加出各种颜色。RGB色彩模式为每一个红、绿、蓝分类了0-255范围内的亮度值。 RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个数字分别表示红、绿、蓝的亮度值，常用的颜色的RGB颜色分布有以下这些：
- 品红色 （255,0,255） 蓝色 （0,0,255） 青色 （0,255,255） 绿色 （0,255,0） 黄色 （255,255,0） 红色 （255,0,0） 紫色 (128,0,128) 深蓝色 （0,128,128） 鸭绿色 （0,128,128） 深绿色 （0,128,0） 橄榄绿 （128,128,0） 栗色 （128,0,0） 黑色 (0,0,0) 灰色 （128,128,128） 银色 （192,192,192） 白色 （255,255,255）  </p>
+  <p class="post-summary">只能生成一个实例的类是为了实现单例模式的类型。
+加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
+public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } } 利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } } 由于C#中调用静态构造函数时初始化静态变量，.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-link">常用的正则表达式</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/" class="post-link">latex算法步骤如何去掉序号</a></h3>
+    <p class="post-meta">@Neal · Nov 6, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
-数字：^[0-9]*$
-n位的数字：^\d{n}$
-至少n位的数字：^\d{n,}$
-m-n位的数字：^\d{m,n}$
-零和非零开头的数字：^(0|[1-9][0-9]*)$
-非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
-带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
-正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
-有两位小数的正实数：^[0-9]&#43;(.[0-9]{2})?$
-有1~3位小数的正实数：^[0-9]&#43;(.[0-9]{1,3})?$
-非零的正整数：^[1-9]\d*$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]$
-非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
-非负整数：^\d&#43;$ 或 ^[1-9]\d*|0$
-非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
-非负浮点数：^\d&#43;(.\d&#43;)?$ 或 ^[1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0&#43;|0$
-非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d*.\d*|0.\d*[1-9]\d*))|0?.0&#43;|0$
-正浮点数：^[1-9]\d*.\d*|0.\d*[1-9]\d*$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
-负浮点数：^-([1-9]\d*.\d*|0.\d*[1-9]\d*)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
-浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0&#43;|0)$
-二、校验字符的表达式
-汉字：^[\u4e00-\u9fa5]{0,}$
-英文和数字：^[A-Za-z0-9]&#43;$ 或 ^[A-Za-z0-9]{4,40}$
-长度为3-20的所有字符：^.{3,20}$
-由26个英文字母组成的字符串：^[A-Za-z]&#43;$
-由26个大写英文字母组成的字符串：^[A-Z]&#43;$
-由26个小写英文字母组成的字符串：^[a-z]&#43;$
-由数字和26个英文字母组成的字符串：^[A-Za-z0-9]&#43;$
-由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
-中文、英文、数字包括下划线：^[\u4E00-\u9FA5A-Za-z0-9_]&#43;$
-中文、英文、数字但不包括下划线等符号：^[\u4E00-\u9FA5A-Za-z0-9]&#43;$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$
-可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;’,;=?$\x22]&#43;
-禁止输入含有~的字符：[^~\x22]&#43;
-三、特殊需求表达式
-Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
-域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
-InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;=]*)?$
-手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
-电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
-国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$</p>
+  <p class="post-summary">想去掉latex算法步骤前面的序号，如下 我想去掉每个算法步骤前面的数字序号，1，2，3，因为我已经写了step。我们只需要引用a lgorithmic这个包就可以了，代码如下：
+\usepackage{algorithmic} \begin{algorithm}[htb] \caption{SDE} \label{alg2} \begin{algorithmic} \STATE Step 1. Compute the covariance matrix $C$ of the current population, then apply Eigen decomposition to $C$ as follows: \begin{equation} \label{eve} C=EDE^T \end{equation} where $E$ is the eigenvector matrix of the population, $E^T$ is the corresponding transposed matrix. $D$ is a diagonal matrix composed of eigenvalues. \STATE Step 2. Compute the the projection of the population with eigenvector matrix $E$. \begin{equation} \label{proj} P=X_G\cdot{E} \end{equation} \STATE Step 3.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/xp-problem/" class="post-link">小鹏 P7 之殤</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/" class="post-link">前端面试基础题目</a></h3>
+    <p class="post-meta">@Neal · Oct 30, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">不知道这会不会是我最后一次写关于小鹏的文章。虽然我算不上是小鹏的狂热粉丝，但之前也算是好感多一点，之前也分享过几篇文章关于车辆使用以及辅助驾驶方面的经历。但是最近的售后问题实在是我对小鹏失望加失望。
-事情经过 首先描述一下问题发生的一个比较完整的时间线：
-2022.08.13 去上海闵行小鹏服务中心检查辅助驾驶方向盘一直微调的问题，售后技师借口无法试车，不了了之。小鹏闵行服务中心一位女性售后人员在车辆交付之后没有直接交付给顾客，让顾客白白等了将近一个小时，她说她以为我已经走了，她车子都没有交付给我。
-2022.08.22 辅助驾驶出现不可启用的问题，又向远程技术支持反馈问题。远程技术支持反馈是软件 BUG，未得到合理解决。
-2022.08.27 去闵行服务中心继续排查辅助驾驶 NGP 使用时方向盘持续修正的问题，陪同技师经历两个小时左右的试车，最后观察到了问题现象。后技师说可能是软件问题，安装了软件补丁，但实际效果暂未知。
-2022.09.12 辅助驾驶第二次不可用，且无法恢复。电机异响（电机异响的问题其实早就出现了，后面是特别严重，基本上就跟地铁运行的声音一致），去上海闵行小鹏服务中心检查确认电机问题以及辅助驾驶问题，当时售后技师说电机的问题已经非常严重了，需要留店检查维修。当时售后接待人员承诺的代步车权益是每天 3000 积分的补偿方案，从我交车的时间到我提车的时间（这也是后面埋下的伏笔之一）。
-2022.09.18 售后这边提出的维修意见是需要更换电机，更换电机还需要用户去车管所登记去变更电机编号。而且辅助驾驶的问题没有根本解决。打客服电话投诉，投诉受理。
-2022.09.19 售后给出车辆维修表，需要同时更换电机以及辅助驾驶芯片。对于赔偿方案闭口不提，和400客服踢皮球。期间配合进行车管所预约，预约到最早的变更日期是10月24号。期间咨询售后人员，不变更电机号，汽车无法合法上路。
-2022.09.24 售后提出车辆要开始维修，询问代步车权益问题。他说车辆维修之后先拿回去，可是车子换过电机之后需要及时去车管所变更，否则是不可以上路的。售后提出让消费者把一个电机有问题的车子开回去，后面再来修，就为了不承担他们承诺赔付的代步车权益。不知道他们有没有考虑过消费者的生命安全，有没有考虑过道路行人的生命安全。
-下面放上两段9月24日和售后的录音，总结概括就是预约的时间太长了，我们不想赔你代步车权益，你把车子先开回去吧。
-问题总结 其实这一次的问题主要是包括两个问题，一个是电机的质量问题，第二个就是辅助驾驶的问题。小鹏 P7 的电机质量问题，出现这个问题的我并不是唯一的车主，网上搜一搜应该也有很多类似的方案。但是小鹏在解决问题的时候总是非常被动，总是消费者要花费巨大的时间和经历去推动他们去处理。车辆提车不到一年半的时间，行驶里程不足两万五千公里，就出现电机质量问题和辅助驾驶问题，需要更换电机以及辅助驾驶芯片。
-第二个就是辅助驾驶的问题。一直我的观点都是辅助驾驶仅仅就只是辅助驾驶，并不能代替人完全去接管车辆。所以我在使用辅助驾驶的过程中一直都是握着方向盘去使用的。自从提车辅助驾驶使用以来，也一直陆陆续续出现过各种问题。包括出匝道突然靠近马路沿，各种幽灵刹车，使用过程中方向盘一直在不断微调，到最后的辅助驾驶不可用的阶段。当然，一种新兴技术在出现的过程中肯定在所难免会出现一些 Bug，我也经常积极反馈这些问题，并向他们上传日志，甚至配合提供行车记录仪视频。但是，小鹏往往给的答复往往都是模棱两可的，也并没有彻底的修复问题，就说可能是什么 Bug。
-下面这段视频是当初提车没多久，NGP 在使用过程中突然有撞墙的一个举动，在快出匝道的时候突然往墙壁靠拢。还好当时及时接管了。当时也反馈给了他们的远程技术支持，​后来一段时间我都不敢使用 NGP 了。
-后面 ACC 在北横通道又出现两次幽灵刹车的问题：
-后面 ACC 在另外一个地道又连续出现两次幽灵刹车：
-以上基本上就是我三次向他们反馈的问题，其实期间辅助驾驶也是各种小问题不断，比如 NGP 突然降级，速度从80降到60，幽灵刹车问题，莫名其妙勒安全带，以及上面提到的使用过程中方向盘持续调整以及辅助驾驶不可用的问题。而小鹏在解决问题的过程中似乎没有一点点主动性，能听到最多的也就是抱歉。
-小鹏售后处理问题非常有意思的一点是，就是一定要求消费者拍视频举证。如果消费者无法提供举证视频的话，那就不能帮你维修。比如之前喜闻乐见的门把手收不回去的问题，辅助驾驶方向盘调整的问题。特别有意思的是他们要求一定要清楚拍摄辅助驾驶出现问题的时候去拍摄问题，完全没有考虑到可操作性，可能我需要在开车的时候头上一直顶着手机去录影才可以。他们在解决问题的时候从来不想着自己主动去排查问题，而一味地让消费者提供视频证据，并且不考虑实际可行的程度。每次地提问，也只能得到不痛不痒的，毫无帮助的回答。
-这个视频是 9 月 24 号当时拍摄的视频，包括当时出现的辅助驾驶不可启用的问题。并且如果你注意听一下的话，已经可以听到电机的声音非常大了，即使在车辆在高架上行驶，有风噪胎噪的情况下，电机的声音依然非常明显，和地铁行驶的声音差不多。
-总体而言，之前在辅助驾驶使用过程中遇到的问题，我都是积极反馈，上报日志，提供视频证据，从来没有进行过投诉，也没有要过赔偿。可是这次电机质量问题以及辅助驾驶的问题让我真的对小鹏的售后简直是无语加无语，处理问题不主动，出了事情就往消费者身上一推，没有一丝一毫的担当。从来没有站在消费者的角度考虑过问题。
-总结 毫无疑问，目前的新势力造车搞得如火如荼。小鹏在新能源汽车上面的确有自己厉害的地方，P7 当然也有它身上很多的优点。但是如果一个厂家没有办法保证产品质量，没有办法保证售后服务，那么这个品牌在未来的路上可能走得也不会太远，其口碑也会越来越差。</p>
+  <p class="post-summary">行内元素有哪些？块级元素有哪些？CSS的盒模型？ 行内元素：a b br i span input select 块级元素：div p h1 h2 h3 h4 form ul css盒模型：content border margin padding
+前端页面由哪三层构成，分别是什么，作用是什么？ 结构层：主要指DOM节点：HTML/XHTML 样式层：主要指页面渲染：CSS 脚本层：主要指页面动画效果：JS/AS
+CSS引入的方式有哪些?link和@import的区别是？ 内联 内嵌 外链 导入 区别：同时加载
+css选择符号有哪些 标签选择符 类选择符 ID选择符
+标签上title和alt属性的区别是什么？ alt当图片不显示用文字代表 title为该属性提供信息
+什么是语义话的HTML？ 直观的认识标签，对于搜索引擎抓取有好处
+清除浮动的几种方式以及优缺点： 1 使用空标签清除浮动 clear:both（理论上可以清楚任何标签，缺点增加无意义的标签） 2 使用overflow:auto 3 使用afert伪元素清除浮动
+IE和标准下有哪些兼容性的写法
+var ev = ev || window.event document.documentElement.clientWidth || document.body.clientWidth var target = ev.srcElement || ev.target 闭包就是能够读取其他函数内部变量的函数
+添加，插入，替换，删除，到某个节点的方法
+obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/xp-problem/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%9F%BA%E7%A1%80%E9%A2%98%E7%9B%AE/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/" class="post-link">将Medium中的博客导出成markdown</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-link">每日一练--直接插入排序</a></h3>
+    <p class="post-meta">@Neal · Oct 28, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
-Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装:
- 将 export-medium clone 或者下载到本地。 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹  这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
-目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
-仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</p>
+  <p class="post-summary">现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]….A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &gt;= 0 and num[i] &gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; 下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &#34;stdafx.h&#34; #include&lt;iostream&gt; #include&lt;stdlib.h&gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl; for (int i = 0;i &lt; 10;i&#43;&#43;) { cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl; for (int j =1;j &lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &gt;=0&amp;&amp;num[i]&gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &lt; 10;m&#43;&#43;) { cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;; } cout &lt;&lt; endl; return 0; } 今天一练，到此结束。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/" class="post-link">differential evolution代码实例（DE算法）</a></h3>
+    <p class="post-meta">@Neal · Oct 26, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
- 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
- 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
- 多读文章
- @shail_official
- 读代码，先专注于公开的部分。阅读单元测试。
-  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
- 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
+  <p class="post-summary">DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
+clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
+    <p class="post-meta">@Neal · Oct 25, 2015 · 2 min read</p>
   </header>
   
-  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
-前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
+  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
+github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
+配置工具 对于本地版本配置用户信息
+git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34; 上面的分别是设置用户名和邮箱
+建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/" class="post-link">实现combobox模糊查询的时候报错 InvalidArgument=“0”的值对于“index”无效</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link">javascript的继承模式</a></h3>
+    <p class="post-meta">@Neal · Oct 24, 2015 · 2 min read</p>
   </header>
   
-  <p class="post-summary">因为要对combobox实现模糊查询，因为系统实现的匹配只能从左到右进行匹配，所以利用两个list来进行模糊匹配，主要代码如下：
- List&lt;string&gt; listOnit = new List&lt;string&gt;(); //绑定原始数据源 List&lt;string&gt; listNew = new List&lt;string&gt;(); private void comboBox1_TextUpdate(object sender, EventArgs e) { this.comboBox1.Items.Clear(); listNew.Clear(); //在原始数据源中遍历，把包含当前输入的内容添加到listNew中 foreach (string item in listOnit) { if (item.Contains(this.comboBox1.Text)) { listNew.Add(item); } } this.comboBox1.Items.AddRange(listNew.ToArray()); this.comboBox1.SelectionStart = this.comboBox1.Text.Length; Cursor = Cursors.Default; this.comboBox1.DroppedDown = true; } 这个代码可以实现模糊匹配，但是有个诡异的错误，就是当你输入某些内容先匹配到，但是最后却没有匹配项就会报错。打个比方，你想输入“张四”，数据源中有“张三”，你先输入“张”，然后出现所有带有“张”的匹配项，然后你在输入“四”，则没有了匹配项，则会出现报错，报错信息如下:
-************** 异常文本 ************** System.ArgumentOutOfRangeException: InvalidArgument=“0”的值对于“index”无效。 参数名: index 在 System.Windows.Forms.ComboBox.ObjectCollection.get_Item(Int32 index) 在 System.Windows.Forms.ComboBox.get_Text() 在 System.Windows.Forms.ComboBox.WmReflectCommand(Message&amp; m) 在 System.Windows.Forms.ComboBox.WndProc(Message&amp; m) 在 System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam) 我在网上找，一直找不到原因，我也找不到这个问题具体错在什么地方。要吐槽的是这个Textupdate事件根本没办法调试，因为当你输入第一个字匹配之后，他就会默认选择第一项从而进入selectchange事件，也就没办法调试了，后来苦苦思索终于想到一个解决方法，虽然不知道原因，但终究还是解决了。就是当combobox没有匹配项的时候，就在它的下拉框添加空字符串，这样就能组织报错了，稍微改了一下代码就可以了。</p>
+  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AE%9E%E7%8E%B0combobox%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%97%B6%E5%80%99%E6%8A%A5%E9%94%99-invalidargument0%E7%9A%84%E5%80%BC%E5%AF%B9%E4%BA%8Eindex%E6%97%A0%E6%95%88/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/sop/" class="post-link">安全运营平台从0到1</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/" class="post-link">css盒子模型设置的缩略形式</a></h3>
+    <p class="post-meta">@Neal · Oct 24, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/266237
-笔者作为某公司的安全开发独自一人负责安全运营平台的开发，经过数个月的折腾以及其他安全同学的合作，目前该平台已经运营了几百个安全漏洞以及一些安全事件，其它一些安全能力也在慢慢地接入中。在之前的公司，笔者也是作为安全工程师负责平台架构部门的安全运营，当时我们也有几个开发来负责安全运营平台的开发。安全运营平台其实可以作为一个公司偏向应用安全的基建之一，或许可以将它看做偏向于应用安全的 SIEM。所以，基于本文，也想分享一下在安全运营平台建设和开发的过程中的经验。在整个建设过程，开发工作只是一部分，体系的建设和实现也不可或缺，所以很多做法也是需要结合公司的实际情况，并一定就能够完全通用。
-开发 安全运营平台的开发技术选型其实和其它后台业务类型的系统并不会有太大的区别。目前大多数应用系统都是采用前后端分离的方式，前端大多数是类似于 vue-admin 类型的技术方案。后端框架见仁见智，选择适合内部开发的语言即可。笔者之前最早实习的时候就是干前端开发的，后来干安全也是经常会写安全工具的代码，所以常用的语言也是都略懂一些，所以也就扛起了这个平台的开发工作。
-最初的技术选型是想选择 gin-vue-admin，这是个前后端分离方案。后端基于 go 的 gin 框架，前端是和 vue-admin 比较类似的前端方案。这个轮子用起来不错，有很多开箱即用的功能，权限方面管理也非常方便。不过最终还是没有采取这个方案，因为内部的大多数应用都是基于内部自研的 go 微服务框架，其部署运维也与该方案息息相关。如果不使用内部的框架在部署方面则会麻烦很多，考虑到后期的运维，最终还是选择了基于内部的微服务框架开发。不过，这样做的最大的问题就是学习成本，因为这个内部框架与外部的 web 框架差异较大，而且作为安全的唯一开发也是两眼一抹黑，只能跟在开发大佬后面跪舔，才慢慢把应用的雏形搭建起来。前端框架比较简单，主要是基于 element 的 Vue 框架。
-其实在开发过程中要说技术难度有多大也不见得，和其它的业务系统其实没有太大的区别。主要就是各种和头发丝一样琐碎细小的业务需求，所以开发过程就好比把这些头发丝一根根捡起来捋直了，所以有时候也是比较痛苦的过程。前端的用户体验和设计也是痛点之一，本身安全在开发就比较缺乏，尤其是设计方面。不过安全运营平台主要面向的也是内部的用户，主要就是安全工程师和开发，所以和面向外部客户的应用相比，要求也会稍微低一点。
-需求建设 对于安全运营平台的大致规划是按照下面的框架来进行划分的，大多数公司的安全运营平台也会比较类似。安全运营平台的核心是应用安全的运营，漏洞管理作为安全运营平台的核心之一，也往往是安全运营平台被开发所熟知的方面之一。另外一方面就是集成各种安全工具的数据，包括像扫描工具，包括 SAST 以及 DAST 的扫描，将这些数据能够转换成实际的漏洞来推动。
-漏洞管理 漏洞管理作为安全运营平台的最基础的一方面，同时也是其核心。漏洞的本质其实也是一个 bug，只不过它被赋予了安全这一属性，摇生一变被称为漏洞。那么漏洞自然就和开发日常处理的 bug 会稍微有一些不同。Bug 的处理流程相对来说会简单一点，测试把 bug 提给开发，开发确认之后修复完成，测试验证通过就可以了。安全漏洞的处理过程其实也是基于这一个过程的演化，这也是因为安全漏洞的特殊性，安全漏洞是一种特殊的 bug。一方面，安全漏洞的机密性要求更高，漏洞的可见范围越小越好，一般仅限定为要处理的人及它的直属领导，而不是任意一个人都可以查看漏洞，这样也是为了避免万一有人通过漏洞信息来进行利用。另外一方面，漏洞的处理流程相对来说会更复杂一点。在现实业务中，可能会有各种各样的场景。正常来说，一个应用应该具备测试环境、UAT 环境、生产环境。漏洞应该在之前的环境中被验证通过后，再进行下个环境的验证，这样的好处也是避免一开始就没有修复，导致返工，也降低了风险。但是往往也有不少应用并不同时都有这些环境，比如第三方采购的应用，一般都没有前两个环境，大多数是布在生产上的。也有的应用可能也没有 UAT 环境，就只有测试环境和生产环境。我们的做法是有提供两种模式给开发选择，开发可以选择默认模式，则这三种环境都有，开发也可以选择不带 UAT 环境的。针对于只有一种环境，我们的做法是把主动权交给安全工程师，安全工程师在复测完成后可以直接关闭漏洞，不过这个的弊端就是有时候安全工程师忘记直接关闭这个漏洞。
-漏洞在被确认之前可能还有一些例外情况，包括像漏洞的忽略以及漏洞的接受。漏洞的忽略主要是漏洞的一些误报，这个主要是安全工程师可能对于业务有些了解还不充分导致的一些信息差，另外还有就是有些漏洞可能就是正常的业务需求。漏洞的接受则是这的确是一个漏洞，但往往漏洞修复非常困难，或者漏洞修复对业务的影响非常大，但是漏洞的危害程度没有达到高危及以上的那种程度。其实对于这种情况一般有两种处理，一种就是安全把漏洞提给开发，但是开发就是不太愿意修复这个漏洞，这个漏洞状态就一直保持着，如果哪天开发憋不住了，或者状态场景发生了变化，他们就完成了这个漏洞的修复。另外一种情况就是业务方接受漏洞并且不修复，这种可以理解为风险接受。其实在 CISSP 中的风险管理中就有这样的概念，如果采取安全措施的代价大于资产的实际价值，那么业务方可以选择接受风险。不过对于这种情景，是需要经过业务方领导的审批，确保业务方能够明确意识到这个漏洞潜在的风险。
-漏洞另外一个重要的内容就是和资产的联动。一个成熟的 cmdb 对于安全来说真的太重要了。因为这可以帮助安全迅速的定位到明确的责任人，从而确保漏洞的及时修复，其实这也涵盖其它的安全内容，包括像安全事件，甚至在安全应急响应中，好的 cmdb 对于安全来说真的非常重要。不过，安全往往不是作为 cmdb 的第一责任人，一般 cmdb 的运维职责是落在运维方，安全起到的作用是反馈和治理。安全在使用数据的过程中，及时反馈，从而帮助数据修正，这样达到一个良性进化的过程。
-事件管理 事件管理和漏洞管理也不太相同，所以事件管理的流程会被单独作为另外一个流程来进行管理。事件不同于漏洞，它往往也没有上文提到的各种的环境。事件的处理往往也是一个点对点的过程，安全工程师确认了安全事件，将事件上报给对应的处理人，处理人处理完毕，安全工程师验证没有问题，安全事件就可以关闭了。目前的安全事件的功能还是比较弱化的，主要还是用于事件的处理流程。不过未来事件流程最重要的方面是和其它安全平台的对接，包括与 SIME、IDS 等安全产品对接，并且能够将事件直接分发给对应的处理人，提高事件的处理效率。
-安全能力 作为安全运营平台，SAST 以及 DAST 也是作为应用安全重要的补充能力。SAST 以及 DAST 市面上都有很多成熟的产品，也有很多公司采取自研方案。对于这两种产品最重要的能力就是数据的打通，如何将这两种产品扫描出来的漏洞直接转化为实际有效的漏洞。前期对于这种漏洞比较好的处理方式，可能是先同步数据，然后安全运营平台作为一个审核平台，这些数据经过安全工程师的审核和加工，有效的数据将转化为漏洞进行上报。另外一个重要的方面就是组件成分分析，这也是近几年非常火的一个概念。因为目前的软件开发都是大概率依赖于第三方组件，不管是商业的还是开源的、前端的、后端的以及各种语言的，这些组件的风险都有可能会对你自己应用带来风险。做好应用的组件分析，知道应用的依赖关系，能够快速地在紧急安全漏洞爆发初做到较快的响应处置。当然，这些都建立在资产都能够与这些信息打通的基础上，这样才能做联动响应，根据资产去盘点漏洞，同时也能够根据漏洞去看哪些资产受影响。
-安全运营平台除了这些大的方面，其实也有很多细节方面需要考虑。比如像漏洞级别的定级，不同级别的漏洞对应着不同的威胁程度，那么其要求的修复时间也是不相同的。对于漏洞的响应时间应该是按照自然日来算的，因为攻击者并不会因为是休息日就鸣金收兵的。对于漏洞的定级，其实业界有一个比较成熟的定级模型，叫做 DREAD，即：</p>
+  <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
+padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px new method:
+padding:0px 20px 30px 10px // top right bottom left respectively 同理：
+margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px margin:0px 20px 30px 10px 如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
+padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px the new method:
+padding:20px 如果上下值和左右值分别一样呢： the old method:
+margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px the new method
+margin:0px 20px // top and bottom right and left respectively border的属性设置: the old method
+border-width:thin border-style:solid boder-color black the new method:</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/sop/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/" class="post-link">如何用latex画一个简单的表格</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="post-link">在pythonanywhere部署你的第一个应用</a></h3>
+    <p class="post-meta">@Neal · Oct 21, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">latex毫无疑问是一个十分强大的论文写作工具，所以掌握它就显得非常有意义，讲一下如何画一个简单的表格，代码如下： \begin{table} \centering \begin{tabular}{||c|c||} \hline algorithm &amp; time complexity\ \hline RM-MEDA &amp; O(NM)\ \hline IRM-MEDA &amp; O(NK)\ \hline \end{tabular} \caption{The time complexity comparing result} \label{TAB1} \end{table} 呈现的效果如下： 是不是很简单
-欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+  <p class="post-summary">pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。 下载你的代码 我的代码是托管在github，我们首先从github下代码：
+git clone https://github.com/&lt;username&gt;/my-first-blog.git 产生一个virtualenv
+cd my-first-blog // create virtualenv virtualenv myvenv // activate vitalness . myvenv/bin/activate 数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。 这里讲一下如何发布你的应用： 在他那个dashboard里面的vitualenv里面设置路径： /home//my-first-blog/myvenv/. 配置wsgi文件：
+import os import sys path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39; # use your own username here if path not in sys.path: sys.path.append(path) os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39; from django.core.wsgi import get_wsgi_application from whitenoise.django import DjangoWhiteNoise application = DjangoWhiteNoise(get_wsgi_application()) ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/">Read More →</a>
   </footer>
 </article>
 
@@ -495,6 +428,19 @@ const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

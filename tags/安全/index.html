@@ -214,8 +214,26 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">多平台的敏感信息检测工具-GShark</a></h3>
+    <p class="post-meta">@Neal · Apr 17, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi
+GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
+架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
+所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
+ 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
+rm -rf ./releases/* cd web npm run build cd .</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gshark/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript能否修改Referer请求头</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
   </header>
   
   <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
@@ -231,49 +249,118 @@ Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Req
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/holiday-hack-the-box/" class="post-link">Holiday -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
+    <p class="post-meta">@Neal · Mar 7, 2021 · 1 min read</p>
   </header>
   
-  <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
-Kali: 10.10.16.65
-Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
+  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
+微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
+长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
+微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/help-hack-the-box/" class="post-link">Help -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 5 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
+    <p class="post-meta">@Neal · Jan 3, 2021 · 2 min read</p>
   </header>
   
-  <p class="post-summary">Introduction Target: 10.10.10.121(OS: Linux)
-Kali: 10.10.16.28
-To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.
-Infomation Enumeration Firstly, gather open ports and services:
-# Nmap 7.</p>
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/help-hack-the-box/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-link">GShark-监测你的 Github 敏感信息泄露</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
+    <p class="post-meta">@Neal · Sep 6, 2020 · 2 min read</p>
   </header>
   
-  <p class="post-summary">近几年由于 Github 信息泄露导致的信息安全事件屡见不鲜，且规模越来越大。就前段时间华住集团旗下酒店开房记录疑似泄露，涉及近5亿个人信息。后面调查发现疑似是华住的程序员在 Github 上上传的 CMS 项目中包含了华住敏感的服务器及数据库信息，被黑客利用导致信息泄露（这次背锅的还是程序猿）。
-起源 对于大型 IT 公司或者其他行业，这种事件发生的概率实在是太常见了，只不过看影响的范围。现在大家看到的，也仅仅只是传播出来的而已。企业没办法保证所有人都能够遵守规定不要将敏感信息上传到 Github，尤其是对于那种特别依赖于外包的甲方企业，而甲方的开发人员也是一无所知，这种事件发生也就是司空见惯了。
-废话说了一大通（可能是最近看安全大佬的文章看多了），终于要介绍一下我的这个项目，GShark。这个工具主要是基于 golang 实现，这也是第一次学习 golang 的项目，结合 go-macron Web 框架实现的一个系统。其实最初我是看到小米安全开源的 x-patrol 项目。网上这种扫描 Github 敏感信息的工具多如皮毛，我看过那种 star 数上千的项目，感觉实现方式也没有很好。因为说到底，大家都是通过 Github 提供的 API 结合相应的关键字来进行搜索的。但是，x-patrol 的这种实现方式我觉得是比较合理的，通过爬虫爬取信息，并对结果进行审核。所以，最初我是一个 x-patrol 的使用者。使用过程中，也遇到过一些问题，因为这个库似乎就是小米的某个固定的人维护的，文档写的不是特别清晰。中间我有提过 PR，但都被直接拒绝掉了。后来，我就想基于 x-patrol 来实现一套自己的系统，这也就是 GShark 的来由了。目前，这个项目与 x-patrol 已经有着很大的变化，比如移除了本地代码的检测，因为这个场景没有需求，其实我本身自己也实现了一个基于 lucene 的敏感信息检索工具。另外，将前端代码进行了梳理，并使用模板引擎来做模板的嵌套使用。基于 casbin实现基于角色的权限控制等等。
-原理 讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 go-github。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 Advanced Search。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。</p>
+  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
+终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
+初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
+所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
+AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
+    <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
+理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
+@0x1ntegral
+  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
+ 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
+ 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
+永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
+@root4loot
+ 多读文章
+ @shail_official
+ 读代码，先专注于公开的部分。阅读单元测试。
+  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
+ 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
+Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/" class="post-link">网络安全分析的瑞士军刀--zeek</a></h3>
+    <p class="post-meta">@Neal · Apr 18, 2020 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
+Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
+安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
+sudo yum install cmake make gcc gcc-c&#43;&#43; flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
+Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
+依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C&#43;&#43;17 的语言特性。而一般镜像源默认的 cmake 版本是4&#43;版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
+    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
+SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
+与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
+即：两位同时为“1”，结果才为“1”，否则为0
+或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
+即：参加运算的两个对象只要有一个为1，其值为1
+假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
+1 &amp; x = 0, x = 0</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
   </footer>
 </article>
 
@@ -281,7 +368,7 @@ Infomation Enumeration Firstly, gather open ports and services:
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
   </header>
   
   <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
@@ -301,26 +388,8 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/cronos-hack-the-box/" class="post-link">Cronos -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">Introduction Target machine: 10.10.10.13(OS: linux)
-Kali linux: 10.10.16.44
-Enumeration Firstly, detect the open ports:
-nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
-namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
-   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/cronos-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <p class="post-meta">@Neal · Nov 10, 2019 · 2 min read</p>
   </header>
   
   <p class="post-summary">原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
@@ -333,59 +402,6 @@ LICENSE: MIT
 卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bashed-hack-the-box/" class="post-link">Bashed -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">Introduction Target: 10.10.10.68 (OS: Linux)
-Kali linux: 10.10.16.44
-Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bashed-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：4 Tips for Better API Security in 2019
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 
-无论是在科技媒体亦或是分析报告中，2018年 “API”以及“安全”变得越来越常见，-或者更糟糕，“API” 以及“违规”一起出现在头条中。
-APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
-但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
-实际上，API 安全的要求正在成为一种共识：
-  在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
-  OWASP Top 10是一个备受推崇的 web安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E7%99%BE%E5%AE%9D%E7%AE%B1/" class="post-link">1024献礼，全栈工程师进击</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">作为一名梦想成为一名全栈工程师的男人，收集工具，积攒武器库是一个必要环节。本文主要是自己这些年在学习中积攒的一些工具，这一篇主要是在线网站，以后会介绍其它的工具。
- 学术篇  CODECOGD gallery latext 符号 Conference Portal   前端  Plunker realfavicongenerator Iconfont   安全  CTF 在线工具 Online Tools pcapfix cmd5 jwt rot13 beautifier ook spectrum-analyzer app.any.run HashKiller   开发  codebottle regexr programiz playground downgit devhints   写作工具  作图工具 图床 squoosh markdown 转微信公众号 百度脑图   效率工具  cvmkr smallpdf remove   总结  学术篇 CODECOGD 这个网站对于一些不能支持 latex 公式的地方很好用，可以直接通过引入带有公式代码的链接生产图片。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E7%99%BE%E5%AE%9D%E7%AE%B1/">Read More →</a>
   </footer>
 </article>
 
@@ -434,6 +450,19 @@ APIs（应用程序编程接口）不仅是应用程序，系统和数据之间�
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

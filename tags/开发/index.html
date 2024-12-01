@@ -214,70 +214,8 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
-起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
-之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
-微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
-长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
-微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
- 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
- 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
- 多读文章
- @shail_official
- 读代码，先专注于公开的部分。阅读单元测试。
-  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
- 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/git-undo/" class="post-link">如何使用 Git 撤消（几乎）任何操作</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <p class="post-meta">@Neal · Nov 12, 2023 · 4 min read</p>
   </header>
   
   <p class="post-summary">原文：How to undo (almost) anything with Git
@@ -298,8 +236,24 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/drive/" class="post-link">Google Drive 的信息检索</a></h3>
+    <p class="post-meta">@Neal · Aug 28, 2023 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
+Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
+通过 OAuth 来使用 Drive API 也需要三个步骤：
+ 启用 API 配置 OAuth 应用 生成 Credentials  详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/drive/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">多平台的敏感信息检测工具-GShark</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <p class="post-meta">@Neal · Apr 17, 2021 · 2 min read</p>
   </header>
   
   <p class="post-summary">GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi
@@ -316,25 +270,8 @@ rm -rf ./releases/* cd web npm run build cd .</p>
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
-终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
-初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
-所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
-AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/referer/" class="post-link">JavaScript能否修改Referer请求头</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
   </header>
   
   <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
@@ -350,16 +287,79 @@ Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Req
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/drive/" class="post-link">Google Drive 的信息检索</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/ms-codeql/" class="post-link">微软开源对于 Solorigate 活动捕获的开源 CodeQL 查询</a></h3>
+    <p class="post-meta">@Neal · Mar 7, 2021 · 1 min read</p>
   </header>
   
-  <p class="post-summary">对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
-Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
-通过 OAuth 来使用 Drive API 也需要三个步骤：
- 启用 API 配置 OAuth 应用 生成 Credentials  详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token.</p>
+  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
+微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
+长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
+微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/drive/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
+    <p class="post-meta">@Neal · Jan 3, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
+    <p class="post-meta">@Neal · Sep 6, 2020 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
+终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
+初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
+所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
+AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
+    <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
+理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
+@0x1ntegral
+  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
+ 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
+ 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
+永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
+@root4loot
+ 多读文章
+ @shail_official
+ 读代码，先专注于公开的部分。阅读单元测试。
+  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
+ 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
+Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 
@@ -398,6 +398,19 @@ Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

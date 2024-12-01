@@ -215,7 +215,7 @@
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
   </header>
   
   <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
@@ -230,8 +230,62 @@ const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" class="post-link">XSS 漏洞知解 123</a></h3>
+    <p class="post-meta">@Neal · Mar 4, 2020 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
+ 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
+ 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
+ cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
+盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
+    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
+什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
+ 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
+  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+ 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/holiday-hack-the-box/" class="post-link">Holiday -- hack the box</a></h3>
+    <p class="post-meta">@Neal · May 20, 2019 · 6 min read</p>
+  </header>
+  
+  <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
+Kali: 10.10.16.65
+Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
+Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" class="post-link">使用浏览器作为代理从公网攻击内网</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
+    <p class="post-meta">@Neal · Apr 15, 2019 · 6 min read</p>
   </header>
   
   <p class="post-summary">介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
@@ -248,60 +302,6 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" class="post-link">XSS 漏洞知解 123</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
- 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
- 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
- cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
-盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/holiday-hack-the-box/" class="post-link">Holiday -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
-  </header>
-  
-  <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
-Kali: 10.10.16.65
-Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
-什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
- 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
- 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
   </footer>
 </article>
 
@@ -340,6 +340,19 @@ LICENSE: MIT
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

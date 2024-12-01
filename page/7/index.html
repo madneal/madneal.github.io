@@ -207,170 +207,106 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" class="post-link">持续发布 Chrome 插件</a></h3>
+    <p class="post-meta">@Neal · May 27, 2019 · 3 min read</p>
   </header>
   
-  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
-准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
-另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
-const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; {  let ele = {  cx: circle.cx,  cy: circle.cy,  sroke: circle.stroke,  id: circle.id  };  result.push(ele); }) const str = JSON.stringify(result); 通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
-设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
-组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：</p>
+  <p class="post-summary">Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
+介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
+Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
+在创建项目之后，我们需要开启 “Chrome Web Store API”。在 Library 中搜索这个 API， 并且将其 ENABLE。
+在 ENABLE 这个 API 之后，就可以点击 “CREATE CREDENTIALS” 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/" class="post-link">Pornhub Web 开发者访谈</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/holiday-hack-the-box/" class="post-link">Holiday -- hack the box</a></h3>
+    <p class="post-meta">@Neal · May 20, 2019 · 6 min read</p>
   </header>
   
-  <p class="post-summary">原文：Interview with a Pornhub Web Developer
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 无论你对色情内容采取何种立场，都无法否认成人网站行业对推动互联网发展具有巨大影响。从将浏览器的视频限制推送到通过WebSocket推送广告，以便广告拦截器无法检测到它们，你必须足够聪明才能在互联网的前沿进行创新。
-最近，我很有幸采访互联网最大的成人网站 Pornhub 的一名 Web 开发者。我想了解技术，Web API 如何改进以及在成人网站上工作的感受。请享用！
-注意：成人产业竞争激烈，因此有一些他们无法回答的问题。我尊重他们保守商业机密的需要。
-成人网站显然会显示许多图形内容。在开发过程中，你是否使用了大量的占位符图像和视频？最终产品和开发时的内容和经验有什么区别？
-实际上，我们在开发网站时不使用占位符！其次，重要的是代码和功能，接口是我们现在非常习惯的东西。一开始肯定会有一些学习曲线，但是我们大家很快就习惯了。
-对于网络流和第三方广告脚本，你如何在网站和功能开发过程中模拟这些重要的动态资源？
-为了进行开发，播放器分为两个部分。基本播放器实现核心功能并触发事件。开发不会受其他因素干扰。为了在网站上进行集成，我们希望运行那些第三方脚本和广告，以便我们尽早发现问题。在特殊情况下，我们将与广告客户合作，允许我们手动触发通常可能是随机的事件。
-平均每个页面可能至少包含一个视频，GIF 广告，一些 cam 表演者预览以及其他视频的缩略图。你如何测量页面性能以及如何使页面保持最佳性能？有什么你可已分享的技巧吗？
-我们使用一些测量系统。
- 我们的播放器会向我们报告有关视频播放性能和一般用法的指标 用于一般站点性能的第三方 RUM 系统。 WebpageTest 私有实例，用于在可用的 AWS 数据中心中编写测试脚本。我们主要将其用于查看给定时间可能发生的情况。它还使我们能够查看来自不同位置和提供者的“瀑布”。  我必须假设前端最重要，最复杂的功能是视频播放器。从在视频之前加入广告，标记视频的精彩时刻，更改视频速度和其他功能，你如何维护该资产的性能，功能和稳定性？
-我们有一支专门致力于视频播放器的团队，他们的首要任务是持续监控性能和效率。我们为此几乎使用了所有可用的东西；浏览器性能工具，网页测试，指标等。我们进行的所有更新均通过可靠的质量检查来确保稳定性和质量。
-专门的视频团队有多少人？团队中有多少前端开发人员？
-我要说的是，团队规模倾向于基于产品规模的平均水平。
-在成人网站上工作期间，你如何看待前端未来的变化？哪些新的 Web API 使你的生活更轻松？
-我肯定在前端世界的每个方面都看到了很多改进；
- 从纯 CSS 到最终使用 LESS 和 Mixins，再到使用具有媒体查询和图片标签的灵活 Grid 系统，以适应不同的分辨率和屏幕尺寸 jQuery 和 jQueryUI 慢慢地被淘汰，因此我们将回到 vanilla JS 中更高效的面向对象编程。在某些情况下，框架也非常有趣 我们喜欢新的 IntersectionObserver API，对于以更有效的方式加载图像非常有用 我们也开始使用画中画 API，以便在我们的某些页面上播放该浮动视频，主要是为了获得用户对该想法的反馈。  展望未来，有没有你想要更改，改进甚至创建的 Web API？</p>
+  <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
+Kali: 10.10.16.65
+Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
+Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-link">POI读取文件的最佳实践</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 5 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="post-link">后渗透的文件传输</a></h3>
+    <p class="post-meta">@Neal · May 16, 2019 · 1 min read</p>
   </header>
   
-  <p class="post-summary">POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
-word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
- private static String readDoc(String filePath, InputStream is) { String text= &#34;&#34;; try { if (filePath.endsWith(&#34;doc&#34;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&#34;docx&#34;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.</p>
+  <p class="post-summary">在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php </p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/" class="post-link">PCA算法和实例</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/help-hack-the-box/" class="post-link">Help -- hack the box</a></h3>
+    <p class="post-meta">@Neal · Apr 22, 2019 · 5 min read</p>
   </header>
   
-  <p class="post-summary">PCA算法 算法步骤： 假设有m条n维数据。
- 将原始数据按列组成n行m列矩阵X 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 求出协方差矩阵C=1/mXXT 求出协方差矩阵的特征值以及对应的特征向量 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P Y=PX即为降维到k维后的数据  实例## 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
-然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2/5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：
-因此我们的矩阵P是： 可以验证协方差矩阵C的对角化： 最好我们用P的第一行诚意数据矩阵，就得到了降维后的数据表示： 降维后的投影结果如下图： PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同的正交方向上没有相关性。 因此，PCA也存在一些限制，例如它可以很好地解除线性相关，但是对于高阶相关性就没有办法了。对于存在高阶相关性的数据，可以考虑Kernel PCA,通过Kernel将非线性相关转化为线性相关。另外，PCA假设数据各特征分布在正交方向上，如果在非正交方向上存在几个方差较大的方向，PCA的效果就大打折扣。 PCA是一种无参数技术，也就是说面对同样的数据，如果不考虑清晰，谁来做结果都一样，没有主观参数的介入，所以PCA便于通用实现，但是本身没有个性化的优化。
-本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html</p>
+  <p class="post-summary">Introduction Target: 10.10.10.121(OS: Linux)
+Kali: 10.10.16.28
+To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.
+Infomation Enumeration Firstly, gather open ports and services:
+# Nmap 7.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/help-hack-the-box/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/" class="post-link">opencv视频流的读取和处理</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" class="post-link">使用浏览器作为代理从公网攻击内网</a></h3>
+    <p class="post-meta">@Neal · Apr 15, 2019 · 6 min read</p>
   </header>
   
-  <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; } 要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。
-处理视频帧 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。 首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog.</p>
+  <p class="post-summary">介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
+虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
+由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
+恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
+可疑行为：公网到局域网的连接 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
+如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
+这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
+在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
+同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
+Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
+ 受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
+攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/opencv/" class="post-link">OPENCV</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/bashed-hack-the-box/" class="post-link">Bashed -- hack the box</a></h3>
+    <p class="post-meta">@Neal · Apr 4, 2019 · 3 min read</p>
   </header>
   
-  <p class="post-summary">[转载] http://blog.csdn.net/carson2005/article/details/6979806
-尽管之前写过一篇关于OpenCV的介绍（http://blog.csdn.net/carson2005/article/details/5822149），但依然有朋友对其不甚了解。所以，经常能碰到有人问我诸如以下一些问题：OpenCV能不能实现人脸识别？OpenCV有没有车辆检测的API？OpenCV有没有三维重建的函数？面对这样的问题，我也很困惑。到底该如何给他们解释，才能让它们明白，OpenCV确实很强大，但还没有他们想象中的那么强大。其实，OpenCV的全称，是Open source Computer Vision Library,开放源代码计算机视觉库。也就是说，它是一套关于计算机视觉的开放源代码的API函数库。这也就意味着，(1)不管是科学研究，还是商业应用，都可以利用它来作开发;(2)所有API函数的源代码都是公开的，你可以看到其内部实现的程序步骤；(3)你可以修改OpenCV的源代码，编译生成你需要的特定API函数。但是，作为一个库，它所提供的，仅仅是一些常用的，经典的，大众化的算法的API。一个典型的计算机视觉算法，应该包含以下一些步骤：(1)数据获取（对OpenCV来说，就是图片）；(2)预处理;(3)特征提取;(4)特征选择;(5)分类器设计与训练;(6)分类判别;而OpenCV对这六个部分，分别（记住这个词）提供了API。下面我分别就这六个部分对一些常见问题进行必要的解释。 对于数据获取，计算机视觉领域的数据，无非就是图片和视频两种。图片，有bmp,jpg,png,tiff….各种压缩和非压缩格式。所以，对压缩格式的图片而言，OpenCV内部必然包含了对应的图片解压缩函数(一般都是包含了开源的图片解压函数库，例如，对于jpg压缩格式而言，就包含了libjpg开源库)。而对于视频而言，常见的有.rmvb,.avi,.asf等格式，不同的格式，代表着不同的视频压缩算法(对于AVI格式，尽管都是avi格式，但内部的压缩算法仍然不相同。具体原因请参考我的另一篇博客:http://blog.csdn.net/carson2005/article/details/6314089)，也就需要对应的解压算法来解压。尽管OpenCV提供了一些读写视频文件的API，但是，它也仅仅是一个接口而已，其内部，依然需要调用相应的视频编解码器的API来进行解码。常用的视频编解码器有：xvid,ffmpeg等。也就是说，如果你想利用OpenCV来进行视频读写之类的操作，是需要安装此类视频编解码器的。安装了相应的视频解码器之后，你就可以调用OpenCV的视频相关API来进行视频文件的读取操作了，当然，视频文件被解码之后，变成了一张一张的图片，然后才能被OpenCV所处理。另外，还有一种情况，就是数据来自于相机，包括数字相机和模拟相机。不管是哪种相机，你都要想办法获取到相机发送给PC的图片数据（PC在内存里面接收到的来自相机的数据可能是jpg格式，也可能是bmp格式）。如果，你在PC内存中接收到的是相机发送过来的jpg压缩格式，还需要进行图片数据的内存解压。关于相机和OpenCV的这部分内容，请见我另一篇博客：
-http://blog.csdn.net/carson2005/article/details/6243476
-对于预处理，一般就是去除或者降低噪声，光照归一化，亮度归一化，模糊化，锐化，膨胀，腐蚀、开闭等这些操作（详见，冈萨雷斯，《数字图像处理》一书）。而对于这些操作，OpenCV分别(又提到这个词了)提供了相应API函数。而光照的预处理，OpenCV提供了一个直方图均衡化的API，后续可能会提供一些gammar矫正之类的函数。
-对于特征提取，个人认为，可以算是整个计算机视觉系统中最为复杂也最难的部分（纯属个人意见，如有异议，请保留），到底什么是特征，该如何来理解这个看似简单却又包罗万象的名词呢？其实，要想仔细解释，还真的花费很多时间（有兴趣的可以看看，Richard O.Duda（著），李宏东（译），《模式识别》，机械工业出版社）。简单点说，特征，就是一个可以将若干个类别可以尽量分开的一种描述。举例来说，如果你要进行男人和女人的分类，显然，用“身高和体重”这一描述来衡量，是可以的，但是，这两个描述没有“胸部大小”这一描述更加准确，而“胸部大小”这一描述，又没有“喉结的有无”这一描述更准确。很显然，“身高和体重”，“胸部大小”，“喉结的有无”，这三种描述，都可以用来进行男人和女人的分类，只不过，它们对事物的描述的准确（或者说全面）程度是不同的，而诸如此类的描述，有一个更加专业的称谓，叫做“特征”。OpenCV里面，提供了一些特征描述的API，比如，对于人脸检测而言，它提供了haar特征的API，行人检测，提供了hog特征的API，甚至，它提供了LBP纹理特征的API。但是，这些还远远不够。例如，如果你要进行字符识别，OpenCV并没有提供字符识别所对应的特征。这个时候，就需要你自己来编程实现了。当然，该选择什么特征来描述字符呢？哪些特征更好呢？对于这些问题，我建议你去阅读相应的会议，期刊，杂志，硕士、博士毕业论文（毕竟硕士、博士研究生本就该从事“研究”工作），看看别人写的文章，自然就知道了。
-对于特征选择，OpenCV并没有提供特定的函数来进行衡量。而特征的分类能力的高低评价，有很多种分析方法，有兴趣的朋友，可以阅读&#34;《机器学习》Tom. Mitchell(著),曾华军(译)，机械工业出版社&#34;这本书；
-对于分类器部分，OpenCV提供了SVM,CART,boost,bayes,bdt,ANN,这几种常用的算法。而这些基本已经覆盖了常用的分类器。所以，你需要做的，就是知道怎么调用其接口，各种分类器的优点和缺点（该部分，建议阅读“机器学习”这本书）。
-通过以上的分析，你或许已经发现，OpenCV不过是一个工具而已。或者，你可以将它理解为幼儿园小朋友过家家玩的积木，而OpenCV中的函数，则可以理解为一个一个的积木块，利用所有或者部分积木块，你可以快速的搭建起来具体的计算机视觉方面的应用（比如，字符识别，车牌识别，遗留物检测）。想必你也已经发现，在利用OpenCV这个积木来搭建具体的计算机视觉应用的时候，真正核心的，应该是这些积木块，如果你明白了积木块的工作原理，那么，是不是就可以不用这些积木块了呢？完全正确！不过，一般部分情况下，我们不需要这么做，因为，OpenCV已经帮你做好了一些工作（已经帮你做好了一些积木块，直接拿来用就是了）。但是，诸如前面提到的特征提取模块，很多情况下，OpenCV就无能为力了。这个时候，你就需要翻阅计算机视觉、模式识别、机器学习领域顶级会议、期刊、杂志上面发表的文章了。然后，根据这些文章中阐述的原理和方法，来编程实现你要的东西。实际上，也就等于搭建一个属于你私有的积木块。其实，OpenCV中的每一个API函数，也就是这么来的。</p>
+  <p class="post-summary">Introduction Target: 10.10.10.68 (OS: Linux)
+Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/opencv/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/" class="post-link">nodejs回调大坑</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
- Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&#34;callback hell&#34;或&#34;pyramid of doom&#34;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
-后续传递风格
-为什么会有坑？这要从后续传递风格（continuation-passing style–CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
-这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
-在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) } 像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
- 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nilayay/" class="post-link">NilAway：实用的 Go Nil Panic 检测方式</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
-指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
-nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nilayay/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/bashed-hack-the-box/">Read More →</a>
   </footer>
 </article>
 
@@ -378,7 +314,7 @@ nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/nibbles-hack-the-box/" class="post-link">Nibbles - Hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
+    <p class="post-meta">@Neal · Mar 17, 2019 · 6 min read</p>
   </header>
   
   <p class="post-summary">Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
@@ -387,6 +323,65 @@ nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75 There are not too many o
 nmap -sC -sV -oA services 10.10.10.75 Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/nibbles-hack-the-box/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/cronos-hack-the-box/" class="post-link">Cronos -- hack the box</a></h3>
+    <p class="post-meta">@Neal · Mar 15, 2019 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/cronos-hack-the-box/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
+    <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
+值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
+CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
+下面就是一个例子在机票供应商那里购买飞机票：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
+HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
+    <p class="post-meta">@Neal · Feb 2, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：4 Tips for Better API Security in 2019
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 
+无论是在科技媒体亦或是分析报告中，2018年 “API”以及“安全”变得越来越常见，-或者更糟糕，“API” 以及“违规”一起出现在头条中。
+APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
+但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
+实际上，API 安全的要求正在成为一种共识：
+  在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
+  OWASP Top 10是一个备受推崇的 web安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
   </footer>
 </article>
 
@@ -414,6 +409,19 @@ nmap -sC -sV -oA services 10.10.10.75 Nothing special found. The only clue may b
 
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

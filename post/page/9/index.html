@@ -219,175 +219,187 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github-bug-bounty/" class="post-link">为什么 2022 年是漏洞赏金奖破纪录的一年</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/" class="post-link">从一道面试题谈谈 setTimeout 和 setInterval</a></h3>
+    <p class="post-meta">@Neal · Apr 21, 2018 · 1 min read</p>
   </header>
   
-  <p class="post-summary">为什么 2022 年是漏洞赏金奖破纪录的一年  原文：Why 2022 was a record-breaking year in bug bounty awards
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 每年，GitLab 的应用安全团队 都会回顾 GitLab 漏洞赏金计划的亮点。
-对于整个行业的安全团队来说，2022 年是忙碌的一年，我们很幸运收到了大量出色的报告，帮助我们确保 GitLab 及其客户的安全。 随着我们在 2021 年 11 月 增加我们的漏洞赏金奖励金额和研究人员参与度的提高，我们在 2022 年期间奖励超过 100 万美元，打破了新纪录！
-如果没有我们的漏洞赏金社区的合作，我们就不会取得今天的成就，我们认为这些奖励非常有益，而且钱花得值。
-2022 年的数字  在 221 份有效报告中获得总计 1,055,770 美元的奖金，高于去年的 337,780 美元！ 三名研究人员在他们的多份报告中获得了 10 万美元以上的收入，另外七名研究人员的收入超过了 2 万美元。 2022年共收到424名研究人员的920份报告。 解决了 158 份有效报告并公开了 94 份 - 今年，我们收到了一些信息泄漏报告，与漏洞不同，这些报告不需要公开 GitLab 问题。 今年有 138 名安全研究人员提交了一份以上的报告，表明他们对我们的计划做出了积极的贡献。 向提交三份或更多有效报告的研究人员授予八份 GitLab Ultimate 许可证。  注：数据为截至 2022 年 12 月 16 日。</p>
+  <p class="post-summary">最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
+假如我们尝试使用 setTimeout 去实现：
+for (var i = 0; i &lt; 5; i&#43;&#43;) {  setTimeout(function() {  console.log(i);  }, i * 1000); } 这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中运行一下。结果是，每隔一秒打印一个 5 ，一共打印 5 次。这是为什么呢，为什么不是打印 0, 1, 2, 3, 4 呢？众所周知，JavaScript 是一种单线程语言，主线程的语句和方法会阻塞定时任务的执行，在 JavaScript 执行引擎之外，存在一个任务队列。当代码中调用 setTimeout 方法时，注册的延时方法会挂在浏览器其他模块处理，等达到触发条件是，该模块再将要执行的方法添加到任务队列中。这个过程是与执行引擎主线程独立，只有在主线程方法全部执行完毕的时候，才会从该模块的任务队列中提取任务来执行。这就是为什么 setTimeout 中函数延迟执行的时间往往大于设置的时间。
+因此，对于上述的代码块，每一个 setTimeout 函数都被添加到了任务队列中。然后，这还涉及到了函数作用于的问题。因为当任务队列中的函数执行的时候，其作用域其实是全局作用域。setTimeout 中的打印函数执行的时候就会在全局作用域中寻找变量 i，而此时全局作用域的变量 i 的值已经变成 5 了。这也就是为什么打印的数字都是 5。那么应该如何达到我们一开始预期的效果呢？这里我们就需要考虑到函数执行上下文的问题，可以通过立即执行函数（IIFE）来改变函数作用域。
+for (var i = 0; i &lt; 5; i&#43;&#43;) {  (function(i) {  setTimeout(function() {  console.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github-bug-bounty/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/oswe/" class="post-link">一键 Shell，我的 OSWE 之旅</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/" class="post-link">消灭 star 大作战--Front-end-tutorial</a></h3>
+    <p class="post-meta">@Neal · Apr 7, 2018 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文来自于安全客，https://www.anquanke.com/post/id/217301
-终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
-初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
-所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
-AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</p>
+  <p class="post-summary">写在前面 Github star 往往非常简单，点击一个按钮，就 star 了。但是你还去看它么，这就未必了。因此很多库长年累月的堆积在你的 star list 里面无人问津。因此，会有这样一个具有一个非常中二的名字的计划。对于 star 仓库，从后往前，一个个理解消化，不要让它无意义地堆积。
+操作步骤：
+ fork it finish it  仓库信息  仓库名称：Front-end-tutorial 主要内容：这是一个博客，里面主要是前端开发的内容，内容设计比较广泛，包括 HTML, CSS, JS 以及流行的框架，以及前端开发的其他内容。 消灭计划：内容较多，打算主要消化一些感兴趣的内容，主要应该集中于原生的东西或者一些性能方面的知识。  作战内容 JavaScript 深拷贝 深拷贝可以说是一个老生重谈的问题，几乎每一个前端面试都可能会问这样的问题。Js 中的对象都是引用，所以浅拷贝时，修改拷贝后的对象会影响原对象。原仓库中其实讲的并不是很深入，我反倒是觉得评论里面的一篇文章深入剖析 JavaScript 的深复制讲得更好。
+有很多第三方库实现了对于对象的深拷贝。
+ jQuery: $.extend(true, {}, sourceObject) loadsh: _.clone(sourceObject, true) 或者 _.cloneDeep(sourceObject)  另外有一个神奇的方法就是借助于 JSON 的 parse 和 stringify 方法，当时我才看到这个方法的时候惊为天人，这个方法还可以用来判断两个对象是否相等。当然，这个方法还是有一些限制，因为正确处理的对象只能是使用 json 可以表示的数据结构，对于函数可能就无能为力了。原文作者实现了一个深拷贝的方法，不过考虑了很多情况，在这里我们就实现一个简单版的深拷贝把。
+function deepCopy(obj) {  const result = {};  for (const key in obj) {  if (obj.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E6%B6%88%E7%81%ADstar%E5%A4%A7%E4%BD%9C%E6%88%98-front-end-tutorial/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/" class="post-link">一个简单的输入输出算法题</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/" class="post-link">如何做一个完美的页码跳转</a></h3>
+    <p class="post-meta">@Neal · Mar 28, 2018 · 1 min read</p>
   </header>
   
-  <p class="post-summary">有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
-题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
-输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
-样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
-代码 #include &#34;stdafx.h&#34; #include&lt;iostream&gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &gt;&gt; n; int m,m_; for (int i = 0; i &lt; n;&#43;&#43; i) { cin &gt;&gt; m; a[i] = m;	} cin &gt;&gt;n_; for (int i = 0;i &lt; n; &#43;&#43; i) { cin &gt;&gt; m_; b[i] = m_; } for (int i = 0;i &lt;= n;i&#43;&#43;) { if (i == 0) cout &lt;&lt; n &lt;&lt; &#34; &#34;; else cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;; } return 0; } 这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
+  <p class="post-summary">需求 想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：
+问题定义 我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 pages，当前选择的页码为 p,p 往左走或者往右走的步长是固定的，令步长为 step。那么我们现在要做的事情可以这么理解，我们要从 1 到 pages 之间截取可用的页码数，假设开始页码为 startIndex，结束页码为 endIndex。抽象一下，我们可以总结出以下几种情况：
+Condition1 startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages
+Condition2 startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages
+Condition3 startIndex &lt; 1 &amp;&amp; endIndex &gt; pages
+Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
+这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
+代码实现 Show me the code.
+func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	startIndex := p - step 	endIndex := p &#43; step  	if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { 	startIndex = 1 	endIndex = startIndex &#43; 2 * step 	} else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { 	endIndex = pages 	startIndex = pages - 2 * step 	} else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { 	startIndex = 1 	endIndex = pages 	} 		// handle some special cases 	if startIndex &lt; 1 { 	startIndex = 1 	}  	if endIndex &gt; pages { 	endIndex = pages 	}  	for i := startIndex; i &lt;= endIndex; i&#43;&#43; { 	pageList = append(pageList, i) 	}  	return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/" class="post-link">一个神奇却很简单的css特效</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/" class="post-link">pwa, 上海地铁线路图全新重构</a></h3>
+    <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
   </header>
   
-  <p class="post-summary">在网上看到一个前端大牛的主页，觉得他有一个特效特别酷，一开始还以为是要用什么javascript代码来实现，但仔细看一下，发觉只是用几行css代码就搞定了，我觉得挺好的。 他这个效果就是鼠标放在左半部分和右半部分，整个网页的布局颜色会相互变化，我贴上前后两张图来比较一下，你们就明白了。 当鼠标放在左半部分： 当鼠标放在右半部分： 可能静态的图片看不太出效果，但是动态看起来还是比较酷的，最关键的是它的代码其实很简单。
-.panel, .panel-left:hover &#43; .panel-right { background-color: #22c3aa; color: white; } .panel-right, .panel:hover { background-color: white; color: #22c3aa; } .panel-right:hover &#43; img#avatar { transform: rotateY(180deg); } 第一段和第二段代码主要就是背景颜色和主体颜色的改变，他把做面板鼠标移动到上面时的效果和右面板的效果设为一致，从而达到左右颠倒的效果，最后一段代码主要是下面一张图片的旋转180度。 真的是前端的东西很变化莫测，往往很简单的思路能够达到意想不到的效果，我觉得真的是值得我们很多时候多多思考的。 再贴上这个前端大神的网页http://zhangwenli.com/。真的很佩服她，一个女生居然代码写的这么好，看看别人做的东西，再看看自己的东西，简直惭愧不已，我觉得人丑还是多读书，尤其是我这种长的那么丑的人就更应该读了。</p>
+  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
+准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
+另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
+const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; {  let ele = {  cx: circle.cx,  cy: circle.cy,  sroke: circle.stroke,  id: circle.id  };  result.push(ele); }) const str = JSON.stringify(result); 通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%A5%9E%E5%A5%87%E5%8D%B4%E5%BE%88%E7%AE%80%E5%8D%95%E7%9A%84css%E7%89%B9%E6%95%88/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/" class="post-link">XSS 漏洞知解 123</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/" class="post-link">通过七牛云建立私有图床</a></h3>
+    <p class="post-meta">@Neal · Feb 25, 2018 · 2 min read</p>
   </header>
   
-  <p class="post-summary">跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
- 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
- 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
- cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
-盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</p>
+  <p class="post-summary">七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。
+注册账户 首先你可以通过这个链接注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。
+创建好存储空间（bucket）就已经完成了私有图库的第一步。
+开发 在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在官方 SDK 文档获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 js SDK 文档。
+文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
+ 利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
+上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
+function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date()).getTime() &#43; 3600  }  return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/wwdc2015/" class="post-link">WWDC2015</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" class="post-link">聊聊答题应用题库的建立</a></h3>
+    <p class="post-meta">@Neal · Feb 23, 2018 · 1 min read</p>
   </header>
   
-  <p class="post-summary">ios9功能  Proactive：整合siri、联系人、日历以及第三方应用。 Notes： 可调节字体、插图片、支持手写注记等功能。 Maps： 加入新公交试图，Transit提供公交系统和换乘细节。 News：聚合新闻应用，可根据西兴趣选择不同的新闻源。 电池续航：充满殿后设备使用时间延长1小时。 安装包更小，只有1.3G。 用户隐私：数据只会保存在本地，不会上传到云。  OS X EI Capitan  新增多种触控板手势。 safari增加固定标签页功能。 窗口自适应功能，不必手动调整窗口大小和拖动窗口。 Spotlight能够理解日常语言。 Metal首次引入图形管理接口。 swift2将在今年年底开源。 split view将自动并排两个app共用一个屏幕。 邮箱app增强全屏显示功能。  ipad最新功能  quick type键盘 传说中的分屏 支持“画中画”功能  </p>
+  <p class="post-summary">前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
+网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
+另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
+使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
+from elasticsearch import Elasticsearch  def write_quetion():  question = {  &#39;question&#39;: &#39;谁是世界上最帅的人&#39;,  &#39;answer&#39;: &#39;Neal&#39;  }  es = Elasticsearch({&#39;localhost&#39;})  es.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/wwdc2015/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" class="post-link">Wmic 使用中的一些问题</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-link">POI读取文件的最佳实践</a></h3>
+    <p class="post-meta">@Neal · Nov 26, 2017 · 5 min read</p>
   </header>
   
-  <p class="post-summary">Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
-起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近安装的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
-程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
-wmic product get name,description
-这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
-wmic product get name, description &gt; products.txt
-这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
-通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
-补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
-wmic qfe list full</p>
+  <p class="post-summary">POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &#34;&#34;; try { if (filePath.endsWith(&#34;doc&#34;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&#34;docx&#34;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-link">winform中进行post上传文件</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/" class="post-link">基于ELK进行邮箱访问日志的分析</a></h3>
+    <p class="post-meta">@Neal · Nov 16, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
- private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &#34;POST&#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&#34;md5data&#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</p>
+  <p class="post-summary">公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
+系统搭建 系统主要是基于elasticsearch&#43;logstash&#43;filebeat&#43;kibana&#43;nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛应用于日志采集。
+其实在搭这个系统还是比较麻烦的，可是前面有的踩过的坑当时没有及时记录下来，有点忘记了。但是里面就是配置logstash和filebeat配置证书的时候有点麻烦，配置不好会一直没有办法连通。还要注意ES的索引占得空间，其实ES索引还蛮占空间的。
+Logstash Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
+filter logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
+geoip 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
+geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] } 日志分析 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken 针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken} 通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/" class="post-link">web 狗之writeup--phone</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" class="post-link">出去就餐并且理解Express.js的基本知识</a></h3>
+    <p class="post-meta">@Neal · Nov 12, 2017 · 2 min read</p>
   </header>
   
-  <p class="post-summary">鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
-打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
-注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！
-正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
-数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&#34;11&#34;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
-Hello, txt1 Your phone is 1 and 1 = 2 union select database().</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" class="post-link">Twitter Lite以及大规模的高性能React渐进式网络应用</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">Twitter Lite以及大规模的高性能React渐进式网络应用  原文：Twitter Lite and High Performance React Progressive Web Apps at Scale
+  <p class="post-summary">Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
 译者：neal1991
 welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
-  让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
- 创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
-在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
-下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
-对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
-经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
-const plugins = [  // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({  names: [ &#39;vendor&#39;, &#39;manifest&#39;],  minChunks: Infinity  }),  // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.</p>
+ 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端……你可能并不会很顺利。
+是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
+当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
+有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
+下面是我们将会涉及到的四个关键部分：
+ The require statements Middleware Routing App.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/" class="post-link">将Medium中的博客导出成markdown</a></h3>
+    <p class="post-meta">@Neal · Sep 23, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
+Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装:
+ 将 export-medium clone 或者下载到本地。 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹  这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
+目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
+仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/">Read More →</a>
   </footer>
 </article>
 
@@ -438,6 +450,19 @@ const plugins = [  // 提取vendor和webpack模块的manifest  new webpack.optim
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

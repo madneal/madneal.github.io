@@ -214,24 +214,47 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" class="post-link">使用浏览器作为代理从公网攻击内网</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
+    <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
   </header>
   
-  <p class="post-summary">介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
-虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
-由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
-恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
-可疑行为：公网到局域网的连接 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
-如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
-这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
-在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
-同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
-Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
- 受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</p>
+  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
+在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
+dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
+wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&#34;%s.%s&#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
+s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gobuster1/" class="post-link">gobuster源码阅读--入口篇</a></h3>
+    <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
+入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
+func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &lt;-signalChan: 	fmt.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gobuster1/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gobuster2/" class="post-link">gobuster源码阅读--dir篇</a></h3>
+    <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &#34;gobuster/3.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gobuster2/">Read More →</a>
   </footer>
 </article>
 
@@ -239,7 +262,7 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/sast/" class="post-link">SAST 测试中要测量的三个参数</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Mar 28, 2022 · 1 min read</p>
   </header>
   
   <p class="post-summary">原文：3 parameters to measure SAST testing
@@ -261,24 +284,8 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" class="post-link">MyBatis 和 SQL 注入的恩恩怨怨</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于安全客平台
-MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
-起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/webpack/" class="post-link">hey,我能看到你的源码哎</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Mar 7, 2022 · 1 min read</p>
   </header>
   
   <p class="post-summary">最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
@@ -295,47 +302,37 @@ module.exports = { ... devtool: &#39;source-map&#39;, ... } 市面上的绝大�
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
+    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
   </header>
   
-  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
-在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
-dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&#34;%s.%s&#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.</p>
+  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster1/" class="post-link">gobuster源码阅读--入口篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" class="post-link">让你的SQL盲注快起来</a></h3>
+    <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
   </header>
   
-  <p class="post-summary">gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
-入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &lt;-signalChan: 	fmt.</p>
+  <p class="post-summary">本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
+SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
+与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
+即：两位同时为“1”，结果才为“1”，否则为0
+或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
+即：参加运算的两个对象只要有一个为1，其值为1
+假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
+1 &amp; x = 0, x = 0</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster1/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster2/" class="post-link">gobuster源码阅读--dir篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &#34;gobuster/3.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster2/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
   </footer>
 </article>
 
@@ -343,7 +340,7 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
   </header>
   
   <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
@@ -364,7 +361,7 @@ LICENSE: MIT
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <p class="post-meta">@Neal · Nov 10, 2019 · 2 min read</p>
   </header>
   
   <p class="post-summary">原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
@@ -383,19 +380,16 @@ LICENSE: MIT
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bastion/" class="post-link">Bastion -- Hack the box</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 6 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" class="post-link">MyBatis 和 SQL 注入的恩恩怨怨</a></h3>
+    <p class="post-meta">@Neal · Oct 30, 2019 · 4 min read</p>
   </header>
   
-  <p class="post-summary">介绍 目标： 10.10.10.134 (Windows)
-Kali：10.10.16.65
-In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
-总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
-信息枚举 Firstly, detect the open ports:
-首先，探测开放端口
-# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.</p>
+  <p class="post-summary">本文首发于安全客平台
+MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
+起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
+public Criteria addKeywordTo(String keyword) {  StringBuilder sb = new StringBuilder();  sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;);  sb.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bastion/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
   </footer>
 </article>
 
@@ -444,6 +438,19 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

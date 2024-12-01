@@ -219,76 +219,8 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" class="post-link">GShark-监测你的 Github 敏感信息泄露</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">近几年由于 Github 信息泄露导致的信息安全事件屡见不鲜，且规模越来越大。就前段时间华住集团旗下酒店开房记录疑似泄露，涉及近5亿个人信息。后面调查发现疑似是华住的程序员在 Github 上上传的 CMS 项目中包含了华住敏感的服务器及数据库信息，被黑客利用导致信息泄露（这次背锅的还是程序猿）。
-起源 对于大型 IT 公司或者其他行业，这种事件发生的概率实在是太常见了，只不过看影响的范围。现在大家看到的，也仅仅只是传播出来的而已。企业没办法保证所有人都能够遵守规定不要将敏感信息上传到 Github，尤其是对于那种特别依赖于外包的甲方企业，而甲方的开发人员也是一无所知，这种事件发生也就是司空见惯了。
-废话说了一大通（可能是最近看安全大佬的文章看多了），终于要介绍一下我的这个项目，GShark。这个工具主要是基于 golang 实现，这也是第一次学习 golang 的项目，结合 go-macron Web 框架实现的一个系统。其实最初我是看到小米安全开源的 x-patrol 项目。网上这种扫描 Github 敏感信息的工具多如皮毛，我看过那种 star 数上千的项目，感觉实现方式也没有很好。因为说到底，大家都是通过 Github 提供的 API 结合相应的关键字来进行搜索的。但是，x-patrol 的这种实现方式我觉得是比较合理的，通过爬虫爬取信息，并对结果进行审核。所以，最初我是一个 x-patrol 的使用者。使用过程中，也遇到过一些问题，因为这个库似乎就是小米的某个固定的人维护的，文档写的不是特别清晰。中间我有提过 PR，但都被直接拒绝掉了。后来，我就想基于 x-patrol 来实现一套自己的系统，这也就是 GShark 的来由了。目前，这个项目与 x-patrol 已经有着很大的变化，比如移除了本地代码的检测，因为这个场景没有需求，其实我本身自己也实现了一个基于 lucene 的敏感信息检索工具。另外，将前端代码进行了梳理，并使用模板引擎来做模板的嵌套使用。基于 casbin实现基于角色的权限控制等等。
-原理 讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 go-github。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 Advanced Search。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/drive/" class="post-link">Google Drive 的信息检索</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
-Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
-通过 OAuth 来使用 Drive API 也需要三个步骤：
- 启用 API 配置 OAuth 应用 生成 Credentials  详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/drive/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/goland/" class="post-link">goland-2022.01版本最新实用功能</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 JSON 的解析。因为 Go 中的 JSON 的解析，一般来说需要定义对应 JSON 的 struct。或者使用 interface{} 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。
-在 Goland 2022.01 最新版本中，终于迎来了在 JSON 方面解析的便捷功能。在最新版本中，只要将 JSON 粘贴到 IDE 中就会提示是否转化为 struct 类型，所有的字段都会被生成，相对于以前的一个个的手动的定义要方便太多太多了。
-还可以使用 Action 来进行转换动作，Generate Go Type form JSON：
-同时还可以添加新的 tag，key 以及修改 key 的代码风格，调用来说一般使用 alt&#43;enter 快捷键即可。
-Intention actions 字段添加新的 tag
- 点击 struct 的字段然后按 alt&#43;enter 选择 Add key to tags  修改 key
- 点击 struct 的字段然后按 alt&#43;enter 选择 Update key value in tags  修改 key 的代码风格</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/goland/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
-在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
-dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
-wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&#34;%s.%s&#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
-s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gobuster1/" class="post-link">gobuster源码阅读--入口篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
   </header>
   
   <p class="post-summary">gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
@@ -304,7 +236,7 @@ func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.W
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gobuster2/" class="post-link">gobuster源码阅读--dir篇</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+    <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
   </header>
   
   <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
@@ -317,78 +249,150 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/go-vuln-management/" class="post-link">Go 的漏洞管理</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/sast/" class="post-link">SAST 测试中要测量的三个参数</a></h3>
+    <p class="post-meta">@Neal · Mar 28, 2022 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：Vulnerability Management for Go
+  <p class="post-summary">原文：3 parameters to measure SAST testing
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 我们很高兴地宣布 Go 对漏洞管理的新支持，这是我们帮助 Go 开发人员了解可能影响他们的已知漏洞的第一步。
-这篇文章概述了当前可用的内容以及该项目的后续计划。
-概述 Go 提供工具来分析你的代码库来发现已知漏洞。该工具由 Go 漏洞数据库提供支持，该数据库由 Go 安全团队规划。Go 的工具通过仅显示代码实际调用的函数中的漏洞来减少结果中的噪音。
-Go 漏洞数据库 Go 漏洞数据库 (https://vuln.go.dev) 是有关公共 Go 模块中可导入包中已知漏洞的综合信息源。
-漏洞数据来自现有来源（例如 CVE 和 GHSA）以及来自 Go 包维护者的直接报告。Go 安全团队会审查这些信息并将其添加到数据库中。
-我们鼓励包维护者在他们自己的项目中提供有关公共漏洞的信息，并更新其 Go 包中漏洞的现有信息。我们的目标是使报告过程成为一个非常容易的过程，因此请向我们反馈任何改进的建议。
-Go 漏洞数据库可以在浏览器中的 pkg.go.dev/vuln 中查看。 有关数据库的更多信息，请参阅 go.dev/security/vuln/database。
-使用 govulcheck 检测漏洞 新的 govulncheck 命令是一种低噪音、可靠的方式，让 Go 用户了解可能影响他们项目的已知漏洞。 Govulncheck 分析你的代码库并仅根据代码中的哪些函数传递调用易受攻击的函数来发现实际影响你的漏洞。 要开始使用 govulncheck，你可以从项目中运行以下命令：</p>
+ 在我们之前的博客中，为什么你不能仅使用列表、测试套件和基准测试来比较 SAST 工具，我们探索了当今常用来评估和比较 SAST 测试工具的各种工具和指标。我们还研究了为什么这些工具可能会产生不一致的结果并且对于评估 SAST 测试工具可能根本不可靠的一些原因。
+相反，在评估 SAST 测试工具时，你需要考虑 3 个参数：
+ 准确性 完整性 任意其它独特价值  在本文中，我们将探索这些参数并研究测量它们的方法。在评估 SAST 测试工具时，有两种相关类型的测量 - 定量（意味着结果的数量与“误报”）和定性（特别是语言深度和支持）。
+定量方面 以下对准确性和完整性的定义起初有点复杂，因为它们实际上是同一枚硬币的两面。数学上不可能（根据赖斯定理）进行完美的静态程序分析。人们可能会认为增加建议的数量会发现所有可能的问题。可悲的是，这也会将误报 (FPs) 的数量达到干扰让结果无法处理的级别。SAST 测试供应商可以使用一些技巧来改进结果，但在数学上完美是不可能的。
+准确性 在 SAST 测试的上下文中，准确性被松散地定义为具有最高数量的 TP（真正类，即实际问题的发现），同时保持最少数量的 FPs（误报，因此是错误的）。
+准确性尤其重要。高准确率意味着我们可以获得更有价值的结果，以及更少的“噪音”（不相关的、无法操作的报告）。“噪音”也是阻碍开发者使用 SAST 测试产品的第一大因素，这就是为什么准确性越高，整体开发者体验就越令人满意的原因。
+为了计算准确性，你首先需要对结果进行分类。那么公式就是 TP*100/(TP&#43;FP)。这将产生一个介于 1 到 100 之间的数字。数字越大，准确度越高。例如，找到 140 个 TP 和 40 个 FP 的工具的准确率为 77.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/go-vuln-management/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/sast/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 4 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/webpack/" class="post-link">hey,我能看到你的源码哎</a></h3>
+    <p class="post-meta">@Neal · Mar 7, 2022 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：XSS in GMail’s AMP4Email via DOM Clobbering
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
-什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
- 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
- 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
+  <p class="post-summary">最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
+通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。
+目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 devtool 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。
+module.exports = { ... devtool: &#39;source-map&#39;, ... } 市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。
+不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 chrome://net-export 可以捕获请求，通过 https://netlog-viewer.appspot.com/#events 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。
+毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 source-map 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/webpack/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/go-report/" class="post-link">基于golang实现报告生成技术方案</a></h3>
+    <p class="post-meta">@Neal · Feb 23, 2022 · 1 min read</p>
   </header>
   
-  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
-github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
-配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34; 上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.</p>
+  <p class="post-summary">最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
+最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
+这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
+&lt;iframe src=&#34;%s&#34; frameborder=0 width=&#34;1000&#34; height=&#34;600&#34;&gt;&lt;/iframe&gt; 同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/go-report/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github-rsa/" class="post-link">GitHub 更新了 RSA SSH host key</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/cissp-domain1/" class="post-link">文武双全，看我如何过CISSP</a></h3>
+    <p class="post-meta">@Neal · Jan 28, 2022 · 1 min read</p>
   </header>
   
-  <p class="post-summary">今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
-GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
-报错信息可能如下：
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</p>
+  <p class="post-summary">2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
+考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
+备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
+OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
+ Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github-rsa/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/cissp-domain1/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/sop/" class="post-link">安全运营平台从0到1</a></h3>
+    <p class="post-meta">@Neal · Jan 21, 2022 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/266237
+笔者作为某公司的安全开发独自一人负责安全运营平台的开发，经过数个月的折腾以及其他安全同学的合作，目前该平台已经运营了几百个安全漏洞以及一些安全事件，其它一些安全能力也在慢慢地接入中。在之前的公司，笔者也是作为安全工程师负责平台架构部门的安全运营，当时我们也有几个开发来负责安全运营平台的开发。安全运营平台其实可以作为一个公司偏向应用安全的基建之一，或许可以将它看做偏向于应用安全的 SIEM。所以，基于本文，也想分享一下在安全运营平台建设和开发的过程中的经验。在整个建设过程，开发工作只是一部分，体系的建设和实现也不可或缺，所以很多做法也是需要结合公司的实际情况，并一定就能够完全通用。
+开发 安全运营平台的开发技术选型其实和其它后台业务类型的系统并不会有太大的区别。目前大多数应用系统都是采用前后端分离的方式，前端大多数是类似于 vue-admin 类型的技术方案。后端框架见仁见智，选择适合内部开发的语言即可。笔者之前最早实习的时候就是干前端开发的，后来干安全也是经常会写安全工具的代码，所以常用的语言也是都略懂一些，所以也就扛起了这个平台的开发工作。
+最初的技术选型是想选择 gin-vue-admin，这是个前后端分离方案。后端基于 go 的 gin 框架，前端是和 vue-admin 比较类似的前端方案。这个轮子用起来不错，有很多开箱即用的功能，权限方面管理也非常方便。不过最终还是没有采取这个方案，因为内部的大多数应用都是基于内部自研的 go 微服务框架，其部署运维也与该方案息息相关。如果不使用内部的框架在部署方面则会麻烦很多，考虑到后期的运维，最终还是选择了基于内部的微服务框架开发。不过，这样做的最大的问题就是学习成本，因为这个内部框架与外部的 web 框架差异较大，而且作为安全的唯一开发也是两眼一抹黑，只能跟在开发大佬后面跪舔，才慢慢把应用的雏形搭建起来。前端框架比较简单，主要是基于 element 的 Vue 框架。
+其实在开发过程中要说技术难度有多大也不见得，和其它的业务系统其实没有太大的区别。主要就是各种和头发丝一样琐碎细小的业务需求，所以开发过程就好比把这些头发丝一根根捡起来捋直了，所以有时候也是比较痛苦的过程。前端的用户体验和设计也是痛点之一，本身安全在开发就比较缺乏，尤其是设计方面。不过安全运营平台主要面向的也是内部的用户，主要就是安全工程师和开发，所以和面向外部客户的应用相比，要求也会稍微低一点。
+需求建设 对于安全运营平台的大致规划是按照下面的框架来进行划分的，大多数公司的安全运营平台也会比较类似。安全运营平台的核心是应用安全的运营，漏洞管理作为安全运营平台的核心之一，也往往是安全运营平台被开发所熟知的方面之一。另外一方面就是集成各种安全工具的数据，包括像扫描工具，包括 SAST 以及 DAST 的扫描，将这些数据能够转换成实际的漏洞来推动。
+漏洞管理 漏洞管理作为安全运营平台的最基础的一方面，同时也是其核心。漏洞的本质其实也是一个 bug，只不过它被赋予了安全这一属性，摇生一变被称为漏洞。那么漏洞自然就和开发日常处理的 bug 会稍微有一些不同。Bug 的处理流程相对来说会简单一点，测试把 bug 提给开发，开发确认之后修复完成，测试验证通过就可以了。安全漏洞的处理过程其实也是基于这一个过程的演化，这也是因为安全漏洞的特殊性，安全漏洞是一种特殊的 bug。一方面，安全漏洞的机密性要求更高，漏洞的可见范围越小越好，一般仅限定为要处理的人及它的直属领导，而不是任意一个人都可以查看漏洞，这样也是为了避免万一有人通过漏洞信息来进行利用。另外一方面，漏洞的处理流程相对来说会更复杂一点。在现实业务中，可能会有各种各样的场景。正常来说，一个应用应该具备测试环境、UAT 环境、生产环境。漏洞应该在之前的环境中被验证通过后，再进行下个环境的验证，这样的好处也是避免一开始就没有修复，导致返工，也降低了风险。但是往往也有不少应用并不同时都有这些环境，比如第三方采购的应用，一般都没有前两个环境，大多数是布在生产上的。也有的应用可能也没有 UAT 环境，就只有测试环境和生产环境。我们的做法是有提供两种模式给开发选择，开发可以选择默认模式，则这三种环境都有，开发也可以选择不带 UAT 环境的。针对于只有一种环境，我们的做法是把主动权交给安全工程师，安全工程师在复测完成后可以直接关闭漏洞，不过这个的弊端就是有时候安全工程师忘记直接关闭这个漏洞。
+漏洞在被确认之前可能还有一些例外情况，包括像漏洞的忽略以及漏洞的接受。漏洞的忽略主要是漏洞的一些误报，这个主要是安全工程师可能对于业务有些了解还不充分导致的一些信息差，另外还有就是有些漏洞可能就是正常的业务需求。漏洞的接受则是这的确是一个漏洞，但往往漏洞修复非常困难，或者漏洞修复对业务的影响非常大，但是漏洞的危害程度没有达到高危及以上的那种程度。其实对于这种情况一般有两种处理，一种就是安全把漏洞提给开发，但是开发就是不太愿意修复这个漏洞，这个漏洞状态就一直保持着，如果哪天开发憋不住了，或者状态场景发生了变化，他们就完成了这个漏洞的修复。另外一种情况就是业务方接受漏洞并且不修复，这种可以理解为风险接受。其实在 CISSP 中的风险管理中就有这样的概念，如果采取安全措施的代价大于资产的实际价值，那么业务方可以选择接受风险。不过对于这种情景，是需要经过业务方领导的审批，确保业务方能够明确意识到这个漏洞潜在的风险。
+漏洞另外一个重要的内容就是和资产的联动。一个成熟的 cmdb 对于安全来说真的太重要了。因为这可以帮助安全迅速的定位到明确的责任人，从而确保漏洞的及时修复，其实这也涵盖其它的安全内容，包括像安全事件，甚至在安全应急响应中，好的 cmdb 对于安全来说真的非常重要。不过，安全往往不是作为 cmdb 的第一责任人，一般 cmdb 的运维职责是落在运维方，安全起到的作用是反馈和治理。安全在使用数据的过程中，及时反馈，从而帮助数据修正，这样达到一个良性进化的过程。
+事件管理 事件管理和漏洞管理也不太相同，所以事件管理的流程会被单独作为另外一个流程来进行管理。事件不同于漏洞，它往往也没有上文提到的各种的环境。事件的处理往往也是一个点对点的过程，安全工程师确认了安全事件，将事件上报给对应的处理人，处理人处理完毕，安全工程师验证没有问题，安全事件就可以关闭了。目前的安全事件的功能还是比较弱化的，主要还是用于事件的处理流程。不过未来事件流程最重要的方面是和其它安全平台的对接，包括与 SIME、IDS 等安全产品对接，并且能够将事件直接分发给对应的处理人，提高事件的处理效率。
+安全能力 作为安全运营平台，SAST 以及 DAST 也是作为应用安全重要的补充能力。SAST 以及 DAST 市面上都有很多成熟的产品，也有很多公司采取自研方案。对于这两种产品最重要的能力就是数据的打通，如何将这两种产品扫描出来的漏洞直接转化为实际有效的漏洞。前期对于这种漏洞比较好的处理方式，可能是先同步数据，然后安全运营平台作为一个审核平台，这些数据经过安全工程师的审核和加工，有效的数据将转化为漏洞进行上报。另外一个重要的方面就是组件成分分析，这也是近几年非常火的一个概念。因为目前的软件开发都是大概率依赖于第三方组件，不管是商业的还是开源的、前端的、后端的以及各种语言的，这些组件的风险都有可能会对你自己应用带来风险。做好应用的组件分析，知道应用的依赖关系，能够快速地在紧急安全漏洞爆发初做到较快的响应处置。当然，这些都建立在资产都能够与这些信息打通的基础上，这样才能做联动响应，根据资产去盘点漏洞，同时也能够根据漏洞去看哪些资产受影响。
+安全运营平台除了这些大的方面，其实也有很多细节方面需要考虑。比如像漏洞级别的定级，不同级别的漏洞对应着不同的威胁程度，那么其要求的修复时间也是不相同的。对于漏洞的响应时间应该是按照自然日来算的，因为攻击者并不会因为是休息日就鸣金收兵的。对于漏洞的定级，其实业界有一个比较成熟的定级模型，叫做 DREAD，即：</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/sop/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/highway/" class="post-link">电车的高速之行</a></h3>
+    <p class="post-meta">@Neal · Sep 6, 2021 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">上周末回了一趟老家，高速来回行驶了800多公里。所以我很想结合这一次的高速的经验分享一下电车的高速形式经验，或许也能帮助一些鹏友解答电车在高速形式上面的问题。我的车之前的文章也提到过，小鹏 P7，长续航智尊版，选配了 NGP 辅助驾驶功能。当然，这篇文章的经验也主要是我本身这次的高速之行的感受，并不一定适用于所有的情况。
+
+续航，谁先倒下？ 新能源车的续航一直是很多人对于其望而却步的主要原因，电车的续航缩水一直为人所诟病。我这辆车的官方续航标准是 NEDC 586公里，当然这个续航一般是达不到的，实际用车的话，一般都是使用 WLTP 标准。充满电，长续航版本的里程显示是504公里（WLTP标准）。如果按照120的限速跑，开空调，开音乐，驾驶能耗是16多一点。基本上500公里的续航应该能跑到将近450公里左右。这对于我回家来说，基本上够用了。
+说实话，我是真实体验到人的续航和车的续航，就我而言，基本都是我先倒下。基本上开了两个小时左右，我就已经觉得很累了。所以，停下来，休息一下吃个饭什么的，还是比较合适的。只不过去程的时候我那个服务器使用的桩功率有一点低，电流只有69A，一般在城市里基本上都是200A左右。当时，也没有换桩，不知道是不是仅仅只是那一个桩的问题。不过返程的时候另外一个服务区的充电桩就还可以，电流差不多有 120 多，基本上就够用了.当然，这是在高速不是特别拥堵的情况下，我的确也没有跑过那种特别极端的情况下，那种情况可能会是另外一种情景。
+辅助驾驶好不好用 这段时间辅助驾驶闹得沸沸扬扬。其实，我是觉得现在很多媒体把辅助驾驶和自动驾驶混淆了。目前国内已经上市的车，是没有车已经达到了自动驾驶的级别。自动驾驶的级别一般划分L1-L5 5个级别，小鹏宣称自己是L2.5，我们暂且也认为其是L2级别。所以，一定要分清辅助驾驶和自动驾驶，目前人还是要时刻保持关注，随时做好接管的准备，千万不要做那种毫无意义的尝试，在危险边缘疯狂试探。
+小鹏的 NGP 目前支持在封闭路段使用，包括城市高架和高速。在拥堵的路段，NGP 的使用体验不是很好，因为它反应比较慢，刹车偏急，起步偏慢，所以拥堵高架体验一般。但是高速上是非常适合 NGP 使用的，800 多公里的路程基本上差不多600多是通过NGP行驶的，这极大减轻了驾驶负担。NGP 基本上在自适应巡航，跟车方面都做的比较完善。因为 NGP 结合了高精度地图，所以可以完美地通过高精度地图来辅助驾驶。所以这个方案和特斯拉的视觉方案不同，这两种方案也是各有千秋。不过依赖于高精度地图的缺点就是有的地图高精度的缺失，辅助驾驶的降级不是很完美。NGP 不能很完美地降级到 LCC。当然，其实在我看来人为接管率并没有很大影响。另外一点，如果长时间使用辅助驾驶的话也会比较疲劳，所以有时接管开一下也是蛮好的。
+NGP 最值得诟病的就是双车道的高速超车逻辑。经常遇到的情况就是在左车道行驶，如果前车行驶速度变慢，就会向右变道超车。但是这种情形一般都是因为右边不远处有一辆慢速行驶的火车。如果变道到右边的车道，马上就会被那辆火车堵住，然后左边就会一直有车经过，这种情形就比较尴尬了。所以，一般双车道的超车行为都会被我立马扼杀在摇篮中。
+综合来说，这次的高速之行对于我来说总体体验还是不错的。如果满分10分的话，应该可以打个7.5分。当然，这一切的体验都是基于这次的高速之行得出的。小鹏 P7 目前来看还是一个综合素质比较出色的新能源汽车，如果有朋友感兴趣的话可以使用我的试驾链接试驾。
+https://events.xiaopeng.com/r18f95.html?token=2cf68377</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/highway/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
+    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/mihoyo/" class="post-link">米哈游内推</a></h3>
+    <p class="post-meta">@Neal · Aug 7, 2021 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">微信扫描投递即可
+社招 
+校招</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/mihoyo/">Read More →</a>
   </footer>
 </article>
 
@@ -439,6 +443,19 @@ GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据�
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

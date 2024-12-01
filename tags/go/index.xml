@@ -5,11 +5,29 @@
     <link>https://madneal.com/tags/go/</link>
     <description>Recent content in Go on Neal&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language><atom:link href="https://madneal.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
+    <lastBuildDate>Sat, 30 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NilAway：实用的 Go Nil Panic 检测方式</title>
+      <link>https://madneal.com/post/nilayay/</link>
+      <pubDate>Sat, 30 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/nilayay/</guid>
+      <description>原文：NilAway: Practical Nil Panic Detection for Go
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
+指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
+nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
+图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</description>
+    </item>
+    
     <item>
       <title>Go 的漏洞管理</title>
       <link>https://madneal.com/post/go-vuln-management/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/go-vuln-management/</guid>
       <description>原文：Vulnerability Management for Go
@@ -27,9 +45,24 @@ Go 漏洞数据库可以在浏览器中的 pkg.go.dev/vuln 中查看。 有关�
     </item>
     
     <item>
+      <title>第一款Goland的SCA插件开发之旅</title>
+      <link>https://madneal.com/post/goland-plugin/</link>
+      <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/goland-plugin/</guid>
+      <description>插件开发，是一件即快乐又痛苦的事情。快乐的是你可以根据自己的需求通过插件来进行实现，比如经常看到的 Chrome 的插件开发。插件对于应用的原生生态有着很大的益处，往往那些特别优秀的插件甚至会被官方收编或者在正式功能中加入插件的功能。痛苦的是你需要去看文档，看插件开发的各种文档，如果文档不详细的话，痛苦加倍。程序猿最讨厌的事就是看别人的文档以及自己写文档。当然，除了文档，作为小白你还会踩到各种各样的坑。
+先吐槽 五一期间，疫情实在是憋得无趣，于是就成生了编写一款 Goland 上的 SCA 检测的插件的想法。Jetbrains 作为一个 IDE 开发公司，通过 Java 的语言生态开发出 IDEA 全家桶系列如此精美并且功能强大的 IDE 产品。其背后的技术能力不得不让人折服。IDE 是程序猿开发的生产力，而 Jetbrains 公司则是生产力的生产力。这几天，笔者就在着力开发一款针对 Goland 的第一款 SCA 检测插件。相较于以往 Chrome 或者 Burp 的插件开发而言，Jetbrains 插件开发的难度大大提升，主要是因为以下几点原因：
+API 文档过于简单 IntelliJ 只提供了官方的文档地址。这里面包含了一些 API 的实现以及介绍，但是太简单了。全篇中几乎找不到相关实现的示例代码，通常只有寥寥数语的介绍。举一个例子，希望能够通过插件能够创建文件，在找遍了官方的文档后，只发现了以下内容：
+文档里面提到可以使用 PsiDirectory 中的 add 方法来保存 PSI 文件，但它没说 HOW！那怎么办，只能去 Github 中去搜索代码关键字，然后扒别人的代码去看别人是如何实现的，这绝对是一个非常痛苦的过程，尤其是你看的是一个实现很糟糕的插件。
+API 复杂性 由于 IDEA 强大的生态，其 API 要考虑到兼容性以及很多特性，所以 API 中很多的含义不好理解。其本身也是包含了很多复杂的配置项，同时还需要综合考虑插件是通过什么样的形式去实现。
+太“强大的”官方模板 官方提供了一个创建插件的模板。首先承认的一点是这个模板的功能非常强大，涵盖插件开发、单元测试、质量检查、发布的整个生命周期，并且与 Github 无缝集成。不过作为模板，它包含的内容是不是太多了呢？这个模板的 README 几乎看了3遍之后才知道里面包含了哪些内容。实际上，对于一个小白来说，这个过程挺痛苦的，甚至可能有的人看了一下就萌发了退意。里面的一些模块，比如单元测试模块以及覆盖率检查这些模块，可以作为可选项，并不一定要默认就包含进去。
+Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 .</description>
+    </item>
+    
+    <item>
       <title>goland-2022.01版本最新实用功能</title>
       <link>https://madneal.com/post/goland/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/goland/</guid>
       <description>在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 JSON 的解析。因为 Go 中的 JSON 的解析，一般来说需要定义对应 JSON 的 struct。或者使用 interface{} 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。
@@ -42,9 +75,21 @@ Intention actions 字段添加新的 tag
     </item>
     
     <item>
+      <title>富文本场景下的 XSS</title>
+      <link>https://madneal.com/post/stored-xss/</link>
+      <pubDate>Mon, 30 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://madneal.com/post/stored-xss/</guid>
+      <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
+    </item>
+    
+    <item>
       <title>GShark-监测你的 Github 敏感信息泄露</title>
       <link>https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 31 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/</guid>
       <description>近几年由于 Github 信息泄露导致的信息安全事件屡见不鲜，且规模越来越大。就前段时间华住集团旗下酒店开房记录疑似泄露，涉及近5亿个人信息。后面调查发现疑似是华住的程序员在 Github 上上传的 CMS 项目中包含了华住敏感的服务器及数据库信息，被黑客利用导致信息泄露（这次背锅的还是程序猿）。
@@ -54,25 +99,9 @@ Intention actions 字段添加新的 tag
     </item>
     
     <item>
-      <title>NilAway：实用的 Go Nil Panic 检测方式</title>
-      <link>https://madneal.com/post/nilayay/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/nilayay/</guid>
-      <description>原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
-指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
-nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</description>
-    </item>
-    
-    <item>
       <title>如何做一个完美的页码跳转</title>
       <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</guid>
       <description>需求 想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：
@@ -84,33 +113,6 @@ Condition4 startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages
 这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
 代码实现 Show me the code.
 func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	startIndex := p - step 	endIndex := p + step  	if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages { 	startIndex = 1 	endIndex = startIndex + 2 * step 	} else if startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { 	endIndex = pages 	startIndex = pages - 2 * step 	} else if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { 	startIndex = 1 	endIndex = pages 	} 		// handle some special cases 	if startIndex &amp;lt; 1 { 	startIndex = 1 	}  	if endIndex &amp;gt; pages { 	endIndex = pages 	}  	for i := startIndex; i &amp;lt;= endIndex; i++ { 	pageList = append(pageList, i) 	}  	return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</description>
-    </item>
-    
-    <item>
-      <title>富文本场景下的 XSS</title>
-      <link>https://madneal.com/post/stored-xss/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/stored-xss/</guid>
-      <description>富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
-前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
-// nodejs 中使用 var xss = require(&amp;#34;xss&amp;#34;); var html = xss(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); console.log(html); // 浏览器中使用 &amp;lt;script src=&amp;#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt; // apply function filterXSS in the same way var html = filterXSS(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/scr&amp;#39; + &amp;#34;ipt&amp;gt;&amp;#34;); alert(html); &amp;lt;/script&amp;gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&amp;#39;&amp;lt;script&amp;gt;alert(&amp;#34;xss&amp;#34;);&amp;lt;/script&amp;gt;&amp;#39;); const xssFilter = new xss.</description>
-    </item>
-    
-    <item>
-      <title>第一款Goland的SCA插件开发之旅</title>
-      <link>https://madneal.com/post/goland-plugin/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://madneal.com/post/goland-plugin/</guid>
-      <description>插件开发，是一件即快乐又痛苦的事情。快乐的是你可以根据自己的需求通过插件来进行实现，比如经常看到的 Chrome 的插件开发。插件对于应用的原生生态有着很大的益处，往往那些特别优秀的插件甚至会被官方收编或者在正式功能中加入插件的功能。痛苦的是你需要去看文档，看插件开发的各种文档，如果文档不详细的话，痛苦加倍。程序猿最讨厌的事就是看别人的文档以及自己写文档。当然，除了文档，作为小白你还会踩到各种各样的坑。
-先吐槽 五一期间，疫情实在是憋得无趣，于是就成生了编写一款 Goland 上的 SCA 检测的插件的想法。Jetbrains 作为一个 IDE 开发公司，通过 Java 的语言生态开发出 IDEA 全家桶系列如此精美并且功能强大的 IDE 产品。其背后的技术能力不得不让人折服。IDE 是程序猿开发的生产力，而 Jetbrains 公司则是生产力的生产力。这几天，笔者就在着力开发一款针对 Goland 的第一款 SCA 检测插件。相较于以往 Chrome 或者 Burp 的插件开发而言，Jetbrains 插件开发的难度大大提升，主要是因为以下几点原因：
-API 文档过于简单 IntelliJ 只提供了官方的文档地址。这里面包含了一些 API 的实现以及介绍，但是太简单了。全篇中几乎找不到相关实现的示例代码，通常只有寥寥数语的介绍。举一个例子，希望能够通过插件能够创建文件，在找遍了官方的文档后，只发现了以下内容：
-文档里面提到可以使用 PsiDirectory 中的 add 方法来保存 PSI 文件，但它没说 HOW！那怎么办，只能去 Github 中去搜索代码关键字，然后扒别人的代码去看别人是如何实现的，这绝对是一个非常痛苦的过程，尤其是你看的是一个实现很糟糕的插件。
-API 复杂性 由于 IDEA 强大的生态，其 API 要考虑到兼容性以及很多特性，所以 API 中很多的含义不好理解。其本身也是包含了很多复杂的配置项，同时还需要综合考虑插件是通过什么样的形式去实现。
-太“强大的”官方模板 官方提供了一个创建插件的模板。首先承认的一点是这个模板的功能非常强大，涵盖插件开发、单元测试、质量检查、发布的整个生命周期，并且与 Github 无缝集成。不过作为模板，它包含的内容是不是太多了呢？这个模板的 README 几乎看了3遍之后才知道里面包含了哪些内容。实际上，对于一个小白来说，这个过程挺痛苦的，甚至可能有的人看了一下就萌发了退意。里面的一些模块，比如单元测试模块以及覆盖率检查这些模块，可以作为可选项，并不一定要默认就包含进去。
-Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 .</description>
     </item>
     
   </channel>

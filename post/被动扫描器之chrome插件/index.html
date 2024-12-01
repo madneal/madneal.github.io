@@ -113,6 +113,8 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
       <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
       
         
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
       
     </div>
     
@@ -224,7 +226,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">被动扫描器之插件篇</h1>
-      <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+      <p class="post-meta">@Neal · Sep 28, 2019 · 3 min read</p>
     </header>
     <article class="post-content"><p>本文首发于 freebuf, <a href="https://www.freebuf.com/articles/web/219818.html">https://www.freebuf.com/articles/web/219818.html</a></p>
 <p>最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，<a href="https://github.com/neal1991/r-forwarder">r-forwarder</a> 以及 <a href="https://github.com/neal1991/r-forwarder-burp">r-forwarder-burp</a>，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。</p>
@@ -366,10 +368,30 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>1891</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1891</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
       
     
   </section>
@@ -404,6 +426,19 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 

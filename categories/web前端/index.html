@@ -214,57 +214,206 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/" class="post-link">javascript中无法将string转化为json对象</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/" class="post-link">出去就餐并且理解Express.js的基本知识</a></h3>
+    <p class="post-meta">@Neal · Nov 12, 2017 · 2 min read</p>
   </header>
   
-  <p class="post-summary">在一次项目之中，我要对请求的相应做一些处理，得到的响应差不多是这中格式‘{total:1,result:[{“age”:1}]}’.可以看到我拿到的这个相应和JSON的格式是非常相似的，一开始我认为只要用JSON.parse进行转化，但是这始终会报错，无法进行转化。后来我用了个笨办法把前面的东西都去掉了拿到’[{“age”:1}]‘进行转化。 后来我又找一找这个问题的原因，原来是我这个字符串中的key没有用双引号进行包裹，这并不是一个合法的JSON格式，它可以被人为是一个Javascript对象，但还不是一个合法的JSON，所以无法解析。JSON对象是由对象成员组成，而成员是由key-value键值组成。key值是一个字符串，字符串由unicode字符组成，用双引号包围，用反斜杠转义。可以是单个字符。 但是在现实应用中，很少有人知道JSON里的key需要双引号来包裹的，浏览器里面的属性都是没有双引号的，从而返回的结果无法解析。 知道问题的原因，就自然而然有相应的解决办法了。第一个办法就是本办法，手工加上双引号，也就是用正则表达式匹配；另外一个方法就是用eval直接执行, var obj = eval(&#39;(&#39;&#43;str&#39;)&#39;) 不过你需要了解这个str里面到底有什么，这样才能防止一些恶意程序，避免带来安全问题。</p>
+  <p class="post-summary">Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端……你可能并不会很顺利。
+是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
+当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
+有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
+下面是我们将会涉及到的四个关键部分：
+ The require statements Middleware Routing App.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E6%97%A0%E6%B3%95%E5%B0%86string%E8%BD%AC%E5%8C%96%E4%B8%BAjson%E5%AF%B9%E8%B1%A1/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/" class="post-link">indexDB的概念</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" class="post-link">JavaScript是如何工作的：引擎，运行时间以及调用栈的概述</a></h3>
+    <p class="post-meta">@Neal · Sep 13, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">IndexDB利用数据键(key)访问，通过索引功能搜索数据，适用于大量的结构化数据，如日历，通讯簿或者记事本。
- 以key/value成对保存数据 IndexDB和WebStorage都是以数据键值的方式来保存数据，只要创建索引，就可以进行数据搜索和排序。 交易数据库模型 IndexDB进行数据库操作之前要先进行交易。所谓交易，就是将数据库所做的访问操作（比如增删改查）包装成一个任务来执行，这个任务可以包含多个步骤，只有所有的步骤执行成功，交易才算成功；只要有一个步骤失败，整个交易就会取消所做的更改都会被恢复。 IndexDB大部分的异步API IndexDB数据库操作并不会立即执行，而是先创建数据库操作要求，然后定义事件处理函数来响应这些要求是成功还是失败。 通过监听DOM事件取得执行结果 数据操作完成时，通过监听DOM事件来取得执行结果，DOM事件的type属性会返回成功或者失败。 每个读写操作都是请求 IndexDB随时随地都在使用请求 面向对象 IndexDB是面向对象数据库，不使用sql语法，必须以面向对象的方式来获取数据。 NOSQL的数据库系统 IndexDB的查询语言并非sql，而是查询索引获取指针，然后用指针访问查询结果。  </p>
+  <p class="post-summary">JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
+如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
+因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
+概览 几乎每个人都已经听说过V8引擎的概念，并且很多知道JavaScript是单线程的或者它是使用一个回调队列的。
+在这篇博文中，我们将会详细讲述所有概念并且解释JavaScript是如何真正运行的。在了解这些细节之后，你将能够写出能够适宜地利用提供的API的更好的，非阻塞的app。
+如果对于JvaScript来说还不是很了解，这篇博文将会帮助你理解为什么JavaScript和别的语言相比如此“奇怪”。
+如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
+JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
+引擎主要由两个部分组成：
+ 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：‘setTimeout’）。然而这些API并不是由引擎提供的。
+那么，它们是从哪来的呢？
+事实证明这有一点复杂。
+因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/indexdb%E7%9A%84%E6%A6%82%E5%BF%B5/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/" class="post-link">http响应代码解释</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/" class="post-link">通过利用immutability的能力编写更安全和更整洁的代码</a></h3>
+    <p class="post-meta">@Neal · May 21, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">200：成功响应 302：找到，但是请求的资源在另外一个不同的url中。 400：错误请求。这个请求不能被服务器所理解，客户端必须修改请求。 401：未认证，这个请求需要用户认证。 404：未找到。服务器没有找到任何和这个请求符合的资源。</p>
+  <p class="post-summary">通过利用immutability的能力编写更安全和更整洁的代码  原文：Write safer and cleaner code by leveraging the power of “Immutability”
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Immutability是函数式编程的重要基础之一。它允许你能编写更安全以及更整洁的代码。我将会通过一些JavaScript例子来向你展示如何来达到immutability。
+根据维基百科：
+ 不可变对象是一个在创建之后不能修改其状态的对象。这正与可变对象相反，它能够在创建之后被修改。在某些情况下，对象被认为是不可变的，即使其内部的某些属性发生改变，但是从外部的角度来看这个对象的状态看起来还是没有发生变化的。
+ Immutable数组 数组是理解immutability如何工作的很好的起点。让我们一起来看一看。
+const arrayA = [1, 2, 3]; arrayA.push(4);  const arrayB = arrayA; arrayB.push(5);  console.log(arrayA); // [1, 2, 3, 4, 5] console.log(arrayB); // [1, 2, 3, 4, 5] 这个例子将arrayA的引用分配给arrayB，因此这个push方法在这两个变量中都会添加5这个值。我们的代码间接地修改其它的值，这并不是我们想要的。这也违反了immutability的原则。</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
 </article>
 
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
+    <h3 class="post-title"><a href="https://madneal.com/post/programer/" class="post-link">菜鸟程序员成长史 --记 Github 1000&#43; contributions</a></h3>
+    <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
   
-  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
-github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
-配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34; 上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.</p>
+  <p class="post-summary">其实一直以来想写一篇文章总结这几年的技术学习，刚好趁着自己的第一次 github contribution 达到1000&#43;，写篇文章总结以下。本文篇幅较长，我会分为几个章节来分别阐述。
+博客篇 为什么我要把博客放在第一位呢？因为我认为博客是developer学习技术的平台，也是developer分享知识的平台，博客差不多也就相当于是developer的名片。现如今，博客平台形形色色，有老牌的博客园，CSDN，也有现在比较新潮的SegmentFault，掘金，开发者头条，知乎等等。现在博客的形式已经发展得多种多样，现如今新潮的犹如各种各样的专栏等等。当然，在这么多博文中，有很多质量很高的文章，也有很多滥竽充数的垃圾文章。下面，我就就我个人的了解探探我接触的这些博客平台，仅是个人观点。
+Github 哈哈。我为什么把Github列到博客篇呢？其实现在Github几乎已经成为了我生命中不可或缺的一部分，每天打开电脑的一件事，基本就是打开Github看看。作为世界上最大的同性交友网站，Github对于程序猿来说绝对是生命中不可或缺的部分。在此，我主要说说Github作为博客方面的内容。 很多人认为Github只不过是一个代码托管的地方，为什么会和博客有关系呢？其实，现在很多人都是在Github的issue里面开博客，因为issue里面方便作者和读者的沟通，而且支持markdown格式，各种功能也是很丰富。对于比较关注的博客，你可以设置watch，这样你就可以了解issue里面的每一次变化，并且还会有相应的邮件通知。在此，给出几个我关注的几个人的Github博客：
+ iCSS：讲解CSS的，有的还是蛮有趣的。 梁少峰的个人博客：讲解vue讲解的很透彻，百度大牛，我觉得有些博文挺值得看，而且值得多看几遍，不过我好像都没看完。他的博文还是需要深度挖掘的。 ccforward/cc：应该是当初关注他的一个知乎爬虫，他的博客内容我没有看太多，但是内容貌似还不错。 underscore-analysis：解析underscroe源代码的，挺不错的，我看过一两篇，值得多读几篇，我自己也该去读了。 Front-end-tutorial：内容很多，我没有过多了解，可以了解一下。  以上就是我了解的一些在Github上面的博客，因为在Github我没有特别关注这方面，所以还不是特别多，当然Github也不是我主要逛博客的地方。
+CSDN CSDN是我开启个人技术博客的地方，感兴趣的地方去我的博客逛逛http://blog.csdn.net/neal1991 。我应该是从2015年4月份开始写博客的，博客的内容主要有我研究生期间一开始做的道路识别的一些研究的论文，虽然这个方向没搞下去，这个方向的确很有前景，只能说老板很有眼光，但我没能力，没能搞下去。其它的也包括一些开发过程遇到的坑之内的，面试经历，技术文章翻译。老实说，CSDN现在的确不是一个很好的平台，因为本身它就偏老，在markdown的显示不是很完美，在移动端显示不是很好，还有一点很重要，广告特别多，还是莫名其妙的，看起来很讨厌。其实我一直都想弃坑，奈何就是github国内访问速度不稳定，还有毕竟在这边维护这么久了，所以还是一直维护着。在CSDN上，我基本上都是去写博客，基本不会在它上面浏览技术博客，因为它的浏览界面实在是太杂乱了，没有重点。这可能也是老牌博客的一个缺点，可能一时半会也没办法改过来。下面我主要讲一些我自己的一些比较稍微有用的博客内容：
+ combox系列问题集：当初做winform开发遇到的问题，记得当初最坑爹的是调试combox的时候，visual studio老是崩溃，后来发觉居然是有道翻译的锅，也是醉了。。。 独立成分分析：这个应该是当初一个讨论班里面要做的一个presentation，我把内容整理出来写了这篇博文，阅读量快2000了，好像是我博客里面阅读次数最多的了。 如何查找django安装路径：非常简单的一个问题，但是当初搜遍了，没找到解决方法。 mongoose对象无法新增删除属性：当初在处理mongo遇到的一个问题，是个坑。 第一个chrome extension：第一次写chrome extension，没有想象中的那么复杂，不过还是有一些方法的，貌似360有翻译过谷歌相关的文档。老实说，谷歌真的很良心，现在很多开发者文档都已经是中文的了。 第一个pwa：第一次写progressive web application，其实写pwa和写其它单页面应用没有特别大的区别。pwa也是我非常看到的技术栈，我觉得这个比小程序好上一百倍，只不过现在在国内还是不温不火，但是我觉得很肯能哪一天就星星之火，可以燎原了。  鉴于CSDN平台的种种，我的确越来越不太愿意在这上面写文章。而且我最近的文章一向是以翻译国外技术文章为主，毕竟还是菜，所以只能靠英语吃饭啦。
+掘金 老实说，掘金应该是同类这种网站访问量比较大的。的确，里面有不少的精品内容，当然也会参杂很多乱七八糟的东西。其实，现在一般的原创博主都不会只在一个平台发文章，所以基本上你这个平台看得到的，在其它平台也差不多都能看到。只不过我现在基本不看掘金了，因为他们的编辑对新人极度不友善，极度不友好。
+众成翻译 360的一个专门翻译技术博客为主的平台，目前应该还是比较小众。360的前端其实还是蛮不错的，尤其是他们的齐舞团队，里面也有很多大牛。这个平台里面的文章一半质量还是比较高的，而且这个平台翻译操作也是蛮舒适的，感兴趣的非常值得试一试。而且他们的群沟通都很流畅，不像掘金那帮人。。。无力吐槽。
+知乎 我本身一向是很排斥知乎的。讲心里话，知乎里面百分之八十的人都是在写故事，骗关注的，我也不明白知乎为什么充斥了这么多天天无事可做的人。当然，不可否认的是，知乎里面还是存在百分之二十的精品内容的，这也是让我能够忍受那剩余的百分之八十垃圾的原因。知乎里面那些回答我觉得没有太大的意义，看了也就是笑一笑，一般都是用来刷新三观用的，在此，我仅说一些技术专栏：
+ 饿了么前端：饿了么现在前端的确搞得风生水起，尤其是pwa，感觉他们是这方面搞得国内最为成熟的一家。可能并不是，但他们肯定是分享这方面内容最多的公司。感觉饿了么前端蛮多大牛，不过感觉他们都喜欢混国外圈，黄玄基本都是在medium发文章的。。。 某熊的全栈之路：这个应该是infoq的专栏，这个编辑每个礼拜会发一个国内外最新技术的文章集合，基本是前端为主。内容比较新颖，基本上最时髦的都在这里面。 Think In Vue：意如其名，现在vue在国内真的很火。火到我觉得用react的撕逼应该撕不过vue，vue的作者尤雨溪在知乎也是很活跃的，经常手撕任何喷vue的人，还有看他阮一峰每日一喷很有意思。阮老师也是个很有意思的人，感觉天天都有人喷他，但是阮老师的心态丝毫不受影响，剖有大师风范。不过值得一提的是，阮老师博客的广告位可价值不菲哦~~ 美团点评技术博客：算得上是大厂，值得一看。  知乎乱，前端乱，如何乱中取胜，就是要保持一颗平常心。
+开发者头条 不温不火的平台，文章质量还行。我一般发文章这个里面也会发一份。感觉里面的内容偏机器学习以及架构方面，而且这发文章可以攒IO币，可以换书哟。
+Medium 国外的一个博客平台，访问需要翻墙。这是国外一个专门写story的地方，样式很好看，应该算得上是国外非常知名的一个博客平台了。当然了，里面的内容也是多姿多彩的，同时里面的技术文章质量也有很多很高的文章。现在国内技术圈翻译的大多数文章基本都是来自于这个平台。
+Quora 国外一个和知乎一样的网站。不过知乎由于国内人数优势，火爆异常。Quora则是不温不火，而且上面还有不少华人。我关注过一段时间，但貌似都没什么特别的内容。 以上基本就是我所有的对于一些博客平台的了解，可能不包含所有，但基本都是我自己的个人的亲身经历。可能部分言辞颇为激烈，但也都是我的肺腑之言。
+微信公众号 微信公众号作为一种特殊的平台，现在也成为一种传播渠道，有点类似于报看订阅的形式。但这不一定是一种非常有效的传播方式，感觉深度还是不够的，我比较喜欢在电脑上看文章，因为在手机上看文章难以持续地专注于一篇有内容的文章，一般就只能浅尝则止。所以我一般都是把链接转到我的微信PC版，然后再用浏览器打开，下面介绍一些我关注的一些技术类公众号：
+ 前端之巅：我之前提过的，应该是infoQ的平台，其实和之前的知乎专栏应该是重叠的。 奇舞周刊：360奇舞团队，前面也介绍过了，国内的知名的前端团队，会有一些比较有价值的文章。 前端早读课：每天早上都会发送推文，但是文章质量嘛，参差不齐，基本上都是别人的文章。 FEX：百度FEX团队，收集最新技术文章，但是排版比较差，比较原始。 神秘的程序员们：里面会有一些脑洞大开的漫画，而且会有程序猿和产品经理以及架构师撕逼的故事，很有趣。  Github 为什么我要把Github单独作为一章节来讲呢？因为它实在太重要了！！！以至于我除了它，根本不想去尝试其它类似的平台。关于Github可以讲的东西太多太多，它带给程序员的则是无穷的魅力。在此，我也仅就几个方面谈谈我的个人理解：
+star篇 Star是衡量一个开源项目是否受欢迎的重要标准之一（当然也有很多是骗star的）。其实，现在很多人看到一个项目都会去star，但是后续是否会关注，当然也就不一定了。曾经有一段时间，我对star深深着迷（其实现在还是很着迷），我每天都希望有人能给我的项目star，看着别人上千的star我都会超级羡慕。但我其实也能够深深体会到做一个开源项目的不容易，开发者有一个idea往往很简单，但是要去实现它，推广它，完善它。这真的很难很难，而且还会有各种各样形形色色的人问你各种问题，给你提出各种要求，这些都是很痛苦的。但是我依然希望自己有一天还是能够成为一名出色的开源项目的开发者。下面我就挑一些我star的项目来讲一讲：
+ prepack：前几天，前端圈最火的技术，编译优化，facebook总是走在潮流之端。 sw-precache &amp; sw-toolbox：谷歌关于pwa的相关工具，值得关注。 chrome-remote-interface：师妹介绍我的一个调用headless Chrome的工具，文档阅读起来比较痛苦，可以码，虽然你也不一定看。 hammer.</p>
   <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
+    <a class="read-more" href="https://madneal.com/post/programer/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/" class="post-link">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</a></h3>
+    <p class="post-meta">@Neal · May 11, 2017 · 5 min read</p>
+  </header>
+  
+  <p class="post-summary">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1] 原文：基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+渐进式web应用是大势所趋。越来越多的大公司开始使用这些技术（比如推特：https://mobile.twitter.com/）。
+想象你可以在地铁中浏览一个web应用，这个应用能够向用户推送通知并且提供实时的数据，以及提供类似于app的浏览，这些就是PWA的大致的能力。
+渐进式web应用（PWA）是一个web应用能够提供给用户一种类似于app的体验。PWA得益于现代web科技创新（Service Workers, Native APIS, JS famework）以及提升的web应用质量标准。
+如果你想了解更多关于PWA，请访问这个很棒的Google developer page。
+看一下下面的PWA！看起来很像原生的app，是不是？
+推特渐进式web应用
+从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
+  你可以选择任何你喜欢的框架来进行开发；
+  一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+  很容易获得：不需要通过应用商店来下载。
+  然而，在2017年早期，PWA仍然面临一些限制条件：
+  Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+  一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/" class="post-link">service worker介绍</a></h3>
+    <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：Service workers explained
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
+ 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
+Service worker就好像它的内部有一个有一个shared worker ：
+ 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
+ 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
+ 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/" class="post-link">Twitter Lite以及大规模的高性能React渐进式网络应用</a></h3>
+    <p class="post-meta">@Neal · Apr 16, 2017 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">Twitter Lite以及大规模的高性能React渐进式网络应用  原文：Twitter Lite and High Performance React Progressive Web Apps at Scale
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+  让我们一起来了解世界最大的React.js PWA, Twitter Lite之中常见的和不太常见的性能瓶颈。
+ 创建一个快速的web应用包含很多方面，包括：时间花费在什么地方，理解其发生的原因并且应用潜在的解决方案。不幸的是，从来就没有一个快速的修复方法。性能是一个持续的问题，涉及到需要对需要提高的内容的持续观察和检测。在Twitter Lite中，我们在很多方面进行了一些小的提升：从初始加载时间搭配React组件的渲染（以及避免再次渲染）到图像的加载等等。大多数的变化往往是非常小的，当所有的变化叠加在一起让我们开发出了最大的以及最快的渐进式web应用。
+在继续阅读之前： 如果你才开始观测并且提升你的web应用，我强烈推荐你学习如何阅读帧图，如果你还不知道如何去做的话。
+下面的每个章节包括例子的 Chrome里面的开发者工具timeline记录的截图。为了让结果更清晰，我强调每一对例子坏的（左图）和好的（右图）进行对比（译者注：因为markdown图片显示的问题，因此原文的左右图在本文中是上图和下图）。
+对于timeline和帧图特别的一点：因为我们针对的是很多种的手机设备，我们一般都会在一个模拟的环境中记录这些数据：比5x要慢的CPU以及3G的网络连接。这个不仅更现实，而且还会让问题更容易发现。
+经过很多讨论，我们终于通过路由将公共区域分解成独立的块（例子如下）。当我们收件箱收到代码审查的通知的那一天终于来了：
+const plugins = [  // 提取vendor和webpack模块的manifest  new webpack.optimiza.CommonChunkPlugin({  names: [ &#39;vendor&#39;, &#39;manifest&#39;],  minChunks: Infinity  }),  // 从所有的块中提取公共模块（不需要&#39;name&#39;属性）  mew webpack.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/twitter-lite%E4%BB%A5%E5%8F%8A%E5%A4%A7%E8%A7%84%E6%A8%A1%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDreact%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/" class="post-link">第一个progressive web application，发车！</a></h3>
+    <p class="post-meta">@Neal · Mar 19, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">progressive web application是谷歌推出的一种渐进式web应用，通过利用service-worker等来达到类似于原生应用，而且在chrome浏览器还可以添加到主页，完全就和一个app无异。老实说我觉得pwa是一个很好的发展方向，虽然小程序搞了一段时间不温不火，但是pwa的限制更少，再说还有谷歌支持，只不过现在部分浏览器可能支持的不是很好。 国内饿了么前段时间做了一个pwa，我觉得就挺好的 https://h5.ele.me/msite/ 。 我觉得和native app使用已经比较接近了，而且还无需安装。 扯得有点多，今天主要是讲下自己怎么做一个pwa。当然了，我也是新手，我的pwa也是基于谷歌的pwa的sample做了一些改进。谷歌现在很多开发者文档都做了翻译，sample主要是一个天气应用，里面具体的实现逻辑我就不讲了，我讲以下如何部署这个pwa。 在谷歌的sample里面是推荐使用firebase来部署你的pwa，但是由于国内的高墙，在firebase init的时候总是authentication error，stackoverflow上面说是代理的原因，但是不上代理又没办法使用firebase，所以这是一个死循环。但是！！我们有github page，github page是一个很好的展示静态页面的方面，以前只能支持渲染gh分支里面的内容，现在github对于github page功能做了完善，详细可以看下这篇文章http://blog.csdn.net/neal1991/article/details/53535914 。 下面跟我来： 1.进入https://github.com/neal1991/pwa 可以fork或者clone这个项目，我已经将里面的一些东西，改掉了，可以直接运行。 2.进入settings里面设置 现在你进入https://yourusername.github.io/your-reporistry-name/就可以发车了，是不是很快。 接着我还想讲一讲我这个项目做的一些改进的地方，因为这个weather pwa使用的是yahoo的一个api，通过利用woeid可以去查询各个城市的天气以及相关信息。但是网上却没有中国各个城市的数字代码，注意是WEPID代码，我后来发觉http://www.imeihua.net/tool/weathercode.aspx 这个网站是可以查询wepid的，本来想写一个爬虫爬取的，但是这个网站似乎做了什么限制，我使用curl模拟下请求，限制访问了，这个网站使用.NET实现的，.NET的web请求里面总是包含了一些奇怪的属性。后来我又发现一个国外的网站，很方便，直接get请求就能获取http://woeid.rosselliot.co.nz/lookup ，于是我就写了一个爬虫去爬取，源代码在https://github.com/neal1991/woeid-parser 核心代码
+var request = require(&#39;superagent&#39;); var fs = require(&#39;fs&#39;); var cityConfig = [&#39;wuhu&#39;, &#39;shanghai&#39;, &#39;beijing&#39;, &#39;hangzhou&#39;, &#39;nanjing&#39;, &#39;wuxi&#39;, &#39;xiamen&#39;, &#39;longyan&#39;]; var cheerio = require(&#39;cheerio&#39;); var url = &#39;http://woeid.rosselliot.co.nz/lookup/&#39;; var attrNames = [&#39;city&#39;, &#39;province&#39;, &#39;country&#39;, &#39;woeid&#39;]; var result = [];  cityConfig.forEach(function(city) { 	request.get(url &#43; city) 	.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAprogressive-web-application%E5%8F%91%E8%BD%A6/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/" class="post-link">第一个chrome extension</a></h3>
+    <p class="post-meta">@Neal · Mar 4, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">如今，chrome浏览器的使用如越来越流行，chrome extension往往能提供更多很丰富的功能。以前一直想了解这方面的东西，可是又担心很复杂。前段时间，在斗鱼看一个直播，想刷弹幕，但是每次自己输入有很麻烦，所以写个小脚本就可以了，后来想以下也可以使用chrome extension来实现。关于chrome extension,google就给出了相关的文档，另外国内360也翻译了这篇文档。当然我所做的东西还是很基础的，在此，也是就是说一下自己第一次尝试的经验。 其实，chrome extension似乎和现在很火的pwa有一点类似，对于chrome extension来说，有个文件是必不可少的，即manifest.json，这对于extension是非常重要的。这个文件主要是项目的某些描述，以及一些文件的引入。以我的文件为例：
+{ &#34;manifest_version&#34;: 2, &#34;name&#34;: &#34;弹幕增强&#34;, &#34;description&#34;: &#34;This extension provides you a good experience of sending danmu at douyu&#34;, &#34;version&#34;: &#34;1.0&#34;, &#34;browser_action&#34;: { &#34;default_icon&#34;: &#34;icon.png&#34;, &#34;default_popup&#34;: &#34;popup.html&#34; }, &#34;content_scripts&#34; : [{ &#34;matches&#34;: [ &#34;http://*/*&#34;, &#34;https://*/*&#34; ], &#34;js&#34; : [&#34;app.js&#34;], &#34;run_at&#34;: &#34;document_end&#34; }] } manifes_version好像是必须定义为2，这个好像是强制要求。提及一点的就是你可以使用开发者模式从而调试你的extension。你可以在tab右键打开更多工具，然后找到拓展程序打开，然后你可以通过加载已解压的拓展程序，只要选择你extension的文件夹就可以了，并且在右上角勾选上开发者模式。 接着主要讲一下“brower_action&#34;里面定义的是extension的相关内容，“default_icon&#34;即是插件的图标，“default_popup&#34;就是弹出的页面，chrome extension规定html文件和js文件必须是分开来的。extension和当前打开的页面之间的环境是相互隔离的，是不可以直接通信的。“content_script&#34;是定义插入到当前打开页面的相关js文件，“matches”可以让脚本再匹配到规定的正则才会执行，“js&#34;则是插入到页面的js文件，你还可以插入css文件。需要注意的是，“content_script&#34;虽然能够操纵当前页面的dom，但是他和当前页面的js环境是相互隔离的，不能够互相交互，当然也有相应的其他方法。 我的extension只是用到了”content_script”:
+var times = 1000; for (var i = 0; i &lt; times; i &#43;&#43;) { (function(i) { setTimeout(function() { console.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E7%AC%AC%E4%B8%80%E4%B8%AAchrome-extension/">Read More →</a>
   </footer>
 </article>
 
@@ -272,7 +421,7 @@ git config --global user.name &#34;username&#34; git config --global user.email 
         <article class="post-entry">
   <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/" class="post-link">Ext.js性能优化漫谈</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
+    <p class="post-meta">@Neal · Feb 22, 2017 · 1 min read</p>
   </header>
   
   <p class="post-summary">Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
@@ -284,109 +433,6 @@ listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽�
 批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/" class="post-link">Django学习——开发你的第一个Django应用2</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
-产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
-开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
-进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
-在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" class="post-link">Django学习——开发你的第一个Django应用1</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
-建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
- django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
-创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/" class="post-link">css盒子模型设置的缩略形式</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">css里面的盒子模型里面设置padding,margin的上下或者左右的大小有很多方式，下面说说两种不同的方式： original method:
-padding-top:0px padding-right:20px padding-bottom:30px padding-left:10px new method:
-padding:0px 20px 30px 10px // top right bottom left respectively 同理：
-margin-top:0px margin-right:20px margin-bottom:30px margin-left:10px margin:0px 20px 30px 10px 如果上下左右的值都是一样的话，那我们可以这样设置： the old method:
-padding-top:20px padding-right:20px padding-bottom:20px padding-left:20px the new method:
-padding:20px 如果上下值和左右值分别一样呢： the old method:
-margin-top:0px margin-right:20px margin-bottom:0px margin-left:20px the new method
-margin:0px 20px // top and bottom right and left respectively border的属性设置: the old method
-border-width:thin border-style:solid boder-color black the new method:</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/css%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE%E7%9A%84%E7%BC%A9%E7%95%A5%E5%BD%A2%E5%BC%8F/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/" class="post-link">css样式表的引入方式</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：
-&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt; @import &#34;css文件&#34; 显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于是html标记，而@import是css语法。标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/" class="post-link">Bootstrap真的总是好的吗</a></h3>
-    <p class="post-meta">@Neal · Jan 1, 0001 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">原文地址：Bootstrap considered harmful
-原文作者：Hidde de Vries
-译文出自：neal
-译者： Neal
-个人主页：http://neal1991.pythonanywhere.com
-这些年Bootstrap已经在前端项目中流行起来，它能够带来很多好处。然而，但是如果以你们的团队已经有了在职的前端开发人员，我觉得最好还是不要用Bootstrap，在某些地方，弊大于利。
-Bootstrap的好处是什么 Bootstrap主要是栅格系统，但同时也带来了很多组件的样式表和脚本，包括表格，导航栏，进度条，页码，表单样式，模式和提示文本。在这篇文章，我所说的Bootstrap是包含它的所有功能的。
-Bootstrap是一个很好的工具对于一个纸箱装饰他们的程序但是无须担心结果的样式问题的后端开发人员。如果因为某些原因，预算或者什么的，你的团队没有前端开发人员或者设计人员，Bootstrap是一个绝佳的弥补方法。
-对于设计人员来说，Bootstrap也是有用处的：它可以快速地从设计软件切换到浏览器中，不需要过多担心前端的代码设计。
-即使是对于那些基本只专注于数据但是很少关注UI和布局的前端开发人员来说，Bootstrap也是一个绝佳的工具。
-什么时候你最好别用它 然而，如果你的团队已经拥有了前端开发人员，使用Bootstrap可能会潜在的浪费他们宝贵的时间，并让他们可能从解决实际问题上转移注意力。Bootstrap做的正是前端开发人员所擅长的事情，但是用的是一种很通用的方式。你的网站或者网络app是非常特别的，因此如果你使用一个通用的系统可能会不太合适。这意味着为了实现这种特殊性将会包含很多的异常发生。
-当需要很多异常来复位Bootstrap Bootstrap曾经是被Twitter 的开发人员用于系统化他们网络app的样式。如果你的网站app和他们的样式不一样，这意味着你需要解除他们中的某些样式。
-很多网站和Twitter的样式并不相同。因此，如果他们装载了Bootstrap的时候，他们可能需要卸载很多地方。
-在某些网站上，我看到有9/10的Bootstrap样式已经被网站自己的样式所替代。坦白说，这很荒谬。
-当它让简单的事情变得复杂 CSS是给网站添加一套简单的样式规则，这有时候可能会被重写。当你在你的网站使用Bootstrap的样式的时候，几乎所有的元素都是用一个复杂的样式规则。任何异常都会在它之上表现。问题是大多数网站他们的样式异常都被表现在Bootstrap之上。
-Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任何元素相结合起来，对于需要特别处理的列则要区别对待。很多网站十分简单：它们在小屏幕设备上没有列或者只有一到两列在大一点的屏幕上。
-当它产生技术债务的时候 前端依赖Bootstrap的时间越长，就会牵扯到更多的东西，更多的规则需要设置来覆盖Bootstrap的某些规则。这或多或少地让技术代码背负技术债务，尤其前端代码的部署需要手动的更新。随着依赖的增多，Bootstrap将变得更加难以移除。
-当它命名一些不是你app的规定 命名是一件很困难的事情，为团队的应用中的规定命名需要花费相当多的时间。使用’btn’之类的缩写并不能很好的给组件命名。
-结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/">Read More →</a>
   </footer>
 </article>
 
@@ -435,6 +481,19 @@ Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 
 
