@@ -214,26 +214,6 @@
       
         <article class="post-entry">
   <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/nilayay/" class="post-link">NilAway：实用的 Go Nil Panic 检测方式</a></h3>
-    <p class="post-meta">@Neal · Nov 30, 2024 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
-指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
-nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/nilayay/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/go-vuln-management/" class="post-link">Go 的漏洞管理</a></h3>
     <p class="post-meta">@Neal · Sep 7, 2022 · 1 min read</p>
   </header>
@@ -343,6 +323,26 @@ Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
 func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	startIndex := p - step 	endIndex := p &#43; step  	if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { 	startIndex = 1 	endIndex = startIndex &#43; 2 * step 	} else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { 	endIndex = pages 	startIndex = pages - 2 * step 	} else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { 	startIndex = 1 	endIndex = pages 	} 		// handle some special cases 	if startIndex &lt; 1 { 	startIndex = 1 	}  	if endIndex &gt; pages { 	endIndex = pages 	}  	for i := startIndex; i &lt;= endIndex; i&#43;&#43; { 	pageList = append(pageList, i) 	}  	return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/nilayay/" class="post-link">NilAway：实用的 Go Nil Panic 检测方式</a></h3>
+    <p class="post-meta">@Neal · Jan 1, 0001 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：NilAway: Practical Nil Panic Detection for Go
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
+指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
+nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
+图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/nilayay/">Read More →</a>
   </footer>
 </article>
 
