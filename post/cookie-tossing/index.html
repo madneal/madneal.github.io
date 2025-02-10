@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>通过 Cookie Tossing 劫持 OAUTH 流程</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="Neal" />
+  <meta name="description" content="原文：Hijacking OAUTH flows via Cookie Tossing
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
+我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。
+什么是 Cookie Tossing? Cookie Tossing 是一种技术允许一个子域名（例如 securitylabs.snyk.io）在其父域名（例如 snyk.io）上设置 cookie。在我们查看一些问题场景之前，先来了解一下 HTTP cookie 是什么。
+什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。" />
+
+  
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="通过 Cookie Tossing 劫持 OAUTH 流程" />
+  <meta property="og:description" content="原文：Hijacking OAUTH flows via Cookie Tossing
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
+我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。
+什么是 Cookie Tossing? Cookie Tossing 是一种技术允许一个子域名（例如 securitylabs.snyk.io）在其父域名（例如 snyk.io）上设置 cookie。在我们查看一些问题场景之前，先来了解一下 HTTP cookie 是什么。
+什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。" />
+  <meta property="og:url" content="https://madneal.com/post/cookie-tossing/" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+
+
+<link rel="canonical" href="https://madneal.com/post/cookie-tossing/" />
+<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta content="API, web 安全" name="keywords">
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://madneal.com/post">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">通过 Cookie Tossing 劫持 OAUTH 流程</h1>
+      <p class="post-meta">@Neal · Feb 6, 2025 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>原文：<a href="https://snyk.io/articles/hijacking-oauth-flows-via-cookie-tossing/">Hijacking OAUTH flows via Cookie Tossing</a></p>
+<p>译者：<a href="https://github.com/madneal">madneal</a></p>
+<p>welcome to star my <a href="https://github.com/madneal/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing.ecnu@gmail.com">me</a></p>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
+</blockquote>
+<p>我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，<a href="https://www.thomashouhou.com/about-me">Thomas Houhou</a> 进行了一个有趣的演讲，介绍了如何<a href="https://www.youtube.com/watch?v=xLPYWim60jA">利用 Cookie Tossing 攻击</a>来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。</p>
+<p>我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。</p>
+<h2 id="什么是-cookie-tossing">什么是 Cookie Tossing?</h2>
+<p>Cookie Tossing 是一种技术允许一个子域名（例如 securitylabs.snyk.io）在其父域名（例如 snyk.io）上设置 cookie。在我们查看一些问题场景之前，先来了解一下 HTTP cookie 是什么。</p>
+<h2 id="什么是-http-cookies">什么是 HTTP cookies？</h2>
+<p>根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。</p>
+<p>Cookie 具有各种属性和标志定义它们的行为和范围。以下是关于 Cookie 关键属性和标志的简要介绍：</p>
+<table>
+<thead>
+<tr>
+<th>Attributes</th>
+<th>Attributes</th>
+<th>Attributes</th>
+<th>Attributes</th>
+<th>Attributes</th>
+<th>Flags</th>
+<th>Flags</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Expires</td>
+<td>Max-Age</td>
+<td>Domain</td>
+<td>Path</td>
+<td>SameSite</td>
+<td>Secure</td>
+<td>HttpOnly</td>
+</tr>
+</tbody>
+</table>
+<h2 id="属性">属性</h2>
+<ol>
+<li><strong>Expires</strong>:</li>
+</ol>
+<ul>
+<li>设置 cookie 的过期日期和时间。</li>
+<li>示例：<code>Expires=Wed, 21 Oct 2024 07:28:00 GMT</code></li>
+</ul>
+<ol start="2">
+<li><strong>Max-Age</strong>:</li>
+</ol>
+<ul>
+<li>定义 cookie 的生命周期（以秒为单位）。</li>
+<li>示例：<code>Max-Age=3600</code>(1 小时)</li>
+</ul>
+<ol start="3">
+<li><strong>Domain</strong>:</li>
+</ol>
+<ul>
+<li>指定 cookie 有效的域名，允许子域名访问。</li>
+<li>示例：<code>Domain=.snyk.io</code></li>
+</ul>
+<ol start="4">
+<li><strong>Path</strong>:</li>
+</ol>
+<ul>
+<li>将cookie限制在域内的特定路径。</li>
+<li>示例：<code>Path=/account</code></li>
+</ul>
+<ol start="5">
+<li><strong>SameSite</strong>:</li>
+</ol>
+<ul>
+<li>控制跨站请求中的cookie发送，以防止 CSRF 攻击。</li>
+<li>值： <code>Strict</code>, <code>Lax</code>, <code>None</code></li>
+<li>示例：<code>SameSite=Lax</code></li>
+</ul>
+<h2 id="标志">标志</h2>
+<ol>
+<li><strong>Secure</strong>:</li>
+</ol>
+<ul>
+<li>确保 cookie 仅通过 HTTPS 发送。</li>
+<li>示例：<code>Secure</code></li>
+</ul>
+<ol start="2">
+<li><strong>HttpOnly</strong>:</li>
+</ol>
+<ul>
+<li>防止通过 JavaScript 访问cookie，增强安全性。</li>
+<li>示例：<code>HttpOnly</code></li>
+</ul>
+<p>这些属性和标志定义了 cookie 的生命周期、范围和安全性，从而实现有效和安全的用户会话管理。</p>
+<h2 id="设置-cookie">设置 cookie</h2>
+<p>Cookies 可以通过 HTTP 响应中的 <code>Set-Cookie</code> 头部或使用 JavaScript Cookie API 设置。以下是这两种方法的基本示例：</p>
+<h2 id="使用-set-cookie-头设置-cookies">使用 <code>Set-Cookie</code> 头设置 cookies</h2>
+<p>HTTP 响应可以包含 Set-Cookie 头部来设置一个 cookie：</p>
+<pre tabindex="0"><code>HTTP/1.1 200 OK
+Set-Cookie: userId=patch01; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Domain=.snyk.io; Path=/;  Secure; HttpOnly; SameSite=Lax
+</code></pre><h2 id="使用-javascript-设置-cookie">使用 JavaScript 设置 Cookie</h2>
+<p>使用 JavaScript Cookie API，可以这样设置 cookie：</p>
+<pre tabindex="0"><code>document.cookie = &#34;userId=patch01; expires=Wed, 21 Oct 2024 07:28:00 GMT; path=/; domain=.snyk.io; secure; samesite=lax&#34;;
+</code></pre><p>在浏览器中，Cookies 以包含键、值和属性的元组形式存储。当浏览器将 Cookie 发送回服务器时，仅包含键和值，而不包括属性。此外，浏览器对每个域名的 Cookie 数量有最大限制。</p>
+<h2 id="cookie-域">Cookie 域</h2>
+<p>Cookie 的 Domain 属性指定了哪些域可以访问该 Cookie。默认情况下，Cookie 仅对设置它的域可用。然而，你可以使用 Domain 属性来扩展 Cookie 的可访问性。例如，如果一个 Cookie 是由 <code>blog.snyk.io</code> 设置的，并且具有 <code>Domain=.snyk.io</code> 属性，它将对 <code>snyk.io</code> 的所有子域可用，例如 <code>app.snyk.io</code> 和 <code>snyk.io</code> 本身。相反，虽然父域（snyk.io）可以使用 <code>Domain=.snyk.io</code> 设置一个 Cookie，使其可被所有子域访问，但它不能明确为特定子域（如 <code>blog.snyk.io</code>）设置 Cookie。这种方法在多子域应用程序中提供了更大的灵活性，同时保持对哪些域可以共享 Cookie 数据的控制。</p>
+<h2 id="cookie-路径和顺序">Cookie 路径和顺序</h2>
+<p>Cookie 的 Path 属性指定了 Cookie 适用的 URL 子集。默认情况下，Cookie 可用于创建它的请求 URL 的路径及其子目录。例如，使用 <code>Path=/account</code> 设置的 Cookie 将可用于 /account 及其任何子目录，例如 /account/settings。Cookie 还根据其 Path 属性进行排序；具有更具体路径（例如 /account/settings）的 Cookie 会在具有较少具体路径（例如 /account）的 Cookie 之前发送。这种顺序确保在多个 Cookie 匹配请求 URL 时，最具体的 Cookie 被优先考虑。</p>
+<h2 id="利用-cookie-tossing-攻击">利用 Cookie Tossing 攻击</h2>
+<p>域名和路径属性的特性可以被利用来执行 Cookie Tossing 攻击。当攻击者通过 XSS 漏洞或设计（例如为客户创建子域名的服务）控制了一个子域名时，他们可以在父域名上设置 cookies。这乍一看似乎并不危险，但可以通过在受害者的浏览器上为特定端点设置攻击者的会话 cookie 来加以利用。</p>
+<p>例如，攻击者可以设置一个 <code>Domain=.snyk.io</code> 和 <code>Path=/api/payment</code> 的 cookie。当受害者使用该应用程序时，一切看起来都是正常的，他们登录了自己的正确账户。然而，当他们访问处理敏感数据的某些 API 端点时，例如添加支付卡，应用程序却使用了攻击者的 cookie。这导致受害者的支付方式被添加到攻击者的账户中，而不是他们自己的账户。</p>
+<p>利用这种情况并不太简单，因为利用 anti-CSRF 令牌的应用程序可能会带来重大挑战。在这种情况下，请求中包含的是受害者的 CSRF 令牌，而不是攻击者的，这导致合法请求未能通过 anti-CSRF 检查而被丢弃。尽管存在这一障碍，许多应用程序仍然容易受到这些类型的攻击。这是因为许多基于 JSON 的 API 端点并未实施 anti-CSRF 机制，而是依赖同源策略（SOP）来防止带有 <code>application/json</code> 内容类型的跨源请求，除非通过适当的跨源资源共享（CORS）头部允许。然而，仅依靠 CORS 预检来防止 CSRF 攻击可能会导致 CSRF 令牌被视为不必要，这可能使端点暴露于跨子域攻击。此外，使用自定义头部或授权头部来管理会话状态的应用程序不易受到 cookie tossing 攻击，因为浏览器不会像自动提交 cookies 那样自动提交这些头部。</p>
+<p>还值得一提的是，由于在 SameSite cookie 的上下文中对站点的定义放宽，SameSite cookie 属性在这里并不提供任何保护。由于 cookie tossing 攻击需要从子域发起，这已经满足了 SameSite 的要求，即使设置为 <code>lax</code> 或 <code>strict</code>。</p>
+<h2 id="重新审视-gitpod">重新审视 GitPod</h2>
+<p><a href="https://www.gitpod.io/">GitPod</a> 是一个流行的云开发环境（CDE），允许客户在几秒钟内部署完整的开发环境。我们之前在对 <a href="https://snyk.io/blog/gitpod-remote-code-execution-vulnerability-websockets/">WebSockets</a> 的研究中已经关注过 GitPod，并且从中了解到 GitPod 在 <code>gitpod.io</code> 域名的子域上托管其环境，并且可以在该子域上执行 JavaScript。基于这一知识，我们决定探索 Cookie Tossing 攻击可能带来的影响，使用一个真实应用作为测试平台，以展示其合法影响。</p>
+<p>由于 GitPod 需要访问用户的源代码库，以便工程师能够使用其产品进行代码检出和提交，我们的一个想法是检查 GitPod 到 GitHub 或 BitBucket 等提供者的 OAUTH 流程是如何处理的，以及它们是否可能受到此攻击的影响。在配置新的 Git 服务商时，我们监控了该流程，观察到一个典型的 OAUTH 流程，并决定尝试将攻击者的会话 cookie 投放到与 OAUTH 过程相关的 API 端点上。</p>
+<p>为了测试这一场景，我们创建了一些 JavaScript，并将其托管在我们的 CDE 实例 <code>redacted.ws–eu114.gitpod.io</code> 上，以便将 <code>_gitpod_io_jwt2_</code> cookie 的值设置为我们攻击者的会话 cookie 值，路径设置为以下内容：</p>
+<ul>
+<li>/api/authorize</li>
+<li>/auth/bitbucket/callback</li>
+</ul>
+<p>我们在这篇文章中不会详细讨论如何利用我们的 GitPod 工作区托管任意 JavaScript，因为我们已经在<a href="https://snyk.io/blog/gitpod-remote-code-execution-vulnerability-websockets/">这里</a>进行了说明，但一旦我们的 JavaScript 负载设置完成，我们可以将工作区的 URL 发送给受害者，当他们访问该 URL 时，将会设置我们上面所述的 Cookies。</p>
+<p>受害者不会看到任何异常，当他们返回使用 GitPod 时，他们的会话看起来完全正常。然而，如果受害者决定将他们的账户连接到 Git 服务商，GitPod 将从攻击者账户开始 OAUTH 流程，当提供者将客户端重定向回 GitPod 并带上 OAUTH 代码时，将会把受害者的 Git 账户与我们的攻击者 GitPod 账户连接起来。</p>
+<p>这使我们能够从受害者用户有权限访问的任何代码库创建 GitPod 工作区，包括能够推送新的提交和修改受害者代码库中的源代码。</p>
+<p>下面的时序图可以用来可视化上述针对 GitPod 的 Cookie 投掷攻击的完整流程。</p>
+<p><img src="https://res.cloudinary.com/snyk/image/upload/f_auto,w_2560,q_auto/v1732628085/Screenshot_2024-11-26_at_8.34.18_AM.png" alt=""></p>
+<p>此问题于2024年6月26日报告给GitPod，并于2024年7月1日通过利用 __Host-（原作者误将 __Host- 前缀写作 <code>__Host__</code> ） cookie前缀迅速修复 <a href="https://github.com/gitpod-io/gitpod/pull/19973">在此PR中</a>。该漏洞被标记为CVE-2024-21583。</p>
+<h2 id="__host--cookie-前缀">__Host- cookie 前缀</h2>
+<p>幸运的是，解决 Cookie Tossing 问题有一个简单的方案。可以使用 <code>__Host-</code> cookie 前缀来限制 cookie 仅发送到设置该 cookie 的 host。此外，带有 <code>__Host-</code> 前缀的 cookie 不能修改 <code>domain</code> 或 <code>path</code> 属性，这防止了恶意子域能够在父域上设置 cookie 或针对特定路径。</p>
+<p>最后的思考</p>
+<p>Cookie Tossing 是一种独特且常被忽视的漏洞，影响那些没有明确使用 <code>__Host-</code> cookie 前缀的应用程序。我们已经展示了这种弱点如何被利用，以迫使敏感请求在攻击者的会话上下文中执行，从而可能暴露敏感数据。在复杂的工作流程中，例如利用 OAuth 协议的工作流程，这可能无意中授予攻击者对第三方服务资源的访问权限。我们之前的研究表明，使用 <code>__Host-</code> 前缀的情况很少，这使得许多组织，特别是那些在子域上托管应用程序的组织，处于脆弱状态。每当状态改变请求满足本文所述的条件时，它们可能会受到劫持的威胁。</p>
+</article>
+    <footer class="post-footer">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2025 Neal&#39;s Blog</p>
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

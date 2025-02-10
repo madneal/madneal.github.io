@@ -214,6 +214,26 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/cookie-tossing/" class="post-link">通过 Cookie Tossing 劫持 OAUTH 流程</a></h3>
+    <p class="post-meta">@Neal · Feb 6, 2025 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">原文：Hijacking OAUTH flows via Cookie Tossing
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
+我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。
+什么是 Cookie Tossing? Cookie Tossing 是一种技术允许一个子域名（例如 securitylabs.snyk.io）在其父域名（例如 snyk.io）上设置 cookie。在我们查看一些问题场景之前，先来了解一下 HTTP cookie 是什么。
+什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/cookie-tossing/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gshark/" class="post-link">多平台的敏感信息检测工具-GShark</a></h3>
     <p class="post-meta">@Neal · Apr 17, 2021 · 2 min read</p>
   </header>
@@ -382,26 +402,6 @@ LICENSE: MIT
  该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
-    <p class="post-meta">@Neal · Nov 10, 2019 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Chrome 0-day exploit CVE-2019-13720 used in Operation WizardOpium
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 摘要 卡巴斯基安全防护是卡巴斯基产品的一部分，过去已成功检测到许多零日攻击。最近，为 Google的 Chrome 浏览器发现了一个未知的新漏洞。我们会立即将此情况报告给 Google Chrome 安全团队。在审核了我们提供的 PoC 之后，Google 确认存在零日漏洞并将其分配为 CVE-2019-13720。 Google 已针对 Windows，Mac 和 Linux 发布了 Chrome 版本78.0.3904.87，我们建议所有 Chrome 用户尽快将其更新为最新版本！你可以点击此处阅读 Google 公告。
-卡巴斯基端点产品借助漏洞利用防御组件检测漏洞。该攻击的裁决是 Exploit.Win32.Generic。
-我们称这些攻击为 Operation WizardOpium。到目前为止，我们还无法与任何已知的威胁者建立明确的联系。与蓝莲花攻击有某些非常弱的代码相似性，尽管这很可能是 false flag。目标网站的配置与最近部署了类似虚假标记攻击的早期 DarkHotel 攻击更加一致。
-卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 

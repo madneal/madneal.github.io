@@ -207,6 +207,23 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
+    <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
+在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。
+dns 对于 dns 模块中的 PreRun，其内部也有一个 ErrWildcard 的实现。其实现过程也有一点类似于 dir 模块。通过将 uid 和 domain 进行拼接，理论上这个域名应该不存在，会报一个 no such host 的报错。如果不存在这个报错，则表明对于任意域名都会解析成同一个 IP。如果没有报错，则表明这里可能存在 ErrWildcard。
+wildcardIps, err := d.dnsLookup(ctx, fmt.Sprintf(&#34;%s.%s&#34;, guid, d.options.Domain)) if err == nil {  d.isWildcard = true  d.wildcardIps.AddRange(wildcardIps)  if !d.options.WildcardForced {  return &amp;ErrWildcard{wildcardIps: d.wildcardIps}  } } 在通过 PreRun 函数之后，即是 Run 函数的实现，这个函数的实现基本上逻辑非常简单，就是解析出域名对应的 IP 即可。
+s3 s3 模块主要用于亚马逊云存储桶的包括，里面的实现逻辑比较简单，主要是基于 https://%s.</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gobuster1/" class="post-link">gobuster源码阅读--入口篇</a></h3>
     <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
   </header>
@@ -366,21 +383,6 @@ https://events.xiaopeng.com/r18f95.html?token=2cf68377</p>
 const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/mihoyo/" class="post-link">米哈游内推</a></h3>
-    <p class="post-meta">@Neal · Aug 7, 2021 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">微信扫描投递即可
-社招 
-校招</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/mihoyo/">Read More →</a>
   </footer>
 </article>
 
