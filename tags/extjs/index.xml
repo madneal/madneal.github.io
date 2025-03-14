@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>extjs on Neal&#39;s Blog</title>
+    <title>Extjs on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/extjs/</link>
-    <description>Recent content in extjs on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Extjs on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 22 Feb 2017 21:40:16 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/extjs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Feb 2017 21:40:16 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/extjs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ext.js性能优化漫谈</title>
       <link>https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</link>
       <pubDate>Wed, 22 Feb 2017 21:40:16 +0000</pubDate>
-      
       <guid>https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/</guid>
-      <description>Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：
-尽量不要使用Panel Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。
-事件监听 页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：
-listeners: { load: onFirstLoadData, single: true } 在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。
-避免组件封装 我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。
-减少border布局 不需要一下再加载所有的元素
-批量处理 如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。</description>
+      <description>&lt;p&gt;Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但是前台的渲染和执行也耗费了大量的时间。下面就我个人感受和网上的一些信息对Ext.js的性能优化做一些总结：&lt;/p&gt;&#xA;&lt;h1 id=&#34;尽量不要使用panel&#34;&gt;尽量不要使用Panel&lt;/h1&gt;&#xA;&lt;p&gt;Panel是一个功能比较强大的组件，但是上面却附加了很多的功能和属性，所以也带来了更多的负担，因此在不必要的情况下，尽量不要使用panel，而去使用基类container。&lt;/p&gt;&#xA;&lt;h1 id=&#34;事件监听&#34;&gt;事件监听&lt;/h1&gt;&#xA;&lt;p&gt;页面的render相关事件监听是比较花时间的，在不必要的情况下，尽量不要使用。还有在监听store的load时间的时候，应该监听一次：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;listeners: {&#xA;    load: onFirstLoadData,&#xA;    single: true&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在页面渲染之后，尽量不要再去修改页面，从而避免页面reflow或者repaint。&lt;/p&gt;&#xA;&lt;h1 id=&#34;避免组件封装&#34;&gt;避免组件封装&lt;/h1&gt;&#xA;&lt;p&gt;我们的项目代码往往总是container里面封装container，或者组件里面包裹了组件，其实有很多封装往往是不必要的。因此，减少不必要的组件封装，也可以简化页面DOM结构。&lt;/p&gt;&#xA;&lt;h1 id=&#34;减少border布局&#34;&gt;减少border布局&lt;/h1&gt;&#xA;&lt;p&gt;不需要一下再加载所有的元素&lt;/p&gt;&#xA;&lt;h1 id=&#34;批量处理&#34;&gt;批量处理&lt;/h1&gt;&#xA;&lt;p&gt;如果需要处理大量数据，最好一次性修改，避免多次修改，从而提升性能。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

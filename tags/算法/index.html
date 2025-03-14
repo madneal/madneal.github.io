@@ -226,7 +226,7 @@ Condition3 startIndex &lt; 1 &amp;&amp; endIndex &gt; pages
 Condition4 startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages
 这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
 代码实现 Show me the code.
-func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	startIndex := p - step 	endIndex := p &#43; step  	if startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages { 	startIndex = 1 	endIndex = startIndex &#43; 2 * step 	} else if startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages { 	endIndex = pages 	startIndex = pages - 2 * step 	} else if startIndex &lt; 1 &amp;&amp; endIndex &gt; pages { 	startIndex = 1 	endIndex = pages 	} 		// handle some special cases 	if startIndex &lt; 1 { 	startIndex = 1 	}  	if endIndex &gt; pages { 	endIndex = pages 	}  	for i := startIndex; i &lt;= endIndex; i&#43;&#43; { 	pageList = append(pageList, i) 	}  	return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">Read More →</a>
   </footer>
@@ -243,7 +243,8 @@ func GetPageList(p, step, pages int) ([]int) { 	pageList := make([]int, 0) 	star
 description
 Input an array and an integer, fina a pair of number in the array so that the sum is equals to the inputed integer. If there are several pairs, you can output any pair. For example, if the input array is [1,2,4,5,7,11,15] and an integer 15, because 4 &#43; 11 = 15, hence output 4 and 11.
 analysis and solution
-We try to figure out this problem step by step.</p>
+We try to figure out this problem step by step. (we should notice the difference of ordered and unordered.)
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/the-sum-of-two-fixed-value/">Read More →</a>
   </footer>
@@ -257,7 +258,7 @@ We try to figure out this problem step by step.</p>
   </header>
   
   <p class="post-summary">DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
-clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.</p>
+clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.*rand(N,D); 18 %Evaluate objective for all particles 19 fx=objf(x(:,1),x(:,2)); 20 %Find best 21 [fxbest,ixbest]=min(fx); 22 xbest=x(ixbest,1:D); 23 %Iterate 24 for it=1:itmax; 25 permat=bsxfun(@(x,y) x(randperm(y(1))),basemat’,N(ones(N,1)))’; 26 %Generate donors by mutation 27 v(1:N,1:D)=repmat(xbest,N,1)&#43;F*(x(permat(1:N,1),1:D)éx(permat(1:N,2),1: D)); 28 %Perform recombination 29 r=repmat(randi([1 D],N,1),1,D); 30 muv = ((rand(N,D)&lt;CR) &#43; (basej==r)) ~= 0; 31 mux = 1émuv; 32 u(1:N,1:D)=x(1:N,1:D).*mux(1:N,1:D)&#43;v(1:N,1:D).*muv(1:N,1:D); 33 %Greedy selection 34 fu=objf(u(:,1),u(:,2)); 35 idx=fu&lt;fx; 36 fx(idx)=fu(idx); 37 x(idx,1:D)=u(idx,1:D); 38 %Find best 39 [fxbest,ixbest]=min(fx); 40 xbest=x(ixbest,1:D); 41 end %end loop on iterations 42 [xbest,fxbest] </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">Read More →</a>
   </footer>
@@ -289,7 +290,9 @@ Output
 然后对应每个问题在一行中输出经过ROT13加密后的一段文字。
 Sample Input
 3
-How can you tell an extrovert from an</p>
+How can you tell an extrovert from an
+introvert at NSA? Va gur ryringbef,
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/">Read More →</a>
   </footer>
@@ -330,20 +333,7 @@ How can you tell an extrovert from an</p>
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

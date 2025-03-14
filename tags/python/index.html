@@ -221,7 +221,8 @@
   <p class="post-summary">今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
 可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
 可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
-# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv.</p>
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv.writer(f, delimiter=&#39;,&#39;) writer.writerow(header) for ele in result: writer.writerow([ele[&#34;id&#34;], ele[&#34;last-modified&#34;], ele[&#34;cvss&#34;], ele[&#34;summary&#34;]]) def search(params, options): url = &#34;https://cve.circl.lu/api/search/&#34; &#43; params print(url) filename = f&#34;{params.replace(&#39;/&#39;, &#39;-&#39;)}.json&#34; try: if isfile(filename) and check_file_modified(filename, 3): with open(filename, &#39;r&#39;) as f: result = loads(f.read()) else: res = get(url) if res.status_code == 200: with open(filename, &#39;w&#39;) as f: f.write(res.text) result = loads(res.text) else: print(&#34;Request failed: %d&#34;.format(res.status_code)) cve_result = [] for ele in result: if has_cve(ele, options.vendor, options.product, options.version, options.edition): obj = { &#34;id&#34;: ele[&#34;id&#34;], &#34;last-modified&#34;: ele[&#34;last-modified&#34;], &#34;cvss&#34;: ele[&#34;cvss&#34;], &#34;summary&#34;: ele[&#34;summary&#34;] } cve_result.append(obj) else: continue print(f&#34;{options.vendor}:{options.product}:{options.version}:{options.edition} &#34; f&#34;has impacted by {len(cve_result)} cve&#34;) if options.output is None or options.output == &#34;csv&#34;: write_csv(&#34;result.csv&#34;, cve_result, [&#34;id&#34;, &#34;last-modified&#34;, &#34;cvss&#34;, &#34;summary&#34;]) else: write_json(&#34;result.json&#34;, cve_result) except Exception as e: print(e) 完整的项目地址可以参考 https://github.com/neal1991/check-cve/blob/master/check-cve.py
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/check-cve/">Read More →</a>
   </footer>
@@ -234,11 +235,13 @@
     <p class="post-meta">@Neal · Apr 22, 2019 · 5 min read</p>
   </header>
   
-  <p class="post-summary">Introduction Target: 10.10.10.121(OS: Linux)
+  <p class="post-summary">
+Introduction Target: 10.10.10.121(OS: Linux)
 Kali: 10.10.16.28
 To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.
 Infomation Enumeration Firstly, gather open ports and services:
-# Nmap 7.</p>
+# Nmap 7.70 scan initiated Sat Apr 20 02:13:56 2019 as: nmap -sC -sV -oA services 10.10.10.121 Nmap scan report for 10.10.10.121 Host is up (1.2s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 e5:bb:4d:9c:de:af:6b:bf:ba:8c:22:7a:d8:d7:43:28 (RSA) | 256 d5:b0:10:50:74:86:a3:9f:c5:53:6f:3b:4a:24:61:19 (ECDSA) |_ 256 e2:1b:88:d3:76:21:d4:1e:38:15:4a:81:11:b7:99:07 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works 3000/tcp open http Node.js Express framework |_http-title: Site doesn&#39;t have a title (application/json; charset=utf-8). Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Service detection performed. Please report any incorrect results at https://nmap.org/submit/ . # Nmap done at Sat Apr 20 02:14:40 2019 -- 1 IP address (1 host up) scanned in 43.61 seconds The port 80 seems to be an HTTP service. Access to http://10.10.10.121, nothing special but just the apache default web page. Try gobuster:
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/help-hack-the-box/">Read More →</a>
   </footer>
@@ -253,8 +256,9 @@ Infomation Enumeration Firstly, gather open ports and services:
   
   <p class="post-summary">Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
 模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = {  &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
-from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.</p>
+doc = Docxtpl(filename) context = { &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
+from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.utils import Markup tpl=DocxTemplate(&#39;test_files/inline_image_tpl.docx&#39;) context = { &#39;myimage&#39; : InlineImage(tpl,&#39;test_files/python_logo.png&#39;,width=Mm(20)), &#39;myimageratio&#39;: InlineImage(tpl, &#39;test_files/python_jpeg.jpg&#39;, width=Mm(30), height=Mm(60)), &#39;frameworks&#39; : [{&#39;image&#39; : InlineImage(tpl,&#39;test_files/django.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;The web framework for perfectionists with deadlines&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/zope.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/pyramid.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/bottle.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/tornado.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Tornado is a Python web framework and asynchronous networking library.&#39;}, ] } # testing that it works also when autoescape has been forced to True jinja_env = jinja2.Environment(autoescape=True) tpl.render(context, jinja_env) tpl.save(&#39;test_files/inline_image.docx&#39;) 同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 test，里面有各种例子可以参考。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/">Read More →</a>
   </footer>
@@ -271,7 +275,8 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
 网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
 另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
 使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
-from elasticsearch import Elasticsearch  def write_quetion():  question = {  &#39;question&#39;: &#39;谁是世界上最帅的人&#39;,  &#39;answer&#39;: &#39;Neal&#39;  }  es = Elasticsearch({&#39;localhost&#39;})  es.</p>
+from elasticsearch import Elasticsearch def write_quetion(): question = { &#39;question&#39;: &#39;谁是世界上最帅的人&#39;, &#39;answer&#39;: &#39;Neal&#39; } es = Elasticsearch({&#39;localhost&#39;}) es.index(index=&#39;question-index&#39;, doc_type=&#39;question&#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/">Read More →</a>
   </footer>
@@ -289,16 +294,21 @@ from elasticsearch import Elasticsearch  def write_quetion():  question = {  &#3
 int a = 1; int b = 2; int c = a &#43; b; 1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法&lt;int,int&gt;(a,b) 4.将结果分配给c
 在python中，同样的
 a = 1 b = 2 c = a &#43; b 1.分配1给a
-  设置一个对象，然后将它的类型设置为整数
-  将它的值设为1 2.分配2给b
-  设置一个对象，然后将它的类型设置为整数
-  将它的值设为2 3.调用一个二进制加法(a,b)
-  寻找一个类型在对象中
-  a是一个整数，它的值是a
-  寻找一个类型在对象中
-  b是一个整数，它的值是b
-  调用一个二进制加法
-  返回结果，结果是一个整数 4.</p>
+设置一个对象，然后将它的类型设置为整数
+将它的值设为1 2.分配2给b
+设置一个对象，然后将它的类型设置为整数
+将它的值设为2 3.调用一个二进制加法(a,b)
+寻找一个类型在对象中
+a是一个整数，它的值是a
+寻找一个类型在对象中
+b是一个整数，它的值是b
+调用一个二进制加法
+返回结果，结果是一个整数 4.产生一个对象c
+将一个对象的类型设置为整数
+将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+2.python是一种解释型的语言而不是编译型的 我们可以看到解释型语言和编译型语言的区别。一个聪明的编译器知道怎么提前优化，避免重复和不必要的操作，从而提高效率。当然，在这一点上也是仁者见仁智者见智。
+3.python的对象模型导致存储效率低下 python存储数据效率低下的原因，主要可以从下图看出： 当然说了python这么多缺点，为什么python用的人还这么多，因为它很简单啊。python用起来的确很简单，就我个人的使用感受而言，除了matlab，我没有看过比python还要简单的语言了。而且python的开源的库很多，所以做很多东西都很方便。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
   </footer>
@@ -317,7 +327,8 @@ a = 1 b = 2 c = a &#43; b 1.分配1给a
 进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
 在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
 from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</p>
+from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.site.register(Question,QuestionAdmin) 这里面他做了很多细节的改变，他是一个个的加进去，好麻烦，我这给的就是最终的一个版本，主要里面增加一个收缩的功能。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/">Read More →</a>
   </footer>
@@ -331,11 +342,12 @@ from django.contrib import admin from .models import Question,Choice //Register 
   </header>
   
   <p class="post-summary">突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
 建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
- django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
-创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</p>
+django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate 开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
+创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.DateTimeField(&#39;date published&#39;) class Choice(models.Model): question = models.ForeignKey(Question) choice_text = models.CharField(max_length=200) votes = models.IntegerField(default=0) 以上代码很直接明了，python的代码还是比较容易理解的。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">Read More →</a>
   </footer>
@@ -349,9 +361,11 @@ from django.db import models class Question(models.Model): question_text = model
   </header>
   
   <p class="post-summary">项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目：
- 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&#34;pip install MySQL-python&#34;就可以了。 解压项目文件代码。 进入src文件夹下，输入&#34;make install&#34;这样会自动安装所有的依赖库。 现在我们可以创建一个数据库：web_dev_tutorial  mysql -u &lt;your username&gt; -p&lt;yourpassword&gt; 注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } } 把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
+首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&#34;pip install MySQL-python&#34;就可以了。 解压项目文件代码。 进入src文件夹下，输入&#34;make install&#34;这样会自动安装所有的依赖库。 现在我们可以创建一个数据库：web_dev_tutorial mysql -u &lt;your username&gt; -p&lt;yourpassword&gt; 注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &#34;web_dev_tutorial&#34;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } } 把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
 MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
-MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&#34;make&#34;,你将会看到： ｀ MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306</p>
+MYSQL_DB_NAME = ‘web_dev_tutorial’ 同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&#34;make&#34;,你将会看到： ｀ MYSQL_HOST = ‘127.0.0.1’ MYSQL_PORT = 3306
+MYSQL_USERNAME = ‘root’ MYSQL_PASSWORD = ‘root’
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">Read More →</a>
   </footer>
@@ -392,20 +406,7 @@ MYSQL_DB_NAME = ‘web_dev_tutorial’  同样把数据库用户名密码改成�
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

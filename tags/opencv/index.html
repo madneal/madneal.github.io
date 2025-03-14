@@ -233,7 +233,8 @@
   </header>
   
   <p class="post-summary">最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
-opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;); CvWindow w = new CvWindow(&#34;Lane Detection&#34;); CvWindow canny = new CvWindow(&#34;Canny&#34;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.U8, 3); Cv.</p>
+opencvsharp版本 using System; using System.Collections.Generic; using System.Linq; using System.Windows.Forms; using OpenCvSharp; namespace LaneDetection { class Program { [STAThread] static void Main() { CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;); CvWindow w = new CvWindow(&#34;Lane Detection&#34;); CvWindow canny = new CvWindow(&#34;Canny&#34;); IplImage src, gray, dstCanny, halfFrame, smallImg; CvMemStorage storage = new CvMemStorage(); CvSeq lines; while (CvWindow.WaitKey(10) &lt; 0) { src = cap.QueryFrame(); halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.U8, 3); Cv.PyrDown(src, halfFrame, CvFilter.Gaussian5x5); gray = new IplImage(src.Size, BitDepth.U8, 1); dstCanny = new IplImage(src.Size, BitDepth.U8, 1); storage.Clear(); // Crop off top half of image since we&#39;re only interested in the lower portion of the video int halfWidth = src.Width / 2; int halfHeight = src.Height / 2; int startX = halfWidth - (halfWidth / 2); src.SetROI(new CvRect(0, halfHeight - 0, src.Width - 1, src.Height - 1)); gray.SetROI(src.GetROI()); dstCanny.SetROI(src.GetROI()); src.CvtColor(gray, ColorConversion.BgrToGray); Cv.Smooth(gray, gray, SmoothType.Gaussian, 5, 5); Cv.Canny(gray, dstCanny, 50, 200, ApertureSize.Size3); canny.Image = dstCanny; storage.Clear(); lines = dstCanny.HoughLines2(storage, HoughLinesMethod.Probabilistic, 1, Math.PI / 180, 50, 50, 100); for (int i = 0; i &lt; lines.Total; i&#43;&#43;) { CvLineSegmentPoint elem = lines.GetSeqElem&lt;CvLineSegmentPoint&gt;(i).Value; int dx = elem.P2.X - elem.P1.X; int dy = elem.P2.Y - elem.P1.Y; double angle = Math.Atan2(dy, dx) * 180 / Math.PI; if (Math.Abs(angle) &lt;= 10) continue; if (elem.P1.Y &gt; elem.P2.Y &#43; 50 || elem.P1.Y &lt; elem.P2.Y -50 ) { src.Line(elem.P1, elem.P2, CvColor.Red, 2, LineType.AntiAlias, 0); } } src.ResetROI(); storage.Clear(); w.Image = src; } } } } opencv版本 #include &#34;stdafx.h&#34; #include &lt;highgui.h&gt; #include &lt;cv.h&gt; #include &lt;math.h&gt; using namespace cv; using namespace std; #define INF 99999999 CvCapture* g_capture = NULL; int g_slider_pos = 0 ; int frame_count = 0; CvSeq* lines; int main(int argc,char* argv[]) { cvNamedWindow( &#34;show&#34;); g_capture=cvCreateFileCapture( &#34;D:\\road.avi&#34;); IplImage* frame; while(1) { CvMemStorage* storage = cvCreateMemStorage(); frame=cvQueryFrame(g_capture); //set the ROI of the original image int x = 0,y = frame-&gt;height/2; int width = frame-&gt;width,height = frame-&gt;height/2; if(!frame) break; cvSetImageROI(frame,cvRect(x,y,width,height)); IplImage* gray = cvCreateImage(cvGetSize(frame),8,1); cvCvtColor(frame,gray,CV_BGR2GRAY); cvCanny(gray,gray,50,100); cvShowImage(&#34;canny&#34;,gray); cvSmooth(gray,gray,CV_GAUSSIAN,3,1,0); //Hough lines = cvHoughLines2(gray,storage,CV_HOUGH_PROBABILISTIC,1,CV_PI/180,50,90,50); //select approprivate lines acoording to the slope for (int i = 0;i &lt; lines-&gt;total;i &#43;&#43;) { double k =INF; CvPoint* line = (CvPoint*)cvGetSeqElem(lines,i); int dx = line[1].x - line[0].x; int dy = line[1].x - line[0].y; double angle = atan2(dy,dx) * 180 /CV_PI; if (abs(angle) &lt;= 10) continue; if (line[0].y &gt; line[1].y &#43; 50 || line[0].y &lt; line[1].y - 50) { cvLine(frame,line[0],line[1],CV_RGB(255,0,0),2,CV_AA); } } cvResetImageROI(frame);	cvShowImage( &#34;show&#34;,frame); char c = cvWaitKey(33); if(c==27) break; } cvReleaseCapture(&amp;g_capture); cvDestroyWindow( &#34;show&#34;); return 0; } 非常希望有弄这方面的人能和我讨论一下，若转载请注明出处，谢谢。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
   </footer>
@@ -246,8 +247,9 @@ opencvsharp版本 using System; using System.Collections.Generic; using System.L
     <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; } 要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。
-处理视频帧 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。 首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog.</p>
+  <p class="post-summary"> Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码 #include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; #include&lt;iostream&gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&#34;d:\\road.avi&#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &lt;&lt; &#34;No input image&#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&#34;Example&#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&#34;Example&#34;,frame); if (waitKey(delay) &gt;= 0) stop = true; } return 0; } 要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。
+处理视频帧 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。 首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog.csdn.net/neal1991/article/details/45009377有介绍）。这个喊出可以接受一个Mat对象然后输出处理之后的Mat对象。 void processFrame(Mat&amp; img, Mat&amp; out); // 对视频的每帧做Canny算子边缘检测 void canny(Mat&amp; img, Mat&amp; out) { // 先要把每帧图像转化为灰度图 cvtColor(img,out,CV_BGR2GRAY); // 调用Canny函数 Canny(out,out,100,200); // 对像素进行翻转 threshold(out,out,128,255,THRESH_BINARY_INV); } 定义好一个视频处理类，它将与一个回调函数相关联。使用该类，可以创建一个实例，制定输入的视频文件，绑定回调函数，然后开始对每一帧进行处理，要调用这个视频处理类，只需要在main函数添加就可以了：
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
   </footer>
@@ -267,7 +269,8 @@ http://blog.csdn.net/carson2005/article/details/6243476
 对于特征提取，个人认为，可以算是整个计算机视觉系统中最为复杂也最难的部分（纯属个人意见，如有异议，请保留），到底什么是特征，该如何来理解这个看似简单却又包罗万象的名词呢？其实，要想仔细解释，还真的花费很多时间（有兴趣的可以看看，Richard O.Duda（著），李宏东（译），《模式识别》，机械工业出版社）。简单点说，特征，就是一个可以将若干个类别可以尽量分开的一种描述。举例来说，如果你要进行男人和女人的分类，显然，用“身高和体重”这一描述来衡量，是可以的，但是，这两个描述没有“胸部大小”这一描述更加准确，而“胸部大小”这一描述，又没有“喉结的有无”这一描述更准确。很显然，“身高和体重”，“胸部大小”，“喉结的有无”，这三种描述，都可以用来进行男人和女人的分类，只不过，它们对事物的描述的准确（或者说全面）程度是不同的，而诸如此类的描述，有一个更加专业的称谓，叫做“特征”。OpenCV里面，提供了一些特征描述的API，比如，对于人脸检测而言，它提供了haar特征的API，行人检测，提供了hog特征的API，甚至，它提供了LBP纹理特征的API。但是，这些还远远不够。例如，如果你要进行字符识别，OpenCV并没有提供字符识别所对应的特征。这个时候，就需要你自己来编程实现了。当然，该选择什么特征来描述字符呢？哪些特征更好呢？对于这些问题，我建议你去阅读相应的会议，期刊，杂志，硕士、博士毕业论文（毕竟硕士、博士研究生本就该从事“研究”工作），看看别人写的文章，自然就知道了。
 对于特征选择，OpenCV并没有提供特定的函数来进行衡量。而特征的分类能力的高低评价，有很多种分析方法，有兴趣的朋友，可以阅读&#34;《机器学习》Tom. Mitchell(著),曾华军(译)，机械工业出版社&#34;这本书；
 对于分类器部分，OpenCV提供了SVM,CART,boost,bayes,bdt,ANN,这几种常用的算法。而这些基本已经覆盖了常用的分类器。所以，你需要做的，就是知道怎么调用其接口，各种分类器的优点和缺点（该部分，建议阅读“机器学习”这本书）。
-通过以上的分析，你或许已经发现，OpenCV不过是一个工具而已。或者，你可以将它理解为幼儿园小朋友过家家玩的积木，而OpenCV中的函数，则可以理解为一个一个的积木块，利用所有或者部分积木块，你可以快速的搭建起来具体的计算机视觉方面的应用（比如，字符识别，车牌识别，遗留物检测）。想必你也已经发现，在利用OpenCV这个积木来搭建具体的计算机视觉应用的时候，真正核心的，应该是这些积木块，如果你明白了积木块的工作原理，那么，是不是就可以不用这些积木块了呢？完全正确！不过，一般部分情况下，我们不需要这么做，因为，OpenCV已经帮你做好了一些工作（已经帮你做好了一些积木块，直接拿来用就是了）。但是，诸如前面提到的特征提取模块，很多情况下，OpenCV就无能为力了。这个时候，你就需要翻阅计算机视觉、模式识别、机器学习领域顶级会议、期刊、杂志上面发表的文章了。然后，根据这些文章中阐述的原理和方法，来编程实现你要的东西。实际上，也就等于搭建一个属于你私有的积木块。其实，OpenCV中的每一个API函数，也就是这么来的。</p>
+通过以上的分析，你或许已经发现，OpenCV不过是一个工具而已。或者，你可以将它理解为幼儿园小朋友过家家玩的积木，而OpenCV中的函数，则可以理解为一个一个的积木块，利用所有或者部分积木块，你可以快速的搭建起来具体的计算机视觉方面的应用（比如，字符识别，车牌识别，遗留物检测）。想必你也已经发现，在利用OpenCV这个积木来搭建具体的计算机视觉应用的时候，真正核心的，应该是这些积木块，如果你明白了积木块的工作原理，那么，是不是就可以不用这些积木块了呢？完全正确！不过，一般部分情况下，我们不需要这么做，因为，OpenCV已经帮你做好了一些工作（已经帮你做好了一些积木块，直接拿来用就是了）。但是，诸如前面提到的特征提取模块，很多情况下，OpenCV就无能为力了。这个时候，你就需要翻阅计算机视觉、模式识别、机器学习领域顶级会议、期刊、杂志上面发表的文章了。然后，根据这些文章中阐述的原理和方法，来编程实现你要的东西。实际上，也就等于搭建一个属于你私有的积木块。其实，OpenCV中的每一个API函数，也就是这么来的。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/opencv/">Read More →</a>
   </footer>
@@ -308,20 +311,7 @@ http://blog.csdn.net/carson2005/article/details/6243476
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

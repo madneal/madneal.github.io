@@ -1,93 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>security on Neal&#39;s Blog</title>
+    <title>Security on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/security/</link>
-    <description>Recent content in security on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Security on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 17 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>多平台的敏感信息检测工具-GShark</title>
       <link>https://madneal.com/post/gshark/</link>
       <pubDate>Sat, 17 Apr 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/gshark/</guid>
-      <description>GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi
-GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
-架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
-所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
- 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
-rm -rf ./releases/* cd web npm run build cd .</description>
+      <description>&lt;p&gt;GShark has beem maintained for alomost two years as an open source sensitive infomation detection tool. This tool is utilized in my own company and sparetime, multi information sensi&lt;/p&gt;&#xA;&lt;p&gt;GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 &lt;a href=&#34;https://github.com/madneal/gshark&#34;&gt;GShark&lt;/a&gt; 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过&lt;a href=&#34;https://mp.weixin.qq.com/s/rKdz9V1Vx548FvPHwNBn0Q&#34;&gt;文章&lt;/a&gt;介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。&lt;/p&gt;&#xA;&lt;h2 id=&#34;架构&#34;&gt;架构&lt;/h2&gt;&#xA;&lt;p&gt;目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 &lt;a href=&#34;https://github.com/flipped-aurora/gin-vue-admin&#34;&gt;gin-vue-admin&lt;/a&gt;，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://user-images.githubusercontent.com/12164075/114326875-58e1da80-9b69-11eb-82a5-b2e3751a2304.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置&lt;/li&gt;&#xA;&lt;li&gt;丰富的前端功能，CRUD 更简单&lt;/li&gt;&#xA;&lt;li&gt;搜索源和之前保持一致，支持 github, gitlab 以及 searchcode&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;部署&#34;&gt;部署&lt;/h2&gt;&#xA;&lt;p&gt;之前就有想使用 &lt;a href=&#34;https://github.com/madneal/gshark&#34;&gt;GShark&lt;/a&gt; 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;rm -rf ./releases/*&#xA;cd web&#xA;npm run build&#xA;cd ../&#xA;&#xA;# build for mac&#xA;cd server&#xA;GOOS=darwin GOARCH=amd64 go build &#xA;cd ../releases&#xA;mkdir gshark_darwin_amd64&#xA;cd gshark_darwin_amd64&#xA;mv ../../server/gshark .&#xA;cp -rf ../../server/resource .&#xA;cp ../../server/config-temp.yaml config.yaml&#xA;cd ../../&#xA;cp -rf ./web/dist ./releases/gshark_darwin_amd64&#xA;7z a -r ./releases/gshark_darwin_amd64.zip ./releases/gshark_darwin_amd64/&#xA;&#xA;# build for windows&#xA;cd server&#xA;GOOS=windows GOARCH=amd64 go build&#xA;cd ../releases&#xA;mkdir gshark_windows_amd64&#xA;cd gshark_windows_amd64&#xA;mv ../../server/gshark.exe .&#xA;cp -rf ../../server/resource .&#xA;cp ../../server/config-temp.yaml config.yaml&#xA;cd ../../&#xA;cp -rf ./web/dist ./releases/gshark_windows_amd64&#xA;7z a -r ./releases/gshark_windows_amd64.zip ./releases/gshark_windows_amd64/&#xA;&#xA;# build for linux&#xA;cd server&#xA;GOOS=linux GOARCH=amd64 go build -o gshark&#xA;cd ../releases&#xA;mkdir gshark_linux_amd64&#xA;cd gshark_linux_amd64&#xA;mv ../../server/gshark .&#xA;cp -rf ../../server/resource .&#xA;cp ../../server/config-temp.yaml config.yaml&#xA;cd ../../&#xA;cp -rf ./web/dist ./releases/gshark_linux_amd64&#xA;7z a -r ./releases/gshark_linux_amd64.zip ./releases/gshark_linux_amd64&#xA;&#xA;&#xA;rm -rf ./releases/gshark*/&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个是 build 的脚本，主要是实现跨平台的编译并且将前端文件夹打包进去，然后拿到这个安装包解压即可使用。目前 GShark 的发布应该只需要两个前提条件：&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>SameSite 的七八事</title>
       <link>https://madneal.com/samesite/</link>
       <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/samesite/</guid>
-      <description>起源 本篇文章是讨论关于 SameSite 这一属性的相关内容。这次讨论的缘由是内网的一个需求。内网有一个 SSO 应用，但是在 Chrome 80 版本之后，将会强制实行 SameSite 的属性。即 SameSite 的属性默认为 Lax。而这一变化则会影响到这一应用，因为这个 SSO 使用了 iframe，所以会涉及到 cookie 的跨域。</description>
+      <description>&lt;h2 id=&#34;起源&#34;&gt;起源&lt;/h2&gt;&#xA;&lt;p&gt;本篇文章是讨论关于 SameSite 这一属性的相关内容。这次讨论的缘由是内网的一个需求。内网有一个 SSO 应用，但是在 Chrome 80 版本之后，将会强制实行 SameSite 的属性。即 SameSite 的属性默认为 Lax。而这一变化则会影响到这一应用，因为这个 SSO 使用了 iframe，所以会涉及到 cookie 的跨域。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>白名单，被谁饶过了？</title>
       <link>https://madneal.com/post/redirect/</link>
       <pubDate>Sun, 03 Jan 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/redirect/</guid>
-      <description>本文首发于安全客平台，https://www.anquanke.com/post/id/228916
-起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
-之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</description>
+      <description>&lt;p&gt;本文首发于安全客平台，https://www.anquanke.com/post/id/228916&lt;/p&gt;&#xA;&lt;h2 id=&#34;起因&#34;&gt;起因&lt;/h2&gt;&#xA;&lt;p&gt;近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 &lt;a href=&#34;https://github.com/apache/dubbo&#34;&gt;apache/dubbo&lt;/a&gt; 的一个有意思的问题以及 URL 相关的话题。&lt;/p&gt;&#xA;&lt;p&gt;之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 &lt;code&gt;https://evailhost#@whitehost&lt;/code&gt;，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; String &lt;span style=&#34;color:#a6e22e&#34;&gt;checkUrlSafety&lt;/span&gt;(String url, List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; domainWhitelistSuffix, String domainWhitelist) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;Url url2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;url2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; UrlUtils.&lt;span style=&#34;color:#a6e22e&#34;&gt;parseURL&lt;/span&gt;(url, &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;} &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; (Exception e) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;String host &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; url2.&lt;span style=&#34;color:#a6e22e&#34;&gt;getHost&lt;/span&gt;();&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; url;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;} &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;...&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;boolean&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;verifyDomain&lt;/span&gt;(String host, List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;String&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; domainWhitelistSuffix, String domainWhitelist) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; domainWhitelist.&lt;span style=&#34;color:#a6e22e&#34;&gt;contains&lt;/span&gt;(host) &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; verifyDomainSuffix(host, domainWhitelistSuffix):&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;apachedubbo-的问题&#34;&gt;apache/dubbo 的问题&lt;/h2&gt;&#xA;&lt;p&gt;核心代码其实主要就是上面两个函数，主要是通过 &lt;code&gt;verifyDomain&lt;/code&gt; 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，&lt;code&gt;host&lt;/code&gt; 是通过 &lt;code&gt;UrlUtils.parseURL&lt;/code&gt; 解析出来的 &lt;code&gt;URL&lt;/code&gt; 获取的。这个方法是开源仓库 &lt;a href=&#34;https://github.com/apache/dubbo&#34;&gt;apache/dubbo&lt;/a&gt; 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>一键 Shell，我的 OSWE 之旅</title>
       <link>https://madneal.com/post/oswe/</link>
       <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/oswe/</guid>
-      <description>原文来自于安全客，https://www.anquanke.com/post/id/217301
-终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
-初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
-所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
-AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</description>
+      <description>&lt;p&gt;原文来自于安全客，https://www.anquanke.com/post/id/217301&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s1.ax1x.com/2020/09/13/ww1smR.png&#34; alt=&#34;ww1smR.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。&lt;/p&gt;&#xA;&lt;h2 id=&#34;初识-awae&#34;&gt;初识 AWAE&lt;/h2&gt;&#xA;&lt;p&gt;Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。&lt;/p&gt;&#xA;&lt;p&gt;所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。&lt;/p&gt;&#xA;&lt;h2 id=&#34;awae-课程&#34;&gt;AWAE 课程&lt;/h2&gt;&#xA;&lt;p&gt;AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>寻找你的第一个漏洞</title>
       <link>https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/</link>
       <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/</guid>
-      <description>最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
- 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
- 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
- 多读文章
- @shail_official
- 读代码，先专注于公开的部分。阅读单元测试。
-  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
- 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </description>
+      <description>&lt;p&gt;最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！&lt;/p&gt;&#xA;&lt;h1 id=&#34;理解过程&#34;&gt;理解过程&lt;/h1&gt;&#xA;&lt;p&gt;脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。&lt;/p&gt;&#xA;&lt;p&gt;@0x1ntegral&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;专注某种特性类型漏洞&lt;/li&gt;&#xA;&lt;li&gt;阅读这种漏洞类型的报告&lt;/li&gt;&#xA;&lt;li&gt;在项目中寻找这种类型漏洞&lt;/li&gt;&#xA;&lt;li&gt;当你找到一个漏洞，更改漏洞类型并重复步骤 1&lt;/li&gt;&#xA;&lt;/ol&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;@Troll_13&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;探寻未知领域&#34;&gt;探寻未知领域&lt;/h1&gt;&#xA;&lt;p&gt;这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。&lt;/p&gt;&#xA;&lt;h1 id=&#34;永远不要停止学习&#34;&gt;永远不要停止学习&lt;/h1&gt;&#xA;&lt;p&gt;不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。&lt;/p&gt;&#xA;&lt;p&gt;@root4loot&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;多读文章&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;@shail_official&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;读代码，先专注于公开的部分。阅读单元测试。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;总结&#34;&gt;总结&lt;/h1&gt;&#xA;&lt;p&gt;对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。&lt;/p&gt;&#xA;&lt;h1 id=&#34;reference&#34;&gt;Reference&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community&#34;&gt;https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>全栈工程师的成长</title>
       <link>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</link>
       <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</guid>
-      <description>三年之前，我写过一篇菜鸟程序猿成长史。当时我还是一名踌躇满志的前端开发，立志要在前端领域大展拳脚。当时，前端中的开发最乐此不疲的事就是为了哪个框架最优秀而天天打口水仗。三年过去了，我已经不再是一名前端工程师，变成了一名偶尔怼人和被怼的安全工程师。工作这几年，不管还是在技术学习上，还是工作上，作为一名立志成为一名全栈工程师的人，也分享一下这几年的一些经验。
-软技能篇 这里的软技能篇我指的是一些基础技能，可能这些技能不是能够在很短时间内养成，可能需要一年甚至更长的时间。在我技术学习和实践的过程中，我觉得有个词是非常重要的，即阅读和实践。阅读掌握理论知识，实践让你熟悉技能，掌握技能。其实不管是做开发和做安全，都是一门技术活，和其它的技术工种从本质上来说没有太大的区别，当然天才型选手除外。对于阅读来说，我觉得英语是非常重要的。因为不得不承认，大部分最优秀的技术知识都是通过英语传播的，通过英语，你可以看多更原汁原味的技术文章，国内某些翻译的书籍有时候真的是有点惨不忍睹。另外，往往通过英文关键字也可能更容易找到问题的答案。现在大多数的技术问题，互联网上早就有类似的解决方案，问题是如何正确地检索到。
-坚持，也是做技术的一个比较重要的品质。因为，在我们平常工作的过程中，问题往往不是一下子就能够找到。很多问题需要一直坚持，一直摸索，突然有天拍脑袋说我咋没想到这点。坚持同样适用于技术的学习，只有坚持学习新的技术，才不会被技术所淘汰。行动力，我觉得这也是做技术不可或缺的一个好的品质。想到一个好的点子马上就去实现，想到好的思想可以马上写文章总结，看到好的工具马上就去尝试。在这里我并不想像三年以前一样，把每一个工具都一个个的列出来。我觉得工具只是辅助人去更好的提高效率,但根本还是取决于人本身。所以行动力很重要，如果有好的工具你放在那永远都不会去使用，那也是于事无补的。</description>
+      <description>&lt;p&gt;三年之前，我写过一篇&lt;a href=&#34;https://segmentfault.com/a/1190000009470801&#34;&gt;菜鸟程序猿成长史&lt;/a&gt;。当时我还是一名踌躇满志的前端开发，立志要在前端领域大展拳脚。当时，前端中的开发最乐此不疲的事就是为了哪个框架最优秀而天天打口水仗。三年过去了，我已经不再是一名前端工程师，变成了一名偶尔怼人和被怼的安全工程师。工作这几年，不管还是在技术学习上，还是工作上，作为一名立志成为一名全栈工程师的人，也分享一下这几年的一些经验。&lt;/p&gt;&#xA;&lt;h1 id=&#34;软技能篇&#34;&gt;软技能篇&lt;/h1&gt;&#xA;&lt;p&gt;这里的软技能篇我指的是一些基础技能，可能这些技能不是能够在很短时间内养成，可能需要一年甚至更长的时间。在我技术学习和实践的过程中，我觉得有个词是非常重要的，即阅读和实践。阅读掌握理论知识，实践让你熟悉技能，掌握技能。其实不管是做开发和做安全，都是一门技术活，和其它的技术工种从本质上来说没有太大的区别，当然天才型选手除外。对于阅读来说，我觉得英语是非常重要的。因为不得不承认，大部分最优秀的技术知识都是通过英语传播的，通过英语，你可以看多更原汁原味的技术文章，国内某些翻译的书籍有时候真的是有点惨不忍睹。另外，往往通过英文关键字也可能更容易找到问题的答案。现在大多数的技术问题，互联网上早就有类似的解决方案，问题是如何正确地检索到。&lt;/p&gt;&#xA;&lt;p&gt;坚持，也是做技术的一个比较重要的品质。因为，在我们平常工作的过程中，问题往往不是一下子就能够找到。很多问题需要一直坚持，一直摸索，突然有天拍脑袋说我咋没想到这点。坚持同样适用于技术的学习，只有坚持学习新的技术，才不会被技术所淘汰。行动力，我觉得这也是做技术不可或缺的一个好的品质。想到一个好的点子马上就去实现，想到好的思想可以马上写文章总结，看到好的工具马上就去尝试。在这里我并不想像三年以前一样，把每一个工具都一个个的列出来。我觉得工具只是辅助人去更好的提高效率,但根本还是取决于人本身。所以行动力很重要，如果有好的工具你放在那永远都不会去使用，那也是于事无补的。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

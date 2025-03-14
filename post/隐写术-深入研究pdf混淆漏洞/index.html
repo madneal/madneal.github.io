@@ -16,15 +16,17 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="原文：&amp;ldquo;steganography&amp;rdquo; - obfuscating PDF exploits in depth
+  <meta name="description" content=" 原文：&ldquo;steganography&rdquo; - obfuscating PDF exploits in depth
 译者：neal1991
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 上礼拜发现的关于使用 this.getPageNumWords() &amp;amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
-我们的 EdgeLogic 引擎将样本检测为 &amp;ldquo;exploit CVE-2013-3346&amp;rdquo;，与前一个相同。
- https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
+上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
+我们的 EdgeLogic 引擎将样本检测为 &ldquo;exploit CVE-2013-3346&rdquo;，与前一个相同。
+https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/ 样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
 上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。
- https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection  打开后，伪装成 IRS 文件的 PDF 看起来很正常。" />
+https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection 打开后，伪装成 IRS 文件的 PDF 看起来很正常。
+在该样本中使用两层混淆。 第一层是我们之前公开的 - &ldquo;this.getPageNumWords()&rdquo; 以及 &ldquo;this.getPageNthWord()&rdquo; 方法。该漏洞使用 &ldquo;this.getPageNumWords()&rdquo; 以及 &ldquo;this.getPageNthWord()&rdquo; 来读取和执行隐藏为“内容”的 Javascript。 相关代码可以在 PDF stream-64中找到。
+" />
 
   
   
@@ -32,15 +34,17 @@ LICENSE: MIT
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="隐写术-深入研究 PDF 混淆漏洞" />
-  <meta property="og:description" content="原文：&amp;ldquo;steganography&amp;rdquo; - obfuscating PDF exploits in depth
+  <meta property="og:description" content=" 原文：&ldquo;steganography&rdquo; - obfuscating PDF exploits in depth
 译者：neal1991
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 上礼拜发现的关于使用 this.getPageNumWords() &amp;amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
-我们的 EdgeLogic 引擎将样本检测为 &amp;ldquo;exploit CVE-2013-3346&amp;rdquo;，与前一个相同。
- https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
+上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
+我们的 EdgeLogic 引擎将样本检测为 &ldquo;exploit CVE-2013-3346&rdquo;，与前一个相同。
+https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/ 样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
 上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。
- https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection  打开后，伪装成 IRS 文件的 PDF 看起来很正常。" />
+https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection 打开后，伪装成 IRS 文件的 PDF 看起来很正常。
+在该样本中使用两层混淆。 第一层是我们之前公开的 - &ldquo;this.getPageNumWords()&rdquo; 以及 &ldquo;this.getPageNthWord()&rdquo; 方法。该漏洞使用 &ldquo;this.getPageNumWords()&rdquo; 以及 &ldquo;this.getPageNthWord()&rdquo; 来读取和执行隐藏为“内容”的 Javascript。 相关代码可以在 PDF stream-64中找到。
+" />
   <meta property="og:url" content="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -236,8 +240,7 @@ LICENSE: MIT
 <p>原文：<a href="https://blog.edgespot.io/2019/01/steganography-obfuscating-exploits.html">&ldquo;steganography&rdquo; - obfuscating PDF exploits in depth</a></p>
 <p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
 <p>welcome to star my <a href="https://github.com/neal1991/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing.ecnu@gmail.com">me</a></p>
-<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
-</blockquote>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p></blockquote>
 <p><a href="https://blog.edgespot.io/2019/01/an-interesting-obfuscation-method.html">上礼拜发现的</a>关于使用 <code>this.getPageNumWords() &amp; this.getPageNthWord()</code> 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。</p>
 <p>我们的 EdgeLogic 引擎将样本检测为 &ldquo;exploit CVE-2013-3346&rdquo;，与前一个相同。</p>
 <ul>
@@ -294,31 +297,13 @@ LICENSE: MIT
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2205</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2237</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -352,20 +337,7 @@ LICENSE: MIT
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

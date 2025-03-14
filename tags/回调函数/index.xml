@@ -4,26 +4,17 @@
     <title>回调函数 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</link>
     <description>Recent content in 回调函数 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 12 Apr 2015 13:43:26 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Apr 2015 13:43:26 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>回调函数</title>
       <link>https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</link>
       <pubDate>Sun, 12 Apr 2015 13:43:26 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/</guid>
-      <description>回调函数 在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。
-回调函数的机制  定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。  为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
-代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&amp;ndash;typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
-void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc); void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc); 这两个函数接受以下参数：
-·byte * array：指向元素数组的指针（任意类型）。
-·int size：数组中元素的个数。
-·int elem_size：数组中一个元素的大小，以字节为单位。
-·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。
-回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &amp;lt; elem2) return -1; if(elem1 &amp;gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); } int main(int argc,char* argv[])</description>
+      <description>&lt;h2 id=&#34;回调函数&#34;&gt;回调函数&lt;/h2&gt;&#xA;&lt;p&gt;在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。&lt;/p&gt;&#xA;&lt;h2 id=&#34;回调函数的机制&#34;&gt;回调函数的机制&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;定义一个回调函数。&lt;/li&gt;&#xA;&lt;li&gt;提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。&lt;/li&gt;&#xA;&lt;li&gt;当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;为什么要使用回调函数&#34;&gt;为什么要使用回调函数&lt;/h2&gt;&#xA;&lt;p&gt;因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。&lt;/p&gt;&#xA;&lt;h2 id=&#34;代码实现&#34;&gt;代码实现&lt;/h2&gt;&#xA;&lt;p&gt;下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&amp;ndash;typedef int (__stdcall &lt;em&gt;CompareFunction)(const byte&lt;/em&gt;,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc);&#xA;&#xA;void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc);&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这两个函数接受以下参数：&lt;/p&gt;&#xA;&lt;p&gt;·byte * array：指向元素数组的指针（任意类型）。&lt;/p&gt;&#xA;&lt;p&gt;·int size：数组中元素的个数。&lt;/p&gt;&#xA;&lt;p&gt;·int elem_size：数组中一个元素的大小，以字节为单位。&lt;/p&gt;&#xA;&lt;p&gt;·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。&lt;/p&gt;&#xA;&lt;h2 id=&#34;回调函数实例&#34;&gt;回调函数实例&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;int __stdcall CompareInts(const byte* velem1,const byte* velem2)&#xA;&#xA;{&#xA;&#xA;int elem1 = *(int*)velem1;&#xA;&#xA;int elem2 = *(int*)velem2;&#xA;&#xA;if(elem1 &amp;lt; elem2)&#xA;&#xA;return -1;&#xA;&#xA;if(elem1 &amp;gt; elem2)&#xA;&#xA;return 1;&#xA;&#xA;return 0;&#xA;&#xA;}&#xA;&#xA;int __stdcall CompareStrings(const byte* velem1,const byte* velem2)&#xA;&#xA;{&#xA;&#xA;const char* elem1 = (char*)velem1;&#xA;&#xA;const char* elem2 = (char*)velem2;&#xA;&#xA;return strcmp(elem1,elem2);&#xA;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;int main(int argc,char* argv[])&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

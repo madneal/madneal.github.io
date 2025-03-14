@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.99.1" />
+	<meta name="generator" content="Hugo 0.145.0">
 
   <meta charset="utf-8" />
 
@@ -207,13 +207,29 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/stored-xss/" class="post-link">富文本场景下的 XSS</a></h3>
+    <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
+前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
+// nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
+const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.FilterXSS({ css: { whiteList: { position: /^fixed|relative$/, top: true, left: true, }, }, }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); 其实 js-xss 的原理并不是很复杂，如果去扒一下源码，原理其实主要就是实现标签和属性的白名单过滤，这样的方案简单有效。因为默认配置了大部分标签以及属性的白名单方案，所以一般可以做到开箱即用，当然如果有定制化的需求需要进一步定制化函数。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/mihoyo/" class="post-link">米哈游内推</a></h3>
     <p class="post-meta">@Neal · Aug 7, 2021 · 1 min read</p>
   </header>
   
   <p class="post-summary">微信扫描投递即可
-社招 
-校招</p>
+社招 校招 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mihoyo/">Read More →</a>
   </footer>
@@ -230,13 +246,10 @@
 驾驶体验 P7 的驾驶体验总的来说对于我个人来说还是非常优秀的，不过因为可能我也没有开过其它的什么车，发言权不是特别大。不过根据我爸的说法感觉还是不错的，方向盘和刹车都不错，不过刹车在某些情况下会变得很硬，不过可能与 P7 的 AEB 有关系。提到 AEB 还想提一次经历，有一次前面车突然急刹车，然后当时行驶速度比较快，我踩了几脚刹车，最后一脚重踩，可以明显感到 AEB 给刹车加了一把，虽然我自己踩应该也是不会追尾的，不过 AEB 感觉是上了一道双保险。有遇到一些鹏友吐槽 AEB 的，不过目前对于我来说，AEB 没有给我带来任何困扰，反而感觉是多了一份保障。
 说完优点，就说说驾驶体验有点不太好的地方。P7 的悬挂实在是太硬了，稍微有点颠簸路面就感觉非常颠，这一点的体验是比较差的。还有就是感觉低速行驶有一些不太平的路面，左摇右摆特别的明显。
 外观颜值 P7 的颜值可能是很多人买 P7 的重要原因之一。P7 的轿跑风格，那个大溜背，真的人见人爱。特别是和其它的车放在一起的时候，明显可以感觉 P7 的风格别树一帜，让人越看越喜欢。而且感觉上完牌照的 P7 比没上牌照的要好看多了。关于上牌体验，总体来说小鹏的体验还可以，我是自己在网上选号的，推荐网上选，比较方便，我是在电脑上通过网站选号的。虽然 P7 的车长有4.88米，但是由于其大溜背，所以后排空间也是捉襟见肘，不过因为平常后排也不怎么坐人，所以也还好，家里人感觉也还可以。后备箱的话，虽然是比较深的，但是高速不是很高，所以容量也是比较一般的。虽然前备箱也有，但是空间就要小得多的，而且开启也不是很方便，只能通过机械掰两下主驾旁边的开关，使用频率也非常低。
-
-
 车机 小鹏的车机可以说的上是目前国内数一数二的，如果自信点，现在说是第一也不是很过分哈。车即真的非常流畅，没有任何延迟。而且车机上面的有个小优点，就是车机上的车模型的 UI 会和车的实际状态联动，比如车机上的车模型会显示你的实际号牌，并且还会同步汽车的车门开关状态以及车灯的状态，何小鹏不愧是做 UI 的。车机上面的功能划分也比较有逻辑性，会分为几个大类，切换不同的大类基本可以找到自己需要的功能。另外有一点可能有很多鹏友不知道，就是屏幕下拉会有一些功能的快捷设置，这点和手机还是比较类似的，毕竟小鹏的车机体验已经非常接近智能手机了。
-
 不过有一点值得说的是，车机的优秀反而衬托了 APP 的薄弱。目前 APP 的功能实在是太少了，很多车机上可以看到的信息，在 APP 上却看不到。还有历史行程信息，感觉这个对于用户还是非常重要的，但是 APP 里面却看不到，甚至看不到仪表盘上面的那些行驶公里数，就只有一个总的历史公里数。感觉，这方面还是需要改进很多。不过，在车机上打开小 P 头像可以看到上一天的形式记录以及能耗方面，信息还是比较齐全的。
-
-辅助驾驶 目前小鹏的辅助驾驶可以算得上是第一梯队，当然目前华为的极狐还没有正式量产上市。小鹏的 NGP （按导航辅助驾驶）目前的体验已经是非常好的，得益于高德高精度地图的加持，在很多地区体验可能比特斯拉的辅助驾驶体验还要好，当然特斯拉的视觉方案也很强。其实很多人对于汽车的自动辅助驾驶有一点误解，很多人以为自动辅助驾驶其实就是一个功能，其实不然。辅助驾驶里面是包含了很多项的，汽车也是通过视觉感知、雷达感知来获取大量的信息，来提升辅助驾驶能够获取的信息。现在新的辅助驾驶技术已经用上了激光雷达，这也是提高了感知的精度和范围。其实目前已有的方案并没有挖掘充分，P7 其实还是有不少算力冗余的。所以依靠现有的硬件条件，未来做到城市道路的自动辅助驾驶也不是不可能的。目前的辅助驾驶其实是一项项进阶形成的，比如车道偏离预警会在车辆偏离车道线的时候产生告警，不过在高速上有遇到过一些之前的车道线没有清除干净，导致告警并且勒安全带，感觉有点不太好。另外一些盲区安全辅助，在开门的时候有帮助，提醒你身边可能有一些突然冒出来的电动车。其它的就是 ACC, LCC, ALC 了，这些内容都是在智享版本上包含的，如果仅仅只是在城市中行驶，可能已经足够了。不过强大的 NGP 可以帮你在高架以及高速上基本上可以实现 0 干预行车，尤其高速上面的使用体验非常优秀。之前去嘉兴的高速上就使用了 NGP，那天雨下得特别大，视线非常不好，使用 NGP 反而感觉更好一些。即使在那么大雨的情况下，NGP 的使用都非常正常，体验也非常好。尤其是这次 2.</p>
+辅助驾驶 目前小鹏的辅助驾驶可以算得上是第一梯队，当然目前华为的极狐还没有正式量产上市。小鹏的 NGP （按导航辅助驾驶）目前的体验已经是非常好的，得益于高德高精度地图的加持，在很多地区体验可能比特斯拉的辅助驾驶体验还要好，当然特斯拉的视觉方案也很强。其实很多人对于汽车的自动辅助驾驶有一点误解，很多人以为自动辅助驾驶其实就是一个功能，其实不然。辅助驾驶里面是包含了很多项的，汽车也是通过视觉感知、雷达感知来获取大量的信息，来提升辅助驾驶能够获取的信息。现在新的辅助驾驶技术已经用上了激光雷达，这也是提高了感知的精度和范围。其实目前已有的方案并没有挖掘充分，P7 其实还是有不少算力冗余的。所以依靠现有的硬件条件，未来做到城市道路的自动辅助驾驶也不是不可能的。目前的辅助驾驶其实是一项项进阶形成的，比如车道偏离预警会在车辆偏离车道线的时候产生告警，不过在高速上有遇到过一些之前的车道线没有清除干净，导致告警并且勒安全带，感觉有点不太好。另外一些盲区安全辅助，在开门的时候有帮助，提醒你身边可能有一些突然冒出来的电动车。其它的就是 ACC, LCC, ALC 了，这些内容都是在智享版本上包含的，如果仅仅只是在城市中行驶，可能已经足够了。不过强大的 NGP 可以帮你在高架以及高速上基本上可以实现 0 干预行车，尤其高速上面的使用体验非常优秀。之前去嘉兴的高速上就使用了 NGP，那天雨下得特别大，视线非常不好，使用 NGP 反而感觉更好一些。即使在那么大雨的情况下，NGP 的使用都非常正常，体验也非常好。尤其是这次 2.6 版本发布的大货车避让功能，非常好用，接近大货车的时候，会有明显的反向的避让行为，给人一种更安全的感觉。另外 ACC 和 NGP 都是可以通过拨档杆向上拨取消的，感觉这样比踩刹车好多了，一开始我还以为是没有这样的功能的。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/xp/">Read More →</a>
   </footer>
@@ -251,20 +264,15 @@
   
   <p class="post-summary">写这篇文章的时候，刚刚从撞车的后悔与悲痛中慢慢恢复而来，也借此机会分享一下这段时间买车的经历吧。前段时间突然勾起来想买车的欲望，就一直想买车。因为是在上海，因为牌照的关系，加上我个人的偏好，所以我只考虑新能源汽车，我对新兴事物的接受度还是非常高的。之前其实主要考虑的就是特斯拉，不过特斯拉由于续航问题和外观原因，感觉和小鹏比还是有一些差距，当然也是因为我的一个买了小鹏朋友的安利。
 买车 买车之前，几乎所有人都反对我买小鹏或者新能源车。我买车没有试驾过其它的车，只试驾了小鹏 P7，当天就订了车。值得吐槽的是，我的销售除了订车当天催我订车之外，几乎没有给过我任何实质性的建议，基本什么问题问她几乎也都是白搭，给我的承诺也没有做到（这个销售的专业能力应该是非常差的）。当然这个是销售的个人原因，和小鹏也没有太大关系的。因为贷款的原因，配车还延迟了一个礼拜，另外值得吐槽的就是中行的贷款，后面还挺麻烦的，提车当天还不能放款，后面我还是选择了全款，白白浪费了一个多礼拜，当然这里面的弯弯绕绕销售也都没有和我说过。
-
 好像大多数销售在推荐车的时候都会推荐智享版，不过因为我本人和自动驾驶也颇有渊源。当初研究生的时候，一开始的时候搞得就是自动驾驶的方向，当时全世界搞这个的人都不多，当时因为没人交流就上也没有硬件去做，当时读论文真的很苦逼，后来为了毕业后面还是换了方向发论文，但也算是和自动驾驶结下了不解之缘。所以，纠结了一下，最后还是选择了长续航版本的智尊版本。
-
 差不多等了一个多月，终于等到提车的日子。提车还是在军工路，特地请假去提车。整体的提车过程还是比较顺利的，基本就是看下车，因为是新车基本上也没有特别好验的。相对来说，交付比我的销售要靠谱很多。后面就是付钱，办理保险和临牌就可以。不得不说，小鹏整体的造型还是不错的，轿跑风格也是比较喜欢。整个车的风格也是越看越喜欢，提车基本就是送了一个小花篮以及水杯和雨伞，其它的没什么礼物了。
-
-
-
 驾驶体验 我本身也是个新手，虽然驾照拿了很多年，但几乎没怎么开过车。小鹏车开起来还是比较简单和舒适的，对于新手来说还是比较友好。小鹏的车机和语音来说，在当前新能源车或者是汽车行业，也都算是数一数二的。语音交互体验比较好，基本上大多数的功能都可以通过语音交互来进行控制，当然语音有时候也有拉跨的时候，不过总体来说还是比较可以的。另外，就是这个车的空间，虽然车长有 4.88 米，但空间感觉还是一般，不过这也很轿跑造型有关系，为了外观，不可避免的牺牲了一些空间。
 小鹏最亮眼的当属于 NGP了，这也是我当初为什么还是选了智尊版的原因（智尊版还需要额外2万的软件费用），因为这真的是小鹏的长处。后面也看了很多评测，感觉真的很香，感觉至少和特斯拉比是强一点的，不过如果和华为相比可能还是要差一些。毕竟目前NGP只能在高速或者高架路上开启。后来，我也体验过一两次，在高架上使用 NGP 实在是太香了，尤其是对于我这种新手来说。NGP的驾驶方式优秀，变道技术也比我好很多，所以高架上用NGP开非常的省心，这也让我庆幸当初的选择没有错。下面的这个视频也是我有天晚上全程使用 NGP 行驶的。
 https://www.bilibili.com/video/BV1wN411f7hs/
 不幸的事 福兮祸之所伏，祸兮福之所倚。快乐的事没过多久，不幸就随之而来。节前的最后一天，在一个十字路口调头，撞到别人车上，结果小鹏也受了比较大的损伤。当时整个人比较懵的，当天就花了很多时间处理保险和事故，然后亲自跟着拖车把车又送回了提车的地方维修。因为配件的原因，维修可能还需要比较长的时间。这几天一直处在深深地自责和后悔中，都怪自己当时不够小心，但世上没有后悔药了，一切也不能挽回。希望自己吃一堑长一智，以后一定要小心小心再小心。
-
 你好，小P！以后我们好好相处吧。
-如果对小鹏感兴趣的话，可以走我的试驾邀请链接试驾。</p>
+如果对小鹏感兴趣的话，可以走我的试驾邀请链接试驾。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/xiaopeng/">Read More →</a>
   </footer>
@@ -281,8 +289,9 @@ https://www.bilibili.com/video/BV1wN411f7hs/
 GShark 作为一款开源的敏感信息监测工具其实差不多维护也有两年多的时间。这款产品其实笔者在自己的公司或者平常都在使用，也通过这个工具发现多多起内部的信息泄露事件以及外部的一些的信息泄露事件。其实这种类似的开源工具数不胜数，大家的核心功能其实就是监控 Github 上面的信息，但是笔者要想把这种产品做得更好一点，就要从功能性、易用性角度来做进一步拓展。最近，对 GShark 做了较大的重构，前后端都完成了比较大的重构，之前老的版本也有写过文章介绍，所以关于这个工具的起源就不多介绍了，主要对这次重构和新的架构做介绍。
 架构 目前 GShark 已经是一个前后端分离的项目，之前因为前端通过后端模板直接渲染的，所以在前端的功能性以及美观性都会差很多。新的重构是基于 gin-vue-admin，技术栈是后端通过 gin 实现，前端通过 vue-elemment 来实现。
 所以架构主要就分为前端和后端两个部分，而后端则分为 web 服务以及敏感信息的扫描服务。新的架构具有以下特点：
- 细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode  部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
-rm -rf ./releases/* cd web npm run build cd .</p>
+细粒度的权限控制，更好的安全性，包括菜单的权限设置以及 API 的权限设置 丰富的前端功能，CRUD 更简单 搜索源和之前保持一致，支持 github, gitlab 以及 searchcode 部署 之前就有想使用 GShark 的同学来和我反映，其实之前的编译就已经很简单了。但是因为有些人不太熟悉 go，所以觉得编译还是有一些问题。这一次，笔者专门写了一个脚本来发布三个操作系统下的工具包，所以直接使用即可，开箱即用，即使你不安装 go 也无所谓。
+rm -rf ./releases/* cd web npm run build cd ../ # build for mac cd server GOOS=darwin GOARCH=amd64 go build cd ../releases mkdir gshark_darwin_amd64 cd gshark_darwin_amd64 mv ../../server/gshark . cp -rf ../../server/resource . cp ../../server/config-temp.yaml config.yaml cd ../../ cp -rf ./web/dist ./releases/gshark_darwin_amd64 7z a -r ./releases/gshark_darwin_amd64.zip ./releases/gshark_darwin_amd64/ # build for windows cd server GOOS=windows GOARCH=amd64 go build cd ../releases mkdir gshark_windows_amd64 cd gshark_windows_amd64 mv ../../server/gshark.exe . cp -rf ../../server/resource . cp ../../server/config-temp.yaml config.yaml cd ../../ cp -rf ./web/dist ./releases/gshark_windows_amd64 7z a -r ./releases/gshark_windows_amd64.zip ./releases/gshark_windows_amd64/ # build for linux cd server GOOS=linux GOARCH=amd64 go build -o gshark cd ../releases mkdir gshark_linux_amd64 cd gshark_linux_amd64 mv ../../server/gshark . cp -rf ../../server/resource . cp ../../server/config-temp.yaml config.yaml cd ../../ cp -rf ./web/dist ./releases/gshark_linux_amd64 7z a -r ./releases/gshark_linux_amd64.zip ./releases/gshark_linux_amd64 rm -rf ./releases/gshark*/ 这个是 build 的脚本，主要是实现跨平台的编译并且将前端文件夹打包进去，然后拿到这个安装包解压即可使用。目前 GShark 的发布应该只需要两个前提条件：
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gshark/">Read More →</a>
   </footer>
@@ -299,7 +308,8 @@ rm -rf ./releases/* cd web npm run build cd .</p>
 其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求头，当然这一方面也是出于安全方面的考虑。当然除了 Referer 请求头之外，还有其它请求头也被禁止通过 JavaScript 操作。
 Referer 请求头属于 Forbidden header，这种请求头无法通过程序来修改，浏览器客户端一般会禁止这种行为。以 Proxy- 和 Sec- 开头的请求头都属于 Fobidden header name，还包括以下这些请求头：
 Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Request-Method Connection Content-Length Cookie Cookie2 Date DNT Expect Feature-Policy Host Keep-Alive Origin Proxy- Sec- Referer TE Trailer Transfer-Encoding Upgrade Via 可以通过一段简单的 demo 来进行验证。可以通过 Chrome 的开发者工具来进行验证，创建一个 xhr 请求，并且尝试来设置请求头。
-可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。</p>
+可以看出，如果设置 content-type，浏览器没有阻止，但是如果设置 Referer 的话，浏览器则不允许，提示 Refused to set unsafe header &#34;Referer&#34;。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
   </footer>
@@ -312,14 +322,16 @@ Accept-Charset Accept-Encoding Access-Control-Request-Headers Access-Control-Req
     <p class="post-meta">@Neal · Mar 7, 2021 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
+  <p class="post-summary"> 原文：微软 open sources CodeQL queries used to hunt for Solorigate activity
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
+Solorigate 攻击的一个关键方面是供应链攻击，这使攻击者可以修改 SolarWinds Orion 产品中的二进制文件。这些经过修改的二进制文件是通过以前合法的更新渠道分发的，并允许攻击者远程执行恶意活动，例如窃取凭据，提权和横向移动，以窃取敏感信息。该事件提醒组织不仅要考虑是否准备好应对复杂的攻击，还需要考虑自己代码库的弹性。
 微软坚信以透明的方式进行领导并与社区共享情报，从而改善整个行业的安全实践和状况。在此博客中，我们将分享审查代码库的过程，重点介绍一种特定的技术：使用 CodeQL 查询来大规模分析我们的源代码，并排除存在代码级别的危威胁情报（IoCs）和与 Solorigate 相关的代码模式。我们正在将本次本调查中使用的 CodeQL 查询开源，以便其他组织可以执行类似的分析。请注意，我们在此博客中介绍的查询仅可用于查找与 Solorigate 植入程序中的源代码具有相似之处的源代码，无论是在语法元素（名称，字面量等）还是功能上。两者可能在良性代码中同时发生，因此所有发现都需要进行审查以确定它们是否可行。此外，不能保证恶意行为者在其他操作中被约束为相同的功能或编码风格，因此这些查询可能无法检测到与在 Solorigate 植入代码中看到的策略有明显差异的其他植入代码。这些应被视为只针对攻击审计技术的一部分。
 长期以来，微软一直采用完整性控制来验证分发给我们的服务器和客户的最终编译二进制文件在开发和发布周期的任何时候都没有被恶意修改。例如，我们验证编译器生成的源文件哈希是否与原始源文件匹配。尽管如此，在微软，我们仍然秉承 “assume breach” 的理念，该理念告诉我们，无论我们的安全实践多么勤奋和广泛，潜在的对手都可以同样地聪明并拥有大量资源。作为 Solorigate 调查的一部分，我们使用了自动和手动技术来验证我们的源代码，构建环境以及生产二进制文件和环境的完整性。
-微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。</p>
+微软在 Solorigate 调查期间的贡献反映了我们对 Githubification of InfoSec 中描述的基于社区的共享愿景的承诺。为了保持我们对防御者知识的了解并加快社区对复杂威胁的响应的愿景，微软团队在此次事件期间公开透明地共享了威胁情报，详细的攻击分析和 MITER ATT＆CK 技术，高级狩猎查询，事件响应指南以及风险评估工作簿。微软鼓励其他安全组织开源自己的威胁知识和防御者技术来共享 “Githubification” 愿景，以加速防御者的洞察力和分析。如前所述，我们已在 https://aka.ms/solorigate 上收集了全面的资源，以提供有关攻击的技术详细信息，威胁情报和产品指南。作为微软全面调查 Solorigate 的一部分，我们检查了自己的环境。正如我们之前所分享的那样，这些调查发现有少量内部帐户存在活动，并且一些帐户已用于查看源代码，但是我们没有发现任何对源代码，构建基础结构，已编译的二进制文件或生产环境进行任何修改的证据。
+CodeQL 入门以及微软如何使用它 CodeQL 是一种功能强大的语义代码分析引擎，现在已经是 GitHub 的一部分。与许多分析解决方案不同，它在两个不同的阶段工作。首先，作为将源代码编译为二进制文件的一部分，CodeQL 建立了一个捕获编译代码模型的数据库。对于解释型语言，由于没有编译器，因此它将解析源并构建自己的抽象语法树模型。其次，该数据库一旦构建，便可以像其他任何数据库一样反复查询。CodeQL 语言是专用于构建可轻松从数据库中选择复杂的代码条件。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/ms-codeql/">Read More →</a>
   </footer>
@@ -335,7 +347,8 @@ LICENSE: MIT
   <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
 之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist.</p>
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.parseURL 解析出来的 URL 获取的。这个方法是开源仓库 apache/dubbo 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
   </footer>
@@ -348,11 +361,11 @@ public static String checkUrlSafety(String url, List&lt;String&gt; domainWhiteli
     <p class="post-meta">@Neal · Dec 10, 2020 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：Unauthorized Access of FireEye Red Team Tools
+  <p class="post-summary"> 原文：Unauthorized Access of FireEye Red Team Tools
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 概述 一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。
+概述 一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。
 您可以在这火眼的 GitHub 仓库中找到策略列表。
 红队工具和技术 红队是一组经过授权和组织的安全专家，模仿潜在的对手针对企业安全状况的攻击或利用能力。我们的红队的目的是通过演示成功攻击的影响并向防御者（即，蓝队）展示防御方法，以改善企业网络安全。过去15年来，我们一直在为全球客户进行红队评估。截至目前，我们已经建立了一套脚本，工具，扫描器和技术，以帮助改善客户的安全状况。不幸的是，这些工具被顶尖攻击者窃取。
 被盗工具的范围从用于自动化侦察的简单脚本到类似于 CobaltStrike和 Metasploit 等公开可用技术的整个框架。许多红队工具已经发布给社区，并已分发到我们的开源虚拟机 CommandoVM 中。
@@ -362,7 +375,8 @@ LICENSE: MIT
 有益于社区的检测 为了使社区能够检测到这些工具，我们正在发布防御策略，以帮助组织识别这些工具（如果它们在野出现）。为了应对我们的红队工具的盗窃，我们针对 OpenIOC，Yara，Snort 和 ClamAV 等公开可用技术发布了数百种对策。
 可在此处找到火眼 GitHub 仓库上的对策列表。我们将发布检测，并将随着我们开发新的或改进现有检测的主机，网络和基于文件的指标的重叠对策而继续更新公共存储库。 此外，我们在 GitHub 页面上发布了需要解决的 CVE 列表，以限制红队工具的有效性。
 火眼产品能够帮助客户免于这些工具攻击 火眼的各个团队都在努力制定对策，以保护我们的客户和广大社区。 我们已将这些对策整合到我们的产品中，并与我们的合作伙伴（包括国土安全部）共享了这些对策，这些合作伙伴已将这些对策纳入其产品中，从而为社区提供了广泛的覆盖范围。
-有关可用的检测签名的更多信息，可以在GitHub仓库中找到。</p>
+有关可用的检测签名的更多信息，可以在GitHub仓库中找到。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E7%81%AB%E7%9C%BC/">Read More →</a>
   </footer>
@@ -378,51 +392,17 @@ LICENSE: MIT
   <p class="post-summary">最近两个月，颈椎的状态一直不是很好。左右无名指和小拇指一直都有麻的症状。后来去医院做了核磁共振，诊断结果是C3-C6的椎间盘突出。虽然后来吃药加上睡得特别早，慢慢恢复了一些，但是手麻的症状一直没有彻底好。后来，在网上有看到电动升降桌以及显示器支架这两款产品，为(jiu)了(shi)我(xiang)的(hua)颈(qian)椎，我也入了这两款产品。
 电动升降桌 爱否科技有一个视频就是关于电动升降桌的介绍，感兴趣的可以看看。不过我觉得也没啥实用的。电动支架基本也就是贵一点就更好一点，升降更平稳，桌子更稳一点。我也纠结了好几款升降桌，包括京东京造的、网易严选的、乐歌的，价格从 1000 多到 2000 多，最后还是入了乐歌的 E4 双电机升降桌，2000多，是我看的里面最贵的一款，不过这个升降桌送一个显示器支架，后面我还会再说。
 由于这款显示器支架在京东上是厂家发货的，如果是京东发货，隔天应该就到了。厂商发货就很慢了，催了好几次，最后是德邦快递送上门的。快递是拆分成了两个包裹，一个是桌面，另外一个是桌腿以及相关部件（超级重）。
-
 E4 是提供一次免费上门安装的。不过像我这种心急想吃热豆腐的，当然是等不及的。总体来说，升降桌安装难度不能说特别大，基本按照说明书一步步来基本都可以装的上，就是桌腿真的质量特别大，一个人搞起来还是有点够呛。桌子总体来说颜值还可以，桌面是那种光滑的面板材料。桌子升降还是比较平稳的，当然停止的时候会有一种顿挫感，但这也不影响。当然，很多人关心站立办公时桌子会不会晃。实话说，是有一点晃，但还是还可以接受的，但如果你特别敏感的话，可能还是需要考虑一下。
-
 总体来说，电动升降桌这种坐与站切换的方式似乎还是比较理想的。目前因为我使用的时间还不足以体会到明显改善的效果。这款升降桌一共有3个档位的记忆档位，调整上下档位不像其他的升降桌是按键形式，这款升降桌是旋转方式。旋转调整的粒度还是比较细的，调整可以比较精准。一般升降桌都有遇到障碍物方向升降的功能，避免一些意外伤害。这款桌面的承重是 120 千克，所以升降过程还是比较平稳。
 https://www.bilibili.com/video/BV1Qp4y167cC/
 显示器支架 电动升降桌，显示器支架以及人体工程学办公椅，这似乎就已经是颈椎病三件套。双十一在考虑入手电动升降桌之后，我就在考虑入手显示器支架。目前，因为主力使用的是 iMac2020，而且我当初选择的是支架版本，就是那种最普通的版本带底座的。其实 iMac 是有 VESA 孔的款式，这点恐怕很多人都不知道，我也是后来查了才知道的，而且带 VESA 孔的居然还要贵几百块。iMac 有个头疼的问题就是支架如何安装，因为原生的底座无法拆解。找了半天，终于找到一个折中的方案，通过底座中间的圆孔可以安装一个配件来安装显示器支架。选择的是长臂猿一款配件，国外应该也有类似的配件，不过好像更贵一点。
-
-
 通过这个配件可以安装显示器支架，这种方案唯一的问题可能就是没有原生的那么稳定，再加上升降桌的晃动，可能晃动的幅度会更大一点。不过，总体还是一种比较可以接收的方案。
 对于 iMac 支架选择还有一个更重要的问题就是重量。一般的显示器支架都是只支持 3-9 千克的显示器，iMac 整体的净重已经超过 9 千克了，如果使用普通的显示器支架势必会有低头现象。后来我选择了 NB 的 F100A 型号的支架。主要出于两个原因：一是这款显示器支架承重范围更广，可以支持 3-12 千克的重量；二是这款显示器支架性价比高，双十一差不多一百七左右就可搞定。实际入手的体验要比期望中的差一些，第一个还是有低头现象，后来换了一个，好了一点，但还是有点低头的。支架的安装过程不能算复杂，不过如果是第一次安装可能还需要一些时间的，第二次安装就快多了。
-
 另外一款支架是乐歌的 D7A，好像是一款比较老的型号，但是价格好像还挺贵的。安装比 NB 的还简单一点，因为好几个组件都已经安装好了，基本只要固定在桌面就可以了。总体来说，这款支架可能综合方面比 NB 应该还更好一些，颜色也不太一样，偏银色。最后的总体效果我还是比较满意的，后来还是入了小米的显示器挂灯，配合使用效果还不错。显示器还是横屏用比较好，竖屏的确是不是很好用。
-
-总结 这么一套折腾下来，差不多花了两千五左右，总体效果还是不错的。一个好的办公桌面真的会让人身心愉悦（可能是花了钱的缘故）。</p>
+总结 这么一套折腾下来，差不多花了两千五左右，总体效果还是不错的。一个好的办公桌面真的会让人身心愉悦（可能是花了钱的缘故）。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%A2%88%E6%A4%8E/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%94%AE%E7%9B%98/" class="post-link">键盘简史</a></h3>
-    <p class="post-meta">@Neal · Nov 7, 2020 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">铁打的程序员，流水的键盘。作为一名全栈工程师，怎么能没几把好键盘。今天，就和大家分享一下这几年我体验的这些键盘。当然我并不是一个键盘发烧友，只是喜欢体验不同的键盘的手感，好的键盘真的会带给人写代码的愉悦（当然这种愉悦感最多也就持续一天）。键盘的种类主要可能就是薄膜键盘、静电容以及机械，然后每一种下面又分为好多种。这几个大类我都有体验过，那就讲讲使用这些键盘的感受是如何的。
-性价比高的 IKBC 茶轴 入机械键盘坑的时候应该是当初还是做前端开发实习生的时候，当初就有好几个小伙伴在用机械键盘。当时就心痒痒，后来选择了 IKBC 的 C87 的白色茶轴，应该就四百左右。IKBC 算是性价比比较高的一款机械键盘，适合新手入坑。茶轴也挺适合机械键盘新入手的小伙伴，它既不会像青轴那么激进，但是同时又有比较强的段落感，所以码字还是比较带劲的。
-当时拆箱的照片已经不见了，只有当初在实习公司的照片了，还有那两台特别戳的显示器。这款键盘后来出掉了，因为后来键盘很多了，而且这款我也不会再用了。
-
-
-信仰之 Filco 青轴 机械键盘这玩意，基本一入坑就想换，就跟女生买包一样，买了一个还想买一个。如果机械键盘没有买过 Filco 就感觉始终没有到头。Filco 算是机械键盘里面比较 TOP 的品牌，被众多网友奉为退烧键盘。自从入了机械键盘坑之后就一直心痒痒要买 Filco。不久后我就入了 Filco 的 104 圣手二代青轴，当初也是双十一活动，九百就拿下了，这款键盘平常都要一千多。其实双模的肯定很爽，但因为价格原因还是选择了有线版本。另外，有兴趣的同学以后也考虑入侧刻的，比正刻的骚气一点。
-Filco 的手感不用说了，那种轻快感，啪啪啪，震撼心魄，才拿到手的那段时间那真的不要太爽。不过青轴的缺点就是噪音比较大，当时办公室的人估计都想捶我。再好的键盘用多了也会腻，再加上噪音比较大，不过这个键盘我还是用了蛮久的，只是后来又入了新的键盘，这款键盘就闲置了。老实说，这款键盘的手感真的非常优秀，基本可以算我拥有的键盘里面手感最好的了。
-
-另外一点就是 Filco 的大键不好安装，Filco 的大轴基本都是有平衡杆的，平衡杆是通过龙豆固定，对于我这种手残党来说，真的好难装，没有 Leopold 的卫星轴安装方便。
-
-舒适的 Leopold 红轴 当青轴体验完之后，就很想体验那种有段落感截然不同的轴体。另外工作之后也希望不要使用那么高调的 Filco 青轴，正式工作的时候就入了 Leopold 的红轴。Leopold 可以算得上是和 Filco 并驾齐驱的机械键盘品牌之一。大 L 对于键盘的调教一点都不输于 Filco。
-红轴的手感相比青轴段落感会弱很多，会有一点点闷的感觉，但是那种触感感觉还是很OK 的。红轴感觉就是相对于青轴更有一种成熟的感觉，感觉也更容易接受。
-
-Leopold VS IKBC
-
-不一样的 NIZ 静电容 在体验过3把机械键盘之后，我也很想尝试静电容键盘。HHKB 作为静电容键盘的头牌，也被很多程序猿所追求。之前实习的时候我也稍微体验过别人的这把键盘，手感的确有求。这款键盘键位排布我不是很喜欢，键位对于来说太少了。最不能接受的就是价格。后来还是选择了价格更加亲民的 NIZ 的静电容键盘 X87 35g。35g是按压压力，另外还有 45g的。
-NIZ 键盘能够完美地适配 mac 电脑。键盘的外观还是比较朴素的，这也是我比较喜欢的风格。我一向不太追求花里胡哨的风格，之前选择的也都是比较低调的，灯厂那种风格的确不是特别适合我。静电容键盘的手感和机械键盘的手感完全不同，尤其是和青轴相比的话，没有那种段落感，更多的是直上直下，可能一开始会特别不习惯。静电容键盘可能稍微比较类似于红轴，但是和红轴相比，可能会更绵密，更软一点，当然声音也会更轻一点。NIZ 支持多种编程方式，不过我也没那种需求，就使用默认的就可以了。后来，还是觉得键帽太单调了，还是换了几个键帽作为点缀。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%94%AE%E7%9B%98/">Read More →</a>
   </footer>
 </article>
 
@@ -450,20 +430,7 @@ NIZ 键盘能够完美地适配 mac 电脑。键盘的外观还是比较朴素�
 
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

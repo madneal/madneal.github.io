@@ -4,112 +4,59 @@
     <title>算法OJ on Neal&#39;s Blog</title>
     <link>https://madneal.com/categories/%E7%AE%97%E6%B3%95oj/</link>
     <description>Recent content in 算法OJ on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 26 Oct 2016 17:34:25 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/%E7%AE%97%E6%B3%95oj/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Oct 2016 17:34:25 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/categories/%E7%AE%97%E6%B3%95oj/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>the sum of two fixed value</title>
       <link>https://madneal.com/post/the-sum-of-two-fixed-value/</link>
       <pubDate>Wed, 26 Oct 2016 17:34:25 +0000</pubDate>
-      
       <guid>https://madneal.com/post/the-sum-of-two-fixed-value/</guid>
-      <description>the sum of two fixed value
-description
-Input an array and an integer, fina a pair of number in the array so that the sum is equals to the inputed integer. If there are several pairs, you can output any pair. For example, if the input array is [1,2,4,5,7,11,15] and an integer 15, because 4 + 11 = 15, hence output 4 and 11.
-analysis and solution
-We try to figure out this problem step by step.</description>
+      <description>&lt;p&gt;the sum of two fixed value&lt;/p&gt;&#xA;&lt;p&gt;description&lt;/p&gt;&#xA;&lt;p&gt;Input an array and an integer, fina a pair of number in the array so that the sum is equals to the inputed integer. If there are several pairs, you can output any pair. For example, if the input array is [1,2,4,5,7,11,15] and an integer 15, because 4 + 11 = 15, hence output 4 and 11.&lt;/p&gt;&#xA;&lt;p&gt;analysis and solution&lt;/p&gt;&#xA;&lt;p&gt;We try to figure out this problem step by step. (we should notice the difference of ordered and unordered.)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>数据结构线性表相关操作</title>
       <link>https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</link>
       <pubDate>Mon, 28 Dec 2015 15:50:34 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</guid>
-      <description>数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;malloc.h&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&amp;gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;amp;&amp;amp;j&amp;lt;i-1) { p=p-&amp;gt;next; ++j; } if(!p||j&amp;gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&amp;gt;data = e; s-&amp;gt;next=p-&amp;gt;next; p-&amp;gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&amp;gt;next; if(!</description>
+      <description>&lt;p&gt;数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;&#xA;#include &amp;lt;malloc.h&amp;gt;&#xA;#include&amp;lt;iostream&amp;gt;&#xA;using namespace std;&#xA;//线性表的定义&#xA;typedef int ElemType;&#xA;typedef struct LNode{&#xA;&#x9;ElemType data;&#xA;&#x9;struct LNode *next;&#xA;}LNode,*LinkList;&#xA;//线性表的初始化&#xA;int InitList_L(LinkList &amp;amp;L)&#xA;{&#xA;&#x9;L = (LinkList)malloc(sizeof(LNode));&#xA;&#x9;L-&amp;gt;next = NULL;&#xA;&#x9;return 1;&#xA;}&#xA;//线性表的插入&#xA;int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e)&#xA;{&#xA;&#x9;LinkList p;&#xA;&#x9;p = L;&#xA;&#x9;int j = 0;&#xA;&#x9;while(p&amp;amp;&amp;amp;j&amp;lt;i-1)&#xA;&#x9;{&#xA;&#x9;&#x9;p=p-&amp;gt;next;&#xA;&#x9;&#x9;++j;&#xA;&#x9;}&#xA;&#x9;if(!p||j&amp;gt;i-1)&#xA;&#x9;&#x9;return 0;&#xA;&#x9;LinkList s = (LinkList)malloc(sizeof(LNode));&#xA;&#x9;s-&amp;gt;data = e;&#xA;&#x9;s-&amp;gt;next=p-&amp;gt;next;&#xA;&#x9;p-&amp;gt;next=s;&#xA;&#x9;return 1;&#xA;}&#xA;//清空线性表&#xA;void Delete_L(LinkList L)&#xA;{&#xA;&#x9;LinkList p = L-&amp;gt;next;&#xA;&#x9;if(!p)&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; &amp;#34;this list is empty!&amp;#34;;&#xA;&#x9;while(p)&#xA;&#x9;{&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; p-&amp;gt;data;&#xA;&#x9;&#x9;p = p-&amp;gt;next;&#xA;&#x9;}&#xA;&#x9;cout &amp;lt;&amp;lt; endl;&#xA;}&#xA;//合并线性表&#xA;void MergeList_L(LinkList &amp;amp;La,LinkList &amp;amp;Lb,LinkList &amp;amp;Lc)&#xA;{&#xA;&#x9;LinkList pa = La-&amp;gt;next;&#xA;&#x9;LinkList pb = Lb-&amp;gt;next;&#xA;&#x9;LinkList pc = Lc=La;&#xA;&#x9;while (pa&amp;amp;&amp;amp;pb)&#xA;&#x9;{&#xA;&#x9;&#x9;if(pa-&amp;gt;data&amp;lt;pb-&amp;gt;data)&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;pc-&amp;gt;next=pa;&#xA;&#x9;&#x9;&#x9;pc=pa;&#xA;&#x9;&#x9;&#x9;pa=pa-&amp;gt;next;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;else&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;pc-&amp;gt;next=pb;&#xA;&#x9;&#x9;&#x9;pc=pb;&#xA;&#x9;&#x9;&#x9;pb=pb-&amp;gt;next;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;pc-&amp;gt;next=pa?pa:pb;&#xA;&#x9;free(Lb);&#xA;}&#xA;&#xA;int main()&#xA;{&#xA;&#x9;LinkList La,Lb,Lc;&#xA;&#x9;InitList_L(La);&#xA;&#x9;InitList_L(Lb);&#xA;&#x9;InitList_L(Lc);&#xA;&#x9;ListInsert_L(La,1,2);&#xA;&#x9;ListInsert_L(La,2,3);&#xA;&#x9;ListInsert_L(La,3,5);&#xA;&#x9;Delete_L(La);&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>剑指offer学习读书笔记--二维数组中的查找</title>
       <link>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</link>
       <pubDate>Sat, 14 Nov 2015 12:08:09 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</guid>
-      <description>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1	2	8	9 2	4	9	12 4	7	10	13 6	8	11	15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
-从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
-bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;amp;&amp;amp; rows &amp;gt; 0 &amp;amp;&amp;amp; cols &amp;gt; 0) { int row = 0; int col = cols - 1; while(row &amp;lt; rows &amp;amp;&amp;amp; col &amp;gt;= 0) { if (matrix[row*cols + col] == num) { found = true; break; } else if(matrix[row*cols + col] &amp;gt; num) -- col; else ++ row; } } return found; } </description>
+      <description>&lt;p&gt;在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。&#xA;1&#x9;&#x9;2&#x9;&#x9;8&#x9;&#x9;9&#xA;2&#x9;&#x9;4&#x9;&#x9;9&#x9;&#x9;12&#xA;4&#x9;&#x9;7&#x9;&#x9;10&#x9;&#x9;13&#xA;6&#x9;&#x9;8&#x9;&#x9;11&#x9;&#x9;15&#xA;我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。&lt;/p&gt;&#xA;&lt;p&gt;从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;bool Find(int* matrix,int rows,int cols,int num)&#xA;{&#xA;&#x9;bool found = false;&#xA;&#x9;if (matrix != null &amp;amp;&amp;amp; rows &amp;gt; 0 &amp;amp;&amp;amp; cols &amp;gt; 0)&#xA;&#x9;{&#xA;&#x9;&#x9;int row = 0;&#xA;&#x9;&#x9;int col = cols - 1;&#xA;&#x9;&#x9;while(row &amp;lt; rows &amp;amp;&amp;amp; col &amp;gt;= 0)&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;if (matrix[row*cols + col] == num)&#xA;&#x9;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#x9;found = true;&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else if(matrix[row*cols + col] &amp;gt; num)&#xA;&#x9;&#x9;&#x9;-- col;&#xA;&#x9;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;++ row;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;return found;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>每日一练--直接插入排序</title>
       <link>https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</link>
       <pubDate>Wed, 28 Oct 2015 14:17:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</guid>
-      <description>现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]&amp;hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
-//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &amp;gt;= 0 and num[i] &amp;gt; key { num[i+1] = num[i]; i--; } num[i+1] = key; 下面用c++来实现
-// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &amp;#34;stdafx.h&amp;#34; #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdlib.h&amp;gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &amp;lt;&amp;lt; &amp;#34;the number has not been sorted:&amp;#34; &amp;lt;&amp;lt; endl; for (int i = 0;i &amp;lt; 10;i++) { cout &amp;lt;&amp;lt; num[i] &amp;lt;&amp;lt; &amp;#39; &amp;#39;; } cout &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;#34;the number has been sorted:&amp;#34; &amp;lt;&amp;lt; endl; for (int j =1;j &amp;lt;10;j++) { int key = num[j]; int i = j-1; while(i &amp;gt;=0&amp;amp;&amp;amp;num[i]&amp;gt;key) { num[i+1] = num[i]; i--; } num[i+1] = key; } for (int m = 0;m &amp;lt; 10;m++) { cout &amp;lt;&amp;lt; num[m] &amp;lt;&amp;lt; &amp;#39; &amp;#39;; } cout &amp;lt;&amp;lt; endl; return 0; } 今天一练，到此结束。</description>
+      <description>&lt;p&gt;现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。&#xA;直接插入排序可以这么理解，把A[j]和A[0]&amp;hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2).&#xA;先给出伪代码分析&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;//the index of array is from 0&#xA;for j=1 to num.length&#xA;&#x9;key = num[j];&#xA;&#x9;i = j-1;&#xA;&#x9;while i &amp;gt;= 0 and num[i] &amp;gt; key&#xA;&#x9;{&#xA;&#x9;&#x9;num[i+1] = num[i];&#xA;&#x9;&#x9;i--;&#xA;&#x9;}&#xA;&#x9;num[i+1] = key;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下面用c++来实现&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// insertsort.cpp : 定义控制台应用程序的入口点。&#xA;//&#xA;&#xA;#include &amp;#34;stdafx.h&amp;#34;&#xA;#include&amp;lt;iostream&amp;gt;&#xA;#include&amp;lt;stdlib.h&amp;gt;&#xA;using namespace std;&#xA;&#xA;int main()&#xA;{&#xA;&#x9;int num[10] = {10,20,1,78,34,99,12,21,2,55};&#xA;&#x9;int key;&#xA;&#x9;cout &amp;lt;&amp;lt; &amp;#34;the number has not been sorted:&amp;#34; &amp;lt;&amp;lt; endl;&#xA;&#x9;for (int i = 0;i &amp;lt; 10;i++)&#xA;&#x9;{&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; num[i] &amp;lt;&amp;lt; &amp;#39; &amp;#39;;&#xA;&#x9;}&#xA;&#x9;cout &amp;lt;&amp;lt; endl;&#xA;&#x9;cout &amp;lt;&amp;lt; &amp;#34;the number has been sorted:&amp;#34; &amp;lt;&amp;lt; endl;&#xA;&#x9;for (int j =1;j &amp;lt;10;j++)&#xA;&#x9;{&#xA;&#x9;&#x9;int key = num[j];&#xA;&#x9;&#x9;int i = j-1;&#xA;&#x9;&#x9;while(i &amp;gt;=0&amp;amp;&amp;amp;num[i]&amp;gt;key)&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;num[i+1] = num[i];&#xA;&#x9;&#x9;&#x9;i--;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;num[i+1] = key;&#xA;&#x9;}&#xA;&#xA;&#x9;for (int m = 0;m &amp;lt; 10;m++)&#xA;&#x9;{&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; num[m] &amp;lt;&amp;lt; &amp;#39; &amp;#39;;&#xA;&#x9;}&#xA;&#x9;cout &amp;lt;&amp;lt; endl;&#xA;&#x9;return 0;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;今天一练，到此结束。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>歌德巴赫猜想</title>
       <link>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</link>
       <pubDate>Sat, 11 Apr 2015 18:16:39 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</guid>
-      <description>题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a+b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a+b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;#34;%d&amp;#34;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;#34;%d %d\n&amp;#34;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i ++) { if(x % i == 0) return false; } return true; } </description>
+      <description>&lt;h2 id=&#34;题目&#34;&gt;题目&lt;/h2&gt;&#xA;&lt;p&gt;Description&lt;/p&gt;&#xA;&lt;p&gt;歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。&#xA;现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a+b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5；&#xA;又如n=10，质数3、7以及5、5满足a+b=n, a≤b，而乘积大的那组是5、5。&#xA;Input&lt;/p&gt;&#xA;&lt;p&gt;每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）&lt;/p&gt;&#xA;&lt;p&gt;Output&lt;/p&gt;&#xA;&lt;p&gt;对应于每个输入的偶数，输出a、一个空格、b、一个换行符&lt;/p&gt;&#xA;&lt;p&gt;Sample Input&lt;/p&gt;&#xA;&lt;p&gt;8&#xA;10&#xA;1000&#xA;Sample Output&lt;/p&gt;&#xA;&lt;p&gt;3 5&#xA;5 5&#xA;491 509&lt;/p&gt;&#xA;&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include&amp;lt;stdio.h&amp;gt;&#xA;#include&amp;lt;math.h&amp;gt;&#xA; &#xA;bool isPrime(int x); &#xA;int main()&#xA;{&#xA;&#x9;int n,i,j;&#xA;&#x9;while (scanf(&amp;#34;%d&amp;#34;,&amp;amp;n) != EOF)&#xA;&#x9;{&#xA;&#x9;&#x9;for (i = n/2;i &amp;gt; 0;i -= 2)&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;if(i%2 == 0)&#xA;&#x9;&#x9;&#x9;&#x9;i --;&#xA;&#x9;&#x9;&#x9;j = n - i;&#xA;&#x9;&#x9;if(isPrime(i)&amp;amp;&amp;amp;isPrime(j))&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;&#x9;printf(&amp;#34;%d %d\n&amp;#34;,i,j);&#xA;&#x9;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;return 0;&#xA;}&#xA;bool isPrime(int x)&#xA;{&#xA;&#x9;int len = sqrt((float)x);&#xA;&#x9;for (int i = 2;i &amp;lt;= len;i ++)&#xA;&#x9;{&#xA;&#x9;&#x9;if(x % i == 0)&#xA;&#x9;&#x9;&#x9;return false;&#xA;&#x9;}&#xA;&#x9;return true;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
     <item>
       <title>ROT13加密和解密</title>
       <link>https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</link>
       <pubDate>Sat, 11 Apr 2015 10:16:26 +0000</pubDate>
-      
       <guid>https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</guid>
-      <description>问题 ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。
-应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。
-例如，下面的英文笑话，精华句被ROT13所隐匿：
-How can you tell an extrovert from an
-introvert at NSA? Va gur ryringbef,
-gur rkgebireg ybbxf ng gur BGURE thl&amp;rsquo;f fubrf.
-通过ROT13转换，该笑话的解答揭露如下：
-Ubj pna lbh gryy na rkgebireg sebz na
-vagebireg ng AFN? In the elevators,
-the extrovert looks at the OTHER guy&amp;rsquo;s shoes.
-第二次使用ROT13将恢复为原文。
-Input
-第1行：一个整数T（1≤T≤10）为问题数。
-接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。
-Output
-对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。
-然后对应每个问题在一行中输出经过ROT13加密后的一段文字。
-Sample Input
-3
-How can you tell an extrovert from an</description>
+      <description>&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;&#xA;&lt;p&gt;ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。&lt;/p&gt;&#xA;&lt;p&gt;应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。&lt;/p&gt;&#xA;&lt;p&gt;例如，下面的英文笑话，精华句被ROT13所隐匿：&lt;/p&gt;&#xA;&lt;p&gt;How can you tell an extrovert from an&lt;/p&gt;&#xA;&lt;p&gt;introvert at NSA? Va gur ryringbef,&lt;/p&gt;&#xA;&lt;p&gt;gur rkgebireg ybbxf ng gur BGURE thl&amp;rsquo;f fubrf.&lt;/p&gt;&#xA;&lt;p&gt;通过ROT13转换，该笑话的解答揭露如下：&lt;/p&gt;&#xA;&lt;p&gt;Ubj pna lbh gryy na rkgebireg sebz na&lt;/p&gt;&#xA;&lt;p&gt;vagebireg ng AFN? In the elevators,&lt;/p&gt;&#xA;&lt;p&gt;the extrovert looks at the OTHER guy&amp;rsquo;s shoes.&lt;/p&gt;&#xA;&lt;p&gt;第二次使用ROT13将恢复为原文。&lt;/p&gt;&#xA;&lt;p&gt;Input&lt;/p&gt;&#xA;&lt;p&gt;第1行：一个整数T（1≤T≤10）为问题数。&lt;/p&gt;&#xA;&lt;p&gt;接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。&lt;/p&gt;&#xA;&lt;p&gt;Output&lt;/p&gt;&#xA;&lt;p&gt;对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。&lt;/p&gt;&#xA;&lt;p&gt;然后对应每个问题在一行中输出经过ROT13加密后的一段文字。&lt;/p&gt;&#xA;&lt;p&gt;Sample Input&lt;/p&gt;&#xA;&lt;p&gt;3&lt;/p&gt;&#xA;&lt;p&gt;How can you tell an extrovert from an&lt;/p&gt;&#xA;&lt;p&gt;introvert at NSA? Va gur ryringbef,&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>一个简单的输入输出算法题</title>
       <link>https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/</link>
       <pubDate>Sat, 11 Apr 2015 10:04:08 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/</guid>
-      <description>有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
-题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
-输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
-样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
-代码 #include &amp;#34;stdafx.h&amp;#34; #include&amp;lt;iostream&amp;gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &amp;gt;&amp;gt; n; int m,m_; for (int i = 0; i &amp;lt; n;++ i) { cin &amp;gt;&amp;gt; m; a[i] = m;	} cin &amp;gt;&amp;gt;n_; for (int i = 0;i &amp;lt; n; ++ i) { cin &amp;gt;&amp;gt; m_; b[i] = m_; } for (int i = 0;i &amp;lt;= n;i++) { if (i == 0) cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;#34; &amp;#34;; else cout &amp;lt;&amp;lt; a[i-1]*2 - b[i-1] &amp;lt;&amp;lt; &amp;#34; &amp;#34;; } return 0; } 这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</description>
+      <description>&lt;p&gt;有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。&lt;/p&gt;&#xA;&lt;h2 id=&#34;题目&#34;&gt;题目&lt;/h2&gt;&#xA;&lt;p&gt;ime Limit: 1000 MS Memory Limit: 32768 K&#xA;给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。&#xA;输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。&lt;/p&gt;&#xA;&lt;p&gt;输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。&lt;/p&gt;&#xA;&lt;p&gt;样例：&#xA;输入：&#xA;10 18 38 83 93 53 36 39 58 8 93&#xA;10 55 79 20 71 60 66 79 55 78 66&#xA;输出&#xA;10 -19 -3 146 115 46 6 -1 61 -62 120&lt;/p&gt;&#xA;&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;#34;stdafx.h&amp;#34;&#xA;#include&amp;lt;iostream&amp;gt;&#xA;using namespace std;&#xA;int main()&#xA;{&#xA;&#x9;int a[100],b[100],c[100];&#xA;&#x9;int n,n_;&#xA;&#x9;cin &amp;gt;&amp;gt; n;&#xA;&#x9;int m,m_;&#xA;&#x9;for (int i = 0; i &amp;lt; n;++ i)&#xA;&#x9;{&#xA;&#x9;&#x9;cin &amp;gt;&amp;gt; m;&#xA;&#x9;&#x9;a[i] = m;&#x9;&#xA;&#x9;}&#xA;&#x9;cin &amp;gt;&amp;gt;n_;&#xA;&#x9;for (int i = 0;i &amp;lt; n; ++ i)&#xA;&#x9;{&#xA;&#x9;&#x9;cin &amp;gt;&amp;gt; m_;&#xA;&#x9;&#x9;b[i] = m_;&#xA;&#x9;}&#xA;&#x9;for (int i = 0;i &amp;lt;= n;i++)&#xA;&#x9;{&#xA;&#x9;&#x9;if (i == 0)&#xA;&#x9;&#x9;&#x9;cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;#34; &amp;#34;;&#xA;&#x9;&#x9;else&#xA;&#x9;&#x9;&#x9;cout &amp;lt;&amp;lt; a[i-1]*2 - b[i-1] &amp;lt;&amp;lt; &amp;#34; &amp;#34;;&#xA;&#x9;}&#xA;&#x9;return 0;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

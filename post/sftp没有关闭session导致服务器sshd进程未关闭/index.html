@@ -17,7 +17,8 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;#34;HostName:&amp;#34; &#43; hostname &#43; &amp;#34;|Port:&amp;#34; &#43; port); logger.debug(&amp;#34;Session created&amp;#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;#34;StrictHostKeyChecking&amp;#34;, &amp;#34;no&amp;#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;#34;sftp&amp;#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;#34;Failed to connect FTP server &amp;#34; &#43; hostname); return false; } logger.debug(&amp;#34;Username:&amp;#34; &#43; userName &#43; &amp;#34;|Password:&amp;#34; &#43; password); } catch (Exception ex) { logger." />
+protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&#34;HostName:&#34; &#43; hostname &#43; &#34;|Port:&#34; &#43; port); logger.debug(&#34;Session created&#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&#34;Failed to connect FTP server &#34; &#43; hostname); return false; } logger.debug(&#34;Username:&#34; &#43; userName &#43; &#34;|Password:&#34; &#43; password); } catch (Exception ex) { logger.error(ex); } return true; } 其实每次执行完都会
+" />
 
   
   
@@ -26,7 +27,8 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="sftp没有关闭session导致服务器sshd进程未关闭" />
   <meta property="og:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;#34;HostName:&amp;#34; &#43; hostname &#43; &amp;#34;|Port:&amp;#34; &#43; port); logger.debug(&amp;#34;Session created&amp;#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;#34;StrictHostKeyChecking&amp;#34;, &amp;#34;no&amp;#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;#34;sftp&amp;#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;#34;Failed to connect FTP server &amp;#34; &#43; hostname); return false; } logger.debug(&amp;#34;Username:&amp;#34; &#43; userName &#43; &amp;#34;|Password:&amp;#34; &#43; password); } catch (Exception ex) { logger." />
+protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&#34;HostName:&#34; &#43; hostname &#43; &#34;|Port:&#34; &#43; port); logger.debug(&#34;Session created&#34;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&#34;Failed to connect FTP server &#34; &#43; hostname); return false; } logger.debug(&#34;Username:&#34; &#43; userName &#43; &#34;|Password:&#34; &#43; password); } catch (Exception ex) { logger.error(ex); } return true; } 其实每次执行完都会
+" />
   <meta property="og:url" content="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -264,31 +266,13 @@ sftp.disconnet();
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3118</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3150</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -322,20 +306,7 @@ sftp.disconnet();
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

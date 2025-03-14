@@ -219,7 +219,9 @@
   </header>
   
   <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&gt; {  res.render(&#39;index&#39;, {  title: &#39;express&#39;,  docs: docs  })  }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.</p>
+router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; }); const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样：
+[{ &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7970&#34;), &#34;title&#34; : &#34;好楼层，中等装修，满5年，上门实拍&#34;, &#34;type&#34; : &#34;2室1厅&#34;, &#34;square&#34; : &#34;75.42平&#34;, &#34;direction&#34; : &#34;朝南&#34;, &#34;floor&#34; : &#34;中区/6层&#34;, &#34;unitPrice&#34; : 47732, &#34;totalPrice&#34; : 360, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4528035.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; } { &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7971&#34;), &#34;title&#34; : &#34;南北户型，厨卫全明，高区采光好，装修精美&#34;, &#34;type&#34; : &#34;2室2厅&#34;, &#34;square&#34; : &#34;90.92平&#34;, &#34;direction&#34; : &#34;朝南北&#34;, &#34;floor&#34; : &#34;高区/6层&#34;, &#34;unitPrice&#34; : 46194, &#34;totalPrice&#34; : 420, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4546221.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; }] 预期index.ejs应该渲染的页面是一个ul渲染的结果，类似于
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
   </footer>
@@ -260,20 +262,7 @@ router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

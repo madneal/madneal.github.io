@@ -16,13 +16,15 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="介绍 目标： 10.10.10.134 (Windows)
+  <meta name="description" content="
+介绍 目标： 10.10.10.134 (Windows)
 Kali：10.10.16.65
 In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
 总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
 信息枚举 Firstly, detect the open ports:
 首先，探测开放端口
-# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10." />
+# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134 Warning: 10.10.10.134 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.134 Host is up (0.33s latency). Not shown: 60653 closed ports, 4873 filtered ports PORT STATE SERVICE 22/tcp open ssh 135/tcp open msrpc 139/tcp open netbios-ssn 445/tcp open microsoft-ds 49664/tcp open unknown 49665/tcp open unknown 49667/tcp open unknown 49668/tcp open unknown 49670/tcp open unknown From the open ports, it can be induced that the box may be a windows machine that opens ssh service. Then try to obtain the detailed services of these open ports:
+" />
 
   
   
@@ -30,13 +32,15 @@ In conclusion, Bastion is not a medium box. But it would be easier to solve this
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Bastion -- Hack the box" />
-  <meta property="og:description" content="介绍 目标： 10.10.10.134 (Windows)
+  <meta property="og:description" content="
+介绍 目标： 10.10.10.134 (Windows)
 Kali：10.10.16.65
 In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
 总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
 信息枚举 Firstly, detect the open ports:
 首先，探测开放端口
-# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10." />
+# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134 Warning: 10.10.10.134 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.134 Host is up (0.33s latency). Not shown: 60653 closed ports, 4873 filtered ports PORT STATE SERVICE 22/tcp open ssh 135/tcp open msrpc 139/tcp open netbios-ssn 445/tcp open microsoft-ds 49664/tcp open unknown 49665/tcp open unknown 49667/tcp open unknown 49668/tcp open unknown 49670/tcp open unknown From the open ports, it can be induced that the box may be a windows machine that opens ssh service. Then try to obtain the detailed services of these open ports:
+" />
   <meta property="og:url" content="https://madneal.com/post/bastion/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -375,31 +379,13 @@ OS and Service detection performed. Please report any incorrect results at https
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1968</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2000</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -433,20 +419,7 @@ OS and Service detection performed. Please report any incorrect results at https
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

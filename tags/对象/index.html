@@ -218,11 +218,15 @@
     <p class="post-meta">@Neal · Jul 26, 2016 · 3 min read</p>
   </header>
   
-  <p class="post-summary">原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
-  成对出现的名称以及相应的值{ name1: value1 }
-  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
-  遗憾的是，这个对象字面量可能会出现下面这样的情况：
-var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.</p>
+  <p class="post-summary"> 原文链接 : Why object literals in JavaScript are cool 原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com 在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
+成对出现的名称以及相应的值{ name1: value1 }
+Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
+遗憾的是，这个对象字面量可能会出现下面这样的情况：
+var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&gt; &#39;value 1&#39; myObject.myNumber = &#39;15&#39;; myObject.myNumber; // =&gt; 15 Javascript一个基于原型的语言，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。
+通常都会涉及到对象的定义和对象原型的设置。我经常觉得对于原型的设置应该允许直接在对象字面量进行，用一条语句即可。
+不幸的是，对象字面量的限制不允许通过使用一个直接的方法来达到这个目的。你必须通过结合使用Object.create()以及对象字面量来设置原型：
+var myProto = { propertyExists: function(name) { return name in this; } }; var myNumbers = Object.create(myProto); myNumbers[&#39;array&#39;] = [1, 6, 7]; myNumbers.propertyExists(&#39;array&#39;); // =&gt; true myNumbers.propertyExists(&#39;collection&#39;); // =&gt; false 我觉得这是一个让人很不爽的解决方案。Javascript既然是一个基于原型的语言，为什么还要花这么大力气从一个原型中创建对象。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/">Read More →</a>
   </footer>
@@ -263,20 +267,7 @@ var myObject = { myString: &#39;value 1&#39;, get myNumber() { return this._myNu
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

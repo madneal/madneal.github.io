@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>videocapture on Neal&#39;s Blog</title>
+    <title>Videocapture on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/videocapture/</link>
-    <description>Recent content in videocapture on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Videocapture on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 12 Apr 2015 13:16:58 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/videocapture/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Apr 2015 13:16:58 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/videocapture/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>opencv视频流的读取和处理</title>
       <link>https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</link>
       <pubDate>Sun, 12 Apr 2015 13:16:58 +0000</pubDate>
-      
       <guid>https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/</guid>
-      <description>Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码  #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;#34;d:\\road.avi&amp;#34;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;#34;No input image&amp;#34;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;#34;Example&amp;#34;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;#34;Example&amp;#34;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; } 要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。
-处理视频帧 为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。 首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog.</description>
+      <description>&lt;ol&gt;&#xA;&lt;li&gt;Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include&amp;lt;opencv2\core\core.hpp&amp;gt;&#xA;#include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt;&#xA;#include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt;&#xA;#include&amp;lt;iostream&amp;gt;&#xA;using namespace cv;&#xA;using namespace std;&#xA;&#xA;int main()&#xA;{&#xA;&#x9;VideoCapture capture(&amp;#34;d:\\road.avi&amp;#34;);&#xA;&#x9;//检测视频是否读取成功&#xA;&#x9;if (!capture.isOpened())&#xA;&#x9;{&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; &amp;#34;No input image&amp;#34;;&#xA;&#x9;&#x9;return 1;&#xA;&#x9;}&#xA;&#xA;&#x9;//获取图像帧率&#xA;&#x9;double rate = capture.get(CV_CAP_PROP_FPS);&#xA;&#x9;bool stop = false;&#xA;&#x9;Mat frame;&#xA;&#x9;namedWindow(&amp;#34;Example&amp;#34;);&#xA;&#xA;&#x9;int delay = 1000/rate;&#xA;&#xA;&#x9;while (!stop)&#xA;&#x9;{&#xA;&#x9;&#x9;if (!capture.read(frame))&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;imshow(&amp;#34;Example&amp;#34;,frame);&#xA;&#x9;&#x9;if (waitKey(delay) &amp;gt;= 0)&#xA;&#x9;&#x9;&#x9;stop = true;&#xA;&#x9;}&#xA;&#x9;return 0;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。&lt;/p&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;处理视频帧&#xA;为了对视频中的每一帧进行处理，我们可以创建自己的类VideoProcessor,其中封装OopenCV的视频获取框架，该类允许我们制定每帧调用的处理函数。&#xA;首先，我们希望制定一个回调处理函数，（关于回调函数，另外一个帖子http://blog.csdn.net/neal1991/article/details/45009377有介绍）。这个喊出可以接受一个Mat对象然后输出处理之后的Mat对象。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;void processFrame(Mat&amp;amp; img, Mat&amp;amp; out);&#xA;&#xA;&#xA;    // 对视频的每帧做Canny算子边缘检测&#xA;void canny(Mat&amp;amp; img, Mat&amp;amp; out) &#xA;{&#xA;    // 先要把每帧图像转化为灰度图&#xA;   cvtColor(img,out,CV_BGR2GRAY);&#xA;    // 调用Canny函数&#xA;   Canny(out,out,100,200);&#xA;    // 对像素进行翻转&#xA;    threshold(out,out,128,255,THRESH_BINARY_INV);&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;定义好一个视频处理类，它将与一个回调函数相关联。使用该类，可以创建一个实例，制定输入的视频文件，绑定回调函数，然后开始对每一帧进行处理，要调用这个视频处理类，只需要在main函数添加就可以了：&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

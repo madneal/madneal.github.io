@@ -17,7 +17,7 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;malloc.h&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&amp;gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;amp;&amp;amp;j&amp;lt;i-1) { p=p-&amp;gt;next; &#43;&#43;j; } if(!p||j&amp;gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&amp;gt;data = e; s-&amp;gt;next=p-&amp;gt;next; p-&amp;gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&amp;gt;next; if(!" />
+#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!p) cout &lt;&lt; &#34;this list is empty!&#34;; while(p) { cout &lt;&lt; p-&gt;data; p = p-&gt;next; } cout &lt;&lt; endl; } //合并线性表 void MergeList_L(LinkList &amp;La,LinkList &amp;Lb,LinkList &amp;Lc) { LinkList pa = La-&gt;next; LinkList pb = Lb-&gt;next; LinkList pc = Lc=La; while (pa&amp;&amp;pb) { if(pa-&gt;data&lt;pb-&gt;data) { pc-&gt;next=pa; pc=pa; pa=pa-&gt;next; } else { pc-&gt;next=pb; pc=pb; pb=pb-&gt;next; } } pc-&gt;next=pa?pa:pb; free(Lb); } int main() { LinkList La,Lb,Lc; InitList_L(La); InitList_L(Lb); InitList_L(Lc); ListInsert_L(La,1,2); ListInsert_L(La,2,3); ListInsert_L(La,3,5); Delete_L(La); } " />
 
   
   
@@ -26,7 +26,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="数据结构线性表相关操作" />
   <meta property="og:description" content="数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;malloc.h&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&amp;gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;amp;&amp;amp;j&amp;lt;i-1) { p=p-&amp;gt;next; &#43;&#43;j; } if(!p||j&amp;gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&amp;gt;data = e; s-&amp;gt;next=p-&amp;gt;next; p-&amp;gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&amp;gt;next; if(!" />
+#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!p) cout &lt;&lt; &#34;this list is empty!&#34;; while(p) { cout &lt;&lt; p-&gt;data; p = p-&gt;next; } cout &lt;&lt; endl; } //合并线性表 void MergeList_L(LinkList &amp;La,LinkList &amp;Lb,LinkList &amp;Lc) { LinkList pa = La-&gt;next; LinkList pb = Lb-&gt;next; LinkList pc = Lc=La; while (pa&amp;&amp;pb) { if(pa-&gt;data&lt;pb-&gt;data) { pc-&gt;next=pa; pc=pa; pa=pa-&gt;next; } else { pc-&gt;next=pb; pc=pb; pb=pb-&gt;next; } } pc-&gt;next=pa?pa:pb; free(Lb); } int main() { LinkList La,Lb,Lc; InitList_L(La); InitList_L(Lb); InitList_L(Lc); ListInsert_L(La,1,2); ListInsert_L(La,2,3); ListInsert_L(La,3,5); Delete_L(La); } " />
   <meta property="og:url" content="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -316,31 +316,13 @@ int main()
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3331</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3363</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -374,20 +356,7 @@ int main()
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

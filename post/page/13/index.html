@@ -219,6 +219,21 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
+    <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
+var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }） 或者是使用一个gbk包，但我觉得还是上面的方式比较好。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/js%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81%E7%90%86%E8%A7%A3/" class="post-link">js的事件流理解</a></h3>
     <p class="post-meta">@Neal · Mar 5, 2016 · 1 min read</p>
   </header>
@@ -241,7 +256,8 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
     <p class="post-meta">@Neal · Mar 4, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。</p>
+  <p class="post-summary">去百度面试基础架构部的前端开发实习生，感觉应该跪得很惨。百度上海研发中心挺偏的，离张江还挺远的，还要打车过去。到了百度那边门卫管的挺严的，还要面试官来接。后来，就一个程序员来接我，也就是我的面试官。后来就在他们三楼一个休息的地方开始面试。首先就是自我介绍了，然后就是blabla我一些经历项目而已了。他强调了了一下前端相关的项目经历，但是讲道理我是真心没有前端的项目经历，所以也说不上什么。唯一做的也就是我自己的个人主页，还基本上都是静态页面。然后开始正式面试，他首先问了我标签和标签有什么区别，然后我说了和的本质区别是他们的默认display 属性不同，然后他又问了有没有其他的不同，我并不知道。然后他接着问了常见的块级标签和行内标签有哪一些。接着他问了我清除浮动的知识，我只是临时记住了一些清楚浮动的方法，但是还是没有弄懂实际的原理，所以场面也是比较的尴尬。他问了怎么优化网页，说可以怎么做。我不禁一喜，把之前准备的东西背出来，刚说到第一条，减少 http请求，他就问我如何减少 http请求。尴尬，一下子gg，我也想不起来如何减少http请求。后来他看我说不上来就让我继续往下说，我又说了压缩，以及代码精简之类的。然后他又问了具体的，我说了一下，他好像也不是特别满意。我的简历，尼玛，我为什么要写个对于html5有充分的认识！！！我天天又懒得改，每个面试官都要问我这个问题。不过我事先也准备了，就把一些基础的特性说了一下。他说还有别的，然后提醒我缓存之类的，然后就说起来sessionStorage，localStroage之类的，并问了我和cache之间的区别之类的。这里面有个问题他炸了我一下，他说你确定localStorage在本地是不会删除的么，很明显是不会的。然后他问对于缓存请求有没有了解，很明显我并没有什么了解。他又问了我一些对于哪些开源的框架比较熟悉，那也就只有jQuery和bootstrap。他问我对于这些开源框架的更新清不清楚，很明显，宝宝不清楚啊！！！然后他问了一系列图标改变颜色如何实现，实现鼠标挪上去，就改变颜色。这个我说用hover改变css 属性，但他应该是质疑这样的做法吧。后来他又说道bootstrap其实有这样的实现，其实我好像也看到过，但是我也没关注过是如何实现的，真是悲剧。接着他问了js的问题。首先问了一下事件流，这个地方我说错了，事件流应该是补货，处理，冒泡。我把顺序说反了，反正事件流还问了详细的问题，但是我对这个并不是特别了解，所以说的也是不好的。后来出了一个js的题目，如何实现像trim一样去掉两端的空白，我用js写了一下，里面有很多问题，具体就是不说了。后来他提示说是用正则表达式，我说我只会python的，然后他说可以。但是宝宝也写不出来啊，然后他说那你就说下原理吧。然而我并不知道如何做，然后就罢了。 第二个面试官就长得更像程序员了，直接穿个拖鞋就过来了。他是直接让我写代码的，第一题如何实现三列布局，两边各100px，中间自动拓展，我说了用float或者css3的新属性。他直接让我写代码了，然后就写一写，估计也不太对。第二个，他说ie和chrome等绑定的事件的方法不同，如何写一个函数进行不同的处理。这一题我并不知道如何区分，所以也就没写。第三题，他说有没有做过移动端的开发，我说没有。然后我就老实说了，其实自己并没有接触太多的前端。然后她说也看了我简历没什么前端的经历之类的，然后就是说说，然后就没了。 总结一下，这次面试经历讲道理并不是特别困难的。前端的书我也是看了好几本，但其实并没有什么特别的意思，还是做项目成长的比较快。所以，赶紧实习，实际参与项目对于我来说实在是太重要了。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95%E8%BF%9E%E8%B7%AA%E4%B9%8B%E6%97%85/">Read More →</a>
   </footer>
@@ -254,15 +270,15 @@ DOM事件流 DOM2级事件规定事件流包括三个阶段：事件捕获阶段
     <p class="post-meta">@Neal · Mar 1, 2016 · 1 min read</p>
   </header>
   
-  <p class="post-summary">html语义话  img标签alt属性和title属性的区别
+  <p class="post-summary"> html语义话 img标签alt属性和title属性的区别
 alt属性是图片在因浏览器兼容、加载失败活着地址出错等原因无法显示为浏览用户所做的代替语言，其性质为图片的代替；而title属性是表达该图片的一些额外信息，其性质为一种备注或注释，鼠标过去显示该文字。
- css布局  常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
+css布局 常见的布局有四种：表格布局，浮动布局，css框架，flexbox 两列布局，三列布局可以由浮动来实现 css3已经实现了多列布局，主要属性包括 column-count column-gap column-rule-style column-rule-width column-rule-color column-rule column-span column-width
 div{ -webkit-column-count: 3; Chorome, Safari, Opera -moz-column-count :3; Firefox -column-count:3; }
- 清除浮动的知识  在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
- ajax 基本实现步骤  1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&lt;post/get&gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
+清除浮动的知识 在浮动元素后面增加标签 在浮动元后面增加一个清楚浮动层：
+ajax 基本实现步骤 1、创建XMLHttpRequest对象 2、使用XMLHttpRequest对象打开一个连接，制定连接方式&lt;post/get&gt; 和链接地址以及是否同步 3、设置请求的头部（请求的类型和请求的编码格式） 4、设置回调函数 5、发送请求 6、更新页面显示
 XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已经被创建或者重置 1 open open 方法已经调用，但是send 方法还没有调用，还没有发送请求 2 sent send方案已经发送，请求已经发送到服务器，但是还没有接受到请求 3 receiving 所有响应头已经接受到，响应体开始接受，但没有接受完成 4 loaded 请求已经完全接受
- 取消a链接默认跳转行为  href属性设置为javascript:void(0)
- 水平垂直居中  居中文告中的字句：text-align;center 对于div：margin: 0 auto</p>
+取消a链接默认跳转行为 href属性设置为javascript:void(0)
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">Read More →</a>
   </footer>
@@ -279,8 +295,9 @@ XMLHttpRequest状态码： 0 uninitialized 初始化状态，XMLHttpRequest已�
 欢迎大家提意见，补充^^
 Revised Date(v4): 2007/10/03 (修改: ICES) Revised Date(v3): 2007/07/15 (追加:CEC, AUS-AI, ICCS) Revised Date(v2): 2007/06/05(追加:GECCO, ICONIP) Revised Date(v1): 2007/05/29
 写这个段子纯粹是因为受了南大周志华教授写的AI Conferences那篇文章的影响,于是起了写一篇自己心目中的conferences tier list的念头. List中的会议评价主要根据我本人这几年接触到的会议论文集的质量,参加会议过程的感观,CiteSeer的那个Estimated impact of publication venues in Computer Science,会议的专业性-我本人偏重evolvable hardware,大部分的LNCS出版的会议和少量的其他重要相关会议将做探讨. grade A 的会议是演化硬件方向最权威的国际会议,其中发表的论文大多有一读的价值. B 的会议也是质量非常不错的会议, C 的会议, 我个人认为去发表论文还是不错的,但是通常不会在这个档次的会议proceeding中找参考论文.D 的会议,通常是一些发表论文数量超过500篇,或者永远在中国国内打转的＂国际＂会议.
- grade A:
-ICES (A0): International Conference on Evolvable Systems: From Biology to Hareware. 基本上是从90年代evolvable hardware(EHW)的研究引起学术界的关注就开始举行的重要会议.EHW方面最重要的2个会议之一.首次举行是在1995年的瑞士(当时还不叫 ICES,96年才开始现在的名字),基本上当时的EHW开创性人物瑞士的Eduardo Sanchez,日本的Tetsuya Higuchi等人都参加了这次会议.</p>
+grade A:
+ICES (A0): International Conference on Evolvable Systems: From Biology to Hareware. 基本上是从90年代evolvable hardware(EHW)的研究引起学术界的关注就开始举行的重要会议.EHW方面最重要的2个会议之一.首次举行是在1995年的瑞士(当时还不叫 ICES,96年才开始现在的名字),基本上当时的EHW开创性人物瑞士的Eduardo Sanchez,日本的Tetsuya Higuchi等人都参加了这次会议.此会基本2年一次,2001年以后是单数年召开.奇怪的是2007,2008又连续在中国和捷克分别举行,实在是没什么规律.ICES的proceeding一直在LNCS上出版,每届发表的papers大概在40篇以下.例如ICES2005包括了21篇论文,而 ICES2007发表了41篇,接受率33%.
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/">Read More →</a>
   </footer>
@@ -294,7 +311,7 @@ ICES (A0): International Conference on Evolvable Systems: From Biology to Harewa
   </header>
   
   <p class="post-summary">数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!</p>
+#include &lt;stdio.h&gt; #include &lt;malloc.h&gt; #include&lt;iostream&gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;&amp;j&lt;i-1) { p=p-&gt;next; &#43;&#43;j; } if(!p||j&gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&gt;data = e; s-&gt;next=p-&gt;next; p-&gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&gt;next; if(!p) cout &lt;&lt; &#34;this list is empty!&#34;; while(p) { cout &lt;&lt; p-&gt;data; p = p-&gt;next; } cout &lt;&lt; endl; } //合并线性表 void MergeList_L(LinkList &amp;La,LinkList &amp;Lb,LinkList &amp;Lc) { LinkList pa = La-&gt;next; LinkList pb = Lb-&gt;next; LinkList pc = Lc=La; while (pa&amp;&amp;pb) { if(pa-&gt;data&lt;pb-&gt;data) { pc-&gt;next=pa; pc=pa; pa=pa-&gt;next; } else { pc-&gt;next=pb; pc=pb; pb=pb-&gt;next; } } pc-&gt;next=pa?pa:pb; free(Lb); } int main() { LinkList La,Lb,Lc; InitList_L(La); InitList_L(Lb); InitList_L(Lc); ListInsert_L(La,1,2); ListInsert_L(La,2,3); ListInsert_L(La,3,5); Delete_L(La); } </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">Read More →</a>
   </footer>
@@ -307,7 +324,8 @@ ICES (A0): International Conference on Evolvable Systems: From Biology to Harewa
     <p class="post-meta">@Neal · Dec 20, 2015 · 1 min read</p>
   </header>
   
-  <p class="post-summary">今天打包一个安装程序，总是出现报错，internal build error -6213，然后搜遍都没有找到什么解决方案。看到一个帖子，说是因为installsheild里面的build的时候自动扫描.NET依赖库造成的原因，要把这个自动扫描功能给关掉，但是他说的在什么地方关说的不是很清楚，所以我一直找不到。 http://1978l.blog.163.com/blog/static/4494441620098704049756/原文帖子如下 后来找了半天，终于找到地方了。 如图1，图2所示，把components里面所有.NET scan at Build设置为none,这个可能是这个软件的bug把，我使用的是2011版本，免费的版本。 真心的，我实验室解决问题的能手，实验室这些妹子如果没有我，我都不知道她们该怎么活下去。</p>
+  <p class="post-summary">今天打包一个安装程序，总是出现报错，internal build error -6213，然后搜遍都没有找到什么解决方案。看到一个帖子，说是因为installsheild里面的build的时候自动扫描.NET依赖库造成的原因，要把这个自动扫描功能给关掉，但是他说的在什么地方关说的不是很清楚，所以我一直找不到。 http://1978l.blog.163.com/blog/static/4494441620098704049756/原文帖子如下 后来找了半天，终于找到地方了。 如图1，图2所示，把components里面所有.NET scan at Build设置为none,这个可能是这个软件的bug把，我使用的是2011版本，免费的版本。 真心的，我实验室解决问题的能手，实验室这些妹子如果没有我，我都不知道她们该怎么活下去。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/">Read More →</a>
   </footer>
@@ -352,14 +370,15 @@ m-n位的数字：^\d{m,n}$
 中文、英文、数字包括下划线：^[\u4E00-\u9FA5A-Za-z0-9_]&#43;$
 中文、英文、数字但不包括下划线等符号：^[\u4E00-\u9FA5A-Za-z0-9]&#43;$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$
 可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;’,;=?$\x22]&#43;
-禁止输入含有~的字符：[^~\x22]&#43;
+禁止输入含有的字符：[^\x22]&#43;
 三、特殊需求表达式
 Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
 域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
 InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;=]*)?$
 手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
 电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
-国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$</p>
+国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Read More →</a>
   </footer>
@@ -373,7 +392,7 @@ InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[
   </header>
   
   <p class="post-summary">在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
-\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.</p>
+\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.30e-03$	&amp;$3.00e-03$	&amp;$4.40e-03$	&amp;$2.12e-02$	&amp;$\textbf{4.50e-03}$	&amp;$1.53e-04$	&amp;$4.20e-03$	&amp;$4.80e-03$\\\\ $F_{6}$	&amp;$8.30e-03$	&amp;$2.10e-03$	&amp;$5.70e-03$	&amp;$1.50e-02$	&amp;$1.62e-02$	&amp;$2.30e-02$ &amp;$5.40e-03$	&amp;$1.20e-01$\\\\ $F_{7}$	&amp;$1.60e-01$	&amp;$2.35e-01$	&amp;$7.96e-02$	&amp;$1.03e&#43;0$	&amp;$1.76e-01$	&amp;$2.33e-01$ &amp;$3.28e-02$ &amp;$1.02e&#43;0$\\\\ $F_{8}$	&amp;$6.59e-02$	&amp;$3.50e-03$	&amp;$6.05e-02$	&amp;$7.69e-02$	&amp;$\textbf{6.37e-02}$	&amp;$3.60e-03$	&amp;$5.81e-02$	&amp;$7.65e-02$\\\\ $F_{9}$	&amp;$8.00e-03$	&amp;$2.80e-03$	&amp;$5.80e-03$	&amp;$1.48e-02$	&amp;$\textbf{7.70e-03}$	&amp;$3.20e-03$	&amp;$5.40e-03$	&amp;$2.24e-02$\\\\ $F_{10}$ &amp;$1.25e&#43;02$	&amp;$2.35e&#43;01$	&amp;$2.27e&#43;01$	&amp;$1.44e&#43;02$	&amp;$\textbf{2.36e&#43;02}$	&amp;$3.48e&#43;01$	&amp;$5.02e&#43;0$	&amp;$1.38e&#43;02$\\ \hline\hline \end{tabular} \begin{tablenotes} \item[1] The bolder ones mean better. \end{tablenotes} \end{threeparttable} \end{table*} </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/">Read More →</a>
   </footer>
@@ -391,31 +410,23 @@ InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[
 int a = 1; int b = 2; int c = a &#43; b; 1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法&lt;int,int&gt;(a,b) 4.将结果分配给c
 在python中，同样的
 a = 1 b = 2 c = a &#43; b 1.分配1给a
-  设置一个对象，然后将它的类型设置为整数
-  将它的值设为1 2.分配2给b
-  设置一个对象，然后将它的类型设置为整数
-  将它的值设为2 3.调用一个二进制加法(a,b)
-  寻找一个类型在对象中
-  a是一个整数，它的值是a
-  寻找一个类型在对象中
-  b是一个整数，它的值是b
-  调用一个二进制加法
-  返回结果，结果是一个整数 4.</p>
+设置一个对象，然后将它的类型设置为整数
+将它的值设为1 2.分配2给b
+设置一个对象，然后将它的类型设置为整数
+将它的值设为2 3.调用一个二进制加法(a,b)
+寻找一个类型在对象中
+a是一个整数，它的值是a
+寻找一个类型在对象中
+b是一个整数，它的值是b
+调用一个二进制加法
+返回结果，结果是一个整数 4.产生一个对象c
+将一个对象的类型设置为整数
+将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+2.python是一种解释型的语言而不是编译型的 我们可以看到解释型语言和编译型语言的区别。一个聪明的编译器知道怎么提前优化，避免重复和不必要的操作，从而提高效率。当然，在这一点上也是仁者见仁智者见智。
+3.python的对象模型导致存储效率低下 python存储数据效率低下的原因，主要可以从下图看出： 当然说了python这么多缺点，为什么python用的人还这么多，因为它很简单啊。python用起来的确很简单，就我个人的使用感受而言，除了matlab，我没有看过比python还要简单的语言了。而且python的开源的库很多，所以做很多东西都很方便。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" class="post-link">谈谈CS英文论文写作</a></h3>
-    <p class="post-meta">@Neal · Nov 27, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">作为一个CS的研究生，发篇文章是你毕业的必要条件。现如今，学校对于文章的要求也越来越高，一般来说，还是国外的期刊或者会议更加受到认可，这样对于毕业也有好处。因此，以我自己的感受来说，论文的写作以及表达方式，合理地呈现你的实验结果，清楚的逻辑解释，显得尤为重要。让人看得懂的论文往往比一个拥有的好的想法的论文更能得到别人的认可，当然这也并不是推崇只是为了专注于论文的写作，毕竟想法才是一篇论文的灵魂。然而事实如此，做好论文的写作的重要性实在很大。 作为一个研究生，很显然并没有很多的论文的写作经验。所以，我们一般的做法就是模仿别人的论文写作。我们需要阅读大量别人的论文，这样其实也是对自己的语感的培养。当然，这里推荐你还是多读读外国人写的论文，因为他们的论文写作表达方式相对来说更为的地道。我觉得论文写作的词汇使用很讲究的，同一种意思可以有很多种表达方式。就比如说你的算法很好，你可以说：outperforms than other algorithm, has advantages over other algorithm, has impressive performances, has remarkable performances等等。我前段时间，看到有个单词就很好，circumvent，这个单词的意思是绕开。其实，我们算法的改进，很多时候并不是对这个问题的直接改进，而是绕开这个问题，从而避免这个问题，所以我就觉得这个单词用的很精妙。 其实现在的论文写作也和古代的八股文一样，有一样的套路。其实对于一个给定方向的论文，他们的套路其实基本都是一致的。老实说，对于所有的论文我们基本都有一个一致的框架结构。首先，一般在abstract里面，我们会简要的说一下我们的思想，这里要言简意赅，并且能够最大化吸引别人，突出你想发的优点。然后，在introduction里面，就是介绍相关背景知识的时候，像我们专业，一般都是介绍一些相关的算法，或者你提出的算法的基础，这些都是我们提出的算法基础。接着才是提出我们自己的算法的正确的时机。在正文里面，首先就是介绍你算法或者思想的基础，然后就是你的算法和思想了。记住，这个才是你论文的核心部分。你的论文大部分应该都是讲你自己的想法而不是别人的想法，否则也就是本末倒置了。计算机的论文，很多都是需要实验结果来佐证的。没有实验结果，你的所有想法都不具有说服力。同时，实验结果需要相应的详细的分析过程，对于实验结果你要分析的多一点，虽然觉得有时候觉得自己说的是废话，但也尽量多说一点，多换点角度表达。一般你可以从性能上去说，说我们算法的性能好；如果算法的性能差不多，那就可以从运行时间去说，可以说我们算法的运行速度快。当然，我觉得写别的方向的论文应该也是差不多的，从多个角度去表现你算法和想法的优点，这一点很有必要。另外一点，多用图和表格来表达你的实验结果，图优于表格，表格优于文字，文字最次。优秀的表达方式往往更容易吸引别人的目光，所以多学一下怎么画图。看一些TOP期刊的文章，他们是怎么画图的，这样装逼也会好一点。 其他的我也不知道还有什么好说的把。自己真心的体会，是中国人真的灌了好多水，尤其是我自己的这个方向。有时候自己也觉得很愤慨，但想想自己，何曾不是也在灌水。可能还是自己也是推动这个方向恶性循环的一份子，还是希望以后这个方向有更良性的发展吧，当然，与我无关了。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/">Read More →</a>
   </footer>
 </article>
 
@@ -466,20 +477,7 @@ a = 1 b = 2 c = a &#43; b 1.分配1给a
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

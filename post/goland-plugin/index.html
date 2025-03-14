@@ -22,7 +22,8 @@ API 文档过于简单 IntelliJ 只提供了官方的文档地址。这里面包
 文档里面提到可以使用 PsiDirectory 中的 add 方法来保存 PSI 文件，但它没说 HOW！那怎么办，只能去 Github 中去搜索代码关键字，然后扒别人的代码去看别人是如何实现的，这绝对是一个非常痛苦的过程，尤其是你看的是一个实现很糟糕的插件。
 API 复杂性 由于 IDEA 强大的生态，其 API 要考虑到兼容性以及很多特性，所以 API 中很多的含义不好理解。其本身也是包含了很多复杂的配置项，同时还需要综合考虑插件是通过什么样的形式去实现。
 太“强大的”官方模板 官方提供了一个创建插件的模板。首先承认的一点是这个模板的功能非常强大，涵盖插件开发、单元测试、质量检查、发布的整个生命周期，并且与 Github 无缝集成。不过作为模板，它包含的内容是不是太多了呢？这个模板的 README 几乎看了3遍之后才知道里面包含了哪些内容。实际上，对于一个小白来说，这个过程挺痛苦的，甚至可能有的人看了一下就萌发了退意。里面的一些模块，比如单元测试模块以及覆盖率检查这些模块，可以作为可选项，并不一定要默认就包含进去。
-Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 ." />
+Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 ./gradlew listProductsReleases，它会在 build 文件中生成一个 listProductsReleases.txt 的文件。而这个文件中的版本应该适用于 IDE 兼容型的检查。但是在运行这个 task 的过程中，反复遇到下面的报错：
+" />
 
   
   
@@ -36,7 +37,8 @@ API 文档过于简单 IntelliJ 只提供了官方的文档地址。这里面包
 文档里面提到可以使用 PsiDirectory 中的 add 方法来保存 PSI 文件，但它没说 HOW！那怎么办，只能去 Github 中去搜索代码关键字，然后扒别人的代码去看别人是如何实现的，这绝对是一个非常痛苦的过程，尤其是你看的是一个实现很糟糕的插件。
 API 复杂性 由于 IDEA 强大的生态，其 API 要考虑到兼容性以及很多特性，所以 API 中很多的含义不好理解。其本身也是包含了很多复杂的配置项，同时还需要综合考虑插件是通过什么样的形式去实现。
 太“强大的”官方模板 官方提供了一个创建插件的模板。首先承认的一点是这个模板的功能非常强大，涵盖插件开发、单元测试、质量检查、发布的整个生命周期，并且与 Github 无缝集成。不过作为模板，它包含的内容是不是太多了呢？这个模板的 README 几乎看了3遍之后才知道里面包含了哪些内容。实际上，对于一个小白来说，这个过程挺痛苦的，甚至可能有的人看了一下就萌发了退意。里面的一些模块，比如单元测试模块以及覆盖率检查这些模块，可以作为可选项，并不一定要默认就包含进去。
-Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 ." />
+Bug 有一点点多 目前尚未确定是否这是一个 Bug，但是笔者严重怀疑这是一个 Bug。上面提到的模板，通过 Gradle 实现了一系列的任务。在 Run Verifications 中，有个小任务是 ./gradlew listProductsReleases，它会在 build 文件中生成一个 listProductsReleases.txt 的文件。而这个文件中的版本应该适用于 IDE 兼容型的检查。但是在运行这个 task 的过程中，反复遇到下面的报错：
+" />
   <meta property="og:url" content="https://madneal.com/post/goland-plugin/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -272,7 +274,7 @@ go 1.16
 </span></span><span style="display:flex;"><span>ID: GO-2020-0048
 </span></span><span style="display:flex;"><span>Aliases: CVE-2020-25614
 </span></span><span style="display:flex;"><span><span style="color:#75715e">## Desciption
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[`LoadURL`] does not check the Content-Type of loaded resources,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>[<span style="color:#e6db74">`LoadURL`</span>] does not check the Content-Type of loaded resources,
 </span></span><span style="display:flex;"><span>which can cause a panic due to nil pointer deference if the loaded
 </span></span><span style="display:flex;"><span>resource is not XML. If user supplied URLs are loaded, this may be
 </span></span><span style="display:flex;"><span>used as a denial of service vector.
@@ -290,9 +292,9 @@ go 1.16
 <p>SCA 检测的原理基本上就是以上内容，而插件开发更复杂的部分则是插件开发的工程部分。<a href="https://github.com/JetBrains/intellij-platform-plugin-template">intellij-platform-plugin-template</a> 是插件开发的模板。通过插件的 <code>README</code> 可以了解这个插件所包含的内容，这个模板也包含了配置、开发、单元测试、测试股改、CI 以及发布等流程。直接通过 Github 中的 <code>Use this template</code> 就可以通过这个模板创建自己的项目。模板默认的开发语言是 kotlin，当然也可以选择 Java。但毫无疑问这是一次学习新语言的好机会，所以还是选择继续使用 kotlin。</p>
 <p><img src="https://s2.loli.net/2022/05/03/ykUnb8lR1dhTI5c.png" alt="image.png"></p>
 <p>功能插件实现的主要部分是通过定义一个新的 Action 来触发动作。主要是基于 <code>PSI</code> 的 API 来获取 <code>go.mod</code> 文件来进行 SCA 的检测。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> modFiles = FilenameIndex.getFilesByName(project, <span style="color:#e6db74">&#34;go.mod&#34;</span>, GlobalSearchScope.projectScope(project))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> modFiles = <span style="color:#a6e22e">FilenameIndex</span>.getFilesByName(project, <span style="color:#e6db74">&#34;go.mod&#34;</span>, <span style="color:#a6e22e">GlobalSearchScope</span>.projectScope(project))
 </span></span></code></pre></div><p>然后通过 <code>directory</code> 来进行报告文件的创建。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> psiFileFactory = PsiFileFactory.getInstance(project)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> psiFileFactory = <span style="color:#a6e22e">PsiFileFactory</span>.getInstance(project)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> createFileFromText = psiFileFactory.createFileFromText(<span style="color:#e6db74">&#34;sca.md&#34;</span>, result)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> directory = modFile.containingDirectory
 </span></span><span style="display:flex;"><span>directory.add(createFileFromText)
@@ -346,31 +348,13 @@ go 1.16
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1014</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1046</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -404,20 +388,7 @@ go 1.16
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

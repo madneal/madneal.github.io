@@ -1,73 +1,48 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>django on Neal&#39;s Blog</title>
+    <title>Django on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/django/</link>
-    <description>Recent content in django on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Django on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 11 Oct 2015 13:02:59 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/django/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Oct 2015 13:02:59 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/django/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Django学习——开发你的第一个Django应用2</title>
       <link>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/</link>
       <pubDate>Sun, 11 Oct 2015 13:02:59 +0000</pubDate>
-      
       <guid>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/</guid>
-      <description>接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
-产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
-开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
-进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
-在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question) 定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&amp;#39;pub_date&amp;#39;,&amp;#39;question_text&amp;#39;] list_display = (&amp;#39;question_text&amp;#39;,&amp;#39;pub_date&amp;#39;,&amp;#39;was_published_recently&amp;#39;) list_filter = [&amp;#39;pub_date&amp;#39;] search_fields = [&amp;#39;question_text&amp;#39;] fieldsets = [ (None,{&amp;#39;fields&amp;#39;:[&amp;#39;question_text&amp;#39;]}), (&amp;#39;Date information&amp;#39;,{&amp;#39;fields&amp;#39;:[&amp;#39;pub_date&amp;#39;],&amp;#39;classes&amp;#39;:[&amp;#39;collapse&amp;#39;]}), ] inlines = [ChoiceInline] admin.</description>
+      <description>&lt;p&gt;接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。&lt;/p&gt;&#xA;&lt;h2 id=&#34;产生一个管理员用户&#34;&gt;产生一个管理员用户&lt;/h2&gt;&#xA;&lt;p&gt;首先我们需要产生一个管理员用户，运行如下命令；&#xA;&lt;code&gt;python manage.py createsuperuser&lt;/code&gt;&#xA;下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。&lt;/p&gt;&#xA;&lt;h2 id=&#34;开发服务器&#34;&gt;开发服务器&lt;/h2&gt;&#xA;&lt;p&gt;Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器：&#xA;&lt;code&gt;python manage.py runserver&lt;/code&gt;&#xA;现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。&lt;/p&gt;&#xA;&lt;h2 id=&#34;进入管理员网站&#34;&gt;进入管理员网站&lt;/h2&gt;&#xA;&lt;p&gt;当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。&lt;/p&gt;&#xA;&lt;h2 id=&#34;在管理员中修改poll应用&#34;&gt;在管理员中修改poll应用&lt;/h2&gt;&#xA;&lt;p&gt;在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开&lt;code&gt;polls/admin.py&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from django.contrid import admin&#xA;from .models import Question&#xA;admin.site.register(Question)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;定制管理员表单&#34;&gt;定制管理员表单&lt;/h2&gt;&#xA;&lt;p&gt;现在我们来开始定制管理员表单，打卡&lt;code&gt;polls/admin.py&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from django.contrib import admin&#xA;from .models import Question,Choice&#xA;//Register your models here.&#xA;&#xA;class ChoiceInline(admin.TabularInline):&#xA;    model = Choice&#xA;    extra = 3&#xA;&#xA;class QuestionAdmin(admin.ModelAdmin):&#xA;    #fields = [&amp;#39;pub_date&amp;#39;,&amp;#39;question_text&amp;#39;]&#xA;    list_display = (&amp;#39;question_text&amp;#39;,&amp;#39;pub_date&amp;#39;,&amp;#39;was_published_recently&amp;#39;)&#xA;    list_filter = [&amp;#39;pub_date&amp;#39;]&#xA;    search_fields = [&amp;#39;question_text&amp;#39;]&#xA;    fieldsets = [&#xA;        (None,{&amp;#39;fields&amp;#39;:[&amp;#39;question_text&amp;#39;]}),&#xA;        (&amp;#39;Date information&amp;#39;,{&amp;#39;fields&amp;#39;:[&amp;#39;pub_date&amp;#39;],&amp;#39;classes&amp;#39;:[&amp;#39;collapse&amp;#39;]}),&#xA;    ]&#xA;    inlines = [ChoiceInline]&#xA;&#xA;admin.site.register(Question,QuestionAdmin)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里面他做了很多细节的改变，他是一个个的加进去，好麻烦，我这给的就是最终的一个版本，主要里面增加一个收缩的功能。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>如何查找django安装路径</title>
       <link>https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/</link>
       <pubDate>Sat, 10 Oct 2015 18:35:51 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/</guid>
-      <description>需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</description>
+      <description>&lt;p&gt;需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单&#xA;import django&#xA;django&#xA;这样就可以找django的安装路径了，真心不懂为什么国内都看不到&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Django学习——开发你的第一个Django应用1</title>
       <link>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/</link>
       <pubDate>Sat, 10 Oct 2015 16:39:31 +0000</pubDate>
-      
       <guid>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/</guid>
-      <description>突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py  关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
-建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
- django.contrib.admin django.contrib.auth django.contrib.contenttypes django.contrib.sessions django.contrib.messages django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate  开发服务器 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了
-创建模型 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py  在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.Model): question_text = models.CharField(max_length=200) pub_date = models.</description>
+      <description>&lt;p&gt;突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。&#xA;首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧&lt;/p&gt;&#xA;&lt;h2 id=&#34;创建一个项目&#34;&gt;创建一个项目&lt;/h2&gt;&#xA;&lt;p&gt;进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令&#xA;&lt;code&gt;django-admin statrtproject mysite&lt;/code&gt;&#xA;这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么：&#xA;&lt;code&gt;mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py &lt;/code&gt;&#xA;关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。&lt;/p&gt;&#xA;&lt;h2 id=&#34;建立数据库&#34;&gt;建立数据库&lt;/h2&gt;&#xA;&lt;p&gt;好现在打开&lt;code&gt;mysite/settings.py&lt;/code&gt;。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。&#xA;同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;django.contrib.admin&lt;/li&gt;&#xA;&lt;li&gt;django.contrib.auth&lt;/li&gt;&#xA;&lt;li&gt;django.contrib.contenttypes&lt;/li&gt;&#xA;&lt;li&gt;django.contrib.sessions&lt;/li&gt;&#xA;&lt;li&gt;django.contrib.messages&lt;/li&gt;&#xA;&lt;li&gt;django.contrib.staticfiles&#xA;这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格：&#xA;&lt;code&gt;python manage.py migrate&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;开发服务器&#34;&gt;开发服务器&lt;/h2&gt;&#xA;&lt;p&gt;让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行：&#xA;&lt;code&gt;python manage.py runserver&lt;/code&gt;&#xA;然后就可以看到服务器正常运行的一些提示信息了&lt;/p&gt;&#xA;&lt;h2 id=&#34;创建模型&#34;&gt;创建模型&lt;/h2&gt;&#xA;&lt;p&gt;创建你自己的应用，确定你是在和&lt;code&gt;manage.py&lt;/code&gt;同一及的文件路径下，运行命令行：&#xA;&lt;code&gt;python manage.py startapp polls&lt;/code&gt;&#xA;这回创建一个&lt;code&gt;polls&lt;/code&gt;文件件：&#xA;&lt;code&gt;polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py &lt;/code&gt;&#xA;在web应用中创建数据库的第一步是定义你自己的模型。&#xA;在我们这个简单的应用中，我们会创建两个模型&lt;code&gt;Question Choice&lt;/code&gt;&#xA;编辑&lt;code&gt;polls/models.py&lt;/code&gt;文件：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from django.db import models&#xA;class Question(models.Model):&#xA;    question_text = models.CharField(max_length=200)&#xA;    pub_date = models.DateTimeField(&amp;#39;date published&amp;#39;)&#xA;class Choice(models.Model):&#xA;    question = models.ForeignKey(Question)&#xA;    choice_text = models.CharField(max_length=200)&#xA;    votes = models.IntegerField(default=0)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以上代码很直接明了，python的代码还是比较容易理解的。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>全栈开发系列学习2——django项目搭建</title>
       <link>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</link>
       <pubDate>Sat, 10 Oct 2015 11:16:11 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</guid>
-      <description>项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目：
- 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;quot;pip install MySQL-python&amp;quot;就可以了。 解压项目文件代码。 进入src文件夹下，输入&amp;quot;make install&amp;quot;这样会自动安装所有的依赖库。 现在我们可以创建一个数据库：web_dev_tutorial  mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt; 注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置 DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } } 把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306
-MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo; MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;
-MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&amp;quot;make&amp;quot;,你将会看到： ｀ MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306</description>
+      <description>&lt;p&gt;项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350）&#xA;配置项目：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。&lt;/li&gt;&#xA;&lt;li&gt;在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;quot;pip install MySQL-python&amp;quot;就可以了。&lt;/li&gt;&#xA;&lt;li&gt;解压项目文件代码。&lt;/li&gt;&#xA;&lt;li&gt;进入src文件夹下，输入&amp;quot;make install&amp;quot;这样会自动安装所有的依赖库。&lt;/li&gt;&#xA;&lt;li&gt;现在我们可以创建一个数据库：web_dev_tutorial&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。&#xA;在数据库中创建实例：&#xA;&lt;code&gt;create database web_dev_tutorial&lt;/code&gt;&#xA;然后将数据库和我们的项目链接在一起，打开&lt;code&gt;src/web_dev_tutorial/settings.py&lt;/code&gt;找到以下配置&#xA;&lt;code&gt;DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }&lt;/code&gt;&#xA;把相应的用户名密码改成你的数据库的用户名密码就可以了。&#xA;6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容&#xA;`&#xA;MYSQL_HOST     = &amp;lsquo;127.0.0.1&amp;rsquo;&#xA;MYSQL_PORT     = 3306&lt;/p&gt;&#xA;&lt;p&gt;MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo;&#xA;MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;&lt;/p&gt;&#xA;&lt;p&gt;MYSQL_DB_NAME  = &amp;lsquo;web_dev_tutorial&amp;rsquo;&#xA;&lt;code&gt; 同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入&lt;/code&gt;make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。&#xA;7. 在文件夹src下，输入&amp;quot;make&amp;quot;,你将会看到：&#xA;｀&#xA;MYSQL_HOST     = &amp;lsquo;127.0.0.1&amp;rsquo;&#xA;MYSQL_PORT     = 3306&lt;/p&gt;&#xA;&lt;p&gt;MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo;&#xA;MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>全栈开发教学学习系列1——前言</title>
       <link>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/</link>
       <pubDate>Wed, 07 Oct 2015 14:47:02 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E6%95%99%E5%AD%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%971%E5%89%8D%E8%A8%80/</guid>
-      <description>在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。 开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：
-一. 客户端服务器模型和MVC设计模式 首先用一张图来简单的描述一下： 基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。 MVC 架构模式 这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：
- Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。 View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。 Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。 当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。  </description>
+      <description>&lt;p&gt;在网上看到一个全栈开发教学的例子，他是一个使用Django来作为服务器后端结合前端来做的东西，是一个全栈教学的案例。虽然作者是中国人，但是他做的东西都是用英文做出来的，http://webcoursify.github.io。在这里，我们就把他的学习教程一步步翻译出来，也当是自己学习。&#xA;开篇部分zhuyao1讲一下Django的基本概念，这个部分主要分为三个小结：&lt;/p&gt;&#xA;&lt;p&gt;一. 客户端服务器模型和MVC设计模式&#xA;首先用一张图来简单的描述一下：&#xA;&lt;img src=&#34;http://img.blog.csdn.net/20151007095922693&#34; alt=&#34;这里写图片描述&#34;&gt;&#xA;基本上所有的网络系统都符合这个模型。在网络系统中，服务器通过标准协议响应来自各种客户端发来的请求。客户端之间的请求被认为是相互独立的。这就意味着服务器如果正在响应某个客户端的请求时，他就不需要处理来自其他客户端的请求或者相同客户端的其他请求。&#xA;&lt;strong&gt;MVC 架构模式&lt;/strong&gt;&#xA;这种架构模式被广泛应用于各种软件开发中，而不仅仅只是网络系统的开发。下面简单介绍一下MVC：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Model 这个组件时系统的核心问题，比如数据结构，数据存储遗迹核心逻辑等等。它经常注重的是整个系统的基础，和其他两个组件没有特别多的交互。&lt;/li&gt;&#xA;&lt;li&gt;View 这个组件注重向用户展示信息以及接受用户的交互信息。这个组件在网络系统中往往就是前端层次。&lt;/li&gt;&#xA;&lt;li&gt;Controller 这个组件连接前两个组件。这个组件中的函数往往是被事件所触发得。&#xA;当然这里面的名称可能和在Django里面的叫法不太一样，但具体内容应该是差不多的。&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
     </item>
-    
   </channel>
 </rss>

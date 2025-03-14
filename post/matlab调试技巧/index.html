@@ -17,7 +17,8 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="Matlab的调试总体分为，直接调试和间接调试。 1.直接调试： （1）去掉句末的分号； （2）单独调试一个函数：将第一行的函数声明注释掉，并定义输入量，以脚本方式执行 M 文件； （3）适当地方添加输出变量值的语句； （4）添加keyboard命令；
-2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try&amp;hellip;catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try&amp;hellip;catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try&amp;hellip;catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1." />
+2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try&hellip;catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try&hellip;catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try&hellip;catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1.）dbstack(N) 2.）dbstack(&rsquo;-completenames&rsquo;) （5）列出所有断点： dbstatus s=dbstatus：返回值为M×1结构体 其中字段： name-函数名； line-断点行向量； expression_r-与line中相对应的断点条件表达字符串； cond-条件字符串，如error，caught error，warning，或naninf； identifier-当条件字符串是error，caught error，warning，或naninf时，改字段是Matlab的 信息指示字符串； dbstatus mfile：列车制定M文件中所有断点设置，mfile必须为M文件函数或有效路径；
+" />
 
   
   
@@ -26,7 +27,8 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="matlab调试技巧" />
   <meta property="og:description" content="Matlab的调试总体分为，直接调试和间接调试。 1.直接调试： （1）去掉句末的分号； （2）单独调试一个函数：将第一行的函数声明注释掉，并定义输入量，以脚本方式执行 M 文件； （3）适当地方添加输出变量值的语句； （4）添加keyboard命令；
-2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try&amp;hellip;catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try&amp;hellip;catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try&amp;hellip;catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1." />
+2.工具调试： 1.）以命令行为主的调试： （1）设置断点： dbstop in mfile:在文件名为mfile的M文件第一个可执行语句前设断点； dbstop in mfile at lineno:在mfile的第lineno行设断点； dbstop in mfile at subfun:当程序执行到子程序subfun时，暂时中止执行，并设断点； dbstop if error:遇到错误时，终止M文件运行，并停在错误行（不包括try&hellip;catch语句中检测到的的错误，不能在错误后重新开始运行）； dbstop if all error:遇到任何类型错误均停止（包括try&hellip;catch语句中检测到的的错误）； dbstop if warning:程序可恢复运行； dbstop if caught error:当try&hellip;catch检测到运行时间错误是，停止M文件执行，可恢复运行； dbstop if naninf 或 dbstop if infnan （2）断点清除： dbclear all:清除所有M文件中的所有断点； dbclear all in mfile:清除文件名为mfile的文件中的所有断点； dbclear in mfile:清除文件名为mfile中第一个可执行语句前的断点； dbclear in mfile at lineno: dbclear in mfile at subfun: dbclear if error/warning/naninf/infnan: （3）恢复运行： dbcount:从断点处恢复程序的执行，直到下一个断点或错误后返回Matlab基本工作空间； （4）调用堆栈： dbstack： 1.）dbstack(N) 2.）dbstack(&rsquo;-completenames&rsquo;) （5）列出所有断点： dbstatus s=dbstatus：返回值为M×1结构体 其中字段： name-函数名； line-断点行向量； expression_r-与line中相对应的断点条件表达字符串； cond-条件字符串，如error，caught error，warning，或naninf； identifier-当条件字符串是error，caught error，warning，或naninf时，改字段是Matlab的 信息指示字符串； dbstatus mfile：列车制定M文件中所有断点设置，mfile必须为M文件函数或有效路径；
+" />
   <meta property="og:url" content="https://madneal.com/post/matlab%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -300,31 +302,13 @@ stop if errors/warnings：程序出现错误或警告时停止运行，进入调
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3407</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3439</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -358,20 +342,7 @@ stop if errors/warnings：程序出现错误或警告时停止运行，进入调
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

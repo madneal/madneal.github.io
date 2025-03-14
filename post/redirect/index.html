@@ -19,7 +19,8 @@
   <meta name="description" content="本文首发于安全客平台，https://www.anquanke.com/post/id/228916
 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
 之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist." />
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.parseURL 解析出来的 URL 获取的。这个方法是开源仓库 apache/dubbo 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。
+" />
 
   
   
@@ -30,7 +31,8 @@ public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domai
   <meta property="og:description" content="本文首发于安全客平台，https://www.anquanke.com/post/id/228916
 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
 之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
-public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { 	Url url2 = null; 	try { 	url2 = UrlUtils.parseURL(url, null); 	} catch (Exception e) { 	} 	String host = url2.getHost(); 	if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { 	return url; 	} else { 	... 	} }   private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { 	return domainWhitelist." />
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.parseURL 解析出来的 URL 获取的。这个方法是开源仓库 apache/dubbo 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。
+" />
   <meta property="og:url" content="https://madneal.com/post/redirect/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -226,51 +228,51 @@ public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domai
 <h2 id="起因">起因</h2>
 <p>近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 <a href="https://github.com/apache/dubbo">apache/dubbo</a> 的一个有意思的问题以及 URL 相关的话题。</p>
 <p>之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 <code>https://evailhost#@whitehost</code>，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">checkUrlSafety</span><span style="color:#f92672">(</span>String url<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix<span style="color:#f92672">,</span> String domainWhitelist<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>	Url url2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>		url2 <span style="color:#f92672">=</span> UrlUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">parseURL</span><span style="color:#f92672">(</span>url<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>	String host <span style="color:#f92672">=</span> url2<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>verifyDomain<span style="color:#f92672">(</span>host<span style="color:#f92672">,</span> domainWhitelistSuffix<span style="color:#f92672">,</span> domainWhitelist<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> url<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#f92672">...</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">checkUrlSafety</span>(String url, List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix, String domainWhitelist) {
+</span></span><span style="display:flex;"><span>	Url url2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>		url2 <span style="color:#f92672">=</span> UrlUtils.<span style="color:#a6e22e">parseURL</span>(url, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">catch</span> (Exception e) {
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	String host <span style="color:#f92672">=</span> url2.<span style="color:#a6e22e">getHost</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> url;
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		...
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">verifyDomain</span><span style="color:#f92672">(</span>String host<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix<span style="color:#f92672">,</span> String domainWhitelist<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> domainWhitelist<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span>host<span style="color:#f92672">)</span> <span style="color:#f92672">||</span> verifyDomainSuffix<span style="color:#f92672">(</span>host<span style="color:#f92672">,</span> domainWhitelistSuffix<span style="color:#f92672">):</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">verifyDomain</span>(String host, List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix, String domainWhitelist) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> domainWhitelist.<span style="color:#a6e22e">contains</span>(host) <span style="color:#f92672">||</span> verifyDomainSuffix(host, domainWhitelistSuffix):
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="apachedubbo-的问题">apache/dubbo 的问题</h2>
 <p>核心代码其实主要就是上面两个函数，主要是通过 <code>verifyDomain</code> 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，<code>host</code> 是通过 <code>UrlUtils.parseURL</code> 解析出来的 <code>URL</code> 获取的。这个方法是开源仓库 <a href="https://github.com/apache/dubbo">apache/dubbo</a> 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.dubbo.common.URL<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.dubbo.common.utils.UrlUtils<span style="color:#f92672">;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.dubbo.common.URL;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.dubbo.common.utils.UrlUtils;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        String<span style="color:#f92672">[]</span> whiteHosts <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]{</span><span style="color:#e6db74">&#34;whitehost&#34;</span><span style="color:#f92672">};</span>
-</span></span><span style="display:flex;"><span>        String evilUrl <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://evilhost#@whitehost&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>        URL url <span style="color:#f92672">=</span> UrlUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">parseURL</span><span style="color:#f92672">(</span>evilUrl<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>url<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>whitehostCheck<span style="color:#f92672">(</span>whiteHosts<span style="color:#f92672">,</span> url<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>        java<span style="color:#f92672">.</span><span style="color:#a6e22e">net</span><span style="color:#f92672">.</span><span style="color:#a6e22e">URL</span> url1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">net</span><span style="color:#f92672">.</span><span style="color:#a6e22e">URL</span><span style="color:#f92672">(</span>evilUrl<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>url1<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>whitehostCheck<span style="color:#f92672">(</span>whiteHosts<span style="color:#f92672">,</span> url1<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">()));</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) <span style="color:#66d9ef">throws</span> Exception {
+</span></span><span style="display:flex;"><span>        String<span style="color:#f92672">[]</span> whiteHosts <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]</span>{<span style="color:#e6db74">&#34;whitehost&#34;</span>};
+</span></span><span style="display:flex;"><span>        String evilUrl <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://evilhost#@whitehost&#34;</span>;
+</span></span><span style="display:flex;"><span>        URL url <span style="color:#f92672">=</span> UrlUtils.<span style="color:#a6e22e">parseURL</span>(evilUrl, <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(url.<span style="color:#a6e22e">getHost</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(whitehostCheck(whiteHosts, url.<span style="color:#a6e22e">getHost</span>()));
+</span></span><span style="display:flex;"><span>        java.<span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">URL</span> url1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> java.<span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">URL</span>(evilUrl);
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(url1.<span style="color:#a6e22e">getHost</span>());
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(whitehostCheck(whiteHosts, url1.<span style="color:#a6e22e">getHost</span>()));
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">whitehostCheck</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> whiteHosts<span style="color:#f92672">,</span> String hostToCheck<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>String host<span style="color:#f92672">:</span> whiteHosts<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>host<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>hostToCheck<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">whitehostCheck</span>(String<span style="color:#f92672">[]</span> whiteHosts, String hostToCheck) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(String host: whiteHosts) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (host.<span style="color:#a6e22e">equals</span>(hostToCheck)) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>上面的执行结果是：</p>
 <pre tabindex="0"><code>evilhost
 false
@@ -285,13 +287,13 @@ true
 <p>那么关于这个绕过是不是就到此结束了，并没有，通过这个问题我也发现了好几个有意思的点，下面我将一一分享。</p>
 <h2 id="-符号">@ 符号</h2>
 <p>首先，先谈谈 url 中的 <code>@</code> 符号，在上文提到过，这个开放重定向的利用需要配合 <code>#</code> 符号。为什么呢？如果仅仅通过 <code>@</code> 符号是可以通过白名单校验的。假如 url 为 <code>http://evilhost@whitehost</code>，那么解析出的 URL 的 host 为 <code>whitehost</code>，因此是可以通过白名单校验的。但是在重定向的时候，只会重定向到 <code>whitehost</code> 下，这样就达不到攻击的目的了。我有创建一个 <a href="https://github.com/madneal">spring-demo</a> 项目来验证。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/redirect&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> RedirectView <span style="color:#a6e22e">redirect</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> String service<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>service<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    RedirectView view <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RedirectView<span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>    view<span style="color:#f92672">.</span><span style="color:#a6e22e">setUrl</span><span style="color:#f92672">(</span>service<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> view<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span>(value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/redirect&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> RedirectView <span style="color:#a6e22e">redirect</span>(<span style="color:#a6e22e">@RequestParam</span> String service) {
+</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(service);
+</span></span><span style="display:flex;"><span>    RedirectView view <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RedirectView();
+</span></span><span style="display:flex;"><span>    view.<span style="color:#a6e22e">setUrl</span>(service);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> view;
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>对于 <code>redirect</code> 接口，请求 <code>http://localhost:8080/redirect?service=https://baidu.com@github.com</code>，它会重定向到 <code>github.com</code> 而不是 <code>baidu.com</code>。原因在于 <code>@</code> 符号前面的内容会被认为是账号部分。</p>
 <h2 id="-符号-1"># 符号</h2>
 <p>聊完 <code>@</code> 符号，还要说说 <code>#</code> 符号。假设下面两个链接：</p>
@@ -303,11 +305,11 @@ true
 <p><a href="https://imgchr.com/i/s0bnpD"><img src="https://s3.ax1x.com/2021/01/15/s0bnpD.png" alt="s0bnpD.png"></a></p>
 <p>在 url 中，<code>#</code> 部分的内容被称为 fragment，一般是用于定位页面的内容，像一般页面中的一级标题二级标题，经常是通过这个来进行定位的。这个符号在目前前端框架中的单页面应用也有着广泛的使用。所以，如果传入的参数是 <code>http://evilhost#@whitehost</code>，那么实际传入的仅仅只是 <code>http://evilhost</code>。</p>
 <p>大部分语言或者 web 服务已经实现了对 url 中 url 编码的内容自动进行 url 解码。尝试过 spring boot 以及 golang 之后，发现这二者创建的服务都支持 url 解码。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/cas&#34;</span><span style="color:#f92672">)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">test</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> String service<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>service<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span>(value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/cas&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">@RequestParam</span> String service) {
+</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(service);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div><p>如果请求 <code>http://localhost:8080/cas?service=http://evilhost%23@whitehost</code>，那么后台实际接收到的参数将是 <code>http://evilhost#@whitehost</code>。另外尝试了 golang 搭建的 web 服务，其结果是一致的。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
@@ -366,31 +368,13 @@ true
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1499</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -424,20 +408,7 @@ true
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

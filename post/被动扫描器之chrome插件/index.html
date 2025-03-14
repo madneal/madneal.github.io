@@ -22,7 +22,8 @@ Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览
 简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
 Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
 其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
-对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：" />
+对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：
+" />
 
   
   
@@ -36,7 +37,8 @@ Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览
 简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
 Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
 其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
-对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：" />
+对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：
+" />
   <meta property="og:url" content="https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -269,7 +271,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
 <p><img src="https://s2.ax1x.com/2019/11/07/MAhOQU.png" alt="MAhOQU.png"></p>
 <p>在这，以我开发的 Burp 插件 <a href="https://github.com">r-forwarder-burp</a> 为例，使用 JAVA 开发。在开发 Burp 插件需要注意几点。必须定义一个 BurpExtender 类，并且必须实现 IBurpExtender，如果还需要其他 API 可以实现多个其它接口，JAVA 中的类是可以实现多个接口的。另外还需要重写父类中的 registerExtenderCallbacks 方法。同样，针对被动扫描器的需求，在 Burp 插件中我们最主要涉及的接口是 IHttpListener 接口。这个主要涉及到 HTTP</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IHttpListener</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * This method is invoked when an HTTP request is about to be issued, and
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * when an HTTP response has been received.
@@ -283,35 +285,35 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Extensions can call the setter methods on this object to update the
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * current message and so modify Burp&#39;s behavior.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">processHttpMessage</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> toolFlag<span style="color:#f92672">,</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> messageIsRequest<span style="color:#f92672">,</span>
-</span></span><span style="display:flex;"><span>            IHttpRequestResponse messageInfo<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">processHttpMessage</span>(<span style="color:#66d9ef">int</span> toolFlag,
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> messageIsRequest,
+</span></span><span style="display:flex;"><span>            IHttpRequestResponse messageInfo);
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>在 processHttpMessage 方法中，主要涉及到以上3个参数。toolFlag 主要指的是和请求相关的 Burp 工具，比如 Proxy 以及 Repeater。可以在 IBurpExtenderCallbacks 接口中看到相应的定义。</p>
 <p><img src="https://s2.ax1x.com/2019/11/07/MATiAH.png" alt="MATiAH.png"></p>
 <p>messageIsRequest 则表示是请求还是响应，而我们只关心请求部分。通过解析 messageInfo 则可以获取请求头以及请求体数据。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getHeaders</span><span style="color:#f92672">(</span>IHttpRequestResponse messageInfo<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> headers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
-</span></span><span style="display:flex;"><span>    IRequestInfo analyzeRequest <span style="color:#f92672">=</span> helpers<span style="color:#f92672">.</span><span style="color:#a6e22e">analyzeRequest</span><span style="color:#f92672">(</span>messageInfo<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> h <span style="color:#f92672">=</span> analyzeRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeaders</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String h1<span style="color:#f92672">:</span> h<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>h1<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GET&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> h1<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;POST&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            String<span style="color:#f92672">[]</span> header <span style="color:#f92672">=</span> h1<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">,</span> 2<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            headers<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>header<span style="color:#f92672">[</span>0<span style="color:#f92672">],</span> header<span style="color:#f92672">[</span>1<span style="color:#f92672">].</span><span style="color:#a6e22e">trim</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> headers<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Map<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getHeaders</span>(IHttpRequestResponse messageInfo) {
+</span></span><span style="display:flex;"><span>    Map<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> headers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>    IRequestInfo analyzeRequest <span style="color:#f92672">=</span> helpers.<span style="color:#a6e22e">analyzeRequest</span>(messageInfo);
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> h <span style="color:#f92672">=</span> analyzeRequest.<span style="color:#a6e22e">getHeaders</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (String h1: h) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (h1.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;GET&#34;</span>) <span style="color:#f92672">||</span> h1.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;POST&#34;</span>)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            String<span style="color:#f92672">[]</span> header <span style="color:#f92672">=</span> h1.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;:&#34;</span>, 2);
+</span></span><span style="display:flex;"><span>            headers.<span style="color:#a6e22e">put</span>(header<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>, header<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>.<span style="color:#a6e22e">trim</span>());
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> headers;
+</span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">getBody</span><span style="color:#f92672">(</span>IHttpRequestResponse messageInfo<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    IRequestInfo requestInfo <span style="color:#f92672">=</span> helpers<span style="color:#f92672">.</span><span style="color:#a6e22e">analyzeRequest</span><span style="color:#f92672">(</span>messageInfo<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> bodyOffset <span style="color:#f92672">=</span> requestInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getBodyOffset</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> byteRequest <span style="color:#f92672">=</span> messageInfo<span style="color:#f92672">.</span><span style="color:#a6e22e">getRequest</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> byteBody <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">copyOfRange</span><span style="color:#f92672">(</span>byteRequest<span style="color:#f92672">,</span> bodyOffset<span style="color:#f92672">,</span> byteRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span>byteBody<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> String <span style="color:#a6e22e">getBody</span>(IHttpRequestResponse messageInfo) {
+</span></span><span style="display:flex;"><span>    IRequestInfo requestInfo <span style="color:#f92672">=</span> helpers.<span style="color:#a6e22e">analyzeRequest</span>(messageInfo);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> bodyOffset <span style="color:#f92672">=</span> requestInfo.<span style="color:#a6e22e">getBodyOffset</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> byteRequest <span style="color:#f92672">=</span> messageInfo.<span style="color:#a6e22e">getRequest</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> byteBody <span style="color:#f92672">=</span> Arrays.<span style="color:#a6e22e">copyOfRange</span>(byteRequest, bodyOffset, byteRequest.<span style="color:#a6e22e">length</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> String(byteBody);
+</span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>上面是简单开发的内容方面的介绍，其它方面可以直接看<a href="https://github.com/neal/r-forwarder-burp">源代码</a>了解更多，尤其是 GUI 开发的部分。另外想说明的一点就是如何打 jar 包。通过 maven-assembly-plugin 插件可以很方便地打包，只需要配置如下，然后通过 <code>mvn package</code> 即可进行打包。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;plugin&gt;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.apache.maven.plugins<span style="color:#f92672">&lt;/groupId&gt;</span>
@@ -368,31 +370,13 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1962</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1994</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -426,20 +410,7 @@ Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

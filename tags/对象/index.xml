@@ -4,22 +4,17 @@
     <title>对象 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E5%AF%B9%E8%B1%A1/</link>
     <description>Recent content in 对象 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Tue, 26 Jul 2016 22:37:18 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E5%AF%B9%E8%B1%A1/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Jul 2016 22:37:18 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E5%AF%B9%E8%B1%A1/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>javascript中的对象字面量为啥这么酷</title>
       <link>https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/</link>
       <pubDate>Tue, 26 Jul 2016 22:37:18 +0000</pubDate>
-      
       <guid>https://madneal.com/post/javascript%E4%B8%AD%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E4%B8%BA%E5%95%A5%E8%BF%99%E4%B9%88%E9%85%B7/</guid>
-      <description>原文链接 : Why object literals in JavaScript are cool    原文作者 : Dmitri Pavlutin 译者 : neal1991 个人主页：http://neal1991.pythonanywhere.com  在ECMAScript 2015之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：
-  成对出现的名称以及相应的值{ name1: value1 }
-  Getters { get name(){..} } 以及setters { set name(val){..} } 可以用于动态的属性值。
-  遗憾的是，这个对象字面量可能会出现下面这样的情况：
-var myObject = { myString: &amp;#39;value 1&amp;#39;, get myNumber() { return this._myNumber; }, set myNumber(value) { this._myNumber = Number(value); } }; myObject.myString; // =&amp;gt; &amp;#39;value 1&amp;#39; myObject.</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;原文链接 : &lt;a href=&#34;https://rainsoft.io/why-object-literals-in-javascript-are-cool/&#34;&gt;Why object literals in JavaScript are cool&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;原文作者 : &lt;a href=&#34;https://rainsoft.io/author/dmitri-pavlutin/&#34;&gt;Dmitri Pavlutin&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;译者 : &lt;a href=&#34;https://github.com/neal1991/&#34;&gt;neal1991&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;个人主页：http://neal1991.pythonanywhere.com&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;在&lt;a href=&#34;https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/&#34;&gt;ECMAScript 2015&lt;/a&gt;之前，Javascript中的对象字面量（也称为对象初始化器）是非常基础的。能够定义两种类型的属性：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;成对出现的名称以及相应的值&lt;code&gt;{ name1: value1 }&lt;/code&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get&#34;&gt;Getters&lt;/a&gt; &lt;code&gt;{ get name(){..} }&lt;/code&gt; 以及&lt;a href=&#34;https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set&#34;&gt;setters&lt;/a&gt; &lt;code&gt;{ set name(val){..} }&lt;/code&gt; 可以用于动态的属性值。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;遗憾的是，这个对象字面量可能会出现下面这样的情况：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var myObject = {  &#xA;  myString: &amp;#39;value 1&amp;#39;,&#xA;  get myNumber() {&#xA;    return this._myNumber;&#xA;  },&#xA;  set myNumber(value) {&#xA;    this._myNumber = Number(value);&#xA;  }&#xA;};&#xA;myObject.myString; // =&amp;gt; &amp;#39;value 1&amp;#39;  &#xA;myObject.myNumber = &amp;#39;15&amp;#39;;  &#xA;myObject.myNumber; // =&amp;gt; 15  &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Javascript一个基于&lt;a href=&#34;https://en.wikipedia.org/wiki/Prototype-based_programming&#34;&gt;原型的语言&lt;/a&gt;，所以其中所有的皆是对象。所以必须在创建对象，配置以及访问原型的时候必须提供一个便利的构建方式。&lt;/p&gt;&#xA;&lt;p&gt;通常都会涉及到对象的定义和对象原型的设置。我经常觉得对于原型的设置应该允许直接在对象字面量进行，用一条语句即可。&lt;/p&gt;&#xA;&lt;p&gt;不幸的是，对象字面量的限制不允许通过使用一个直接的方法来达到这个目的。你必须通过结合使用&lt;code&gt;Object.create()&lt;/code&gt;以及对象字面量来设置原型：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var myProto = {  &#xA;  propertyExists: function(name) {&#xA;    return name in this;    &#xA;  }&#xA;};&#xA;var myNumbers = Object.create(myProto);  &#xA;myNumbers[&amp;#39;array&amp;#39;] = [1, 6, 7];  &#xA;myNumbers.propertyExists(&amp;#39;array&amp;#39;);      // =&amp;gt; true  &#xA;myNumbers.propertyExists(&amp;#39;collection&amp;#39;); // =&amp;gt; false  &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我觉得这是一个让人很不爽的解决方案。Javascript既然是一个基于原型的语言，为什么还要花这么大力气从一个原型中创建对象。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

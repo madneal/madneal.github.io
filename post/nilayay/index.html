@@ -16,14 +16,15 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="原文：NilAway: Practical Nil Panic Detection for Go
+  <meta name="description" content=" 原文：NilAway: Practical Nil Panic Detection for Go
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
+Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
 指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
 nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net." />
+图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.Conn 的字段 c.rwc 被分配给结构 net.conn 时导致了这个问题，因为如果发现连接 c 异常的话，它的 RemoteAddr() 的具体实现可以返回 nil 值（如图 3 所示）。具体来说，RemoteAddr() 可以在 L225 返回一个 nil 接口值，当被调用方法（.String()）时，由于 nil 值不包含任何指向可以调用的具体方法的指针，从而导致 nil panic。
+" />
 
   
   
@@ -31,14 +32,15 @@ nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="NilAway：实用的 Go Nil Panic 检测方式" />
-  <meta property="og:description" content="原文：NilAway: Practical Nil Panic Detection for Go
+  <meta property="og:description" content=" 原文：NilAway: Practical Nil Panic Detection for Go
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
+Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
 指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
 nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net." />
+图 2 显示了在实现 Go 标准库（特别是 net 包）中发现并解决的最近一次 nil panic 问题 的示例。由于在第 1859 行直接调用了方法 RemoteAddr() 的返回值上的 String() 方法，假设它总是非 nil 的，如图2所示，从而引发了 panic。当接口类型 net.Conn 的字段 c.rwc 被分配给结构 net.conn 时导致了这个问题，因为如果发现连接 c 异常的话，它的 RemoteAddr() 的具体实现可以返回 nil 值（如图 3 所示）。具体来说，RemoteAddr() 可以在 L225 返回一个 nil 接口值，当被调用方法（.String()）时，由于 nil 值不包含任何指向可以调用的具体方法的指针，从而导致 nil panic。
+" />
   <meta property="og:url" content="https://madneal.com/post/nilayay/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -234,8 +236,7 @@ nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生
 <p>原文：<a href="https://www.uber.com/en-NL/blog/nilaway-practical-nil-panic-detection-for-go/">NilAway: Practical Nil Panic Detection for Go</a></p>
 <p>译者：<a href="https://github.com/madneal">madneal</a></p>
 <p>welcome to star my <a href="https://github.com/madneal/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing.ecnu@gmail.com">me</a></p>
-<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
-</blockquote>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p></blockquote>
 <p><img src="https://blog.uber-cdn.com/cdn-cgi/image/width=2048,quality=80,onerror=redirect,format=auto/wp-content/uploads/2023/11/cover_photo.jpg" alt=""></p>
 <p>Uber 由于 <a href="https://go.dev/?uclick_id=6f537554-73b3-4559-9cd3-4ce624452b1f">Go</a> 语言的<a href="https://www.uber.com/blog/tech-stack-part-one-foundation/?uclick_id=6f537554-73b3-4559-9cd3-4ce624452b1f">高性能</a>，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 <a href="https://www.uber.com/blog/go-monorepo-bazel/?uclick_id=6f537554-73b3-4559-9cd3-4ce624452b1f">Go monorepo</a> 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。</p>
 <p><a href="https://www.golang-book.com/books/intro/8?uclick_id=6f537554-73b3-4559-9cd3-4ce624452b1f">指针</a>（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。</p>
@@ -313,31 +314,13 @@ nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>104</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -371,20 +354,7 @@ nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

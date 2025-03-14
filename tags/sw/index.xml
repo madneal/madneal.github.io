@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sw on Neal&#39;s Blog</title>
+    <title>Sw on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/sw/</link>
-    <description>Recent content in sw on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Sw on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Tue, 02 May 2017 12:21:13 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/sw/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 02 May 2017 12:21:13 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/sw/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>service worker介绍</title>
       <link>https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/</link>
       <pubDate>Tue, 02 May 2017 12:21:13 +0000</pubDate>
-      
       <guid>https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/</guid>
-      <description>原文：Service workers explained
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
- 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
-Service worker就好像它的内部有一个有一个shared worker ：
- 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
- 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
- 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它&amp;rsquo;background&amp;rsquo;功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://github.com/w3c/ServiceWorker/blob/master/explainer.md&#34;&gt;Service workers explained&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/neal1991&#34;&gt;neal1991&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/neal1991&#34;&gt;articles-translator &lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;那么它是什么&#34;&gt;那么它是什么？&lt;/h2&gt;&#xA;&lt;p&gt;Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;无法解释（&lt;a href=&#34;https://extensiblewebmanifesto.org/&#34;&gt;Extensible Web Manifesto&lt;/a&gt; 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。&lt;/li&gt;&#xA;&lt;li&gt;难以自然地构建一个离线优先地web应用。&lt;/li&gt;&#xA;&lt;li&gt;缺乏可以利用很多提出功能的上下文执行。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;我们也注意到了声明解决方案(&lt;a href=&#34;https://gears.google.com&#34;&gt;Google Gears&lt;/a&gt;, &lt;a href=&#34;http://www.sitepen.com/blog/category/dojo-offline/&#34;&gt;Dojo Offline&lt;/a&gt;以及&lt;a href=&#34;http://alistapart.com/article/application-cache-is-a-douchebag&#34;&gt;HTML5 AppCache&lt;/a&gt;都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：&lt;/p&gt;&#xA;&lt;p&gt;Service worker就好像它的内部有一个有一个&lt;a href=&#34;https://html.spec.whatwg.org/multipage/workers.html#sharedworker&#34;&gt;shared worker&lt;/a&gt; ：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;在它自己的全局脚本上下文中运行（通常是在它自己的线程中）&lt;/li&gt;&#xA;&lt;li&gt;不会和特定的页面绑定&lt;/li&gt;&#xA;&lt;li&gt;不能够访问DOM&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;不像shared worker，它：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;即使没有页面也能够运行&lt;/li&gt;&#xA;&lt;li&gt;如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的）&lt;/li&gt;&#xA;&lt;li&gt;拥有一个定义的升级模式&lt;/li&gt;&#xA;&lt;li&gt;只允许HTTPS（更多的是在这一点上）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;我们可以利用service workers：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;利用网络拦截可以让让网站&lt;a href=&#34;https://www.youtube.com/watch?v=px-J9Ghvcx4&#34;&gt;更快以及/或者支持离线使用&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;作为其它&amp;rsquo;background&amp;rsquo;功能的基础比如&lt;a href=&#34;http://updates.html5rocks.com/2015/03/push-notificatons-on-the-open-web&#34;&gt;消息推送&lt;/a&gt;以及&lt;a href=&#34;https://github.com/slightlyoff/BackgroundSync/blob/master/explainer.md&#34;&gt;后台同步&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;开始&#34;&gt;开始&lt;/h2&gt;&#xA;&lt;p&gt;首先你需要注册一个service worker:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;serviceWorker&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;navigator&lt;/span&gt;) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;navigator&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;serviceWorker&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;register&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/my-app/sw.js&amp;#39;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;reg&lt;/span&gt;) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Yey!&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;reg&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  }).&lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Boo!&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  });&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在这个例子中，&lt;code&gt;/my-app/sw.js&lt;/code&gt;就是service worker脚本的位置，并且它控制那些页面的URL以&lt;code&gt;/my-app/&lt;/code&gt;开头。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

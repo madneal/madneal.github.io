@@ -4,19 +4,17 @@
     <title>文件上传 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</link>
     <description>Recent content in 文件上传 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Fri, 17 Apr 2015 18:04:50 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Apr 2015 18:04:50 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>winform中进行post上传文件</title>
       <link>https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</link>
       <pubDate>Fri, 17 Apr 2015 18:04:50 +0000</pubDate>
-      
       <guid>https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</guid>
-      <description>winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
- private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &amp;#34;POST&amp;#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&amp;#34;md5data&amp;#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.</description>
+      <description>&lt;p&gt;winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下：&#xA;下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;        private string uploadFile(string uriAddress, string uploadfilePath)&#xA;        {&#xA;            HxSpecCore.SpectrumSet ss = new SpectrumSet();&#xA;            try&#xA;            {&#xA;                // 设置提交的相关参数 &#xA;                HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest;&#xA;                Encoding myEncoding = Encoding.UTF8;&#xA;                request.Method = &amp;#34;POST&amp;#34;;&#xA;                WebHeaderCollection headers = request.Headers;&#xA;  &#xA;&#xA;                //提交请求数据&#xA;                FileInfo fi = new FileInfo(uploadfilePath);&#xA;                FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read);&#xA;                byte[] postData = new byte[(int)fs.Length];&#xA;                request.Headers.Set(&amp;#34;md5data&amp;#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) )));&#xA;                fs.Read(postData, 0, Convert.ToInt32(fs.Length));&#xA;                fs.Close();&#xA;                System.IO.Stream outputStream = request.GetRequestStream();&#xA;                outputStream.Write(postData, 0, postData.Length);&#xA;                outputStream.Close();&#xA;                HttpWebResponse response;&#xA;                Stream responseStream;&#xA;                response = request.GetResponse() as HttpWebResponse;&#xA;                responseStream = response.GetResponseStream();&#xA;                System.IO.StreamReader reader = new System.IO.StreamReader(responseStream, Encoding.GetEncoding(&amp;#34;UTF-8&amp;#34;));&#xA;                string result = reader.ReadToEnd();&#xA;                reader.Close();&#xA;                return result;&#xA;            }&#xA;            catch (Exception ex)&#xA;            {&#xA;                return &amp;#34; &amp;#34;;&#xA;            }&#xA;        }&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
   </channel>
 </rss>

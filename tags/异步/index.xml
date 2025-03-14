@@ -4,25 +4,17 @@
     <title>异步 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E5%BC%82%E6%AD%A5/</link>
     <description>Recent content in 异步 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 27 Apr 2016 08:57:52 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E5%BC%82%E6%AD%A5/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Apr 2016 08:57:52 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E5%BC%82%E6%AD%A5/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>nodejs回调大坑</title>
       <link>https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/</link>
       <pubDate>Wed, 27 Apr 2016 08:57:52 +0000</pubDate>
-      
       <guid>https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/</guid>
-      <description>最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
- Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;quot;callback hell&amp;quot;或&amp;quot;pyramid of doom&amp;quot;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
-后续传递风格
-为什么会有坑？这要从后续传递风格（continuation-passing style&amp;ndash;CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
-这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
-在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) } 像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
- 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：  var fs = require(&amp;#39;fs&amp;#39;) var path = require(&amp;#39;path&amp;#39;) module.</description>
+      <description>&lt;p&gt;最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;quot;callback hell&amp;quot;或&amp;quot;pyramid of doom&amp;quot;，本文称之为回调大坑，嵌套越多，大坑越深。&#xA;坑的起源&lt;/p&gt;&#xA;&lt;p&gt;后续传递风格&lt;/p&gt;&#xA;&lt;p&gt;为什么会有坑？这要从后续传递风格（continuation-passing style&amp;ndash;CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。&lt;/p&gt;&#xA;&lt;p&gt;这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。&#xA;回调&lt;/p&gt;&#xA;&lt;p&gt;在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示：&#xA;&lt;img src=&#34;http://img.blog.csdn.net/20160427082823559&#34; alt=&#34;这里写图片描述&#34;&gt;&#xA;下面一个例子说明回调样例的恶心之处：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module.exports = function (param, cb) {&#xA;  asyncFun1(param, function (er, data) {&#xA;    if (er) return cb(er);&#xA;    asyncFun2(data,function (er,data) {&#xA;      if (er) return cb(er);&#xA;      asyncFun3(data, function (er, data) {&#xA;        if (er) return cb(er);&#xA;        cb(data);&#xA;      })&#xA;    })&#xA;  })&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;用fs.readdir获取目录中的文件列表；&lt;/li&gt;&#xA;&lt;li&gt;循环遍历文件，获取文件的stat；&lt;/li&gt;&#xA;&lt;li&gt;找出最大文件；&lt;/li&gt;&#xA;&lt;li&gt;以最大文件的文件名为参数调用回调。&#xA;这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var fs = require(&amp;#39;fs&amp;#39;)&#xA;var path = require(&amp;#39;path&amp;#39;)&#xA;module.exports = function (dir, cb) {&#xA;  fs.readdir(dir, function (er, files) { // [1]&#xA;    if (er) return cb(er)&#xA;    var counter = files.length&#xA;    var errored = false&#xA;    var stats = []&#xA;    files.forEach(function (file, index) {&#xA;      fs.stat(path.join(dir,file), function (er, stat) { // [2]&#xA;        if (errored) return&#xA;        if (er) {&#xA;          errored = true&#xA;          return cb(er)&#xA;        }&#xA;        stats[index] = stat // [3]&#xA;        if (--counter == 0) { // [4]&#xA;          var largest = stats&#xA;            .filter(function (stat) { return stat.isFile() }) // [5]&#xA;            .reduce(function (prev, next) { // [6]&#xA;              if (prev.size &amp;gt; next.size) return prev&#xA;              return next&#xA;            })&#xA;          cb(null, files[stats.indexOf(largest)]) // [7]&#xA;        }&#xA;      })&#xA;    })&#xA;  })&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;对这个模块的用户来说，只需要提供一个回调函数function(er,filename)，用两个参数分别接收错误或文件名：&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

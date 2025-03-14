@@ -17,7 +17,8 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3." />
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &#34;gobuster/3.1.0&#34;) -U, --username string Username for Basic Auth -d, --discover-backup Upon finding a file search for backup files --wildcard Force continued operation when wildcard found Global Flags: -z, --no-progress Don&#39;t display progress -o, --output string Output file to write results to (defaults to stdout) -q, --quiet Don&#39;t print the banner and other noise -t, --threads int Number of concurrent threads (default 10) --delay duration Time each thread waits between requests (e.g. 1500ms) -v, --verbose Verbose output (errors) -w, --wordlist string Path to the wordlist dir 模块的调用在前文中提到过，也是依据 cobra 的命令行来进行控制，入口函数为 cmd/dir.go 中的 runDir 函数。
+" />
 
   
   
@@ -26,7 +27,8 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="gobuster源码阅读--dir篇" />
   <meta property="og:description" content="在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &amp;#39;Header1: val1&amp;#39; -H &amp;#39;Header2: val2&amp;#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&amp;#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &amp;#34;200,204,301,302,307,401,403&amp;#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &amp;#34;gobuster/3." />
+Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the requests -e, --expanded Expanded mode, print full URLs -x, --extensions string File extension(s) to search for -r, --follow-redirect Follow redirects -H, --headers stringArray Specify HTTP headers, -H &#39;Header1: val1&#39; -H &#39;Header2: val2&#39; -h, --help help for dir -l, --include-length Include the length of the body in the output -k, --no-tls-validation Skip TLS certificate verification -n, --no-status Don&#39;t print status codes -P, --password string Password for Basic Auth -p, --proxy string Proxy to use for requests [http(s)://host:port] -s, --status-codes string Positive status codes (will be overwritten with status-codes-blacklist if set) (default &#34;200,204,301,302,307,401,403&#34;) -b, --status-codes-blacklist string Negative status codes (will override status-codes if set) --timeout duration HTTP Timeout (default 10s) -u, --url string The target URL -a, --useragent string Set the User-Agent string (default &#34;gobuster/3.1.0&#34;) -U, --username string Username for Basic Auth -d, --discover-backup Upon finding a file search for backup files --wildcard Force continued operation when wildcard found Global Flags: -z, --no-progress Don&#39;t display progress -o, --output string Output file to write results to (defaults to stdout) -q, --quiet Don&#39;t print the banner and other noise -t, --threads int Number of concurrent threads (default 10) --delay duration Time each thread waits between requests (e.g. 1500ms) -v, --verbose Verbose output (errors) -w, --wordlist string Path to the wordlist dir 模块的调用在前文中提到过，也是依据 cobra 的命令行来进行控制，入口函数为 cmd/dir.go 中的 runDir 函数。
+" />
   <meta property="og:url" content="https://madneal.com/post/gobuster2/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -253,10 +255,10 @@ Global Flags:
   -v, --verbose           Verbose output (errors)
   -w, --wordlist string   Path to the wordlist
 </code></pre><p><code>dir</code> 模块的调用在前文中提到过，也是依据 cobra 的命令行来进行控制，入口函数为 <code>cmd/dir.go</code> 中的 <code>runDir</code> 函数。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 全局配置项初始化
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parseDirOptions</span>()
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// dir 配置项初始化
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">plugin</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gobusterdir</span>.<span style="color:#a6e22e">NewGobusterDir</span>(<span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 全局配置项初始化</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">parseDirOptions</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dir 配置项初始化</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">plugin</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gobusterdir</span>.<span style="color:#a6e22e">NewGobusterDir</span>(<span style="color:#a6e22e">globalopts</span>, <span style="color:#a6e22e">pluginopts</span>)
 </span></span></code></pre></div><p><code>cli.Gobuster</code> 是整个 CLI 程序的入口，是 gobuster 的核心函数。所有模块的功能都是通过该入口进入，这个函数有三个参数，分别为 <code>ctx</code>, <code>opts</code> 以及 <code>plugin</code>。后面两个分别为全局的配置项以及各个模块所属的配置项内容。</p>
 <h2 id="errwildcard">ErrWildcard</h2>
 <p>在 <code>dir</code> 模块有一个单独的内容想提及一下就是 <code>ErrWildcard</code>，这是针对 <code>wildcard response</code> 的一种报错。经常会听到泛解析，那么 <code>wildcard response</code> 是什么含义呢？</p>
@@ -329,13 +331,13 @@ Global Flags:
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span>:
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">word</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">scanner</span>.<span style="color:#a6e22e">Text</span>()
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">perms</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">g</span>.<span style="color:#a6e22e">processPatterns</span>(<span style="color:#a6e22e">word</span>)
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// add the original word
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">word</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// now create perms
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">perms</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// add the original word</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">word</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// now create perms</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">w</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">perms</span> {
 </span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">select</span> {
-</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// need to check here too otherwise wordChan will block
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">// need to check here too otherwise wordChan will block</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
 </span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">break</span> <span style="color:#a6e22e">Scan</span>
 </span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">wordChan</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">w</span>:
 </span></span><span style="display:flex;"><span>				}
@@ -377,31 +379,13 @@ Global Flags:
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1026</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1058</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -435,20 +419,7 @@ Global Flags:
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

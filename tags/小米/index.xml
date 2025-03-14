@@ -4,29 +4,17 @@
     <title>小米 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E5%B0%8F%E7%B1%B3/</link>
     <description>Recent content in 小米 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 29 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E5%B0%8F%E7%B1%B3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E5%B0%8F%E7%B1%B3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Home Assistant 小米门铃视频本地存储</title>
       <link>https://madneal.com/post/xiaomi/</link>
       <pubDate>Sat, 29 Jun 2024 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/xiaomi/</guid>
-      <description>小米的门铃，免费的云存储时间只有 72 小时，希望保存更多时间的视频，只能去充钱。后来网上搜了一下，通过 Home Assistant 的小米插件可以实现这样的功能。刚好家里有一台闲置的 Macbook 用来发挥余热不是刚好。其实我之前已经安装好了，只不过手残把镜像文件删掉了，这样刚好出个教程从头来一次。
-Home Assistant 安装 Home Assistant 支持多种安装方案，不过他们主推的是他们自己的一款软硬件一体的方案。其实家里是有一台软路由的，不过软路由担心把网络搞出问题，还是选择使用那台闲置的 Mac。官网里面也包含了 MacOS 的安装方案。因为 Home Assistant 用的是比较低版本的 Linux 系统，所以基本都还是需要使用虚拟机。首先需要安装 VirtualBox。另外就是需要下载 Home Assistant 的镜像文件。对于虚机，有一个推荐的配置，下面都以贴图的形式展现。
-这个步骤里面的虚拟硬盘，记得需要使用前面下载下来的 vdi 文件。
-接着需要把虚机的网络里面去配置桥接，官方文档里面说必须要使用有线连接网络，但是我的笔记本使用 WIFI 也没有什么问题。
-系统全都配置好了之后，就直接启动系统，等待系统初始化好后即可。系统初始化好后，即可进入页面 http://homeassistant.local:8123/ 。一般进入页面的时候可能还需要等待一段时间初始化。
-初始化完成后，创建账户。
-选择家庭地址
-进入主页
-以上就是 Home Assistant 的安装，主要就是一个虚机的配置，其它基本只要下一步就可以。不过这个还是只是第一步，还需要安装 HACS，它是一个插件商店，通过这个商店才可以去安装小米的插件。
-HACS 安装 HACS 需要尝试通过终端去安装，我尝试过直接在虚机里面去直接执行命令，但是是不可以的。需要安装终端插件去执行命令，这里我推荐使用 Terminal &amp;amp; SSH 插件，比另外一款插件好用，另外一款插件总是初始化失败。在设置里面，找到 Add-ons，然后在 ADD-ON 商店里面去搜索，不过这里有一个坑是默认搜不到这个插件的，需要在设置里面把高级模式打开。
-插件安装好了，可以参考官方文档去安装 HACS。按照 Terminal 插件之后就可以直接执行命令：
-wget -O - https://get.hacs.xyz | bash - 安装完毕后，需要重启一下 Home Assistant，可以直接在终端里面通过 reboot 来进行重启。安装重启之后，还需要在 Settings &amp;gt; Devices and Services &amp;gt; Add Integration &amp;gt; HACS 里面添加一下。因为 HACS 需要使用 github 去更新，你可能还需要一个 github 账号来进行配置，输入验证码后，即配置成功。</description>
+      <description>&lt;p&gt;小米的门铃，免费的云存储时间只有 72 小时，希望保存更多时间的视频，只能去充钱。后来网上搜了一下，通过 &lt;a href=&#34;https://www.home-assistant.io/&#34;&gt;Home Assistant&lt;/a&gt; 的小米插件可以实现这样的功能。刚好家里有一台闲置的 Macbook 用来发挥余热不是刚好。其实我之前已经安装好了，只不过手残把镜像文件删掉了，这样刚好出个教程从头来一次。&lt;/p&gt;&#xA;&lt;h2 id=&#34;home-assistant-安装&#34;&gt;Home Assistant 安装&lt;/h2&gt;&#xA;&lt;p&gt;Home Assistant 支持多种安装方案，不过他们主推的是他们自己的一款软硬件一体的方案。其实家里是有一台软路由的，不过软路由担心把网络搞出问题，还是选择使用那台闲置的 Mac。官网里面也包含了 MacOS 的&lt;a href=&#34;https://www.home-assistant.io/installation/macos&#34;&gt;安装方案&lt;/a&gt;。因为 Home Assistant 用的是比较低版本的 Linux 系统，所以基本都还是需要使用虚拟机。首先需要安装 &lt;a href=&#34;https://www.virtualbox.org/wiki/Downloads&#34;&gt;VirtualBox&lt;/a&gt;。另外就是需要下载 Home Assistant 的&lt;a href=&#34;https://github.com/home-assistant/operating-system/releases/download/12.4/haos_ova-12.4.vdi.zip&#34;&gt;镜像文件&lt;/a&gt;。对于虚机，有一个推荐的配置，下面都以贴图的形式展现。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/iRuLXQxb56kJPzI.png&#34; alt=&#34;系统&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/eRIdwYPNWmXH2aU.png&#34; alt=&#34;配置信息&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;这个步骤里面的虚拟硬盘，记得需要使用前面下载下来的 vdi 文件。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/kwIVFbTZmCzlqxH.png&#34; alt=&#34;虚拟硬盘&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;接着需要把虚机的网络里面去配置桥接，官方文档里面说必须要使用有线连接网络，但是我的笔记本使用 WIFI 也没有什么问题。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/mVqNXzxMaUrcY9s.png&#34; alt=&#34;网络设置&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;系统全都配置好了之后，就直接启动系统，等待系统初始化好后即可。系统初始化好后，即可进入页面 &lt;a href=&#34;http://homeassistant.local:8123/&#34;&gt;http://homeassistant.local:8123/&lt;/a&gt; 。一般进入页面的时候可能还需要等待一段时间初始化。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/x2ovPRMyUTqsI18.png&#34; alt=&#34;welcome&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;初始化完成后，创建账户。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/Y7O3DGTN2cPsrmt.png&#34; alt=&#34;create-user.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;选择家庭地址&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/7OmAfFaQVrBGyPq.png&#34; alt=&#34;home-location.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;进入主页&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/zgn7QPflJA4FN3X.png&#34; alt=&#34;home-page.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;以上就是 Home Assistant 的安装，主要就是一个虚机的配置，其它基本只要下一步就可以。不过这个还是只是第一步，还需要安装 HACS，它是一个插件商店，通过这个商店才可以去安装小米的插件。&lt;/p&gt;&#xA;&lt;h2 id=&#34;hacs-安装&#34;&gt;HACS 安装&lt;/h2&gt;&#xA;&lt;p&gt;HACS 需要尝试通过终端去安装，我尝试过直接在虚机里面去直接执行命令，但是是不可以的。需要安装终端插件去执行命令，这里我推荐使用 Terminal &amp;amp; SSH 插件，比另外一款插件好用，另外一款插件总是初始化失败。在设置里面，找到 Add-ons，然后在 ADD-ON 商店里面去搜索，不过这里有一个坑是默认搜不到这个插件的，需要在设置里面把高级模式打开。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/XO3NWnDoaB4LKCF.png&#34; alt=&#34;advanced-mode.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/HsdhwSjvabrz5WA.png&#34; alt=&#34;terminal.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/06/30/HlDOT32BIinN4MU.png&#34; alt=&#34;terminal-start.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;插件安装好了，可以参考&lt;a href=&#34;https://hacs.xyz/docs/setup/download/&#34;&gt;官方文档&lt;/a&gt;去安装 HACS。按照 Terminal 插件之后就可以直接执行命令：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;wget -O - https://get.hacs.xyz | bash -&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;安装完毕后，需要重启一下 Home Assistant，可以直接在终端里面通过 &lt;code&gt;reboot&lt;/code&gt; 来进行重启。安装重启之后，还需要在 Settings &amp;gt; Devices and Services &amp;gt; Add Integration &amp;gt; HACS 里面添加一下。因为 HACS 需要使用 github 去更新，你可能还需要一个 github 账号来进行配置，输入验证码后，即配置成功。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

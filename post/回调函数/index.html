@@ -17,14 +17,15 @@
   
   <meta name="author" content="Neal" />
   <meta name="description" content="回调函数 在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。
-回调函数的机制  定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。  为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
-代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&amp;ndash;typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
+回调函数的机制 定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。 为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
+代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&ndash;typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
 void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc); void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc); 这两个函数接受以下参数：
 ·byte * array：指向元素数组的指针（任意类型）。
 ·int size：数组中元素的个数。
 ·int elem_size：数组中一个元素的大小，以字节为单位。
 ·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。
-回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &amp;lt; elem2) return -1; if(elem1 &amp;gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); } int main(int argc,char* argv[])" />
+回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &lt; elem2) return -1; if(elem1 &gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); } int main(int argc,char* argv[])
+" />
 
   
   
@@ -33,14 +34,15 @@ void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunct
   <meta property="og:type" content="article" />
   <meta property="og:title" content="回调函数" />
   <meta property="og:description" content="回调函数 在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。
-回调函数的机制  定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。  为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
-代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&amp;ndash;typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
+回调函数的机制 定义一个回调函数。 提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。 当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。 为什么要使用回调函数 因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。
+代码实现 下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&ndash;typedef int (__stdcall CompareFunction)(const byte,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。
 void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc); void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc); 这两个函数接受以下参数：
 ·byte * array：指向元素数组的指针（任意类型）。
 ·int size：数组中元素的个数。
 ·int elem_size：数组中一个元素的大小，以字节为单位。
 ·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。
-回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &amp;lt; elem2) return -1; if(elem1 &amp;gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); } int main(int argc,char* argv[])" />
+回调函数实例 int __stdcall CompareInts(const byte* velem1,const byte* velem2) { int elem1 = *(int*)velem1; int elem2 = *(int*)velem2; if(elem1 &lt; elem2) return -1; if(elem1 &gt; elem2) return 1; return 0; } int __stdcall CompareStrings(const byte* velem1,const byte* velem2) { const char* elem1 = (char*)velem1; const char* elem2 = (char*)velem2; return strcmp(elem1,elem2); } int main(int argc,char* argv[])
+" />
   <meta property="og:url" content="https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -317,31 +319,13 @@ return strcmp(elem1,elem2);
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3591</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3624</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -375,20 +359,7 @@ return strcmp(elem1,elem2);
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

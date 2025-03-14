@@ -1,67 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>chrome插件 on Neal&#39;s Blog</title>
+    <title>Chrome插件 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/chrome%E6%8F%92%E4%BB%B6/</link>
-    <description>Recent content in chrome插件 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Chrome插件 on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/chrome%E6%8F%92%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/chrome%E6%8F%92%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hey,我能看到你的源码哎</title>
       <link>https://madneal.com/post/webpack/</link>
       <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/webpack/</guid>
-      <description>最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
-通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。
-目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 devtool 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。
-module.exports = { ... devtool: &amp;#39;source-map&amp;#39;, ... } 市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。
-不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 chrome://net-export 可以捕获请求，通过 https://netlog-viewer.appspot.com/#events 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。
-毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 source-map 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。</description>
+      <description>&lt;p&gt;最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/06/WeHphMDZx1dGc9f.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。&lt;/p&gt;&#xA;&lt;p&gt;目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 &lt;code&gt;devtool&lt;/code&gt; 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module.exports = {&#xA;    ...&#xA;    devtool: &amp;#39;source-map&amp;#39;,&#xA;    ...&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/07/arGfHwSqNVi8xFn.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/07/pQ7CqLrlw8MkYXv.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 &lt;code&gt;chrome://net-export&lt;/code&gt; 可以捕获请求，通过 &lt;code&gt;https://netlog-viewer.appspot.com/#events&lt;/code&gt; 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/07/mW3RuNJoxUwzfBZ.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/06/xqLWS2B9NADG5sX.png&#34; alt=&#34;source-map.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 &lt;a href=&#34;https://github.com/mozilla/source-map&#34;&gt;source-map&lt;/a&gt; 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>被动扫描器之插件篇</title>
       <link>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</link>
       <pubDate>Sat, 28 Sep 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E8%A2%AB%E5%8A%A8%E6%89%AB%E6%8F%8F%E5%99%A8%E4%B9%8Bchrome%E6%8F%92%E4%BB%B6/</guid>
-      <description>本文首发于 freebuf, https://www.freebuf.com/articles/web/219818.html
-最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，r-forwarder 以及 r-forwarder-burp，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。
-Chrome 插件 Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。
-简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：chrome.devtools.network 以及 chrome.webRequest。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。
-Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。
-其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。
-对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：</description>
+      <description>&lt;p&gt;本文首发于 freebuf, &lt;a href=&#34;https://www.freebuf.com/articles/web/219818.html&#34;&gt;https://www.freebuf.com/articles/web/219818.html&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;最近被动扫描器的话题如火如荼，好多公司都在做自己的被动扫描器。而获取质量高的流量是被动扫描器起作用的关键。笔者主要开发了两个被动扫描器的插件，&lt;a href=&#34;https://github.com/neal1991/r-forwarder&#34;&gt;r-forwarder&lt;/a&gt; 以及 &lt;a href=&#34;https://github.com/neal1991/r-forwarder-burp&#34;&gt;r-forwarder-burp&lt;/a&gt;，两个插件的代码都在 Github 上开源。两个插件分别为 Chrom 插件以及 Burp 插件，本文也从笔者开发这两个插件的经验来聊一聊被动扫描器中插件的开发。&lt;/p&gt;&#xA;&lt;h2 id=&#34;chrome-插件&#34;&gt;Chrome 插件&lt;/h2&gt;&#xA;&lt;p&gt;Chrome 插件是向 Chrome 浏览器添加或修改功能的浏览器拓展程序。一般通过 JavaScript, HTML 以及 CSS 就可以编写 Chrome 插件了。市面上有很多非常优秀的 Chrome 插件拥有非常多的用户。Chrome 插件的编写也比较简单，基本上你熟悉一点前端知识，然后熟悉一下 Chrome 插件的 API，你就可以编写 Chrome 插件。Chrome 插件的安装，如果你没有发布在 Chrome 商店的话（因为网络原因，可能没办法直接从商店下载），可以通过开发者模式安装 Chrome 插件。或者你也可以注册 Chrome 插件的开发者账号（只需要 5 美元，就可以发布 20 个插件）。&lt;/p&gt;&#xA;&lt;p&gt;简单地介绍了一下 Chrome 插件的开发，咱们主要还是聊一下关于 Chrome 插件关于被动扫描器的方面的内容。对于 Chrome 插件，主要是通过插件的能力去获取经过浏览器的流量，并将流量转发给后端来进行处理。Chrome 插件关于网络流量的处理地 API 主要有两个：&lt;a href=&#34;https://developer.chrome.com/extensions/devtools_network&#34;&gt;chrome.devtools.network&lt;/a&gt; 以及 &lt;a href=&#34;https://developer.chrome.com/extensions/webRequest&#34;&gt;chrome.webRequest&lt;/a&gt;。但是前者使用的时候需要打开 Chrome 开发者工具，这个有一点不太方面，所以选择了后者，这也是对于被动流量获取一种常见的方式。&lt;/p&gt;&#xA;&lt;p&gt;Chrome 插件中的 webrequest API 是以相应的事件驱动的，其中请求的生命周期图如下，主要有7个事件。只需要监听关键事件进行处理就可以满足被动扫描器获取流量的需求了。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/11/06/Mi0arD.png&#34; alt=&#34;Mi0arD.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;其实这些事件不难理解，基本通过事件的名称就可以知道事件的含义了，主要就是请求发送前，发送请求头之前，发送请求头等等事件。对于不同的事件，可以获取的流量数据也是不尽相同的。首先，考虑一下，对于被动扫描器来说，哪些流量数据是比较关心的。被动扫描器主要是通过收集业务的正常流量来进行测试，提高测试的效率，并能取得比主动扫描器更好的效果。那么一般来说，被动扫描器最关心的就是请求的 URL 以及请求头了，如果是 POST 请求，还需要请求体。对于扫描器来说，响应头和响应体则没那么重要，其实可以通过响应状态过滤一下，一般只需要能够正常响应的请求头以及请求体即可。&lt;/p&gt;&#xA;&lt;p&gt;对于被动扫描器上述的需求，chrome.webrequest 中的 onBeforeRequest 以及 onSendHeaders 这两个事件可以满足需求。通过前者，可以获取请求体。通过后者则可以获取请求头。不过在使用 onSendHeaders 的时候，有好几点需要注意：&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>持续发布 Chrome 插件</title>
       <link>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</link>
       <pubDate>Mon, 27 May 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/</guid>
-      <description>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
-介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
-Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
-在创建项目之后，我们需要开启 &amp;ldquo;Chrome Web Store API&amp;rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。
-在 ENABLE 这个 API 之后，就可以点击 &amp;ldquo;CREATE CREDENTIALS&amp;rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</description>
+      <description>&lt;p&gt;Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 &lt;a href=&#34;https://github.com/neal1991/image-host&#34;&gt;image-host&lt;/a&gt;。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。&lt;/p&gt;&#xA;&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;&#xA;&lt;p&gt;CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考&lt;a href=&#34;https://hackernoon.com/continuous-integration-circleci-vs-travis-ci-vs-jenkins-41a1c2bd95f5&#34;&gt;这篇文章&lt;/a&gt;。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。&lt;/p&gt;&#xA;&lt;h2 id=&#34;google-api&#34;&gt;Google API&lt;/h2&gt;&#xA;&lt;p&gt;首先，创建一个 Google API 项目，可以直接点击&lt;a href=&#34;https://console.developers.google.com/projectcreate?organizationId=0&#34;&gt;这个链接&lt;/a&gt;创建。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/06/02/VG6DzV.png&#34; alt=&#34;VG6DzV.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;在创建项目之后，我们需要开启 &amp;ldquo;Chrome Web Store API&amp;rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/06/02/VGW99s.png&#34; alt=&#34;VGW99s.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;在 ENABLE 这个 API 之后，就可以点击 &amp;ldquo;CREATE CREDENTIALS&amp;rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>将Medium中的博客导出成markdown</title>
       <link>https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/</link>
       <pubDate>Sat, 23 Sep 2017 16:33:06 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%B0%86medium%E4%B8%AD%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%AF%BC%E5%87%BA%E6%88%90markdown/</guid>
-      <description>Medium（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。
-Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件export-medium的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在这,需要翻墙访问。不过你可以手动安装:
- 将 export-medium clone 或者下载到本地。 在 Chrome 浏览中打开chrome://extensions,加载已解压的拓展程序，选择项目文件夹  这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。
-目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。
-仓库地址: https://github.com/neal1991/export-medium （喜欢的还请多多star!!!)</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://medium.com&#34;&gt;Medium&lt;/a&gt;（需要翻墙访问）是国外非常知名的一个博客平台。上面经常有很多知名的技术大牛在上面发布博客，现在一般国内的搬运的技术文章大多数都是来自于这个平台。&lt;/p&gt;&#xA;&lt;p&gt;Medium 文章格式显示地非常优雅，但是存在一个问题。众所周知，markdown已经是最受程序猿欢迎的文本编辑格式之一。但是Medium仅仅支持markdown格式导入，不支持markdown格式的导出。这也正是我当初开发这个插件&lt;a href=&#34;https://github.com/neal1991/export-medium&#34;&gt;export-medium&lt;/a&gt;的原因，现在这个项目是放在github上面的，欢迎大家多多star,或者pr。自己也花了5美金，注册了开发者账号，因为现在chrome对于不是商店的插件限制很严格，如果没上商店，一直有提醒，很麻烦。商店访问地址在&lt;a href=&#34;https://chrome.google.com/webstore/detail/dodkihcbgpjblncjahodbnlgkkflliim/publish-accepted?utm_source=chrome-ntp-icon&amp;amp;authuser=1&#34;&gt;这&lt;/a&gt;,需要翻墙访问。不过你可以手动安装:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;将 &lt;a href=&#34;https://github.com/neal1991/export-medium&#34;&gt;export-medium&lt;/a&gt; clone 或者下载到本地。&lt;/li&gt;&#xA;&lt;li&gt;在 Chrome 浏览中打开&lt;code&gt;chrome://extensions&lt;/code&gt;,加载已解压的拓展程序，选择项目文件夹&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://img.blog.csdn.net/20170923163242479?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast&#34; alt=&#34;这里写图片描述&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;这两种方法都是可以支持安装的。目前这个插件的功能主要是把Medium上面的文章解析成 markdown 格式的文本，用了一个简单的库去渲染（事实上我觉得挺鸡肋的），然后你只要点击一个按钮就可以把文本复制到剪切板，就可以复制到编辑器了，是不是很方便。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;http://okja9ah81.bkt.clouddn.com/export-to-meidum.gif&#34; alt=&#34;clipboard.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;目前可能很多页面做的不是特别好看，欢迎大家感兴趣的可以试用或者向我提建议。&lt;/p&gt;&#xA;&lt;p&gt;仓库地址: &lt;a href=&#34;https://github.com/neal1991/export-medium&#34;&gt;https://github.com/neal1991/export-medium&lt;/a&gt;  （喜欢的还请多多star!!!)&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

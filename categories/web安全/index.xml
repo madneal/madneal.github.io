@@ -1,78 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>web安全 on Neal&#39;s Blog</title>
+    <title>Web安全 on Neal&#39;s Blog</title>
     <link>https://madneal.com/categories/web%E5%AE%89%E5%85%A8/</link>
-    <description>Recent content in web安全 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Web安全 on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 28 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/web%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/categories/web%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SAST 测试中要测量的三个参数</title>
       <link>https://madneal.com/post/sast/</link>
       <pubDate>Mon, 28 Mar 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/sast/</guid>
-      <description>原文：3 parameters to measure SAST testing
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 在我们之前的博客中，为什么你不能仅使用列表、测试套件和基准测试来比较 SAST 工具，我们探索了当今常用来评估和比较 SAST 测试工具的各种工具和指标。我们还研究了为什么这些工具可能会产生不一致的结果并且对于评估 SAST 测试工具可能根本不可靠的一些原因。
-相反，在评估 SAST 测试工具时，你需要考虑 3 个参数：
- 准确性 完整性 任意其它独特价值  在本文中，我们将探索这些参数并研究测量它们的方法。在评估 SAST 测试工具时，有两种相关类型的测量 - 定量（意味着结果的数量与“误报”）和定性（特别是语言深度和支持）。
-定量方面 以下对准确性和完整性的定义起初有点复杂，因为它们实际上是同一枚硬币的两面。数学上不可能（根据赖斯定理）进行完美的静态程序分析。人们可能会认为增加建议的数量会发现所有可能的问题。可悲的是，这也会将误报 (FPs) 的数量达到干扰让结果无法处理的级别。SAST 测试供应商可以使用一些技巧来改进结果，但在数学上完美是不可能的。
-准确性 在 SAST 测试的上下文中，准确性被松散地定义为具有最高数量的 TP（真正类，即实际问题的发现），同时保持最少数量的 FPs（误报，因此是错误的）。
-准确性尤其重要。高准确率意味着我们可以获得更有价值的结果，以及更少的“噪音”（不相关的、无法操作的报告）。“噪音”也是阻碍开发者使用 SAST 测试产品的第一大因素，这就是为什么准确性越高，整体开发者体验就越令人满意的原因。
-为了计算准确性，你首先需要对结果进行分类。那么公式就是 TP*100/(TP+FP)。这将产生一个介于 1 到 100 之间的数字。数字越大，准确度越高。例如，找到 140 个 TP 和 40 个 FP 的工具的准确率为 77.</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://snyk.io/blog/parameters-to-measure-sast-testing/&#34;&gt;3 parameters to measure SAST testing&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;在我们之前的博客中，为什么&lt;a href=&#34;https://snyk.io/blog/cant-compare-sast-tools-lists-test-suites-benchmarks/&#34;&gt;你不能仅使用列表、测试套件和基准测试来比较 SAST 工具&lt;/a&gt;，我们探索了当今常用来评估和比较 SAST 测试工具的各种工具和指标。我们还研究了为什么这些工具可能会产生不一致的结果并且对于评估 SAST 测试工具可能根本不可靠的一些原因。&lt;/p&gt;&#xA;&lt;p&gt;相反，在评估 SAST 测试工具时，你需要考虑 3 个参数：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;准确性&lt;/li&gt;&#xA;&lt;li&gt;完整性&lt;/li&gt;&#xA;&lt;li&gt;任意其它独特价值&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;在本文中，我们将探索这些参数并研究测量它们的方法。在评估 SAST 测试工具时，有两种相关类型的测量 - 定量（意味着结果的数量与“误报”）和定性（特别是语言深度和支持）。&lt;/p&gt;&#xA;&lt;h2 id=&#34;定量方面&#34;&gt;定量方面&lt;/h2&gt;&#xA;&lt;p&gt;以下对准确性和完整性的定义起初有点复杂，因为它们实际上是同一枚硬币的两面。数学上不可能（根据赖斯定理）进行完美的静态程序分析。人们可能会认为增加建议的数量会发现所有可能的问题。可悲的是，这也会将误报 (FPs) 的数量达到干扰让结果无法处理的级别。SAST 测试供应商可以使用一些技巧来改进结果，但在数学上完美是不可能的。&lt;/p&gt;&#xA;&lt;h3 id=&#34;准确性&#34;&gt;准确性&lt;/h3&gt;&#xA;&lt;p&gt;在 SAST 测试的上下文中，准确性被松散地定义为具有最高数量的 TP（真正类，即实际问题的发现），同时保持最少数量的 FPs（误报，因此是错误的）。&lt;/p&gt;&#xA;&lt;p&gt;准确性尤其重要。高准确率意味着我们可以获得更有价值的结果，以及更少的“噪音”（不相关的、无法操作的报告）。“噪音”也是阻碍开发者使用 SAST 测试产品的第一大因素，这就是为什么准确性越高，整体开发者体验就越令人满意的原因。&lt;/p&gt;&#xA;&lt;p&gt;为了计算准确性，你首先需要对结果进行分类。那么公式就是 TP*100/(TP+FP)。这将产生一个介于 1 到 100 之间的数字。数字越大，准确度越高。例如，找到 140 个 TP 和 40 个 FP 的工具的准确率为 77.7%。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>hey,我能看到你的源码哎</title>
       <link>https://madneal.com/post/webpack/</link>
       <pubDate>Mon, 07 Mar 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/webpack/</guid>
-      <description>最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。
-通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。
-目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 devtool 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。
-module.exports = { ... devtool: &amp;#39;source-map&amp;#39;, ... } 市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。
-不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 chrome://net-export 可以捕获请求，通过 https://netlog-viewer.appspot.com/#events 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。
-毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 source-map 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。</description>
+      <description>&lt;p&gt;最近偶然间有看到某家的一个站点中的网站中的前端代码的“泄露”。此处的泄露为什么打引号，因为一般来说网站的前端代码都是可以通过浏览器即可访问。但是一般生产环境中的 JavsScript 代码都是经过压缩和混淆的，所以可读性大大降低，这也提升了从前端的角度挖取更多信息的门槛。这里的泄露指的是在 Chrome 浏览器的 Sources 面板中可以看到完整的以及原始的前端代码。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/06/WeHphMDZx1dGc9f.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;通过这样的源码，可以非常清晰地了解应用的前端业务，包括接口信息，如果前端包含加解密的逻辑的话，这样也非常有利于攻击者进行破解。&lt;/p&gt;&#xA;&lt;p&gt;目前市面上绝大多数应用都是前后端分离，基本上绝大多数是基于 Vue 或者 React 这样的前端框架。而大多数应用配套的构建工具则是 Webpack。而这种源码的泄露真是因为 sourceMap 而导致的，但是这种配置在前端开发环境中是必不可少的，因为如果缺少了 sourceMap 那么前端开发者就无法进行前端代码的调试，sourceMap 正是帮助开发者进行前端代码的调试。通常通过 &lt;code&gt;devtool&lt;/code&gt; 的配置即可开启 sourceMap，Webpack 会为相应的 js 文件生成对应的 map 文件，在 js 文件的最后一行会有 sourceMap 的申明，表示 map 文件的地址。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;module.exports = {&#xA;    ...&#xA;    devtool: &amp;#39;source-map&amp;#39;,&#xA;    ...&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;市面上的绝大多数浏览器都是支持 sourceMap 的，Chrome 浏览器默认支持。打开浏览器的开发者工具，在 Sources 面板中的设置可以看到相应的配置项，勾选后即可在面板中看到对应解析的源码。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/07/arGfHwSqNVi8xFn.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/07/pQ7CqLrlw8MkYXv.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;不过大家可能有一个疑惑，在 Chrome 的 Network 面板中看不到 map 文件的网络请求。但是如果直接使用抓包工具去抓包的话，是可以看到对应的 map 文件的请求的。通过 &lt;code&gt;chrome://net-export&lt;/code&gt; 可以捕获请求，通过 &lt;code&gt;https://netlog-viewer.appspot.com/#events&lt;/code&gt; 即可查看捕获的日志文件，可以看到对应的 map 文件的请求记录。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/07/mW3RuNJoxUwzfBZ.png&#34; alt=&#34;image.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2022/03/06/xqLWS2B9NADG5sX.png&#34; alt=&#34;source-map.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;毫无疑问，sourceMap 如果在生产环境开启的话，必然具有一定的安全风险，因为从很大程度上帮助攻击者了解应用，获取应用的更多信息。那么，我们是不是可以写一个 Chrome 插件来检测这种问题并且来直接进行源码的下载呢。实现这样的插件不是件很困难的，检测 js 文件请求，然后尝试请求对应的 map 文件。有不少开源库能够进行 sourceMap 的解析，Mozilla 的 &lt;a href=&#34;https://github.com/mozilla/source-map&#34;&gt;source-map&lt;/a&gt; 即是一个能够解析 sourceMap 的 js 库，亦可以通过这个库生成 js 的对应的 sourceMap。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>XSS 漏洞知解 123</title>
       <link>https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/</link>
       <pubDate>Wed, 04 Mar 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/</guid>
-      <description>跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：
- 反射型 XSS 存储型 XSS DOM 型 XSS  关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：
- 可以执行受害者可以执行的任何操作 可以浏览受害者可以浏览的任何内容 可以修改受害者可以修改的任何信息 可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击  不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：
- cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的内容被进行过滤或者编码 受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见  典型利用场景 XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。
-盗取 cookie 通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。</description>
+      <description>&lt;p&gt;跨站脚本攻击（Cross-Site Scripting），为了避免与 CSS 混淆，一般简称为 XSS。XSS 作为一种典型的主要可以分为 3 种：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;反射型 XSS&lt;/li&gt;&#xA;&lt;li&gt;存储型 XSS&lt;/li&gt;&#xA;&lt;li&gt;DOM 型 XSS&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;关于这 3 种 XSS 类型的区别，在这就不展开了，本文主要讲解 XSS 漏洞的利用场景以及如何测试反射型 XSS，当然反射型 XSS 漏洞的测试和其它 XSS 漏洞类型的测试存在很多共同之处的。通常来说，通过 XSS 漏洞攻击者可以在受害者机器上执行任何脚本的话，包括：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;可以执行受害者可以执行的任何操作&lt;/li&gt;&#xA;&lt;li&gt;可以浏览受害者可以浏览的任何内容&lt;/li&gt;&#xA;&lt;li&gt;可以修改受害者可以修改的任何信息&lt;/li&gt;&#xA;&lt;li&gt;可以通过最初的受害者与应用中其他用户交互，从而发起对其他用户的攻击&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;不过值得注意的是，反射型 XSS 总漏洞利用过程中也会遇到较多的障碍，经常可能会遇到很多限制：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;cookie 设置为 httponly，无法通过 JS 直接操控 cookie&lt;/li&gt;&#xA;&lt;li&gt;用户输入的内容被进行过滤或者编码&lt;/li&gt;&#xA;&lt;li&gt;受害者可能并没有登录应用，或者应用用户会话与特定的因素有绑定关系，比如 IP 地址或者 MAC 地址，这种情况比较少见&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;典型利用场景&#34;&gt;典型利用场景&lt;/h2&gt;&#xA;&lt;p&gt;XSS 的利用场景其实是五花八门的，可以说只要你敢想，搞不好你就可以做得到。这里，我们可以选择两个最典型的利用场景进行讲解。在这里我主要使用 PortSwigger 的应用安全学院里面的 lab 进行讲解。&lt;/p&gt;&#xA;&lt;h3 id=&#34;盗取-cookie&#34;&gt;盗取 cookie&lt;/h3&gt;&#xA;&lt;p&gt;通过 XSS 漏洞盗取 cookie 可以说是最典型的利用场景了。不过现在随着 HttpOnly 的广泛应用，这一利用场景也产生了一些限制。但是 HttpOnly 也并不能完全保证 XSS 漏洞的防范，因为 HttpOnly 理论上应该覆盖所有的敏感 cookie，如果有一处没有覆盖到，就有被攻击的可能性。另外一方面，通过结合 CORS 也有突破限制的可能性。还有一个实际情况是，仍然有很多应用并没有使用 HttpOnly，本节也主要是针对这一情形的具体利用。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>使用浏览器作为代理从公网攻击内网</title>
       <link>https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/</link>
       <pubDate>Mon, 15 Apr 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/</guid>
-      <description>介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
-虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
-由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
-恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
-可疑行为：公网到局域网的连接 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
-如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
-这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
-在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
-同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
-Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
- 受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。  那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</description>
+      <description>&lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;&#xA;&lt;p&gt;在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。&lt;/p&gt;&#xA;&lt;p&gt;虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。&lt;/p&gt;&#xA;&lt;p&gt;由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。&lt;/p&gt;&#xA;&lt;p&gt;恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。&lt;/p&gt;&#xA;&lt;h2 id=&#34;可疑行为公网到局域网的连接&#34;&gt;可疑行为：公网到局域网的连接&lt;/h2&gt;&#xA;&lt;p&gt;从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。&lt;/p&gt;&#xA;&lt;p&gt;如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）&lt;/p&gt;&#xA;&lt;p&gt;这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。&lt;/p&gt;&#xA;&lt;p&gt;在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。&lt;/p&gt;&#xA;&lt;h3 id=&#34;同源策略不会阻止本地攻击吗&#34;&gt;同源策略不会阻止本地攻击吗？&lt;/h3&gt;&#xA;&lt;p&gt;实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。&lt;/p&gt;&#xA;&lt;p&gt;Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。&lt;/li&gt;&#xA;&lt;li&gt;然而，浏览器将发送请求（此时服务器被利用）。&lt;/li&gt;&#xA;&lt;li&gt;浏览器收到响应但不会将其传递给 JavaScript。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;那跨域资源共享呢&#34;&gt;那跨域资源共享呢？&lt;/h3&gt;&#xA;&lt;p&gt;我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。&lt;/p&gt;&#xA;&lt;h2 id=&#34;攻击概述&#34;&gt;攻击概述&lt;/h2&gt;&#xA;&lt;p&gt;我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

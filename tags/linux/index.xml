@@ -1,75 +1,48 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>linux on Neal&#39;s Blog</title>
+    <title>Linux on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/linux/</link>
-    <description>Recent content in linux on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Linux on Neal&#39;s Blog</description>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 20 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 May 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Holiday -- hack the box</title>
       <link>https://madneal.com/post/holiday-hack-the-box/</link>
       <pubDate>Mon, 20 May 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/holiday-hack-the-box/</guid>
-      <description>Introduction Target: 10.10.10.25(Linux)
-Kali: 10.10.16.65
-Holiday is an insane box officially. It&amp;rsquo;s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
-Information enumeration As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/05/20/EvqqqH.png&#34; alt=&#34;EvqqqH.png&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.25(Linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali: 10.10.16.65&lt;/p&gt;&#xA;&lt;p&gt;Holiday is an insane box officially. It&amp;rsquo;s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-enumeration&#34;&gt;Information enumeration&lt;/h2&gt;&#xA;&lt;p&gt;As usual, use nmap to detect open ports and related services: &lt;code&gt;nmap -A 10.10.10.25&lt;/code&gt;:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Help -- hack the box</title>
       <link>https://madneal.com/post/help-hack-the-box/</link>
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/help-hack-the-box/</guid>
-      <description>Introduction Target: 10.10.10.121(OS: Linux)
-Kali: 10.10.16.28
-To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.
-Infomation Enumeration Firstly, gather open ports and services:
-# Nmap 7.</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/04/21/EFe80A.png&#34; alt=&#34;EFe80A.png&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.121(OS: Linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali: 10.10.16.28&lt;/p&gt;&#xA;&lt;p&gt;To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.&lt;/p&gt;&#xA;&lt;h2 id=&#34;infomation-enumeration&#34;&gt;Infomation Enumeration&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, gather open ports and services:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Nmap 7.70 scan initiated Sat Apr 20 02:13:56 2019 as: nmap -sC -sV -oA services 10.10.10.121&#xA;Nmap scan report for 10.10.10.121&#xA;Host is up (1.2s latency).&#xA;Not shown: 997 closed ports&#xA;PORT     STATE SERVICE VERSION&#xA;22/tcp   open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0)&#xA;| ssh-hostkey: &#xA;|   2048 e5:bb:4d:9c:de:af:6b:bf:ba:8c:22:7a:d8:d7:43:28 (RSA)&#xA;|   256 d5:b0:10:50:74:86:a3:9f:c5:53:6f:3b:4a:24:61:19 (ECDSA)&#xA;|_  256 e2:1b:88:d3:76:21:d4:1e:38:15:4a:81:11:b7:99:07 (ED25519)&#xA;80/tcp   open  http    Apache httpd 2.4.18 ((Ubuntu))&#xA;|_http-server-header: Apache/2.4.18 (Ubuntu)&#xA;|_http-title: Apache2 Ubuntu Default Page: It works&#xA;3000/tcp open  http    Node.js Express framework&#xA;|_http-title: Site doesn&amp;#39;t have a title (application/json; charset=utf-8).&#xA;Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel&#xA;&#xA;Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .&#xA;# Nmap done at Sat Apr 20 02:14:40 2019 -- 1 IP address (1 host up) scanned in 43.61 seconds&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The port 80 seems to be an HTTP service. Access to &lt;code&gt;http://10.10.10.121&lt;/code&gt;, nothing special but just the apache default web page. Try gobuster:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Bashed -- hack the box</title>
       <link>https://madneal.com/post/bashed-hack-the-box/</link>
       <pubDate>Thu, 04 Apr 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/bashed-hack-the-box/</guid>
-      <description>Introduction Target: 10.10.10.68 (OS: Linux)
-Kali linux: 10.10.16.44
-Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box.</description>
+      <description>&lt;p&gt;&lt;a href=&#34;https://imgchr.com/i/AgdMvj&#34;&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/04/03/AgdMvj.md.png&#34; alt=&#34;AgdMvj.md.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.68 (OS: Linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali linux: 10.10.16.44&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-enumeration&#34;&gt;Information Enumeration&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Nmap 7.70 scan initiated Wed Apr  3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68&#xA;Warning: 10.10.10.68 giving up on port because retransmission cap hit (10).&#xA;Nmap scan report for 10.10.10.68&#xA;Host is up (0.31s latency).&#xA;Not shown: 39680 closed ports, 25854 filtered ports&#xA;PORT   STATE SERVICE&#xA;80/tcp open  http&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Nibbles - Hack the box</title>
       <link>https://madneal.com/post/nibbles-hack-the-box/</link>
       <pubDate>Sun, 17 Mar 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/nibbles-hack-the-box/</guid>
-      <description>Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
-Information Enumeration Firstly, detect the open ports:
-nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75 There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
-nmap -sC -sV -oA services 10.10.10.75 Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/17/Ae0G8g.png&#34; alt=&#34;Ae0G8g.png&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.75(OS: Linux)&#xA;Kali linux: 10.10.16.44&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-enumeration&#34;&gt;Information Enumeration&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/17/Ae19BQ.png&#34; alt=&#34;Ae19BQ.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;There are not too many open ports, just &lt;code&gt;80&lt;/code&gt; and &lt;code&gt;22&lt;/code&gt;. Detect the detailed services of the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nmap -sC -sV -oA services 10.10.10.75&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/17/Ae1E90.png&#34; alt=&#34;Ae1E90.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Nothing special found. The only clue may be the open port of &lt;code&gt;80&lt;/code&gt;. To be honest, the box with less open ports is easier in general.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Cronos -- hack the box</title>
       <link>https://madneal.com/post/cronos-hack-the-box/</link>
       <pubDate>Fri, 15 Mar 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/cronos-hack-the-box/</guid>
-      <description>Introduction Target machine: 10.10.10.13(OS: linux)
-Kali linux: 10.10.16.44
-Enumeration Firstly, detect the open ports:
-nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13 3 ports is open, detect the detailed services:
-namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13 So we can conduct the relation of ports of ports and services as following:
-   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</description>
+      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/14/AEpKkq.png&#34; alt=&#34;AEpKkq.png&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Target machine: 10.10.10.13(OS: linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali linux: 10.10.16.44&lt;/p&gt;&#xA;&lt;h2 id=&#34;enumeration&#34;&gt;Enumeration&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/15/AE1qlF.png&#34; alt=&#34;AE1qlF.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;3 ports is open, detect the detailed services:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/15/AE1OOJ.png&#34; alt=&#34;AE1OOJ.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;So we can conduct the relation of ports of ports and services as following:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;port&lt;/th&gt;&#xA;          &lt;th&gt;service&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;53&lt;/td&gt;&#xA;          &lt;td&gt;DNS&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;22&lt;/td&gt;&#xA;          &lt;td&gt;ssh&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;80&lt;/td&gt;&#xA;          &lt;td&gt;http&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;exploitation&#34;&gt;Exploitation&lt;/h2&gt;&#xA;&lt;h3 id=&#34;http&#34;&gt;http&lt;/h3&gt;&#xA;&lt;p&gt;As the target machine provides http service, try to access &lt;code&gt;http://10.10.10.13&lt;/code&gt;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

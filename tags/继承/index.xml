@@ -4,20 +4,17 @@
     <title>继承 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E7%BB%A7%E6%89%BF/</link>
     <description>Recent content in 继承 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 24 Oct 2015 14:03:33 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E7%BB%A7%E6%89%BF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Oct 2015 14:03:33 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E7%BB%A7%E6%89%BF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>javascript的继承模式</title>
       <link>https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Sat, 24 Oct 2015 14:03:33 +0000</pubDate>
-      
       <guid>https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/</guid>
-      <description>在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &amp;#39;parent&amp;#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &amp;#39;child&amp;#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
-var Parent = function(name){ this.name = name || &amp;#39;parent&amp;#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.</description>
+      <description>&lt;p&gt;在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充：&#xA;&lt;a href=&#34;http://segmentfault.com/a/1190000000766541&#34;&gt;http://segmentfault.com/a/1190000000766541&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;基本模式&#34;&gt;基本模式&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var Parent = function(){&#xA;&#x9;this.name = &amp;#39;parent&amp;#39;;&#xA;｝;&#xA;Parent.prototype.getName = function(){&#xA;&#x9;return this.name;&#xA;};&#xA;Parent.prototype.obj = {a:1};&#xA;&#xA;var Child = function(){&#xA;&#x9;this.name = &amp;#39;child&amp;#39;;&#xA;}&#xA;Child.protytype = new Parent();&#xA;&#xA;var parent = new Parent();&#xA;var child = new Child();&#xA;&#xA;console.log(parent.getName());//parent&#xA;console.log(child.getName());//child&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的&lt;code&gt;protytype&lt;/code&gt;&#xA;&lt;img src=&#34;http://img.blog.csdn.net/20151024131631757&#34; alt=&#34;这里写图片描述&#34;&gt;&#xA;这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var Parent = function(name){&#xA;&#x9;this.name = name || &amp;#39;parent&amp;#39;;&#xA;};&#xA;Parent.prototype.getName = function(){&#xA;&#x9;return this.name;&#xA;};&#xA;Parent.prototype.obj = {a:1};&#xA;&#xA;var Child = function(name)&#xA;{&#xA;&#x9;this.name = name || &amp;#39;child&amp;#39;;&#xA;};&#xA;Child.prototype = new Parent();&#xA;&#xA;var parent = new Parent(&amp;#39;myParent&amp;#39;);&#xA;var child = new Child(&amp;#39;myChild&amp;#39;);&#xA;&#xA;console.log(parent.getName());//myParent&#xA;console.log(child.getName());//myChild&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述还只是初始化&lt;code&gt;name&lt;/code&gt;属性，如果初始化工作不断增加，这种方式也不是很方便。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

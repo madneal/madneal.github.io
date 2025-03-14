@@ -4,122 +4,59 @@
     <title>网络安全 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
     <description>Recent content in 网络安全 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CircleCI 20230104 安全事件报告</title>
       <link>https://madneal.com/post/circleci-incident/</link>
       <pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/circleci-incident/</guid>
-      <description>CircleCI 20230104 安全事件报告  原文：CircleCI incident report for January 4, 2023 security incident
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
-我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
-本报告包含:
- 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
-2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。</description>
+      <description>&lt;h1 id=&#34;circleci-20230104-安全事件报告&#34;&gt;CircleCI 20230104 安全事件报告&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://circleci.com/blog/jan-4-2023-incident-report/&#34;&gt;CircleCI incident report for January 4, 2023 security incident&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://circleci.com/blog/january-4-2023-security-alert/&#34;&gt;2023 年 1 月 4 日，我们提醒客户&lt;/a&gt; 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。&lt;/p&gt;&#xA;&lt;p&gt;我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;本报告包含:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;发生了什么？&lt;/li&gt;&#xA;&lt;li&gt;我们怎么知道这个攻击向量已经关闭并且可以安全构建？&lt;/li&gt;&#xA;&lt;li&gt;与客户的沟通和支持&lt;/li&gt;&#xA;&lt;li&gt;如何判断我是否受影响？&lt;/li&gt;&#xA;&lt;li&gt;可能有助于您的团队进行内部调查的详细信息&lt;/li&gt;&#xA;&lt;li&gt;我们从这次事件中学到了什么以及我们下一步将做什么&lt;/li&gt;&#xA;&lt;li&gt;关于员工责任与系统保障措施的说明&lt;/li&gt;&#xA;&lt;li&gt;安全最佳实践&lt;/li&gt;&#xA;&lt;li&gt;结语&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;发生了什么&#34;&gt;发生了什么？&lt;/h2&gt;&#xA;&lt;p&gt;&lt;em&gt;除非另有说明，否则所有日期和时间均以 UTC 报告。&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。&lt;/p&gt;&#xA;&lt;p&gt;2022 年 12 月 30 日，我们了解到该客户的 GitHub OAuth 令牌已被未经授权的第三方泄露。尽管该客户能够迅速解决问题，但出于谨慎考虑，我们在 2022 年 12 月 31 日代表客户主动启动了更换所有 GitHub OAuth 令牌的流程。尽管与 GitHub 合作提高 API 速率限制，但轮换过程需要时间 虽然目前尚不清楚其他客户是否受到影响，但我们继续扩大分析范围。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>文武双全，看我如何过CISSP</title>
       <link>https://madneal.com/post/cissp-domain1/</link>
       <pubDate>Fri, 28 Jan 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/cissp-domain1/</guid>
-      <description>2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「一键 Shell，我的 OSWE 之旅」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。
-考试报名 我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。
-备考 教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide 以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。
-OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:
- Security and Risk Management Asset Security Security Architecture and Engineering Communication and Network Security Identity and Access Management Security Assessment and Testing Security Operaions Software Development Security  我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。</description>
+      <description>&lt;p&gt;2020年我有拿到 Offensive Security 的 OSWE 的认证，这个认证算得上是应用安全代码审计方面含金量比较高的认证。当初，我也写过一篇文章「&lt;a href=&#34;https://madneal.com/post/oswe/&#34;&gt;一键 Shell，我的 OSWE 之旅&lt;/a&gt;」分享了课程学习和备考的经历，感兴趣的同学可以看看这篇文章。在考完 OSWE 之后，就考虑去考一下 CISSP，毕竟 CISSP 算是国内目前安全领域内认可度比较广的证书之一了。同时，也是为了证明自己在安全实战和理论方面都有所掌握，拿到认证并不代表什么，但是取得认证的过程却是大有裨益的。下面就分享一下在 CISSP 准备过程中以及考试的一些经验。&lt;/p&gt;&#xA;&lt;h2 id=&#34;考试报名&#34;&gt;考试报名&lt;/h2&gt;&#xA;&lt;p&gt;我的 CISSP 备考过程是没有参加任何培训的，也没有做过什么培训班的题目，主要的复习资源都是官方的材料。其实，在2021年初当时就有考试的计划，不过当时也没有明确的目标，也就偶尔翻了一下书。直到年末才开始认真准备，差不多3个月左右的准备时间，提前1个月预约了考试时间和考点。上海一共有2个考点，一个在人民广场一个在徐家汇，都是比较市中心的位置。如果有过几年的安全经验的话，两到三个月的备考时间是比较合适的。因为 CISSP 预约考试之后换预约时间是需要再付费的，所以建议还是确定好考试时间再注册报名考试。当时我做 Practice Test 的准确率差不多有 80% 左右，感觉差不多了就报名了考试。可能一开始没有合适的时间，可以没事多看看，看到合适的时间就果断的报名考试。值得注意的一个点是考试报名的时候应该把名放在前面，一开始我以为是要和中文拼音保持一致的，后来考点的人和我说还是要调整过来的。&lt;/p&gt;&#xA;&lt;h2 id=&#34;备考&#34;&gt;备考&lt;/h2&gt;&#xA;&lt;p&gt;教材的选择可以说是准备考试的第一步。因为考虑到教材的准确性和翻译问题，备考过程中我看的全都是英文的教材，包括像 Official Study Guide  以及 All in One，习题做的就是 Practice Test。英文教材的表述会更地道，更准确，另外一点就是英文教材已经更新到第9版了，中文教材还没有更新。Practice Test 的最新版本是第3版。&lt;/p&gt;&#xA;&lt;p&gt;OSG 和 AIO 的选择，我强烈推荐 OSG。OSG 和 AIO 对比下来，感觉逻辑更清晰，知识点更明确，AIO 感觉更像是知识点的延伸，所以有的知识点讲的特别发散。当然如果准备时间比较充裕，也可以看看作为一个补充。对于 CISSP 的八个 Domain:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Security and Risk Management&lt;/li&gt;&#xA;&lt;li&gt;Asset Security&lt;/li&gt;&#xA;&lt;li&gt;Security Architecture and Engineering&lt;/li&gt;&#xA;&lt;li&gt;Communication and Network Security&lt;/li&gt;&#xA;&lt;li&gt;Identity and Access Management&lt;/li&gt;&#xA;&lt;li&gt;Security Assessment and Testing&lt;/li&gt;&#xA;&lt;li&gt;Security Operaions&lt;/li&gt;&#xA;&lt;li&gt;Software Development Security&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;我本身主要是参与最后3个 Domain 的相关工作，不过这三个 Domain 在知识点占得比重不能算很多。第一个 Domain 是教材中篇幅最长的，可见其重要程度。风险是 CISSP 中非常重要的一个概念，很多的知识点都是围绕着风险展开的，所以对风险务要有深入的理解。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>火眼红队工具遭窃</title>
       <link>https://madneal.com/post/%E7%81%AB%E7%9C%BC/</link>
       <pubDate>Thu, 10 Dec 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E7%81%AB%E7%9C%BC/</guid>
-      <description>原文：Unauthorized Access of FireEye Red Team Tools
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 概述 一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。
-您可以在这火眼的 GitHub 仓库中找到策略列表。
-红队工具和技术 红队是一组经过授权和组织的安全专家，模仿潜在的对手针对企业安全状况的攻击或利用能力。我们的红队的目的是通过演示成功攻击的影响并向防御者（即，蓝队）展示防御方法，以改善企业网络安全。过去15年来，我们一直在为全球客户进行红队评估。截至目前，我们已经建立了一套脚本，工具，扫描器和技术，以帮助改善客户的安全状况。不幸的是，这些工具被顶尖攻击者窃取。
-被盗工具的范围从用于自动化侦察的简单脚本到类似于 CobaltStrike和 Metasploit 等公开可用技术的整个框架。许多红队工具已经发布给社区，并已分发到我们的开源虚拟机 CommandoVM 中。
-其中一些工具是公开可用的工具，经过修改可以逃避基本的安全检测机制。其它的工具和框架是我们红队内部定制开发。
-没有零日漏洞或者未知技术 攻击者窃取的红队工具不包含零日漏洞。这些工具采用了世界各地其他红队所使用的众所周知且有据可查的方法。尽管我们认为这种盗窃不会大大提高攻击者的整体能力，但火眼会尽一切努力防止这种情况的发生。
-请务必注意，火眼尚未看到任何对手散布或使用这些工具，我们将继续与安全合作伙伴一起监视任何此类活动。
-有益于社区的检测 为了使社区能够检测到这些工具，我们正在发布防御策略，以帮助组织识别这些工具（如果它们在野出现）。为了应对我们的红队工具的盗窃，我们针对 OpenIOC，Yara，Snort 和 ClamAV 等公开可用技术发布了数百种对策。
-可在此处找到火眼 GitHub 仓库上的对策列表。我们将发布检测，并将随着我们开发新的或改进现有检测的主机，网络和基于文件的指标的重叠对策而继续更新公共存储库。 此外，我们在 GitHub 页面上发布了需要解决的 CVE 列表，以限制红队工具的有效性。
-火眼产品能够帮助客户免于这些工具攻击 火眼的各个团队都在努力制定对策，以保护我们的客户和广大社区。 我们已将这些对策整合到我们的产品中，并与我们的合作伙伴（包括国土安全部）共享了这些对策，这些合作伙伴已将这些对策纳入其产品中，从而为社区提供了广泛的覆盖范围。
-有关可用的检测签名的更多信息，可以在GitHub仓库中找到。</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://www.fireeye.com/blog/threat-research/2020/12/unauthorized-access-of-fireeye-red-team-tools.html&#34;&gt;Unauthorized Access of FireEye Red Team Tools&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;&#xA;&lt;p&gt;一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。&lt;/p&gt;&#xA;&lt;p&gt;您可以在&lt;a href=&#34;https://github.com/fireeye/red_team_tool_countermeasures&#34;&gt;这&lt;/a&gt;火眼的 GitHub 仓库中找到策略列表。&lt;/p&gt;&#xA;&lt;h2 id=&#34;红队工具和技术&#34;&gt;红队工具和技术&lt;/h2&gt;&#xA;&lt;p&gt;红队是一组经过授权和组织的安全专家，模仿潜在的对手针对企业安全状况的攻击或利用能力。我们的红队的目的是通过演示成功攻击的影响并向防御者（即，蓝队）展示防御方法，以改善企业网络安全。过去15年来，我们一直在为全球客户进行红队评估。截至目前，我们已经建立了一套脚本，工具，扫描器和技术，以帮助改善客户的安全状况。不幸的是，这些工具被顶尖攻击者窃取。&lt;/p&gt;&#xA;&lt;p&gt;被盗工具的范围从用于自动化侦察的简单脚本到类似于 CobaltStrike和 Metasploit 等公开可用技术的整个框架。许多红队工具已经发布给社区，并已分发到我们的开源虚拟机 CommandoVM 中。&lt;/p&gt;&#xA;&lt;p&gt;其中一些工具是公开可用的工具，经过修改可以逃避基本的安全检测机制。其它的工具和框架是我们红队内部定制开发。&lt;/p&gt;&#xA;&lt;h2 id=&#34;没有零日漏洞或者未知技术&#34;&gt;没有零日漏洞或者未知技术&lt;/h2&gt;&#xA;&lt;p&gt;攻击者窃取的红队工具不包含零日漏洞。这些工具采用了世界各地其他红队所使用的众所周知且有据可查的方法。尽管我们认为这种盗窃不会大大提高攻击者的整体能力，但火眼会尽一切努力防止这种情况的发生。&lt;/p&gt;&#xA;&lt;p&gt;请务必注意，火眼尚未看到任何对手散布或使用这些工具，我们将继续与安全合作伙伴一起监视任何此类活动。&lt;/p&gt;&#xA;&lt;h2 id=&#34;有益于社区的检测&#34;&gt;有益于社区的检测&lt;/h2&gt;&#xA;&lt;p&gt;为了使社区能够检测到这些工具，我们正在发布防御策略，以帮助组织识别这些工具（如果它们在野出现）。为了应对我们的红队工具的盗窃，我们针对 OpenIOC，Yara，Snort 和 ClamAV 等公开可用技术发布了数百种对策。&lt;/p&gt;&#xA;&lt;p&gt;可在&lt;a href=&#34;https://github.com/fireeye/red_team_tool_countermeasures&#34;&gt;此处&lt;/a&gt;找到火眼 GitHub 仓库上的对策列表。我们将发布检测，并将随着我们开发新的或改进现有检测的主机，网络和基于文件的指标的重叠对策而继续更新公共存储库。 此外，我们在 GitHub 页面上发布了需要解决的 CVE 列表，以限制红队工具的有效性。&lt;/p&gt;&#xA;&lt;h2 id=&#34;火眼产品能够帮助客户免于这些工具攻击&#34;&gt;火眼产品能够帮助客户免于这些工具攻击&lt;/h2&gt;&#xA;&lt;p&gt;火眼的各个团队都在努力制定对策，以保护我们的客户和广大社区。 我们已将这些对策整合到我们的产品中，并与我们的合作伙伴（包括国土安全部）共享了这些对策，这些合作伙伴已将这些对策纳入其产品中，从而为社区提供了广泛的覆盖范围。&lt;/p&gt;&#xA;&lt;p&gt;有关可用的检测签名的更多信息，可以在&lt;a href=&#34;https://github.com/fireeye/red_team_tool_countermeasures&#34;&gt;GitHub仓库&lt;/a&gt;中找到。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>一键 Shell，我的 OSWE 之旅</title>
       <link>https://madneal.com/post/oswe/</link>
       <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/oswe/</guid>
-      <description>原文来自于安全客，https://www.anquanke.com/post/id/217301
-终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。
-初识 AWAE Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。
-所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。
-AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。</description>
+      <description>&lt;p&gt;原文来自于安全客，https://www.anquanke.com/post/id/217301&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://s1.ax1x.com/2020/09/13/ww1smR.png&#34; alt=&#34;ww1smR.png&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;终于收到了 Offsensive Security 的官方邮件通知最终结果，我的 OSWE 之旅也算是尘埃落定。打算以本文回顾一下自己的 OSWE 的准备过程，包括 AWAE 课程的学习和准备以及我在考试过程中踩得一些坑，希望对 OSWE 有兴趣的人能有所帮助。&lt;/p&gt;&#xA;&lt;h2 id=&#34;初识-awae&#34;&gt;初识 AWAE&lt;/h2&gt;&#xA;&lt;p&gt;Offsensive Security，作为安全圈的人应该都熟悉这家公司，Kali 就是他们家的。他们家最广为人知的课程也是 Pentration Testing with Kali Linux(PWK)，其对应的考试为 Offsensive Security Certified Professional(OSCP)。我最初结识 Offsec 也是通过 OSCP，认识了一些考 OSCP 的小伙伴，结果一直因为没(bao)有(ming)准(fei)备(tai)好(gui)，迟迟没有报名。结果大佬们一个个都通过了，报名费也从799美元涨到了999美元。&lt;/p&gt;&#xA;&lt;p&gt;所以，当 AWAE 去年年末打折的时候，我毫不犹豫的就报名了。因为相对于 OSCP 来说，我也更喜欢 OSWE，因为自己毕竟是开发出身，对于代码审计也很感兴趣。疫情期间，的确有更多的时间可以看课程。有一个建议就是，当你的 lab 开始之后，可以第一时间就预约考试，因为 OSWE 相对来说考试可以选的场次更少，越早越好，一共有3次可以重新预约考试的机会。Lab 结束之后，我也一直拖了好久，主要当时认识了几个小伙伴考试都失利了，所以我也没啥信心。最后还是硬着头皮预约了考试。&lt;/p&gt;&#xA;&lt;h2 id=&#34;awae-课程&#34;&gt;AWAE 课程&lt;/h2&gt;&#xA;&lt;p&gt;AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安全的审计课程。AWAE 经常被拿来和 OSCP 的 PWK 来进行比较，官方也有暗示 OSWE 是 OSCP 的进阶版本，OSCP 注重于漏洞的利用，而 OSWE 则更进一步，侧重于市从白盒角度去审计代码，发现安全漏洞。不过 OSCP 并不是 OSWE 的先决条件，有人认为必须先考 OSCP 才能考 OSWE，这是不正确的。因为我就没有报考 OSCP 直接考的 OSWE。不过，另外一方面，如果你通过了 OSCP，对于 OSWE 绝对是有帮助的。我也在考试过程中体会到正因为我缺乏 OSCP 的经验，导致我犯了一些低级错误。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>寻找你的第一个漏洞</title>
       <link>https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/</link>
       <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/</guid>
-      <description>最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
- 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
- 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
- 多读文章
- @shail_official
- 读代码，先专注于公开的部分。阅读单元测试。
-  坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
- 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </description>
+      <description>&lt;p&gt;最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！&lt;/p&gt;&#xA;&lt;h1 id=&#34;理解过程&#34;&gt;理解过程&lt;/h1&gt;&#xA;&lt;p&gt;脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。&lt;/p&gt;&#xA;&lt;p&gt;@0x1ntegral&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;专注某种特性类型漏洞&lt;/li&gt;&#xA;&lt;li&gt;阅读这种漏洞类型的报告&lt;/li&gt;&#xA;&lt;li&gt;在项目中寻找这种类型漏洞&lt;/li&gt;&#xA;&lt;li&gt;当你找到一个漏洞，更改漏洞类型并重复步骤 1&lt;/li&gt;&#xA;&lt;/ol&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;@Troll_13&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;探寻未知领域&#34;&gt;探寻未知领域&lt;/h1&gt;&#xA;&lt;p&gt;这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。&lt;/p&gt;&#xA;&lt;h1 id=&#34;永远不要停止学习&#34;&gt;永远不要停止学习&lt;/h1&gt;&#xA;&lt;p&gt;不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。&lt;/p&gt;&#xA;&lt;p&gt;@root4loot&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;多读文章&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;@shail_official&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;读代码，先专注于公开的部分。阅读单元测试。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;总结&#34;&gt;总结&lt;/h1&gt;&#xA;&lt;p&gt;对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。&lt;/p&gt;&#xA;&lt;h1 id=&#34;reference&#34;&gt;Reference&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community&#34;&gt;https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
     <item>
       <title>全栈工程师的成长</title>
       <link>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</link>
       <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/</guid>
-      <description>三年之前，我写过一篇菜鸟程序猿成长史。当时我还是一名踌躇满志的前端开发，立志要在前端领域大展拳脚。当时，前端中的开发最乐此不疲的事就是为了哪个框架最优秀而天天打口水仗。三年过去了，我已经不再是一名前端工程师，变成了一名偶尔怼人和被怼的安全工程师。工作这几年，不管还是在技术学习上，还是工作上，作为一名立志成为一名全栈工程师的人，也分享一下这几年的一些经验。
-软技能篇 这里的软技能篇我指的是一些基础技能，可能这些技能不是能够在很短时间内养成，可能需要一年甚至更长的时间。在我技术学习和实践的过程中，我觉得有个词是非常重要的，即阅读和实践。阅读掌握理论知识，实践让你熟悉技能，掌握技能。其实不管是做开发和做安全，都是一门技术活，和其它的技术工种从本质上来说没有太大的区别，当然天才型选手除外。对于阅读来说，我觉得英语是非常重要的。因为不得不承认，大部分最优秀的技术知识都是通过英语传播的，通过英语，你可以看多更原汁原味的技术文章，国内某些翻译的书籍有时候真的是有点惨不忍睹。另外，往往通过英文关键字也可能更容易找到问题的答案。现在大多数的技术问题，互联网上早就有类似的解决方案，问题是如何正确地检索到。
-坚持，也是做技术的一个比较重要的品质。因为，在我们平常工作的过程中，问题往往不是一下子就能够找到。很多问题需要一直坚持，一直摸索，突然有天拍脑袋说我咋没想到这点。坚持同样适用于技术的学习，只有坚持学习新的技术，才不会被技术所淘汰。行动力，我觉得这也是做技术不可或缺的一个好的品质。想到一个好的点子马上就去实现，想到好的思想可以马上写文章总结，看到好的工具马上就去尝试。在这里我并不想像三年以前一样，把每一个工具都一个个的列出来。我觉得工具只是辅助人去更好的提高效率,但根本还是取决于人本身。所以行动力很重要，如果有好的工具你放在那永远都不会去使用，那也是于事无补的。</description>
+      <description>&lt;p&gt;三年之前，我写过一篇&lt;a href=&#34;https://segmentfault.com/a/1190000009470801&#34;&gt;菜鸟程序猿成长史&lt;/a&gt;。当时我还是一名踌躇满志的前端开发，立志要在前端领域大展拳脚。当时，前端中的开发最乐此不疲的事就是为了哪个框架最优秀而天天打口水仗。三年过去了，我已经不再是一名前端工程师，变成了一名偶尔怼人和被怼的安全工程师。工作这几年，不管还是在技术学习上，还是工作上，作为一名立志成为一名全栈工程师的人，也分享一下这几年的一些经验。&lt;/p&gt;&#xA;&lt;h1 id=&#34;软技能篇&#34;&gt;软技能篇&lt;/h1&gt;&#xA;&lt;p&gt;这里的软技能篇我指的是一些基础技能，可能这些技能不是能够在很短时间内养成，可能需要一年甚至更长的时间。在我技术学习和实践的过程中，我觉得有个词是非常重要的，即阅读和实践。阅读掌握理论知识，实践让你熟悉技能，掌握技能。其实不管是做开发和做安全，都是一门技术活，和其它的技术工种从本质上来说没有太大的区别，当然天才型选手除外。对于阅读来说，我觉得英语是非常重要的。因为不得不承认，大部分最优秀的技术知识都是通过英语传播的，通过英语，你可以看多更原汁原味的技术文章，国内某些翻译的书籍有时候真的是有点惨不忍睹。另外，往往通过英文关键字也可能更容易找到问题的答案。现在大多数的技术问题，互联网上早就有类似的解决方案，问题是如何正确地检索到。&lt;/p&gt;&#xA;&lt;p&gt;坚持，也是做技术的一个比较重要的品质。因为，在我们平常工作的过程中，问题往往不是一下子就能够找到。很多问题需要一直坚持，一直摸索，突然有天拍脑袋说我咋没想到这点。坚持同样适用于技术的学习，只有坚持学习新的技术，才不会被技术所淘汰。行动力，我觉得这也是做技术不可或缺的一个好的品质。想到一个好的点子马上就去实现，想到好的思想可以马上写文章总结，看到好的工具马上就去尝试。在这里我并不想像三年以前一样，把每一个工具都一个个的列出来。我觉得工具只是辅助人去更好的提高效率,但根本还是取决于人本身。所以行动力很重要，如果有好的工具你放在那永远都不会去使用，那也是于事无补的。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>网络安全分析的瑞士军刀--zeek</title>
       <link>https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%91%9E%E5%A3%AB%E5%86%9B%E5%88%80--zeek/</guid>
-      <description>本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM
-Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。
-安装 Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：
-sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel 这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 libpcap-devel，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 libpcap 以及 libpcap-devel 即可。
-Mac 上需要的依赖更少一点，首先需要确保安装了 xcode-select，如果没有安装，可以通过 xcode-select --install 来进行安装。Mac 上只需要安装依赖 cmake, swig, openssl, bison 即可，可以通过 Homebrew 来进行安装。
-依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github Release 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C++17 的语言特性。而一般镜像源默认的 cmake 版本是4+版本，所以如果你的服务器也无法上互联网，建议可以安装 3.</description>
+      <description>&lt;p&gt;本文首发于 Freebuf 平台，https://www.freebuf.com/sectool/235587.html，转载请注明来自FreeBuf.COM&lt;/p&gt;&#xA;&lt;p&gt;Zeek (Bro) 是一款大名鼎鼎的开源网络安全分析工具。通过 Zeek 可以监测网络流量中的可疑活动，通过 Zeek 的脚本可以实现灵活的分析功能，可是实现多种协议的开相机用的分析。本文主要是将 Zeek 结合被动扫描器的一些实践的介绍，以及 Zeek 部署的踩过的一些坑。&lt;/p&gt;&#xA;&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;&#xA;&lt;p&gt;Zeek 的安装还是比较简单的，笔者主要是在 Mac 上以及 Linux 上安装。这两个操作系统的安装方式还是比较类似的。对于 Linux 而言，需要安装一些依赖包：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo yum install cmake make gcc gcc-c++ flex bison libpcap-devel openssl-devel python-devel swig zlib-devel&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里我有遇到一个问题就是可能你的 Redhat 镜像源里面没有包含 &lt;code&gt;libpcap-devel&lt;/code&gt;，因为这个包在可选的范围内，而内网的服务器又没有互联网连接。可以通过手工下载相应版本的 &lt;code&gt;libpcap&lt;/code&gt; 以及 &lt;code&gt;libpcap-devel&lt;/code&gt; 即可。&lt;/p&gt;&#xA;&lt;p&gt;Mac 上需要的依赖更少一点，首先需要确保安装了 &lt;code&gt;xcode-select&lt;/code&gt;，如果没有安装，可以通过 &lt;code&gt;xcode-select --install&lt;/code&gt; 来进行安装。Mac 上只需要安装依赖 &lt;code&gt;cmake, swig, openssl, bison&lt;/code&gt; 即可，可以通过 Homebrew 来进行安装。&lt;/p&gt;&#xA;&lt;p&gt;依赖包安装完毕之后就可以安装 Zeek，其实是可以通过包管理工具来进行安装的，不过这里我推荐使用基于源码的安装方式，安装比较简单而且还容易排查问题。从 Zeek 的 Github &lt;a href=&#34;https://github.com/zeek/zeek/releases&#34;&gt;Release&lt;/a&gt; 即可下载源码包，目前我安装的是 3.0.0 版本，注意一点是，如果使用最新的版本，可能需要 7.0 以上版本的 cmake，因为需要 C++17 的语言特性。而一般镜像源默认的 cmake 版本是4+版本，所以如果你的服务器也无法上互联网，建议可以安装 3.0.0 版本。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

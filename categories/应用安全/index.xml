@@ -4,29 +4,17 @@
     <title>应用安全 on Neal&#39;s Blog</title>
     <link>https://madneal.com/categories/%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8/</link>
     <description>Recent content in 应用安全 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Wed, 07 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/categories/%E5%BA%94%E7%94%A8%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go 的漏洞管理</title>
       <link>https://madneal.com/post/go-vuln-management/</link>
       <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/go-vuln-management/</guid>
-      <description>原文：Vulnerability Management for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 我们很高兴地宣布 Go 对漏洞管理的新支持，这是我们帮助 Go 开发人员了解可能影响他们的已知漏洞的第一步。
-这篇文章概述了当前可用的内容以及该项目的后续计划。
-概述 Go 提供工具来分析你的代码库来发现已知漏洞。该工具由 Go 漏洞数据库提供支持，该数据库由 Go 安全团队规划。Go 的工具通过仅显示代码实际调用的函数中的漏洞来减少结果中的噪音。
-Go 漏洞数据库 Go 漏洞数据库 (https://vuln.go.dev) 是有关公共 Go 模块中可导入包中已知漏洞的综合信息源。
-漏洞数据来自现有来源（例如 CVE 和 GHSA）以及来自 Go 包维护者的直接报告。Go 安全团队会审查这些信息并将其添加到数据库中。
-我们鼓励包维护者在他们自己的项目中提供有关公共漏洞的信息，并更新其 Go 包中漏洞的现有信息。我们的目标是使报告过程成为一个非常容易的过程，因此请向我们反馈任何改进的建议。
-Go 漏洞数据库可以在浏览器中的 pkg.go.dev/vuln 中查看。 有关数据库的更多信息，请参阅 go.dev/security/vuln/database。
-使用 govulcheck 检测漏洞 新的 govulncheck 命令是一种低噪音、可靠的方式，让 Go 用户了解可能影响他们项目的已知漏洞。 Govulncheck 分析你的代码库并仅根据代码中的哪些函数传递调用易受攻击的函数来发现实际影响你的漏洞。 要开始使用 govulncheck，你可以从项目中运行以下命令：</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://go.dev/blog/vuln&#34;&gt;Vulnerability Management for Go&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;我们很高兴地宣布 Go 对漏洞管理的新支持，这是我们帮助 Go 开发人员了解可能影响他们的已知漏洞的第一步。&lt;/p&gt;&#xA;&lt;p&gt;这篇文章概述了当前可用的内容以及该项目的后续计划。&lt;/p&gt;&#xA;&lt;h1 id=&#34;概述&#34;&gt;概述&lt;/h1&gt;&#xA;&lt;p&gt;Go 提供工具来分析你的代码库来发现已知漏洞。该工具由 Go 漏洞数据库提供支持，该数据库由 Go 安全团队规划。Go 的工具通过仅显示代码实际调用的函数中的漏洞来减少结果中的噪音。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://go.dev/blog/vuln/architecture.png&#34; alt=&#34;Architecture diagram of Go&amp;rsquo;s vulnerability management system&#34;&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;go-漏洞数据库&#34;&gt;Go 漏洞数据库&lt;/h1&gt;&#xA;&lt;p&gt;Go 漏洞数据库 (&lt;a href=&#34;https://vuln.go.dev&#34;&gt;https://vuln.go.dev&lt;/a&gt;) 是有关公共 Go 模块中可导入包中已知漏洞的综合信息源。&lt;/p&gt;&#xA;&lt;p&gt;漏洞数据来自现有来源（例如 CVE 和 GHSA）以及来自 Go 包维护者的直接报告。Go 安全团队会审查这些信息并将其添加到数据库中。&lt;/p&gt;&#xA;&lt;p&gt;我们鼓励包维护者在他们自己的项目中&lt;a href=&#34;https://go.dev/s/vulndb-report-new&#34;&gt;提供&lt;/a&gt;有关公共漏洞的信息，并&lt;a href=&#34;https://go.dev/s/vulndb-report-feedback&#34;&gt;更新&lt;/a&gt;其 Go 包中漏洞的现有信息。我们的目标是使报告过程成为一个非常容易的过程，因此请向我们反馈任何改进的&lt;a href=&#34;https://golang.org/s/vuln-feedback&#34;&gt;建议&lt;/a&gt;。&lt;/p&gt;&#xA;&lt;p&gt;Go 漏洞数据库可以在浏览器中的 pkg.go.dev/vuln 中查看。 有关数据库的更多信息，请参阅 go.dev/security/vuln/database。&lt;/p&gt;&#xA;&lt;h1 id=&#34;使用-govulcheck-检测漏洞&#34;&gt;使用 govulcheck 检测漏洞&lt;/h1&gt;&#xA;&lt;p&gt;新的 &lt;a href=&#34;https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck&#34;&gt;govulncheck 命令&lt;/a&gt;是一种低噪音、可靠的方式，让 Go 用户了解可能影响他们项目的已知漏洞。 Govulncheck 分析你的代码库并仅根据代码中的哪些函数传递调用易受攻击的函数来发现实际影响你的漏洞。 要开始使用 govulncheck，你可以从项目中运行以下命令：&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

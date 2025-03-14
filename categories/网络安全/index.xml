@@ -4,49 +4,24 @@
     <title>网络安全 on Neal&#39;s Blog</title>
     <link>https://madneal.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
     <description>Recent content in 网络安全 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CircleCI 20230104 安全事件报告</title>
       <link>https://madneal.com/post/circleci-incident/</link>
       <pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/circleci-incident/</guid>
-      <description>CircleCI 20230104 安全事件报告  原文：CircleCI incident report for January 4, 2023 security incident
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
-我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
-本报告包含:
- 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
-2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。</description>
+      <description>&lt;h1 id=&#34;circleci-20230104-安全事件报告&#34;&gt;CircleCI 20230104 安全事件报告&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://circleci.com/blog/jan-4-2023-incident-report/&#34;&gt;CircleCI incident report for January 4, 2023 security incident&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://circleci.com/blog/january-4-2023-security-alert/&#34;&gt;2023 年 1 月 4 日，我们提醒客户&lt;/a&gt; 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。&lt;/p&gt;&#xA;&lt;p&gt;我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;本报告包含:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;发生了什么？&lt;/li&gt;&#xA;&lt;li&gt;我们怎么知道这个攻击向量已经关闭并且可以安全构建？&lt;/li&gt;&#xA;&lt;li&gt;与客户的沟通和支持&lt;/li&gt;&#xA;&lt;li&gt;如何判断我是否受影响？&lt;/li&gt;&#xA;&lt;li&gt;可能有助于您的团队进行内部调查的详细信息&lt;/li&gt;&#xA;&lt;li&gt;我们从这次事件中学到了什么以及我们下一步将做什么&lt;/li&gt;&#xA;&lt;li&gt;关于员工责任与系统保障措施的说明&lt;/li&gt;&#xA;&lt;li&gt;安全最佳实践&lt;/li&gt;&#xA;&lt;li&gt;结语&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;发生了什么&#34;&gt;发生了什么？&lt;/h2&gt;&#xA;&lt;p&gt;&lt;em&gt;除非另有说明，否则所有日期和时间均以 UTC 报告。&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。&lt;/p&gt;&#xA;&lt;p&gt;2022 年 12 月 30 日，我们了解到该客户的 GitHub OAuth 令牌已被未经授权的第三方泄露。尽管该客户能够迅速解决问题，但出于谨慎考虑，我们在 2022 年 12 月 31 日代表客户主动启动了更换所有 GitHub OAuth 令牌的流程。尽管与 GitHub 合作提高 API 速率限制，但轮换过程需要时间 虽然目前尚不清楚其他客户是否受到影响，但我们继续扩大分析范围。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>火眼红队工具遭窃</title>
       <link>https://madneal.com/post/%E7%81%AB%E7%9C%BC/</link>
       <pubDate>Thu, 10 Dec 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E7%81%AB%E7%9C%BC/</guid>
-      <description>原文：Unauthorized Access of FireEye Red Team Tools
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 概述 一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。
-您可以在这火眼的 GitHub 仓库中找到策略列表。
-红队工具和技术 红队是一组经过授权和组织的安全专家，模仿潜在的对手针对企业安全状况的攻击或利用能力。我们的红队的目的是通过演示成功攻击的影响并向防御者（即，蓝队）展示防御方法，以改善企业网络安全。过去15年来，我们一直在为全球客户进行红队评估。截至目前，我们已经建立了一套脚本，工具，扫描器和技术，以帮助改善客户的安全状况。不幸的是，这些工具被顶尖攻击者窃取。
-被盗工具的范围从用于自动化侦察的简单脚本到类似于 CobaltStrike和 Metasploit 等公开可用技术的整个框架。许多红队工具已经发布给社区，并已分发到我们的开源虚拟机 CommandoVM 中。
-其中一些工具是公开可用的工具，经过修改可以逃避基本的安全检测机制。其它的工具和框架是我们红队内部定制开发。
-没有零日漏洞或者未知技术 攻击者窃取的红队工具不包含零日漏洞。这些工具采用了世界各地其他红队所使用的众所周知且有据可查的方法。尽管我们认为这种盗窃不会大大提高攻击者的整体能力，但火眼会尽一切努力防止这种情况的发生。
-请务必注意，火眼尚未看到任何对手散布或使用这些工具，我们将继续与安全合作伙伴一起监视任何此类活动。
-有益于社区的检测 为了使社区能够检测到这些工具，我们正在发布防御策略，以帮助组织识别这些工具（如果它们在野出现）。为了应对我们的红队工具的盗窃，我们针对 OpenIOC，Yara，Snort 和 ClamAV 等公开可用技术发布了数百种对策。
-可在此处找到火眼 GitHub 仓库上的对策列表。我们将发布检测，并将随着我们开发新的或改进现有检测的主机，网络和基于文件的指标的重叠对策而继续更新公共存储库。 此外，我们在 GitHub 页面上发布了需要解决的 CVE 列表，以限制红队工具的有效性。
-火眼产品能够帮助客户免于这些工具攻击 火眼的各个团队都在努力制定对策，以保护我们的客户和广大社区。 我们已将这些对策整合到我们的产品中，并与我们的合作伙伴（包括国土安全部）共享了这些对策，这些合作伙伴已将这些对策纳入其产品中，从而为社区提供了广泛的覆盖范围。
-有关可用的检测签名的更多信息，可以在GitHub仓库中找到。</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://www.fireeye.com/blog/threat-research/2020/12/unauthorized-access-of-fireeye-red-team-tools.html&#34;&gt;Unauthorized Access of FireEye Red Team Tools&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;概述&#34;&gt;概述&lt;/h2&gt;&#xA;&lt;p&gt;一个由国家支撑的顶尖的竞争者窃取了火眼的红队工具。 因为我们认为竞争者已经拥有这些工具，并且我们不知道攻击者是否打算自己使用被盗的工具还是公开披露它们，所以火眼在此博客中发布了数百种对策，以使安全社区能够保护自己免受这些工具的攻击。我们已将防御策略整合到我们的火眼产品中，并与合作伙伴，政府机构共享了这些策略，以显着限制不良行为者利用红队工具的能力。&lt;/p&gt;&#xA;&lt;p&gt;您可以在&lt;a href=&#34;https://github.com/fireeye/red_team_tool_countermeasures&#34;&gt;这&lt;/a&gt;火眼的 GitHub 仓库中找到策略列表。&lt;/p&gt;&#xA;&lt;h2 id=&#34;红队工具和技术&#34;&gt;红队工具和技术&lt;/h2&gt;&#xA;&lt;p&gt;红队是一组经过授权和组织的安全专家，模仿潜在的对手针对企业安全状况的攻击或利用能力。我们的红队的目的是通过演示成功攻击的影响并向防御者（即，蓝队）展示防御方法，以改善企业网络安全。过去15年来，我们一直在为全球客户进行红队评估。截至目前，我们已经建立了一套脚本，工具，扫描器和技术，以帮助改善客户的安全状况。不幸的是，这些工具被顶尖攻击者窃取。&lt;/p&gt;&#xA;&lt;p&gt;被盗工具的范围从用于自动化侦察的简单脚本到类似于 CobaltStrike和 Metasploit 等公开可用技术的整个框架。许多红队工具已经发布给社区，并已分发到我们的开源虚拟机 CommandoVM 中。&lt;/p&gt;&#xA;&lt;p&gt;其中一些工具是公开可用的工具，经过修改可以逃避基本的安全检测机制。其它的工具和框架是我们红队内部定制开发。&lt;/p&gt;&#xA;&lt;h2 id=&#34;没有零日漏洞或者未知技术&#34;&gt;没有零日漏洞或者未知技术&lt;/h2&gt;&#xA;&lt;p&gt;攻击者窃取的红队工具不包含零日漏洞。这些工具采用了世界各地其他红队所使用的众所周知且有据可查的方法。尽管我们认为这种盗窃不会大大提高攻击者的整体能力，但火眼会尽一切努力防止这种情况的发生。&lt;/p&gt;&#xA;&lt;p&gt;请务必注意，火眼尚未看到任何对手散布或使用这些工具，我们将继续与安全合作伙伴一起监视任何此类活动。&lt;/p&gt;&#xA;&lt;h2 id=&#34;有益于社区的检测&#34;&gt;有益于社区的检测&lt;/h2&gt;&#xA;&lt;p&gt;为了使社区能够检测到这些工具，我们正在发布防御策略，以帮助组织识别这些工具（如果它们在野出现）。为了应对我们的红队工具的盗窃，我们针对 OpenIOC，Yara，Snort 和 ClamAV 等公开可用技术发布了数百种对策。&lt;/p&gt;&#xA;&lt;p&gt;可在&lt;a href=&#34;https://github.com/fireeye/red_team_tool_countermeasures&#34;&gt;此处&lt;/a&gt;找到火眼 GitHub 仓库上的对策列表。我们将发布检测，并将随着我们开发新的或改进现有检测的主机，网络和基于文件的指标的重叠对策而继续更新公共存储库。 此外，我们在 GitHub 页面上发布了需要解决的 CVE 列表，以限制红队工具的有效性。&lt;/p&gt;&#xA;&lt;h2 id=&#34;火眼产品能够帮助客户免于这些工具攻击&#34;&gt;火眼产品能够帮助客户免于这些工具攻击&lt;/h2&gt;&#xA;&lt;p&gt;火眼的各个团队都在努力制定对策，以保护我们的客户和广大社区。 我们已将这些对策整合到我们的产品中，并与我们的合作伙伴（包括国土安全部）共享了这些对策，这些合作伙伴已将这些对策纳入其产品中，从而为社区提供了广泛的覆盖范围。&lt;/p&gt;&#xA;&lt;p&gt;有关可用的检测签名的更多信息，可以在&lt;a href=&#34;https://github.com/fireeye/red_team_tool_countermeasures&#34;&gt;GitHub仓库&lt;/a&gt;中找到。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

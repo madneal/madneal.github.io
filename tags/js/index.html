@@ -221,7 +221,8 @@
   <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的话，则是在数据最终在页面渲染之前做过滤。
 前端的过滤方案，可以尝试使用开源的 [js-xss](https://github.com/leizongmin/js-xss)。先介绍一下这个库的使用方法，这个库可以在 nodejs 中使用，同样也可以在浏览中直接引入使用。
 // nodejs 中使用 var xss = require(&#34;xss&#34;); var html = xss(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); console.log(html); // 浏览器中使用 &lt;script src=&#34;https://rawgit.com/leizongmin/js-xss/master/dist/xss.js&#34;&gt;&lt;/script&gt; &lt;script&gt; // apply function filterXSS in the same way var html = filterXSS(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/scr&#39; &#43; &#34;ipt&gt;&#34;); alert(html); &lt;/script&gt; 一般在 vue 的项目中，通过 webpack 也可以直接通过 CommonJS 的方式引入，与 nodejs 的引入方式基本一致。值得注意的一个问题是，默认情况下会去禁用 style 属性，这样会导致富文本的样式展示异常，需要禁用 css 过滤或者使用白名单的方式来进行过滤。
-const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.</p>
+const xssFilter = new xss.FilterXSS({ css: false }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); const xssFilter = new xss.FilterXSS({ css: { whiteList: { position: /^fixed|relative$/, top: true, left: true, }, }, }); html = xssFilter.process(&#39;&lt;script&gt;alert(&#34;xss&#34;);&lt;/script&gt;&#39;); 其实 js-xss 的原理并不是很复杂，如果去扒一下源码，原理其实主要就是实现标签和属性的白名单过滤，这样的方案简单有效。因为默认配置了大部分标签以及属性的白名单方案，所以一般可以做到开箱即用，当然如果有定制化的需求需要进一步定制化函数。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
@@ -239,9 +240,12 @@ const xssFilter = new xss.FilterXSS({  css: false }); html = xssFilter.process(&
 创建好存储空间（bucket）就已经完成了私有图库的第一步。
 开发 在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在官方 SDK 文档获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 js SDK 文档。
 文档中提到了一点：JS-SDK 依赖服务端颁发 token，可以通过以下二种方式实现：
- 利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token)  第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
+利用七牛服务端 SDK 构建后端服务 利用七牛底层 API 构建服务，详见七牛上传策略和上传凭证(https://developer.qiniu.com/kodo/manual/1208/upload-token) 第一个方法还需要搭建服务器来颁发 token，显然这种方法不太经济，如果仅仅是为了这个图床搭建一个后端服务，就不太划算了。因此，我选择第二种，在客户端来生成 token。这种方法就需要你了解上传策略以及上传凭证。
 上传策略是资源上传时附带的一组配置设定。通过这组配置信息，七牛云存储可以了解用户上传的需求：它将上传什么资源，上传到哪个空间，上传结果是回调通知还是使用重定向跳转，是否需要设置反馈信息的内容，以及授权上传的截止时间等等。上传策略主要是 scope 和 dealine 这两个字段是必须要的。scope 是指定上传的目标资源空间 Bucket 和资源键 Key，这里我们只需要设置 bucket。deadline 是上传凭证有效截止时间。Unix时间戳，单位为秒。该截止时间为上传完成后，在七牛空间生成文件的校验时间，而非上传的开始时间，官方建议建议设置为上传开始时间 &#43; 3600s。
-function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date()).getTime() &#43; 3600  }  return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.</p>
+function genPolicy(scope) { let policy = { scope: scope, deadline: (new Date()).getTime() &#43; 3600 } return policy; } 按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的在线示例，通过整理形成了自己的 token.js。
+完成本地 token 的，我的开发就完成了一大步。这个拓展需要两个界面的设置，就是包括图片上传页面以及七牛云存储配置页面。关于这两个页面的设计，我也就不一一赘述，主要讲几点：
+七牛云信息存储 为了上传图片，我们需要配置 AK，SK，bucket 以及 domain。这些都可以在七牛云的控制台里面获取，因此我们需要在首次打开拓展的时候检查是否具有这些数据。至于这些配置信息保存在什么地方，一开始打算采取的是 chrome.storage 来进行存储，这样做的好处是可以利用账号同步数据，但缺点是操作不方便，是异步的。后来还是决定使用 localStorage，一来使用起来非常方便，二是我们并不是特别需要账号同步。因此，我们首先会检查配置信息是否存储在 localStorage，否则就打开配置页：
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/">Read More →</a>
   </footer>
@@ -255,7 +259,9 @@ function genPolicy(scope) {  let policy = {  scope: scope,  deadline: (new Date(
   </header>
   
   <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;);  const queryCretia = {};  model.find(queryCretia, (err, docs) =&gt; {  res.render(&#39;index&#39;, {  title: &#39;express&#39;,  docs: docs  })  }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.</p>
+router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; }); const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样：
+[{ &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7970&#34;), &#34;title&#34; : &#34;好楼层，中等装修，满5年，上门实拍&#34;, &#34;type&#34; : &#34;2室1厅&#34;, &#34;square&#34; : &#34;75.42平&#34;, &#34;direction&#34; : &#34;朝南&#34;, &#34;floor&#34; : &#34;中区/6层&#34;, &#34;unitPrice&#34; : 47732, &#34;totalPrice&#34; : 360, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4528035.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; } { &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7971&#34;), &#34;title&#34; : &#34;南北户型，厨卫全明，高区采光好，装修精美&#34;, &#34;type&#34; : &#34;2室2厅&#34;, &#34;square&#34; : &#34;90.92平&#34;, &#34;direction&#34; : &#34;朝南北&#34;, &#34;floor&#34; : &#34;高区/6层&#34;, &#34;unitPrice&#34; : 46194, &#34;totalPrice&#34; : 420, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4546221.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; }] 预期index.ejs应该渲染的页面是一个ul渲染的结果，类似于
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
   </footer>
@@ -296,20 +302,7 @@ router.get(&#39;/&#39;, function(req, res, next) {  // res.render(&#39;index&#39
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

@@ -16,11 +16,11 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+  <meta name="description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述 原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
 译者：neal1991
 welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
 正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
 如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
 因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
@@ -30,11 +30,13 @@ LICENSE: MIT
 如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
 JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
 引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&amp;lsquo;setTimeout&amp;rsquo;）。然而这些API并不是由引擎提供的。
+内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。 Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&lsquo;setTimeout&rsquo;）。然而这些API并不是由引擎提供的。
 那么，它们是从哪来的呢？
 事实证明这有一点复杂。
 因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
-接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。" />
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。
+调用栈 JavaScript是一种单线程的编程语言，这意味着它只拥有一个单独的调用栈。因此它一次只能做一件事情。
+" />
 
   
   
@@ -42,11 +44,11 @@ JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8�
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="JavaScript是如何工作的：引擎，运行时间以及调用栈的概述" />
-  <meta property="og:description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
+  <meta property="og:description" content="JavaScript是如何工作的：引擎，运行时以及调用栈的概述 原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
 译者：neal1991
 welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
+随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。
 正如GitHut stats所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。 (获取最新的 GitHub language stats).
 如果项目对于JavaScript越来越依赖，这意味着为了构建好的软件开发者必须利用这个JS提供的一切并且对于生态系统的内部有着更深的理解。
 因此，尽管每天有很多开发者在使用JavaScript，但并不知道内部到底发生了什么。
@@ -56,11 +58,13 @@ LICENSE: MIT
 如果你是一个有经验的JavaScript开发者，希望这篇文章能够让你对你每天使用的JavaScript Runtime是如何真正工作的。
 JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8引擎。比如Chrome以及Node.js内部就是使用V8引擎。下面是一个简单的视图示例：
 引擎主要由两个部分组成：
- 内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。  Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&amp;lsquo;setTimeout&amp;rsquo;）。然而这些API并不是由引擎提供的。
+内存堆——这是内存分配发生的地方 回调——这是你代码执行时的栈帧。 Runtime 有很多浏览器中的API几乎都被JavaScript开发者使用过（比如：&lsquo;setTimeout&rsquo;）。然而这些API并不是由引擎提供的。
 那么，它们是从哪来的呢？
 事实证明这有一点复杂。
 因此，虽然我们有引擎但实际上是有更多。我们有那些由浏览器提供的Web API，像DOM, AJAX, setTimeout以及更多。
-接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。" />
+接着，我们还有非常流行的事件循环(event loo)以及回调队列(callback queue)。
+调用栈 JavaScript是一种单线程的编程语言，这意味着它只拥有一个单独的调用栈。因此它一次只能做一件事情。
+" />
   <meta property="og:url" content="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -257,8 +261,7 @@ JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8�
 <p>原文：<a href="https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf">How JavaScript works: an overview of the engine, the runtime, and the call stack</a></p>
 <p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
 <p>welcome to star my <a href="https://github.com/neal1991">articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing.ecnu@gmail.com">me</a></p>
-<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
-</blockquote>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p></blockquote>
 <p>随着JavaScript变得越来越流行，团队在多个层级都对它进行利用－前端，后端，混合应用，嵌入式设备以及更多。</p>
 <p>正如<a href="http://githut.info/">GitHut stats</a>所展示的那样，JavaScript是Github上面最活跃以及总Push次数最多的语言。在其它类别中也不会落后太多。
 <img src="https://cdn-images-1.medium.com/max/3036/1*Zf4reZZJ9DCKsXf5CSXghg.png" alt=""></p>
@@ -354,31 +357,13 @@ JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2706</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2738</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -412,20 +397,7 @@ JavaScript 引擎 最流行的JavaScript引擎的例子之一就是谷歌的V8�
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

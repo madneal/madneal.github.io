@@ -16,14 +16,15 @@
 
   
   <meta name="author" content="Neal" />
-  <meta name="description" content="原文：Hijacking OAUTH flows via Cookie Tossing
+  <meta name="description" content=" 原文：Hijacking OAUTH flows via Cookie Tossing
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
+我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
 我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。
 什么是 Cookie Tossing? Cookie Tossing 是一种技术允许一个子域名（例如 securitylabs.snyk.io）在其父域名（例如 snyk.io）上设置 cookie。在我们查看一些问题场景之前，先来了解一下 HTTP cookie 是什么。
-什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。" />
+什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。
+" />
 
   
   
@@ -31,14 +32,15 @@ LICENSE: MIT
   
   <meta property="og:type" content="article" />
   <meta property="og:title" content="通过 Cookie Tossing 劫持 OAUTH 流程" />
-  <meta property="og:description" content="原文：Hijacking OAUTH flows via Cookie Tossing
+  <meta property="og:description" content=" 原文：Hijacking OAUTH flows via Cookie Tossing
 译者：madneal
 welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
+我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，Thomas Houhou 进行了一个有趣的演讲，介绍了如何利用 Cookie Tossing 攻击来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。
 我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。
 什么是 Cookie Tossing? Cookie Tossing 是一种技术允许一个子域名（例如 securitylabs.snyk.io）在其父域名（例如 snyk.io）上设置 cookie。在我们查看一些问题场景之前，先来了解一下 HTTP cookie 是什么。
-什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。" />
+什么是 HTTP cookies？ 根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。
+" />
   <meta property="og:url" content="https://madneal.com/post/cookie-tossing/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -234,8 +236,7 @@ LICENSE: MIT
 <p>原文：<a href="https://snyk.io/articles/hijacking-oauth-flows-via-cookie-tossing/">Hijacking OAUTH flows via Cookie Tossing</a></p>
 <p>译者：<a href="https://github.com/madneal">madneal</a></p>
 <p>welcome to star my <a href="https://github.com/madneal/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing.ecnu@gmail.com">me</a></p>
-<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
-</blockquote>
+<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p></blockquote>
 <p>我们最近在瑞士苏黎世的Area41会议上展示了我们的 GitHub Action 研究。在会议的第一天，<a href="https://www.thomashouhou.com/about-me">Thomas Houhou</a> 进行了一个有趣的演讲，介绍了如何<a href="https://www.youtube.com/watch?v=xLPYWim60jA">利用 Cookie Tossing 攻击</a>来增强 Self-XSS 问题的影响，使其变得值得报告。这次演讲非常精彩，展示了一些新颖的 Cookie Tossing 在劫持多步骤流程中的应用。作为一种技术，Cookie Tossing 常常被忽视或不为人知，关于这一主题的发表内容也很少。</p>
 <p>我们希望扩展目前有限的研究，看看 Cookie Tossing 攻击还可能导致哪些额外的影响。我们发现，Cookie Tossing 可以用来劫持 OAUTH 流程，并导致身份提供者（IdP）的账户接管。</p>
 <h2 id="什么是-cookie-tossing">什么是 Cookie Tossing?</h2>
@@ -244,28 +245,28 @@ LICENSE: MIT
 <p>根据 RFC 6265 的定义，Cookie 是服务器与用户的网页浏览器之间交换的一小段数据。这些 Cookie 对于网络应用至关重要，因为它们能够存储有限的数据并帮助维护状态信息，从而解决 HTTP 协议固有的无状态特性。通过 Cookie，用户会话可以持续，偏好设置可以被保存，并且可以提供个性化的体验。</p>
 <p>Cookie 具有各种属性和标志定义它们的行为和范围。以下是关于 Cookie 关键属性和标志的简要介绍：</p>
 <table>
-<thead>
-<tr>
-<th>Attributes</th>
-<th>Attributes</th>
-<th>Attributes</th>
-<th>Attributes</th>
-<th>Attributes</th>
-<th>Flags</th>
-<th>Flags</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Expires</td>
-<td>Max-Age</td>
-<td>Domain</td>
-<td>Path</td>
-<td>SameSite</td>
-<td>Secure</td>
-<td>HttpOnly</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attributes</th>
+          <th>Attributes</th>
+          <th>Attributes</th>
+          <th>Attributes</th>
+          <th>Attributes</th>
+          <th>Flags</th>
+          <th>Flags</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Expires</td>
+          <td>Max-Age</td>
+          <td>Domain</td>
+          <td>Path</td>
+          <td>SameSite</td>
+          <td>Secure</td>
+          <td>HttpOnly</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="属性">属性</h2>
 <ol>
@@ -373,27 +374,9 @@ Set-Cookie: userId=patch01; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Domain=.snyk.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -427,20 +410,7 @@ Set-Cookie: userId=patch01; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Domain=.snyk.
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

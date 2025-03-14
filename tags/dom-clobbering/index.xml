@@ -4,26 +4,17 @@
     <title>DOM Clobbering on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/dom-clobbering/</link>
     <description>Recent content in DOM Clobbering on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Sun, 24 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/dom-clobbering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Nov 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/dom-clobbering/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GMail XSS 漏洞分析</title>
       <link>https://madneal.com/post/xss/</link>
       <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/xss/</guid>
-      <description>原文：XSS in GMail’s AMP4Email via DOM Clobbering
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 这篇文章是我在2019年8月通过Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
-什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
- 通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-  以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
- 该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://research.securitum.com/xss-in-amp4email-dom-clobbering/&#34;&gt;XSS in GMail’s AMP4Email via DOM Clobbering&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/neal1991&#34;&gt;neal1991&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/neal1991/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;这篇文章是我在2019年8月通过&lt;a href=&#34;https://www.google.com/about/appsecurity/reward-program/&#34;&gt; Google 漏洞奖励计划&lt;/a&gt;报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。&lt;/p&gt;&#xA;&lt;h2 id=&#34;什么是-amp4email&#34;&gt;什么是 AMP4Email&lt;/h2&gt;&#xA;&lt;p&gt;AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在&lt;a href=&#34;https://gsuiteupdates.googleblog.com/2019/06/dynamic-email-in-gmail-becoming-GA.html&#34;&gt; Google 官方 G Suite 官方博客中的帖子&lt;/a&gt;中，对动态邮件的使用案例进行了很好的总结&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。&lt;/p&gt;&#xA;&lt;p&gt;AMP4Email 具有&lt;a href=&#34;https://github.com/ampproject/amphtml/blob/master/validator/validator-main.protoascii&#34;&gt;强验证器&lt;/a&gt;，简而言之，它是允许在动态邮件中使用的标签和属性的强大白名单。你可以在 &lt;a href=&#34;https://amp.gmail.dev/playground/&#34;&gt;https://amp.gmail.dev/playground/&lt;/a&gt; 上尝试，你还可以给自己发送动态电子邮件来研究工作原理！&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

@@ -221,9 +221,11 @@
   <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
 准备 准备工作先做好，在 vue 和 react 之间，我还是选择了后者。基于 create-react-app 来搭建环境，crp 为你准备了一个开箱即用的开发环境，因此你无需自己亲手配置 webpack，因此你也不需要成为一名 webpack 配置工程师了。
 另外一方面，我们还需要一些数据，包括站点信息，线路路径，文字说明等等。基于之前的应用，可以通过一小段的代码获取信息。就此如要我们获取我们以前的站点在 svg 图中的相关属性，普通的站点使用 circle 元素，为了获取其属性：
-const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; {  let ele = {  cx: circle.cx,  cy: circle.cy,  sroke: circle.stroke,  id: circle.id  };  result.push(ele); }) const str = JSON.stringify(result); 通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
+const circles = document.querySelectorAll(&#39;circle&#39;); let result = []; circles.forEach(circle =&gt; { let ele = { cx: circle.cx, cy: circle.cy, sroke: circle.stroke, id: circle.id }; result.push(ele); }) const str = JSON.stringify(result); 通过这样的代码我们就可以获取 svg 普通站点信息，同理还可获取中转站信息，线路路径信息以及站点以及线路 label 信息。还有，我们还需要获取每个站点的时刻表信息，卫生间位置信息，无障碍电梯信息以及出入口信息。这里是写了一些爬虫去官网爬取并做了一些数据处理，再次就不一一赘述。
 设计 数据准备好之后，就是应用的设计了。首先，对组件进行一次拆分：
-组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：</p>
+组件结构 将整个地图理解成一个 Map 组件，再将其分为 4 个小组件：
+Label: 地图上的文本信息，包括地铁站名，线路名称 Station: 地铁站点，包括普通站点和中转站点 Line： 地铁线路 InfoCard: 状态最复杂的一个组件，主要包含时刻表信息、卫生间位置信息、出入口信息、无障碍电梯信息 这是一个大致的组件划分，里面可能包含更多的其它元素，比如 InfoCard 就有 InfoCard =&gt; TimeSheet =&gt; TimesheetTable 这样的嵌套。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
   </footer>
@@ -247,12 +249,18 @@ LICENSE: MIT
 看一下下面的PWA！看起来很像原生的app，是不是？
 推特渐进式web应用
 从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
-  你可以选择任何你喜欢的框架来进行开发；
-  一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
-  很容易获得：不需要通过应用商店来下载。
-  然而，在2017年早期，PWA仍然面临一些限制条件：
-  Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
-  一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。</p>
+你可以选择任何你喜欢的框架来进行开发；
+一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
+很容易获得：不需要通过应用商店来下载。
+然而，在2017年早期，PWA仍然面临一些限制条件：
+Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
+一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
+教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。
+为了让事情保持挑战性，我们打算构建一个猫图信息app：CropChat！CropChat用户能够阅读主流的猫的图片，并且能够打开他们了解更多细节以及上传新的猫的图片（首先从互联网，接着是从设备驱动或者照相机）。
+这个教程将会分为几个部分，它们将会连续地进行发布
+[Part 1] Lite基于Vue JS, Webpack 以及Material Design的渐进式web应用
+[Part 2] 基于Vue-Resource以及VueFire将App和远程的API进行连接
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
   </footer>
@@ -265,16 +273,18 @@ LICENSE: MIT
     <p class="post-meta">@Neal · May 2, 2017 · 2 min read</p>
   </header>
   
-  <p class="post-summary">原文：Service workers explained
+  <p class="post-summary"> 原文：Service workers explained
 译者：neal1991
 welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
 LICENSE: MIT
- 那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
- 无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。  我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
+那么它是什么？ Service worker正是被开发用于解决web平台上经常出现的问题和疑虑，包括：
+无法解释（Extensible Web Manifesto 中）的HTTP缓存以及高级HTTP交互比如HTML5 AppCache。 难以自然地构建一个离线优先地web应用。 缺乏可以利用很多提出功能的上下文执行。 我们也注意到了声明解决方案(Google Gears, Dojo Offline以及HTML5 AppCache都没能实现他们的承诺。每个连续的仅有声明的方法都以相同的方式失败了，所以service worker采取了一个不同的设计方法：一个可以用开发者牢牢把控的重要系统：
 Service worker就好像它的内部有一个有一个shared worker ：
- 在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM  不像shared worker，它：
- 即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上）  我们可以利用service workers：
- 利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步  开始 首先你需要注册一个service worker:</p>
+在它自己的全局脚本上下文中运行（通常是在它自己的线程中） 不会和特定的页面绑定 不能够访问DOM 不像shared worker，它：
+即使没有页面也能够运行 如果不使用的话可以终止，还可以再次运行当需要的时候（比如，他不是事件驱动的） 拥有一个定义的升级模式 只允许HTTPS（更多的是在这一点上） 我们可以利用service workers：
+利用网络拦截可以让让网站更快以及/或者支持离线使用 作为其它’background’功能的基础比如消息推送以及后台同步 开始 首先你需要注册一个service worker:
+if (&#39;serviceWorker&#39; in navigator) { navigator.serviceWorker.register(&#39;/my-app/sw.js&#39;).then(function(reg) { console.log(&#39;Yey!&#39;, reg); }).catch(function(err) { console.log(&#39;Boo!&#39;, err); }); } 在这个例子中，/my-app/sw.js就是service worker脚本的位置，并且它控制那些页面的URL以/my-app/开头。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/service-worker%E4%BB%8B%E7%BB%8D/">Read More →</a>
   </footer>
@@ -289,10 +299,12 @@ Service worker就好像它的内部有一个有一个shared worker ：
   
   <p class="post-summary">Progressive web application是谷歌推出的一种渐进式应用，我觉得其实PWA是一种非常具有发展前景的技术。首先，PWA是由谷歌推出的，而且跨平台,PWA可以给你类似于原生APP的体验，通过service worker，你可以将资源缓存到本地。但是，PWA再国内一直都是不温不火，主要有好几个原因：一是因为国内的浏览器环境比较复杂，而PWA一般只是能够在chrome浏览器得到较好的支持。虽然chrome在桌面端占据了很大比例，但是在移动端还是一般般，普通的用户不一定会去安装Chrome。二是safari浏览器对于PWA的支持不是很完美，service worker目前还是没有得到支持的。
 但是我是觉得PWA还是很好的，值得开发者们进一步探索。有一点偏题了，今天要讨论的其实是PWA里面service worker资源的缓存问题。主要问题的背景是这样的，我有一个上海地铁线路图的PWA，可以支持离线使用，有兴趣的同学可以尝试看看。我遇到一个问题，就是每次我更新之后代码之后，加入我的PWA被添加到主屏之后，这个APP的代码就没有更新，必须删除后重新重浏览器中添加到主屏。一开始我以为是PWA的问题，后来竟别人提醒，桌面上的APP其实也就是网站的链接。我这才恍然大悟，问题是因为我的servicer worker里面的缓存策略有问题。因为我的APP通过service worker来缓存资源，包括js,css以及图片文件，所以始终是从缓存中加载资源，所以我远程代码更新后，这个APP的代码却没有得到更新。OK，拿代码说话，我一开始的代码是：
-var cacheName = &#39;subway&#39;; var filesToCache = [ 	&#39;/&#39;, 	&#39;index.html&#39;, 	&#39;image/transfer.png&#39;, 	&#39;dist/alloy_finger.js&#39;, 	&#39;app.css&#39; ];  self.addEventListener(&#39;install&#39;, function(e) { 	console.log(&#39;service worker install&#39;); 	e.waitUntil(caches.open(cacheName).then(function(cache) { 	console.log(&#39;serviceworker caching app shell&#39;); 	return cache.addAll(filesToCache); 	})); }); 可以看出我们在 install 事件后通过在 cache 里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
+var cacheName = &#39;subway&#39;; var filesToCache = [ &#39;/&#39;, &#39;index.html&#39;, &#39;image/transfer.png&#39;, &#39;dist/alloy_finger.js&#39;, &#39;app.css&#39; ]; self.addEventListener(&#39;install&#39;, function(e) { console.log(&#39;service worker install&#39;); e.waitUntil(caches.open(cacheName).then(function(cache) { console.log(&#39;serviceworker caching app shell&#39;); return cache.addAll(filesToCache); })); }); 可以看出我们在 install 事件后通过在 cache 里面加载文件，所以我们必须选择一种合适的策略能够让我们的APP在代码更新之后去请求新的代码呢？
 Google其实在PWA推出的过程中也给出了很多有用的技术。比如sw-precache以及sw-toolbox，以及最近正在发展过程中的sw-helper。这里，我主要使用的是sw-precache来更新我的service worker策略。
 sw-precache也是NODE中的一个模块，可以通过npm install sw-precache来进行安装。sw-precache可以配合多个工具使用，这里我主要介绍一下如何配合gulp来使用。我们通过利用sw-precache来帮助我们生成sw-precache。饿了么的huangxuan在medium写了一篇文章来渗入地介绍sw-precache，这篇文章写的不错，但是却是在墙外，主要是介绍sw-precache的工作方式。我就谈一下我对sw-precache的理解把，以一个gulpfile的一段代码为例：
-gulp.task(&#39;generate-sw&#39;, function(callback) { 	var path = require(&#39;path&#39;); 	var swPrecache = require(&#39;sw-precache&#39;);  	swPrecache.</p>
+gulp.task(&#39;generate-sw&#39;, function(callback) { var path = require(&#39;path&#39;); var swPrecache = require(&#39;sw-precache&#39;); swPrecache.write(path.join(&#39;sw.js&#39;), { staticFileGlobs: [ &#39;app.js&#39;, &#39;dist/alloy_finger.js&#39;, &#39;dist/app.css&#39;, &#39;image/*.{png}&#39;, &#39;index.html&#39;, &#39;/&#39; ] }, callback) }) 我们通过利用 sw-precache 来生成 sw.js 文件。主要的方式是检测你在staticFileGlobs里面的文件有没有发生变化，如果发生变化就会重新生成hash码，从而能够使得APP在代码更新之后向远程请求新的代码。
+这篇文章可能只是很小的一点，关于 service worker 的使用还有很多东西值得学习，欢迎关注我的 github 共同探讨。
+</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/service-worker%E4%B9%8Bcache%E5%AE%9E%E8%B7%B5--sw-precache/">Read More →</a>
   </footer>
@@ -333,20 +345,7 @@ gulp.task(&#39;generate-sw&#39;, function(callback) { 	var path = require(&#39;p
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

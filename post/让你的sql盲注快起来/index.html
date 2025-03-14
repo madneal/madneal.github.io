@@ -18,13 +18,14 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
 SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp;amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp;amp; 0 = 0; 0 &amp;amp; 1 = 0; 1 &amp;amp; 0 = 0; 1 &amp;amp; 1 = 1
+与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
 即：两位同时为“1”，结果才为“1”，否则为0
 或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
 即：参加运算的两个对象只要有一个为1，其值为1
 假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp;amp; x = 0, x = 0" />
+1 &amp; x = 0, x = 0
+" />
 
   
   
@@ -34,13 +35,14 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
   <meta property="og:title" content="让你的SQL盲注快起来" />
   <meta property="og:description" content="本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
 SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp;amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp;amp; 0 = 0; 0 &amp;amp; 1 = 0; 1 &amp;amp; 0 = 0; 1 &amp;amp; 1 = 1
+与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
+与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
 即：两位同时为“1”，结果才为“1”，否则为0
 或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
 即：参加运算的两个对象只要有一个为1，其值为1
 假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp;amp; x = 0, x = 0" />
+1 &amp; x = 0, x = 0
+" />
   <meta property="og:url" content="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -292,28 +294,28 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;main&#34;</span>:
 </span></span><span style="display:flex;"><span>    brute_force(<span style="color:#e6db74">&#34;hello_world&#34;</span>)
 </span></span></code></pre></div><table>
-<thead>
-<tr>
-<th></th>
-<th>myapp</th>
-<th>myapp_card</th>
-<th>myapp_card_perform</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>枚举</td>
-<td>121</td>
-<td>276</td>
-<td>526</td>
-</tr>
-<tr>
-<td>与运算</td>
-<td>35</td>
-<td>70</td>
-<td>126</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>myapp</th>
+          <th>myapp_card</th>
+          <th>myapp_card_perform</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>枚举</td>
+          <td>121</td>
+          <td>276</td>
+          <td>526</td>
+      </tr>
+      <tr>
+          <td>与运算</td>
+          <td>35</td>
+          <td>70</td>
+          <td>126</td>
+      </tr>
+  </tbody>
 </table>
 <h1 id="总结">总结</h1>
 <p>通过上面的对比，我们可以看出在SQL盲注中，如果通过与运算来进行盲注，可以大大提升盲注的效率，减少请求的次数，这对于我们的测试的帮助意义还是比较大的。</p>
@@ -331,31 +333,13 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1778</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1810</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -389,20 +373,7 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 

@@ -4,19 +4,17 @@
     <title>数据结构 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
     <description>Recent content in 数据结构 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 28 Dec 2015 15:50:34 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Dec 2015 15:50:34 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>数据结构线性表相关操作</title>
       <link>https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</link>
       <pubDate>Mon, 28 Dec 2015 15:50:34 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</guid>
-      <description>数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;malloc.h&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&amp;gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;amp;&amp;amp;j&amp;lt;i-1) { p=p-&amp;gt;next; ++j; } if(!p||j&amp;gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&amp;gt;data = e; s-&amp;gt;next=p-&amp;gt;next; p-&amp;gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&amp;gt;next; if(!</description>
+      <description>&lt;p&gt;数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;stdio.h&amp;gt;&#xA;#include &amp;lt;malloc.h&amp;gt;&#xA;#include&amp;lt;iostream&amp;gt;&#xA;using namespace std;&#xA;//线性表的定义&#xA;typedef int ElemType;&#xA;typedef struct LNode{&#xA;&#x9;ElemType data;&#xA;&#x9;struct LNode *next;&#xA;}LNode,*LinkList;&#xA;//线性表的初始化&#xA;int InitList_L(LinkList &amp;amp;L)&#xA;{&#xA;&#x9;L = (LinkList)malloc(sizeof(LNode));&#xA;&#x9;L-&amp;gt;next = NULL;&#xA;&#x9;return 1;&#xA;}&#xA;//线性表的插入&#xA;int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e)&#xA;{&#xA;&#x9;LinkList p;&#xA;&#x9;p = L;&#xA;&#x9;int j = 0;&#xA;&#x9;while(p&amp;amp;&amp;amp;j&amp;lt;i-1)&#xA;&#x9;{&#xA;&#x9;&#x9;p=p-&amp;gt;next;&#xA;&#x9;&#x9;++j;&#xA;&#x9;}&#xA;&#x9;if(!p||j&amp;gt;i-1)&#xA;&#x9;&#x9;return 0;&#xA;&#x9;LinkList s = (LinkList)malloc(sizeof(LNode));&#xA;&#x9;s-&amp;gt;data = e;&#xA;&#x9;s-&amp;gt;next=p-&amp;gt;next;&#xA;&#x9;p-&amp;gt;next=s;&#xA;&#x9;return 1;&#xA;}&#xA;//清空线性表&#xA;void Delete_L(LinkList L)&#xA;{&#xA;&#x9;LinkList p = L-&amp;gt;next;&#xA;&#x9;if(!p)&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; &amp;#34;this list is empty!&amp;#34;;&#xA;&#x9;while(p)&#xA;&#x9;{&#xA;&#x9;&#x9;cout &amp;lt;&amp;lt; p-&amp;gt;data;&#xA;&#x9;&#x9;p = p-&amp;gt;next;&#xA;&#x9;}&#xA;&#x9;cout &amp;lt;&amp;lt; endl;&#xA;}&#xA;//合并线性表&#xA;void MergeList_L(LinkList &amp;amp;La,LinkList &amp;amp;Lb,LinkList &amp;amp;Lc)&#xA;{&#xA;&#x9;LinkList pa = La-&amp;gt;next;&#xA;&#x9;LinkList pb = Lb-&amp;gt;next;&#xA;&#x9;LinkList pc = Lc=La;&#xA;&#x9;while (pa&amp;amp;&amp;amp;pb)&#xA;&#x9;{&#xA;&#x9;&#x9;if(pa-&amp;gt;data&amp;lt;pb-&amp;gt;data)&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;pc-&amp;gt;next=pa;&#xA;&#x9;&#x9;&#x9;pc=pa;&#xA;&#x9;&#x9;&#x9;pa=pa-&amp;gt;next;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;else&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;pc-&amp;gt;next=pb;&#xA;&#x9;&#x9;&#x9;pc=pb;&#xA;&#x9;&#x9;&#x9;pb=pb-&amp;gt;next;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;pc-&amp;gt;next=pa?pa:pb;&#xA;&#x9;free(Lb);&#xA;}&#xA;&#xA;int main()&#xA;{&#xA;&#x9;LinkList La,Lb,Lc;&#xA;&#x9;InitList_L(La);&#xA;&#x9;InitList_L(Lb);&#xA;&#x9;InitList_L(Lc);&#xA;&#x9;ListInsert_L(La,1,2);&#xA;&#x9;ListInsert_L(La,2,3);&#xA;&#x9;ListInsert_L(La,3,5);&#xA;&#x9;Delete_L(La);&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    
   </channel>
 </rss>

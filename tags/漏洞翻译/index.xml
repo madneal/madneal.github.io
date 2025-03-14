@@ -4,26 +4,17 @@
     <title>漏洞，翻译 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E7%BF%BB%E8%AF%91/</link>
     <description>Recent content in 漏洞，翻译 on Neal&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
-    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E7%BF%BB%E8%AF%91/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 28 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E7%BF%BB%E8%AF%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>隐写术-深入研究 PDF 混淆漏洞</title>
       <link>https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/</link>
       <pubDate>Mon, 28 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/</guid>
-      <description>原文：&amp;ldquo;steganography&amp;rdquo; - obfuscating PDF exploits in depth
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 上礼拜发现的关于使用 this.getPageNumWords() &amp;amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
-我们的 EdgeLogic 引擎将样本检测为 &amp;ldquo;exploit CVE-2013-3346&amp;rdquo;，与前一个相同。
- https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/  样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
-上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。
- https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection  打开后，伪装成 IRS 文件的 PDF 看起来很正常。</description>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://blog.edgespot.io/2019/01/steganography-obfuscating-exploits.html&#34;&gt;&amp;ldquo;steganography&amp;rdquo; - obfuscating PDF exploits in depth&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/neal1991&#34;&gt;neal1991&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/neal1991/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://blog.edgespot.io/2019/01/an-interesting-obfuscation-method.html&#34;&gt;上礼拜发现的&lt;/a&gt;关于使用 &lt;code&gt;this.getPageNumWords() &amp;amp; this.getPageNthWord()&lt;/code&gt; 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。&lt;/p&gt;&#xA;&lt;p&gt;我们的 EdgeLogic 引擎将样本检测为 &amp;ldquo;exploit CVE-2013-3346&amp;rdquo;，与前一个相同。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/&#34;&gt;https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://4.bp.blogspot.com/-Kr-NkDqfyho/XEdDnFNT1EI/AAAAAAAAAEo/d9VFG0l_qDwAB_vhf50p7AHCZjNncLPuQCLcBGAs/s1600/edgespot-detection.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://lh4.googleusercontent.com/ORMvSEL5-R-yLYe8ow9YzjUkUWBfXSTxa8d55dxZhoot91KnVhLvyvjd0nBUbPJk9sH433KsJDgdSZnu52NWm-9mbf5uPQv-gMGalUX918rX7HSAJyFj3OQq1zpNsUqrKVlc_Qrf&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection&#34;&gt;https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://3.bp.blogspot.com/-O2dvXaoaRIw/XEdTFYN-N3I/AAAAAAAAAGI/wdCOW241LCQxQgP99qbzggvgoSMLmVRSwCEwYBhgL/s1600/24.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;打开后，伪装成 IRS 文件的 PDF 看起来很正常。&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://4.bp.blogspot.com/-_zJ5pKPgv3I/XEdH34_gUOI/AAAAAAAAAE4/KYsV8Wi3phs4FWS3xJ8yZnI9jZXnNgAhwCLcBGAs/s1600/16.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;在该样本中使用两层混淆。 第一层是我们之前公开的 - &amp;ldquo;this.getPageNumWords()&amp;rdquo; 以及 &amp;ldquo;this.getPageNthWord()&amp;rdquo; 方法。该漏洞使用 &amp;ldquo;this.getPageNumWords()&amp;rdquo; 以及 &amp;ldquo;this.getPageNthWord()&amp;rdquo; 来读取和执行隐藏为“内容”的 Javascript。 相关代码可以在 PDF stream-64中找到。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

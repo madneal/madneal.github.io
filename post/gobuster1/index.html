@@ -18,8 +18,9 @@
   <meta name="author" content="Neal" />
   <meta name="description" content="gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
 入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt." />
+func main() { cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { var cancel context.CancelFunc mainContext, cancel = context.WithCancel(context.Background()) defer cancel() signalChan := make(chan os.Signal, 1) signal.Notify(signalChan, os.Interrupt) defer func() { signal.Stop(signalChan) cancel() }() go func() { select { case &lt;-signalChan: fmt.Println(&#34;\n[!] Keyboard interrupt detected, terminating.&#34;) cancel() case &lt;-mainContext.Done(): } }() if err := rootCmd.Execute(); err != nil { os.Exit(1) } } cmd gobuster 中的 cmd 模块主要为其程序的命令行控制，可将其视作为程序的输入。通过命令行传入的各种参数，从而运行相应的命令来执行操作。cmd 下的几个文件也分别对应了 gobuster 的几个模块功能，包括以下：
+" />
 
   
   
@@ -29,8 +30,9 @@ func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.W
   <meta property="og:title" content="gobuster源码阅读--入口篇" />
   <meta property="og:description" content="gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
 入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { 	cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
-func Execute() { 	var cancel context.CancelFunc 	mainContext, cancel = context.WithCancel(context.Background()) 	defer cancel()  	signalChan := make(chan os.Signal, 1) 	signal.Notify(signalChan, os.Interrupt) 	defer func() { 	signal.Stop(signalChan) 	cancel() 	}() 	go func() { 	select { 	case &amp;lt;-signalChan: 	fmt." />
+func main() { cmd.Execute() } 这里即是作为程序的入口来展开这次代码之旅。Execute 其实主要是接受程序中断的信号做相应的处理操作，里面的主要涉及的知识点为 context 以及 Signal，前者主要是为了方便程序的取消、退出，后者则是捕获系统中断的信号。Notify 函数负责将 signal 一直传送到管道 c，这个函数可以一直调用。直到调用 sinal.Stop 的时候，signalChan 中的 sinal 则会被清空。这一段代码里面的内容主要是 signal 这一块的内容，可以参考 Golang 的官方文档，里面讲的非常的详细。
+func Execute() { var cancel context.CancelFunc mainContext, cancel = context.WithCancel(context.Background()) defer cancel() signalChan := make(chan os.Signal, 1) signal.Notify(signalChan, os.Interrupt) defer func() { signal.Stop(signalChan) cancel() }() go func() { select { case &lt;-signalChan: fmt.Println(&#34;\n[!] Keyboard interrupt detected, terminating.&#34;) cancel() case &lt;-mainContext.Done(): } }() if err := rootCmd.Execute(); err != nil { os.Exit(1) } } cmd gobuster 中的 cmd 模块主要为其程序的命令行控制，可将其视作为程序的输入。通过命令行传入的各种参数，从而运行相应的命令来执行操作。cmd 下的几个文件也分别对应了 gobuster 的几个模块功能，包括以下：
+" />
   <meta property="og:url" content="https://madneal.com/post/gobuster1/" />
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
@@ -311,31 +313,13 @@ type OptionsDir struct {
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1026</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1058</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-      
+        
+          
+       
     
   </section>
   <footer class="site-footer">
@@ -369,20 +353,7 @@ type OptionsDir struct {
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
+  
 
 
 
