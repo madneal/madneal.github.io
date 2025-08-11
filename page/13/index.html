@@ -207,6 +207,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/" class="post-link">模拟.net post请求属性</a></h3>
+    <p class="post-meta">@Neal · Apr 25, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-link">nodejs爬虫编码问题</a></h3>
     <p class="post-meta">@Neal · Apr 16, 2016 · 1 min read</p>
   </header>
@@ -383,38 +397,6 @@ InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[
 \usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.30e-03$	&amp;$3.00e-03$	&amp;$4.40e-03$	&amp;$2.12e-02$	&amp;$\textbf{4.50e-03}$	&amp;$1.53e-04$	&amp;$4.20e-03$	&amp;$4.80e-03$\\\\ $F_{6}$	&amp;$8.30e-03$	&amp;$2.10e-03$	&amp;$5.70e-03$	&amp;$1.50e-02$	&amp;$1.62e-02$	&amp;$2.30e-02$ &amp;$5.40e-03$	&amp;$1.20e-01$\\\\ $F_{7}$	&amp;$1.60e-01$	&amp;$2.35e-01$	&amp;$7.96e-02$	&amp;$1.03e&#43;0$	&amp;$1.76e-01$	&amp;$2.33e-01$ &amp;$3.28e-02$ &amp;$1.02e&#43;0$\\\\ $F_{8}$	&amp;$6.59e-02$	&amp;$3.50e-03$	&amp;$6.05e-02$	&amp;$7.69e-02$	&amp;$\textbf{6.37e-02}$	&amp;$3.60e-03$	&amp;$5.81e-02$	&amp;$7.65e-02$\\\\ $F_{9}$	&amp;$8.00e-03$	&amp;$2.80e-03$	&amp;$5.80e-03$	&amp;$1.48e-02$	&amp;$\textbf{7.70e-03}$	&amp;$3.20e-03$	&amp;$5.40e-03$	&amp;$2.24e-02$\\\\ $F_{10}$ &amp;$1.25e&#43;02$	&amp;$2.35e&#43;01$	&amp;$2.27e&#43;01$	&amp;$1.44e&#43;02$	&amp;$\textbf{2.36e&#43;02}$	&amp;$3.48e&#43;01$	&amp;$5.02e&#43;0$	&amp;$1.38e&#43;02$\\ \hline\hline \end{tabular} \begin{tablenotes} \item[1] The bolder ones mean better. \end{tablenotes} \end{threeparttable} \end{table*} </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/" class="post-link">从后台看python--为什么说python是慢的</a></h3>
-    <p class="post-meta">@Neal · Dec 8, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
-1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
-int a = 1; int b = 2; int c = a &#43; b; 1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法&lt;int,int&gt;(a,b) 4.将结果分配给c
-在python中，同样的
-a = 1 b = 2 c = a &#43; b 1.分配1给a
-设置一个对象，然后将它的类型设置为整数
-将它的值设为1 2.分配2给b
-设置一个对象，然后将它的类型设置为整数
-将它的值设为2 3.调用一个二进制加法(a,b)
-寻找一个类型在对象中
-a是一个整数，它的值是a
-寻找一个类型在对象中
-b是一个整数，它的值是b
-调用一个二进制加法
-返回结果，结果是一个整数 4.产生一个对象c
-将一个对象的类型设置为整数
-将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
-2.python是一种解释型的语言而不是编译型的 我们可以看到解释型语言和编译型语言的区别。一个聪明的编译器知道怎么提前优化，避免重复和不必要的操作，从而提高效率。当然，在这一点上也是仁者见仁智者见智。
-3.python的对象模型导致存储效率低下 python存储数据效率低下的原因，主要可以从下图看出： 当然说了python这么多缺点，为什么python用的人还这么多，因为它很简单啊。python用起来的确很简单，就我个人的使用感受而言，除了matlab，我没有看过比python还要简单的语言了。而且python的开源的库很多，所以做很多东西都很方便。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
   </footer>
 </article>
 

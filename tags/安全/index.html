@@ -214,6 +214,28 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/cve-2025-55188/" class="post-link">CVE-2025-55188：7-Zip 任意文件写入漏洞</a></h3>
+    <p class="post-meta">@Neal · Aug 11, 2025 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">
+安全研究员 Landon 发现了一个新披露的 7-Zip 漏洞，编号为 CVE-2025-55188。该漏洞的 CVSS 评分为 2.7，影响 25.01 之前的版本，可能允许攻击者在提取存档文件时执行任意文件写入操作——在某些情况下可能升级为任意代码执行。
+根据报告，“在 25.01 之前的 7-Zip 中提取恶意制作的存档文件允许任意文件写入，可能导致任意代码执行。”
+该问题源于在提取过程中对符号链接的处理不当。7-Zip 在解压存档文件时会跟随符号链接，这意味着恶意存档文件可以将提取的文件指向预期目录之外的位置——覆盖系统上的关键文件。
+漏洞利用需要特定条件：
+Linux – 任何在 25.01 之前版本的 7-Zip 上运行的用户，提取支持符号链接格式的存档（如 .zip、.tar、.7z、.rar）都会受到影响。 Windows – 漏洞利用是可能的，但较为困难。提取过程必须具有创建符号链接的权限，可能在以下情况下发生： 7-Zip 以管理员权限运行。 Windows 处于开发者模式。 启用了其他特殊权限。 一旦触发，攻击者可能会覆盖敏感文件，如 SSH 密钥或 .bashrc，从而留下持久后门或执行命令。
+虽然 CVSS 2.7 的评分可能表明严重性较低，但如果攻击者可以控制存档文件的内容和目标的提取环境，其影响可能很严重。Landon 警告称，“在一次提取过程中，攻击者可能多次尝试利用此漏洞写入敏感文件。”
+此类攻击可能：
+破坏安全外壳 SSH 认证。 修改启动脚本以实现持久化。 篡改配置文件以绕过安全控制。 修复已包含在 7-Zip 版本 25.01 中。用户应：
+立即从官方 7-Zip 网站更新至 25.01 或更高版本。 避免从不信任来源提取存档文件。 处理未知文件时使用沙盒或隔离环境。 相关文章: CVE-2025-0411: 7-Zip 安全漏洞可导致代码执行 – 立即更新 7-Zip 中的两个漏洞可能触发拒绝服务攻击 7-Zip CVE-2025-0411 的 PoC 允许攻击者绕过 MotW 并运行恶意代码 CVE-2025-0411: 针对乌克兰的攻击中利用了 7-Zip 漏洞 CVE-2022-29072: 7-Zip 权限提升漏洞 </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/cve-2025-55188/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/cookie-tossing/" class="post-link">通过 Cookie Tossing 劫持 OAUTH 流程</a></h3>
     <p class="post-meta">@Neal · Feb 6, 2025 · 3 min read</p>
   </header>
@@ -390,29 +412,6 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
-    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
-  </header>
-  
-  <p class="post-summary"> 原文：XSS in GMail’s AMP4Email via DOM Clobbering
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-这篇文章是我在2019年8月通过 Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
-什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在 Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
-通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
-以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
-该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。
-AMP4Email 具有强验证器，简而言之，它是允许在动态邮件中使用的标签和属性的强大白名单。你可以在 https://amp.gmail.dev/playground/ 上尝试，你还可以给自己发送动态电子邮件来研究工作原理！
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
   </footer>
 </article>
 

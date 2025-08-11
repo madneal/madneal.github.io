@@ -214,6 +214,29 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/xss/" class="post-link">GMail XSS 漏洞分析</a></h3>
+    <p class="post-meta">@Neal · Nov 24, 2019 · 4 min read</p>
+  </header>
+  
+  <p class="post-summary"> 原文：XSS in GMail’s AMP4Email via DOM Clobbering
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+这篇文章是我在2019年8月通过 Google 漏洞奖励计划报告的 AMP4Email 中已经修复的 XSS 的文章。该 XSS 是对著名浏览器问题 DOM Clobbering 的真实利用案例。
+什么是 AMP4Email AMP4Email（也称为动态邮件）是 Gmail 的一项新功能，可以让电子邮件包含动态 HTML 内容。尽管撰写包含 HTML 标签的电子邮件已经很多年了，但通常认为 HTML 仅包含静态内容，即某种格式，图像等，没有任何脚本或表单。 AMP4Email 打算更进一步，允许电子邮件中包含动态内容。 在 Google 官方 G Suite 官方博客中的帖子中，对动态邮件的使用案例进行了很好的总结
+通过动态邮件，你可以轻松地直接从消息本身直接操作，例如对事件进行快速回复，填写问卷，浏览目录或回复评论。
+以在 Google 文档中进行评论为例。现在，你将不再在有人在评论中提及你时接收到单独的电子邮件通知，而是会在 Gmail 中看到最新的主题，你可以在邮件中直接从中轻松回复或解决评论。
+该功能引发了一些明显的安全性问题。最重要的一个可能是：跨站点脚本（XSS）？如果我们允许电子邮件中包含动态内容，是否意味着我们可以轻松地注入任意 JavaScript 代码？好吧，答案是否定的；没那么容易。
+AMP4Email 具有强验证器，简而言之，它是允许在动态邮件中使用的标签和属性的强大白名单。你可以在 https://amp.gmail.dev/playground/ 上尝试，你还可以给自己发送动态电子邮件来研究工作原理！
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/xss/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/chrome%E6%9C%80%E6%96%B0%E5%9C%A8%E9%87%8E%E9%9B%B6%E6%97%A5%E6%BC%8F%E6%B4%9E/" class="post-link">Chrome 最新零日漏洞</a></h3>
     <p class="post-meta">@Neal · Nov 10, 2019 · 2 min read</p>
   </header>
@@ -374,25 +397,6 @@ web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文�
 python2 python -m SimpleHTTPServer 90 python3 python3 -m http.server 80 php</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/help-hack-the-box/" class="post-link">Help -- hack the box</a></h3>
-    <p class="post-meta">@Neal · Apr 22, 2019 · 5 min read</p>
-  </header>
-  
-  <p class="post-summary">
-Introduction Target: 10.10.10.121(OS: Linux)
-Kali: 10.10.16.28
-To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.
-Infomation Enumeration Firstly, gather open ports and services:
-# Nmap 7.70 scan initiated Sat Apr 20 02:13:56 2019 as: nmap -sC -sV -oA services 10.10.10.121 Nmap scan report for 10.10.10.121 Host is up (1.2s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 e5:bb:4d:9c:de:af:6b:bf:ba:8c:22:7a:d8:d7:43:28 (RSA) | 256 d5:b0:10:50:74:86:a3:9f:c5:53:6f:3b:4a:24:61:19 (ECDSA) |_ 256 e2:1b:88:d3:76:21:d4:1e:38:15:4a:81:11:b7:99:07 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works 3000/tcp open http Node.js Express framework |_http-title: Site doesn&#39;t have a title (application/json; charset=utf-8). Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Service detection performed. Please report any incorrect results at https://nmap.org/submit/ . # Nmap done at Sat Apr 20 02:14:40 2019 -- 1 IP address (1 host up) scanned in 43.61 seconds The port 80 seems to be an HTTP service. Access to http://10.10.10.121, nothing special but just the apache default web page. Try gobuster:
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/help-hack-the-box/">Read More →</a>
   </footer>
 </article>
 

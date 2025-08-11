@@ -219,6 +219,38 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/" class="post-link">从后台看python--为什么说python是慢的</a></h3>
+    <p class="post-meta">@Neal · Dec 8, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
+1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
+int a = 1; int b = 2; int c = a &#43; b; 1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法&lt;int,int&gt;(a,b) 4.将结果分配给c
+在python中，同样的
+a = 1 b = 2 c = a &#43; b 1.分配1给a
+设置一个对象，然后将它的类型设置为整数
+将它的值设为1 2.分配2给b
+设置一个对象，然后将它的类型设置为整数
+将它的值设为2 3.调用一个二进制加法(a,b)
+寻找一个类型在对象中
+a是一个整数，它的值是a
+寻找一个类型在对象中
+b是一个整数，它的值是b
+调用一个二进制加法
+返回结果，结果是一个整数 4.产生一个对象c
+将一个对象的类型设置为整数
+将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+2.python是一种解释型的语言而不是编译型的 我们可以看到解释型语言和编译型语言的区别。一个聪明的编译器知道怎么提前优化，避免重复和不必要的操作，从而提高效率。当然，在这一点上也是仁者见仁智者见智。
+3.python的对象模型导致存储效率低下 python存储数据效率低下的原因，主要可以从下图看出： 当然说了python这么多缺点，为什么python用的人还这么多，因为它很简单啊。python用起来的确很简单，就我个人的使用感受而言，除了matlab，我没有看过比python还要简单的语言了。而且python的开源的库很多，所以做很多东西都很方便。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" class="post-link">谈谈CS英文论文写作</a></h3>
     <p class="post-meta">@Neal · Nov 27, 2015 · 1 min read</p>
   </header>
@@ -361,22 +393,6 @@ git config --global user.name &#34;username&#34; git config --global user.email 
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="post-link">javascript的继承模式</a></h3>
-    <p class="post-meta">@Neal · Oct 24, 2015 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
-基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child 这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
-var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.name = name || &#39;child&#39;; }; Child.prototype = new Parent(); var parent = new Parent(&#39;myParent&#39;); var child = new Child(&#39;myChild&#39;); console.log(parent.getName());//myParent console.log(child.getName());//myChild 上述还只是初始化name属性，如果初始化工作不断增加，这种方式也不是很方便。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 

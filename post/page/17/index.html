@@ -219,6 +219,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/" class="post-link">PCA算法和实例</a></h3>
+    <p class="post-meta">@Neal · Jun 20, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">PCA算法 算法步骤： 假设有m条n维数据。
+将原始数据按列组成n行m列矩阵X 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 求出协方差矩阵C=1/mXXT 求出协方差矩阵的特征值以及对应的特征向量 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P Y=PX即为降维到k维后的数据 实例## 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
+然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2/5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：
+因此我们的矩阵P是： 可以验证协方差矩阵C的对角化： 最好我们用P的第一行诚意数据矩阵，就得到了降维后的数据表示： 降维后的投影结果如下图： PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同的正交方向上没有相关性。 因此，PCA也存在一些限制，例如它可以很好地解除线性相关，但是对于高阶相关性就没有办法了。对于存在高阶相关性的数据，可以考虑Kernel PCA,通过Kernel将非线性相关转化为线性相关。另外，PCA假设数据各特征分布在正交方向上，如果在非正交方向上存在几个方差较大的方向，PCA的效果就大打折扣。 PCA是一种无参数技术，也就是说面对同样的数据，如果不考虑清晰，谁来做结果都一样，没有主观参数的介入，所以PCA便于通用实现，但是本身没有个性化的优化。
+本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/wwdc2015/" class="post-link">WWDC2015</a></h3>
     <p class="post-meta">@Neal · Jun 9, 2015 · 1 min read</p>
   </header>
@@ -352,20 +370,6 @@ ICA的限制条件 独立成分应该是相互之间独立的。这是ICA成立�
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-link">winform中进行post上传文件</a></h3>
-    <p class="post-meta">@Neal · Apr 17, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">winform中要上传文件到远程的服务器上面，我在本地用的是post方式传递数据，用的是HTTP协议，具体代码如下： 下面的代码就是一个上传的方法，参数需要路径和文件路径就可以了，我本地winform只需要提交post请求就可以了，止于对于post请求如何处理，那就是远程服务端的事情了。
-private string uploadFile(string uriAddress, string uploadfilePath) { HxSpecCore.SpectrumSet ss = new SpectrumSet(); try { // 设置提交的相关参数 HttpWebRequest request = WebRequest.Create(uriAddress) as HttpWebRequest; Encoding myEncoding = Encoding.UTF8; request.Method = &#34;POST&#34;; WebHeaderCollection headers = request.Headers; //提交请求数据 FileInfo fi = new FileInfo(uploadfilePath); FileStream fs = new FileStream(uploadfilePath, FileMode.Open, FileAccess.Read); byte[] postData = new byte[(int)fs.Length]; request.Headers.Set(&#34;md5data&#34;, Convert.ToBase64String(GetMD5(Convert.ToBase64String(GetMD5(Encoding.Default.GetString(postData))) ))); fs.Read(postData, 0, Convert.ToInt32(fs.Length)); fs.Close(); System.IO.Stream outputStream = request.GetRequestStream(); outputStream.Write(postData, 0, postData.Length); outputStream.Close(); HttpWebResponse response; Stream responseStream; response = request.GetResponse() as HttpWebResponse; responseStream = response.GetResponseStream(); System.IO.StreamReader reader = new System.IO.StreamReader(responseStream, Encoding.GetEncoding(&#34;UTF-8&#34;)); string result = reader.ReadToEnd(); reader.Close(); return result; } catch (Exception ex) { return &#34; &#34;; } } </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/winform%E4%B8%AD%E8%BF%9B%E8%A1%8Cpost%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">Read More →</a>
   </footer>
 </article>
 
