@@ -207,6 +207,20 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/" class="post-link">latex如何给表格添加注释</a></h3>
+    <p class="post-meta">@Neal · Dec 10, 2015 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
+\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.30e-03$	&amp;$3.00e-03$	&amp;$4.40e-03$	&amp;$2.12e-02$	&amp;$\textbf{4.50e-03}$	&amp;$1.53e-04$	&amp;$4.20e-03$	&amp;$4.80e-03$\\\\ $F_{6}$	&amp;$8.30e-03$	&amp;$2.10e-03$	&amp;$5.70e-03$	&amp;$1.50e-02$	&amp;$1.62e-02$	&amp;$2.30e-02$ &amp;$5.40e-03$	&amp;$1.20e-01$\\\\ $F_{7}$	&amp;$1.60e-01$	&amp;$2.35e-01$	&amp;$7.96e-02$	&amp;$1.03e&#43;0$	&amp;$1.76e-01$	&amp;$2.33e-01$ &amp;$3.28e-02$ &amp;$1.02e&#43;0$\\\\ $F_{8}$	&amp;$6.59e-02$	&amp;$3.50e-03$	&amp;$6.05e-02$	&amp;$7.69e-02$	&amp;$\textbf{6.37e-02}$	&amp;$3.60e-03$	&amp;$5.81e-02$	&amp;$7.65e-02$\\\\ $F_{9}$	&amp;$8.00e-03$	&amp;$2.80e-03$	&amp;$5.80e-03$	&amp;$1.48e-02$	&amp;$\textbf{7.70e-03}$	&amp;$3.20e-03$	&amp;$5.40e-03$	&amp;$2.24e-02$\\\\ $F_{10}$ &amp;$1.25e&#43;02$	&amp;$2.35e&#43;01$	&amp;$2.27e&#43;01$	&amp;$1.44e&#43;02$	&amp;$\textbf{2.36e&#43;02}$	&amp;$3.48e&#43;01$	&amp;$5.02e&#43;0$	&amp;$1.38e&#43;02$\\ \hline\hline \end{tabular} \begin{tablenotes} \item[1] The bolder ones mean better. \end{tablenotes} \end{threeparttable} \end{table*} </p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython--%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/" class="post-link">从后台看python--为什么说python是慢的</a></h3>
     <p class="post-meta">@Neal · Dec 8, 2015 · 1 min read</p>
   </header>
@@ -363,24 +377,6 @@ obj.appendChildl() obj.innersetBefore() obj.replaceChild obj.removeChild </p>
 clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4&#43;(x1^6)/3&#43;x1*x2é4*x2^2&#43;4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a&#43;d.*rand(N,D); 18 %Evaluate objective for all particles 19 fx=objf(x(:,1),x(:,2)); 20 %Find best 21 [fxbest,ixbest]=min(fx); 22 xbest=x(ixbest,1:D); 23 %Iterate 24 for it=1:itmax; 25 permat=bsxfun(@(x,y) x(randperm(y(1))),basemat’,N(ones(N,1)))’; 26 %Generate donors by mutation 27 v(1:N,1:D)=repmat(xbest,N,1)&#43;F*(x(permat(1:N,1),1:D)éx(permat(1:N,2),1: D)); 28 %Perform recombination 29 r=repmat(randi([1 D],N,1),1,D); 30 muv = ((rand(N,D)&lt;CR) &#43; (basej==r)) ~= 0; 31 mux = 1émuv; 32 u(1:N,1:D)=x(1:N,1:D).*mux(1:N,1:D)&#43;v(1:N,1:D).*muv(1:N,1:D); 33 %Greedy selection 34 fu=objf(u(:,1),u(:,2)); 35 idx=fu&lt;fx; 36 fx(idx)=fu(idx); 37 x(idx,1:D)=u(idx,1:D); 38 %Find best 39 [fxbest,ixbest]=min(fx); 40 xbest=x(ixbest,1:D); 41 end %end loop on iterations 42 [xbest,fxbest] </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" class="post-link">github命令大全</a></h3>
-    <p class="post-meta">@Neal · Oct 25, 2015 · 2 min read</p>
-  </header>
-  
-  <p class="post-summary">github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
-github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
-配置工具 对于本地版本配置用户信息
-git config --global user.name &#34;username&#34; git config --global user.email &#34;email&#34; 上面的分别是设置用户名和邮箱
-建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history 提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &#34;description message&#34; 群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch 重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit 排除版本控制 *.log build/ temp-* 以.log为结尾的文件都不会被进行版本控制
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">Read More →</a>
   </footer>
 </article>
 

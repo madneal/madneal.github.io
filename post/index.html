@@ -219,6 +219,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gorm/" class="post-link">AI 审代码，靠谱吗？——一个 GORM SQL 注入漏洞的思考</a></h3>
+    <p class="post-meta">@Neal · Aug 23, 2025 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
+func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var group GroupModel // 注意这里的用法 err := DB.First(&amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &#34;group&#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
+正确答案是：会。
+说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
+初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
+// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds ...interface{}) (tx *DB) { tx = db.Limit(1).Order(clause.OrderByColumn{ Column: clause.Column{Table: clause.CurrentTable, Name: clause.PrimaryKey}, }) if len(conds) &gt; 0 { if exprs := tx.Statement.BuildCondition(conds[0], conds[1:]...); len(exprs) &gt; 0 { tx.Statement.AddClause(clause.Where{Exprs: exprs}) } } tx.Statement.RaiseErrorOnNotFound = true tx.Statement.Dest = dest return tx.callbacks.Query().Execute(tx) } 从源码看，当 conds 参数不为空时，GORM 会调用 tx.Statement.BuildCondition来处理查询条件。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gorm/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/cve-2025-55188/" class="post-link">CVE-2025-55188：7-Zip 任意文件写入漏洞</a></h3>
     <p class="post-meta">@Neal · Aug 11, 2025 · 1 min read</p>
   </header>
@@ -397,23 +416,6 @@ Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%AA%91%E8%A1%8C/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/github-rsa/" class="post-link">GitHub 更新了 RSA SSH host key</a></h3>
-    <p class="post-meta">@Neal · Mar 24, 2023 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
-GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
-报错信息可能如下：
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY! Someone could be eavesdropping on you right now (man-in-the-middle attack)! It is also possible that a host key has just been changed. The fingerprint for the RSA key sent by the remote host is SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s. Please contact your system administrator. Add correct host key in ~/.ssh/known_hosts to get rid of this message. Host key for github.com has changed and you have requested strict checking. Host key verification failed. 可以通过下述命令移除老的 key，也可以在 ~/.ssh/known_hosts 文件里面手动删除去更新。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/github-rsa/">Read More →</a>
   </footer>
 </article>
 

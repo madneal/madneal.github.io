@@ -214,6 +214,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/gorm/" class="post-link">AI 审代码，靠谱吗？——一个 GORM SQL 注入漏洞的思考</a></h3>
+    <p class="post-meta">@Neal · Aug 23, 2025 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
+func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var group GroupModel // 注意这里的用法 err := DB.First(&amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &#34;group&#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
+正确答案是：会。
+说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
+初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
+// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds ...interface{}) (tx *DB) { tx = db.Limit(1).Order(clause.OrderByColumn{ Column: clause.Column{Table: clause.CurrentTable, Name: clause.PrimaryKey}, }) if len(conds) &gt; 0 { if exprs := tx.Statement.BuildCondition(conds[0], conds[1:]...); len(exprs) &gt; 0 { tx.Statement.AddClause(clause.Where{Exprs: exprs}) } } tx.Statement.RaiseErrorOnNotFound = true tx.Statement.Dest = dest return tx.callbacks.Query().Execute(tx) } 从源码看，当 conds 参数不为空时，GORM 会调用 tx.Statement.BuildCondition来处理查询条件。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/gorm/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/nilayay/" class="post-link">NilAway：实用的 Go Nil Panic 检测方式</a></h3>
     <p class="post-meta">@Neal · Nov 30, 2024 · 3 min read</p>
   </header>

