@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>AI 审代码，靠谱吗？——一个 GORM SQL 注入漏洞的思考</title>
+  <title>AI 审代码，靠谱吗？</title>
 
   
   
@@ -29,7 +29,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
 
   
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="AI 审代码，靠谱吗？——一个 GORM SQL 注入漏洞的思考" />
+  <meta property="og:title" content="AI 审代码，靠谱吗？" />
   <meta property="og:description" content="背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
 func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var group GroupModel // 注意这里的用法 err := DB.First(&amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &#34;group&#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
 正确答案是：会。
@@ -225,7 +225,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">AI 审代码，靠谱吗？——一个 GORM SQL 注入漏洞的思考</h1>
+      <h1 class="post-title">AI 审代码，靠谱吗？</h1>
       <p class="post-meta">@Neal · Aug 23, 2025 · 2 min read</p>
     </header>
     <article class="post-content"><h3 id="背景一道出乎意料的笔试题">背景：一道出乎意料的笔试题</h3>
