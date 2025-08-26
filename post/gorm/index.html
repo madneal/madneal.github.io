@@ -265,7 +265,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">callbacks</span>.<span style="color:#a6e22e">Query</span>().<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">tx</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>从源码看，当 <code>conds</code> 参数不为空时，GORM 会调用 <code>tx.Statement.BuildCondition</code>来处理查询条件。</p>
-<p><img src="https://i.postimg.cc/BbwDM7wZ/image.png" alt=""></p>
+<p><a href="https://postimg.cc/Wqgh48vx"><img src="https://i.postimg.cc/BbwDM7wZ/image.png" alt="image.png"></a></p>
 <p>乍看之下，<code>BuildCondition</code> 似乎会对传入的条件进行某种安全处理。但事实果真如此吗？</p>
 <h3 id="ai-怎么说">AI 怎么说？</h3>
 <p>先将同样的问题抛给了市面上主流的大语言模型：</p>
