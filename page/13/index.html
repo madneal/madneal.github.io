@@ -207,6 +207,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/" class="post-link">nodejs回调大坑</a></h3>
+    <p class="post-meta">@Neal · Apr 27, 2016 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
+Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&#34;callback hell&#34;或&#34;pyramid of doom&#34;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
+后续传递风格
+为什么会有坑？这要从后续传递风格（continuation-passing style–CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
+这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
+在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
+module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) } 像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
+用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的： var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.exports = function (dir, cb) { fs.readdir(dir, function (er, files) { // [1] if (er) return cb(er) var counter = files.length var errored = false var stats = [] files.forEach(function (file, index) { fs.stat(path.join(dir,file), function (er, stat) { // [2] if (errored) return if (er) { errored = true return cb(er) } stats[index] = stat // [3] if (--counter == 0) { // [4] var largest = stats .filter(function (stat) { return stat.isFile() }) // [5] .reduce(function (prev, next) { // [6] if (prev.size &gt; next.size) return prev return next }) cb(null, files[stats.indexOf(largest)]) // [7] } }) }) }) } 对这个模块的用户来说，只需要提供一个回调函数function(er,filename)，用两个参数分别接收错误或文件名：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/" class="post-link">利用tesseract-ocr进行验证码识别</a></h3>
     <p class="post-meta">@Neal · Apr 26, 2016 · 1 min read</p>
   </header>
@@ -346,59 +367,6 @@ ICES (A0): International Conference on Evolvable Systems: From Biology to Harewa
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/installsheild2011%E6%89%93%E5%8C%85%E7%A8%8B%E5%BA%8Finternal-build-error-6213/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-link">常用的正则表达式</a></h3>
-    <p class="post-meta">@Neal · Dec 15, 2015 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">正则表达式的用处很多，在很多地方都可以用得到，下面介绍一些常用的正则表达式 一、校验数字的表达式
-数字：^[0-9]*$
-n位的数字：^\d{n}$
-至少n位的数字：^\d{n,}$
-m-n位的数字：^\d{m,n}$
-零和非零开头的数字：^(0|[1-9][0-9]*)$
-非零开头的最多带两位小数的数字：^([1-9][0-9]*)&#43;(.[0-9]{1,2})?$
-带1-2位小数的正数或负数：^(-)?\d&#43;(.\d{1,2})?$
-正数、负数、和小数：^(-|&#43;)?\d&#43;(.\d&#43;)?$
-有两位小数的正实数：^[0-9]&#43;(.[0-9]{2})?$
-有1~3位小数的正实数：^[0-9]&#43;(.[0-9]{1,3})?$
-非零的正整数：^[1-9]\d*$ 或 ^([1-9][0-9]){1,3}$ 或 ^&#43;?[1-9][0-9]$
-非零的负整数：^-[1-9][]0-9″$ 或 ^-[1-9]\d$
-非负整数：^\d&#43;$ 或 ^[1-9]\d*|0$
-非正整数：^-[1-9]\d*|0$ 或 ^((-\d&#43;)|(0&#43;))$
-非负浮点数：^\d&#43;(.\d&#43;)?$ 或 ^[1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0&#43;|0$
-非正浮点数：^((-\d&#43;(.\d&#43;)?)|(0&#43;(.0&#43;)?))$ 或 ^(-([1-9]\d*.\d*|0.\d*[1-9]\d*))|0?.0&#43;|0$
-正浮点数：^[1-9]\d*.\d*|0.\d*[1-9]\d*$ 或 ^(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9]))$
-负浮点数：^-([1-9]\d*.\d*|0.\d*[1-9]\d*)$ 或 ^(-(([0-9]&#43;.[0-9][1-9][0-9])|([0-9][1-9][0-9].[0-9]&#43;)|([0-9][1-9][0-9])))$
-浮点数：^(-?\d&#43;)(.\d&#43;)?$ 或 ^-?([1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0&#43;|0)$
-二、校验字符的表达式
-汉字：^[\u4e00-\u9fa5]{0,}$
-英文和数字：^[A-Za-z0-9]&#43;$ 或 ^[A-Za-z0-9]{4,40}$
-长度为3-20的所有字符：^.{3,20}$
-由26个英文字母组成的字符串：^[A-Za-z]&#43;$
-由26个大写英文字母组成的字符串：^[A-Z]&#43;$
-由26个小写英文字母组成的字符串：^[a-z]&#43;$
-由数字和26个英文字母组成的字符串：^[A-Za-z0-9]&#43;$
-由数字、26个英文字母或者下划线组成的字符串：^\w&#43;$ 或 ^\w{3,20}$
-中文、英文、数字包括下划线：^[\u4E00-\u9FA5A-Za-z0-9_]&#43;$
-中文、英文、数字但不包括下划线等符号：^[\u4E00-\u9FA5A-Za-z0-9]&#43;$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$
-可以输入含有^%&amp;’,;=?$\”等字符：[^%&amp;’,;=?$\x22]&#43;
-禁止输入含有的字符：[^\x22]&#43;
-三、特殊需求表达式
-Email地址：^\w&#43;([-&#43;.]\w&#43;)@\w&#43;([-.]\w&#43;).\w&#43;([-.]\w&#43;)*$
-域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})&#43;/.?
-InternetURL：[a-zA-z]&#43;://[^\s]* 或 ^http://([\w-]&#43;.)&#43;[\w-]&#43;(/[\w-./?%&amp;=]*)?$
-手机号码：^(13[0－9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$
-电话号码(“XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX)：^($$\d{3,4}-)|\d{3.4}-)?\d{7,8}$
-国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7} 身份证号(15位、18位数字)：^\d{15}|\d{18}$
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Read More →</a>
   </footer>
 </article>
 

@@ -207,6 +207,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/bashed-hack-the-box/" class="post-link">Bashed -- hack the box</a></h3>
+    <p class="post-meta">@Neal · Apr 4, 2019 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary">
+Introduction Target: 10.10.10.68 (OS: Linux)
+Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/bashed-hack-the-box/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/nibbles-hack-the-box/" class="post-link">Nibbles - Hack the box</a></h3>
     <p class="post-meta">@Neal · Mar 17, 2019 · 6 min read</p>
   </header>
@@ -383,23 +401,6 @@ Hello, txt1 Your phone is 1 and 1 = 2 union select database(). Click on the link
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/web%E7%8B%97%E4%B9%8Bwriteup--phone/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" class="post-link">利用 python 生成可视化报告</a></h3>
-    <p class="post-meta">@Neal · Aug 16, 2018 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
-模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = { &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
-from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.utils import Markup tpl=DocxTemplate(&#39;test_files/inline_image_tpl.docx&#39;) context = { &#39;myimage&#39; : InlineImage(tpl,&#39;test_files/python_logo.png&#39;,width=Mm(20)), &#39;myimageratio&#39;: InlineImage(tpl, &#39;test_files/python_jpeg.jpg&#39;, width=Mm(30), height=Mm(60)), &#39;frameworks&#39; : [{&#39;image&#39; : InlineImage(tpl,&#39;test_files/django.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;The web framework for perfectionists with deadlines&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/zope.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/pyramid.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/bottle.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/tornado.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Tornado is a Python web framework and asynchronous networking library.&#39;}, ] } # testing that it works also when autoescape has been forced to True jinja_env = jinja2.Environment(autoescape=True) tpl.render(context, jinja_env) tpl.save(&#39;test_files/inline_image.docx&#39;) 同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 test，里面有各种例子可以参考。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/">Read More →</a>
   </footer>
 </article>
 

@@ -207,6 +207,24 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/" class="post-link">聊聊答题应用题库的建立</a></h3>
+    <p class="post-meta">@Neal · Feb 23, 2018 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
+网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr 工具有谷歌开源的 tesseract-ocr以及百度的 ocr API。谷歌的 tesseract-ocr 可以在本地进行安装，软件下载地址是 https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-setup-3.05.01.exe ， 安装的时候注意选择增加中文简体语言包，否则无法识别中文。另外一种方法就是利用百度的 ocr API，可以免费申请，使用起来比较方便，识别率相对来说也更加准确。百度 API 还有一个优点是图片无需处理就可以进行识别，而 tesseract-ocr 一般还需要对图片进行简单的处理。获取题目以及选项的另外一种方式就是使用抓包工具去抓取 APP 请求从而获取题目以及选项信息。
+另一方面，对于题目答案的搜索。常见的几种做法是直接用题目作为搜索关键字打开浏览器，或者是问题加选项搜索，获取搜索引擎搜索的结果数量。通过结果数量来判断问题和选项的相关性从而判断问题的答案，一般来说这种方式获取的答案都是不太准确的，一是因为现在题目的出题方式越来越诡异，二是相关性越大并不一定就意味着是正确答案。本来对于题目和选项的判断就是很难的一件事情，除非你能做出很完美的语意理解，否则很难判断出正确的选项。还有一种比较直白的方式就是建立题库。在本文中，我们讨论一种建立题库的方式，这里只是做一个简单的探索，未必在实际中就能够使用，因为题库必须足够全才能够发挥威力。
+使用 elasticsearch 建立题库 本文主要讲解关于题库的建立方面的很小的一方面进行探索，对于答题辅助的使用可以阅读原文查看完整介绍，代码主要是基于TopSup 做了一些调整。Elasticsearch 将被用于题库的建立，对于 es 的安装可以查看第一篇文章。有人可能会觉得用 es 来做题库，简直就是高射炮打蚊子——小题大做。但我觉得 es 安装和使用都很方便，得益于其强大的 RESTFUL接口，几乎可以用任何工具操控 es。Talk is cheap, show me the code.
+from elasticsearch import Elasticsearch def write_quetion(): question = { &#39;question&#39;: &#39;谁是世界上最帅的人&#39;, &#39;answer&#39;: &#39;Neal&#39; } es = Elasticsearch({&#39;localhost&#39;}) es.index(index=&#39;question-index&#39;, doc_type=&#39;question&#39;, id=1, body=question) 上面是一个简单的像索引中写入一条记录的代码片段，其实 es 可以算是一种非关系型数据库，在 DB-Engines 的最新排名中，es 已经蹿到了第 9 名。Elasticsearch 中的某些概念可以和关系型数据库进行类比：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-link">POI读取文件的最佳实践</a></h3>
     <p class="post-meta">@Neal · Nov 26, 2017 · 5 min read</p>
   </header>
@@ -407,41 +425,6 @@ prepack：前几天，前端圈最火的技术，编译优化，facebook总是�
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/programer/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/" class="post-link">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]</a></h3>
-    <p class="post-meta">@Neal · May 11, 2017 · 5 min read</p>
-  </header>
-  
-  <p class="post-summary">基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1] 原文：基于Vue JS, Webpack 以及Material Design的渐进式web应用 [Part 1]
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-渐进式web应用是大势所趋。越来越多的大公司开始使用这些技术（比如推特：https://mobile.twitter.com/）。
-想象你可以在地铁中浏览一个web应用，这个应用能够向用户推送通知并且提供实时的数据，以及提供类似于app的浏览，这些就是PWA的大致的能力。
-渐进式web应用（PWA）是一个web应用能够提供给用户一种类似于app的体验。PWA得益于现代web科技创新（Service Workers, Native APIS, JS famework）以及提升的web应用质量标准。
-如果你想了解更多关于PWA，请访问这个很棒的Google developer page。
-看一下下面的PWA！看起来很像原生的app，是不是？
-推特渐进式web应用
-从开发者的角度来看，PWA相对于原生应用具有巨大的优点。它基本上就是一个网站，因此：
-你可以选择任何你喜欢的框架来进行开发；
-一段代码搞定一切：它是跨平台的以及跨设备的（代码是通过用户的浏览器执行的）；
-很容易获得：不需要通过应用商店来下载。
-然而，在2017年早期，PWA仍然面临一些限制条件：
-Safari不支持一些基本的PWA特性，比如 Service workers，但是苹果公司似乎已经准备开始着手了；
-一些原生的函数依然没有得到支持：对于更多信息，浏览这个页面What web can do。
-教程目标 本教程的目标是利用VueJS以及Webpack从头创建一个基本的但是完整的渐进式web应用。我们的应用将会满足介绍里面的所有需求：渐进式的，响应式的，连接独立的等等。我想给你一个能够在PWA内完成的目标的总览：流畅的原生式的应用，离线行为，原生特性结构，推送通知。
-为了让事情保持挑战性，我们打算构建一个猫图信息app：CropChat！CropChat用户能够阅读主流的猫的图片，并且能够打开他们了解更多细节以及上传新的猫的图片（首先从互联网，接着是从设备驱动或者照相机）。
-这个教程将会分为几个部分，它们将会连续地进行发布
-[Part 1] Lite基于Vue JS, Webpack 以及Material Design的渐进式web应用
-[Part 2] 基于Vue-Resource以及VueFire将App和远程的API进行连接
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Evue-js-webpack-%E4%BB%A5%E5%8F%8Amaterial-design%E7%9A%84%E6%B8%90%E8%BF%9B%E5%BC%8Fweb%E5%BA%94%E7%94%A8-part-1/">Read More →</a>
   </footer>
 </article>
 

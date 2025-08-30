@@ -219,6 +219,23 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/redirect/" class="post-link">白名单，被谁饶过了？</a></h3>
+    <p class="post-meta">@Neal · Jan 3, 2021 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&lt;String&gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.parseURL 解析出来的 URL 获取的。这个方法是开源仓库 apache/dubbo 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/redirect/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E7%81%AB%E7%9C%BC/" class="post-link">火眼红队工具遭窃</a></h3>
     <p class="post-meta">@Neal · Dec 10, 2020 · 1 min read</p>
   </header>
@@ -412,25 +429,6 @@ cookie 设置为 httponly，无法通过 JS 直接操控 cookie 用户输入的�
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-link">PWK 以及 OSCP 最常见的问题</a></h3>
-    <p class="post-meta">@Neal · Feb 20, 2020 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：
-什么是 PWK 以及 OSCP PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。
-官方还推荐完成 OSCP 后还可以考虑以下课程：
-CTP 中的渗透测试技术以及漏洞利用开发功能， AWAE 中的 Web 应用程序安全技能 WIFU 中的无线安全技能 如何以及在哪参加 PWK PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。
-如何注册 PWK 以及 OSCP 考试 一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。
-前提条件 除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/">Read More →</a>
   </footer>
 </article>
 
