@@ -485,11 +485,9 @@ go version myapp
 </code></pre><p>这与我们的预期又不相同了，既然我们指定了 toolchain 的版本，那么其版本应该是 <code>go1.22.9</code>，为什么最终的编译的产物的版本是基于 <code>1.24.0</code>。这个版本实际上使用的是本地使用的 go 版本。</p>
 <p>看来 toolchain 的版本设置也并没有这么简单。最终 go 编译的版本还取决于 <code>GOTOOLCHAIN</code> 这一环境变量。这一环境变量有 3 种形式：</p>
 <ul>
-<li>
-<!-- raw HTML omitted -->
-</li>
-<li><!-- raw HTML omitted -->+auto</li>
-<li><!-- raw HTML omitted -->+path</li>
+<li>&lt;name&gt;</li>
+<li>&lt;name&gt;+auto</li>
+<li>&lt;name&gt;+path</li>
 </ul>
 <p><code>GOTOOLCHAIN=auto</code> 是 <code>GOTOOLCHAIN=local+auto</code> 的缩写，<code>GOTOOLCHAIN=pth</code> 是 <code>GOTOOLCHAIN=local+path</code> 的简写。实际上当 <code>GOTOLLCHAIN</code> 为 auto 或者 local 的时候，toolchain 都会默认使用本地的 go 版本来进行编译，即 <code>go1.24.0</code>。但是当我们指定 <code>GOTOOLCHAIN</code> 版本的时候：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go env -w GOTOOLCHAIN<span style="color:#f92672">=</span>go1.22.9
