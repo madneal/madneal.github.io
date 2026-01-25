@@ -283,7 +283,7 @@ toolchain go1.21.0  // 却想用 1.21 的旧工具链编译，编译器当场去
 <pre><code>```
 </code></pre>
 <p><strong>核心意义：</strong> <code>toolchain</code> 实现了 <strong>语言版本</strong> 和 <strong>工具版本</strong> 的解耦。你可以用最新的锤子（工具链）去造一把符合旧图纸（<code>go</code> 版本）的椅子，又快又好。但你不能用一把旧锤子去造一把需要新工艺的椅子。</p>
-<p><strong>最佳实践：</strong> 推荐使用“保守的语言版本 + 激进的工具链版本”策略，这在大型项目渐进式升级时特别有用。</p></blockquote>
+<p><strong>最佳实践：</strong> 推荐使用“保守的语言版本 + 激进的 toolchain 版本”策略，这在大型项目渐进式升级时特别有用。</p></blockquote>
 <p>看到没？AI 开始“摇摆”了。它承认了这种不一致是“安全且有益的”。</p>
 <h4 id="ai-的第三次接触当场认错">AI 的“第三次接触”：当场认错</h4>
 <p>我决定乘胜追击，直击要害。</p>
@@ -301,7 +301,7 @@ toolchain go1.21.0  // 却想用 1.21 的旧工具链编译，编译器当场去
 <p>哈哈，看到这里，我基本可以确定我的理解是正确的。AI 虽强，但有时也会像个没经验的实习生，需要你带着它走出思维误区。</p>
 <p><strong>但是！</strong> 光靠“说服”AI 还不够，真正的技术专家，要用代码和事实说话。那个最初的问题依然存在：<strong>项目的 toolchain 版本与容器中的版本不一致，到底有没有问题</strong></p>
 <h2 id="深入探索gotoolchain-才是幕后黑手">深入探索：<code>GOTOOLCHAIN</code> 才是幕后黑手</h2>
-<p>创建一个 sample <a href="https://github.com/madneal/codehub/tree/master/toolchain">项目</a>来进行验证，<code>go.mod</code> 里面的版本声明与之前的保持一致。</p>
+<p>创建一个 sample <a href="https://github.com/madneal/codehub/tree/master/toolchain">项目</a>来进行验证，<code>go.mod</code> 里面的版本声明与之前的项目保持一致。</p>
 <p>执行构建和版本检查命令：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go build -o myapp main.go
 </span></span><span style="display:flex;"><span>go version myapp
@@ -311,7 +311,7 @@ toolchain go1.21.0  // 却想用 1.21 的旧工具链编译，编译器当场去
 <p>经过一番探究，我找到了真正的“幕后黑手”——环境变量 <code>GOTOOLCHAIN</code>。</p>
 <p>这个环境变量决定了 Go 命令到底如何选择 toolchain，它有几种常见的设置：</p>
 <ol>
-<li><code>GOTOOLCHAIN=local</code>：强制使用本地安装的 Go 版本。如果 <code>go version</code> 显示是 <code>1.24.0</code>，那就用 <code>1.24.0</code>，完全无视 <code>go.mod</code> 里的 <code>toolchain</code> 指令。这通常是默认行为。</li>
+<li><code>GOTOOLCHAIN=local</code>：强制使用本地安装的 Go 版本。如果 <code>go version</code> 显示是 <code>1.24.0</code>，那就用 <code>1.24.0</code>，完全无视 <code>go.mod</code> 里的 <code>toolchain</code> 指令。</li>
 <li><code>GOTOOLCHAIN=auto</code>：这是 <code>local+auto</code> 的简写。它会先尝试使用本地版本。但如果 <code>go.mod</code> 要求的 <code>toolchain</code> 版本比本地版本新，它就会<strong>自动下载并使用</strong>指定的版本。</li>
 <li><code>GOTOOLCHAIN=&lt;version&gt;</code>：例如 <code>GOTOOLCHAIN=go1.22.9</code>。这种设置最为霸道，它会强制 Go 命令使用 <code>go1.22.9</code> 版本。如果本地没有，它也会<strong>自动下载</strong>。</li>
 </ol>
@@ -329,6 +329,22 @@ toolchain go1.21.0  // 却想用 1.21 的旧工具链编译，编译器当场去
 <li>如果设为 <code>local</code> (默认)，它会用容器自带的 <code>1.21</code> 版本去编译，此时 <code>toolchain go1.22.9</code> 的声明就会被忽略，但因为 <code>go 1.21.1</code> 的兼容性保证，代码依旧能正确编译。</li>
 <li>如果设为 <code>auto</code> 或 <code>go1.22.9</code>，容器在构建时会尝试下载 <code>go1.22.9</code> 工具链来编译项目。</li>
 </ul>
+<p>如果在 go.mod 里面不指定 toolchain 的版本，结果会不会不一样呢？我们移除 <code>go.mod</code> 中 <code>toolchain</code> 配置，看看 build 的结果如何。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go build -o myapp main.go
+</span></span><span style="display:flex;"><span>goolchain git:<span style="color:#f92672">(</span>master<span style="color:#f92672">)</span> ✗ go version myapp         
+</span></span><span style="display:flex;"><span>myapp: go1.24.0
+</span></span></code></pre></div><p>可以看出，即使不使用 <code>toolchain</code>，go 也会选择本地的版本来进行编译。</p>
+<p>综合来看，Go 的工具链选择逻辑非常清晰：</p>
+<ul>
+<li>go.mod 未声明 toolchain：Go 命令总是使用本地环境的 Go 版本，前提是它必须满足 go 指令的最低版本要求。</li>
+<li>go.mod 声明了 toolchain：
+<ul>
+<li>GOTOOLCHAIN=local：强制使用本地版本，忽略 toolchain 指令。</li>
+<li>GOTOOLCHAIN=auto (默认)：在本地版本和 toolchain 版本中，选择较新的那个。如果 toolchain 版本更新，则自动下载。</li>
+</ul>
+</li>
+</ul>
+<p>可以看出无论是否有 toolchain 声明，本地开发的版本都是与线上的版本不一致。具体的编译版本还需要取决于 <code>GOTOOLCHAIN</code> 环境变量的配置以及本地安装的 go 版本。</p>
 <h4 id="总结拥抱这种不一致">总结：拥抱这种“不一致”</h4>
 <p>好了，绕了一大圈，我们终于可以得出结论了：</p>
 <ol>
@@ -350,7 +366,7 @@ toolchain go1.21.0  // 却想用 1.21 的旧工具链编译，编译器当场去
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>148</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -360,7 +376,7 @@ toolchain go1.21.0  // 却想用 1.21 的旧工具链编译，编译器当场去
     
   </section>
   <footer class="site-footer">
-  <p>© 2015-2025 Neal&#39;s Blog</p>
+  <p>© 2015-2026 Neal&#39;s Blog</p>
 </footer>
 
 

@@ -214,6 +214,26 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/" class="post-link">偶遇 XSS 漏洞</a></h3>
+    <p class="post-meta">@Neal · Aug 22, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。
+最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 ReturnURL 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，RAP。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开发，不过目前这个代码仓库已经不维护了，已经迁移到了 rap2-delos。但是 RAP 的 star 数更多，高达 10000&#43;。可以得知，该项目目前应该还有不少人在使用。
+其实这个漏洞的原理非常简单。其实就是 doLogin 请求会传入一个 ReturnURL，而重定向的页面会直接使用 window.location.href 来直接重定向 URL。使用 window.location.href 其实本来就是一种比较危险的行为，尤其是链接的参数取决于外部输入，更有可能导致 dom 型的 XSS 漏洞。同时，这个漏洞也是一个开放重定向漏洞。不过本文就稍微聊一下这个 XSS 漏洞。开源仓库就是有一个好处，可以直接看代码。下面我们就通过代码来简单解释一下原理。
+简单粗暴地在代码仓库中搜索了一下 window.location.href，发现代码仓库中有多处使用了 window.location.href。不过我们很快就发现了一个有趣的代码，正是重定向页面的代码。
+关键代码就是：window.location.href = decodeURIComponent(&#34;$returnUrl&#34;);。这段代码没有对 returnUrl 做任何的处理，而且这段代码就是直接放在 script 标签中。毫无疑问，这种一定会导致 XSS 漏洞，可以通过构造 returnUrl 来闭合双引号从而导致 XSS 漏洞。比如，&#34;alert(/xss/);//，这段代码就可以导致 XSS 漏洞。
+再看看调用这个页面的地方：
+public String doLogin() { // 增加验证码 Map&lt;String,Object&gt; session = ContextManager.currentSession(); String kaptchaExpected = (String)session.get(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY); if(getKaptcha() == null || !getKaptcha().equals(kaptchaExpected)) { setErrMsg(&#34;验证码错误&#34;); return ERROR; } if (super.getAccountMgr().validate(getAccount(), getPassword())) { User user = getAccountMgr().getUser(getAccount()); if (user != null &amp;&amp; user.getId() &gt; 0) { session.put(ContextManager.KEY_ACCOUNT, user.getAccount()); session.put(ContextManager.KEY_USER_ID, user.getId()); session.put(ContextManager.KEY_NAME, user.getName()); Set&lt;Role&gt; roleList = new HashSet&lt;Role&gt;(); for (Role role : user.getRoleList()) { Role copied = new Role(); copied.setId(role.getId()); copied.setName(role.getName()); roleList.add(copied); } session.put(ContextManager.KEY_ROLE_LIST, roleList); } else { setErrMsg(&#34;用户不存在或密码错误&#34;); return ERROR; } if (getReturnUrl() != null &amp;&amp; !getReturnUrl().trim().equals(&#34;&#34;)) { return &#34;redirect&#34;; } return SUCCESS; } else { setErrMsg(&#34;用户不存在或密码错误&#34;); return ERROR; } } 里面的关键代码就是：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/" class="post-link">后渗透的文件传输</a></h3>
     <p class="post-meta">@Neal · May 16, 2019 · 1 min read</p>
   </header>
@@ -410,7 +430,7 @@ LICENSE: MIT
     
   </section>
   <footer class="site-footer">
-  <p>© 2015-2025 Neal&#39;s Blog</p>
+  <p>© 2015-2026 Neal&#39;s Blog</p>
 </footer>
 
 

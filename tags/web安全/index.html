@@ -214,6 +214,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/burp-ai/" class="post-link">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  </a></h3>
+    <p class="post-meta">@Neal · Jan 17, 2026 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary"> 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI 译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）
+注：本文为客座文章，由渗透测试人员 Julen Garrido Estévez（@b3xal）撰写。
+方法论 关键结果 示例 关键心得 提示词模板 从渗透测试视角看 Burp AI 渗透测试人员 Julen Garrido Estévez（@b3xal）想验证 Burp AI 是否能在日常工作中带来真实价值：它能否加速向量发现、PoC 生成与上下文分析？是否值得消耗 credits？哪种提示词（prompt）写法效果最好？
+在这篇客座文章中，Julen 介绍了他如何系统地回答这些问题，并分享了如何优化提示词以获得更好结果的洞见。
+方法论 我在 Repeater 中使用 Burp AI，对 PortSwigger Web Security Academy 的实验室、刻意有漏洞的的 ginandjuice.shop，以及我自己的环境进行测试，并将每次交互都记录为可复现的测试用例：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/burp-ai/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/gobuster3/" class="post-link">gobuster源码阅读--终篇</a></h3>
     <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
   </header>
@@ -390,23 +411,6 @@ LICENSE: MIT
 </article>
 
       
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/" class="post-link">MyBatis 和 SQL 注入的恩恩怨怨</a></h3>
-    <p class="post-meta">@Neal · Oct 30, 2019 · 4 min read</p>
-  </header>
-  
-  <p class="post-summary">本文首发于安全客平台
-MyBatis 是一种持久层框架，介于 JDBC 和 Hibernate 之间。通过 MyBatis 减少了手写 SQL 语句的痛苦，使用者可以灵活使用 SQL 语句，支持高级映射。但是 MyBatis 的推出不是只是为了安全问题，有很多开发认为使用了 MyBatis 就不会存在 SQL 注入了，真的是这样吗？使用了 MyBatis 就不会有 SQL 注入了吗？答案很明显是 NO。 MyBatis 它只是一种持久层框架，它并不会为你解决安全问题。当然，如果你能够遵循规范，按照框架推荐的方法开发，自然也就避免 SQL 注入问题了。本文就将 MyBatis 和 SQL 注入这些恩恩怨怨掰扯掰扯。（注本文所说的 MyBatis 默认指的是 MyBatis3）
-起源 写本文的起源主要是来源于内网发现的一次 SQL 注入。我们发现内网的一个请求的 keyword 参数存在 SQL 注入，简单地介绍一下需求背景。基本上这个接口就是实现多个字段可以实现 keyword 的模糊查询，这应该是一个比较常见的需求。只不过这里存在多个查询条件。经过一番搜索，我们发现问题的核心处于以下代码：
-public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuilder(); sb.append(&#34;(display_name like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;org like &#39;&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;status like &#39;%&#34; &#43; keyword &#43; &#34;%&#39; or &#34;); sb.append(&#34;id like &#39;&#34; &#43; keyword &#43; &#34;%&#39;) &#34;); addCriterion(sb.toString()); return (Criteria) this; } 很明显，需求是希望实现 diaplay_name, org, status 以及 id 的模糊查询，但开发在这里自己创建了一个 addKeywordTo 方法，通过这个方法创建了一个涉及多个字段的模糊查询条件。有一个有趣的现象，在内网发现的绝大多数 SQL 注入的注入点基本都是模糊查询的地方。可能很多开发往往觉得模糊查询是不是就不会存在 SQL 注入的问题。分析一下这个开发为什么会这么写，在他没有意识到这样的写法存在 SQL 注入问题的时候，这样的写法他可能认为是最省事的，到时直接把查询条件拼进去就可以了。以上代码是问题的核心，我们再看一下对应的 xml 文件：
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/mybaits%E5%92%8Csql%E6%B3%A8%E5%85%A5%E7%9A%84%E6%81%A9%E6%81%A9%E6%80%A8%E6%80%A8/">Read More →</a>
-  </footer>
-</article>
-
-      
     
     
       <footer class="list-footer">
@@ -421,7 +425,7 @@ public Criteria addKeywordTo(String keyword) { StringBuilder sb = new StringBuil
     
   </section>
   <footer class="site-footer">
-  <p>© 2015-2025 Neal&#39;s Blog</p>
+  <p>© 2015-2026 Neal&#39;s Blog</p>
 </footer>
 
 

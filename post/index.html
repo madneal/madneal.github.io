@@ -219,6 +219,27 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/burp-ai/" class="post-link">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  </a></h3>
+    <p class="post-meta">@Neal · Jan 17, 2026 · 3 min read</p>
+  </header>
+  
+  <p class="post-summary"> 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI 译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）
+注：本文为客座文章，由渗透测试人员 Julen Garrido Estévez（@b3xal）撰写。
+方法论 关键结果 示例 关键心得 提示词模板 从渗透测试视角看 Burp AI 渗透测试人员 Julen Garrido Estévez（@b3xal）想验证 Burp AI 是否能在日常工作中带来真实价值：它能否加速向量发现、PoC 生成与上下文分析？是否值得消耗 credits？哪种提示词（prompt）写法效果最好？
+在这篇客座文章中，Julen 介绍了他如何系统地回答这些问题，并分享了如何优化提示词以获得更好结果的洞见。
+方法论 我在 Repeater 中使用 Burp AI，对 PortSwigger Web Security Academy 的实验室、刻意有漏洞的的 ginandjuice.shop，以及我自己的环境进行测试，并将每次交互都记录为可复现的测试用例：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/burp-ai/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/toolchain/" class="post-link">Go 版本不一致？别慌，这是特性！</a></h3>
     <p class="post-meta">@Neal · Aug 30, 2025 · 2 min read</p>
   </header>
@@ -406,23 +427,6 @@ LICENSE: MIT
 </article>
 
       
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/drive/" class="post-link">Google Drive 的信息检索</a></h3>
-    <p class="post-meta">@Neal · Aug 28, 2023 · 3 min read</p>
-  </header>
-  
-  <p class="post-summary">对于使用 Google 全家桶的公司，Google 文档类的信息泄露也时常发生。出现这种情况主要的原因是文档的权限设置问题，用户可能将文档配置为 anyoneCanFind, anyoneWithLink, domainCanFind, domainWithLink，这四种权限都属于比较公开的权限。后两个属于在域内可以查看到文档，一般来说也是不提倡如此设置，尤其是文档中包含敏感信息的。
-Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 Auth 则是第一步。对于 Auth，一般可以通过 OAuth 或者 service account 来进行实现，但是 service account 有一个问题是，默认这个 service acount 并没有赋予这个 servive account 这个域内所有资源的访问权限。必须要将这个文档分享给 service account，它才可以访问。这将会影响到对于 domainCanFind 以及 domainWithLink 的文档的搜索。解决办法是需要 delegate domain-wide authority,相当于是对于这个 service account 进行额外的授权，详细的介绍可以参考这个文档。当然，这个授权需要管理员账号来进行，如果申请比较麻烦的话，还可以通过使用 OAuth 的方式来进行认证，这也是 Google Drive API 文档指引中介绍使用的方式。
-通过 OAuth 来使用 Drive API 也需要三个步骤：
-启用 API 配置 OAuth 应用 生成 Credentials 详细介绍可以参考谷歌的文档介绍，基本上每一步都有详细的介绍。建议可以按照文档的方式来进行操作，OAuth 生成方式会用到一个 credentials.json 文件。如果对 OAuth 流程比较了解的话，应该知道流程中会有一个授权的流程。Go 的官方文档已经提供了一个授权的 demo，通过运行代码可以获取 autorization code，通过 aurhorization code 可以生成 token.json。对于内部应用，生成的 token.json 包含 refresh_token 的话，这个 token 是不会过期的。
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/drive/">Read More →</a>
-  </footer>
-</article>
-
-      
     
     
       <footer class="list-footer">
@@ -437,7 +441,7 @@ Auth 如果要使用 Google Drive 的 API，毫无疑问，Google Workspace 的 
     
   </section>
   <footer class="site-footer">
-  <p>© 2015-2025 Neal&#39;s Blog</p>
+  <p>© 2015-2026 Neal&#39;s Blog</p>
 </footer>
 
 
