@@ -214,6 +214,34 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%98%B6%E6%AE%B5%E6%80%A7%E6%80%BB%E7%BB%93/" class="post-link">博客考古：从漏洞、工具到生活折腾</a></h3>
+    <p class="post-meta">@Neal · Jun 19, 2026 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">前言 最近翻了一下自己的博客，感觉像是在翻一个大型考古现场。
+有些文章现在看还挺有意思，有些文章则属于“当年我为什么会写这个”的系列。早期有不少内容就是学习笔记，甚至有些只是把一个小问题解决了顺手记一下。现在再把这些文章全部端上来，其实没什么意义。毕竟人总不能一直回味自己当年怎么配置环境、怎么写第一个 demo。
+所以这篇文章不打算做一个完整目录。完整目录这种东西博客本身已经有了，再写一遍除了显得勤奋，其实也没啥用。这里更像是笔者给自己做一次“技术路线复盘”：哪些文章代表了一个阶段，哪些东西后来真的影响了我的方向，哪些坑虽然当时痛苦，但现在回头看也挺值。
+简单来说，这篇文章不是“我的全部文章总结”，而是“我觉得还值得拿出来说几句的文章”。
+安全：从看热闹到修系统 安全应该是这个博客后面最主要的内容。最开始写 XSS、CSRF、SSRF 的时候，更多还是在分析一个个具体漏洞。这个参数怎么进来的，为什么能打到页面，为什么这里能绕过，为什么框架没有兜住。那时候写漏洞文章，会有一种解谜的快感。
+但写着写着就会发现，漏洞分析最有意思的地方不是 payload 本身，而是背后的错误假设。开发以为这里不会被外部访问，浏览器以为自己只负责执行规则，框架以为开发者知道自己在干什么，最后大家都觉得自己没问题，问题就出来了。
+比如 XSS 这类问题，很多时候不是“不知道要过滤”这么简单，而是你要理解数据从输入到展示到底经过了多少层。富文本、模板、DOM、编码、浏览器解析，每一层都可能有自己的脾气。SSRF 和开放重定向也类似，它们会不断提醒你：系统边界从来不是你画在架构图上的那条线。
+后来写 MyBatis、GORM、Kibana、Webpack 这些文章，关注点就更偏开发侧了。很多漏洞并不是因为技术多高深，而是大家太相信默认行为了。ORM 很好，框架也很好，但框架不会替你理解业务，也不会替你判断输入是否可信。这个道理听起来简单，真到代码里就不一定了。
+相关文章导航：
+XSS 漏洞知解 123 富文本场景下的 XSS 偶遇 XSS 漏洞 跨站请求伪造（CSRF）攻击 服务端请求伪造（SSRF）攻击 白名单，被谁饶过了？ MyBatis 和 SQL 注入的恩恩怨怨 AI 审代码，靠谱吗？ 让你的SQL盲注快起来 Kibana 任意代码执行漏洞 hey,我能看到你的源码哎 黑产代码解密–利用canvas加载代码 使用浏览器作为代理从公网攻击内网 ChatGPT账户接管 - 通配符网页缓存欺骗 通过 Cookie Tossing 劫持 OAUTH 流程 安全工程：不只是把洞挖出来 只会发现漏洞是不够的。这个道理说起来很简单，但真正做企业安全的时候会特别明显。
+如果一个漏洞提上去之后没人修，或者责任人不准，或者状态没人跟，或者修完没人验证，那这个漏洞和写在本子上的愿望差不多。安全真正麻烦的地方，往往不是技术本身，而是怎么把事情推进下去。
+这也是为什么我后来写了 GShark、安全运营平台、被动扫描器、Burp 插件、Zeek、Qradar、SAST 这些内容。它们看起来不像单个漏洞那么刺激，但更接近实际工作。安全运营平台那篇其实印象挺深，倒不是因为技术多复杂，而是因为需求太碎。各种角色、权限、状态、通知、资产、漏洞、事件，像一堆线头缠在一起。你不把它们一根根捋顺，后面就会一直打结。
+GShark 也是类似。一开始只是想监测 GitHub 敏感信息，后面慢慢就会想到 GitLab、SearchCode、权限、任务、前端体验、误报处理。安全工具做着做着，最后都会变成工程问题。工具能不能长期跑，能不能让别人愿意用，能不能降低处理成本，这些问题比写一个扫描规则更难。
+相关文章导航：
+GShark-监测你的 Github 敏感信息泄露 多平台的敏感信息检测工具-GShark 被动扫描器之插件篇 如何写一个 burp 插件 安全运营平台从0到1 网络安全分析的瑞士军刀–zeek Qradar SIEM–查询利器 AQL SAST 测试中要测量的三个参数 CPE 获取指南 Go 的漏洞管理 考试、靶机和训练 Hack The Box、OSWE、PWK/OSCP、CISSP 这些文章，更像是某个阶段的训练记录。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%98%B6%E6%AE%B5%E6%80%A7%E6%80%BB%E7%BB%93/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://madneal.com/post/burp-ai/" class="post-link">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  </a></h3>
     <p class="post-meta">@Neal · Jan 17, 2026 · 3 min read</p>
   </header>
@@ -385,32 +413,6 @@ AWAE 课程 AWAE(Advanced Web Attacks and Exploitation) 是一门关于应用安
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/oswe/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/" class="post-link">寻找你的第一个漏洞</a></h3>
-    <p class="post-meta">@Neal · Aug 26, 2020 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary">最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
-理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
-@0x1ntegral
-专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1 @Troll_13
-不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
-探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
-永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
-@root4loot
-多读文章
-@shail_official
-读代码，先专注于公开的部分。阅读单元测试。
-坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
-总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
-Reference https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community </p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
 </article>
 
