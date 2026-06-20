@@ -259,7 +259,7 @@ C#和C++不一样。在C#中如果没有标明成员函数或者成员变量的�
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3894</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3895</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -310,13 +310,26 @@ C#和C++不一样。在C#中如果没有标明成员函数或者成员变量的�
 
 <script src="https://madneal.com/scripts/index.min.js"></script>
 
+
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('\/service-worker.js').then(function() {
-      console.log('[ServiceWorker] Registered');
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      registrations.forEach(function(registration) {
+        registration.unregister();
+      });
+    });
+  }
+  if ('caches' in window) {
+    caches.keys().then(function(keys) {
+      keys.forEach(function(key) {
+        if (key.indexOf('hugo-nuo-') === 0) {
+          caches.delete(key);
+        }
+      });
     });
   }
 </script>
+
 
 
 

@@ -343,13 +343,26 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 
 <script src="https://madneal.com/scripts/index.min.js"></script>
 
+
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('\/service-worker.js').then(function() {
-      console.log('[ServiceWorker] Registered');
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      registrations.forEach(function(registration) {
+        registration.unregister();
+      });
+    });
+  }
+  if ('caches' in window) {
+    caches.keys().then(function(keys) {
+      keys.forEach(function(key) {
+        if (key.indexOf('hugo-nuo-') === 0) {
+          caches.delete(key);
+        }
+      });
     });
   }
 </script>
+
 
 
 
