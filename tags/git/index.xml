@@ -1,41 +1,69 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/git/</link>
     <description>Recent content in Git on Neal&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Sun, 12 Nov 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://madneal.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://madneal.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>如何使用 Git 撤消（几乎）任何操作</title>
       <link>https://madneal.com/post/git-undo/</link>
       <pubDate>Sun, 12 Nov 2023 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/git-undo/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;原文：&lt;a href=&#34;https://github.blog/2015-06-08-how-to-undo-almost-anything-with-git/&#34;&gt;How to undo (almost) anything with Git&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;译者：&lt;a href=&#34;https://github.com/madneal&#34;&gt;madneal&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;welcome to star my &lt;a href=&#34;https://github.com/madneal/articles-translator/&#34;&gt;articles-translator&lt;/a&gt;, providing you advanced articles translation. Any suggestion, please issue or contact &lt;a href=&#34;mailto:bing.ecnu@gmail.com&#34;&gt;me&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;LICENSE: &lt;a href=&#34;https://opensource.org/licenses/MIT&#34;&gt;MIT&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://github.blog/wp-content/uploads/2019/03/community-twitter.png?resize=1201%2C630&#34; alt=&#34;&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;任何版本控制系统最有用的功能之一就是能够“撤消”错误。在 Git 中，“撤消”可能意味着许多略有不同的事情。&lt;/p&gt;&#xA;&lt;p&gt;当你进行新的 commit 时，Git 会及时存储你的仓库在该特定时刻的快照；之后，你可以使用 Git 返回到项目的早期版本。&lt;/p&gt;&#xA;&lt;p&gt;在这篇文章中，我将介绍一些你可能想要“撤消”所做更改的常见场景，以及使用 Git 执行此操作的最佳方法。&lt;/p&gt;&#xA;&lt;h2 id=&#34;撤销一个public修改&#34;&gt;撤销一个“public”修改 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e6%92%a4%e9%94%80%e4%b8%80%e4%b8%aapublic%e4%bf%ae%e6%94%b9&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;场景：&lt;/strong&gt; 你刚刚运行了 &lt;code&gt;git push&lt;/code&gt;，将你的修改 push 到 GitHub，现在意识到有一个 commit 有问题。你想把这个 commit 撤销。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;撤销：&lt;/strong&gt; &lt;code&gt;git revert &amp;lt;SHA&amp;gt;&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;结果：&lt;/strong&gt; &lt;code&gt;git revert&lt;/code&gt; 将创建一个与给定 SHA 相反的新 commit。如果旧 commit 是“matter”，则新 commit 是“anti-matter”——旧 commit 中删除的任何内容都将添加到新 commit 中，而旧 commit 中添加的任何内容都将在新 commit 中删除。&lt;/p&gt;</description>
+      <description>原文：How to undo (almost) anything with Git
+译者：madneal
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+ 任何版本控制系统最有用的功能之一就是能够“撤消”错误。在 Git 中，“撤消”可能意味着许多略有不同的事情。
+当你进行新的 commit 时，Git 会及时存储你的仓库在该特定时刻的快照；之后，你可以使用 Git 返回到项目的早期版本。
+在这篇文章中，我将介绍一些你可能想要“撤消”所做更改的常见场景，以及使用 Git 执行此操作的最佳方法。
+撤销一个“public”修改 场景： 你刚刚运行了 git push，将你的修改 push 到 GitHub，现在意识到有一个 commit 有问题。你想把这个 commit 撤销。
+撤销： git revert &amp;lt;SHA&amp;gt;
+结果： git revert 将创建一个与给定 SHA 相反的新 commit。如果旧 commit 是“matter”，则新 commit 是“anti-matter”——旧 commit 中删除的任何内容都将添加到新 commit 中，而旧 commit 中添加的任何内容都将在新 commit 中删除。</description>
     </item>
+    
     <item>
       <title>GitHub 更新了 RSA SSH host key</title>
       <link>https://madneal.com/post/github-rsa/</link>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/github-rsa/</guid>
-      <description>&lt;p&gt;今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据&lt;a href=&#34;https://github.blog/2023-03-23-we-updated-our-rsa-ssh-host-key/&#34;&gt;官方博客&lt;/a&gt;，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。&lt;/p&gt;&#xA;&lt;p&gt;GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。&lt;/p&gt;&#xA;&lt;p&gt;报错信息可能如下：&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&#xA;@ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @&#xA;@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&#xA;IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!&#xA;Someone could be eavesdropping on you right now (man-in-the-middle attack)!&#xA;It is also possible that a host key has just been changed.&#xA;The fingerprint for the RSA key sent by the remote host is&#xA;SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.&#xA;Please contact your system administrator.&#xA;Add correct host key in ~/.ssh/known_hosts to get rid of this message.&#xA;Host key for github.com has changed and you have requested strict checking.&#xA;Host key verification failed.&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以通过下述命令移除老的 key，也可以在 &lt;code&gt;~/.ssh/known_hosts&lt;/code&gt; 文件里面手动删除去更新。&lt;/p&gt;</description>
+      <description>今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
+GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
+报错信息可能如下：
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!</description>
     </item>
+    
     <item>
       <title>只要三步，你就可以在github上发布网站了</title>
       <link>https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/</link>
       <pubDate>Fri, 09 Dec 2016 10:41:39 +0000</pubDate>
+      
       <guid>https://madneal.com/post/%E5%8F%AA%E8%A6%81%E4%B8%89%E6%AD%A5%E4%BD%A0%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8github%E4%B8%8A%E5%8F%91%E5%B8%83%E7%BD%91%E7%AB%99%E4%BA%86/</guid>
-      <description>&lt;p&gt;今天，看到github推送了一个新的消息，&lt;a href=&#34;https://github.com/blog/2289-publishing-with-github-pages-now-as-easy-as-1-2-3&#34;&gt;Publishing with GitHub Pages, now as easy as 1, 2, 3&lt;/a&gt;。总结起来就是在github将你的文档或者发布网页将会变得十分简单。&#xA;三步：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;创建仓库&lt;/li&gt;&#xA;&lt;li&gt;提交markdown文件&lt;/li&gt;&#xA;&lt;li&gt;激活Github pages&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;现在github对于markdown文件真的支持的特别好，比csdn的markdown好多了。老实说，如果不是github在国内的访问速度感人，我早就把我的博客迁移到github上面去了。csdn的博客简直丑到不能忍了。&#xA;反正github的这次更新主要是针对GitHub Pages,这样markodown可以方便快捷的渲染成页面，而且还不会影响你现有的项目或者网站。而且还会给你进行一些默认的配置，对于新手来说，的确是非常友好的。当然了，实在不想用的话，还可以在设置里面禁用掉。更多详细情况，可以去GitHub上面去了解，试试看啊！！！&lt;/p&gt;</description>
+      <description>今天，看到github推送了一个新的消息，Publishing with GitHub Pages, now as easy as 1, 2, 3。总结起来就是在github将你的文档或者发布网页将会变得十分简单。 三步：
+ 创建仓库 提交markdown文件 激活Github pages  现在github对于markdown文件真的支持的特别好，比csdn的markdown好多了。老实说，如果不是github在国内的访问速度感人，我早就把我的博客迁移到github上面去了。csdn的博客简直丑到不能忍了。 反正github的这次更新主要是针对GitHub Pages,这样markodown可以方便快捷的渲染成页面，而且还不会影响你现有的项目或者网站。而且还会给你进行一些默认的配置，对于新手来说，的确是非常友好的。当然了，实在不想用的话，还可以在设置里面禁用掉。更多详细情况，可以去GitHub上面去了解，试试看啊！！！</description>
     </item>
+    
     <item>
       <title>github命令大全</title>
       <link>https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</link>
       <pubDate>Sun, 25 Oct 2015 22:30:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/</guid>
-      <description>&lt;p&gt;github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。&lt;/p&gt;&#xA;&lt;h2 id=&#34;github安装&#34;&gt;github安装 &lt;a class=&#34;heading-anchor&#34; href=&#34;#github%e5%ae%89%e8%a3%85&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。&#xA;windows&#xA;&lt;a href=&#34;https://windows.github.com&#34;&gt;https://windows.github.com&lt;/a&gt;&#xA;mac&#xA;&lt;a href=&#34;https://mac.github.com&#34;&gt;https://mac.github.com&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;配置工具&#34;&gt;配置工具 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e9%85%8d%e7%bd%ae%e5%b7%a5%e5%85%b7&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;对于本地版本配置用户信息&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git config --global user.name &amp;#34;username&amp;#34;&#xA;git config --global user.email &amp;#34;email&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面的分别是设置用户名和邮箱&lt;/p&gt;&#xA;&lt;h2 id=&#34;建立版本库&#34;&gt;建立版本库 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e5%bb%ba%e7%ab%8b%e7%89%88%e6%9c%ac%e5%ba%93&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init project-name&#xA;//create a new local repost with the specified name&#xA;git clone url&#xA;//download a project and its entire version history&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;提交变化版本&#34;&gt;提交变化版本 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e6%8f%90%e4%ba%a4%e5%8f%98%e5%8c%96%e7%89%88%e6%9c%ac&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git status&#xA;// list all new of modified files to be committed&#xA;git diff&#xA;//show file differences not yet staged&#xA;git add file&#xA;//snapshot the file in preparation for versioning&#xA;git diff --staged&#xA;//show file difference between staging and the last file version&#xA;git reset file&#xA;//unstage the file, but preserve its contents&#xA;git commit -m &amp;#34;description message&amp;#34;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;群组版本控制&#34;&gt;群组版本控制 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e7%be%a4%e7%bb%84%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git branch&#xA;//list all local branches in the current respority&#xA;git branch branch-name&#xA;//create a new branch&#xA;git checkout branch-name&#xA;//switch to the specific branch and update the working directory&#xA;git merge branch&#xA;//combine the specified branch&amp;#39;s history into the current branch&#xA;git branch -d branch-name&#xA;//delete the specified branch&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;重构文件名&#34;&gt;重构文件名 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e9%87%8d%e6%9e%84%e6%96%87%e4%bb%b6%e5%90%8d&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git rm [file]&#xA;//delete the file from the working directory and stage the deletion&#xA;git rm --cached [file]&#xA;//remove the file from version control but pressure the file locally&#xA;git mv [file-origin] [file-renamed]&#xA;//change the file name and prepare it for commit&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;排除版本控制&#34;&gt;排除版本控制 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e6%8e%92%e9%99%a4%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;*.log&#xA;build/&#xA;temp-*&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以.log为结尾的文件都不会被进行版本控制&lt;/p&gt;</description>
+      <description>github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。
+github安装 github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。 windows https://windows.github.com mac https://mac.github.com
+配置工具 对于本地版本配置用户信息
+git config --global user.name &amp;quot;username&amp;quot; git config --global user.email &amp;quot;email&amp;quot;  上面的分别是设置用户名和邮箱
+建立版本库 git init project-name //create a new local repost with the specified name git clone url //download a project and its entire version history  提交变化版本 git status // list all new of modified files to be committed git diff //show file differences not yet staged git add file //snapshot the file in preparation for versioning git diff --staged //show file difference between staging and the last file version git reset file //unstage the file, but preserve its contents git commit -m &amp;quot;description message&amp;quot;  群组版本控制 git branch //list all local branches in the current respority git branch branch-name //create a new branch git checkout branch-name //switch to the specific branch and update the working directory git merge branch //combine the specified branch&#39;s history into the current branch git branch -d branch-name //delete the specified branch  重构文件名 git rm [file] //delete the file from the working directory and stage the deletion git rm --cached [file] //remove the file from version control but pressure the file locally git mv [file-origin] [file-renamed] //change the file name and prepare it for commit  排除版本控制 *.</description>
     </item>
+    
   </channel>
 </rss>

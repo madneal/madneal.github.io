@@ -9,158 +9,139 @@
 
   
   
-
-
-
-
-
-
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
 
   
-    
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="javascript的继承模式">
+    <meta name="twitter:description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
   
 
-
-
-
-<meta name="author" content="Neal" />
-<meta name="description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541基本模式var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent" />
-<meta name="generator" content="Hugo 0.145.0" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="javascript的继承模式" />
-<meta property="og:description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541基本模式var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent" />
-<meta property="og:url" content="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" />
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-
-<meta property="article:published_time" content="2015-10-24T14:03:33Z" />
-<meta property="article:modified_time" content="2015-10-24T14:03:33Z" />
-<meta property="article:tag" content="JavaScript" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="javascript的继承模式">
+  <meta property="og:description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541
+基本模式 var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(){ this.name = &#39;child&#39;; } Child.protytype = new Parent(); var parent = new Parent(); var child = new Child(); console.log(parent.getName());//parent console.log(child.getName());//child  这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的protytype 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：
+var Parent = function(name){ this.name = name || &#39;parent&#39;; }; Parent.prototype.getName = function(){ return this.name; }; Parent.prototype.obj = {a:1}; var Child = function(name) { this.">
+  <meta property="og:url" content="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">
+  <meta property="og:image" content="/images/avatar.jpg">
 
 
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@gohugoio" />
-<meta name="twitter:title" content="javascript的继承模式" />
-<meta name="twitter:description" content="在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541基本模式var Parent = function(){ this.name = &#39;parent&#39;; ｝; Parent" />
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta name="generator" content="Hugo 0.55.6">
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "\"javascript的继承模式\"",
-  "description": "\"在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充： http://segmentfault.com/a/1190000000766541基本模式var Parent = function(){ this.name = 'parent'; ｝; Parent\"",
-  "url": "\"https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/\"",
-  "datePublished": "\"2015-10-24T14:03:33Z\"",
-  "dateModified": "\"2015-10-24T14:03:33Z\"",
-  "author": {
-    "@type": "Person",
-    "name": "\"Neal\""
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "\"Neal's Blog\"",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-    }
-  },
-  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-}
-</script>
+<link rel="canonical" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
 
 
-
-<link rel="canonical" href="https://madneal.com/post/javascript%E7%9A%84%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
 
 
 
 
 
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<link rel="dns-prefetch" href="https://www.google-analytics.com/">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
 
 
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
 <style>
-.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
 </style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
 
 
   
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+  
 
 </head>
   <body>
-    
     <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
       
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
         
       
     </div>
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title">Neal&#39;s Blog</h2>
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="icon icon-menu"></span>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
-  <nav id="site-menu" class="site-menu collapsed">
+
+  <nav class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -168,116 +149,60 @@
       
       
         <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://madneal.com/post">Home</a>
-          </li>
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://github.com/madneal">Works</a>
-          </li>
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/tags/">Tags</a>
-          </li>
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
       
     </ul>
   </nav>
-  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
-  <nav id="social-menu" class="social-menu collapsed">
+  <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
-
-      
-      <li class="social-item">
-        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
   </nav>
 </header>
 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">javascript的继承模式</h1>
-      <p class="post-meta">@Neal · <time datetime="2015-10-24">2015-10-24</time> · 约 2 分钟阅读</p>
+      <p class="post-meta">@Neal · Oct 24, 2015 · 2 min read</p>
     </header>
-    
-      <nav class="post-toc" aria-label="文章目录">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#基本模式">基本模式</a></li>
-    <li><a href="#借用构造函数">借用构造函数</a></li>
-    <li><a href="#临时构造函数模式">临时构造函数模式</a></li>
-    <li><a href="#继续讨论">继续讨论</a></li>
-  </ul>
-</nav>
-      </nav>
-    
-    <article class="post-content"><p>在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充：
+    <article class="post-content">
+
+<p>在javascript里面看到javascript的继承模式和传统的继承模式是有区别的，就想查资料看一下到底有区别，就看到了这篇文章，觉得讲得还可以，暂时先放上来，以后有别的东西再补充：
 <a href="http://segmentfault.com/a/1190000000766541">http://segmentfault.com/a/1190000000766541</a></p>
-<h2 id="基本模式">基本模式 <a class="heading-anchor" href="#%e5%9f%ba%e6%9c%ac%e6%a8%a1%e5%bc%8f" aria-label="链接到本节">#</a></h2>
-<pre tabindex="0"><code>var Parent = function(){
-	this.name = &#39;parent&#39;;
+
+<h2 id="基本模式">基本模式</h2>
+
+<pre><code>var Parent = function(){
+	this.name = 'parent';
 ｝;
 Parent.prototype.getName = function(){
 	return this.name;
@@ -285,7 +210,7 @@ Parent.prototype.getName = function(){
 Parent.prototype.obj = {a:1};
 
 var Child = function(){
-	this.name = &#39;child&#39;;
+	this.name = 'child';
 }
 Child.protytype = new Parent();
 
@@ -294,12 +219,14 @@ var child = new Child();
 
 console.log(parent.getName());//parent
 console.log(child.getName());//child
-</code></pre><p>这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的<code>protytype</code>
-<img src="http://img.blog.csdn.net/20151024131631757" alt="这里写图片描述" loading="lazy" decoding="async">
+</code></pre>
 
+<p>这种事最简单实现原型继承的方法，直接把父类的对象复制给子类的构造函数的原型，这样子类的对象就可以访问到父类以及父类构造函数的<code>protytype</code>
+<img src="http://img.blog.csdn.net/20151024131631757" alt="这里写图片描述" />
 这种方法的优点就是实现起来比较简单，不需要任何特殊的操作；同时他的缺点也很明显，如果子类需要做跟父类构造函数中相同的初始化动作，那么就得在子类构造函数中再重复一遍父类中的操作：</p>
-<pre tabindex="0"><code>var Parent = function(name){
-	this.name = name || &#39;parent&#39;;
+
+<pre><code>var Parent = function(name){
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -308,19 +235,23 @@ Parent.prototype.obj = {a:1};
 
 var Child = function(name)
 {
-	this.name = name || &#39;child&#39;;
+	this.name = name || 'child';
 };
 Child.prototype = new Parent();
 
-var parent = new Parent(&#39;myParent&#39;);
-var child = new Child(&#39;myChild&#39;);
+var parent = new Parent('myParent');
+var child = new Child('myChild');
 
 console.log(parent.getName());//myParent
 console.log(child.getName());//myChild
-</code></pre><p>上述还只是初始化<code>name</code>属性，如果初始化工作不断增加，这种方式也不是很方便。</p>
-<h2 id="借用构造函数">借用构造函数 <a class="heading-anchor" href="#%e5%80%9f%e7%94%a8%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" aria-label="链接到本节">#</a></h2>
-<pre tabindex="0"><code>var Parent = function(name){
-	this.name = name || &#39;parent&#39;;
+</code></pre>
+
+<p>上述还只是初始化<code>name</code>属性，如果初始化工作不断增加，这种方式也不是很方便。</p>
+
+<h2 id="借用构造函数">借用构造函数</h2>
+
+<pre><code>var Parent = function(name){
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -332,14 +263,17 @@ var Child = function(name){
 }
 Child.prototype = new Parent();
 
-var parent = new Parent(&#39;myParent&#39;);
-var child = new Child(&#39;myChild&#39;);
+var parent = new Parent('myParent');
+var child = new Child('myChild');
 
 console.log(parent.getNmae());//myParent
 console.log(child.getName());//myChild
-</code></pre><p>上面这种方法在子类构造函数中通过<code>apply</code>调用父类的构造函数进行相同的的初始化工作，这样不管负累做了多少初始化工作，子类可以执行同样的初始化工作。但是上面这种实现方法存在一个问题，父类构造函数被执行了两次，一次是在子类构造函数中，椅子是在赋值子类原型的时候，这是多余的，我们可以做以下改进：</p>
-<pre tabindex="0"><code>var Parent = function(name){
-	this.name = name || &#39;parent&#39;;
+</code></pre>
+
+<p>上面这种方法在子类构造函数中通过<code>apply</code>调用父类的构造函数进行相同的的初始化工作，这样不管负累做了多少初始化工作，子类可以执行同样的初始化工作。但是上面这种实现方法存在一个问题，父类构造函数被执行了两次，一次是在子类构造函数中，椅子是在赋值子类原型的时候，这是多余的，我们可以做以下改进：</p>
+
+<pre><code>var Parent = function(name){
+	this.name = name || 'parent';
 };
 Parent.prototypr.getName = function(){
 	return this.name;
@@ -351,18 +285,22 @@ var Child = function(name){
 ｝；
 Child.protytype = Parent.protytype;
 
-var parent = new Parent(&#39;myParent&#39;)
-var child = new Child(&#39;myChild&#39;);
+var parent = new Parent('myParent')
+var child = new Child('myChild');
 
 console.log(parent.getName());//myParent
 console.log(child.getName());//myChild
-</code></pre><p>这样我们只需要在子类构造函数中执行一次父类的构造函数，同时又可以继承父类原型中的属性，这也比较原型的初衷，就是吧需要复用的内容放在原型中，我们可以继承原型中可复用的内容
-<img src="http://img.blog.csdn.net/20151024140246905" alt="这里写图片描述" loading="lazy" decoding="async">
-</p>
-<h2 id="临时构造函数模式">临时构造函数模式 <a class="heading-anchor" href="#%e4%b8%b4%e6%97%b6%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0%e6%a8%a1%e5%bc%8f" aria-label="链接到本节">#</a></h2>
+</code></pre>
+
+<p>这样我们只需要在子类构造函数中执行一次父类的构造函数，同时又可以继承父类原型中的属性，这也比较原型的初衷，就是吧需要复用的内容放在原型中，我们可以继承原型中可复用的内容
+<img src="http://img.blog.csdn.net/20151024140246905" alt="这里写图片描述" /></p>
+
+<h2 id="临时构造函数模式">临时构造函数模式</h2>
+
 <p>上面借用构造函数模式还是存在问题，它把父类的原型直接赋值给子类的原型，这会造成一个问题，就是如果对子类的原型做了修改，那么这个修改同时也会影响到父类的原型，进而影响父类对象。</p>
-<pre tabindex="0"><code>var Parent = function(name){
-	this.name = name || &#39;parent&#39;;
+
+<pre><code>var Parent = function(name){
+	this.name = name || 'parent';
 }；
 Parent.prototype.getName = function(){
 	return this.name;
@@ -376,16 +314,21 @@ var F = new function(){};
 F.prototype = Parent.prototype;
 Child.prototype = new F();
 
-var parent = new Parent(&#39;myParent&#39;);
-var child = new Child(&#39;myChild&#39;);
+var parent = new Parent('myParent');
+var child = new Child('myChild');
 
 console.log(parent.getName());//myParent
 console.log(child.getName());/myChild
-</code></pre><p>这样做事在子类原型和父类原型之间加入一个临时的构造函数<code>F</code>，切断了子类原型和父类原型之间的联系，这样子类原型的修改就不会影响到父类原型。</p>
-<h2 id="继续讨论">继续讨论 <a class="heading-anchor" href="#%e7%bb%a7%e7%bb%ad%e8%ae%a8%e8%ae%ba" aria-label="链接到本节">#</a></h2>
+</code></pre>
+
+<p>这样做事在子类原型和父类原型之间加入一个临时的构造函数<code>F</code>，切断了子类原型和父类原型之间的联系，这样子类原型的修改就不会影响到父类原型。</p>
+
+<h2 id="继续讨论">继续讨论</h2>
+
 <p>上面可以刻到的我们在Parent的<code>prototype</code>属性中加入一个<code>obj</code>对象字面量属性，但是一直没有使用</p>
-<pre tabindex="0"><code>var Parent = function(name){
-	this.name = name || &#39;parent&#39;;
+
+<pre><code>var Parent = function(name){
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -399,17 +342,20 @@ var F = new function(){};
 F.prototype = Parent.prototype;
 Child.prototype = new F();
 
-var parent = new Parent(&#39;myParent&#39;);
-var child = new Child(&#39;myChild&#39;);
+var parent = new Parent('myParent');
+var child = new Child('myChild');
 
 console.log(child.obj.a);//1
 console.log(parent.obj.a);//1
 child.obj.a = 2;
 console.log(child.obj.a);//2
 console.log(parent.obj.a);//2
-</code></pre><p>在上面这种情况，当我们把<code>child</code>对象<code>obj.a</code>修改的时候，同时父类的原型中的<code>obj.a</code>也会被修改。原因是因为当访问<code>child.obj.a</code>的时候，我们会沿着原型链一直找到父类的<code>prototype</code>中，然后找到了<code>obj</code>属性，然后对<code>obj.a</code>进行修改.</p>
-<pre tabindex="0"><code>var Parent = function(name){
-	this.name = name || &#39;parent&#39;;
+</code></pre>
+
+<p>在上面这种情况，当我们把<code>child</code>对象<code>obj.a</code>修改的时候，同时父类的原型中的<code>obj.a</code>也会被修改。原因是因为当访问<code>child.obj.a</code>的时候，我们会沿着原型链一直找到父类的<code>prototype</code>中，然后找到了<code>obj</code>属性，然后对<code>obj.a</code>进行修改.</p>
+
+<pre><code>var Parent = function(name){
+	this.name = name || 'parent';
 };
 Parent.prototype.getName = function(){
 	return this.name;
@@ -423,24 +369,21 @@ var F = new function(){};
 F.prototype = Parent.prototype;
 Child.prototype = new F();
 
-var parent = new Parent(&#39;myParent&#39;);
-var child = new Child(&#39;myChild&#39;);
+var parent = new Parent('myParent');
+var child = new Child('myChild');
 
 console.log(child.obj.a);//1
 console.log(parent.obj.a);//1
 child.obj.a = 2;
 console.log(child.obj.a);//2
 console.log(parent.obj.a);//2
-</code></pre></article>
+</code></pre>
+</article>
     <footer class="post-footer">
-      <div class="wechat-card">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
-      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/javascript/"><span class="tag">JavaScript</span></a></li>
+          <li><a href="https://madneal.com/tags/javascript"><span class="tag">JavaScript</span></a></li>
         
       </ul>
       
@@ -449,22 +392,78 @@ console.log(parent.obj.a);//2
       </p>
     </footer>
     
-        
-          
-       
+      
     
   </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
 
 
 

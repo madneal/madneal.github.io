@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>剑指offer--字符串</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="C/C&#43;&#43;中每个字符串都以字符&amp;rsquo;\0&amp;rsquo;作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
+int main() { char str1[] = &amp;quot;hello world&amp;quot;; char str2[] = &amp;quot;hello world&amp;quot;; char* str3 = &amp;quot;hello world&amp;quot;; char* str4 = &amp;quot;hello world&amp;quot;; if(str1 == str2) printf(&amp;quot;str1 and str2 are same.\n&amp;quot;); else printf(&amp;quot;str1 and str2 are not same.\n&amp;quot;); if(str3 == str4) printf(&amp;quot;str3 and str4 are same.\n&amp;quot;); else printf(&amp;quot;str3 and str4 are not same.\n&amp;quot;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&amp;rdquo;hello world&amp;rdquo;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&amp;rdquo;hello world&amp;rdquo;在内存中的地址就可以了。由于&amp;rdquo;hello world&amp;rdquo;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
+String str = &amp;quot;hello&amp;quot;; str.ToUpper(); str.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="剑指offer--字符串">
+    <meta name="twitter:description" content="C/C&#43;&#43;中每个字符串都以字符&amp;rsquo;\0&amp;rsquo;作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
+int main() { char str1[] = &amp;quot;hello world&amp;quot;; char str2[] = &amp;quot;hello world&amp;quot;; char* str3 = &amp;quot;hello world&amp;quot;; char* str4 = &amp;quot;hello world&amp;quot;; if(str1 == str2) printf(&amp;quot;str1 and str2 are same.\n&amp;quot;); else printf(&amp;quot;str1 and str2 are not same.\n&amp;quot;); if(str3 == str4) printf(&amp;quot;str3 and str4 are same.\n&amp;quot;); else printf(&amp;quot;str3 and str4 are not same.\n&amp;quot;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&amp;rdquo;hello world&amp;rdquo;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&amp;rdquo;hello world&amp;rdquo;在内存中的地址就可以了。由于&amp;rdquo;hello world&amp;rdquo;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
+String str = &amp;quot;hello&amp;quot;; str.ToUpper(); str.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="剑指offer--字符串">
+  <meta property="og:description" content="C/C&#43;&#43;中每个字符串都以字符&amp;rsquo;\0&amp;rsquo;作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C&#43;&#43;把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
+int main() { char str1[] = &amp;quot;hello world&amp;quot;; char str2[] = &amp;quot;hello world&amp;quot;; char* str3 = &amp;quot;hello world&amp;quot;; char* str4 = &amp;quot;hello world&amp;quot;; if(str1 == str2) printf(&amp;quot;str1 and str2 are same.\n&amp;quot;); else printf(&amp;quot;str1 and str2 are not same.\n&amp;quot;); if(str3 == str4) printf(&amp;quot;str3 and str4 are same.\n&amp;quot;); else printf(&amp;quot;str3 and str4 are not same.\n&amp;quot;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&amp;rdquo;hello world&amp;rdquo;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&amp;rdquo;hello world&amp;rdquo;在内存中的地址就可以了。由于&amp;rdquo;hello world&amp;rdquo;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
+在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
+String str = &amp;quot;hello&amp;quot;; str.ToUpper(); str.">
+  <meta property="og:url" content="https://madneal.com/post/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+  <meta property="og:image" content="/images/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6">
+
+
+<link rel="canonical" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
+
+
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">剑指offer--字符串</h1>
+      <p class="post-meta">@Neal · Nov 14, 2015 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>C/C++中每个字符串都以字符&rsquo;\0&rsquo;作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。
+为了节省内存，C/C++把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。</p>
+
+<pre><code>int main()
+{
+	char str1[] = &quot;hello world&quot;;
+	char str2[] = &quot;hello world&quot;;
+
+	char* str3 = &quot;hello world&quot;;
+	char* str4 = &quot;hello world&quot;;
+
+	if(str1 == str2)
+		printf(&quot;str1 and str2 are same.\n&quot;);
+	else
+		printf(&quot;str1 and str2 are not same.\n&quot;);
+
+	if(str3 == str4)
+		printf(&quot;str3 and str4 are same.\n&quot;);
+	else
+		printf(&quot;str3 and str4 are not same.\n&quot;);
+
+	return 0;
+}
+</code></pre>
+
+<p>str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&rdquo;hello world&rdquo;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。
+str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&rdquo;hello world&rdquo;在内存中的地址就可以了。由于&rdquo;hello world&rdquo;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。</p>
+
+<p>在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。</p>
+
+<pre><code>String str = &quot;hello&quot;;
+str.ToUpper();
+str.Inser(0,&quot;world&quot;);
+</code></pre>
+
+<p>虽然我们对str做了ToUpper和Insert两个操作，但操作的结果都是生一个新的String实例并在返回值中返回，str本身的内容都不会发生改变，因此str最终的内容不变。由此可见，试图多次改变String的内容，改变之后的值只可以通过返回值得到。用String做连续多次修改，每一次修改都会产生一个临时对象，这样开销太大。为此C#定义一个新的与字符串相关的类型StringBuilder，它能容纳修改后的结果。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3870</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </body>
+</html>

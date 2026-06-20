@@ -9,159 +9,142 @@
 
   
   
-
-
-
-
-
-
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
 
   
-    
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
+最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
+这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
+&amp;lt;iframe src=&amp;quot;%s&amp;quot; frameborder=0 width=&amp;quot;1000&amp;quot; height=&amp;quot;600&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;  同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="基于golang实现报告生成技术方案">
+    <meta name="twitter:description" content="最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
+最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
+这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
+&amp;lt;iframe src=&amp;quot;%s&amp;quot; frameborder=0 width=&amp;quot;1000&amp;quot; height=&amp;quot;600&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;  同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。">
+    <meta name="twitter:image" content="/images/avatar.jpg">
   
 
-
-
-
-<meta name="author" content="Neal" />
-<meta name="description" content=" 最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。 最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的 …" />
-<meta name="generator" content="Hugo 0.145.0" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="基于golang实现报告生成技术方案" />
-<meta property="og:description" content=" 最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。 最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的 …" />
-<meta property="og:url" content="https://madneal.com/post/go-report/" />
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-
-<meta property="article:published_time" content="2022-02-23T00:00:00Z" />
-<meta property="article:modified_time" content="2022-02-23T00:00:00Z" />
-<meta property="article:tag" content="Go" />
-<meta property="article:tag" content="数据可视化" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="基于golang实现报告生成技术方案">
+  <meta property="og:description" content="最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
+最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
+这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
+&amp;lt;iframe src=&amp;quot;%s&amp;quot; frameborder=0 width=&amp;quot;1000&amp;quot; height=&amp;quot;600&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;  同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。">
+  <meta property="og:url" content="https://madneal.com/post/go-report/">
+  <meta property="og:image" content="/images/avatar.jpg">
 
 
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@gohugoio" />
-<meta name="twitter:title" content="基于golang实现报告生成技术方案" />
-<meta name="twitter:description" content=" 最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。 最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的 …" />
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta name="generator" content="Hugo 0.55.6">
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "\"基于golang实现报告生成技术方案\"",
-  "description": "\" 最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。 最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的 …\"",
-  "url": "\"https://madneal.com/post/go-report/\"",
-  "datePublished": "\"2022-02-23T00:00:00Z\"",
-  "dateModified": "\"2022-02-23T00:00:00Z\"",
-  "author": {
-    "@type": "Person",
-    "name": "\"Neal\""
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "\"Neal's Blog\"",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-    }
-  },
-  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-}
-</script>
+<link rel="canonical" href="https://madneal.com/post/go-report/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
 
 
-
-<link rel="canonical" href="https://madneal.com/post/go-report/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta content="golang, 数据可视化, word, go-echarts" name="keywords">
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
 
 
 
 
 
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<link rel="dns-prefetch" href="https://www.google-analytics.com/">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
 
 
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
 <style>
-.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
 </style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
 
 
   
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+  
 
 </head>
   <body>
-    
     <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
       
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
         
       
     </div>
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title">Neal&#39;s Blog</h2>
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="icon icon-menu"></span>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
-  <nav id="site-menu" class="site-menu collapsed">
+
+  <nav class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -169,131 +152,94 @@
       
       
         <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://madneal.com/post">Home</a>
-          </li>
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://github.com/madneal">Works</a>
-          </li>
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/tags/">Tags</a>
-          </li>
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
       
     </ul>
   </nav>
-  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
-  <nav id="social-menu" class="social-menu collapsed">
+  <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
-
-      
-      <li class="social-item">
-        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
   </nav>
 </header>
 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">基于golang实现报告生成技术方案</h1>
-      <p class="post-meta">@Neal · <time datetime="2022-02-23">2022-02-23</time> · 约 1 分钟阅读</p>
+      <p class="post-meta">@Neal · Feb 23, 2022 · 1 min read</p>
     </header>
-    
     <article class="post-content"><p>最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。</p>
+
 <p>最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。</p>
+
 <p>这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 <a href="https://github.com/wcharczuk/go-chart">go-chart</a> 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。<a href="https://github.com/go-echarts/go-echarts">go-echarts</a> 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。</p>
-<pre tabindex="0"><code>&lt;iframe  src=&#34;%s&#34;  frameborder=0 width=&#34;1000&#34; height=&#34;600&#34;&gt;&lt;/iframe&gt;
-</code></pre><p>同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 <a href="https://github.com/go-echarts/examples">examples</a> 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</p>
-<pre tabindex="0"><code>bar.SetGlobalOptions(
+
+<pre><code>&lt;iframe  src=&quot;%s&quot;  frameborder=0 width=&quot;1000&quot; height=&quot;600&quot;&gt;&lt;/iframe&gt;
+</code></pre>
+
+<p>同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 <a href="https://github.com/go-echarts/examples">examples</a> 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</p>
+
+<pre><code>bar.SetGlobalOptions(
     charts.WithXAxisOpts(opts.XAxis{
         AxisLabel: &amp;opts.AxisLabel{Show: true, Rotate: 45},
     }),
 )
-</code></pre><p>不过后面还是发现了问题，就是 x 坐标轴的 label 好像总是缺失了几个，后来把 <code>opts.AxisLabel</code> 中的属性全部试了一遍，后来发现是 <code>ShowMaxLabel</code> 和 <code>ShowMinLabel</code> 这两个配置项默认是 false，这样导致第一个和最后一个 label 没有进行展示，其实这一块的逻辑是不太合理的。</p>
-<pre tabindex="0"><code>bar.SetGlobalOptions(
+</code></pre>
+
+<p>不过后面还是发现了问题，就是 x 坐标轴的 label 好像总是缺失了几个，后来把 <code>opts.AxisLabel</code> 中的属性全部试了一遍，后来发现是 <code>ShowMaxLabel</code> 和 <code>ShowMinLabel</code> 这两个配置项默认是 false，这样导致第一个和最后一个 label 没有进行展示，其实这一块的逻辑是不太合理的。</p>
+
+<pre><code>bar.SetGlobalOptions(
     charts.WithXAxisOpts(opts.XAxis{
         AxisLabel: &amp;opts.AxisLabel{Show: true, Rotate: 45, ShowMaxLabel: true, ShowMinLabel: true},
     }),
 )
-</code></pre><p>最后一个坑也就是数据的汇总了，其实也算不上是坑了，只不过是需要弄一弄 sql 语句。挑一个最常见的需求来说，比如需要汇总近一年内每个月的高中低危漏洞数量的变化。如果想到的最粗暴的实现就是计算每个月的开始时间和结束时间，然后通过12条语句来统计每个月的数据汇总。毫无疑问这种方案就不优雅，也耗费更多的资源。其实通过获取数据的月份做 group by，这样一条语句就可以实现了，由于近一年可能会涉及到往年的数据，所以把年份也加进去 <code>group by</code>。同时为了数据能够按照月份进行排序，还是将月份转化为时间来进行排序，如果仅仅通过字符串排序还是有问题。</p>
-<pre tabindex="0"><code>select count(1) as c, str_to_date(concat(year(created_at),&#39;-&#39;,month(created_at), &#39;-&#39;,&#39;1&#39;), &#39;%Y-%m-%d&#39;) as month from vuln_table group by month order by month desc
-</code></pre><p>不过上述方案还是存在一个问题，就是部门月份没有数据，这样导致数据缺失。后来想到的方案，就是先获取时间，然后将月份进行比对，对于缺失的月份进行补零处理。</p>
+</code></pre>
+
+<p>最后一个坑也就是数据的汇总了，其实也算不上是坑了，只不过是需要弄一弄 sql 语句。挑一个最常见的需求来说，比如需要汇总近一年内每个月的高中低危漏洞数量的变化。如果想到的最粗暴的实现就是计算每个月的开始时间和结束时间，然后通过12条语句来统计每个月的数据汇总。毫无疑问这种方案就不优雅，也耗费更多的资源。其实通过获取数据的月份做 group by，这样一条语句就可以实现了，由于近一年可能会涉及到往年的数据，所以把年份也加进去 <code>group by</code>。同时为了数据能够按照月份进行排序，还是将月份转化为时间来进行排序，如果仅仅通过字符串排序还是有问题。</p>
+
+<pre><code>select count(1) as c, str_to_date(concat(year(created_at),'-',month(created_at), '-','1'), '%Y-%m-%d') as month from vuln_table group by month order by month desc
+</code></pre>
+
+<p>不过上述方案还是存在一个问题，就是部门月份没有数据，这样导致数据缺失。后来想到的方案，就是先获取时间，然后将月份进行比对，对于缺失的月份进行补零处理。</p>
+
 <p>以上，就是这次需求遇到的实现问题以及想到的解决方案了。</p>
 </article>
     <footer class="post-footer">
-      <div class="wechat-card">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
-      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/go/"><span class="tag">Go</span></a></li>
+          <li><a href="https://madneal.com/tags/go"><span class="tag">Go</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"><span class="tag">数据可视化</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">数据可视化</span></a></li>
         
       </ul>
       
@@ -302,22 +248,78 @@
       </p>
     </footer>
     
-        
-          
-       
+      
     
   </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
 
 
 

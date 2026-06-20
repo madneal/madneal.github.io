@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>道路模型--linear-parabolic model</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&amp;rdquo;,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。 好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示： 这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下： 这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出 因为在xm两边的函数值是相等的，并且导数也是相等的。 从而我们就能得到下面的公式： 这样我们可以把c和e用别的变量来表达 因此我们可以把最终的道路模型参数用下面的函数来表达 这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。 Reference Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="道路模型--linear-parabolic model">
+    <meta name="twitter:description" content="读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&amp;rdquo;,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。 好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示： 这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下： 这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出 因为在xm两边的函数值是相等的，并且导数也是相等的。 从而我们就能得到下面的公式： 这样我们可以把c和e用别的变量来表达 因此我们可以把最终的道路模型参数用下面的函数来表达 这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。 Reference Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="道路模型--linear-parabolic model">
+  <meta property="og:description" content="读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&amp;rdquo;,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。 好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示： 这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下： 这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出 因为在xm两边的函数值是相等的，并且导数也是相等的。 从而我们就能得到下面的公式： 这样我们可以把c和e用别的变量来表达 因此我们可以把最终的道路模型参数用下面的函数来表达 这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。 Reference Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.">
+  <meta property="og:url" content="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B-linear-parabolic-model/">
+  <meta property="og:image" content="/images/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6">
+
+
+<link rel="canonical" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B-linear-parabolic-model/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
+
+
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">道路模型--linear-parabolic model</h1>
+      <p class="post-meta">@Neal · May 18, 2015 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&rdquo;,我实在无法理解他的建模，还有他的建模参数到底如何求解：
+<img src="http://img.blog.csdn.net/20150518190431697" alt="这里写图片描述" />
+我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。
+好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示：
+<img src="http://img.blog.csdn.net/20150518190804313" alt="这里写图片描述" />
+这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下：
+<img src="http://img.blog.csdn.net/20150518191415641" alt="这里写图片描述" />
+这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出
+<img src="http://img.blog.csdn.net/20150518191648626" alt="这里写图片描述" />
+因为在xm两边的函数值是相等的，并且导数也是相等的。
+从而我们就能得到下面的公式：
+<img src="http://img.blog.csdn.net/20150518191843692" alt="这里写图片描述" />
+这样我们可以把c和e用别的变量来表达
+<img src="http://img.blog.csdn.net/20150518192033598" alt="这里写图片描述" />
+因此我们可以把最终的道路模型参数用下面的函数来表达
+<img src="http://img.blog.csdn.net/20150518192128183" alt="这里写图片描述" />
+这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。
+Reference
+Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4050</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </body>
+</html>

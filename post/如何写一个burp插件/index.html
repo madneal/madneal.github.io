@@ -9,161 +9,148 @@
 
   
   
-
-
-
-
-
-
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
 
   
-    
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
+如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
+ 配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &amp;ldquo;Edit Configurations&amp;rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
+ 命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="如何写一个 burp 插件">
+    <meta name="twitter:description" content="Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
+如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
+ 配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &amp;ldquo;Edit Configurations&amp;rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
+ 命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：">
+    <meta name="twitter:image" content="/images/avatar.jpg">
   
 
-
-
-
-<meta name="author" content="Neal" />
-<meta name="description" content="开发 Burp 插件，并学会如何调试" />
-<meta name="generator" content="Hugo 0.145.0" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="如何写一个 burp 插件" />
-<meta property="og:description" content="开发 Burp 插件，并学会如何调试" />
-<meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" />
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-
-<meta property="article:published_time" content="2019-08-31T00:00:00Z" />
-<meta property="article:modified_time" content="2019-08-31T00:00:00Z" />
-<meta property="article:tag" content="安全" />
-<meta property="article:tag" content="Web安全" />
-<meta property="article:tag" content="安全开发" />
-<meta property="article:tag" content="Burp" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="如何写一个 burp 插件">
+  <meta property="og:description" content="Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。
+如何调试 其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。
+ 配置 DEBUG  首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &amp;ldquo;Edit Configurations&amp;rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。
+ 命令行启动 Burp  为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar   部署 jar 包，打断点  可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。
+Burp 开发 老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：">
+  <meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/">
+  <meta property="og:image" content="/images/avatar.jpg">
 
 
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@gohugoio" />
-<meta name="twitter:title" content="如何写一个 burp 插件" />
-<meta name="twitter:description" content="开发 Burp 插件，并学会如何调试" />
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta name="generator" content="Hugo 0.55.6">
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "\"如何写一个 burp 插件\"",
-  "description": "\"开发 Burp 插件，并学会如何调试\"",
-  "url": "\"https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/\"",
-  "datePublished": "\"2019-08-31T00:00:00Z\"",
-  "dateModified": "\"2019-08-31T00:00:00Z\"",
-  "author": {
-    "@type": "Person",
-    "name": "\"Neal\""
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "\"Neal's Blog\"",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-    }
-  },
-  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-}
-</script>
+<link rel="canonical" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
 
 
-
-<link rel="canonical" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAburp%E6%8F%92%E4%BB%B6/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta content="Burp, Burp 插件, web安全, IDEA" name="keywords">
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
 
 
 
 
 
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<link rel="dns-prefetch" href="https://www.google-analytics.com/">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
 
 
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
 <style>
-.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
 </style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
 
 
   
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+  
 
 </head>
   <body>
-    
     <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
       
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
         
       
     </div>
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title">Neal&#39;s Blog</h2>
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="icon icon-menu"></span>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
-  <nav id="site-menu" class="site-menu collapsed">
+
+  <nav class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -171,175 +158,130 @@
       
       
         <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://madneal.com/post">Home</a>
-          </li>
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://github.com/madneal">Works</a>
-          </li>
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/tags/">Tags</a>
-          </li>
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
       
     </ul>
   </nav>
-  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
-  <nav id="social-menu" class="social-menu collapsed">
+  <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
-
-      
-      <li class="social-item">
-        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
   </nav>
 </header>
 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">如何写一个 burp 插件</h1>
-      <p class="post-meta">@Neal · <time datetime="2019-08-31">2019-08-31</time> · 约 1 分钟阅读</p>
+      <p class="post-meta">@Neal · Aug 31, 2019 · 1 min read</p>
     </header>
-    
-      <nav class="post-toc" aria-label="文章目录">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#如何调试">如何调试</a></li>
-    <li><a href="#burp-开发">Burp 开发</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav>
-      </nav>
-    
-    <article class="post-content"><p>Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。</p>
-<h2 id="如何调试">如何调试 <a class="heading-anchor" href="#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95" aria-label="链接到本节">#</a></h2>
+    <article class="post-content">
+
+<p>Burp 是 web安全测试中不可或缺的神器。每一个师傅的电脑里面应该都有一个 Burp。同时 Burp 和很多其他神器一样，它也支持插件。但是目前总体来说网上 Burp 插件开发的资料不是特别特别的丰富。今天我也来讲讲自己如何从一个完全不会 Burp 插件开发的小白如何学习 Burp 插件的开发。</p>
+
+<h2 id="如何调试">如何调试</h2>
+
 <p>其实开发一样东西，调试真的特别重要。如果没有调试，那就和瞎子摸象差不多，非常的难顶。尤其是在 Burp 插件的开发过程中，如果你不可以调试，那你就必须把 jar 包打包出来，再安装，然后通过 output 来打印调试，这样的确非常地痛苦。后来在网上找了一些资料，一开始没太明白，后来研究发现原来调试配置这么简单。这么我们以宇宙 JAVA 开发神器 IDEA 为例。</p>
+
 <ol>
 <li>配置 DEBUG</li>
 </ol>
+
 <p>首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &ldquo;Edit Configurations&rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。</p>
-<p><img src="https://s2.ax1x.com/2019/08/31/mxiIde.png" alt="mxiIde.png" loading="lazy" decoding="async">
-</p>
-<ol start="2">
+
+<p><img src="https://s2.ax1x.com/2019/08/31/mxiIde.png" alt="mxiIde.png" /></p>
+
+<ol>
 <li>命令行启动 Burp</li>
 </ol>
+
 <p>为了配合调试，需要在命令行中使用刚才新建 DEBUG 配置的参数来启动 Burp。</p>
-<pre tabindex="0"><code>java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar
-</code></pre><ol start="3">
+
+<pre><code>java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar burpsuite_community_v2.1.02.jar
+</code></pre>
+
+<ol>
 <li>部署 jar 包，打断点</li>
 </ol>
+
 <p>可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。</p>
-<p><img src="https://s2.ax1x.com/2019/09/01/nSZGi8.png" alt="nSZGi8.png" loading="lazy" decoding="async">
-</p>
-<h2 id="burp-开发">Burp 开发 <a class="heading-anchor" href="#burp-%e5%bc%80%e5%8f%91" aria-label="链接到本节">#</a></h2>
+
+<p><img src="https://s2.ax1x.com/2019/09/01/nSZGi8.png" alt="nSZGi8.png" /></p>
+
+<h2 id="burp-开发">Burp 开发</h2>
+
 <p>老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</p>
+
 <ul>
 <li>所有 Burp 插件都必须实现 IBurpExtender 接口</li>
 <li>实现的类必须叫做 BurpExtender</li>
 <li>必须要重写 registerExtenderCallbacks 方法</li>
 </ul>
+
 <p>后续如果需要调用启用其它接口的方法，那么也需要在 BurpExtender 中实现相应的接口。讲一个例子，比如要对 Proxy 进行相关的操作。</p>
+
 <p>首先，需要在 BurpExtender 中实现 IProxyListener 接口，接下来就需要实现 processProxyMessage 方法。在 processProxyMessage 方法中，就可以对发送的请求以及相应进行处理。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">processProxyMessage</span>(<span style="color:#66d9ef">boolean</span> messageIsRequest, <span style="color:#66d9ef">final</span> IInterceptedProxyMessage iInterceptedProxyMessage)
-</span></span></code></pre></div><p>下面再讲一个例子，获取请求中的请求头：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">getHeaders</span>(IHttpRequestResponse messageInfo) {
-</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;&gt;</span> headers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>        IRequestInfo analyzeRequest <span style="color:#f92672">=</span> helpers.<span style="color:#a6e22e">analyzeRequest</span>(messageInfo);
-</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> h <span style="color:#f92672">=</span> analyzeRequest.<span style="color:#a6e22e">getHeaders</span>();
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (String h1: h) {
-</span></span><span style="display:flex;"><span>            Map<span style="color:#f92672">&lt;</span>String, String<span style="color:#f92672">&gt;</span> hMap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (h1.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;GET&#34;</span>) <span style="color:#f92672">||</span> h1.<span style="color:#a6e22e">startsWith</span>(<span style="color:#e6db74">&#34;POST&#34;</span>)) {
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>;
-</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>                String<span style="color:#f92672">[]</span> header <span style="color:#f92672">=</span> h1.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#34;:&#34;</span>, <span style="color:#f92672">-</span>1);
-</span></span><span style="display:flex;"><span>                hMap.<span style="color:#a6e22e">put</span>(header<span style="color:#f92672">[</span>0<span style="color:#f92672">]</span>, header<span style="color:#f92672">[</span>1<span style="color:#f92672">]</span>);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            headers.<span style="color:#a6e22e">add</span>(hMap);
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> headers;
-</span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><h2 id="总结">总结 <a class="heading-anchor" href="#%e6%80%bb%e7%bb%93" aria-label="链接到本节">#</a></h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">processProxyMessage</span><span style="color:#f92672">(</span><span style="color:#66d9ef">boolean</span> messageIsRequest<span style="color:#f92672">,</span> <span style="color:#66d9ef">final</span> IInterceptedProxyMessage iInterceptedProxyMessage<span style="color:#f92672">)</span></code></pre></div>
+<p>下面再讲一个例子，获取请求中的请求头：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#66d9ef">public</span> List<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">getHeaders</span><span style="color:#f92672">(</span>IHttpRequestResponse messageInfo<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        List<span style="color:#f92672">&lt;</span>Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;&gt;</span> headers <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        IRequestInfo analyzeRequest <span style="color:#f92672">=</span> helpers<span style="color:#f92672">.</span><span style="color:#a6e22e">analyzeRequest</span><span style="color:#f92672">(</span>messageInfo<span style="color:#f92672">);</span>
+        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> h <span style="color:#f92672">=</span> analyzeRequest<span style="color:#f92672">.</span><span style="color:#a6e22e">getHeaders</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String h1: h<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> String<span style="color:#f92672">&gt;</span> hMap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>h1<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;GET&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> h1<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;POST&#34;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">continue</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+                String<span style="color:#f92672">[]</span> header <span style="color:#f92672">=</span> h1<span style="color:#f92672">.</span><span style="color:#a6e22e">split</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;:&#34;</span><span style="color:#f92672">,</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">);</span>
+                hMap<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>header<span style="color:#f92672">[</span>0<span style="color:#f92672">],</span> header<span style="color:#f92672">[</span>1<span style="color:#f92672">]);</span>
+            <span style="color:#f92672">}</span>
+            headers<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>hMap<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> headers<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span></code></pre></div>
+<h2 id="总结">总结</h2>
+
 <p>其实总的来说 Burp 插件开发并不特别困难，只要当一个合格的 API 调用者就可以了。网上目前也有很多开源的 Burp 插件代码，其实你可以找一个感兴趣的 Burp 插件代码看一下，你就可以快速地了解这些 API 的作用。其实 Burp 的 Extender 中的 APIs 就已经列出了所有可用的 API 接口。</p>
 </article>
     <footer class="post-footer">
-      <div class="wechat-card">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
-      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/"><span class="tag">Web安全</span></a></li>
+          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8"><span class="tag">Web安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91/"><span class="tag">安全开发</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91"><span class="tag">安全开发</span></a></li>
         
-          <li><a href="https://madneal.com/tags/burp/"><span class="tag">Burp</span></a></li>
+          <li><a href="https://madneal.com/tags/burp"><span class="tag">Burp</span></a></li>
         
       </ul>
       
@@ -348,22 +290,78 @@
       </p>
     </footer>
     
-        
-          
-       
+      
     
   </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
 
 
 

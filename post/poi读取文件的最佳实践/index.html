@@ -9,158 +9,139 @@
 
   
   
-
-
-
-
-
-
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
 
   
-    
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="POI读取文件的最佳实践">
+    <meta name="twitter:description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
   
 
-
-
-
-<meta name="author" content="Neal" />
-<meta name="description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：word 篇对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或" />
-<meta name="generator" content="Hugo 0.145.0" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="POI读取文件的最佳实践" />
-<meta property="og:description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：word 篇对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或" />
-<meta property="og:url" content="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" />
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-
-<meta property="article:published_time" content="2017-11-26T16:29:33Z" />
-<meta property="article:modified_time" content="2017-11-26T16:29:33Z" />
-<meta property="article:tag" content="学习笔记" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="POI读取文件的最佳实践">
+  <meta property="og:description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：
+word 篇 对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：
+ private static String readDoc(String filePath, InputStream is) { String text= &amp;quot;&amp;quot;; try { if (filePath.endsWith(&amp;quot;doc&amp;quot;)) { WordExtractor ex = new WordExtractor(is); text = ex.getText(); ex.close(); is.close(); } else if(filePath.endsWith(&amp;quot;docx&amp;quot;)) { XWPFDocument doc = new XWPFDocument(is); XWPFWordExtractor extractor = new XWPFWordExtractor(doc); text = extractor.getText(); extractor.close(); is.close(); } } catch (Exception e) { logger.">
+  <meta property="og:url" content="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+  <meta property="og:image" content="/images/avatar.jpg">
 
 
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@gohugoio" />
-<meta name="twitter:title" content="POI读取文件的最佳实践" />
-<meta name="twitter:description" content="POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：word 篇对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或" />
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta name="generator" content="Hugo 0.55.6">
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "\"POI读取文件的最佳实践\"",
-  "description": "\"POI是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：word 篇对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或\"",
-  "url": "\"https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/\"",
-  "datePublished": "\"2017-11-26T16:29:33Z\"",
-  "dateModified": "\"2017-11-26T16:29:33Z\"",
-  "author": {
-    "@type": "Person",
-    "name": "\"Neal\""
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "\"Neal's Blog\"",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-    }
-  },
-  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-}
-</script>
+<link rel="canonical" href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
 
 
-
-<link rel="canonical" href="https://madneal.com/post/poi%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta content="java, POI, EXCEL, 文档读取" name="keywords">
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
 
 
 
 
 
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<link rel="dns-prefetch" href="https://www.google-analytics.com/">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
 
 
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
 <style>
-.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
 </style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
 
 
   
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+  
 
 </head>
   <body>
-    
     <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
       
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
         
       
     </div>
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title">Neal&#39;s Blog</h2>
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="icon icon-menu"></span>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
-  <nav id="site-menu" class="site-menu collapsed">
+
+  <nav class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -168,121 +149,68 @@
       
       
         <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://madneal.com/post">Home</a>
-          </li>
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://github.com/madneal">Works</a>
-          </li>
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/tags/">Tags</a>
-          </li>
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
       
     </ul>
   </nav>
-  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
-  <nav id="social-menu" class="social-menu collapsed">
+  <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
-
-      
-      <li class="social-item">
-        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
   </nav>
 </header>
 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">POI读取文件的最佳实践</h1>
-      <p class="post-meta">@Neal · <time datetime="2017-11-26">2017-11-26</time> · 约 5 分钟阅读</p>
+      <p class="post-meta">@Neal · Nov 26, 2017 · 5 min read</p>
     </header>
-    
-      <nav class="post-toc" aria-label="文章目录">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#word-篇">word 篇</a></li>
-    <li><a href="#excel-篇">excel 篇</a></li>
-  </ul>
-</nav>
-      </nav>
-    
-    <article class="post-content"><p><a href="https://poi.apache.org/">POI</a>是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：</p>
-<h2 id="word-篇">word 篇 <a class="heading-anchor" href="#word-%e7%af%87" aria-label="链接到本节">#</a></h2>
+    <article class="post-content">
+
+<p><a href="https://poi.apache.org/">POI</a>是 Apache 旗下一款读写微软家文档声名显赫的类库。应该很多人在做报表的导出，或者创建 word 文档以及读取之类的都是用过 POI。POI 也的确对于这些操作带来很大的便利性。我最近做的一个工具就是读取计算机中的 word 以及 excel 文件。下面我就两方面讲解以下遇到的一些坑：</p>
+
+<h2 id="word-篇">word 篇</h2>
+
 <p>对于 word 文件，我需要的就是提取文件中正文的文字。所以可以创建一个方法来读取 doc 或者 docx 文件：</p>
-<pre tabindex="0"><code>    private static String readDoc(String filePath, InputStream is) {
-        String text= &#34;&#34;;
+
+<pre><code>    private static String readDoc(String filePath, InputStream is) {
+        String text= &quot;&quot;;
         try {
-            if (filePath.endsWith(&#34;doc&#34;)) {
+            if (filePath.endsWith(&quot;doc&quot;)) {
                 WordExtractor ex = new WordExtractor(is);
                 text = ex.getText();
                 ex.close();
                 is.close();
-            } else if(filePath.endsWith(&#34;docx&#34;)) {
+            } else if(filePath.endsWith(&quot;docx&quot;)) {
                 XWPFDocument doc = new XWPFDocument(is);
                 XWPFWordExtractor extractor = new XWPFWordExtractor(doc);
                 text = extractor.getText();
@@ -298,18 +226,30 @@
         }
         return text;
     }
-</code></pre><p>理论上来说，这段代码应该对于读取大多数 doc 或者 docx 文件都是有效的。但是!!!!我发现了一个奇怪的问题，就是我的代码在读取某些 doc 文件的时候，经常会给出这样的一个异常：</p>
-<pre tabindex="0"><code>org.apache.poi.poifs.filesystem.OfficeXmlFileException: The supplied data appears to be in the Office 2007+ XML. You are calling the part of POI that deals with OLE2 Office Documents.
-</code></pre><p>这个异常的意思是什么呢，通俗的来讲，就是你打开的文件并不是一个 doc 文件，你应该使用读取 docx 的方法去读取。但是我们明明打开的就是一个后缀是 doc 的文件啊！</p>
+</code></pre>
+
+<p>理论上来说，这段代码应该对于读取大多数 doc 或者 docx 文件都是有效的。但是!!!!我发现了一个奇怪的问题，就是我的代码在读取某些 doc 文件的时候，经常会给出这样的一个异常：</p>
+
+<pre><code>org.apache.poi.poifs.filesystem.OfficeXmlFileException: The supplied data appears to be in the Office 2007+ XML. You are calling the part of POI that deals with OLE2 Office Documents.
+</code></pre>
+
+<p>这个异常的意思是什么呢，通俗的来讲，就是你打开的文件并不是一个 doc 文件，你应该使用读取 docx 的方法去读取。但是我们明明打开的就是一个后缀是 doc 的文件啊！</p>
+
 <p>其实 doc 和 docx 的本质不同的，doc 是 OLE2 类型，而 docx 而是 OOXML 类型。如果你用压缩文件打开一个 docx 文件，你会发现一些文件夹：
-<img src="http://img.blog.csdn.net/20171126163057697?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" loading="lazy" decoding="async">
-</p>
+<img src="http://img.blog.csdn.net/20171126163057697?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" /></p>
+
 <p>本质上 docx 文件就是一个 zip 文件，里面包含了一些 xml 文件。所以，一些 docx 文件虽然大小不大，但是其内部的 xml 文件确实比较大的，这也是为什么在读取某些看起来不是很大的 docx 文件的时候却耗费了大量的内存。</p>
+
 <p>然后我使用压缩文件打开这个 doc 文件，果不其然，其内部正是如上图，所以本质上我们可以认为它是一个 docx 文件。可能是因为它是以某种兼容模式保存从而导致如此坑爹的问题。所以，现在我们根据后缀名来判断一个文件是 doc 或者 docx 就是不可靠的了。</p>
+
 <p>老实说，我觉得这应该不是一个很少见的问题。但是我在谷歌上并没有找到任何关于此的信息。<a href="https://stackoverflow.com/questions/41711627/how-to-know-whether-a-file-is-docx-or-doc-format-from-apache-poi">how to know whether a file is .docx or .doc format from Apache POI</a> 这个例子是通过 ZipInputStream 来判断文件是否是 docx 文件：</p>
-<pre tabindex="0"><code>boolean isZip = new ZipInputStream( fileStream ).getNextEntry() != null;
-</code></pre><p>但我并不觉得这是一个很好的方法，因为我得去构建一个ZipInpuStream，这很显然不好。另外，这个操作貌似会影响到 InputStream，所以你在读取正常的 doc 文件会有问题。或者你使用 File 对象去判断是否是一个 zip 文件。但这也不是一个好方法，因为我还需要在压缩文件中读取 doc 或者 docx 文件，所以我的输入必须是 Inputstream，所以这个选项也是不可以的。 我在 stackoverflow 上和一帮老外扯了大半天，有时候我真的很怀疑这帮老外的理解能力，不过最终还是有一个大佬给出了一个让我欣喜若狂的解决方案，<a href="https://poi.apache.org/apidocs/org/apache/poi/poifs/filesystem/FileMagic.html">FileMagic</a>。这个是一个 POI 3.17新增加的一个特性：</p>
-<pre tabindex="0"><code>public enum FileMagic {
+
+<pre><code>boolean isZip = new ZipInputStream( fileStream ).getNextEntry() != null;
+</code></pre>
+
+<p>但我并不觉得这是一个很好的方法，因为我得去构建一个ZipInpuStream，这很显然不好。另外，这个操作貌似会影响到 InputStream，所以你在读取正常的 doc 文件会有问题。或者你使用 File 对象去判断是否是一个 zip 文件。但这也不是一个好方法，因为我还需要在压缩文件中读取 doc 或者 docx 文件，所以我的输入必须是 Inputstream，所以这个选项也是不可以的。 我在 stackoverflow 上和一帮老外扯了大半天，有时候我真的很怀疑这帮老外的理解能力，不过最终还是有一个大佬给出了一个让我欣喜若狂的解决方案，<a href="https://poi.apache.org/apidocs/org/apache/poi/poifs/filesystem/FileMagic.html">FileMagic</a>。这个是一个 POI 3.17新增加的一个特性：</p>
+
+<pre><code>public enum FileMagic {
     /** OLE2 / BIFF8+ stream used for Office 97 and higher documents */
     OLE2(HeaderBlockConstants._signature),
     /** OOXML / ZIP stream */
@@ -347,9 +287,9 @@
             new byte[]{0x31, (byte)0xbe, 0x00, 0x00 },
             new byte[]{0x32, (byte)0xbe, 0x00, 0x00 }),
     /** RTF document */
-    RTF(&#34;{\\rtf&#34;),
+    RTF(&quot;{\\rtf&quot;),
     /** PDF document */
-    PDF(&#34;%PDF&#34;),
+    PDF(&quot;%PDF&quot;),
     // keep UNKNOWN always as last enum!
     /** UNKNOWN magic */
     UNKNOWN(new byte[0]);
@@ -404,7 +344,7 @@
      */
     public static FileMagic valueOf(InputStream inp) throws IOException {
         if (!inp.markSupported()) {
-            throw new IOException(&#34;getFileMagic() only operates on streams which support mark(int)&#34;);
+            throw new IOException(&quot;getFileMagic() only operates on streams which support mark(int)&quot;);
         }
 
         // Grab the first 8 bytes
@@ -429,9 +369,12 @@
         return new BufferedInputStream(stream);
     }
 }
-</code></pre><p>在这给出主要的代码，其主要就是根据 InputStream 前 8 个字节来判断文件的类型，毫无以为这就是最优雅的解决方式。一开始，其实我也是在想对于压缩文件的前几个字节似乎是由不同的定义的，<a href="https://en.wikipedia.org/wiki/Magic_number_%28programming%29">magicmumber</a>。因为 FileMagic 的依赖和3.16 版本是兼容的，所以我只需要加入这个类就可以了，因此我们现在读取 word 文件的正确做法是：</p>
-<pre tabindex="0"><code>    private static String readDoc (String filePath, InputStream is) {
-        String text= &#34;&#34;;
+</code></pre>
+
+<p>在这给出主要的代码，其主要就是根据 InputStream 前 8 个字节来判断文件的类型，毫无以为这就是最优雅的解决方式。一开始，其实我也是在想对于压缩文件的前几个字节似乎是由不同的定义的，<a href="https://en.wikipedia.org/wiki/Magic_number_%28programming%29">magicmumber</a>。因为 FileMagic 的依赖和3.16 版本是兼容的，所以我只需要加入这个类就可以了，因此我们现在读取 word 文件的正确做法是：</p>
+
+<pre><code>    private static String readDoc (String filePath, InputStream is) {
+        String text= &quot;&quot;;
         is = FileMagic.prepareToCheckMagic(is);
         try {
             if (FileMagic.valueOf(is) == FileMagic.OLE2) {
@@ -445,7 +388,7 @@
                 extractor.close();
             }
         } catch (Exception e) {
-            logger.error(&#34;for file &#34; + filePath, e);
+            logger.error(&quot;for file &quot; + filePath, e);
         } finally {
             if (is != null) {
                 is.close();
@@ -453,14 +396,18 @@
         }
         return text;
     }
-</code></pre><h2 id="excel-篇">excel 篇 <a class="heading-anchor" href="#excel-%e7%af%87" aria-label="链接到本节">#</a></h2>
+</code></pre>
+
+<h2 id="excel-篇">excel 篇</h2>
+
 <p>对于 excel 篇，我也就不去找之前的方案和现在的方案的对比了。就给出我现在的最佳做法了：</p>
-<pre tabindex="0"><code>    @SuppressWarnings(&#34;deprecation&#34; )
+
+<pre><code>    @SuppressWarnings(&quot;deprecation&quot; )
     private static String readExcel(String filePath, InputStream inp) throws Exception {
         Workbook wb;
         StringBuilder sb = new StringBuilder();
         try {
-            if (filePath.endsWith(&#34;.xls&#34;)) {
+            if (filePath.endsWith(&quot;.xls&quot;)) {
                 wb = new HSSFWorkbook(inp);
             } else {
                 wb = StreamingReader.builder()
@@ -468,7 +415,7 @@
                         .bufferSize(4096)     // buffer size to use when reading InputStream to file (defaults to 1024)
                         .open(inp);            // InputStream or File for XLSX file (required)
             }
-            sb = readSheet(wb, sb, filePath.endsWith(&#34;.xls&#34;));
+            sb = readSheet(wb, sb, filePath.endsWith(&quot;.xls&quot;));
             wb.close();
         } catch (OLE2NotOfficeXmlFileException e) {
             logger.error(filePath, e);
@@ -484,7 +431,7 @@
         Workbook wb;
         StringBuilder sb = new StringBuilder();
         try {
-            if (filepath.endsWith(&#34;.xls&#34;)) {
+            if (filepath.endsWith(&quot;.xls&quot;)) {
                 wb = WorkbookFactory.create(file);
             } else {
                 wb = StreamingReader.builder()
@@ -492,7 +439,7 @@
                         .bufferSize(4096)     // buffer size to use when reading InputStream to file (defaults to 1024)
                         .open(file);            // InputStream or File for XLSX file (required)
             }
-            sb = readSheet(wb, sb, filepath.endsWith(&#34;.xls&#34;));
+            sb = readSheet(wb, sb, filepath.endsWith(&quot;.xls&quot;));
             wb.close();
         } catch (Exception e) {
             logger.error(filepath, e);
@@ -506,7 +453,7 @@
                 for (Cell cell: r) {
                     if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                         sb.append(cell.getStringCellValue());
-                        sb.append(&#34; &#34;);
+                        sb.append(&quot; &quot;);
                     } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                         if (isXls) {
                             DataFormatter formatter = new DataFormatter();
@@ -514,27 +461,28 @@
                         } else {
                             sb.append(cell.getStringCellValue());
                         }
-                        sb.append(&#34; &#34;);
+                        sb.append(&quot; &quot;);
                     }
                 }
             }
         }
         return sb;
     }
-</code></pre><p>其实，对于 excel 读取，我的工具面临的最大问题就是内存溢出。经常在读取某些特别大的 excel 文件的时候都会带来一个内存溢出的问题。后来我终于找到一个优秀的工具 <a href="https://github.com/monitorjbl/excel-streaming-reader">excel-streaming-reader</a>，它可以流式的读取 xlsx 文件，将一些特别大的文件拆分成小的文件去读。</p>
+</code></pre>
+
+<p>其实，对于 excel 读取，我的工具面临的最大问题就是内存溢出。经常在读取某些特别大的 excel 文件的时候都会带来一个内存溢出的问题。后来我终于找到一个优秀的工具 <a href="https://github.com/monitorjbl/excel-streaming-reader">excel-streaming-reader</a>，它可以流式的读取 xlsx 文件，将一些特别大的文件拆分成小的文件去读。</p>
+
 <p>另外一个做的优化就是，对于可以使用 File 对象的场景下，我是去使用 File 对象去读取文件而不是使用 InputStream 去读取，因为使用 InputStream 需要把它全部加载到内存中，所以这样是非常占用内存的。</p>
+
 <p>最后，我的一点小技巧就是使用 <code>cell.getCellType</code> 去减少一些数据量，因为我只需要获取一些文字以及数字的字符串内容就可以了。</p>
+
 <p>以上，就是我在使用 POI 读取文件的一些探索和发现，希望对你能有所帮助。上面的这些例子也是在我的一款工具 <a href="https://github.com/neal1991/everywhere/">everywhere</a> 中的应用（这款工具主要是可以帮助你在电脑中进行内容的全文搜索），感兴趣的可以看看，欢迎 star 或者 pr。</p>
 </article>
     <footer class="post-footer">
-      <div class="wechat-card">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
-      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="tag">学习笔记</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="tag">学习笔记</span></a></li>
         
       </ul>
       
@@ -543,22 +491,78 @@
       </p>
     </footer>
     
-        
-          
-       
+      
     
   </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
 
 
 

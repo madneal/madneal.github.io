@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>每日一练--直接插入排序</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]&amp;hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &amp;gt;= 0 and num[i] &amp;gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &amp;quot;stdafx.h&amp;quot; #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdlib.h&amp;gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &amp;lt;&amp;lt; &amp;quot;the number has not been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int i = 0;i &amp;lt; 10;i&#43;&#43;) { cout &amp;lt;&amp;lt; num[i] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;quot;the number has been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int j =1;j &amp;lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &amp;gt;=0&amp;amp;&amp;amp;num[i]&amp;gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &amp;lt; 10;m&#43;&#43;) { cout &amp;lt;&amp;lt; num[m] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; return 0; }  今天一练，到此结束。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="每日一练--直接插入排序">
+    <meta name="twitter:description" content="现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]&amp;hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &amp;gt;= 0 and num[i] &amp;gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &amp;quot;stdafx.h&amp;quot; #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdlib.h&amp;gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &amp;lt;&amp;lt; &amp;quot;the number has not been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int i = 0;i &amp;lt; 10;i&#43;&#43;) { cout &amp;lt;&amp;lt; num[i] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;quot;the number has been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int j =1;j &amp;lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &amp;gt;=0&amp;amp;&amp;amp;num[i]&amp;gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &amp;lt; 10;m&#43;&#43;) { cout &amp;lt;&amp;lt; num[m] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; return 0; }  今天一练，到此结束。">
+    <meta name="twitter:image" content="/images/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="每日一练--直接插入排序">
+  <meta property="og:description" content="现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]&amp;hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
+//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &amp;gt;= 0 and num[i] &amp;gt; key { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key;  下面用c&#43;&#43;来实现
+// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &amp;quot;stdafx.h&amp;quot; #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdlib.h&amp;gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &amp;lt;&amp;lt; &amp;quot;the number has not been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int i = 0;i &amp;lt; 10;i&#43;&#43;) { cout &amp;lt;&amp;lt; num[i] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;quot;the number has been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int j =1;j &amp;lt;10;j&#43;&#43;) { int key = num[j]; int i = j-1; while(i &amp;gt;=0&amp;amp;&amp;amp;num[i]&amp;gt;key) { num[i&#43;1] = num[i]; i--; } num[i&#43;1] = key; } for (int m = 0;m &amp;lt; 10;m&#43;&#43;) { cout &amp;lt;&amp;lt; num[m] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; return 0; }  今天一练，到此结束。">
+  <meta property="og:url" content="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83-%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
+  <meta property="og:image" content="/images/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6">
+
+
+<link rel="canonical" href="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83-%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
+
+
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">每日一练--直接插入排序</h1>
+      <p class="post-meta">@Neal · Oct 28, 2015 · 1 min read</p>
+    </header>
+    <article class="post-content"><p>现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。
+直接插入排序可以这么理解，把A[j]和A[0]&hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2).
+先给出伪代码分析</p>
+
+<pre><code>//the index of array is from 0
+for j=1 to num.length
+	key = num[j];
+	i = j-1;
+	while i &gt;= 0 and num[i] &gt; key
+	{
+		num[i+1] = num[i];
+		i--;
+	}
+	num[i+1] = key;
+</code></pre>
+
+<p>下面用c++来实现</p>
+
+<pre><code>// insertsort.cpp : 定义控制台应用程序的入口点。
+//
+
+#include &quot;stdafx.h&quot;
+#include&lt;iostream&gt;
+#include&lt;stdlib.h&gt;
+using namespace std;
+
+int main()
+{
+	int num[10] = {10,20,1,78,34,99,12,21,2,55};
+	int key;
+	cout &lt;&lt; &quot;the number has not been sorted:&quot; &lt;&lt; endl;
+	for (int i = 0;i &lt; 10;i++)
+	{
+		cout &lt;&lt; num[i] &lt;&lt; ' ';
+	}
+	cout &lt;&lt; endl;
+	cout &lt;&lt; &quot;the number has been sorted:&quot; &lt;&lt; endl;
+	for (int j =1;j &lt;10;j++)
+	{
+		int key = num[j];
+		int i = j-1;
+		while(i &gt;=0&amp;&amp;num[i]&gt;key)
+		{
+			num[i+1] = num[i];
+			i--;
+		}
+		num[i+1] = key;
+	}
+
+	for (int m = 0;m &lt; 10;m++)
+	{
+		cout &lt;&lt; num[m] &lt;&lt; ' ';
+	}
+	cout &lt;&lt; endl;
+	return 0;
+}
+
+</code></pre>
+
+<p>今天一练，到此结束。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3887</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </body>
+</html>

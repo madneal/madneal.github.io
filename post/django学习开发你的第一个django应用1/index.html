@@ -9,159 +9,142 @@
 
   
   
-
-
-
-
-
-
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
 
   
-    
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="Django学习——开发你的第一个Django应用1">
+    <meta name="twitter:description" content="突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
   
 
-
-
-
-<meta name="author" content="Neal" />
-<meta name="description" content="突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以" />
-<meta name="generator" content="Hugo 0.145.0" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="Django学习——开发你的第一个Django应用1" />
-<meta property="og:description" content="突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以" />
-<meta property="og:url" content="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" />
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-
-<meta property="article:published_time" content="2015-10-10T16:39:31Z" />
-<meta property="article:modified_time" content="2015-10-10T16:39:31Z" />
-<meta property="article:tag" content="Python" />
-<meta property="article:tag" content="后端" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Django学习——开发你的第一个Django应用1">
+  <meta property="og:description" content="突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
+创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
+建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
+from django.db import models class Question(models.">
+  <meta property="og:url" content="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">
+  <meta property="og:image" content="/images/avatar.jpg">
 
 
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@gohugoio" />
-<meta name="twitter:title" content="Django学习——开发你的第一个Django应用1" />
-<meta name="twitter:description" content="突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以" />
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta name="generator" content="Hugo 0.55.6">
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "\"Django学习——开发你的第一个Django应用1\"",
-  "description": "\"突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以\"",
-  "url": "\"https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/\"",
-  "datePublished": "\"2015-10-10T16:39:31Z\"",
-  "dateModified": "\"2015-10-10T16:39:31Z\"",
-  "author": {
-    "@type": "Person",
-    "name": "\"Neal\""
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "\"Neal's Blog\"",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-    }
-  },
-  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-}
-</script>
+<link rel="canonical" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
 
 
-
-<link rel="canonical" href="https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
 
 
 
 
 
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<link rel="dns-prefetch" href="https://www.google-analytics.com/">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
 
 
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
 <style>
-.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
 </style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
 
 
   
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+  
 
 </head>
   <body>
-    
     <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
       
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
         
       
     </div>
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title">Neal&#39;s Blog</h2>
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="icon icon-menu"></span>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
-  <nav id="site-menu" class="site-menu collapsed">
+
+  <nav class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -169,171 +152,161 @@
       
       
         <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://madneal.com/post">Home</a>
-          </li>
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://github.com/madneal">Works</a>
-          </li>
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/tags/">Tags</a>
-          </li>
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
       
     </ul>
   </nav>
-  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
-  <nav id="social-menu" class="social-menu collapsed">
+  <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
-
-      
-      <li class="social-item">
-        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
   </nav>
 </header>
 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Django学习——开发你的第一个Django应用1</h1>
-      <p class="post-meta">@Neal · <time datetime="2015-10-10">2015-10-10</time> · 约 2 分钟阅读</p>
+      <p class="post-meta">@Neal · Oct 10, 2015 · 2 min read</p>
     </header>
-    
-      <nav class="post-toc" aria-label="文章目录">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#创建一个项目">创建一个项目</a></li>
-    <li><a href="#建立数据库">建立数据库</a></li>
-    <li><a href="#开发服务器">开发服务器</a></li>
-    <li><a href="#创建模型">创建模型</a></li>
-  </ul>
-</nav>
-      </nav>
-    
-    <article class="post-content"><p>突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。
+    <article class="post-content">
+
+<p>突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：<a href="https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。">https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。</a>
 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧</p>
-<h2 id="创建一个项目">创建一个项目 <a class="heading-anchor" href="#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e9%a1%b9%e7%9b%ae" aria-label="链接到本节">#</a></h2>
+
+<h2 id="创建一个项目">创建一个项目</h2>
+
 <p>进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令
 <code>django-admin statrtproject mysite</code>
 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么：
-<code>mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py </code>
+<code>mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py</code>
 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。</p>
-<h2 id="建立数据库">建立数据库 <a class="heading-anchor" href="#%e5%bb%ba%e7%ab%8b%e6%95%b0%e6%8d%ae%e5%ba%93" aria-label="链接到本节">#</a></h2>
-<p>好现在打开<code>mysite/settings.py</code>。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。
-同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:</p>
-<ul>
-<li>django.contrib.admin</li>
-<li>django.contrib.auth</li>
-<li>django.contrib.contenttypes</li>
-<li>django.contrib.sessions</li>
-<li>django.contrib.messages</li>
-<li>django.contrib.staticfiles
-这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格：
-<code>python manage.py migrate</code></li>
-</ul>
-<h2 id="开发服务器">开发服务器 <a class="heading-anchor" href="#%e5%bc%80%e5%8f%91%e6%9c%8d%e5%8a%a1%e5%99%a8" aria-label="链接到本节">#</a></h2>
-<p>让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行：
-<code>python manage.py runserver</code>
-然后就可以看到服务器正常运行的一些提示信息了</p>
-<h2 id="创建模型">创建模型 <a class="heading-anchor" href="#%e5%88%9b%e5%bb%ba%e6%a8%a1%e5%9e%8b" aria-label="链接到本节">#</a></h2>
-<p>创建你自己的应用，确定你是在和<code>manage.py</code>同一及的文件路径下，运行命令行：
-<code>python manage.py startapp polls</code>
-这回创建一个<code>polls</code>文件件：
-<code>polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py </code>
-在web应用中创建数据库的第一步是定义你自己的模型。
-在我们这个简单的应用中，我们会创建两个模型<code>Question Choice</code>
-编辑<code>polls/models.py</code>文件：</p>
-<pre tabindex="0"><code>from django.db import models
+
+<h2 id="建立数据库">建立数据库</h2>
+
+<p>好现在打开<code>mysite/settings.py</code>。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去<a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里">https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里</a> main有关于数据库配置更为详细的介绍。
+同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps:
+ - django.contrib.admin
+ - django.contrib.auth
+ - django.contrib.contenttypes
+ - django.contrib.sessions
+ - django.contrib.messages
+ - django.contrib.staticfiles
+ 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格：
+ <code>python manage.py migrate</code>
+ ## 开发服务器 ##
+ 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行：
+ <code>python manage.py runserver</code>
+ 然后就可以看到服务器正常运行的一些提示信息了
+ ## 创建模型 ##
+ 创建你自己的应用，确定你是在和<code>manage.py</code>同一及的文件路径下，运行命令行：
+ <code>python manage.py startapp polls</code>
+ 这回创建一个<code>polls</code>文件件：
+ <code>polls/
+    __init__.py
+    admin.py
+    migrations/
+        __init__.py
+    models.py
+    tests.py
+    views.py</code>
+    在web应用中创建数据库的第一步是定义你自己的模型。
+ 在我们这个简单的应用中，我们会创建两个模型<code>Question Choice</code>
+ 编辑<code>polls/models.py</code>文件：</p>
+
+<pre><code>from django.db import models
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField(&#39;date published&#39;)
+    pub_date = models.DateTimeField('date published')
 class Choice(models.Model):
     question = models.ForeignKey(Question)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
-</code></pre><p>以上代码很直接明了，python的代码还是比较容易理解的。</p>
+</code></pre>
+
+<p>以上代码很直接明了，python的代码还是比较容易理解的。</p>
+
 <p>##激活模型##
-下面我们就要为我们的应用创建数据库表格了。创建根python相关的API。首先我们需要告诉我们的项目polls应用已经安装了，打开<code>mysite/settings.py</code>你将会看到
-<code>INSTALLED_APPS = ( 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles', 'polls', )</code>
+ 下面我们就要为我们的应用创建数据库表格了。创建根python相关的API。首先我们需要告诉我们的项目polls应用已经安装了，打开<code>mysite/settings.py</code>你将会看到
+ <code>
+ INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'polls',
+)
+</code>
 最后一行将我们的应用添加进去就可以了。现在让我们运行另外一个命令：
 <code>python manage.py makemigrations poll</code>
 你将会看到以下内容：
-<code>Migrations for 'polls': 0001_initial.py: - Create model Question - Create model Choice - Add field question to choice</code>
-通过运行<code>migrations</code>你是在告诉Django你对模型做了一些改变。Migrations 是将这些改变存储到模型之中。如果你运行<code>migrate</code>就会将这模型表存到数据库中：
-<code>python manage.py migrate Operations to perform: Synchronize unmigrated apps: staticfiles, messages Apply all migrations: admin, contenttypes, polls, auth, sessions Synchronizing apps without migrations: Creating tables... Running deferred SQL... Installing custom SQL... Running migrations: Rendering model states... DONE Applying &lt;migration name&gt;... OK</code>
-这样相应的数据表就会在数据库中创建了。
+<code>
+Migrations for 'polls':
+  0001_initial.py:
+    - Create model Question
+    - Create model Choice
+    - Add field question to choice
+</code>
+  通过运行<code>migrations</code>你是在告诉Django你对模型做了一些改变。Migrations 是将这些改变存储到模型之中。如果你运行<code>migrate</code>就会将这模型表存到数据库中：
+  <code>
+   python manage.py migrate
+Operations to perform:
+  Synchronize unmigrated apps: staticfiles, messages
+  Apply all migrations: admin, contenttypes, polls, auth, sessions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+  Installing custom SQL...
+Running migrations:
+  Rendering model states... DONE
+  Applying &lt;migration name&gt;... OK
+</code>
+  这样相应的数据表就会在数据库中创建了。
 ##使用api##
 如果想调用python的脚本时，运行：
 <code>python manage.py shell</code>
 一旦你进入这个shell
-<img src="http://img.blog.csdn.net/20151010164951130" alt="这里写图片描述" loading="lazy" decoding="async">
-</p>
+<img src="http://img.blog.csdn.net/20151010164951130" alt="这里写图片描述" /></p>
+
 <p>但是我们会发现Question的对象是无意义的，我们还需要再做一些改变，打开<code>polls/models.py</code>，添加一个&rsquo;<em>str</em>()`方法。</p>
-<pre tabindex="0"><code>from django.db import models
+
+<pre><code>from django.db import models
 
 class Question(models.Model):
     # ...
@@ -344,8 +317,11 @@ class Choice(models.Model):
     # ...
     def __str__(self):              # __unicode__ on Python 2
         return self.choice_text
-</code></pre><p>还有下面的脚本改变</p>
-<pre tabindex="0"><code>import datetime
+</code></pre>
+
+<p>还有下面的脚本改变</p>
+
+<pre><code>import datetime
 
 from django.db import models
 from django.utils import timezone
@@ -355,19 +331,17 @@ class Question(models.Model):
     # ...
     def was_published_recently(self):
         return self.pub_date &gt;= timezone.now() - datetime.timedelta(days=1)
-</code></pre><p>好，以上就是官方课程的第一节，写的好累。。。。</p>
+</code></pre>
+
+<p>好，以上就是官方课程的第一节，写的好累。。。。</p>
 </article>
     <footer class="post-footer">
-      <div class="wechat-card">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
-      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/python/"><span class="tag">Python</span></a></li>
+          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF/"><span class="tag">后端</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF"><span class="tag">后端</span></a></li>
         
       </ul>
       
@@ -376,22 +350,78 @@ class Question(models.Model):
       </p>
     </footer>
     
-        
-          
-       
+      
     
   </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
 
 
 

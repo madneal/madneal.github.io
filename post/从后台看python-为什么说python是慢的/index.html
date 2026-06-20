@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>从后台看python--为什么说python是慢的</title>
+
+  
+  
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
+1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
+int a = 1; int b = 2; int c = a &#43; b;  1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法(a,b) 4.将结果分配给c
+在python中，同样的
+a = 1 b = 2 c = a &#43; b  1.分配1给a
+ 设置一个对象，然后将它的类型设置为整数 将它的值设为1 2.分配2给b
+ 设置一个对象，然后将它的类型设置为整数
+ 将它的值设为2 3.调用一个二进制加法(a,b)
+ 寻找一个类型在对象中
+ a是一个整数，它的值是a
+ 寻找一个类型在对象中
+ b是一个整数，它的值是b
+ 调用一个二进制加法
+ 返回结果，结果是一个整数 4.产生一个对象c
+ 将一个对象的类型设置为整数
+ 将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+  2.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="从后台看python--为什么说python是慢的">
+    <meta name="twitter:description" content="python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
+1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
+int a = 1; int b = 2; int c = a &#43; b;  1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法(a,b) 4.将结果分配给c
+在python中，同样的
+a = 1 b = 2 c = a &#43; b  1.分配1给a
+ 设置一个对象，然后将它的类型设置为整数 将它的值设为1 2.分配2给b
+ 设置一个对象，然后将它的类型设置为整数
+ 将它的值设为2 3.调用一个二进制加法(a,b)
+ 寻找一个类型在对象中
+ a是一个整数，它的值是a
+ 寻找一个类型在对象中
+ b是一个整数，它的值是b
+ 调用一个二进制加法
+ 返回结果，结果是一个整数 4.产生一个对象c
+ 将一个对象的类型设置为整数
+ 将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+  2.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="从后台看python--为什么说python是慢的">
+  <meta property="og:description" content="python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。 python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。
+1.python是动态类型语言 这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别： 对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。 我们分析一小段代码分别在python和C中执行的具体区别： 在C中，如果你写如下代码：
+int a = 1; int b = 2; int c = a &#43; b;  1.分配一个类型1给a 2.分配一个类型2给b 3.调用一个二进制加法(a,b) 4.将结果分配给c
+在python中，同样的
+a = 1 b = 2 c = a &#43; b  1.分配1给a
+ 设置一个对象，然后将它的类型设置为整数 将它的值设为1 2.分配2给b
+ 设置一个对象，然后将它的类型设置为整数
+ 将它的值设为2 3.调用一个二进制加法(a,b)
+ 寻找一个类型在对象中
+ a是一个整数，它的值是a
+ 寻找一个类型在对象中
+ b是一个整数，它的值是b
+ 调用一个二进制加法
+ 返回结果，结果是一个整数 4.产生一个对象c
+ 将一个对象的类型设置为整数
+ 将它的值分配给结果 动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。
+  2.">
+  <meta property="og:url" content="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">
+  <meta property="og:image" content="/images/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.55.6">
+
+
+<link rel="canonical" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
+
+
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">从后台看python--为什么说python是慢的</h1>
+      <p class="post-meta">@Neal · Dec 8, 2015 · 1 min read</p>
+    </header>
+    <article class="post-content">
+
+<p>python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。
+python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。</p>
+
+<h2 id="1-python是动态类型语言">1.python是动态类型语言</h2>
+
+<p>这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别：
+对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。
+我们分析一小段代码分别在python和C中执行的具体区别：
+在C中，如果你写如下代码：</p>
+
+<pre><code>int a = 1;
+int b = 2;
+int c = a + b;
+</code></pre>
+
+<p>1.分配一个<int>类型1给a
+2.分配一个<int>类型2给b
+3.调用一个二进制加法<int,int>(a,b)
+4.将结果分配给c</p>
+
+<p>在python中，同样的</p>
+
+<pre><code>a = 1
+b = 2
+c = a + b
+</code></pre>
+
+<p>1.分配1给a</p>
+
+<ul>
+<li>设置一个对象，然后将它的类型设置为整数</li>
+
+<li><p>将它的值设为1
+2.分配2给b</p></li>
+
+<li><p>设置一个对象，然后将它的类型设置为整数</p></li>
+
+<li><p>将它的值设为2
+3.调用一个二进制加法(a,b)</p></li>
+
+<li><p>寻找一个类型在对象中</p></li>
+
+<li><p>a是一个整数，它的值是a</p></li>
+
+<li><p>寻找一个类型在对象中</p></li>
+
+<li><p>b是一个整数，它的值是b</p></li>
+
+<li><p>调用一个二进制加法</p></li>
+
+<li><p>返回结果，结果是一个整数
+4.产生一个对象c</p></li>
+
+<li><p>将一个对象的类型设置为整数</p></li>
+
+<li><p>将它的值分配给结果
+动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。</p></li>
+</ul>
+
+<h2 id="2-python是一种解释型的语言而不是编译型的">2.python是一种解释型的语言而不是编译型的</h2>
+
+<p>我们可以看到解释型语言和编译型语言的区别。一个聪明的编译器知道怎么提前优化，避免重复和不必要的操作，从而提高效率。当然，在这一点上也是仁者见仁智者见智。</p>
+
+<h2 id="3-python的对象模型导致存储效率低下">3.python的对象模型导致存储效率低下</h2>
+
+<p>python存储数据效率低下的原因，主要可以从下图看出：
+<img src="http://img.blog.csdn.net/20151208101154529" alt="这里写图片描述" /></p>
+
+<p>当然说了python这么多缺点，为什么python用的人还这么多，因为它很简单啊。python用起来的确很简单，就我个人的使用感受而言，除了matlab，我没有看过比python还要简单的语言了。而且python的开源的库很多，所以做很多东西都很方便。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3847</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
+
+
+
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+  </body>
+</html>

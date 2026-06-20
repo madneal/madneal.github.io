@@ -9,161 +9,142 @@
 
   
   
-
-
-
-
-
-
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  
+  
+  
+  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
 
   
-    
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="白名单，被谁饶过了？">
+    <meta name="twitter:description" content="本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.">
+    <meta name="twitter:image" content="/images/avatar.jpg">
   
 
-
-
-
-<meta name="author" content="Neal" />
-<meta name="description" content=" 本文首发于安全客平台，https://www.anquanke.com/post/id/228916 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo(https://github.com/apache/dubbo) 的一个有意思的问题以及 URL 相关 …" />
-<meta name="generator" content="Hugo 0.145.0" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="白名单，被谁饶过了？" />
-<meta property="og:description" content=" 本文首发于安全客平台，https://www.anquanke.com/post/id/228916 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo(https://github.com/apache/dubbo) 的一个有意思的问题以及 URL 相关 …" />
-<meta property="og:url" content="https://madneal.com/post/redirect/" />
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-
-<meta property="article:published_time" content="2021-01-03T00:00:00Z" />
-<meta property="article:modified_time" content="2021-01-03T00:00:00Z" />
-<meta property="article:tag" content="安全" />
-<meta property="article:tag" content="Web安全" />
-<meta property="article:tag" content="漏洞分析" />
-<meta property="article:tag" content="代码审计" />
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="白名单，被谁饶过了？">
+  <meta property="og:description" content="本文首发于安全客平台，https://www.anquanke.com/post/id/228916
+起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo 的一个有意思的问题以及 URL 相关的话题。
+之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 https://evailhost#@whitehost，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。
+public static String checkUrlSafety(String url, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { Url url2 = null; try { url2 = UrlUtils.parseURL(url, null); } catch (Exception e) { } String host = url2.getHost(); if (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) { return url; } else { ... } } private static boolean verifyDomain(String host, List&amp;lt;String&amp;gt; domainWhitelistSuffix, String domainWhitelist) { return domainWhitelist.contains(host) || verifyDomainSuffix(host, domainWhitelistSuffix): } apache/dubbo 的问题 核心代码其实主要就是上面两个函数，主要是通过 verifyDomain 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，host 是通过 UrlUtils.">
+  <meta property="og:url" content="https://madneal.com/post/redirect/">
+  <meta property="og:image" content="/images/avatar.jpg">
 
 
 
 
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@gohugoio" />
-<meta name="twitter:title" content="白名单，被谁饶过了？" />
-<meta name="twitter:description" content=" 本文首发于安全客平台，https://www.anquanke.com/post/id/228916 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo(https://github.com/apache/dubbo) 的一个有意思的问题以及 URL 相关 …" />
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta name="generator" content="Hugo 0.55.6">
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "\"白名单，被谁饶过了？\"",
-  "description": "\" 本文首发于安全客平台，https://www.anquanke.com/post/id/228916 起因 近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 apache/dubbo(https://github.com/apache/dubbo) 的一个有意思的问题以及 URL 相关 …\"",
-  "url": "\"https://madneal.com/post/redirect/\"",
-  "datePublished": "\"2021-01-03T00:00:00Z\"",
-  "dateModified": "\"2021-01-03T00:00:00Z\"",
-  "author": {
-    "@type": "Person",
-    "name": "\"Neal\""
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "\"Neal's Blog\"",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-    }
-  },
-  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
-}
-</script>
+<link rel="canonical" href="https://madneal.com/post/redirect/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
 
 
-
-<link rel="canonical" href="https://madneal.com/post/redirect/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
-
-<meta content="架构, apache dubbo, 开源, 开放重定向, open redirect, SSRF, 开发, 安全, 代码审计, security, development, web security" name="keywords">
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
 
 
 
 
 
 
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
-<meta name='msapplication-navbutton-color' content="#5fbf5e" />
-<meta name="msapplication-TileColor" content="#5fbf5e" />
-<link rel="dns-prefetch" href="https://www.google-analytics.com/">
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
-<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<meta name="theme-color" content="#02b875">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
 
 
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+
+
 <style>
-.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+  body {
+    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+  }
 </style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
 
 
   
-  <!--[if lt IE 9]>
-    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-<!--[if lte IE 11]>
-    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
-  <![endif]-->
-
-
-<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
-
-
-<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
-
+  
 
 </head>
   <body>
-    
     <div class="suspension">
-      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
       
-        
-        <a title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment"></span></a>
         
       
     </div>
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title">Neal&#39;s Blog</h2>
+  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="icon icon-menu"></span>
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
-  <nav id="site-menu" class="site-menu collapsed">
+
+  <nav class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -171,242 +152,198 @@
       
       
         <li class="menu-item
-            
-            
-            
-              is-active
-            ">
-            <a href="https://madneal.com/post">Home</a>
-          </li>
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://github.com/madneal">Works</a>
-          </li>
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
       
         <li class="menu-item
-            
-            
-            ">
-            <a href="https://madneal.com/tags/">Tags</a>
-          </li>
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
       
     </ul>
   </nav>
-  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
-  <nav id="social-menu" class="social-menu collapsed">
+  <nav class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list">
-
-      
-      <li class="social-item">
-        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
-      </li>
-
-      
-      <li class="social-item">
-        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
-      </li>
-
-      
-
-      
-
-      
-
-      
-
-      <li class="social-item">
-        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
-      </li>
-
-    </ul>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
   </nav>
 </header>
 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">白名单，被谁饶过了？</h1>
-      <p class="post-meta">@Neal · <time datetime="2021-01-03">2021-01-03</time> · 约 2 分钟阅读</p>
+      <p class="post-meta">@Neal · Jan 3, 2021 · 2 min read</p>
     </header>
-    
-      <nav class="post-toc" aria-label="文章目录">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#起因">起因</a></li>
-    <li><a href="#apachedubbo-的问题">apache/dubbo 的问题</a></li>
-    <li><a href="#url-的其它门道">URL 的其它门道</a></li>
-    <li><a href="#-符号">@ 符号</a></li>
-    <li><a href="#-符号-1"># 符号</a></li>
-    <li><a href="#总结">总结</a></li>
-  </ul>
-</nav>
-      </nav>
-    
-    <article class="post-content"><p>本文首发于安全客平台，https://www.anquanke.com/post/id/228916</p>
-<h2 id="起因">起因 <a class="heading-anchor" href="#%e8%b5%b7%e5%9b%a0" aria-label="链接到本节">#</a></h2>
+    <article class="post-content">
+
+<p>本文首发于安全客平台，<a href="https://www.anquanke.com/post/id/228916">https://www.anquanke.com/post/id/228916</a></p>
+
+<h2 id="起因">起因</h2>
+
 <p>近期在内网发现了有个应用之前的开放重定向漏洞的绕过，通过这个漏洞绕过，我又发现了 <a href="https://github.com/apache/dubbo">apache/dubbo</a> 的一个有意思的问题以及 URL 相关的话题。</p>
+
 <p>之前，给内网应用提交过一个开放重定向漏洞，后面又发现这个开放重定向漏洞存在一个绕过方法。假设一个恶意 URL 为 <code>https://evailhost#@whitehost</code>，那么这个恶意链接依然可以实现跳转。开发说他们已经做过了白名单限制，理论上应该不存在被绕过的可能了。那么我就去看了下代码，对于重定向地址进行验证的代码类似如下。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">checkUrlSafety</span>(String url, List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix, String domainWhitelist) {
-</span></span><span style="display:flex;"><span>	Url url2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">try</span> {
-</span></span><span style="display:flex;"><span>		url2 <span style="color:#f92672">=</span> UrlUtils.<span style="color:#a6e22e">parseURL</span>(url, <span style="color:#66d9ef">null</span>);
-</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">catch</span> (Exception e) {
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	String host <span style="color:#f92672">=</span> url2.<span style="color:#a6e22e">getHost</span>();
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (verifyDomain(host, domainWhitelistSuffix, domainWhitelist)) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> url;
-</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>		...
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">verifyDomain</span>(String host, List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix, String domainWhitelist) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> domainWhitelist.<span style="color:#a6e22e">contains</span>(host) <span style="color:#f92672">||</span> verifyDomainSuffix(host, domainWhitelistSuffix):
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="apachedubbo-的问题">apache/dubbo 的问题 <a class="heading-anchor" href="#apachedubbo-%e7%9a%84%e9%97%ae%e9%a2%98" aria-label="链接到本节">#</a></h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">checkUrlSafety</span><span style="color:#f92672">(</span>String url<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix<span style="color:#f92672">,</span> String domainWhitelist<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	Url url2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+	<span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+		url2 <span style="color:#f92672">=</span> UrlUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">parseURL</span><span style="color:#f92672">(</span>url<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Exception e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	<span style="color:#f92672">}</span>
+	String host <span style="color:#f92672">=</span> url2<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">();</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>verifyDomain<span style="color:#f92672">(</span>host<span style="color:#f92672">,</span> domainWhitelistSuffix<span style="color:#f92672">,</span> domainWhitelist<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> url<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+		<span style="color:#f92672">...</span>
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">verifyDomain</span><span style="color:#f92672">(</span>String host<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> domainWhitelistSuffix<span style="color:#f92672">,</span> String domainWhitelist<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">return</span> domainWhitelist<span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span>host<span style="color:#f92672">)</span> <span style="color:#f92672">||</span> verifyDomainSuffix<span style="color:#f92672">(</span>host<span style="color:#f92672">,</span> domainWhitelistSuffix<span style="color:#f92672">):</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<h2 id="apache-dubbo-的问题">apache/dubbo 的问题</h2>
+
 <p>核心代码其实主要就是上面两个函数，主要是通过 <code>verifyDomain</code> 方法来进行白名单的过滤，那么问题就很有可能出现在这里。这里，值得注意的是，<code>host</code> 是通过 <code>UrlUtils.parseURL</code> 解析出来的 <code>URL</code> 获取的。这个方法是开源仓库 <a href="https://github.com/apache/dubbo">apache/dubbo</a> 的，组件版本是 2.7.8，是最新的版本。可以简单的通过一个 demo 代码来验证一下问题所在。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.dubbo.common.URL;
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> org.apache.dubbo.common.utils.UrlUtils;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) <span style="color:#66d9ef">throws</span> Exception {
-</span></span><span style="display:flex;"><span>        String<span style="color:#f92672">[]</span> whiteHosts <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]</span>{<span style="color:#e6db74">&#34;whitehost&#34;</span>};
-</span></span><span style="display:flex;"><span>        String evilUrl <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://evilhost#@whitehost&#34;</span>;
-</span></span><span style="display:flex;"><span>        URL url <span style="color:#f92672">=</span> UrlUtils.<span style="color:#a6e22e">parseURL</span>(evilUrl, <span style="color:#66d9ef">null</span>);
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(url.<span style="color:#a6e22e">getHost</span>());
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(whitehostCheck(whiteHosts, url.<span style="color:#a6e22e">getHost</span>()));
-</span></span><span style="display:flex;"><span>        java.<span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">URL</span> url1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> java.<span style="color:#a6e22e">net</span>.<span style="color:#a6e22e">URL</span>(evilUrl);
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(url1.<span style="color:#a6e22e">getHost</span>());
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(whitehostCheck(whiteHosts, url1.<span style="color:#a6e22e">getHost</span>()));
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">whitehostCheck</span>(String<span style="color:#f92672">[]</span> whiteHosts, String hostToCheck) {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(String host: whiteHosts) {
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (host.<span style="color:#a6e22e">equals</span>(hostToCheck)) {
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>上面的执行结果是：</p>
-<pre tabindex="0"><code>evilhost
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> org.apache.dubbo.common.URL<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> org.apache.dubbo.common.utils.UrlUtils<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+        String<span style="color:#f92672">[]</span> whiteHosts <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">[]{</span><span style="color:#e6db74">&#34;whitehost&#34;</span><span style="color:#f92672">};</span>
+        String evilUrl <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://evilhost#@whitehost&#34;</span><span style="color:#f92672">;</span>
+        URL url <span style="color:#f92672">=</span> UrlUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">parseURL</span><span style="color:#f92672">(</span>evilUrl<span style="color:#f92672">,</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>url<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>whitehostCheck<span style="color:#f92672">(</span>whiteHosts<span style="color:#f92672">,</span> url<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">()));</span>
+        java<span style="color:#f92672">.</span><span style="color:#a6e22e">net</span><span style="color:#f92672">.</span><span style="color:#a6e22e">URL</span> url1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">net</span><span style="color:#f92672">.</span><span style="color:#a6e22e">URL</span><span style="color:#f92672">(</span>evilUrl<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>url1<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>whitehostCheck<span style="color:#f92672">(</span>whiteHosts<span style="color:#f92672">,</span> url1<span style="color:#f92672">.</span><span style="color:#a6e22e">getHost</span><span style="color:#f92672">()));</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">whitehostCheck</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> whiteHosts<span style="color:#f92672">,</span> String hostToCheck<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span>String host: whiteHosts<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>host<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>hostToCheck<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>上面的执行结果是：</p>
+
+<pre><code>evilhost
 false
 whitehost
 true
-</code></pre><p>很明显，问题出现在 <code>parseURL</code> 这个方法上，它错误地解析了这个链接的 host，如果这个链接中包含 <code>@</code> 符号（在实际利用场景中还需要配合 <code>#</code> 符号进行利用，这个在后文还会提到）。那么下面就看看这个 <code>parseURL</code> 方法，这个函数位于 <a href="https://github.com/apache/dubbo/blob/2d9583adf26a2d8bd6fb646243a9fe80a77e65d5/dubbo-common/src/main/java/org/apache/dubbo/common/utils/UrlUtils.java#L67"><code>org.dubbo.common.utils.UrlUtils.java</code></a> 中。不如打个断点，进去看看。</p>
-<p><a href="https://imgchr.com/i/sY0h9I"><img src="https://s3.ax1x.com/2021/01/12/sY0h9I.png" alt="sY0h9I.png" loading="lazy" decoding="async">
-</a></p>
+</code></pre>
+
+<p>很明显，问题出现在 <code>parseURL</code> 这个方法上，它错误地解析了这个链接的 host，如果这个链接中包含 <code>@</code> 符号（在实际利用场景中还需要配合 <code>#</code> 符号进行利用，这个在后文还会提到）。那么下面就看看这个 <code>parseURL</code> 方法，这个函数位于 <a href="https://github.com/apache/dubbo/blob/2d9583adf26a2d8bd6fb646243a9fe80a77e65d5/dubbo-common/src/main/java/org/apache/dubbo/common/utils/UrlUtils.java#L67"><code>org.dubbo.common.utils.UrlUtils.java</code></a> 中。不如打个断点，进去看看。</p>
+
+<p><a href="https://imgchr.com/i/sY0h9I"><img src="https://s3.ax1x.com/2021/01/12/sY0h9I.png" alt="sY0h9I.png" /></a></p>
+
 <p>在 <code>parseURL</code> 方法中并没有特别之处，到这处 <code>URL u = URL.valueOf(url);</code>，进入到 <code>valueOf</code> 这个函数中。</p>
-<p><a href="https://imgchr.com/i/sYBB5j"><img src="https://s3.ax1x.com/2021/01/12/sYBB5j.png" alt="sYBB5j.png" loading="lazy" decoding="async">
-</a></p>
+
+<p><a href="https://imgchr.com/i/sYBB5j"><img src="https://s3.ax1x.com/2021/01/12/sYBB5j.png" alt="sYBB5j.png" /></a></p>
+
 <p>上面的逻辑就是如果 url 中包含 <code>@</code> 符号的话，那么就先解析出 <code>username</code> 为 <code>evailhost#</code>，从而得出 host 为 <code>whitehost</code>。正是因为这一步解析导致解析出的 host 不正确。关于这个问题，我也一直很纠结这到底算不算一个安全漏洞。不过仔细想想，严格意义上这还不能算作一个安全漏洞，更应该算是一个 bug。我一开始有写一个报告提供给 dubbo 的官方安全邮箱，不过一直没有收到回复，后来还是给他们的仓库提了一个 <a href="https://github.com/apache/dubbo/issues/7103">issue</a>。我的修复建议是 <code>valueOf</code> 里面的逻辑就不要自己去造轮子实现了，还不如使用 JDK 的方法去解析 URL。</p>
-<h2 id="url-的其它门道">URL 的其它门道 <a class="heading-anchor" href="#url-%e7%9a%84%e5%85%b6%e5%ae%83%e9%97%a8%e9%81%93" aria-label="链接到本节">#</a></h2>
+
+<h2 id="url-的其它门道">URL 的其它门道</h2>
+
 <p>那么关于这个绕过是不是就到此结束了，并没有，通过这个问题我也发现了好几个有意思的点，下面我将一一分享。</p>
-<h2 id="-符号">@ 符号 <a class="heading-anchor" href="#-%e7%ac%a6%e5%8f%b7" aria-label="链接到本节">#</a></h2>
+
+<h2 id="符号">@ 符号</h2>
+
 <p>首先，先谈谈 url 中的 <code>@</code> 符号，在上文提到过，这个开放重定向的利用需要配合 <code>#</code> 符号。为什么呢？如果仅仅通过 <code>@</code> 符号是可以通过白名单校验的。假如 url 为 <code>http://evilhost@whitehost</code>，那么解析出的 URL 的 host 为 <code>whitehost</code>，因此是可以通过白名单校验的。但是在重定向的时候，只会重定向到 <code>whitehost</code> 下，这样就达不到攻击的目的了。我有创建一个 <a href="https://github.com/madneal">spring-demo</a> 项目来验证。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span>(value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/redirect&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> RedirectView <span style="color:#a6e22e">redirect</span>(<span style="color:#a6e22e">@RequestParam</span> String service) {
-</span></span><span style="display:flex;"><span>    System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(service);
-</span></span><span style="display:flex;"><span>    RedirectView view <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RedirectView();
-</span></span><span style="display:flex;"><span>    view.<span style="color:#a6e22e">setUrl</span>(service);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> view;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>对于 <code>redirect</code> 接口，请求 <code>http://localhost:8080/redirect?service=https://baidu.com@github.com</code>，它会重定向到 <code>github.com</code> 而不是 <code>baidu.com</code>。原因在于 <code>@</code> 符号前面的内容会被认为是账号部分。</p>
-<h2 id="-符号-1"># 符号 <a class="heading-anchor" href="#-%e7%ac%a6%e5%8f%b7-1" aria-label="链接到本节">#</a></h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/redirect&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#66d9ef">public</span> RedirectView <span style="color:#a6e22e">redirect</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> String service<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>service<span style="color:#f92672">);</span>
+    RedirectView view <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RedirectView<span style="color:#f92672">();</span>
+    view<span style="color:#f92672">.</span><span style="color:#a6e22e">setUrl</span><span style="color:#f92672">(</span>service<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">return</span> view<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<p>对于 <code>redirect</code> 接口，请求 <code>http://localhost:8080/redirect?service=https://baidu.com@github.com</code>，它会重定向到 <code>github.com</code> 而不是 <code>baidu.com</code>。原因在于 <code>@</code> 符号前面的内容会被认为是账号部分。</p>
+
+<h2 id="符号-1"># 符号</h2>
+
 <p>聊完 <code>@</code> 符号，还要说说 <code>#</code> 符号。假设下面两个链接：</p>
+
 <ul>
-<li>http://evilhost#@whitehost</li>
-<li>http://evilhost%23@whitehost</li>
+<li><a href="http://evilhost#@whitehost">http://evilhost#@whitehost</a></li>
+<li><a href="http://evilhost%23@whitehost">http://evilhost%23@whitehost</a></li>
 </ul>
+
 <p><code>%23</code> 是 <code>#</code> 符号 url 编码的结果，那么这两个链接的结果会是一样的吗？答案是否定的，因为对于浏览器来说，或者说 url 的标准规范来说，<code>#</code> 和 <code>%23</code> 有着截然不同的含义。</p>
-<p><a href="https://imgchr.com/i/s0bnpD"><img src="https://s3.ax1x.com/2021/01/15/s0bnpD.png" alt="s0bnpD.png" loading="lazy" decoding="async">
-</a></p>
+
+<p><a href="https://imgchr.com/i/s0bnpD"><img src="https://s3.ax1x.com/2021/01/15/s0bnpD.png" alt="s0bnpD.png" /></a></p>
+
 <p>在 url 中，<code>#</code> 部分的内容被称为 fragment，一般是用于定位页面的内容，像一般页面中的一级标题二级标题，经常是通过这个来进行定位的。这个符号在目前前端框架中的单页面应用也有着广泛的使用。所以，如果传入的参数是 <code>http://evilhost#@whitehost</code>，那么实际传入的仅仅只是 <code>http://evilhost</code>。</p>
+
 <p>大部分语言或者 web 服务已经实现了对 url 中 url 编码的内容自动进行 url 解码。尝试过 spring boot 以及 golang 之后，发现这二者创建的服务都支持 url 解码。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@GetMapping</span>(value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/cas&#34;</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">test</span>(<span style="color:#a6e22e">@RequestParam</span> String service) {
-</span></span><span style="display:flex;"><span>        System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(service);
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span></code></pre></div><p>如果请求 <code>http://localhost:8080/cas?service=http://evilhost%23@whitehost</code>，那么后台实际接收到的参数将是 <code>http://evilhost#@whitehost</code>。另外尝试了 golang 搭建的 web 服务，其结果是一致的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;io&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;log&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;net/http&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">helloHandler</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">host</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>()[<span style="color:#e6db74">&#34;host&#34;</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">host</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello, world!\n&#34;</span>)
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/hello&#34;</span>, <span style="color:#a6e22e">helloHandler</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>))
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="总结">总结 <a class="heading-anchor" href="#%e6%80%bb%e7%bb%93" aria-label="链接到本节">#</a></h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/cas&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">test</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> String service<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>service<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span></code></pre></div>
+<p>如果请求 <code>http://localhost:8080/cas?service=http://evilhost%23@whitehost</code>，那么后台实际接收到的参数将是 <code>http://evilhost#@whitehost</code>。另外尝试了 golang 搭建的 web 服务，其结果是一致的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;io&#34;</span>
+    <span style="color:#e6db74">&#34;log&#34;</span>
+    <span style="color:#e6db74">&#34;net/http&#34;</span>
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">helloHandler</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">req</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+        <span style="color:#a6e22e">host</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">URL</span>.<span style="color:#a6e22e">Query</span>()[<span style="color:#e6db74">&#34;host&#34;</span>]
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">host</span>)
+        <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">WriteString</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hello, world!\n&#34;</span>)
+    }
+
+    <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/hello&#34;</span>, <span style="color:#a6e22e">helloHandler</span>)
+    <span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>))
+}</code></pre></div>
+<h2 id="总结">总结</h2>
+
 <p>通过这次的开放重定向的绕过，发现了很多很有意思的问题。即使可能看起来微不足道的问题，可能也会暗含玄机。由于开发使用了 dubbo 中的 <code>parseURL</code> 方法去解析 url，从而导致白名单的校验被绕过，这可能是开发也没有预料到的。对于某些方法，如果研究的比较深入，的确是会有一些未预料到的影响。</p>
+
 <p>声明：本文经安全客授权发布，转载请联系安全客平台。</p>
 </article>
     <footer class="post-footer">
-      <div class="wechat-card">
-        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
-      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/"><span class="tag">Web安全</span></a></li>
+          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8"><span class="tag">Web安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"><span class="tag">漏洞分析</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="tag">漏洞分析</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><span class="tag">代码审计</span></a></li>
+          <li><a href="https://madneal.com/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="tag">代码审计</span></a></li>
         
       </ul>
       
@@ -415,22 +352,78 @@ true
       </p>
     </footer>
     
-        
-          
-       
+      
     
   </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
+  
+<footer class="site-footer">
+  <p>© 2017-2026 Neal&#39;s Blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
+  
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
+
+
+
+<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    },
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+
+
+<script src="https://madneal.com/scripts/index.min.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('\/service-worker.js').then(function() {
+      console.log('[ServiceWorker] Registered');
+    });
+  }
+</script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-104405154-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
 
 
 

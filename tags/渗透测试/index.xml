@@ -1,76 +1,143 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>渗透测试 on Neal&#39;s Blog</title>
     <link>https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</link>
     <description>Recent content in 渗透测试 on Neal&#39;s Blog</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.</copyright>
     <lastBuildDate>Wed, 26 Aug 2020 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>寻找你的第一个漏洞</title>
       <link>https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/</link>
       <pubDate>Wed, 26 Aug 2020 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/</guid>
-      <description>&lt;p&gt;最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！&lt;/p&gt;&#xA;&lt;h1 id=&#34;理解过程&#34;&gt;理解过程 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e7%90%86%e8%a7%a3%e8%bf%87%e7%a8%8b&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。&lt;/p&gt;&#xA;&lt;p&gt;@0x1ntegral&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;专注某种特性类型漏洞&lt;/li&gt;&#xA;&lt;li&gt;阅读这种漏洞类型的报告&lt;/li&gt;&#xA;&lt;li&gt;在项目中寻找这种类型漏洞&lt;/li&gt;&#xA;&lt;li&gt;当你找到一个漏洞，更改漏洞类型并重复步骤 1&lt;/li&gt;&#xA;&lt;/ol&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;@Troll_13&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;探寻未知领域&#34;&gt;探寻未知领域 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e6%8e%a2%e5%af%bb%e6%9c%aa%e7%9f%a5%e9%a2%86%e5%9f%9f&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。&lt;/p&gt;&#xA;&lt;h1 id=&#34;永远不要停止学习&#34;&gt;永远不要停止学习 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e6%b0%b8%e8%bf%9c%e4%b8%8d%e8%a6%81%e5%81%9c%e6%ad%a2%e5%ad%a6%e4%b9%a0&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。&lt;/p&gt;&#xA;&lt;p&gt;@root4loot&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;多读文章&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;@shail_official&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;读代码，先专注于公开的部分。阅读单元测试。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;h1 id=&#34;总结&#34;&gt;总结 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e6%80%bb%e7%bb%93&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。&lt;/p&gt;&#xA;&lt;h1 id=&#34;reference&#34;&gt;Reference &lt;a class=&#34;heading-anchor&#34; href=&#34;#reference&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community&#34;&gt;https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+      <description> 最近 Burp Suite 社区有在收集赏金猎人对于新手的一些建议。其实，相对于国外来说，国内的白帽子的生存环境还是比较恶劣的，和国外相比，国内的白帽子的生存环境还需要进一步提高。如果想全职在中国做一名白帽子还是比较困难的，但国外全职的白帽子就比较多。自己其实在安全方面也不能算老手，之前也不是做安全挖洞出身的。自己当初第一个提交给 SRC 的漏洞还是在内网做代码审计发现的开源框架的 XSS 漏洞，当初是阿里和大众点评各一个。虽然漏洞不值钱，但当时还是比较开心的。后面也都是偶然发现的一些信息泄露，SRC 的项目也没怎么做过，不敢和那些挖洞大佬比。他们收集的一些建议我觉得有的还是非常有价值的，而且 Burp Suite 社区真的算是业界良心，且不说 Burp 作为每个安全工程师必备工具之一，他们出品的 Web Security Acedemy 简直就是业界良心，这么优秀的应用安全学习资源，居然还免费！！！
+理解过程 脚本小子一时爽，一直当，一直爽。这个其实不一定是好的，对于新手来说，建议可以关注一种漏洞类型，然后深入挖掘，并且可以在一些项目中尝试去挖掘。
+@0x1ntegral
+  专注某种特性类型漏洞 阅读这种漏洞类型的报告 在项目中寻找这种类型漏洞 当你找到一个漏洞，更改漏洞类型并重复步骤 1   @Troll_13
+ 不要把事情过度复杂化。可以先做一些容易理解的，即使你的第一份漏洞赏金比较少，后面比较多的赏金会让你更开心。
+ 探寻未知领域 这其实是一个对于挖掘漏洞的一个比较通用的建议，一般来说，特别老的应用或者特别新的应用都是比较容易挖到漏洞的。往往有些老的应用，经常会有一些地方会被忽视掉。
+永远不要停止学习 不管你是做安全还是做开发，学习对于你来说，是永远都不能丢掉的。坚持这一点可以让你在技术的世界走得更远。
+@root4loot
+ 多读文章
+ @shail_official
+ 读代码，先专注于公开的部分。阅读单元测试。
+坚持尝试，不要停止。使用 burp 去现实世界中挖掘漏洞。Apache 的一系列漏洞，配置错误，反射型 XSS 以及敏感信息泄露。
+ 总结 对于安全的技术学习，实践往往非常重要。所以向 Web Security Academy, Penteserlab, Hack the Box，这种平台都非常有意义。对于挖漏洞这件事情来说，如果作为全职职业的确非常困难，但它却是安全行业的找工作里面一个非常重要的门槛。尽管我自己也是挖漏洞也很菜，希望自己以后也可以多花点时间放在这一方面，能多挖些漏洞。实在不行，混个月饼呗。
+Reference  https://portswigger.net/blog/finding-your-first-bug-bounty-hunting-tips-from-the-burp-suite-community  </description>
     </item>
+    
     <item>
       <title>PWK 以及 OSCP 最常见的问题</title>
       <link>https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-      <description>&lt;p&gt;OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：&lt;/p&gt;&#xA;&lt;h1 id=&#34;什么是-pwk-以及-oscp&#34;&gt;什么是 PWK 以及 OSCP &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e4%bb%80%e4%b9%88%e6%98%af-pwk-%e4%bb%a5%e5%8f%8a-oscp&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xA;&lt;p&gt;PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。&lt;/p&gt;&#xA;&lt;p&gt;官方还推荐完成 OSCP 后还可以考虑以下课程：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;CTP 中的渗透测试技术以及漏洞利用开发功能，&lt;/li&gt;&#xA;&lt;li&gt;AWAE 中的 Web 应用程序安全技能&lt;/li&gt;&#xA;&lt;li&gt;WIFU 中的无线安全技能&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;如何以及在哪参加-pwk&#34;&gt;如何以及在哪参加 PWK &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e5%a6%82%e4%bd%95%e4%bb%a5%e5%8f%8a%e5%9c%a8%e5%93%aa%e5%8f%82%e5%8a%a0-pwk&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。&lt;/p&gt;&#xA;&lt;h2 id=&#34;如何注册-pwk-以及-oscp-考试&#34;&gt;如何注册 PWK 以及 OSCP 考试 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e5%a6%82%e4%bd%95%e6%b3%a8%e5%86%8c-pwk-%e4%bb%a5%e5%8f%8a-oscp-%e8%80%83%e8%af%95&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。&lt;/p&gt;&#xA;&lt;h2 id=&#34;前提条件&#34;&gt;前提条件 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。&lt;/p&gt;</description>
+      <description>OSCP 最近在安全圈子越来越受到认知，Offsec 最近更新了一篇博文，关于 PWK 以及 OSCP 最常见的问题。本文挑一些重点讲一下：
+什么是 PWK 以及 OSCP PWK 是为信息安全专业人员设计的渗透测试培训课程，是 OffSec 的基础课程。考虑参加 PWK的 学生应具有 TCP/IP 网络，Linux 和 Bash 脚本编写的一些经验。具备 Python 或Perl 的基本知识。OSCP 则是 PWK 对应的考试，OffSec 一般都是课程对应考试，比如 AWAE 对应相应的考试 OSWE。
+官方还推荐完成 OSCP 后还可以考虑以下课程：
+ CTP 中的渗透测试技术以及漏洞利用开发功能， AWAE 中的 Web 应用程序安全技能 WIFU 中的无线安全技能  如何以及在哪参加 PWK PWK 可以在世界各地参加，只要你能联网。不过中国的网络，你懂得。官方的 PWK 课程仅由 OffSec 提供，所以不要被一些培训机构骗了。
+如何注册 PWK 以及 OSCP 考试 一般来说个体只要有护照应该就可以报名了。如果你已经是学生了，你可以在你最开始购买时收到的邮件里面购买其他可能或者更多的 lab 时间。如果要注册 OSCP 考试，可以使用课程报名的欢迎邮件。
+前提条件 除了上述建议的先决条件外，我们还要求学生至少 18 岁才能上课，当然也有列外，之前国外好像就有一个16岁的学生通过了考试。对于硬件，我们建议至少安装 4 GB 的 RAM，至少要有一个双核 CPU 和 20GB 的可用硬盘空间。与实验室的连接是通过使用 Kali Linux 的 OpenVPN 完成的，要使用稳定的网络，当然对于中国的学生来说非常难。</description>
     </item>
+    
     <item>
       <title>Haystack - hack the box</title>
       <link>https://madneal.com/post/haystack/</link>
       <pubDate>Sat, 30 Nov 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/haystack/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/08/04/eyER9x.png&#34; alt=&#34;eyER9x.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a class=&#34;heading-anchor&#34; href=&#34;#introduction&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.115(Linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali: 10.10.16.61&lt;/p&gt;&#xA;&lt;p&gt;HayStack is an easy box in hack the box. But it does isn&amp;rsquo;t easy at all. It&amp;rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-enumeration&#34;&gt;Information Enumeration &lt;a class=&#34;heading-anchor&#34; href=&#34;#information-enumeration&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;As usual, nmap is utilized to detect detailed ports and services.&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.10.10.115&#xA;Nmap scan report for 10.10.10.115&#xA;Host is up (0.27s latency).&#xA;Not shown: 65532 filtered ports&#xA;PORT     STATE SERVICE&#xA;22/tcp   open  ssh&#xA;80/tcp   open  http&#xA;9200/tcp open  wap-wsp&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then detect the detailed services:&lt;/p&gt;</description>
+      <description>Introduction Target: 10.10.10.115(Linux)
+Kali: 10.10.16.61
+HayStack is an easy box in hack the box. But it does isn&amp;rsquo;t easy at all. It&amp;rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
+Information Enumeration As usual, nmap is utilized to detect detailed ports and services.
+# Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.</description>
     </item>
+    
     <item>
       <title>Bastion -- Hack the box</title>
       <link>https://madneal.com/post/bastion/</link>
       <pubDate>Sun, 22 Sep 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/bastion/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/05/13/E4RxRs.png&#34; alt=&#34;E4RxRs.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;介绍&#34;&gt;介绍 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e4%bb%8b%e7%bb%8d&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;目标： 10.10.10.134 (Windows)&lt;/p&gt;&#xA;&lt;p&gt;Kali：10.10.16.65&lt;/p&gt;&#xA;&lt;p&gt;In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.&lt;/p&gt;&#xA;&lt;p&gt;总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。&lt;/p&gt;&#xA;&lt;h2 id=&#34;信息枚举&#34;&gt;信息枚举 &lt;a class=&#34;heading-anchor&#34; href=&#34;#%e4%bf%a1%e6%81%af%e6%9e%9a%e4%b8%be&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;p&gt;首先，探测开放端口&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Nmap 7.70 scan initiated Sun May  5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.10.10.134&#xA;Warning: 10.10.10.134 giving up on port because retransmission cap hit (10).&#xA;Nmap scan report for 10.10.10.134&#xA;Host is up (0.33s latency).&#xA;Not shown: 60653 closed ports, 4873 filtered ports&#xA;PORT      STATE SERVICE&#xA;22/tcp    open  ssh&#xA;135/tcp   open  msrpc&#xA;139/tcp   open  netbios-ssn&#xA;445/tcp   open  microsoft-ds&#xA;49664/tcp open  unknown&#xA;49665/tcp open  unknown&#xA;49667/tcp open  unknown&#xA;49668/tcp open  unknown&#xA;49670/tcp open  unknown&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;From the open ports, it can be induced that the box may be a windows machine that opens ssh service. Then try to obtain the detailed services of these open ports:&lt;/p&gt;</description>
+      <description>介绍 目标： 10.10.10.134 (Windows)
+Kali：10.10.16.65
+In conclusion, Bastion is not a medium box. But it would be easier to solve this box with windows VM. Command VM may be a good choice. But it can be finished by kali.
+总的来说，Bastion 其实并不是一个特别简单的机器。如果使用 windows 可以更方便地解决这台靶机。Command VM 对于这台靶机其实挺不错的，不过我们也可以使用 kali 来完成这个靶机。
+信息枚举 Firstly, detect the open ports:
+首先，探测开放端口
+# Nmap 7.70 scan initiated Sun May 5 12:33:32 2019 as: nmap -sT -p- --min-rate 10000 -oN ports 10.</description>
     </item>
+    
     <item>
       <title>后渗透的文件传输</title>
       <link>https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</link>
       <pubDate>Thu, 16 May 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/%E5%90%8E%E6%B8%97%E9%80%8F%E7%9A%84%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</guid>
-      <description>&lt;p&gt;在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;工具越简单越好，要求就是方便易用&lt;/li&gt;&#xA;&lt;li&gt;最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境&lt;/li&gt;&#xA;&lt;li&gt;稳定，这点也很重要&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。&lt;/p&gt;&#xA;&lt;h2 id=&#34;web-服务器&#34;&gt;web 服务器 &lt;a class=&#34;heading-anchor&#34; href=&#34;#web-%e6%9c%8d%e5%8a%a1%e5%99%a8&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。&lt;/p&gt;&#xA;&lt;h3 id=&#34;python2&#34;&gt;python2 &lt;a class=&#34;heading-anchor&#34; href=&#34;#python2&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python -m SimpleHTTPServer 90&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;python3&#34;&gt;python3 &lt;a class=&#34;heading-anchor&#34; href=&#34;#python3&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;python3 -m http.server 80&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;php&#34;&gt;php &lt;a class=&#34;heading-anchor&#34; href=&#34;#php&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;</description>
+      <description> 在后渗透环节中，文件传输往往是必不可少的一个环节，比如下载 payload 或者其它特定的工具。所以掌握一些后渗透的文件传输的技巧也是非常有用的。对于后渗透的文件传输，结合我这些天自己玩靶机的过程以及一些大佬的文章，我有以下一些体验：
+ 工具越简单越好，要求就是方便易用 最好不要安装额外工具，使用原生的工具即可，或者是最常用的环境 稳定，这点也很重要  针对以下几点，总结以下一些经验，不同的操作系统有一些细节可能不太相同，但是大致的思路是差不多的。其实对于某一种方法，或许可以使用很多的工具，本文主要挑一些最常用的工具来讲一讲。
+web 服务器 通过 web 服务器来搭建文件服务器，然后再下载文件这是一种常用的思路，这种方法简单易用，适用于各种平台，可以使用的工具也非常多。本文的攻击机器默认为 Kali，受害机器可能为 Windows 或者 Linux 机器。其实有很多工具可以搭建 web 服务器，比如 python、php、ruby等等。其实任何语言几乎都可以作为搭建文件服务器的工具，这里我们主要以 python 以及 php 为例，因为两种在我们的渗透过程中比较常见。我一般都选择把文件服务器的端口放在 80，因为这是 HTTP 的默认端口，这样下载文件的时候就可以不用指定端口号了。
+python2 python -m SimpleHTTPServer 90  python3 python3 -m http.server 80  php </description>
     </item>
+    
     <item>
       <title>Help -- hack the box</title>
       <link>https://madneal.com/post/help-hack-the-box/</link>
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/help-hack-the-box/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/04/21/EFe80A.png&#34; alt=&#34;EFe80A.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a class=&#34;heading-anchor&#34; href=&#34;#introduction&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.121(OS: Linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali: 10.10.16.28&lt;/p&gt;&#xA;&lt;p&gt;To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.&lt;/p&gt;&#xA;&lt;h2 id=&#34;infomation-enumeration&#34;&gt;Infomation Enumeration &lt;a class=&#34;heading-anchor&#34; href=&#34;#infomation-enumeration&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, gather open ports and services:&lt;/p&gt;</description>
+      <description>Introduction Target: 10.10.10.121(OS: Linux)
+Kali: 10.10.16.28
+To be honest, Help is not a difficult box. But there are some rabbit holes in the box. And in some case, you may come across some very strange situations. May you should step back, find if there is something wrong. For the PrivEsc of root, never give up trying the most basic method.
+Infomation Enumeration Firstly, gather open ports and services:
+# Nmap 7.</description>
     </item>
+    
     <item>
       <title>Bashed -- hack the box</title>
       <link>https://madneal.com/post/bashed-hack-the-box/</link>
       <pubDate>Thu, 04 Apr 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/bashed-hack-the-box/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://imgchr.com/i/AgdMvj&#34;&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/04/03/AgdMvj.md.png&#34; alt=&#34;AgdMvj.md.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a class=&#34;heading-anchor&#34; href=&#34;#introduction&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.68 (OS: Linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali linux: 10.10.16.44&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-enumeration&#34;&gt;Information Enumeration &lt;a class=&#34;heading-anchor&#34; href=&#34;#information-enumeration&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Nmap 7.70 scan initiated Wed Apr  3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68&#xA;Warning: 10.10.10.68 giving up on port because retransmission cap hit (10).&#xA;Nmap scan report for 10.10.10.68&#xA;Host is up (0.31s latency).&#xA;Not shown: 39680 closed ports, 25854 filtered ports&#xA;PORT   STATE SERVICE&#xA;80/tcp open  http&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.&lt;/p&gt;</description>
+      <description>Introduction Target: 10.10.10.68 (OS: Linux)
+Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http  Only port 80 is open, it may be an easy box.</description>
     </item>
+    
     <item>
       <title>Nibbles - Hack the box</title>
       <link>https://madneal.com/post/nibbles-hack-the-box/</link>
       <pubDate>Sun, 17 Mar 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/nibbles-hack-the-box/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/17/Ae0G8g.png&#34; alt=&#34;Ae0G8g.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a class=&#34;heading-anchor&#34; href=&#34;#introduction&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Target: 10.10.10.75(OS: Linux)&#xA;Kali linux: 10.10.16.44&lt;/p&gt;&#xA;&lt;h2 id=&#34;information-enumeration&#34;&gt;Information Enumeration &lt;a class=&#34;heading-anchor&#34; href=&#34;#information-enumeration&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/17/Ae19BQ.png&#34; alt=&#34;Ae19BQ.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;There are not too many open ports, just &lt;code&gt;80&lt;/code&gt; and &lt;code&gt;22&lt;/code&gt;. Detect the detailed services of the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nmap -sC -sV -oA services 10.10.10.75&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/17/Ae1E90.png&#34; alt=&#34;Ae1E90.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;Nothing special found. The only clue may be the open port of &lt;code&gt;80&lt;/code&gt;. To be honest, the box with less open ports is easier in general.&lt;/p&gt;</description>
+      <description>Introduction Target: 10.10.10.75(OS: Linux) Kali linux: 10.10.16.44
+Information Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75  There are not too many open ports, just 80 and 22. Detect the detailed services of the open ports:
+nmap -sC -sV -oA services 10.10.10.75  Nothing special found. The only clue may be the open port of 80. To be honest, the box with less open ports is easier in general.</description>
     </item>
+    
     <item>
       <title>Cronos -- hack the box</title>
       <link>https://madneal.com/post/cronos-hack-the-box/</link>
       <pubDate>Fri, 15 Mar 2019 00:00:00 +0000</pubDate>
+      
       <guid>https://madneal.com/post/cronos-hack-the-box/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/14/AEpKkq.png&#34; alt=&#34;AEpKkq.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction &lt;a class=&#34;heading-anchor&#34; href=&#34;#introduction&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Target machine: 10.10.10.13(OS: linux)&lt;/p&gt;&#xA;&lt;p&gt;Kali linux: 10.10.16.44&lt;/p&gt;&#xA;&lt;h2 id=&#34;enumeration&#34;&gt;Enumeration &lt;a class=&#34;heading-anchor&#34; href=&#34;#enumeration&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Firstly, detect the open ports:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/15/AE1qlF.png&#34; alt=&#34;AE1qlF.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;3 ports is open, detect the detailed services:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://s2.ax1x.com/2019/03/15/AE1OOJ.png&#34; alt=&#34;AE1OOJ.png&#34; loading=&#34;lazy&#34; decoding=&#34;async&#34;&gt;&#xA;&lt;/p&gt;&#xA;&lt;p&gt;So we can conduct the relation of ports of ports and services as following:&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;port&lt;/th&gt;&#xA;          &lt;th&gt;service&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;53&lt;/td&gt;&#xA;          &lt;td&gt;DNS&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;22&lt;/td&gt;&#xA;          &lt;td&gt;ssh&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;80&lt;/td&gt;&#xA;          &lt;td&gt;http&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;exploitation&#34;&gt;Exploitation &lt;a class=&#34;heading-anchor&#34; href=&#34;#exploitation&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;h3 id=&#34;http&#34;&gt;http &lt;a class=&#34;heading-anchor&#34; href=&#34;#http&#34; aria-label=&#34;链接到本节&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xA;&lt;p&gt;As the target machine provides http service, try to access &lt;code&gt;http://10.10.10.13&lt;/code&gt;&lt;/p&gt;</description>
+      <description>Introduction Target machine: 10.10.10.13(OS: linux)
+Kali linux: 10.10.16.44
+Enumeration Firstly, detect the open ports:
+nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13  3 ports is open, detect the detailed services:
+namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13  So we can conduct the relation of ports of ports and services as following:
+   port service     53 DNS   22 ssh   80 http    Exploitation http As the target machine provides http service, try to access http://10.</description>
     </item>
+    
   </channel>
 </rss>
