@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>
+  Tag → 漏洞分析
+  
+   | Neal 的博客
+</title>
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+<meta name="author" content="Neal" />
+<meta name="description" content="全栈工程师的进击" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Neal 的博客" />
+<meta property="og:description" content="全栈工程师的进击" />
+<meta property="og:url" content="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="Neal 的博客" />
+<meta name="twitter:description" content="全栈工程师的进击" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+
+
+<link rel="canonical" href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog" />
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com/">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/tile-image-windows.png" />
+<link rel="icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
+  
+  <h2 class="title">Neal&#39;s Blog</h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav id="site-menu" class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/post">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/madneal">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://madneal.com/tags/">Tags</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+      <li class="social-item">
+        <a href="mailto:bing.ecnu@gmail.com" title="Email"><span class="icon icon-email"></span></a>
+      </li>
+
+      
+      <li class="social-item">
+        <a href="//github.com/madneal" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://madneal.com/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-list">
+    <header class="list-header offscreen">
+      <h2 class="list-label">Posts List</h2>
+    </header>
+    
+    
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="post-link">Kibana 任意代码执行漏洞</a></h3>
+    <p class="post-meta">@Neal · Oct 17, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">今日，有人公开了 Kibana 任意代码执行漏洞（CVE-2019-7609）的 POC。这个漏洞的主要原理是因为 Kibana 中的 Timelion 中具有原形链污染漏洞，因此可以导致指定变量的原型链污染，通过传递 NODE 环境变量参数，利用 Kibana 的 Canvas 会创建新进程的特性可以达到远程执行命令的效果。
+在本地尝试搭建环境复现，忙活了半天，一开始尝试的是 6.4.2 版本的 Kibana。尝试执行命令的时候，发现一直没有效果，才发现这个漏洞的利用还有一个重要的环节。在导致原型链污染之后，还需要点击 Canvas 菜单，因为点击 Canvas 菜单，Kibana 会尝试创建一个新的进程，从而可以达到远程命令执行的效果。不过在 Kibana 6.5 版本之前，Canvas 不是默认安装在 Kibana 中的。可以通过 kibana-plugin 去安装 Canvas 插件，不过我后来还是选择使用 6.5.4 版本，同时注意相应 elasticsearch 也需要升级到 6.5.4 版本。最后在使用反弹命令的时候，遇到了一点问题，可能与机器系统版本相关，可以多尝试几种命令。
+漏洞的利用过程其实不是特别复杂，注意几点即可：
+漏洞的影响的版本是 5.6.15 版本以及 6.6.1 版本以前。 Kibana 需要安装了 Canvas 插件。 目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。 原型链攻击 # 如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 proto 属性直接去修改 prototype。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/" class="post-link">偶遇 XSS 漏洞</a></h3>
+    <p class="post-meta">@Neal · Aug 22, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。
+最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 ReturnURL 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，RAP。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开发，不过目前这个代码仓库已经不维护了，已经迁移到了 rap2-delos。但是 RAP 的 star 数更多，高达 10000&#43;。可以得知，该项目目前应该还有不少人在使用。
+其实这个漏洞的原理非常简单。其实就是 doLogin 请求会传入一个 ReturnURL，而重定向的页面会直接使用 window.location.href 来直接重定向 URL。使用 window.location.href 其实本来就是一种比较危险的行为，尤其是链接的参数取决于外部输入，更有可能导致 dom 型的 XSS 漏洞。同时，这个漏洞也是一个开放重定向漏洞。不过本文就稍微聊一下这个 XSS 漏洞。开源仓库就是有一个好处，可以直接看代码。下面我们就通过代码来简单解释一下原理。
+简单粗暴地在代码仓库中搜索了一下 window.location.href，发现代码仓库中有多处使用了 window.location.href。不过我们很快就发现了一个有趣的代码，正是重定向页面的代码。
+关键代码就是：window.location.href = decodeURIComponent(&#34;$returnUrl&#34;);。这段代码没有对 returnUrl 做任何的处理，而且这段代码就是直接放在 script 标签中。毫无疑问，这种一定会导致 XSS 漏洞，可以通过构造 returnUrl 来闭合双引号从而导致 XSS 漏洞。比如，&#34;alert(/xss/);//，这段代码就可以导致 XSS 漏洞。
+再看看调用这个页面的地方：
+public String doLogin() { // 增加验证码 Map&lt;String,Object&gt; session = ContextManager.currentSession(); String kaptchaExpected = (String)session.get(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY); if(getKaptcha() == null || !getKaptcha().equals(kaptchaExpected)) { setErrMsg(&#34;验证码错误&#34;); return ERROR; } if (super.getAccountMgr().validate(getAccount(), getPassword())) { User user = getAccountMgr().getUser(getAccount()); if (user != null &amp;&amp; user.getId() &gt; 0) { session.put(ContextManager.KEY_ACCOUNT, user.getAccount()); session.put(ContextManager.KEY_USER_ID, user.getId()); session.put(ContextManager.KEY_NAME, user.getName()); Set&lt;Role&gt; roleList = new HashSet&lt;Role&gt;(); for (Role role : user.getRoleList()) { Role copied = new Role(); copied.setId(role.getId()); copied.setName(role.getName()); roleList.add(copied); } session.put(ContextManager.KEY_ROLE_LIST, roleList); } else { setErrMsg(&#34;用户不存在或密码错误&#34;); return ERROR; } if (getReturnUrl() != null &amp;&amp; !getReturnUrl().trim().equals(&#34;&#34;)) { return &#34;redirect&#34;; } return SUCCESS; } else { setErrMsg(&#34;用户不存在或密码错误&#34;); return ERROR; } } 里面的关键代码就是：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/check-cve/" class="post-link">cve check</a></h3>
+    <p class="post-meta">@Neal · Jul 4, 2019 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary">今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
+可以通过 https://cve.circl.lu/api/ 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，
+可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。
+# check if file modified in the last several days def check_file_modified(filename, days): file_modify_time = getmtime(filename) return time() - file_modify_time &lt; (days * 3600 * 1000) def write_json(filename, result): with open(filename, &#39;w&#39;) as f: dump(result, f, indent=2) def write_csv(filename, result, header): with open(filename, &#39;w&#39;, newline=&#39;&#39;) as f: writer = csv.writer(f, delimiter=&#39;,&#39;) writer.writerow(header) for ele in result: writer.writerow([ele[&#34;id&#34;], ele[&#34;last-modified&#34;], ele[&#34;cvss&#34;], ele[&#34;summary&#34;]]) def search(params, options): url = &#34;https://cve.circl.lu/api/search/&#34; &#43; params print(url) filename = f&#34;{params.replace(&#39;/&#39;, &#39;-&#39;)}.json&#34; try: if isfile(filename) and check_file_modified(filename, 3): with open(filename, &#39;r&#39;) as f: result = loads(f.read()) else: res = get(url) if res.status_code == 200: with open(filename, &#39;w&#39;) as f: f.write(res.text) result = loads(res.text) else: print(&#34;Request failed: %d&#34;.format(res.status_code)) cve_result = [] for ele in result: if has_cve(ele, options.vendor, options.product, options.version, options.edition): obj = { &#34;id&#34;: ele[&#34;id&#34;], &#34;last-modified&#34;: ele[&#34;last-modified&#34;], &#34;cvss&#34;: ele[&#34;cvss&#34;], &#34;summary&#34;: ele[&#34;summary&#34;] } cve_result.append(obj) else: continue print(f&#34;{options.vendor}:{options.product}:{options.version}:{options.edition} &#34; f&#34;has impacted by {len(cve_result)} cve&#34;) if options.output is None or options.output == &#34;csv&#34;: write_csv(&#34;result.csv&#34;, cve_result, [&#34;id&#34;, &#34;last-modified&#34;, &#34;cvss&#34;, &#34;summary&#34;]) else: write_json(&#34;result.json&#34;, cve_result) except Exception as e: print(e) 完整的项目地址可以参考 https://github.com/neal1991/check-cve/blob/master/check-cve.py
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/check-cve/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/holiday-hack-the-box/" class="post-link">Holiday -- hack the box</a></h3>
+    <p class="post-meta">@Neal · May 20, 2019 · 6 min read</p>
+  </header>
+  
+  <p class="post-summary"> Introduction # Target: 10.10.10.25(Linux)
+Kali: 10.10.16.65
+Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a lot of time. And the root privesc is based on the exploitation of npm install which is relatively fresh.
+Information enumeration # As usual, use nmap to detect open ports and related services: nmap -A 10.10.10.25:
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" class="post-link">使用浏览器作为代理从公网攻击内网</a></h3>
+    <p class="post-meta">@Neal · Apr 15, 2019 · 6 min read</p>
+  </header>
+  
+  <p class="post-summary">介绍 # 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
+虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
+由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
+恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
+可疑行为：公网到局域网的连接 # 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
+如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
+这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
+在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
+同源策略不会阻止本地攻击吗？ # 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
+Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
+受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。 那跨域资源共享呢？ # 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
+攻击概述 # 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/" class="post-link">跨站请求伪造（CSRF）攻击</a></h3>
+    <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary"> 概述 # 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐户，CSRF 可能会危及整个 Web 应用程序。
+值得注意的一点是 CSRF（跨站请求伪造）攻击经常与 XSS（跨站脚本）攻击（特别是反射性 XSS 攻击）混淆，两者虽然都是跨站，但并未有实际联系，利用方式也不尽相同。XSS 攻击通常是在合法的网络应用中注入恶意的内容为受害者提供服务。注入的内容会被浏览器执行，因此恶意脚本会执行。CSRF 的攻击通常是让目标用户在不知情的情况下执行一个操作（比如转账，表单提交），如果当前目标用户的还是已授权状态，那么这些操作就有可能会执行成功。可以这么理解，CSRF 就是利用用户合法的身份在用户不知情的情况下执行一些操作。而 XSS 则是在合法的网站注入恶意的内容，需要或者不需要用户交互即可执行恶意脚本，从而实现攻击。虽然两者并无太多相同之处，但是 XSS 漏洞会导致 CSRF 的某些防护措施失效，因此做好 XSS 的防护对于 CSRF 的防护也是很有意义的。
+CSRF 的工作原理 # CSRF 攻击是通过让一个已授权的用户的浏览器向应用发起一个恶意请求（用户尚不知情的情况）。只要用户的身份已被验证过且实际的请求已经通过用户的浏览器发送到目标应用，应用无法知道情况的来源是否是一个有效的交易或者这个用户是在知情的情况下点击这个链接。通过 CSRF 攻击，攻击者可以让受害者执行一些他们不知情的操作，比如，登出，购买操作，改变账户信息或者其它目标攻击应用提供的服务。
+下面就是一个例子在机票供应商那里购买飞机票：
+POST http://TicketMeister.com/Buy_ticket.htm HTTP/1.1 Host: ticketmeister User-Agent: Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O;) Firefox/1.4.1 Cookie: JSPSESSIONID=34JHURHD894LOP04957HR49I3JE383940123K ticketId=ATHX1138&amp;to=PO BOX 1198 DUBLIN 2&amp;amount=10&amp;date=11042008 响应代表购买飞机票的 POST 请求已经成功执行：
+HTTP/1.0 200 OK Date: Fri, 02 May 2008 10:01:20 GMT Server: IBM_HTTP_Server Content-Type: text/xml;charset=ISO-8859-1 Content-Language: en-US X-Cache: MISS from app-proxy-2.proxy.ie Connection: close &lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34;?&gt; &lt;pge_data&gt; Ticket Purchased, Thank you for your custom. &lt;/pge_data&gt; 如何定位存在潜在漏洞的代码 # 这个问题比较容易检测到，可能的补救措施就是警告用户这可能是一个 CSRF 攻击（比如在微信里面点击一个未知链接，微信可能会警告危险性，当然这并不是一个完美的解决方案）。只要应用接受一个精心构造的 HTTP 请求并且这个请求符合应用的业务逻辑，那么这个 CSRF 攻击就可以成功（我们设定用户已经登陆到攻击的目标应用）。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/" class="post-link">隐写术-深入研究 PDF 混淆漏洞</a></h3>
+    <p class="post-meta">@Neal · Jan 28, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary"> 原文：“steganography” - obfuscating PDF exploits in depth
+译者：neal1991
+welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+上礼拜发现的关于使用 this.getPageNumWords() &amp; this.getPageNthWord() 方法来进行混淆的 PDF 漏洞不久，我们发现另外一个，一个在 PDF 漏洞中更加强大的混淆利用技术。这种技术使用所谓的“隐写术”方法来隐藏嵌入在 PDF 文件中的图像中的恶意 Javascript 代码，它非常强大，因为它可以绕过几乎所有的 AV 引擎。
+我们的 EdgeLogic 引擎将样本检测为 “exploit CVE-2013-3346”，与前一个相同。
+https://edgespot.io/analysis/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/ 样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。
+上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。
+https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection 打开后，伪装成 IRS 文件的 PDF 看起来很正常。
+在该样本中使用两层混淆。 第一层是我们之前公开的 - “this.getPageNumWords()” 以及 “this.getPageNthWord()” 方法。该漏洞使用 “this.getPageNumWords()” 以及 “this.getPageNthWord()” 来读取和执行隐藏为“内容”的 Javascript。 相关代码可以在 PDF stream-64中找到。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/" class="post-link">什么是DDOS</a></h3>
+    <p class="post-meta">@Neal · Jan 4, 2019 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary"> 什么是 DDOS # DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击者来说，成本小，但是相对收益大，对于受害者来说，造成的伤害却是巨大的。因为对于服务提供者来说，一旦服务不可用，就会造成不可挽回的损失，可能会导致用户量的流失。根据腾讯云发布的《2018年泛互联网行业DDoS攻击态势报告》，2018年 DDOS 攻击已经进入 TB 时代，2018 年的攻击峰值为 1.23Tbps（同比增长121%），而业界的攻击峰值更是达到惊人的 1.94Tbps。
+有人说对于 DDOS 攻击，有钱的话，就死命扩容，没钱的话，就忍一忍。虽然是玩笑话，但是有一定的道理。最近也是自己了解 DDOS 攻击这一块知识，下面简单介绍一下自己看到的一些。
+DDOS 攻击类型 # 常见的 DDOS 攻击主要包括以下几类：网络层攻击、传输层攻击、会话层攻击以及应用层攻击。
+传输层 DDOS 攻击 # 传输层 DDoS 攻击一般是针对于 TCP 以及 UDP 协议地攻击，主要是指 Syn Flood，Ack Flood，UDP Flood，ICMP Flood、RstFlood 等攻击。
+以最常见的 DDOS 攻击 Sync Flood 为例，它利用了 TCP 协议的三次握手机制，当服务端接收到一个 Syn 请求时，服务端必须使用一个监听队列将该连接保存一定时间。因此，通过向服务端不停发送 Syn 请求，但不响应 Syn&#43;Ack 报文，从而消耗服务端的资源。当等待队列被占满时，服务端将无法响应正常用户的请求，达到拒绝服务攻击的目的。
+DNS DDoS 攻击 # DNS 服务对于企业来说是比较重要的，因此针对 DNS 服务的 DDOS 攻击也是比较常见的。DNS DDoS 攻击主要是指 DNS Request Flood、DNS Response Flood、虚假源&#43;真实源 DNS Query Flood、权威服务器和 Local 服务器攻击。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/" class="post-link">基于ELK进行邮箱访问日志的分析</a></h3>
+    <p class="post-meta">@Neal · Nov 16, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
+系统搭建 # 系统主要是基于elasticsearch&#43;logstash&#43;filebeat&#43;kibana&#43;nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛应用于日志采集。
+其实在搭这个系统还是比较麻烦的，可是前面有的踩过的坑当时没有及时记录下来，有点忘记了。但是里面就是配置logstash和filebeat配置证书的时候有点麻烦，配置不好会一直没有办法连通。还要注意ES的索引占得空间，其实ES索引还蛮占空间的。
+Logstash # Logstash其实在整个ELK中环节还蛮重要的，其实可以理解为一个“中间人”的角色。它通过从filebeat中接受数据，然后进行过滤，最后再传输给es。所以一般logstash的配置也包括input,output以及filter的配置。
+filter # logstash中的filter比较重要，可以对日志利用正则进行过滤，这样你可以更关心日志中你需要关注的字段。强烈建议去grokdebugger去调试你的grok正则表达式，但是国内访问速度比较慢，可以采取一定手段访问。上面还有grok内置的一些常用正则表达式，可以配合试用调试。
+geoip # 日志分析中往往涉及到ip归属地的查询。logstash自带的geoip插件已经自带了数据库，可以下载最新的数据库。同时，geoip里面包含了很多信息，你可以进行过滤，只选择自己想要的字段：
+geoip { fields =&gt; [&#34;city_name&#34;, &#34;country_name&#34;] } 日志分析 # 邮箱日志的格式是IIS的日至格式，日志是由空格分割开的一些字段信息。主要的字段包含以下这些字段信息：
+#Fields: date time s-ip cs-method cs-uri-stem cs-uri-query s-port cs-username c-ip cs(User-Agent) sc-status sc-substatus sc-win32-status time-taken 针对这个日志，我利用grok去解析这些字段的信息，自定义的正则规则是：
+DATE_CH \d&#43;[/-]\d&#43;[/-]\d&#43; OUTER_EMAIL %{DATE_CH:date} %{TIME:time} %{IP:serverIp} %{WORD:method} %{URIPATH:uristem} %{PARAM:query} %{INT:port} %{NOTSPACE:username} %{IP:clientIp} %{NOTSPACE:ua} %{INT:status} %{INT:substatus} %{INT:win32status} %{INT:timetaken} 通过grok我们可以获取这些字段，但如何在这些字段中挖掘有用的信息呢？这里面比较有价值的信息就是用户的登录时间，登录客户端，以及登录的ip。通过之前的 geoip 的配置，我们可以获取到ip对应的地址信息。登录时间由于很多邮件客户端在后台会去同步或者去登陆，所以参考意义不是特别的大。
+后续对于日志如何进行分析，我目前还没有特别好的思路，希望有着方面经验的小伙伴可以一起交流。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
+    <h3 class="post-title"><a href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/" class="post-link">什么是服务端伪造（SSRF）</a></h3>
+    <p class="post-meta">@Neal · Aug 6, 2017 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary">什么是服务端伪造（SSRF） # 原文：GitHub Pages and Single-Page Apps
+译者：neal1991
+welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
+LICENSE: MIT
+服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。
+典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。
+下面的是PHP中容易收到SSRF的一个例子。
+&lt;?php /** * Check if the &#39;url&#39; GET variable is set * Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif */ if (isset($_GET[&#39;url&#39;])){ $url = $_GET[&#39;url&#39;]; /** * Send a request vulnerable to SSRF since * no validation is being done on $url * before sending the request */ $image = fopen($url, &#39;rb&#39;); /** * Send the correct response headers */ header(&#34;Content-Type: image/png&#34;); /** * Dump the contents of the image */ fpassthru($image); } 在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
+  </footer>
+</article>
+
+      
+    
+    
+      <footer class="list-footer">
+        <nav class="pagination">
+          <h3 class="offscreen">Pagination</h3>
+          
+            <a class="pagination-previous" href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">← Newer Posts</a>
+          
+          
+        </nav>
+      </footer>
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+</footer>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
+
+
+
+  </body>
+</html>

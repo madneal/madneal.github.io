@@ -14,34 +14,75 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
-\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.30e-03$	&amp;$3.00e-03$	&amp;$4.40e-03$	&amp;$2.12e-02$	&amp;$\textbf{4.50e-03}$	&amp;$1.53e-04$	&amp;$4.20e-03$	&amp;$4.80e-03$\\\\ $F_{6}$	&amp;$8.30e-03$	&amp;$2.10e-03$	&amp;$5.70e-03$	&amp;$1.50e-02$	&amp;$1.62e-02$	&amp;$2.30e-02$ &amp;$5.40e-03$	&amp;$1.20e-01$\\\\ $F_{7}$	&amp;$1.60e-01$	&amp;$2.35e-01$	&amp;$7.96e-02$	&amp;$1.03e&#43;0$	&amp;$1.76e-01$	&amp;$2.33e-01$ &amp;$3.28e-02$ &amp;$1.02e&#43;0$\\\\ $F_{8}$	&amp;$6.59e-02$	&amp;$3.50e-03$	&amp;$6.05e-02$	&amp;$7.69e-02$	&amp;$\textbf{6.37e-02}$	&amp;$3.60e-03$	&amp;$5.81e-02$	&amp;$7.65e-02$\\\\ $F_{9}$	&amp;$8.00e-03$	&amp;$2.80e-03$	&amp;$5.80e-03$	&amp;$1.48e-02$	&amp;$\textbf{7.70e-03}$	&amp;$3.20e-03$	&amp;$5.40e-03$	&amp;$2.24e-02$\\\\ $F_{10}$ &amp;$1.25e&#43;02$	&amp;$2.35e&#43;01$	&amp;$2.27e&#43;01$	&amp;$1.44e&#43;02$	&amp;$\textbf{2.36e&#43;02}$	&amp;$3.48e&#43;01$	&amp;$5.02e&#43;0$	&amp;$1.38e&#43;02$\\ \hline\hline \end{tabular} \begin{tablenotes} \item[1] The bolder ones mean better. \end{tablenotes} \end{threeparttable} \end{table*} " />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="latex如何给表格添加注释" />
-  <meta property="og:description" content="在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：
-\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.} \label{TAB1} \begin{tabular}{l|cccc|cccc}\hline\hline instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\ &amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline $F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\ $F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	&amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\ $F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	&amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\ $F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	&amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\ $F_{5}$	&amp;$5.30e-03$	&amp;$3.00e-03$	&amp;$4.40e-03$	&amp;$2.12e-02$	&amp;$\textbf{4.50e-03}$	&amp;$1.53e-04$	&amp;$4.20e-03$	&amp;$4.80e-03$\\\\ $F_{6}$	&amp;$8.30e-03$	&amp;$2.10e-03$	&amp;$5.70e-03$	&amp;$1.50e-02$	&amp;$1.62e-02$	&amp;$2.30e-02$ &amp;$5.40e-03$	&amp;$1.20e-01$\\\\ $F_{7}$	&amp;$1.60e-01$	&amp;$2.35e-01$	&amp;$7.96e-02$	&amp;$1.03e&#43;0$	&amp;$1.76e-01$	&amp;$2.33e-01$ &amp;$3.28e-02$ &amp;$1.02e&#43;0$\\\\ $F_{8}$	&amp;$6.59e-02$	&amp;$3.50e-03$	&amp;$6.05e-02$	&amp;$7.69e-02$	&amp;$\textbf{6.37e-02}$	&amp;$3.60e-03$	&amp;$5.81e-02$	&amp;$7.65e-02$\\\\ $F_{9}$	&amp;$8.00e-03$	&amp;$2.80e-03$	&amp;$5.80e-03$	&amp;$1.48e-02$	&amp;$\textbf{7.70e-03}$	&amp;$3.20e-03$	&amp;$5.40e-03$	&amp;$2.24e-02$\\\\ $F_{10}$ &amp;$1.25e&#43;02$	&amp;$2.35e&#43;01$	&amp;$2.27e&#43;01$	&amp;$1.44e&#43;02$	&amp;$\textbf{2.36e&#43;02}$	&amp;$3.48e&#43;01$	&amp;$5.02e&#43;0$	&amp;$1.38e&#43;02$\\ \hline\hline \end{tabular} \begin{tablenotes} \item[1] The bolder ones mean better. \end{tablenotes} \end{threeparttable} \end{table*} " />
-  <meta property="og:url" content="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content="在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtaine" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="latex如何给表格添加注释" />
+<meta property="og:description" content="在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtaine" />
+<meta property="og:url" content="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2015-12-10T15:41:52Z" />
+<meta property="article:modified_time" content="2015-12-10T15:41:52Z" />
+<meta property="article:tag" content="LaTeX" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="latex如何给表格添加注释" />
+<meta name="twitter:description" content="在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：\usepackage{threeparttable} \begin{table*} \begin{threeparttable} \centering \caption{Statistical results of the IGD values of the final populations obtaine" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"latex如何给表格添加注释\"",
+  "description": "\"在latex中，想给表格添加注释，可以使用threeparttable这个包 代码如下：\\\\usepackage{threeparttable} \\\\begin{table*} \\\\begin{threeparttable} \\\\centering \\\\caption{Statistical results of the IGD values of the final populations obtaine\"",
+  "url": "\"https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/\"",
+  "datePublished": "\"2015-12-10T15:41:52Z\"",
+  "dateModified": "\"2015-12-10T15:41:52Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
@@ -73,16 +114,17 @@
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -110,15 +152,15 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -150,8 +192,8 @@
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -216,8 +258,9 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">latex如何给表格添加注释</h1>
-      <p class="post-meta">@Neal · Dec 10, 2015 · 1 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2015-12-10">2015-12-10</time> · 约 1 分钟阅读</p>
     </header>
+    
     <article class="post-content"><p>在latex中，想给表格添加注释，可以使用threeparttable这个包
 代码如下：</p>
 <pre tabindex="0"><code>\usepackage{threeparttable}
@@ -247,17 +290,19 @@ $F_{10}$ &amp;$1.25e+02$	&amp;$2.35e+01$	&amp;$2.27e+01$	&amp;$1.44e+02$	&amp;$\
 \end{table*}
 </code></pre></article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/latex"><span class="tag">Latex</span></a></li>
+          <li><a href="https://madneal.com/tags/latex/"><span class="tag">LaTeX</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3843</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3844</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -272,29 +317,8 @@ $F_{10}$ &amp;$1.25e+02$	&amp;$2.35e+01$	&amp;$2.27e+01$	&amp;$1.44e+02$	&amp;$\
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

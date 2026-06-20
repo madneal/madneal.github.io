@@ -14,54 +14,76 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第一次人都是直接在现场的，后面都是基本确定了作案对象，但是由于没有直接的视频证据，所以也没有办法。
-第一次是在公司园区的地下停车场，当时一个十字交汇处人一直挺多的，走来走去。我就在那停车等待。大聪明急不可耐的冲了过来，左转，充满自信的把我蹭了个满怀。我当时真的是。。。这个人本来还说要跟我责任一半一半，他说我压了道路线。这里想解释下为什么压道路线的问题，因为右边都是停车位，而且很多车的车头都会露出来，所以会往左边开一点。后来打了110，当场民警是不愿意定责的，不过他还是讲了这个责任主要还是在于他没有把握好距离导致的，最后他还是认了全责。
-https://www.bilibili.com/video/BV16M4y1L73L
-这里的保险过程也比较简单，他报了保险，保险要了双方的驾驶证和行驶证，以及 4s 店的地址。定损由于责任清晰，定损员也没有过来定损，直接通过照片定损的。像这种发生事故其实是特别坑的，保险不会赔偿你的时间，你还要过去修车，修车过程中还要耽误用车。而且如果你的车比较新，别人也不会给你折损费。一开始保险公司定损的价格过低，保险杠当时车灯附近当初已经有好几处已经扭曲了，保险公司想做修复，4s 店说做不了，后来才同意换新的。这里涉及到另外一个潜规则，一般来说保险公司都想能修就修，所以他们会把零件自己带出去修，而车主当然是希望换新的，尤其还是别人的责任的情况。所以，这种情况还是需要 battle，当然一般小的保险公司，甚至包括平安，评价都很不好，赔偿的时候不痛快。好像只有人保比较爽快，但是人保的保费又比较高。当时整个上海都没有保险杠，我顶着破保险杠开了半个多月，然后修车也等了好几天。
-第二次，其实也是在园区停车场，不过这一次当时没有发现，发现的时候已经是第二天。后来去翻了下行车记录仪，应该当时是一辆大众倒车入库的时候蹭到了我车的右前方。但是行车记录仪只有缩时录影，这种一般都是几十秒拍一张照片，而且没有声音，所以这种视频证据也很难拿出来作为直接证据。因为当时是周五，园区的物业只有周一才上班。周一上班的时候才联系上物业。我原本以为车位前面那个圆圆的是摄像头，后来物业那个是检测车位是否占用的，另外一个角度有摄像头，但是被一个大柱子挡住了。当时是通过 imagemagick 把视频分割成照片，然后再自己组合起来合成一个帧率低的一个视频。这样获取到了车牌号，后来报警，通过警察对方联系了我，我把这个视频给她看了，她的车身左侧位置的确是有一道划痕，但是她不承认就是这一次蹭的。她说她自己经常蹭这蹭那，不一定就是我的车蹭的。因为没有直接的视频拍到接触画面，所以这一次事故也没有办法。而且这一次报警，警察连来都不愿意来的。
-https://www.bilibili.com/video/bv14S4y1E7e
-第三次，就是最近的一次了，停在小区。当时车辆有震动告警了，然后我就下去了看了，然后发觉是有工人在搬空调。当时就问他是不是搬空调时不小心蹭到了，对方很激动地否认了。继续报警，警察过来看了，然后看了四周没有摄像头，就说应该不行了。其实当初远处一个摄像头，但当时警察说肯定拍不到，也就没有看了。后来问了邻居，邻居说可以看到的。后来就去找物业看监控，的确是能看到那个时间点，他们在面包车车尾处下货，但是他们的车身已经把前面全部挡住了，所以根本看不到后面。这一次虽然报了警，还去做了笔录，但是依然没有什么卵用，还是得自己去修车。
-所以停车被蹭几乎是个无法解决的问题，这是一个薛定谔的猫，你也不知道什么时候会发生。如果能够遇到素质高的人，能够主动承认就已经非常不错了。当然对于这种情况也想到了以下几种尽可能能够去追回肇事方的方法：
-监控 行车记录仪 哨兵模式 监控是最有效以及最直接的证据。而且一般监控其实覆盖的距离还是比较远的，所以停车的时候可以尽量找那种摄像头可以覆盖的区域。一般这种区域都是停车场主干道附近，以及一些交汇处。不过这个也需要结合时间段来去找，如果车子有震动告警，这样会比较好找一些。
-接降压线的行车记录仪理论上是可以做到24小时监控的。但是一般会有电压保护，防止小电瓶没有电，所以可能有的时候电压保护就断电了。另外，就是普通的可能是缩时录影，一般一分钟或者几十秒拍一张照片，这种视频也难以作为直接证据。但是如果是正常录制的话，可能录不了特别长的时间，往往可能只能录满几个小时。所以，行车记录仪往往也只能作为辅佐手段之一。
-目前很多新能源汽车已经有哨兵模式了。这种模式下发生震动事件后，会自动记录四周的照片和一点点视频，这个往往是比较好用的。但是小鹏有一个缺点，就是哨兵模式需要手动开启，所以会经常忘记。
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="停车被蹭的那些小事" />
-  <meta property="og:description" content="自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第一次人都是直接在现场的，后面都是基本确定了作案对象，但是由于没有直接的视频证据，所以也没有办法。
-第一次是在公司园区的地下停车场，当时一个十字交汇处人一直挺多的，走来走去。我就在那停车等待。大聪明急不可耐的冲了过来，左转，充满自信的把我蹭了个满怀。我当时真的是。。。这个人本来还说要跟我责任一半一半，他说我压了道路线。这里想解释下为什么压道路线的问题，因为右边都是停车位，而且很多车的车头都会露出来，所以会往左边开一点。后来打了110，当场民警是不愿意定责的，不过他还是讲了这个责任主要还是在于他没有把握好距离导致的，最后他还是认了全责。
-https://www.bilibili.com/video/BV16M4y1L73L
-这里的保险过程也比较简单，他报了保险，保险要了双方的驾驶证和行驶证，以及 4s 店的地址。定损由于责任清晰，定损员也没有过来定损，直接通过照片定损的。像这种发生事故其实是特别坑的，保险不会赔偿你的时间，你还要过去修车，修车过程中还要耽误用车。而且如果你的车比较新，别人也不会给你折损费。一开始保险公司定损的价格过低，保险杠当时车灯附近当初已经有好几处已经扭曲了，保险公司想做修复，4s 店说做不了，后来才同意换新的。这里涉及到另外一个潜规则，一般来说保险公司都想能修就修，所以他们会把零件自己带出去修，而车主当然是希望换新的，尤其还是别人的责任的情况。所以，这种情况还是需要 battle，当然一般小的保险公司，甚至包括平安，评价都很不好，赔偿的时候不痛快。好像只有人保比较爽快，但是人保的保费又比较高。当时整个上海都没有保险杠，我顶着破保险杠开了半个多月，然后修车也等了好几天。
-第二次，其实也是在园区停车场，不过这一次当时没有发现，发现的时候已经是第二天。后来去翻了下行车记录仪，应该当时是一辆大众倒车入库的时候蹭到了我车的右前方。但是行车记录仪只有缩时录影，这种一般都是几十秒拍一张照片，而且没有声音，所以这种视频证据也很难拿出来作为直接证据。因为当时是周五，园区的物业只有周一才上班。周一上班的时候才联系上物业。我原本以为车位前面那个圆圆的是摄像头，后来物业那个是检测车位是否占用的，另外一个角度有摄像头，但是被一个大柱子挡住了。当时是通过 imagemagick 把视频分割成照片，然后再自己组合起来合成一个帧率低的一个视频。这样获取到了车牌号，后来报警，通过警察对方联系了我，我把这个视频给她看了，她的车身左侧位置的确是有一道划痕，但是她不承认就是这一次蹭的。她说她自己经常蹭这蹭那，不一定就是我的车蹭的。因为没有直接的视频拍到接触画面，所以这一次事故也没有办法。而且这一次报警，警察连来都不愿意来的。
-https://www.bilibili.com/video/bv14S4y1E7e
-第三次，就是最近的一次了，停在小区。当时车辆有震动告警了，然后我就下去了看了，然后发觉是有工人在搬空调。当时就问他是不是搬空调时不小心蹭到了，对方很激动地否认了。继续报警，警察过来看了，然后看了四周没有摄像头，就说应该不行了。其实当初远处一个摄像头，但当时警察说肯定拍不到，也就没有看了。后来问了邻居，邻居说可以看到的。后来就去找物业看监控，的确是能看到那个时间点，他们在面包车车尾处下货，但是他们的车身已经把前面全部挡住了，所以根本看不到后面。这一次虽然报了警，还去做了笔录，但是依然没有什么卵用，还是得自己去修车。
-所以停车被蹭几乎是个无法解决的问题，这是一个薛定谔的猫，你也不知道什么时候会发生。如果能够遇到素质高的人，能够主动承认就已经非常不错了。当然对于这种情况也想到了以下几种尽可能能够去追回肇事方的方法：
-监控 行车记录仪 哨兵模式 监控是最有效以及最直接的证据。而且一般监控其实覆盖的距离还是比较远的，所以停车的时候可以尽量找那种摄像头可以覆盖的区域。一般这种区域都是停车场主干道附近，以及一些交汇处。不过这个也需要结合时间段来去找，如果车子有震动告警，这样会比较好找一些。
-接降压线的行车记录仪理论上是可以做到24小时监控的。但是一般会有电压保护，防止小电瓶没有电，所以可能有的时候电压保护就断电了。另外，就是普通的可能是缩时录影，一般一分钟或者几十秒拍一张照片，这种视频也难以作为直接证据。但是如果是正常录制的话，可能录不了特别长的时间，往往可能只能录满几个小时。所以，行车记录仪往往也只能作为辅佐手段之一。
-目前很多新能源汽车已经有哨兵模式了。这种模式下发生震动事件后，会自动记录四周的照片和一点点视频，这个往往是比较好用的。但是小鹏有一个缺点，就是哨兵模式需要手动开启，所以会经常忘记。
-" />
-  <meta property="og:url" content="https://madneal.com/post/shanghai/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第 …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="停车被蹭的那些小事" />
+<meta property="og:description" content=" 自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第 …" />
+<meta property="og:url" content="https://madneal.com/post/shanghai/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2022-07-20T00:00:00Z" />
+<meta property="article:modified_time" content="2022-07-20T00:00:00Z" />
+<meta property="article:tag" content="生活" />
+<meta property="article:tag" content="汽车" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="停车被蹭的那些小事" />
+<meta name="twitter:description" content=" 自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第 …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"停车被蹭的那些小事\"",
+  "description": "\" 自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第 …\"",
+  "url": "\"https://madneal.com/post/shanghai/\"",
+  "datePublished": "\"2022-07-20T00:00:00Z\"",
+  "dateModified": "\"2022-07-20T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/shanghai/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
@@ -93,16 +115,17 @@ https://www.bilibili.com/video/bv14S4y1E7e
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -130,15 +153,15 @@ https://www.bilibili.com/video/bv14S4y1E7e
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -170,8 +193,8 @@ https://www.bilibili.com/video/bv14S4y1E7e
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -236,8 +259,9 @@ https://www.bilibili.com/video/bv14S4y1E7e
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">停车被蹭的那些小事</h1>
-      <p class="post-meta">@Neal · Jul 20, 2022 · 1 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2022-07-20">2022-07-20</time> · 约 1 分钟阅读</p>
     </header>
+    
     <article class="post-content"><p>自从有了车之后，停车似乎就变成生活中最大的烦恼之一。而停车停着不动被别人蹭，那就烦恼加倍。而被人蹭了还找不到人，那则是烦恼再加倍。被蹭了找到了人，别人不承认，然后你还没有直接证据，烦恼又又加倍。那如果用二进制表达的话，那么就是 1111，就有 15 倍烦恼了。前段时间已经是我停着不动，第三次被人蹭了，而且基本上只有第一次人都是直接在现场的，后面都是基本确定了作案对象，但是由于没有直接的视频证据，所以也没有办法。</p>
 <p>第一次是在公司园区的地下停车场，当时一个十字交汇处人一直挺多的，走来走去。我就在那停车等待。大聪明急不可耐的冲了过来，左转，充满自信的把我蹭了个满怀。我当时真的是。。。这个人本来还说要跟我责任一半一半，他说我压了道路线。这里想解释下为什么压道路线的问题，因为右边都是停车位，而且很多车的车头都会露出来，所以会往左边开一点。后来打了110，当场民警是不愿意定责的，不过他还是讲了这个责任主要还是在于他没有把握好距离导致的，最后他还是认了全责。</p>
 <p><a href="https://www.bilibili.com/video/BV16M4y1L73L">https://www.bilibili.com/video/BV16M4y1L73L</a></p>
@@ -256,19 +280,21 @@ https://www.bilibili.com/video/bv14S4y1E7e
 <p>目前很多新能源汽车已经有哨兵模式了。这种模式下发生震动事件后，会自动记录四周的照片和一点点视频，这个往往是比较好用的。但是小鹏有一个缺点，就是哨兵模式需要手动开启，所以会经常忘记。</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E7%94%9F%E6%B4%BB"><span class="tag">生活</span></a></li>
+          <li><a href="https://madneal.com/tags/%E7%94%9F%E6%B4%BB/"><span class="tag">生活</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E6%B1%BD%E8%BD%A6"><span class="tag">汽车</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%B1%BD%E8%BD%A6/"><span class="tag">汽车</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1430</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1431</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -283,29 +309,8 @@ https://www.bilibili.com/video/bv14S4y1E7e
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

@@ -14,42 +14,79 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="只能生成一个实例的类是为了实现单例模式的类型。
-加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } } 利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } } 由于C#中调用静态构造函数时初始化静态变量，.NET运行时能够保证只调用一次静态构造函数，这样我们就能够保证只初始化一次instance。C#中调用静态构造函数的时机不是由程序员掌控的，而是当.NET运行时发现第一使用一个类型的时候自动调用该类型的静态构造函数。在Singleton中，实例instance并不是第一次调用属性Singleton.Instance的时候创建的，而是在第一次用到Singleton的时候就会被创建。
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="剑指offer学习--实现单例模式" />
-  <meta property="og:description" content="只能生成一个实例的类是为了实现单例模式的类型。
-加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } } 利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } } 由于C#中调用静态构造函数时初始化静态变量，.NET运行时能够保证只调用一次静态构造函数，这样我们就能够保证只初始化一次instance。C#中调用静态构造函数的时机不是由程序员掌控的，而是当.NET运行时发现第一使用一个类型的时候自动调用该类型的静态构造函数。在Singleton中，实例instance并不是第一次调用属性Singleton.Instance的时候创建的，而是在第一次用到Singleton的时候就会被创建。
-" />
-  <meta property="og:url" content="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content="只能生成一个实例的类是为了实现单例模式的类型。加同步锁前后两次判断实例是否已存在我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。public sealed class Singleton { private Singelton() { } private static object syncObj = n" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="剑指offer学习--实现单例模式" />
+<meta property="og:description" content="只能生成一个实例的类是为了实现单例模式的类型。加同步锁前后两次判断实例是否已存在我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。public sealed class Singleton { private Singelton() { } private static object syncObj = n" />
+<meta property="og:url" content="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2015-11-13T12:48:17Z" />
+<meta property="article:modified_time" content="2015-11-13T12:48:17Z" />
+<meta property="article:tag" content="算法" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="剑指offer学习--实现单例模式" />
+<meta name="twitter:description" content="只能生成一个实例的类是为了实现单例模式的类型。加同步锁前后两次判断实例是否已存在我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。public sealed class Singleton { private Singelton() { } private static object syncObj = n" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"剑指offer学习--实现单例模式\"",
+  "description": "\"只能生成一个实例的类是为了实现单例模式的类型。加同步锁前后两次判断实例是否已存在我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。public sealed class Singleton { private Singelton() { } private static object syncObj = n\"",
+  "url": "\"https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/\"",
+  "datePublished": "\"2015-11-13T12:48:17Z\"",
+  "dateModified": "\"2015-11-13T12:48:17Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -77,16 +114,17 @@ public sealed class Singleton { private Singelton() { } private static object sy
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -114,15 +152,15 @@ public sealed class Singleton { private Singelton() { } private static object sy
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -154,8 +192,8 @@ public sealed class Singleton { private Singelton() { } private static object sy
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -220,10 +258,22 @@ public sealed class Singleton { private Singelton() { } private static object sy
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">剑指offer学习--实现单例模式</h1>
-      <p class="post-meta">@Neal · Nov 13, 2015 · 1 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2015-11-13">2015-11-13</time> · 约 1 分钟阅读</p>
     </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#加同步锁前后两次判断实例是否已存在">加同步锁前后两次判断实例是否已存在</a></li>
+    <li><a href="#利用静态构造函数">利用静态构造函数</a></li>
+    <li><a href="#实现按需创建实例">实现按需创建实例</a></li>
+  </ul>
+</nav>
+      </nav>
+    
     <article class="post-content"><p>只能生成一个实例的类是为了实现单例模式的类型。</p>
-<h2 id="加同步锁前后两次判断实例是否已存在">加同步锁前后两次判断实例是否已存在</h2>
+<h2 id="加同步锁前后两次判断实例是否已存在">加同步锁前后两次判断实例是否已存在 <a class="heading-anchor" href="#%e5%8a%a0%e5%90%8c%e6%ad%a5%e9%94%81%e5%89%8d%e5%90%8e%e4%b8%a4%e6%ac%a1%e5%88%a4%e6%96%ad%e5%ae%9e%e4%be%8b%e6%98%af%e5%90%a6%e5%b7%b2%e5%ad%98%e5%9c%a8" aria-label="链接到本节">#</a></h2>
 <p>我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。</p>
 <pre tabindex="0"><code>public sealed class Singleton
 {
@@ -249,7 +299,7 @@ public static Singleton Instance
 	}
 }
 }
-</code></pre><h2 id="利用静态构造函数">利用静态构造函数</h2>
+</code></pre><h2 id="利用静态构造函数">利用静态构造函数 <a class="heading-anchor" href="#%e5%88%a9%e7%94%a8%e9%9d%99%e6%80%81%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0" aria-label="链接到本节">#</a></h2>
 <pre tabindex="0"><code>public seled class Singleton
 {
 	private Singelton()
@@ -266,7 +316,7 @@ public static Singleton Instance
 	}
 }
 </code></pre><p>由于C#中调用静态构造函数时初始化静态变量，.NET运行时能够保证只调用一次静态构造函数，这样我们就能够保证只初始化一次instance。C#中调用静态构造函数的时机不是由程序员掌控的，而是当.NET运行时发现第一使用一个类型的时候自动调用该类型的静态构造函数。在Singleton中，实例instance并不是第一次调用属性Singleton.Instance的时候创建的，而是在第一次用到Singleton的时候就会被创建。</p>
-<h2 id="实现按需创建实例">实现按需创建实例</h2>
+<h2 id="实现按需创建实例">实现按需创建实例 <a class="heading-anchor" href="#%e5%ae%9e%e7%8e%b0%e6%8c%89%e9%9c%80%e5%88%9b%e5%bb%ba%e5%ae%9e%e4%be%8b" aria-label="链接到本节">#</a></h2>
 <pre tabindex="0"><code>public sealed class Singleton
 {
 	Singleton()
@@ -291,17 +341,19 @@ public static Singleton Instance
 }
 </code></pre></article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/singleton"><span class="tag">Singleton</span></a></li>
+          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95/"><span class="tag">算法</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3870</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3871</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -316,29 +368,8 @@ public static Singleton Instance
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

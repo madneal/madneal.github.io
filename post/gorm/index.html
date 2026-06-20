@@ -14,48 +14,82 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var group GroupModel // 注意这里的用法 err := DB.First(&amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &#34;group&#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
-正确答案是：会。
-说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
-初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
-// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds ...interface{}) (tx *DB) { tx = db.Limit(1).Order(clause.OrderByColumn{ Column: clause.Column{Table: clause.CurrentTable, Name: clause.PrimaryKey}, }) if len(conds) &gt; 0 { if exprs := tx.Statement.BuildCondition(conds[0], conds[1:]...); len(exprs) &gt; 0 { tx.Statement.AddClause(clause.Where{Exprs: exprs}) } } tx.Statement.RaiseErrorOnNotFound = true tx.Statement.Dest = dest return tx.callbacks.Query().Execute(tx) } 从源码看，当 conds 参数不为空时，GORM 会调用 tx.Statement.BuildCondition来处理查询条件。
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="AI 审代码，靠谱吗？" />
-  <meta property="og:description" content="背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var group GroupModel // 注意这里的用法 err := DB.First(&amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &#34;group&#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
-正确答案是：会。
-说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
-初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
-// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds ...interface{}) (tx *DB) { tx = db.Limit(1).Order(clause.OrderByColumn{ Column: clause.Column{Table: clause.CurrentTable, Name: clause.PrimaryKey}, }) if len(conds) &gt; 0 { if exprs := tx.Statement.BuildCondition(conds[0], conds[1:]...); len(exprs) &gt; 0 { tx.Statement.AddClause(clause.Where{Exprs: exprs}) } } tx.Statement.RaiseErrorOnNotFound = true tx.Statement.Dest = dest return tx.callbacks.Query().Execute(tx) } 从源码看，当 conds 参数不为空时，GORM 会调用 tx.Statement.BuildCondition来处理查询条件。
-" />
-  <meta property="og:url" content="https://madneal.com/post/gorm/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下： 问题是：这段代码是否存在 SQL 注入漏洞？ 正确答案是：会。 说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用 …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="AI 审代码，靠谱吗？" />
+<meta property="og:description" content=" 背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下： 问题是：这段代码是否存在 SQL 注入漏洞？ 正确答案是：会。 说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用 …" />
+<meta property="og:url" content="https://madneal.com/post/gorm/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2025-08-22T00:00:00Z" />
+<meta property="article:modified_time" content="2025-08-22T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="代码审计" />
+<meta property="article:tag" content="Go" />
+<meta property="article:tag" content="AI" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="AI 审代码，靠谱吗？" />
+<meta name="twitter:description" content=" 背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下： 问题是：这段代码是否存在 SQL 注入漏洞？ 正确答案是：会。 说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用 …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"AI 审代码，靠谱吗？\"",
+  "description": "\" 背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下： 问题是：这段代码是否存在 SQL 注入漏洞？ 正确答案是：会。 说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用 …\"",
+  "url": "\"https://madneal.com/post/gorm/\"",
+  "datePublished": "\"2025-08-22T00:00:00Z\"",
+  "dateModified": "\"2025-08-22T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/gorm/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -83,16 +117,17 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -120,15 +155,15 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -160,8 +195,8 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -226,9 +261,28 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">AI 审代码，靠谱吗？</h1>
-      <p class="post-meta">@Neal · Aug 22, 2025 · 2 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2025-08-22">2025-08-22</time> · 约 2 分钟阅读</p>
     </header>
-    <article class="post-content"><h3 id="背景一道出乎意料的笔试题">背景：一道出乎意料的笔试题</h3>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#背景一道出乎意料的笔试题">背景：一道出乎意料的笔试题</a></li>
+        <li><a href="#初探源码first-函数的内部实现">初探源码：<code>First</code> 函数的内部实现</a></li>
+        <li><a href="#ai-怎么说">AI 怎么说？</a></li>
+        <li><a href="#动手验证">动手验证</a></li>
+        <li><a href="#社区讨论与官方文档">社区讨论与官方文档</a></li>
+        <li><a href="#结论">结论</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><h3 id="背景一道出乎意料的笔试题">背景：一道出乎意料的笔试题 <a class="heading-anchor" href="#%e8%83%8c%e6%99%af%e4%b8%80%e9%81%93%e5%87%ba%e4%b9%8e%e6%84%8f%e6%96%99%e7%9a%84%e7%ac%94%e8%af%95%e9%a2%98" aria-label="链接到本节">#</a></h3>
 <p>最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">UsersHandler</span>(<span style="color:#a6e22e">c</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gin</span>.<span style="color:#a6e22e">Context</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">groupId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Query</span>(<span style="color:#e6db74">&#34;group_id&#34;</span>)
@@ -248,7 +302,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
 </span></span></code></pre></div><p>问题是：<strong>这段代码是否存在 SQL 注入漏洞？</strong></p>
 <p>正确答案是：<strong>会</strong>。</p>
 <p>说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 <code>First</code> 函数。<code>First</code> 通常用于获取按主键排序的第一条记录，更常见的做法是通过 <code>Where</code> 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？</p>
-<h3 id="初探源码first-函数的内部实现">初探源码：<code>First</code> 函数的内部实现</h3>
+<h3 id="初探源码first-函数的内部实现">初探源码：<code>First</code> 函数的内部实现 <a class="heading-anchor" href="#%e5%88%9d%e6%8e%a2%e6%ba%90%e7%a0%81first-%e5%87%bd%e6%95%b0%e7%9a%84%e5%86%85%e9%83%a8%e5%ae%9e%e7%8e%b0" aria-label="链接到本节">#</a></h3>
 <p>简单看了一下 <code>First</code> 函数的实现：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// First finds the first record ordered by primary key, matching given conditions conds</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DB</span>) <span style="color:#a6e22e">First</span>(<span style="color:#a6e22e">dest</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">conds</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) (<span style="color:#a6e22e">tx</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">DB</span>) {
@@ -265,9 +319,10 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">callbacks</span>.<span style="color:#a6e22e">Query</span>().<span style="color:#a6e22e">Execute</span>(<span style="color:#a6e22e">tx</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>从源码看，当 <code>conds</code> 参数不为空时，GORM 会调用 <code>tx.Statement.BuildCondition</code>来处理查询条件。</p>
-<p><img src="https://i.postimg.cc/BbwDM7wZ/image.png" alt="image.png"></p>
+<p><img src="https://i.postimg.cc/BbwDM7wZ/image.png" alt="image.png" loading="lazy" decoding="async">
+</p>
 <p>乍看之下，<code>BuildCondition</code> 似乎会对传入的条件进行某种安全处理。但事实果真如此吗？</p>
-<h3 id="ai-怎么说">AI 怎么说？</h3>
+<h3 id="ai-怎么说">AI 怎么说？ <a class="heading-anchor" href="#ai-%e6%80%8e%e4%b9%88%e8%af%b4" aria-label="链接到本节">#</a></h3>
 <p>先将同样的问题抛给了市面上主流的大语言模型：</p>
 <pre tabindex="0"><code>// 提问内容
 func UsersHandler(c *gin.Context) {
@@ -286,30 +341,37 @@ func UsersHandler(c *gin.Context) {
 }
 上述的 First 函数是否会导致 sql 注入漏洞，请说明理由，理由简短，控制在100字符内。
 </code></pre><p>结果出奇地一致，所有模型的回答都是“<strong>不会</strong>”导致 SQL 注入，理由也大同小异，都认为是 GORM 的参数化查询机制避免了风险。</p>
-<p><img src="https://i.postimg.cc/76n4SfZw/image.png" alt="Sonnet 4"></p>
-<p><img src="https://i.postimg.cc/fTqkFgjm/image.png" alt="GPT 5"></p>
-<p><img src="https://i.postimg.cc/zGfKHgpS/image.png" alt="Gemini"></p>
-<p><img src="https://i.postimg.cc/ZKRck23L/image.png" alt="Claude"></p>
+<p><img src="https://i.postimg.cc/76n4SfZw/image.png" alt="Sonnet 4" loading="lazy" decoding="async">
+</p>
+<p><img src="https://i.postimg.cc/fTqkFgjm/image.png" alt="GPT 5" loading="lazy" decoding="async">
+</p>
+<p><img src="https://i.postimg.cc/zGfKHgpS/image.png" alt="Gemini" loading="lazy" decoding="async">
+</p>
+<p><img src="https://i.postimg.cc/ZKRck23L/image.png" alt="Claude" loading="lazy" decoding="async">
+</p>
 <p>所有 AI 都给出了否定的答案。</p>
-<h3 id="动手验证">动手验证</h3>
+<h3 id="动手验证">动手验证 <a class="heading-anchor" href="#%e5%8a%a8%e6%89%8b%e9%aa%8c%e8%af%81" aria-label="链接到本节">#</a></h3>
 <p>手动调试一下是最直观的，我创建了一个<a href="https://github.com/madneal/codehub/tree/master/gorm_first">简单的复现项目</a>，使用 Docker 搭建数据库并运行示例应用。</p>
 <p>接下来，我构造了一个经典的注入Payload，并发送请求：</p>
 <p><code>http://localhost:8080/users?group_id=1=1</code></p>
 <p>在 Goland 中，我在 <code>BuildCondition</code> 函数内部设置了断点。</p>
-<p><img src="https://i.postimg.cc/dVBYTM7y/image.png" alt="BuildCondition断点调试"></p>
+<p><img src="https://i.postimg.cc/dVBYTM7y/image.png" alt="BuildCondition断点调试" loading="lazy" decoding="async">
+</p>
 <p>调试过程清晰地揭示了问题的根源：</p>
 <p>当 <code>group_id</code> (<code>1=1</code>) 这个字符串传入时，GORM 首先会尝试将其转换为数字。当转换失败，且没有额外的 <code>args</code> 参数时，这个<strong>字符串变量会被直接拼接到 <code>clause.Expr</code> 结构的 <code>SQL</code> 字段中</strong>，最终作为原始 SQL 片段执行。</p>
 <p>最终执行语句：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>[<span style="color:#ae81ff">10</span>.<span style="color:#ae81ff">482</span>ms] [<span style="color:#66d9ef">rows</span>:<span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> <span style="color:#f92672">`</span>group_models<span style="color:#f92672">`</span> <span style="color:#66d9ef">WHERE</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#f92672">`</span>group_models<span style="color:#f92672">`</span>.<span style="color:#f92672">`</span>id<span style="color:#f92672">`</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">1</span>
 </span></span></code></pre></div><p>毫无疑问，这是一个 SQL 注入漏洞。</p>
-<h3 id="社区讨论与官方文档">社区讨论与官方文档</h3>
+<h3 id="社区讨论与官方文档">社区讨论与官方文档 <a class="heading-anchor" href="#%e7%a4%be%e5%8c%ba%e8%ae%a8%e8%ae%ba%e4%b8%8e%e5%ae%98%e6%96%b9%e6%96%87%e6%a1%a3" aria-label="链接到本节">#</a></h3>
 <p>经过进一步搜索，这其实并非一个新问题。早在几年前，就有人在 GORM 的 GitHub 上提过类似的 <a href="https://github.com/go-gorm/gorm/issues/2517">Issue</a>。</p>
-<p><img src="https://i.postimg.cc/SsKtRs3n/image.png" alt="GORM Issue 截图"></p>
+<p><img src="https://i.postimg.cc/SsKtRs3n/image.png" alt="GORM Issue 截图" loading="lazy" decoding="async">
+</p>
 <p>社区对此的看法不一。有人认为这是框架的缺陷，但也有人认为，框架只是提供了执行原生 SQL 的能力，开发者有责任安全、合理地使用 ORM。</p>
 <p>GORM 的作者也在官方安全<a href="https://gorm.io/docs/security.html">文档</a>中明确指出了存在注入风险的用法，特别是“内联条件”（Inline Condition）查询。</p>
-<p><img src="https://i.postimg.cc/1tqPXJLn/image.png" alt="GORM安全文档截图"></p>
+<p><img src="https://i.postimg.cc/1tqPXJLn/image.png" alt="GORM安全文档截图" loading="lazy" decoding="async">
+</p>
 <p>实际上，GORM 的设计哲学是：<strong>任何可以直接或间接传递 SQL 片段的函数，如果没有严格使用占位符（<code>?</code>）和参数绑定的方式，理论上都存在 SQL 注入的风险。</strong></p>
-<h3 id="结论">结论</h3>
+<h3 id="结论">结论 <a class="heading-anchor" href="#%e7%bb%93%e8%ae%ba" aria-label="链接到本节">#</a></h3>
 <p>至此，真相大白。面试题的答案是正确的。这次小小的探索过程也给了我几点启示：</p>
 <ol>
 <li><strong>权威不容尽信</strong>：无论是自己“想当然”的经验，还是 AI 模型看似专业的回答，都有可能出错。</li>
@@ -320,23 +382,25 @@ func UsersHandler(c *gin.Context) {
 <p>还有，这篇文章是不是 AI 味也挺重的😄</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/gorm"><span class="tag">GORM</span></a></li>
+          <li><a href="https://madneal.com/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><span class="tag">代码审计</span></a></li>
         
-          <li><a href="https://madneal.com/tags/go"><span class="tag">Go</span></a></li>
+          <li><a href="https://madneal.com/tags/go/"><span class="tag">Go</span></a></li>
         
-          <li><a href="https://madneal.com/tags/ai"><span class="tag">AI</span></a></li>
+          <li><a href="https://madneal.com/tags/ai/"><span class="tag">AI</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>301</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>302</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -351,29 +415,8 @@ func UsersHandler(c *gin.Context) {
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

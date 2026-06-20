@@ -14,52 +14,75 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
-起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近安装的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
-程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
-wmic product get name,description
-这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
-wmic product get name, description &gt; products.txt
-这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
-通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
-补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
-wmic qfe list full
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Wmic 使用中的一些问题" />
-  <meta property="og:description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。
-起源 我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近安装的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。
-程序和功能 通过 wmic product 我们可以获取程序和功能的安装信息。
-wmic product get name,description
-这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 name 以及 description 之外我们还可以使用 vendor 以及 version 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：
-wmic product get name, description &gt; products.txt
-这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 wmic 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。
-通过 wmic 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 wmic 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考这篇文章。
-补丁信息 经常我们需要获取计算机的补丁安装情况。通过 systeminfo 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 wmic 来获取补丁安装信息。
-wmic qfe list full
-" />
-  <meta property="og:url" content="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Wmic 使用中的一些问题" />
+<meta property="og:description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。" />
+<meta property="og:url" content="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2018-06-21T00:00:00Z" />
+<meta property="article:modified_time" content="2018-06-21T00:00:00Z" />
+<meta property="article:tag" content="工具" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="Wmic 使用中的一些问题" />
+<meta name="twitter:description" content="Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"Wmic 使用中的一些问题\"",
+  "description": "\"Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。\"",
+  "url": "\"https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/\"",
+  "datePublished": "\"2018-06-21T00:00:00Z\"",
+  "dateModified": "\"2018-06-21T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/wmic%E4%BD%BF%E7%94%A8%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
@@ -91,16 +114,17 @@ wmic qfe list full
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -128,15 +152,15 @@ wmic qfe list full
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -168,8 +192,8 @@ wmic qfe list full
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -234,23 +258,37 @@ wmic qfe list full
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Wmic 使用中的一些问题</h1>
-      <p class="post-meta">@Neal · Jun 21, 2018 · 1 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2018-06-21">2018-06-21</time> · 约 1 分钟阅读</p>
     </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#起源">起源</a></li>
+    <li><a href="#程序和功能">程序和功能</a></li>
+    <li><a href="#补丁信息">补丁信息</a></li>
+    <li><a href="#more">More</a></li>
+  </ul>
+</nav>
+      </nav>
+    
     <article class="post-content"><p>Wmic, 即 Windows Management Instrumentation Command-Line Utility，通过这个工具我们可以获取计算本地的很多信息。</p>
-<h2 id="起源">起源</h2>
+<h2 id="起源">起源 <a class="heading-anchor" href="#%e8%b5%b7%e6%ba%90" aria-label="链接到本节">#</a></h2>
 <p>我起初是希望写一个 bat 脚本来获取计算机安装的程序和功能列表以及计算机最近安装的一些补丁信息。程序和功能列表以及补丁信息可以通过计算机的控制面板去查看，但是这样一点都不 geek，能用脚本解决的当然要用脚本去解决啦。</p>
-<h2 id="程序和功能">程序和功能</h2>
+<h2 id="程序和功能">程序和功能 <a class="heading-anchor" href="#%e7%a8%8b%e5%ba%8f%e5%92%8c%e5%8a%9f%e8%83%bd" aria-label="链接到本节">#</a></h2>
 <p>通过 <code>wmic product</code> 我们可以获取程序和功能的安装信息。</p>
 <p><code>wmic product get name,description</code></p>
 <p>这样我们就可以获取计算机上安装的程序和功能列表以及其相应的描述。当然除了 <code>name</code> 以及 <code>description</code> 之外我们还可以使用 <code>vendor</code> 以及 <code>version</code> 来获取程序的厂商名称以及对应的版本号。另外，如果我们希望把结果导入到 txt 文件中，我们还可以使用万能的管道符号：</p>
 <p><code>wmic product get name, description &gt; products.txt</code></p>
 <p>这样我们就可以获取结果的 txt 文件，是不是很方便。然而，当我们将使用 <code>wmic</code> 导出的结果和控制面板中的程序和功能相比较的话，我们会发现有些程序没有出现在结果中，比如 Google Chrome。</p>
 <p>通过 <code>wmic</code> 只能获取大部分程序列表，它们的安装包一般都是使用 Windows Installer 制作的，安装过程中调用 Windows Installer 服务进行安装。但是 Windows Installer 并不是唯一的制作安装包的工具，因此 <code>wmic</code> 往往可能获取的还不是完整的程序和功能列表。至于完整的程序和功能列表，可以参考<a href="http://www.4hou.com/technology/10206.html">这篇文章</a>。</p>
-<h2 id="补丁信息">补丁信息</h2>
+<h2 id="补丁信息">补丁信息 <a class="heading-anchor" href="#%e8%a1%a5%e4%b8%81%e4%bf%a1%e6%81%af" aria-label="链接到本节">#</a></h2>
 <p>经常我们需要获取计算机的补丁安装情况。通过 <code>systeminfo</code> 可以获取一部分补丁安装信息，但是信息一般比较少。在这里，我们依然可以通过使用 <code>wmic</code> 来获取补丁安装信息。</p>
 <p><code>wmic qfe list full</code></p>
 <p>这样我们就可以获取补丁的安装的相关信息了，但是这样的结果可能看起来不是很直观，所以我们还可以进行相应的格式化。<code>wmic qfe list full /format:table</code>，这样就可以把结果以表格的形式展现出来。加入我们还希望将结果导出来，我们可以将其导出比较好看的 html 表格形式：<code>wmic qfe list full /fomrmat:htble &gt; qfe.html</code>。</p>
-<p><img src="http://ozfo4jjxb.bkt.clouddn.com/htable.png" alt="htable.png"></p>
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/htable.png" alt="htable.png" loading="lazy" decoding="async">
+</p>
 <p>如果不希望在结果中显示所有的字段，可以使用 <code>wmic qfe list brief</code> 或者 使用 <code>wmic qfe get hotfixid,installedon</code> 获取希望展示的字段。还可以使用其他的字段，比如 <code>description</code>, <code>installedby</code> 等等。</p>
 <p>这样获取的是完整的补丁列表，如果仅仅希望获取2018年的补丁安装信息该怎么做呢？ Wmic 还支持 <code>where</code> 关键词来查询：</p>
 <p><code>wmic qfe where &quot;installedon like '%/%/2018'&quot; list brief</code></p>
@@ -258,26 +296,27 @@ wmic qfe list full
 <p><code>wmic path win32_quickfixengineering where (installedon like &quot;%/%/2018&quot;) list bief</code></p>
 <p>同样地，这句话在命令中可以执行，但是在 bat 脚本中还是同样的问题。另外也排除了 <code>where</code> 关键词影响的可能性。最后才发现问题在于 <code>%</code> 上，因为在 bat 脚本中，% 有多种用途，在这里如果我们希望表示原始的 %，那么我们应该使用 %% 来表达，因此：</p>
 <p><code>wmic qfe where &quot;installedon like '%%/%%/2018'&quot; list brief</code></p>
-<h2 id="more">More</h2>
+<h2 id="more">More <a class="heading-anchor" href="#more" aria-label="链接到本节">#</a></h2>
 <p>当然关于 wmic 还有很多更高阶的玩法。比如，就有 WMI Query Language 能够提供查询功能，有点类似于 SQL，部分关键字是一样的，比如常见的 where 以及 select。可以在一些工具中使用 WQL 语法，比如在运行中输入 <code>wbemttest</code> 就可以打开 wmi 的测试工具。</p>
-<p><img src="http://ozfo4jjxb.bkt.clouddn.com/wbemtest.png" alt="wbemtest.png"></p>
+<p><img src="http://ozfo4jjxb.bkt.clouddn.com/wbemtest.png" alt="wbemtest.png" loading="lazy" decoding="async">
+</p>
 <p>在本地连接之后，就可以通过查询语句来查询一些信息了。比如，<code>select * from win32_process</code> 就可以看到一些进程相关的信息。关于测试工具的更过用法，参考<a href="https://www.codeproject.com/Articles/46390/WMI-Query-Language-by-Example">这篇文章</a>。</p>
 <p>关于 wmi 的更多用法，可以参考<a href="https://msdn.microsoft.com/en-us/library/aa394572(v=vs.85).aspx">微软的官方文档</a>。</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/wmic"><span class="tag">Wmic</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/windows"><span class="tag">Windows</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%B7%A5%E5%85%B7/"><span class="tag">工具</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2920</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2921</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -292,29 +331,8 @@ wmic qfe list full
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

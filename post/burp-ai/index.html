@@ -14,48 +14,78 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content=" 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI 译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）
-注：本文为客座文章，由渗透测试人员 Julen Garrido Estévez（@b3xal）撰写。
-方法论 关键结果 示例 关键心得 提示词模板 从渗透测试视角看 Burp AI 渗透测试人员 Julen Garrido Estévez（@b3xal）想验证 Burp AI 是否能在日常工作中带来真实价值：它能否加速向量发现、PoC 生成与上下文分析？是否值得消耗 credits？哪种提示词（prompt）写法效果最好？
-在这篇客座文章中，Julen 介绍了他如何系统地回答这些问题，并分享了如何优化提示词以获得更好结果的洞见。
-方法论 我在 Repeater 中使用 Burp AI，对 PortSwigger Web Security Academy 的实验室、刻意有漏洞的的 ginandjuice.shop，以及我自己的环境进行测试，并将每次交互都记录为可复现的测试用例：
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  " />
-  <meta property="og:description" content=" 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI 译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）
-注：本文为客座文章，由渗透测试人员 Julen Garrido Estévez（@b3xal）撰写。
-方法论 关键结果 示例 关键心得 提示词模板 从渗透测试视角看 Burp AI 渗透测试人员 Julen Garrido Estévez（@b3xal）想验证 Burp AI 是否能在日常工作中带来真实价值：它能否加速向量发现、PoC 生成与上下文分析？是否值得消耗 credits？哪种提示词（prompt）写法效果最好？
-在这篇客座文章中，Julen 介绍了他如何系统地回答这些问题，并分享了如何优化提示词以获得更好结果的洞见。
-方法论 我在 Repeater 中使用 Burp AI，对 PortSwigger Web Security Academy 的实验室、刻意有漏洞的的 ginandjuice.shop，以及我自己的环境进行测试，并将每次交互都记录为可复现的测试用例：
-" />
-  <meta property="og:url" content="https://madneal.com/post/burp-ai/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI (https://portswigger.net/blog/functional-pocs-in-less-than-a-minute) 译者：madneal(https://github.com/madneal) …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  " />
+<meta property="og:description" content=" 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI (https://portswigger.net/blog/functional-pocs-in-less-than-a-minute) 译者：madneal(https://github.com/madneal) …" />
+<meta property="og:url" content="https://madneal.com/post/burp-ai/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2026-01-17T00:00:00Z" />
+<meta property="article:modified_time" content="2026-01-17T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="Web安全" />
+<meta property="article:tag" content="AI" />
+<meta property="article:tag" content="Burp" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  " />
+<meta name="twitter:description" content=" 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI (https://portswigger.net/blog/functional-pocs-in-less-than-a-minute) 译者：madneal(https://github.com/madneal) …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  \"",
+  "description": "\" 原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI (https://portswigger.net/blog/functional-pocs-in-less-than-a-minute) 译者：madneal(https://github.com/madneal) …\"",
+  "url": "\"https://madneal.com/post/burp-ai/\"",
+  "datePublished": "\"2026-01-17T00:00:00Z\"",
+  "dateModified": "\"2026-01-17T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/burp-ai/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
@@ -87,16 +117,17 @@ LICENSE: MIT
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -124,15 +155,15 @@ LICENSE: MIT
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -164,8 +195,8 @@ LICENSE: MIT
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -230,17 +261,70 @@ LICENSE: MIT
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  </h1>
-      <p class="post-meta">@Neal · Jan 17, 2026 · 3 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2026-01-17">2026-01-17</time> · 约 3 分钟阅读</p>
     </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#方法论">方法论</a>
+      <ul>
+        <li><a href="#提示词风格校准">提示词风格校准</a></li>
+      </ul>
+    </li>
+    <li><a href="#关键结果">关键结果</a>
+      <ul>
+        <li><a href="#关键结果--提示词风格校准漏洞ssti">关键结果 — 提示词风格校准（漏洞：SSTI）</a></li>
+        <li><a href="#关键结果--提示词风格校准漏洞不安全反序列化">关键结果 — 提示词风格校准（漏洞：不安全反序列化）</a></li>
+      </ul>
+    </li>
+    <li><a href="#两个实践示例简短且可复现">两个实践示例（简短且可复现）</a>
+      <ul>
+        <li><a href="#示例-a--服务端模板注入ssti">示例 A — 服务端模板注入（SSTI）</a></li>
+        <li><a href="#示例-b--不安全反序列化">示例 B — 不安全反序列化</a></li>
+      </ul>
+    </li>
+    <li><a href="#关键心得">关键心得</a>
+      <ul>
+        <li><a href="#提供刚刚好的上下文">提供“刚刚好”的上下文</a></li>
+        <li><a href="#明确区分上下文与场景">明确区分上下文与场景</a></li>
+        <li><a href="#使用-highlights-功能">使用 Highlights 功能</a></li>
+        <li><a href="#设置明确的停止条件">设置明确的停止条件</a></li>
+      </ul>
+    </li>
+    <li><a href="#提示词模板">提示词模板</a>
+      <ul>
+        <li><a href="#1-明确目标一句话">1. 明确目标（一句话）</a></li>
+        <li><a href="#2-指定聚焦点参数--路径--请求头">2. 指定聚焦点（参数 / 路径 / 请求头）</a></li>
+        <li><a href="#3-期望产出">3. 期望产出</a></li>
+        <li><a href="#4-限制行动范围如适用">4. 限制行动范围（如适用）</a></li>
+      </ul>
+    </li>
+    <li><a href="#notes-模板">Notes 模板</a>
+      <ul>
+        <li><a href="#1-系统的简短描述">1. 系统的简短描述</a></li>
+        <li><a href="#2-系统的预期使用流程">2. 系统的预期使用流程</a></li>
+        <li><a href="#3-之前发现的一般性现象">3. 之前发现的一般性现象</a></li>
+        <li><a href="#4-已执行过的测试">4. 已执行过的测试</a></li>
+        <li><a href="#5-对潜在漏洞的总体假设">5. 对潜在漏洞的总体假设</a></li>
+      </ul>
+    </li>
+    <li><a href="#从渗透测试视角看-burp-ai">从渗透测试视角看 Burp AI</a></li>
+  </ul>
+</nav>
+      </nav>
+    
     <article class="post-content"><blockquote>
 <p>原文：<a href="https://portswigger.net/blog/functional-pocs-in-less-than-a-minute">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  </a></p>
 <p>译者：<a href="https://github.com/madneal">madneal</a></p>
 <p>welcome to star my <a href="https://github.com/madneal/articles-translator/">articles-translator</a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing@stu.ecnu.edu.cn">me</a></p>
 <p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p></blockquote>
-<h1 id="不到一分钟拿到可用-pocjulen-garrido-estévez-测试-burp-ai">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI</h1>
+<h1 id="不到一分钟拿到可用-pocjulen-garrido-estévez-测试-burp-ai">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI <a class="heading-anchor" href="#%e4%b8%8d%e5%88%b0%e4%b8%80%e5%88%86%e9%92%9f%e6%8b%bf%e5%88%b0%e5%8f%af%e7%94%a8-pocjulen-garrido-est%c3%a9vez-%e6%b5%8b%e8%af%95-burp-ai" aria-label="链接到本节">#</a></h1>
 <p>Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）</p>
 <p><em>注：本文为客座文章，由渗透测试人员 <a href="https://www.linkedin.com/in/julen-garrido-estevez/">Julen Garrido Estévez</a>（@b3xal）撰写。</em></p>
-<p><img src="https://portswigger.net/cms/images/7a/13/2696-article-julen-garrido-quote.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/7a/13/2696-article-julen-garrido-quote.png" alt="" loading="lazy" decoding="async">
+</p>
 <ul>
 <li><a href="#%E6%96%B9%E6%B3%95%E8%AE%BA">方法论</a></li>
 <li><a href="#%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%9C">关键结果</a></li>
@@ -251,10 +335,10 @@ LICENSE: MIT
 </ul>
 <p>渗透测试人员 Julen Garrido Estévez（@b3xal）想验证 Burp AI 是否能在日常工作中带来真实价值：它能否加速向量发现、PoC 生成与上下文分析？是否值得消耗 credits？哪种提示词（prompt）写法效果最好？</p>
 <p>在这篇客座文章中，Julen 介绍了他如何系统地回答这些问题，并分享了如何优化提示词以获得更好结果的洞见。</p>
-<h2 id="方法论">方法论</h2>
+<h2 id="方法论">方法论 <a class="heading-anchor" href="#%e6%96%b9%e6%b3%95%e8%ae%ba" aria-label="链接到本节">#</a></h2>
 <p>我在 Repeater 中使用 Burp AI，对 PortSwigger Web Security Academy 的实验室、刻意有漏洞的的 ginandjuice.shop，以及我自己的环境进行测试，并将每次交互都记录为可复现的测试用例：</p>
 <p><strong>提示词 + 高亮（highlights）+ 备注（notes） → 响应 → 到 PoC 的时间 → 请求数量 → 幻觉 / 遵循指导程度 → 消耗的 credits（预估成本，€）</strong></p>
-<h3 id="提示词风格校准">提示词风格校准</h3>
+<h3 id="提示词风格校准">提示词风格校准 <a class="heading-anchor" href="#%e6%8f%90%e7%a4%ba%e8%af%8d%e9%a3%8e%e6%a0%bc%e6%a0%a1%e5%87%86" aria-label="链接到本节">#</a></h3>
 <p>我尤其关注不同提示词风格对结果的影响，因此测试了以下三种风格：</p>
 <ul>
 <li>
@@ -281,9 +365,10 @@ LICENSE: MIT
 </ul>
 <p>总体而言，基于 <a href="https://portswigger.net/burp/documentation/desktop/ai">Burp AI 官方文档</a> 的自由文本提示词在成本与准确性之间提供了最佳平衡。更关键的是，它在确保 Burp AI 遵循指定指导方面也表现最好。</p>
 <p>下面摘录的是最具代表性的会话片段。这些数据来自我在受控环境下的测试，用于调优如何编写最佳提示词。</p>
-<p><img src="https://portswigger.net/cms/images/66/30/8fcd-article-image_3_1.png" alt=""></p>
-<h2 id="关键结果">关键结果</h2>
-<h3 id="关键结果--提示词风格校准漏洞ssti">关键结果 — 提示词风格校准（漏洞：SSTI）</h3>
+<p><img src="https://portswigger.net/cms/images/66/30/8fcd-article-image_3_1.png" alt="" loading="lazy" decoding="async">
+</p>
+<h2 id="关键结果">关键结果 <a class="heading-anchor" href="#%e5%85%b3%e9%94%ae%e7%bb%93%e6%9e%9c" aria-label="链接到本节">#</a></h2>
+<h3 id="关键结果--提示词风格校准漏洞ssti">关键结果 — 提示词风格校准（漏洞：SSTI） <a class="heading-anchor" href="#%e5%85%b3%e9%94%ae%e7%bb%93%e6%9e%9c--%e6%8f%90%e7%a4%ba%e8%af%8d%e9%a3%8e%e6%a0%bc%e6%a0%a1%e5%87%86%e6%bc%8f%e6%b4%9essti" aria-label="链接到本节">#</a></h3>
 <p><strong>指标 / 提示词风格</strong></p>
 <table>
   <thead>
@@ -328,7 +413,7 @@ LICENSE: MIT
 <li>结构化 JSON：更“穷举”；证据很有用，但输出了超出指导的内容（例如外带/外传 payload）。</li>
 </ul>
 <p>自由文本提示词的实用性更突出。通过更清晰地引导 Burp AI，它能减少成本和时间，给出与指令一致的结果，并产出可靠 PoC。尽管它的请求数略高于自定义结构提示词，但总体消耗仍是最低。</p>
-<h3 id="关键结果--提示词风格校准漏洞不安全反序列化">关键结果 — 提示词风格校准（漏洞：不安全反序列化）</h3>
+<h3 id="关键结果--提示词风格校准漏洞不安全反序列化">关键结果 — 提示词风格校准（漏洞：不安全反序列化） <a class="heading-anchor" href="#%e5%85%b3%e9%94%ae%e7%bb%93%e6%9e%9c--%e6%8f%90%e7%a4%ba%e8%af%8d%e9%a3%8e%e6%a0%bc%e6%a0%a1%e5%87%86%e6%bc%8f%e6%b4%9e%e4%b8%8d%e5%ae%89%e5%85%a8%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" aria-label="链接到本节">#</a></h3>
 <p><strong>指标 / 提示词风格</strong></p>
 <table>
   <thead>
@@ -373,13 +458,15 @@ LICENSE: MIT
   </tbody>
 </table>
 <p>自由文本提示词再次胜出：仅 6 次请求、最低成本（约 €0.34），也是唯一解决实验并产出有效 PoC 的方式。虽然其平均耗时略高，但不影响成本或请求数量。清晰、带约束的提示词能更好地聚焦 AI，减少迭代与成本，并最大化有效性。</p>
-<h2 id="两个实践示例简短且可复现">两个实践示例（简短且可复现）</h2>
+<h2 id="两个实践示例简短且可复现">两个实践示例（简短且可复现） <a class="heading-anchor" href="#%e4%b8%a4%e4%b8%aa%e5%ae%9e%e8%b7%b5%e7%a4%ba%e4%be%8b%e7%ae%80%e7%9f%ad%e4%b8%94%e5%8f%af%e5%a4%8d%e7%8e%b0" aria-label="链接到本节">#</a></h2>
 <p>为了观察 Burp AI 在更贴近真实的条件下表现如何，我决定跑两个 Web Security Academy 的实验室。虽然这些实验室是用于训练的，但我把它们当作真实项目来对待，并用 <a href="https://portswigger.net/web-security/mystery-lab-challenge">mystery lab 功能</a>运行，以避免 AI 因“已知答案”而出现偏差。</p>
 <p>我的目标是看看 Burp AI 是否不仅能识别漏洞，还能以一种类似资深渗透测试人员的方式采取行动。以下是测试过程。</p>
-<h3 id="示例-a--服务端模板注入ssti">示例 A — 服务端模板注入（SSTI）</h3>
+<h3 id="示例-a--服务端模板注入ssti">示例 A — 服务端模板注入（SSTI） <a class="heading-anchor" href="#%e7%a4%ba%e4%be%8b-a--%e6%9c%8d%e5%8a%a1%e7%ab%af%e6%a8%a1%e6%9d%bf%e6%b3%a8%e5%85%a5ssti" aria-label="链接到本节">#</a></h3>
 <p>第一个场景是一个商品网站，用户可以浏览商品并查看描述。我之前观察到：请求不存在的商品会触发重定向，而重定向后的请求里有一个 <code>message</code> 参数会在页面中反射显示。这种反射提示了可能存在 <a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a> 或 SSTI。</p>
-<p><img src="https://portswigger.net/cms/images/d6/e3/311a-article-image_5_1.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/31/d9/444d-article-image_6_1.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/d6/e3/311a-article-image_5_1.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/31/d9/444d-article-image_6_1.png" alt="" loading="lazy" decoding="async">
+</p>
 <p>我给 Burp AI 一个聚焦的提示词：</p>
 <pre tabindex="0"><code>我正在测试 &#39;message&#39; 参数，以判断是否存在 XSS 或 SSTI 的迹象。请聚焦 &#39;message&#39; 并观察它在响应中如何被反射。执行具体测试、建议 payload，并给出能够确认漏洞的判定标准。如果任何测试确认漏洞，立刻停止并不要再执行任何请求。
 </code></pre><p>并在 “Notes” 中提供固定的上下文：</p>
@@ -391,14 +478,20 @@ LICENSE: MIT
 </code></pre><p>同时用 Highlights 强调要测试的参数：文本 <code>message</code></p>
 <p>它在 44 秒内发起 18 次请求，消耗约 €0.43 的 credits。让我印象深刻的是它方法非常精准：能快速锁定模板上下文、验证相关 payload，并在确认漏洞后立即停止测试。</p>
 <p>结果是：迅速且高效地得到了一个干净、可用的 SSTI PoC。</p>
-<p><img src="https://portswigger.net/cms/images/ac/1a/a737-article-image_6_2_highres_from_docx.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/29/4d/6f5b-article-image_7_1_highres_from_docx.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/18/59/0870-article-image_7_2_highres_from_docx.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/e9/b7/ede7-article-image_7_3_highres_from_docx.png" alt=""></p>
-<h3 id="示例-b--不安全反序列化">示例 B — 不安全反序列化</h3>
+<p><img src="https://portswigger.net/cms/images/ac/1a/a737-article-image_6_2_highres_from_docx.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/29/4d/6f5b-article-image_7_1_highres_from_docx.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/18/59/0870-article-image_7_2_highres_from_docx.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/e9/b7/ede7-article-image_7_3_highres_from_docx.png" alt="" loading="lazy" decoding="async">
+</p>
+<h3 id="示例-b--不安全反序列化">示例 B — 不安全反序列化 <a class="heading-anchor" href="#%e7%a4%ba%e4%be%8b-b--%e4%b8%8d%e5%ae%89%e5%85%a8%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" aria-label="链接到本节">#</a></h3>
 <p>第二个测试中，我关注一个商品页面：登录后它会发放一个序列化的 PHP 对象作为 session cookie。基于之前测试，我知道如果能操纵这个 cookie，可能就能拿到其他用户的会话。</p>
-<p><img src="https://portswigger.net/cms/images/73/e9/c9ed-article-image_8_1.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/0c/8f/e0d7-article-image_8_2.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/73/e9/c9ed-article-image_8_1.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/0c/8f/e0d7-article-image_8_2.png" alt="" loading="lazy" decoding="async">
+</p>
 <p>这次我让 Burp AI 调查 <code>session</code> cookie：</p>
 <pre tabindex="0"><code>我正在测试 &#39;session&#39; cookie，以判断是否存在不安全反序列化的迹象。请聚焦 &#39;session&#39;，并观察分配到的用户在响应中如何体现，此处为 &#39;wiener&#39;。执行具体测试，看看是否能以其他用户或管理员身份访问；给出建议 payload，以及能确认漏洞的判定标准。如果任何测试确认漏洞，立刻停止并不要再执行任何请求。
 </code></pre><p>同样在 “Notes” 里提供上下文是一个很好的起点：</p>
@@ -410,74 +503,82 @@ LICENSE: MIT
 </code></pre><p>我们在提示词里越“重复强调”要测试的参数，它对 Burp AI 越重要。因此这里用 highlights：文本 <code>session</code></p>
 <p>仅用 4 次请求、61 秒，Burp AI 就搞定了：它解码了序列化对象，理解了底层结构并提出多种修改方案，最终给出一个能拿到管理员权限的版本。和前面一样，一旦确认漏洞，它就停止继续测试。</p>
 <p>成本约 €0.34，既快又省。</p>
-<p><img src="https://portswigger.net/cms/images/e9/cd/1584-article-image_9_1_highres_from_docx.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/0f/f3/5611-article-image_9_2_highres_from_docx.png" alt=""></p>
-<p><img src="https://portswigger.net/cms/images/6a/4f/d5a2-article-image_10_1.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/e9/cd/1584-article-image_9_1_highres_from_docx.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/0f/f3/5611-article-image_9_2_highres_from_docx.png" alt="" loading="lazy" decoding="async">
+</p>
+<p><img src="https://portswigger.net/cms/images/6a/4f/d5a2-article-image_10_1.png" alt="" loading="lazy" decoding="async">
+</p>
 <p>这两个示例让我看到：Burp AI 并不只是跑固定 payload 或“打勾式检查”；它会主动分析每个情境，按反馈调整策略，并以一种很类人的方式确认漏洞。感觉就像有一位经验丰富的测试人员在后台安静地工作：速度很快，但也足够谨慎。</p>
-<h2 id="关键心得">关键心得</h2>
+<h2 id="关键心得">关键心得 <a class="heading-anchor" href="#%e5%85%b3%e9%94%ae%e5%bf%83%e5%be%97" aria-label="链接到本节">#</a></h2>
 <p>在试用 Burp AI 的过程中，当我逐渐理解如何有效引导它时，出现了一些非常明确的规律。</p>
-<h3 id="提供刚刚好的上下文">提供“刚刚好”的上下文</h3>
+<h3 id="提供刚刚好的上下文">提供“刚刚好”的上下文 <a class="heading-anchor" href="#%e6%8f%90%e4%be%9b%e5%88%9a%e5%88%9a%e5%a5%bd%e7%9a%84%e4%b8%8a%e4%b8%8b%e6%96%87" aria-label="链接到本节">#</a></h3>
 <p>和任何 AI 一样，最大的收获之一是：上下文的量很关键。太少，Burp AI 就会开始猜——要么生成过于泛化的 payload，要么花更多 credits 去“补全信息”。</p>
 <p>太多，它可能会失去焦点，或者“幻觉”出并不存在的细节。我发现最佳效果通常来自：1–2 句高度聚焦的摘要（抓住最相关的系统行为），再加上对当前测试场景的简要说明。</p>
-<h3 id="明确区分上下文与场景">明确区分上下文与场景</h3>
+<h3 id="明确区分上下文与场景">明确区分上下文与场景 <a class="heading-anchor" href="#%e6%98%8e%e7%a1%ae%e5%8c%ba%e5%88%86%e4%b8%8a%e4%b8%8b%e6%96%87%e4%b8%8e%e5%9c%ba%e6%99%af" aria-label="链接到本节">#</a></h3>
 <p>我觉得把“上下文（context）”与“场景（scenario）”在脑中分开非常有用，并据此编写提示词：</p>
 <ul>
 <li><strong>Context（上下文）</strong>：更宏观的环境描述——系统是什么、怎么工作、有哪些认证/业务规则。</li>
 <li><strong>Scenario（场景）</strong>：聚焦你此刻正在测试的具体条件——某个 endpoint、参数或你希望它关注的行为。</li>
 </ul>
-<h3 id="使用-highlights-功能">使用 Highlights 功能</h3>
+<h3 id="使用-highlights-功能">使用 Highlights 功能 <a class="heading-anchor" href="#%e4%bd%bf%e7%94%a8-highlights-%e5%8a%9f%e8%83%bd" aria-label="链接到本节">#</a></h3>
 <p>我发现在 HTTP 消息里高亮特定子串非常有价值。通过标记 <code>message</code>、<code>session</code> 或 <code>userId</code> 这类输入点，我可以用人的直觉先挑出重点，再引导 Burp AI 把注意力放在最关键的请求/响应部分。</p>
-<h3 id="设置明确的停止条件">设置明确的停止条件</h3>
+<h3 id="设置明确的停止条件">设置明确的停止条件 <a class="heading-anchor" href="#%e8%ae%be%e7%bd%ae%e6%98%8e%e7%a1%ae%e7%9a%84%e5%81%9c%e6%ad%a2%e6%9d%a1%e4%bb%b6" aria-label="链接到本节">#</a></h3>
 <p>较长任务会受到内部 20 步限制，但 AI 也可能在得到结果后提前退出。就像前面的示例一样，我倾向于在提示词里加入明确的停止条件。“确认即停止”不仅能防止过度测试，也有助于控制成本与速度。</p>
-<p><img src="https://portswigger.net/cms/images/47/71/6977-article-image_12_1.png" alt=""></p>
-<h2 id="提示词模板">提示词模板</h2>
+<p><img src="https://portswigger.net/cms/images/47/71/6977-article-image_12_1.png" alt="" loading="lazy" decoding="async">
+</p>
+<h2 id="提示词模板">提示词模板 <a class="heading-anchor" href="#%e6%8f%90%e7%a4%ba%e8%af%8d%e6%a8%a1%e6%9d%bf" aria-label="链接到本节">#</a></h2>
 <p>以下是我基于 <a href="https://portswigger.net/burp/documentation/desktop/ai">官方文档</a> 构造提示词时使用的粗略模板，供你在自己的提示词工程中参考：</p>
-<h3 id="1-明确目标一句话">1. 明确目标（一句话）</h3>
+<h3 id="1-明确目标一句话">1. 明确目标（一句话） <a class="heading-anchor" href="#1-%e6%98%8e%e7%a1%ae%e7%9b%ae%e6%a0%87%e4%b8%80%e5%8f%a5%e8%af%9d" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>我正在测试 [参数/路径/请求头]，以判断是否存在 [漏洞类型，例如：IDOR、SQL 注入、SSRF、XSS、CSRF、CORS、JWT] 的迹象。
-</code></pre><h3 id="2-指定聚焦点参数--路径--请求头">2. 指定聚焦点（参数 / 路径 / 请求头）</h3>
+</code></pre><h3 id="2-指定聚焦点参数--路径--请求头">2. 指定聚焦点（参数 / 路径 / 请求头） <a class="heading-anchor" href="#2-%e6%8c%87%e5%ae%9a%e8%81%9a%e7%84%a6%e7%82%b9%e5%8f%82%e6%95%b0--%e8%b7%af%e5%be%84--%e8%af%b7%e6%b1%82%e5%a4%b4" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>聚焦 userId / POST /api/user / Cookie: session …
-</code></pre><h3 id="3-期望产出">3. 期望产出</h3>
+</code></pre><h3 id="3-期望产出">3. 期望产出 <a class="heading-anchor" href="#3-%e6%9c%9f%e6%9c%9b%e4%ba%a7%e5%87%ba" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>执行具体测试，建议 payload，并给出能够确认漏洞的判定标准。
-</code></pre><h3 id="4-限制行动范围如适用">4. 限制行动范围（如适用）</h3>
+</code></pre><h3 id="4-限制行动范围如适用">4. 限制行动范围（如适用） <a class="heading-anchor" href="#4-%e9%99%90%e5%88%b6%e8%a1%8c%e5%8a%a8%e8%8c%83%e5%9b%b4%e5%a6%82%e9%80%82%e7%94%a8" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>如果任何测试确认漏洞，立刻停止并不要再发起请求。
-</code></pre><h2 id="notes-模板">Notes 模板</h2>
-<h3 id="1-系统的简短描述">1. 系统的简短描述</h3>
+</code></pre><h2 id="notes-模板">Notes 模板 <a class="heading-anchor" href="#notes-%e6%a8%a1%e6%9d%bf" aria-label="链接到本节">#</a></h2>
+<h3 id="1-系统的简短描述">1. 系统的简短描述 <a class="heading-anchor" href="#1-%e7%b3%bb%e7%bb%9f%e7%9a%84%e7%ae%80%e7%9f%ad%e6%8f%8f%e8%bf%b0" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>系统摘要：
 [&#34;E-commerce web application&#34; / &#34;Internal user management API&#34; / &#34;Corporate portal&#34;.]
-</code></pre><h3 id="2-系统的预期使用流程">2. 系统的预期使用流程</h3>
+</code></pre><h3 id="2-系统的预期使用流程">2. 系统的预期使用流程 <a class="heading-anchor" href="#2-%e7%b3%bb%e7%bb%9f%e7%9a%84%e9%a2%84%e6%9c%9f%e4%bd%bf%e7%94%a8%e6%b5%81%e7%a8%8b" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>预期用途： 
 [&#34;Users can view products&#34; / &#34;The endpoint allows information to be updated&#34; / &#34;Allows searches to be performed using filters&#34;.]
-</code></pre><h3 id="3-之前发现的一般性现象">3. 之前发现的一般性现象</h3>
+</code></pre><h3 id="3-之前发现的一般性现象">3. 之前发现的一般性现象 <a class="heading-anchor" href="#3-%e4%b9%8b%e5%89%8d%e5%8f%91%e7%8e%b0%e7%9a%84%e4%b8%80%e8%88%ac%e6%80%a7%e7%8e%b0%e8%b1%a1" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>已知行为/先前观察：
 [&#34;某些字符会导致系统返回 500&#34; / &#34;无效参数时 endpoint 的响应不一致&#34;].
-</code></pre><h3 id="4-已执行过的测试">4. 已执行过的测试</h3>
+</code></pre><h3 id="4-已执行过的测试">4. 已执行过的测试 <a class="heading-anchor" href="#4-%e5%b7%b2%e6%89%a7%e8%a1%8c%e8%bf%87%e7%9a%84%e6%b5%8b%e8%af%95" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>之前相关测试：
 [&#34;尝试修改 [参数] 后系统出现异常错误&#34; / &#34;记录到了指示异常行为的服务端消息&#34;].
-</code></pre><h3 id="5-对潜在漏洞的总体假设">5. 对潜在漏洞的总体假设</h3>
+</code></pre><h3 id="5-对潜在漏洞的总体假设">5. 对潜在漏洞的总体假设 <a class="heading-anchor" href="#5-%e5%af%b9%e6%bd%9c%e5%9c%a8%e6%bc%8f%e6%b4%9e%e7%9a%84%e6%80%bb%e4%bd%93%e5%81%87%e8%ae%be" aria-label="链接到本节">#</a></h3>
 <pre tabindex="0"><code>假设或怀疑点：
 [&#34;可能校验不足&#34; / &#34;可能暴露敏感信息&#34; / &#34;可能与 [漏洞类型] 相关&#34;].
-</code></pre><h2 id="从渗透测试视角看-burp-ai">从渗透测试视角看 Burp AI</h2>
+</code></pre><h2 id="从渗透测试视角看-burp-ai">从渗透测试视角看 Burp AI <a class="heading-anchor" href="#%e4%bb%8e%e6%b8%97%e9%80%8f%e6%b5%8b%e8%af%95%e8%a7%86%e8%a7%92%e7%9c%8b-burp-ai" aria-label="链接到本节">#</a></h2>
 <p>当 Burp AI 理解上下文时，它在 Repeater 里就是一个真正的“加速器”：能显著缩短从发现线索到获得可用 PoC 的时间。它并不替代人工验证，但它本来也不是为此设计的。</p>
 <p>更准确地说，它像一个副驾驶：加速重复性工作、在你卡住时提供灵感、建议可能节省数小时的调查方向。与其带来的巨大时间节省与生产力提升相比，成本几乎可以忽略不计。</p>
 <p>如果你还没试过，我强烈建议你亲自体验一下 Burp AI。所有 <a href="https://madneal.com/burp/pro">Burp Suite Professional</a> 许可证都附带 10,000 免费 credits，因此基本没有试错成本。</p>
 <p><a href="https://portswigger.net/burp/ai">了解更多 Burp AI</a></p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8"><span class="tag">Web安全</span></a></li>
+          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/"><span class="tag">Web安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/burp"><span class="tag">Burp</span></a></li>
+          <li><a href="https://madneal.com/tags/ai/"><span class="tag">AI</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/burp/"><span class="tag">Burp</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>153</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>154</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -492,29 +593,8 @@ LICENSE: MIT
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

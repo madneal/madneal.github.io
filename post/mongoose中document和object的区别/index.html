@@ -14,42 +14,80 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; }); const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样：
-[{ &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7970&#34;), &#34;title&#34; : &#34;好楼层，中等装修，满5年，上门实拍&#34;, &#34;type&#34; : &#34;2室1厅&#34;, &#34;square&#34; : &#34;75.42平&#34;, &#34;direction&#34; : &#34;朝南&#34;, &#34;floor&#34; : &#34;中区/6层&#34;, &#34;unitPrice&#34; : 47732, &#34;totalPrice&#34; : 360, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4528035.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; } { &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7971&#34;), &#34;title&#34; : &#34;南北户型，厨卫全明，高区采光好，装修精美&#34;, &#34;type&#34; : &#34;2室2厅&#34;, &#34;square&#34; : &#34;90.92平&#34;, &#34;direction&#34; : &#34;朝南北&#34;, &#34;floor&#34; : &#34;高区/6层&#34;, &#34;unitPrice&#34; : 46194, &#34;totalPrice&#34; : 420, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4546221.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; }] 预期index.ejs应该渲染的页面是一个ul渲染的结果，类似于
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Mongoose中document和object的区别" />
-  <meta property="og:description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; }); const model = mongoose.model(&#39;realestate&#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&gt; { res.render(&#39;index&#39;, { title: &#39;express&#39;, docs: docs }) }) }); &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;head&gt; &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt; &lt;link rel=&#39;stylesheet&#39; href=&#39;/stylesheets/style.css&#39; /&gt; &lt;/head&gt; &lt;body&gt; &lt;h1&gt;&lt;%= title %&gt;&lt;/h1&gt; &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt; &lt;!-- &lt;%= docs %&gt; --&gt; &lt;ul&gt; &lt;% docs.forEach(function(doc){ %&gt; &lt;li&gt;&lt;%= doc.type %&gt;&lt;/li&gt; &lt;% }) %&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt; 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样：
-[{ &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7970&#34;), &#34;title&#34; : &#34;好楼层，中等装修，满5年，上门实拍&#34;, &#34;type&#34; : &#34;2室1厅&#34;, &#34;square&#34; : &#34;75.42平&#34;, &#34;direction&#34; : &#34;朝南&#34;, &#34;floor&#34; : &#34;中区/6层&#34;, &#34;unitPrice&#34; : 47732, &#34;totalPrice&#34; : 360, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4528035.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; } { &#34;_id&#34; : ObjectId(&#34;59bdeadb2a5c612514ee7971&#34;), &#34;title&#34; : &#34;南北户型，厨卫全明，高区采光好，装修精美&#34;, &#34;type&#34; : &#34;2室2厅&#34;, &#34;square&#34; : &#34;90.92平&#34;, &#34;direction&#34; : &#34;朝南北&#34;, &#34;floor&#34; : &#34;高区/6层&#34;, &#34;unitPrice&#34; : 46194, &#34;totalPrice&#34; : 420, &#34;location&#34; : null, &#34;specialExplain&#34; : &#34;满五&#34;, &#34;url&#34; : &#34;http://sh.lianjia.com//ershoufang/sh4546221.html&#34;, &#34;station&#34; : &#34;江杨北路&#34;, &#34;line&#34; : &#34;3号线&#34;, &#34;updateTime&#34; : &#34;2017-09-17 11:24:11&#34; }] 预期index.ejs应该渲染的页面是一个ul渲染的结果，类似于
-" />
-  <meta property="og:url" content="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码： 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样： 预期index.ejs应该渲 …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Mongoose中document和object的区别" />
+<meta property="og:description" content=" 这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码： 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样： 预期index.ejs应该渲 …" />
+<meta property="og:url" content="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2017-09-17T00:00:00Z" />
+<meta property="article:modified_time" content="2017-09-17T00:00:00Z" />
+<meta property="article:tag" content="JavaScript" />
+<meta property="article:tag" content="后端" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="Mongoose中document和object的区别" />
+<meta name="twitter:description" content=" 这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码： 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样： 预期index.ejs应该渲 …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"Mongoose中document和object的区别\"",
+  "description": "\" 这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码： 在第一段代码中，通过model.find我们应该能够获取到根据queryCriteria获取的结果，结果应该是一个对象数组，类似于这样： 预期index.ejs应该渲 …\"",
+  "url": "\"https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/\"",
+  "datePublished": "\"2017-09-17T00:00:00Z\"",
+  "dateModified": "\"2017-09-17T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -77,16 +115,17 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -114,15 +153,15 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -154,8 +193,8 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -220,8 +259,24 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Mongoose中document和object的区别</h1>
-      <p class="post-meta">@Neal · Sep 17, 2017 · 3 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2017-09-17">2017-09-17</time> · 约 3 分钟阅读</p>
     </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#方法1">方法1：</a></li>
+        <li><a href="#方法2">方法2：</a></li>
+        <li><a href="#方法3">方法3:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </nav>
+    
     <article class="post-content"><p>这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/&#39;</span>, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">next</span>) {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">// res.render(&#39;index&#39;, { title: &#39;Express&#39; });
@@ -292,16 +347,16 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
 <p>当然，理想很丰满，现实很骨感。我就是死活渲染不出来<code>doc.type</code>。照理说应该是不可能的，在<code>index.ejs</code>中<code>doc</code>就是一个对象，我为什么不能获取<code>doc</code>的<code>type</code>属性呢？这不合理，太不合理了！</p>
 <p>老实说，这个问题我之间也是遇到过，当初我是想修改这个<code>doc</code>的属性，但是死活没有办法修改，当初也是花了很久找到原因。这次我就把这个问题好好地研究一下。</p>
 <p>先说结果，以及解决方法把。我比较喜欢剧透。愿意是因为再次返回的<code>doc</code>是属于Document的实例，而不是一个普通的对象。也就是说它和普通的对象是不一样的，它没有普通对象的一些方法，普通对象也没有它身上的一些方法。解决方案有几种，不过究其根本都是将这种document转化为普通的对象：</p>
-<h3 id="方法1">方法1：</h3>
+<h3 id="方法1">方法1： <a class="heading-anchor" href="#%e6%96%b9%e6%b3%951" aria-label="链接到本节">#</a></h3>
 <p>利用<a href="http://mongoosejs.com/docs/api.html#document_Document-toObject"><code>toObject</code>方法</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">docs</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">doc</span> =&gt; {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">doc</span>.<span style="color:#a6e22e">toObject</span>();
 </span></span><span style="display:flex;"><span>})
-</span></span></code></pre></div><h3 id="方法2">方法2：</h3>
+</span></span></code></pre></div><h3 id="方法2">方法2： <a class="heading-anchor" href="#%e6%96%b9%e6%b3%952" aria-label="链接到本节">#</a></h3>
 <p>利用JSON方法，这是我想到的一个方法，具体深层原因在这就不展开了：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">docs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">docs</span>);
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">docs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">docs</span>);
-</span></span></code></pre></div><h3 id="方法3">方法3:</h3>
+</span></span></code></pre></div><h3 id="方法3">方法3: <a class="heading-anchor" href="#%e6%96%b9%e6%b3%953" aria-label="链接到本节">#</a></h3>
 <p>利用<code>lean</code>方法：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">model</span>.<span style="color:#a6e22e">find</span>().<span style="color:#a6e22e">lean</span>().<span style="color:#a6e22e">exec</span>((<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">docs</span>) =&gt; {
 </span></span><span style="display:flex;"><span>....
@@ -475,21 +530,21 @@ console.dir(docs[0].__proto__);
 <p>至此，这个问题引起的一系列的探究也是告一段落了。其实Mongoose还有另外一些奇怪的地方，被人所诟病，在此也不一一细数了。从问题的发现，到写这篇文章大概花了大半天的时间，以前遇到问题就找到解决办法就停止了，但是这一次通过这样深入地去发现，可能就会发掘到更多的东西。</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/nodejs"><span class="tag">Nodejs</span></a></li>
+          <li><a href="https://madneal.com/tags/javascript/"><span class="tag">JavaScript</span></a></li>
         
-          <li><a href="https://madneal.com/tags/js"><span class="tag">Js</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/mongoose"><span class="tag">Mongoose</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF/"><span class="tag">后端</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3197</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3198</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -504,29 +559,8 @@ console.dir(docs[0].__proto__);
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

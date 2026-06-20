@@ -14,76 +14,80 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content=" 原文：Interview with a Pornhub Web Developer
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-无论你对色情内容采取何种立场，都无法否认成人网站行业对推动互联网发展具有巨大影响。从将浏览器的视频限制推送到通过WebSocket推送广告，以便广告拦截器无法检测到它们，你必须足够聪明才能在互联网的前沿进行创新。
-最近，我很有幸采访互联网最大的成人网站 Pornhub 的一名 Web 开发者。我想了解技术，Web API 如何改进以及在成人网站上工作的感受。请享用！
-注意：成人产业竞争激烈，因此有一些他们无法回答的问题。我尊重他们保守商业机密的需要。
-成人网站显然会显示许多图形内容。在开发过程中，你是否使用了大量的占位符图像和视频？最终产品和开发时的内容和经验有什么区别？
-实际上，我们在开发网站时不使用占位符！其次，重要的是代码和功能，接口是我们现在非常习惯的东西。一开始肯定会有一些学习曲线，但是我们大家很快就习惯了。
-对于网络流和第三方广告脚本，你如何在网站和功能开发过程中模拟这些重要的动态资源？
-为了进行开发，播放器分为两个部分。基本播放器实现核心功能并触发事件。开发不会受其他因素干扰。为了在网站上进行集成，我们希望运行那些第三方脚本和广告，以便我们尽早发现问题。在特殊情况下，我们将与广告客户合作，允许我们手动触发通常可能是随机的事件。
-平均每个页面可能至少包含一个视频，GIF 广告，一些 cam 表演者预览以及其他视频的缩略图。你如何测量页面性能以及如何使页面保持最佳性能？有什么你可已分享的技巧吗？
-我们使用一些测量系统。
-我们的播放器会向我们报告有关视频播放性能和一般用法的指标 用于一般站点性能的第三方 RUM 系统。 WebpageTest 私有实例，用于在可用的 AWS 数据中心中编写测试脚本。我们主要将其用于查看给定时间可能发生的情况。它还使我们能够查看来自不同位置和提供者的“瀑布”。 我必须假设前端最重要，最复杂的功能是视频播放器。从在视频之前加入广告，标记视频的精彩时刻，更改视频速度和其他功能，你如何维护该资产的性能，功能和稳定性？
-我们有一支专门致力于视频播放器的团队，他们的首要任务是持续监控性能和效率。我们为此几乎使用了所有可用的东西；浏览器性能工具，网页测试，指标等。我们进行的所有更新均通过可靠的质量检查来确保稳定性和质量。
-专门的视频团队有多少人？团队中有多少前端开发人员？
-我要说的是，团队规模倾向于基于产品规模的平均水平。
-在成人网站上工作期间，你如何看待前端未来的变化？哪些新的 Web API 使你的生活更轻松？
-我肯定在前端世界的每个方面都看到了很多改进；
-从纯 CSS 到最终使用 LESS 和 Mixins，再到使用具有媒体查询和图片标签的灵活 Grid 系统，以适应不同的分辨率和屏幕尺寸 jQuery 和 jQueryUI 慢慢地被淘汰，因此我们将回到 vanilla JS 中更高效的面向对象编程。在某些情况下，框架也非常有趣 我们喜欢新的 IntersectionObserver API，对于以更有效的方式加载图像非常有用 我们也开始使用画中画 API，以便在我们的某些页面上播放该浮动视频，主要是为了获得用户对该想法的反馈。 展望未来，有没有你想要更改，改进甚至创建的 Web API？
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Pornhub Web 开发者访谈" />
-  <meta property="og:description" content=" 原文：Interview with a Pornhub Web Developer
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
-无论你对色情内容采取何种立场，都无法否认成人网站行业对推动互联网发展具有巨大影响。从将浏览器的视频限制推送到通过WebSocket推送广告，以便广告拦截器无法检测到它们，你必须足够聪明才能在互联网的前沿进行创新。
-最近，我很有幸采访互联网最大的成人网站 Pornhub 的一名 Web 开发者。我想了解技术，Web API 如何改进以及在成人网站上工作的感受。请享用！
-注意：成人产业竞争激烈，因此有一些他们无法回答的问题。我尊重他们保守商业机密的需要。
-成人网站显然会显示许多图形内容。在开发过程中，你是否使用了大量的占位符图像和视频？最终产品和开发时的内容和经验有什么区别？
-实际上，我们在开发网站时不使用占位符！其次，重要的是代码和功能，接口是我们现在非常习惯的东西。一开始肯定会有一些学习曲线，但是我们大家很快就习惯了。
-对于网络流和第三方广告脚本，你如何在网站和功能开发过程中模拟这些重要的动态资源？
-为了进行开发，播放器分为两个部分。基本播放器实现核心功能并触发事件。开发不会受其他因素干扰。为了在网站上进行集成，我们希望运行那些第三方脚本和广告，以便我们尽早发现问题。在特殊情况下，我们将与广告客户合作，允许我们手动触发通常可能是随机的事件。
-平均每个页面可能至少包含一个视频，GIF 广告，一些 cam 表演者预览以及其他视频的缩略图。你如何测量页面性能以及如何使页面保持最佳性能？有什么你可已分享的技巧吗？
-我们使用一些测量系统。
-我们的播放器会向我们报告有关视频播放性能和一般用法的指标 用于一般站点性能的第三方 RUM 系统。 WebpageTest 私有实例，用于在可用的 AWS 数据中心中编写测试脚本。我们主要将其用于查看给定时间可能发生的情况。它还使我们能够查看来自不同位置和提供者的“瀑布”。 我必须假设前端最重要，最复杂的功能是视频播放器。从在视频之前加入广告，标记视频的精彩时刻，更改视频速度和其他功能，你如何维护该资产的性能，功能和稳定性？
-我们有一支专门致力于视频播放器的团队，他们的首要任务是持续监控性能和效率。我们为此几乎使用了所有可用的东西；浏览器性能工具，网页测试，指标等。我们进行的所有更新均通过可靠的质量检查来确保稳定性和质量。
-专门的视频团队有多少人？团队中有多少前端开发人员？
-我要说的是，团队规模倾向于基于产品规模的平均水平。
-在成人网站上工作期间，你如何看待前端未来的变化？哪些新的 Web API 使你的生活更轻松？
-我肯定在前端世界的每个方面都看到了很多改进；
-从纯 CSS 到最终使用 LESS 和 Mixins，再到使用具有媒体查询和图片标签的灵活 Grid 系统，以适应不同的分辨率和屏幕尺寸 jQuery 和 jQueryUI 慢慢地被淘汰，因此我们将回到 vanilla JS 中更高效的面向对象编程。在某些情况下，框架也非常有趣 我们喜欢新的 IntersectionObserver API，对于以更有效的方式加载图像非常有用 我们也开始使用画中画 API，以便在我们的某些页面上播放该浮动视频，主要是为了获得用户对该想法的反馈。 展望未来，有没有你想要更改，改进甚至创建的 Web API？
-" />
-  <meta property="og:url" content="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" 原文：Interview with a Pornhub Web Developer(https://davidwalsh.name/pornhub-interview) 译者：neal1991(https://github.com/neal1991) welcome to star my …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Pornhub Web 开发者访谈" />
+<meta property="og:description" content=" 原文：Interview with a Pornhub Web Developer(https://davidwalsh.name/pornhub-interview) 译者：neal1991(https://github.com/neal1991) welcome to star my …" />
+<meta property="og:url" content="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2019-10-13T00:00:00Z" />
+<meta property="article:modified_time" content="2019-10-13T00:00:00Z" />
+<meta property="article:tag" content="前端" />
+<meta property="article:tag" content="翻译" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="Pornhub Web 开发者访谈" />
+<meta name="twitter:description" content=" 原文：Interview with a Pornhub Web Developer(https://davidwalsh.name/pornhub-interview) 译者：neal1991(https://github.com/neal1991) welcome to star my …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"Pornhub Web 开发者访谈\"",
+  "description": "\" 原文：Interview with a Pornhub Web Developer(https://davidwalsh.name/pornhub-interview) 译者：neal1991(https://github.com/neal1991) welcome to star my …\"",
+  "url": "\"https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/\"",
+  "datePublished": "\"2019-10-13T00:00:00Z\"",
+  "dateModified": "\"2019-10-13T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/pornhub-web-%E5%BC%80%E5%8F%91%E8%80%85%E8%AE%BF%E8%B0%88/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -111,16 +115,17 @@ LICENSE: MIT
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -148,15 +153,15 @@ LICENSE: MIT
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -188,8 +193,8 @@ LICENSE: MIT
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -254,8 +259,9 @@ LICENSE: MIT
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Pornhub Web 开发者访谈</h1>
-      <p class="post-meta">@Neal · Oct 13, 2019 · 1 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2019-10-13">2019-10-13</time> · 约 1 分钟阅读</p>
     </header>
+    
     <article class="post-content"><blockquote>
 <p>原文：<a href="https://davidwalsh.name/pornhub-interview">Interview with a Pornhub Web Developer</a></p>
 <p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
@@ -331,19 +337,21 @@ LICENSE: MIT
 <p>我真的希望我能够从中获得更多具体的技术提示；性能和巧妙的技巧。我敢肯定，他们的源代码背后有很多知识要学习！你会问什么问题？</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E7%BF%BB%E8%AF%91"><span class="tag">翻译</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91"><span class="tag">前端开发</span></a></li>
+          <li><a href="https://madneal.com/tags/%E7%BF%BB%E8%AF%91/"><span class="tag">翻译</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2441</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2442</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -358,29 +366,8 @@ LICENSE: MIT
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

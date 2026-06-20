@@ -14,44 +14,80 @@
 
 
 
-  
-  <meta name="author" content="Neal" />
-  <meta name="description" content="Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
-模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = { &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
-from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.utils import Markup tpl=DocxTemplate(&#39;test_files/inline_image_tpl.docx&#39;) context = { &#39;myimage&#39; : InlineImage(tpl,&#39;test_files/python_logo.png&#39;,width=Mm(20)), &#39;myimageratio&#39;: InlineImage(tpl, &#39;test_files/python_jpeg.jpg&#39;, width=Mm(30), height=Mm(60)), &#39;frameworks&#39; : [{&#39;image&#39; : InlineImage(tpl,&#39;test_files/django.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;The web framework for perfectionists with deadlines&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/zope.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/pyramid.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/bottle.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/tornado.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Tornado is a Python web framework and asynchronous networking library.&#39;}, ] } # testing that it works also when autoescape has been forced to True jinja_env = jinja2.Environment(autoescape=True) tpl.render(context, jinja_env) tpl.save(&#39;test_files/inline_image.docx&#39;) 同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 test，里面有各种例子可以参考。
-" />
+
 
   
+    
   
 
-  
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="利用 python 生成可视化报告" />
-  <meta property="og:description" content="Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
-模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = { &#34;a&#34;: &#34;13413&#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
-from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.utils import Markup tpl=DocxTemplate(&#39;test_files/inline_image_tpl.docx&#39;) context = { &#39;myimage&#39; : InlineImage(tpl,&#39;test_files/python_logo.png&#39;,width=Mm(20)), &#39;myimageratio&#39;: InlineImage(tpl, &#39;test_files/python_jpeg.jpg&#39;, width=Mm(30), height=Mm(60)), &#39;frameworks&#39; : [{&#39;image&#39; : InlineImage(tpl,&#39;test_files/django.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;The web framework for perfectionists with deadlines&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/zope.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Zope is a leading Open Source Application Server and Content Management Framework&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/pyramid.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Pyramid is a lightweight Python web framework aimed at taking small web apps into big web apps.&#39;}, {&#39;image&#39; : InlineImage(tpl,&#39;test_files/bottle.png&#39;,height=Mm(10)), &#39;desc&#39; : &#39;Bottle is a fast, simple and lightweight WSGI micro web-framework for Python&#39;}, {&#39;image&#39;: InlineImage(tpl, &#39;test_files/tornado.png&#39;, height=Mm(10)), &#39;desc&#39;: &#39;Tornado is a Python web framework and asynchronous networking library.&#39;}, ] } # testing that it works also when autoescape has been forced to True jinja_env = jinja2.Environment(autoescape=True) tpl.render(context, jinja_env) tpl.save(&#39;test_files/inline_image.docx&#39;) 同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 test，里面有各种例子可以参考。
-" />
-  <meta property="og:url" content="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" />
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
 
 
 
+<meta name="author" content="Neal" />
+<meta name="description" content="" />
+<meta name="generator" content="Hugo 0.145.0" />
+
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="利用 python 生成可视化报告" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" />
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+<meta property="og:site_name" content="Neal&#39;s Blog" />
+
+<meta property="article:published_time" content="2018-08-16T00:00:00Z" />
+<meta property="article:modified_time" content="2018-08-16T00:00:00Z" />
+<meta property="article:tag" content="Python" />
+<meta property="article:tag" content="数据可视化" />
+
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@gohugoio" />
+<meta name="twitter:title" content="利用 python 生成可视化报告" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "\"利用 python 生成可视化报告\"",
+  "description": "\"\"",
+  "url": "\"https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/\"",
+  "datePublished": "\"2018-08-16T00:00:00Z\"",
+  "dateModified": "\"2018-08-16T00:00:00Z\"",
+  "author": {
+    "@type": "Person",
+    "name": "\"Neal\""
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "\"Neal's Blog\"",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+    }
+  },
+  "image": "\"https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg\""
+}
+</script>
 
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/" />
-<link rel="alternative" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/index.xml" title="Neal&#39;s Blog" type="application/atom+xml" />
+<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
 
 
 <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta name="format-detection" content="telephone=no,email=no,address=no" />
 <meta http-equiv="Cache-Control" content="no-transform" />
 
 
-<meta content="" name="keywords">
+
 <meta name="robots" content="index,follow" />
 <meta name="referrer" content="origin-when-cross-origin" />
 <meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
@@ -79,16 +115,17 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
 
 
 
-<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/css/bundle.css" />
+<style>
+.wechat-qr{width:15rem;height:15rem;margin:0 auto 1.5rem}@media screen and (max-width:800px){.wechat-qr{display:none}}.menu-toggle:focus{color:#5fbf5e}.post-detail .post-toc{margin:0 0 2rem;padding:1rem 1.25rem;border-left:3px solid #5fbf5e;background:#f4f3f1;font-size:.95rem}.post-detail .post-toc h2{margin:0 0 .5rem;font-size:1rem}.post-detail .post-toc ul,.post-detail .post-toc ol{margin:.25rem 0;padding-left:1.25rem}.post-detail .post-toc a{color:#4a4a4a}.post-detail .post-toc a:hover{color:#5fbf5e}.post-detail .post-footer .wechat-card{margin:2rem 0;padding:1rem;border-radius:5px;background:#f4f3f1;text-align:center}.post-detail .post-footer .wechat-card p{margin-top:0}.post-detail .post-footer .wechat-card img{width:12rem;height:12rem}.post-content h1 .heading-anchor,.post-content h2 .heading-anchor,.post-content h3 .heading-anchor,.post-content h4 .heading-anchor,.post-content h5 .heading-anchor,.post-content h6 .heading-anchor{margin-left:.25rem;border-bottom:none;color:#b5b5b5;font-size:.75em;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content h1:hover .heading-anchor,.post-content h2:hover .heading-anchor,.post-content h3:hover .heading-anchor,.post-content h4:hover .heading-anchor,.post-content h5:hover .heading-anchor,.post-content h6:hover .heading-anchor,.post-content .heading-anchor:focus{opacity:1}.post-content .heading-anchor:hover,.post-content .heading-anchor:focus{color:#5fbf5e;border-bottom:none}.post-content pre{position:relative}.post-content pre .code-copy{position:absolute;top:.5rem;right:.5rem;padding:.2rem .45rem;border:1px solid #dbdbdb;border-radius:2px;background:#fafafa;color:#797979;font-size:.8rem;cursor:pointer;opacity:0;transition:opacity .5s ease-out,color .5s ease-out}.post-content pre:hover .code-copy,.post-content pre .code-copy:focus{opacity:1}.post-content pre .code-copy:hover,.post-content pre .code-copy:focus{color:#5fbf5e}.post-content table{display:block;overflow-x:auto}
+</style>
 
 
   
   <!--[if lt IE 9]>
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
 
 <!--[if lte IE 11]>
@@ -116,15 +153,15 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
     
     
   <header class="site-header">
-  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async">
   
   <h2 class="title">Neal&#39;s Blog</h2>
   
   <p class="subtitle">Development &amp; Security</p>
-  <button class="menu-toggle" type="button">
+  <button class="menu-toggle" type="button" aria-controls="site-menu social-menu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="icon icon-menu"></span>
   </button>
-  <nav class="site-menu collapsed">
+  <nav id="site-menu" class="site-menu collapsed">
     <h2 class="offscreen">Main Menu</h2>
     <ul class="menu-list">
       
@@ -156,8 +193,8 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
       
     </ul>
   </nav>
-  <img src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" style="width: 240px;height: 240px;">
-  <nav class="social-menu collapsed">
+  <img class="wechat-qr" src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/img/wechat.jpg" alt="wechat" width="240" height="240" loading="lazy" decoding="async">
+  <nav id="social-menu" class="social-menu collapsed">
     <h2 class="offscreen">Social Networks</h2>
     <ul class="social-list">
 
@@ -222,10 +259,21 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">利用 python 生成可视化报告</h1>
-      <p class="post-meta">@Neal · Aug 16, 2018 · 1 min read</p>
+      <p class="post-meta">@Neal · <time datetime="2018-08-16">2018-08-16</time> · 约 1 分钟阅读</p>
     </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#模板">模板</a></li>
+    <li><a href="#matplotlib">Matplotlib</a></li>
+  </ul>
+</nav>
+      </nav>
+    
     <article class="post-content"><p>Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。</p>
-<h2 id="模板">模板</h2>
+<h2 id="模板">模板 <a class="heading-anchor" href="#%e6%a8%a1%e6%9d%bf" aria-label="链接到本节">#</a></h2>
 <p>docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 <code>{{}}</code> 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 <code>render</code> 来渲染模板即可。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>doc <span style="color:#f92672">=</span> Docxtpl(filename)
 </span></span><span style="display:flex;"><span>context <span style="color:#f92672">=</span> {
@@ -266,26 +314,28 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
 </span></span><span style="display:flex;"><span>tpl<span style="color:#f92672">.</span>render(context, jinja_env)
 </span></span><span style="display:flex;"><span>tpl<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;test_files/inline_image.docx&#39;</span>)
 </span></span></code></pre></div><p>同样还可以使用宽度高度单位来设置图片的大小。另外我们还可以利用表格的模板来动态设置数据，具体可以参考 <a href="https://github.com/elapouya/python-docx-template/tree/master/tests">test</a>，里面有各种例子可以参考。</p>
-<h2 id="matplotlib">Matplotlib</h2>
+<h2 id="matplotlib">Matplotlib <a class="heading-anchor" href="#matplotlib" aria-label="链接到本节">#</a></h2>
 <p>Matplotlib 是一个非常好的可视化作图工具，可以利用它制作各种图例。主要讲plt.几个使用的时候遇到的一些小问题。第一个就是图例上的中文乱码，需要设置图例的文字字体：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74">&#34;font.sans.serif&#34;</span>] <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;SimHei&#34;</span>]
 </span></span></code></pre></div><p>第二个情况就是图例中的 label 很有可能重叠，所以可以将 label 旋转：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xtick(obj[<span style="color:#e6db74">&#34;group_labels&#34;</span>], rotation<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)
 </span></span></code></pre></div></article>
     <footer class="post-footer">
+      <div class="wechat-card">
         <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder">
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
+          <li><a href="https://madneal.com/tags/python/"><span class="tag">Python</span></a></li>
         
-          <li><a href="https://madneal.com/tags/%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="tag">可视化</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/"><span class="tag">数据可视化</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2864</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>2865</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -300,29 +350,8 @@ from docxtpl import DocxTemplate, InlineImage # for height and width you have to
 
 
 
-<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    }
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
+
+
 
 <script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
   
