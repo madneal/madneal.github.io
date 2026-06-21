@@ -36,7 +36,7 @@
     <meta name="twitter:title" content="opencv视频流的读取和处理">
     <meta name="twitter:description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码
 #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }   要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。">
-    <meta name="twitter:image" content="/images/avatar.jpg">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
@@ -45,7 +45,7 @@
   <meta property="og:description" content="Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码
 #include&amp;lt;opencv2\core\core.hpp&amp;gt; #include&amp;lt;opencv2\imgproc\imgproc.hpp&amp;gt; #include&amp;lt;opencv2\highgui\highgui.hpp&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace cv; using namespace std; int main() { VideoCapture capture(&amp;quot;d:\\road.avi&amp;quot;); //检测视频是否读取成功 if (!capture.isOpened()) { cout &amp;lt;&amp;lt; &amp;quot;No input image&amp;quot;; return 1; } //获取图像帧率 double rate = capture.get(CV_CAP_PROP_FPS); bool stop = false; Mat frame; namedWindow(&amp;quot;Example&amp;quot;); int delay = 1000/rate; while (!stop) { if (!capture.read(frame)) break; imshow(&amp;quot;Example&amp;quot;,frame); if (waitKey(delay) &amp;gt;= 0) stop = true; } return 0; }   要正确地打开视频文件必须确保电脑具有相应的解码器。同时也应该注意文件路径的未知是否正确，路径为止错误经常也会提示错误warning: Error opening file (../../modules/highgui/src/cap_ffmpeg_impl.hpp:545)。这个错误一般都是文件路径错误而导致的。">
   <meta property="og:url" content="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">
-  <meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -90,13 +90,13 @@
 
 
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
 
 
 <style>
   body {
-    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
   }
 </style>
 <link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
@@ -129,7 +129,7 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
   <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
@@ -179,7 +179,7 @@
 	    <span class="icon icon-github" aria-hidden="true"></span>
           </a>
         </li><li class="social-item">
-          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
             <span class="icon icon-wechat" aria-hidden="true"></span>
           </a>
         </li></ul>

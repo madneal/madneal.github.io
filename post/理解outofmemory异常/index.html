@@ -40,7 +40,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 我之前在做一个工具，需要读取大量的文件，比如 word 或者 excel，而我给机器分配的最大的内存只有 2G。所以，很多人的机器往往会因为 OutOfMemoryError 异常导致程序中止运行。后来我发现一个现象，OutOfMemoryError 可以通过 Error 或者 Throwable 去捕获，OutOfMemoryError 类继承关系如下：
 java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
 private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfMemoryError error  } catch (Error e) { e.printStackTrace(); } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。">
-    <meta name="twitter:image" content="/images/avatar.jpg">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
@@ -51,7 +51,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 java.lang.Object java.lang.Throwable java.lang.Error java.lang.VirtualMachineError java.lang.OutOfMemoryError  因此 OutOfMemoryError 是一个 Error 而不是一个 Exception，并且据我观察，OutOfMemoryError 无法被 throw 到上一层函数中。
 private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfMemoryError error  } catch (Error e) { e.printStackTrace(); } } 发生 OutOfMemoryError 的原因 越早找出 OutOfMemoryError 的原因就越利于我们解决问题。到底是因为 JAVA 的堆满了还是因为原生堆就满了呢？为了找到其原因，我们可以通过异常的细节信息来获得提示。">
   <meta property="og:url" content="https://madneal.com/post/%E7%90%86%E8%A7%A3outofmemory%E5%BC%82%E5%B8%B8/">
-  <meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -96,13 +96,13 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 
 
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
 
 
 <style>
   body {
-    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
   }
 </style>
 <link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
@@ -135,7 +135,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
   <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
@@ -185,7 +185,7 @@ private void OutOfMemoryErrorTest() { try { // do something might lead to OutOfM
 	    <span class="icon icon-github" aria-hidden="true"></span>
           </a>
         </li><li class="social-item">
-          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
             <span class="icon icon-wechat" aria-hidden="true"></span>
           </a>
         </li></ul>

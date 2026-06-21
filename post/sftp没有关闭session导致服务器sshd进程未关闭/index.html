@@ -36,7 +36,7 @@
     <meta name="twitter:title" content="sftp没有关闭session导致服务器sshd进程未关闭">
     <meta name="twitter:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger.">
-    <meta name="twitter:image" content="/images/avatar.jpg">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
@@ -45,7 +45,7 @@
   <meta property="og:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
  protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger.">
   <meta property="og:url" content="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/">
-  <meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -90,13 +90,13 @@
 
 
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
 
 
 <style>
   body {
-    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
   }
 </style>
 <link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
@@ -129,7 +129,7 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
   <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
@@ -179,7 +179,7 @@
 	    <span class="icon icon-github" aria-hidden="true"></span>
           </a>
         </li><li class="social-item">
-          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
             <span class="icon icon-wechat" aria-hidden="true"></span>
           </a>
         </li></ul>

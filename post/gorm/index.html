@@ -44,7 +44,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34
 说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
 初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
 // First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds .">
-    <meta name="twitter:image" content="/images/avatar.jpg">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
@@ -57,7 +57,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34
 初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
 // First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds .">
   <meta property="og:url" content="https://madneal.com/post/gorm/">
-  <meta property="og:image" content="/images/avatar.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -102,13 +102,13 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34
 
 
 <link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/images/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/images/grey-prism.svg" as="image">
+<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
 
 
 <style>
   body {
-    background: rgb(244, 243, 241) url('/images/grey-prism.svg') repeat fixed;
+    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
   }
 </style>
 <link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
@@ -141,7 +141,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/images/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
   <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
   
@@ -191,7 +191,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34
 	    <span class="icon icon-github" aria-hidden="true"></span>
           </a>
         </li><li class="social-item">
-          <a href="https://madneal.com/images/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
             <span class="icon icon-wechat" aria-hidden="true"></span>
           </a>
         </li></ul>
