@@ -127,11 +127,16 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
   
   <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
+  
+  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
+    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
+  </a>
+  
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
     <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
@@ -187,7 +192,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">真香系列之 Golang 升级</h1>
-      <p class="post-meta">@Neal · Sep 23, 2019 · 1 min read</p>
+      <p class="post-meta">@Neal · Sep 23, 2019 · 3 min read</p>
     </header>
     <article class="post-content"><p>Golang 以前的依赖管理一直饱受诟病，社区的方案也层出不强，比如 vendor, glide, godep 等。之前的依赖管理一直是依靠 GOPATH 或者将依赖代码下载到本地，这种方式都有劣势。另外由于特殊的网络环境，导致谷歌的大部分包都没有办法下载。才 Golang 1.11 开始，官方已内置了更为强大的 Go modules 来一统多年来 Go 包依赖管理混乱的局面，从 1.13 开始将成为默认配置。配合 Goproxy 来使用来说，真香。这次配合我之前的 golang 开源项目 <a href="https://github.com/neal1991/gshark">gshark</a> 升级到 1.13，升级花费的时间不超过 5 分钟，真香。</p>
 <h2 id="升级-golang-版本">升级 Golang 版本</h2>

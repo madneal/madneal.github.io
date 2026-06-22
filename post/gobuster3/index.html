@@ -127,11 +127,16 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
   
   <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
+  
+  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
+    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
+  </a>
+  
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
     <span class="icon icon-menu" aria-hidden="true"></span>
   </button>
@@ -187,7 +192,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">gobuster源码阅读--终篇</h1>
-      <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
+      <p class="post-meta">@Neal · Apr 22, 2022 · 3 min read</p>
     </header>
     <article class="post-content"><p>在搞完 gobuster 系列源码阅读的<a href="https://madneal.com/post/gobuster1/">第一篇</a>以及<a href="https://madneal.com/post/gobuster2/">dir篇</a>之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。</p>
 <p>在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 <code>libgobuster/interfaces.go</code> 中接口的实现。而 <code>PreRun</code> 以及 <code>Run</code> 函数则是每个模块实现的核心所在，所以关注其它模块这两个函数的实现的即可。</p>
