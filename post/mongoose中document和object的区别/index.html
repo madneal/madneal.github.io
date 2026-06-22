@@ -26,24 +26,21 @@
 
   
   
-  <meta name="description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.">
+  <meta name="description" content="本文围绕《Mongoose中document和object的区别》展开，重点梳理方法1、方法2和方法3等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="Mongoose中document和object的区别">
-    <meta name="twitter:description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.">
+    <meta name="twitter:description" content="本文围绕《Mongoose中document和object的区别》展开，重点梳理方法1、方法2和方法3等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="Mongoose中document和object的区别">
-  <meta property="og:description" content="这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.">
+  <meta property="og:description" content="本文围绕《Mongoose中document和object的区别》展开，重点梳理方法1、方法2和方法3等内容，提炼背景、思路与实践注意点。">
   <meta property="og:url" content="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -485,7 +482,7 @@ console.dir(docs[0].__proto__);
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3199</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3200</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -26,27 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="因为想查一查opencvsharp的东西，然后发觉这个包可以再NuGet上面可以直接下载。我也经常在很多地方都可以看到NuGet，所以我想写下来，记录下来。 NuGet是一个免费的并且开源的包管理器在微软的开发平台上。NuGet发布在Visual Studio的拓展插件上。 NuGet现在已经移植到代码管理平台github了，链接地址为https://github.com/nuget/home。他们打算以后新的东西都在这个网址更新了。
-资源 NuGet Gallery: http://nuget.org Documentation: http://docs.nuget.org Blog: http://blog.nuget.org Twitter: @nuget JabbR chat: https://jabbr.net/#rooms/nuget TeamCity continuous build server: http://build.nuget.org Latest successful VS Extension build: http://build.nuget.org/NuGet.Tools.vsix Latest successful NuGet.exe build: http://build.nuget.org/NuGet.exe
-NuGet貌似自从vs2012版本之后就默认在系统中了，所以不需要再安装了。如果想确保你的版本有没有安装NuGet，你可以看一下工具栏。你也可以在扩展和更新中可以进行NuGet的更新和管理。 只要你安装了，就可以非常方便的引用第三方的库，直接在引用里面添加就可以了。">
+  <meta name="description" content="本文围绕《初识NuGet》展开，重点梳理资源等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="初识NuGet">
-    <meta name="twitter:description" content="因为想查一查opencvsharp的东西，然后发觉这个包可以再NuGet上面可以直接下载。我也经常在很多地方都可以看到NuGet，所以我想写下来，记录下来。 NuGet是一个免费的并且开源的包管理器在微软的开发平台上。NuGet发布在Visual Studio的拓展插件上。 NuGet现在已经移植到代码管理平台github了，链接地址为https://github.com/nuget/home。他们打算以后新的东西都在这个网址更新了。
-资源 NuGet Gallery: http://nuget.org Documentation: http://docs.nuget.org Blog: http://blog.nuget.org Twitter: @nuget JabbR chat: https://jabbr.net/#rooms/nuget TeamCity continuous build server: http://build.nuget.org Latest successful VS Extension build: http://build.nuget.org/NuGet.Tools.vsix Latest successful NuGet.exe build: http://build.nuget.org/NuGet.exe
-NuGet貌似自从vs2012版本之后就默认在系统中了，所以不需要再安装了。如果想确保你的版本有没有安装NuGet，你可以看一下工具栏。你也可以在扩展和更新中可以进行NuGet的更新和管理。 只要你安装了，就可以非常方便的引用第三方的库，直接在引用里面添加就可以了。">
+    <meta name="twitter:description" content="本文围绕《初识NuGet》展开，重点梳理资源等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="初识NuGet">
-  <meta property="og:description" content="因为想查一查opencvsharp的东西，然后发觉这个包可以再NuGet上面可以直接下载。我也经常在很多地方都可以看到NuGet，所以我想写下来，记录下来。 NuGet是一个免费的并且开源的包管理器在微软的开发平台上。NuGet发布在Visual Studio的拓展插件上。 NuGet现在已经移植到代码管理平台github了，链接地址为https://github.com/nuget/home。他们打算以后新的东西都在这个网址更新了。
-资源 NuGet Gallery: http://nuget.org Documentation: http://docs.nuget.org Blog: http://blog.nuget.org Twitter: @nuget JabbR chat: https://jabbr.net/#rooms/nuget TeamCity continuous build server: http://build.nuget.org Latest successful VS Extension build: http://build.nuget.org/NuGet.Tools.vsix Latest successful NuGet.exe build: http://build.nuget.org/NuGet.exe
-NuGet貌似自从vs2012版本之后就默认在系统中了，所以不需要再安装了。如果想确保你的版本有没有安装NuGet，你可以看一下工具栏。你也可以在扩展和更新中可以进行NuGet的更新和管理。 只要你安装了，就可以非常方便的引用第三方的库，直接在引用里面添加就可以了。">
+  <meta property="og:description" content="本文围绕《初识NuGet》展开，重点梳理资源等内容，提炼背景、思路与实践注意点。">
   <meta property="og:url" content="https://madneal.com/post/%E5%88%9D%E8%AF%86nuget/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -226,7 +220,7 @@ Latest successful NuGet.exe build: <a href="http://build.nuget.org/NuGet.exe">ht
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4087</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4088</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

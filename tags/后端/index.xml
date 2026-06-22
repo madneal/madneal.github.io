@@ -18,9 +18,7 @@
       <pubDate>Tue, 09 Oct 2018 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/</guid>
-      <description>Lucene 中的 query 支持多种形式，包括多种 query:
- TermQuery BooleanQuery WildcardQuery PhraseQuery PrefixQuery MultiPhraseQuery FuzzyQuery RegexpQuery TermRangeQuery PointRangeQuery ConstantScoreQuery DisjunctionMaxQuery MatchAllDocsQuery  通过不同的 query 实现需要的 query 来进行搜索，也可以将不同的 query 进行组合使用。这些 query 都是 Query 类的继承类。Query 类是一个抽象类，包含了一些基本方法的，而具体实现取决于具体的类。今天主要是想通过源码阅读来了解 RegexpQuery 的具体实现。
-RegexpQuery 的继承关系是 Query =&amp;gt; MultiTermQuery =&amp;gt; AutomatonQuery =&amp;gt; RegexpQuery，可见 RegexpQuery 的实现还依赖于 MultiTermQuery 以及 AutomatonQuery。MultiTermQuery 也是一个继承 Query 的抽象类。MultiTermQuery 也是需要通过继承来进行实现，可以通过 MultiTermQuery 来组合多个 term 的 query，另外一方面，</description>
+      <description>本文围绕《lucene 中 query 的实现》梳理java、后端和学习笔记相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -29,16 +27,7 @@ RegexpQuery 的继承关系是 Query =&amp;gt; MultiTermQuery =&amp;gt; Automato
       <pubDate>Sun, 12 Nov 2017 17:12:53 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/</guid>
-      <description>Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 如果你曾经去过一个坐下来就餐的餐厅，那么你可以了解 Express 的基础知识。 但是，如果你刚刚开始构建你的第一个 Node.js 后端&amp;hellip;&amp;hellip;你可能并不会很顺利。
-是的 - 如果你曾经有过 JavaScript 经验，学习 Node 肯定更容易。 但是，在构建后端时面临的挑战与在前端使用JavaScript 时所面临的挑战完全不同。
-当我学习Node时，我选择了困难的方式。 我一遍又一遍地学习电子书，写作教程和视频，直到我终于明白我为什么要做我正在做的事情。
-有一个更简单的方法。 我打算用一个餐馆的比喻来解释你的第一个应用程序的四个关键部分。 Express.js 是一个组织你的代码的流行框架，我会为任何初学者推荐它。 稍后我会进一步解释。
-下面是我们将会涉及到的四个关键部分：
- The require statements Middleware Routing App.</description>
+      <description>本文围绕《出去就餐并且理解Express.js的基本知识》梳理web前端、JavaScript和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -47,8 +36,7 @@ LICENSE: MIT
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-      <description>这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;Express&amp;#39; });  const model = mongoose.model(&amp;#39;realestate&amp;#39;); const queryCretia = {}; model.find(queryCretia, (err, docs) =&amp;gt; { res.render(&amp;#39;index&amp;#39;, { title: &amp;#39;express&amp;#39;, docs: docs }) }) }); &amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/title&amp;gt; &amp;lt;link rel=&amp;#39;stylesheet&amp;#39; href=&amp;#39;/stylesheets/style.css&amp;#39; /&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt;&amp;lt;%= title %&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;p&amp;gt;Welcome to &amp;lt;%= title %&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;!-- &amp;lt;%= docs %&amp;gt; --&amp;gt; &amp;lt;ul&amp;gt; &amp;lt;% docs.forEach(function(doc){ %&amp;gt; &amp;lt;li&amp;gt;&amp;lt;%= doc.type %&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;% }) %&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; 在第一段代码中，通过model.</description>
+      <description>本文围绕《Mongoose中document和object的区别》展开，重点梳理方法1、方法2和方法3等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -57,8 +45,7 @@ router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#3
       <pubDate>Thu, 28 Jul 2016 17:09:59 +0000</pubDate>
       
       <guid>https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/</guid>
-      <description>项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; + hostname + &amp;quot;|Port:&amp;quot; + port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; + hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; + userName + &amp;quot;|Password:&amp;quot; + password); } catch (Exception ex) { logger.</description>
+      <description>本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -67,15 +54,7 @@ router.get(&amp;#39;/&amp;#39;, function(req, res, next) { // res.render(&amp;#3
       <pubDate>Wed, 27 Apr 2016 08:57:52 +0000</pubDate>
       
       <guid>https://madneal.com/post/nodejs%E5%9B%9E%E8%B0%83%E5%A4%A7%E5%9D%91/</guid>
-      <description>最近看到nodejs，因为有一个处理里面有好几个异步操作，调入回调大坑，不禁觉得很恶心，真的很讨厌发明这种写法的人，简直反社会！！！遂转载一篇解坑的文章，原文地址：http://www.infoq.com/cn/articles/nodejs-callback-hell/。
-Node.js需要按顺序执行异步逻辑时一般采用后续传递风格，也就是将后续逻辑封装在回调函数中作为起始函数的参数，逐层嵌套。这种风格虽然可以提高CPU利用率，降低等待时间，但当后续逻辑步骤较多时会影响代码的可读性，结果代码的修改维护变得很困难。根据这种代码的样子，一般称其为&amp;rdquo;callback hell&amp;rdquo;或&amp;rdquo;pyramid of doom&amp;rdquo;，本文称之为回调大坑，嵌套越多，大坑越深。 坑的起源
-后续传递风格
-为什么会有坑？这要从后续传递风格（continuation-passing style&amp;ndash;CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。
-这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。 回调
-在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示： 下面一个例子说明回调样例的恶心之处：
-module.exports = function (param, cb) { asyncFun1(param, function (er, data) { if (er) return cb(er); asyncFun2(data,function (er,data) { if (er) return cb(er); asyncFun3(data, function (er, data) { if (er) return cb(er); cb(data); }) }) }) }  像function(er,data)这种回调函数签名很常见，几乎所有的Node.js核心库及第三方库中的CPS函数都接收这样的函数参数，它的第一个参数是错误，其余参数是CPS函数要传递的结果。比如Node.js中负责文件处理的fs模块，我们再看一个实际工作中可能会遇到的例子。要找出一个目录中最大的文件，处理步骤应该是：
- 用fs.readdir获取目录中的文件列表； 循环遍历文件，获取文件的stat； 找出最大文件； 以最大文件的文件名为参数调用回调。 这些都是异步操作，但需要顺序执行，后续传递风格的代码应该是下面这样的：
-var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</description>
+      <description>本文围绕《nodejs回调大坑》梳理web前端、JavaScript和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -84,7 +63,7 @@ var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</descr
       <pubDate>Mon, 25 Apr 2016 17:02:51 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E6%A8%A1%E6%8B%9F.net-post%E8%AF%B7%E6%B1%82%E5%B1%9E%E6%80%A7/</guid>
-      <description>这两天在做一个nodejs的爬虫项目，需要模拟post请求获得网站数据。遇到2个asp.net的网站，掉到坑里面，调试了好几天。总结一下过程。 一般我们模拟post请求的时候最重要的就是post请求里面的formdata就可以了。怎么看formdata呢，以谷歌浏览器为例，打开开发者工具，到network中，点击查询，然后找到你所请求的网页，点击，就能看到请求的各种详细信息了。 我们可以看到里面包含了各种各样的属性，但一般.net网站会多一些特殊的属性，比如上图里面的compressedviestate和eventvalidation属性。我查了一下这些属性貌似是.net机制自有的一些属性。compressedviewstate好像是反映webform的控件的状态信息，而eventvalidation好像是用于服务器端的验证。后来我发现一个规律，如果我在postdata不加这些属性，返回来的响应是一个空的页面，就是其他的部分都有，但是就是包含数据的div里面没有任何数据。但是如果你把这些属性的值填错，就会返回一些乱码的响应数据。后来就一直调试，也苦苦不知道原因。 后来，别人和我介绍了一个神器，curl，这个linux系统自带的，但是windows需要自己安装，不过下载的速度很慢。你用这个可以直接模拟post请求，这样就可以很方便的验证这个请求到底是不是有效的。你在network哪个请求的页面右键，copy as cURL,然后把这个命令拿去执行，这个其实就是一个curl命令。我把它放在linux终端执行能够获得正确的相应，但是放到windows下却不行，后来发现是因为windows里面命令行长度限制，而这个命令有一万多个字符。但是这表明如果使用正确的参数，是可以获得正确的响应的。 高潮来了，我准备在记事本删掉这些属性值的时候，突然发现__COMPRESSEDVIEWSTATE那个是2个下划线，我突然感觉就是这个原因，果然。。。。。。。 这个问题是在是太坑爹了，主要自己一开始写属性的时候也没注意，也没想到这一块，所以花了这么长时间来调试。绕来绕去，发现还不是那个问题。但是现在还有一个问题，我直接是把这些属性用一些固定值的，我并不知道这些值是不是一直有效的。本来我想先发送一个空的post请求然后获取这些属性的，然后填充进去再实现post请求，但是还是一些奇怪的问题，所以我也就没这么做了。 总的来说，写代码还是特别坑，小心入坑！！！！</description>
+      <description>本文围绕《模拟.net post请求属性》梳理web前端和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -93,8 +72,7 @@ var fs = require(&#39;fs&#39;) var path = require(&#39;path&#39;) module.</descr
       <pubDate>Sat, 16 Apr 2016 18:03:14 +0000</pubDate>
       
       <guid>https://madneal.com/post/nodejs%E7%88%AC%E8%99%AB%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
-      <description>最近再做一个nodejs网站爬虫的项目，但是爬一些网站的数据出现了中文字符乱码的问题。查了一下，主要是因为不是所有的网站的编码格式都是utf-8,还有一些网站用的是gb2312或者gbk的编码格式。所以需要做一个处理来进行编码的解码。至于网站的编码怎么看，可以通过去检查中的network去看。 根据相应的编码格式，进行相应的设置。utf-8就不要说了，下面就以gbk为例，说一下解码的方式。
-var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39;); var iconv = require(&#39;iconv-lite&#39;); request ({ url : &#39;http://www.taobao.com&#39;, encodeing = null },function(err,res,body){ if (err) throw err; // decode the content of the website body = iconv.decode(body,&#39;gbk&#39;); var $ = cheerio.load(body); console.log($(&#39;head title&#39;).text()); }）  或者是使用一个gbk包，但我觉得还是上面的方式比较好。</description>
+      <description>本文围绕《nodejs爬虫编码问题》梳理web前端、JavaScript和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -103,13 +81,7 @@ var request = require(&#39;request&#39;); var cheerio = request(&#39;cheerio&#39
       <pubDate>Sun, 11 Oct 2015 13:02:59 +0000</pubDate>
       
       <guid>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A82/</guid>
-      <description>接着上一节的内容来说。我们将继续关注与上一节制作的polls应用以及Django自动产生额度管理网站。
-产生一个管理员用户 首先我们需要产生一个管理员用户，运行如下命令； python manage.py createsuperuser 下面会让你输入用户名，邮箱以及用户密码，按照要求填写就可以了，这样我们就产生了一个管理员账户了。
-开发服务器 Django的管理员网站是默认激活的，我们可以通过上节讲到的方式激活服务器： python manage.py runserver 现在打开浏览器，输入http://localhost:8000/admin/你就可进入管理员登录界面了，输入用户名和密码就可以登录了。
-进入管理员网站 当你以超级管理员的身份进去管理员网站，你就可以看到管理员的默认界面了。
-在管理员中修改poll应用 在默认管理员界面中我们看不到我们的poll应用。我们需要高速管理员Question对象具有一个管理员接口，打开polls/admin.py
-from django.contrid import admin from .models import Question admin.site.register(Question)  定制管理员表单 现在我们来开始定制管理员表单，打卡polls/admin.py
-from django.contrib import admin from .models import Question,Choice //Register your models here. class ChoiceInline(admin.TabularInline): model = Choice extra = 3 class QuestionAdmin(admin.ModelAdmin): #fields = [&#39;pub_date&#39;,&#39;question_text&#39;] list_display = (&#39;question_text&#39;,&#39;pub_date&#39;,&#39;was_published_recently&#39;) list_filter = [&#39;pub_date&#39;] search_fields = [&#39;question_text&#39;] fieldsets = [ (None,{&#39;fields&#39;:[&#39;question_text&#39;]}), (&#39;Date information&#39;,{&#39;fields&#39;:[&#39;pub_date&#39;],&#39;classes&#39;:[&#39;collapse&#39;]}), ] inlines = [ChoiceInline] admin.</description>
+      <description>本文围绕《Django学习——开发你的第一个Django应用2》展开，重点梳理产生一个管理员用户、开发服务器和进入管理员网站等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -118,7 +90,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
       <pubDate>Sat, 10 Oct 2015 18:35:51 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/</guid>
-      <description>需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单 import django django 这样就可以找django的安装路径了，真心不懂为什么国内都看不到</description>
+      <description>本文围绕《如何查找django安装路径》梳理web前端和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -127,10 +99,7 @@ from django.contrib import admin from .models import Question,Choice //Register 
       <pubDate>Sat, 10 Oct 2015 16:39:31 +0000</pubDate>
       
       <guid>https://madneal.com/post/django%E5%AD%A6%E4%B9%A0%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAdjango%E5%BA%94%E7%94%A81/</guid>
-      <description>突然对Django热情似火，所以就开学习了，我是根据官方文档学习的，所以我打算把官方文档翻译一遍，全当学习，首先贴官方文档的地址：https://docs.djangoproject.com/en/1.8/intro/tutorial01/。我是根据我自己的理解翻译，可能和官方有一些差入，如有不当之处，还望指正。 首先请确保你已经安装了python,Django是建立在python的基础之上，所以首先要安装python,mac上面的这些安装都比较简单，用pip 就可以了。下面就开始来创建项目吧
-创建一个项目 进入到一个文件件下来创建你自己的项目，文件夹路径看你自己喜欢了，运行以下命令 django-admin statrtproject mysite 这就将会产生一个mysite文件夹，这个文件夹的名字可以随便定义的，没有什么影响。让我们一起看看产生了什么： mysite/ manage.py mysite/ __init__.py settings.py urls.py wsgi.py 关于这些文件的详细内容我就不一一介绍了，可以进入文件夹看看，下面还会提到这些文件的用法。
-建立数据库 好现在打开mysite/settings.py。默认来说的配置是使用SQLite数据库，这是一种轻量级的数据库，在手机上面使用的还是蛮多的，感兴趣的同学可以去查一查。SQLite是包括在python之中的，所以你也不需要另外去安装了，同时你也可以使用其他的数据库，不过要改一下配置文件。如果对数据库有更多的想法可以去https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-DATABASES里 main有关于数据库配置更为详细的介绍。 同时注意INSTALLED_APPS设置这个文件的顶层。一般来说INSTALLED_APPS 包含一下apps: - django.contrib.admin - django.contrib.auth - django.contrib.contenttypes - django.contrib.sessions - django.contrib.messages - django.contrib.staticfiles 这些应用的具体功能我就不一一介绍，反正就是为了配置更方便，到时还会用到。上面的这些应用可能会用到数据库中的表格，所以在应用他们以前我们要创建这些表格： python manage.py migrate ## 开发服务器 ## 让我们看一下我们的项目能否正常工作，切换到mysite文件夹下，运行命令行： python manage.py runserver 然后就可以看到服务器正常运行的一些提示信息了 ## 创建模型 ## 创建你自己的应用，确定你是在和manage.py同一及的文件路径下，运行命令行： python manage.py startapp polls 这回创建一个polls文件件： polls/ __init__.py admin.py migrations/ __init__.py models.py tests.py views.py 在web应用中创建数据库的第一步是定义你自己的模型。 在我们这个简单的应用中，我们会创建两个模型Question Choice 编辑polls/models.py文件：
-from django.db import models class Question(models.</description>
+      <description>本文围绕《Django学习——开发你的第一个Django应用1》展开，重点梳理创建一个项目、建立数据库和开发服务器等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -139,10 +108,7 @@ from django.db import models class Question(models.</description>
       <pubDate>Sat, 10 Oct 2015 11:16:11 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%85%A8%E6%A0%88%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A02django%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</guid>
-      <description>项目代码：http://yunpan.cn/cHajgT4HvgHqx （提取码：8350） 配置项目： 1. 首先确保你的机器安装了python和pip，这两种安装比较简单，这里就不说了。 2. 在你的机器上安装mysql服务，这个也不细说了。然后安装Mysql-python,只要输入命令&amp;rdquo;pip install MySQL-python&amp;rdquo;就可以了。 3. 解压项目文件代码。 4. 进入src文件夹下，输入&amp;rdquo;make install&amp;rdquo;这样会自动安装所有的依赖库。 5. 现在我们可以创建一个数据库：web_dev_tutorial
-mysql -u &amp;lt;your username&amp;gt; -p&amp;lt;yourpassword&amp;gt;  注意用户名前面有空格，而密码前面是没有空格的，这一点格外注意。 在数据库中创建实例： create database web_dev_tutorial 然后将数据库和我们的项目链接在一起，打开src/web_dev_tutorial/settings.py找到以下配置  DATABASES = { &#39;default&#39;: { &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;, &#39;NAME&#39;: &amp;quot;web_dev_tutorial&amp;quot;, &#39;USER&#39;: &#39;root&#39;, &#39;PASSWORD&#39;: &#39;root&#39;, } }  把相应的用户名密码改成你的数据库的用户名密码就可以了。 6. 现在我们可以载入一些测试数据到数据库。检查data文件夹是否有个叫parse.py的文件，还有一个文件夹是rawdata，里面包含了很多的文本文件。进入文件夹test，打开一个叫做config.py的文件，你会看到以下内容 ` MYSQL_HOST = &amp;lsquo;127.0.0.1&amp;rsquo; MYSQL_PORT = 3306
-MYSQL_USERNAME = &amp;lsquo;root&amp;rsquo; MYSQL_PASSWORD = &amp;lsquo;root&amp;rsquo;
-MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户名密码改成你相应的用户名密码就可以了。接着，在文件夹test下，输入make load`会自动擦除文本文件，并保存结果，这些结果也会被载入到数据库中。 7. 在文件夹src下，输入&amp;rdquo;make&amp;rdquo;,你将会看到： ｀ MYSQL_HOST = &amp;lsquo;127.</description>
+      <description>本文围绕《全栈开发系列学习2——django项目搭建》梳理web前端、Python和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -151,7 +117,7 @@ MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户
       <pubDate>Tue, 28 Apr 2015 11:45:14 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c#/</guid>
-      <description>//将获取的文件流转化为内存流 public static MemoryStream ConvertStreamToMemoryStream(Stream stream) { MemoryStream memoryStream = new MemoryStream(); if (stream != null) { byte[] buffer = ReadFull(stream); if (buffer != null) { var binaryWriter = new BinaryWriter(memoryStream); binaryWriter.Write(buffer); } } return memoryStream; } public static byte[] ReadFull(Stream input) { byte[] buffer = new byte[16 * 1024]; using (MemoryStream ms = new MemoryStream()) { int read; while ((read = input.Read(buffer, 0, buffer.Length)) &amp;gt; 0) { ms.Write(buffer, 0, read); } return ms.</description>
+      <description>本文围绕《如何将网络流转化为内存流 C#》梳理winform开发和后端相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -160,10 +126,7 @@ MYSQL_DB_NAME = &amp;lsquo;web_dev_tutorial&amp;rsquo;  同样把数据库用户
       <pubDate>Wed, 15 Apr 2015 15:48:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/</guid>
-      <description>导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。 注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。
-sqlite3 .separator &#39;,&#39; .import filename tablename  导入文件乱码 经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。
-datatime()函数时间出错 使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&amp;lsquo;now&amp;rsquo;,&amp;lsquo;localtime&amp;rsquo;)。
-database is locked 读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</description>
+      <description>本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
   </channel>

@@ -26,36 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34;) var group GroupModel // 注意这里的用法 	err := DB.First(&amp;amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &amp;#34;group&amp;#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
-正确答案是：会。
-说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
-初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
-// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds .">
+  <meta name="description" content="本文围绕《AI 审代码，靠谱吗？》展开，重点梳理背景：一道出乎意料的笔试题、初探源码：First 函数的内部实现和AI 怎么说？等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="AI 审代码，靠谱吗？">
-    <meta name="twitter:description" content="背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34;) var group GroupModel // 注意这里的用法 	err := DB.First(&amp;amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &amp;#34;group&amp;#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
-正确答案是：会。
-说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
-初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
-// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds .">
+    <meta name="twitter:description" content="本文围绕《AI 审代码，靠谱吗？》展开，重点梳理背景：一道出乎意料的笔试题、初探源码：First 函数的内部实现和AI 怎么说？等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="AI 审代码，靠谱吗？">
-  <meta property="og:description" content="背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34;) var group GroupModel // 注意这里的用法 	err := DB.First(&amp;amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &amp;#34;group&amp;#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
-正确答案是：会。
-说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
-初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
-// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds .">
+  <meta property="og:description" content="本文围绕《AI 审代码，靠谱吗？》展开，重点梳理背景：一道出乎意料的笔试题、初探源码：First 函数的内部实现和AI 怎么说？等内容，提炼背景、思路与实践注意点。">
   <meta property="og:url" content="https://madneal.com/post/gorm/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -350,7 +335,7 @@ func UsersHandler(c *gin.Context) {
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>303</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>304</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -194,8 +194,7 @@
     <p class="post-meta">@Neal · Aug 30, 2021 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">富文本编辑器是一个常见的业务场景，一般来说，通过富文本编辑器编辑的内容最终也会 html 的形式来进行渲染，比如 VUE，一般就会使用 v-html 来承载富文本编辑的内容。因为文本内容需要通过 html 来进行渲染，那么显然普通的编码转义不适合这种场景了，因为这样最终的呈现的效果就不是我们想要的了。针对于这种场景，显然过滤是唯一的解决方案了，不过过滤其实可以在后端和前端都是可以做的，后端做的话，一般是在数据存储在数据库之前。前端做的 …</p>
+  <p class="post-summary">本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/stored-xss/">Read More →</a>
   </footer>
@@ -208,9 +207,7 @@
     <p class="post-meta">@Neal · Mar 9, 2021 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">正如题目，本文的也很直白，主要就是围绕这个问题展开。JavaScript 能否修改 Referer 请求头？现在 JavaScript 的能力越来越强大，JavaScript 似乎无所不能，修改一个小小的 Referer 请求头似乎看来不在话下（本文讨论的 JavaScript 仅限于在浏览器中执行，不包括 Nodejs）。
-其实不然，在 web 浏览器中，绝大多数浏览器都禁止了 JavaScript 直接去操作 Referfer 请求 …</p>
+  <p class="post-summary">本文围绕《JavaScript能否修改Referer请求头》梳理安全、Web安全和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/referer/">Read More →</a>
   </footer>
@@ -223,10 +220,7 @@
     <p class="post-meta">@Neal · Apr 21, 2018 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">最近有看到一道题目，使用 JavaScript，隔一秒打印一个数字，比如第 0 秒打印 0，第 1 秒打印 1 等等，如何去实现？
-假如我们尝试使用 setTimeout 去实现：
-for (var i = 0; i &lt; 5; i++) { setTimeout(function() { console.log(i); }, i * 1000); }  这样可以么，执行的结果是什么呢？你可以将这段代码粘贴到 浏览器的 Console 中 …</p>
+  <p class="post-summary">本文围绕《从一道面试题谈谈 setTimeout 和 setInterval》梳理前端和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%8E%E4%B8%80%E5%88%B0%E9%9D%A2%E8%AF%95%E9%A2%98%E8%B0%88%E8%B0%88settimeout%E5%92%8Csetinterval/">Read More →</a>
   </footer>
@@ -239,9 +233,7 @@ for (var i = 0; i &lt; 5; i++) { setTimeout(function() { console.log(i); }, i * 
     <p class="post-meta">@Neal · Mar 21, 2018 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">之前一直有在维护一个上海地铁线路图的 pwa，最主要的特性就是 “offline first”。但是由于代码都是通过原生的 js 去实现，之前我都不是很喜欢去用框架，不想具有任何框架的偏好。但是到后期随着代码量的增加，代码的确变得混乱不堪，拓展新功能也变得尤为困难。因此，花了将近两个礼拜的时候对于应用进行了一次完整的重构。网站访问地址：https://neal1991.github.io/subway-shanghai
-准备 准备工作先 …</p>
+  <p class="post-summary">本文围绕《pwa, 上海地铁线路图全新重构》展开，重点梳理准备、设计和组件结构等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/pwa-%E4%B8%8A%E6%B5%B7%E5%9C%B0%E9%93%81%E7%BA%BF%E8%B7%AF%E5%9B%BE%E5%85%A8%E6%96%B0%E9%87%8D%E6%9E%84/">Read More →</a>
   </footer>
@@ -254,9 +246,7 @@ for (var i = 0; i &lt; 5; i++) { setTimeout(function() { console.log(i); }, i * 
     <p class="post-meta">@Neal · Feb 25, 2018 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。
-注册账户 首先你可以通过这个链接注册你的七牛云账户。在成功注册账户之后，可能还需要 …</p>
+  <p class="post-summary">本文围绕《通过七牛云建立私有图床》展开，重点梳理注册账户、开发和七牛云信息存储等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E4%B8%83%E7%89%9B%E4%BA%91%E5%BB%BA%E7%AB%8B%E7%A7%81%E6%9C%89%E5%9B%BE%E5%BA%8A/">Read More →</a>
   </footer>
@@ -269,10 +259,7 @@ for (var i = 0; i &lt; 5; i++) { setTimeout(function() { console.log(i); }, i * 
     <p class="post-meta">@Neal · Nov 12, 2017 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">Going out to eat and understanding the basics of Express.js出去就餐并且理解Express.js的基本知识  原文：Going out to eat and understanding the basics of Express.js
-译者：neal1991
-welcome to star my articles-translator , providing you …</p>
+  <p class="post-summary">本文围绕《出去就餐并且理解Express.js的基本知识》梳理web前端、JavaScript和后端相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%87%BA%E5%8E%BB%E5%B0%B1%E9%A4%90%E5%B9%B6%E4%B8%94%E7%90%86%E8%A7%A3express.js%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86/">Read More →</a>
   </footer>
@@ -285,9 +272,7 @@ welcome to star my articles-translator , providing you …</p>
     <p class="post-meta">@Neal · Sep 17, 2017 · 3 min read</p>
   </header>
   
-  
-  <p class="post-summary">这个问题其实是mongoose非常常见的问题，经常有很多以前没遇到这个问题的人都会被这个问题弄得怀疑人生。我们先介绍一些问题的背景。先看下面一段代码：
-router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;, { title: &#39;Express&#39; });  const model = mongoose.model(&#39;realestate&#39;); const …</p>
+  <p class="post-summary">本文围绕《Mongoose中document和object的区别》展开，重点梳理方法1、方法2和方法3等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/mongoose%E4%B8%ADdocument%E5%92%8Cobject%E7%9A%84%E5%8C%BA%E5%88%AB/">Read More →</a>
   </footer>
@@ -300,10 +285,7 @@ router.get(&#39;/&#39;, function(req, res, next) { // res.render(&#39;index&#39;
     <p class="post-meta">@Neal · Sep 13, 2017 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">JavaScript是如何工作的：引擎，运行时以及调用栈的概述  原文：How JavaScript works: an overview of the engine, the runtime, and the call stack
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any …</p>
+  <p class="post-summary">本文围绕《JavaScript是如何工作的：引擎，运行时间以及调用栈的概述》展开，重点梳理概览、JavaScript 引擎和Runtime等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/javascript%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%BC%95%E6%93%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%A0%88%E7%9A%84%E6%A6%82%E8%BF%B0/">Read More →</a>
   </footer>
@@ -316,10 +298,7 @@ welcome to star my articles-translator , providing you advanced articles transla
     <p class="post-meta">@Neal · May 21, 2017 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">通过利用immutability的能力编写更安全和更整洁的代码  原文：Write safer and cleaner code by leveraging the power of “Immutability”
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, …</p>
+  <p class="post-summary">本文围绕《通过利用immutability的能力编写更安全和更整洁的代码》展开，重点梳理Immutable数组、函数和并发等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E5%88%A9%E7%94%A8immutability%E7%9A%84%E8%83%BD%E5%8A%9B%E7%BC%96%E5%86%99%E6%9B%B4%E5%AE%89%E5%85%A8%E5%92%8C%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84%E4%BB%A3%E7%A0%81/">Read More →</a>
   </footer>
@@ -332,9 +311,7 @@ welcome to star my articles-translator , providing you advanced articles transla
     <p class="post-meta">@Neal · May 19, 2017 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">其实一直以来想写一篇文章总结这几年的技术学习，刚好趁着自己的第一次 github contribution 达到1000+，写篇文章总结以下。本文篇幅较长，我会分为几个章节来分别阐述。
-博客篇 为什么我要把博客放在第一位呢？因为我认为博客是developer学习技术的平台，也是developer分享知识的平台，博客差不多也就相当于是developer的名片。现如今，博客平台形形色色，有老牌的博客园，CSDN，也有现在比较新潮 …</p>
+  <p class="post-summary">本文围绕《菜鸟程序员成长史 --记 Github 1000&#43; contributions》展开，重点梳理Github、CSDN和掘金等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/programer/">Read More →</a>
   </footer>

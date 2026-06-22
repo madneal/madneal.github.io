@@ -26,27 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content=" 全选 设置全选button，选中所有的checkbox
- private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;True&amp;quot;; } else continue; } }  取消全选 设置取消全选button，取消选中的所有checkbox
- private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;False&amp;quot;; } else continue; } }  ">
+  <meta name="description" content="本文围绕《datagridview里面的checkbox全选和取消全选》展开，重点梳理全选和取消全选等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="datagridview里面的checkbox全选和取消全选">
-    <meta name="twitter:description" content=" 全选 设置全选button，选中所有的checkbox
- private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;True&amp;quot;; } else continue; } }  取消全选 设置取消全选button，取消选中的所有checkbox
- private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;False&amp;quot;; } else continue; } }  ">
+    <meta name="twitter:description" content="本文围绕《datagridview里面的checkbox全选和取消全选》展开，重点梳理全选和取消全选等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="datagridview里面的checkbox全选和取消全选">
-  <meta property="og:description" content=" 全选 设置全选button，选中所有的checkbox
- private void selectAll_Click(object sender, EventArgs e) { //遍历datagridview中的每一行，判断是否选中，若为选中，则选中 for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;True&amp;quot;; } else continue; } }  取消全选 设置取消全选button，取消选中的所有checkbox
- private void cancelAll_Click(object sender, EventArgs e) { for (int i = 0; i &amp;lt; dataGridView1.Rows.Count; i&#43;&#43;) { if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true)) { dataGridView1.Rows[i].Cells[0].Value = &amp;quot;False&amp;quot;; } else continue; } }  ">
+  <meta property="og:description" content="本文围绕《datagridview里面的checkbox全选和取消全选》展开，重点梳理全选和取消全选等内容，提炼背景、思路与实践注意点。">
   <meta property="og:url" content="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -243,7 +237,7 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4077</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4079</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

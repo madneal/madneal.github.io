@@ -194,9 +194,7 @@
     <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
-在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关 …</p>
+  <p class="post-summary">本文围绕《gobuster源码阅读--终篇》展开，重点梳理dns、s3和vhost等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
   </footer>
@@ -209,10 +207,7 @@
     <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
-入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { …</p>
+  <p class="post-summary">本文围绕《gobuster源码阅读--入口篇》展开，重点梳理入口、cmd和总结等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gobuster1/">Read More →</a>
   </footer>
@@ -225,9 +220,7 @@ func main() { …</p>
     <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
   </header>
   
-  
-  <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the …</p>
+  <p class="post-summary">本文围绕《gobuster源码阅读--dir篇》展开，重点梳理ErrWildcard、Label和核心 worker等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gobuster2/">Read More →</a>
   </footer>

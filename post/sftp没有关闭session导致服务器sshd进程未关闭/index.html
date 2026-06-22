@@ -26,24 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger.">
+  <meta name="description" content="本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="sftp没有关闭session导致服务器sshd进程未关闭">
-    <meta name="twitter:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger.">
+    <meta name="twitter:description" content="本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="sftp没有关闭session导致服务器sshd进程未关闭">
-  <meta property="og:description" content="项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。 连接sftp代码：
- protected boolean connectToServer() { try { JSch jsch = new JSch(); jsch.getSession(userName, hostname, port); Session sshSession = jsch.getSession(userName, hostname, port); logger.debug(&amp;quot;HostName:&amp;quot; &#43; hostname &#43; &amp;quot;|Port:&amp;quot; &#43; port); logger.debug(&amp;quot;Session created&amp;quot;); sshSession.setPassword(password); Properties sshConfig = new Properties(); sshConfig.put(&amp;quot;StrictHostKeyChecking&amp;quot;, &amp;quot;no&amp;quot;); sshSession.setConfig(sshConfig); sshSession.setTimeout(TIMEOUT); //ms sshSession.connect(); sftp = (ChannelSftp) sshSession.openChannel(&amp;quot;sftp&amp;quot;); sftp.connect(); if (!sftp.isConnected()) { logger.error(&amp;quot;Failed to connect FTP server &amp;quot; &#43; hostname); return false; } logger.debug(&amp;quot;Username:&amp;quot; &#43; userName &#43; &amp;quot;|Password:&amp;quot; &#43; password); } catch (Exception ex) { logger.">
+  <meta property="og:description" content="本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
   <meta property="og:url" content="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -242,7 +239,7 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3614</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3615</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -194,10 +194,7 @@
     <p class="post-meta">@Neal · Aug 30, 2025 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">故事的开端：一场“奇葩”的争论 最近，我和一位可爱的同事，因为一个项目的 go.mod 文件，产生了一点小小的“学术分歧”。文件长这样：
-// go.mod go 1.21.1 toolchain go1.22.9 同事认为这种配置“非常奇葩”，并抛出了一个灵魂拷问：“你本地用 go1.22.9 的工具链编译，线上服务器（CI/CD 环境）用的却是 go1.21 的基础镜像来构建，这能不出问题吗？这不就是经典的‘我电脑上好好的’吗？”
- …</p>
+  <p class="post-summary">本文围绕《Go 版本不一致？别慌，这是特性！》展开，重点梳理故事的开端：一场“奇葩”的争论和AI 的“第一次接触”：危言耸听等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/toolchain/">Read More →</a>
   </footer>
@@ -210,9 +207,7 @@
     <p class="post-meta">@Neal · Aug 22, 2025 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var group GroupModel // 注意这里的用法 	err := DB.First(&amp;group, groupId).Error if err != nil …</p>
+  <p class="post-summary">本文围绕《AI 审代码，靠谱吗？》展开，重点梳理背景：一道出乎意料的笔试题、初探源码：First 函数的内部实现和AI 怎么说？等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gorm/">Read More →</a>
   </footer>
@@ -225,12 +220,7 @@ func UsersHandler(c *gin.Context) { groupId := c.Query(&#34;group_id&#34;) var g
     <p class="post-meta">@Neal · Nov 30, 2024 · 3 min read</p>
   </header>
   
-  
-  <p class="post-summary">原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能， …</p>
+  <p class="post-summary">本文围绕《NilAway：实用的 Go Nil Panic 检测方式》展开，重点梳理nil panic 问题、NilAway 的核心理念和NilAway 的设计和实现等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/nilayay/">Read More →</a>
   </footer>
@@ -243,12 +233,7 @@ LICENSE: MIT
     <p class="post-meta">@Neal · Sep 7, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">原文：Vulnerability Management for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 我们很高兴地宣布 Go 对漏洞管理的新支持，这是我们帮助 Go  …</p>
+  <p class="post-summary">本文围绕《Go 的漏洞管理》梳理应用安全、安全、漏洞分析、安全工程和Go相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/go-vuln-management/">Read More →</a>
   </footer>
@@ -261,9 +246,7 @@ LICENSE: MIT
     <p class="post-meta">@Neal · May 3, 2022 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">插件开发，是一件即快乐又痛苦的事情。快乐的是你可以根据自己的需求通过插件来进行实现，比如经常看到的 Chrome 的插件开发。插件对于应用的原生生态有着很大的益处，往往那些特别优秀的插件甚至会被官方收编或者在正式功能中加入插件的功能。痛苦的是你需要去看文档，看插件开发的各种文档，如果文档不详细的话，痛苦加倍。程序猿最讨厌的事就是看别人的文档以及自己写文档。当然，除了文档，作为小白你还会踩到各种各样的坑。
-先吐槽 五一期间，疫情实在是憋得 …</p>
+  <p class="post-summary">本文围绕《第一款Goland的SCA插件开发之旅》展开，重点梳理先吐槽、API 文档过于简单和API 复杂性等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/goland-plugin/">Read More →</a>
   </footer>
@@ -276,9 +259,7 @@ LICENSE: MIT
     <p class="post-meta">@Neal · May 1, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">在 Go 的开发过程中，经常遇到一个非常麻烦的问题就是 JSON 的解析。因为 Go 中的 JSON 的解析，一般来说需要定义对应 JSON 的 struct。或者使用 interface{} 类型来进行定义，然后再进行类型的转换。当然这在 Python 中可能两三句话就搞定了。
-在 Goland 2022.01 最新版本中，终于迎来了在 JSON 方面解析的便捷功能。在最新版本中，只要将 JSON 粘贴到 IDE …</p>
+  <p class="post-summary">本文围绕《goland-2022.01版本最新实用功能》展开，重点梳理Intention actions和代码补全等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/goland/">Read More →</a>
   </footer>
@@ -291,9 +272,7 @@ LICENSE: MIT
     <p class="post-meta">@Neal · Apr 22, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">在搞完 gobuster 系列源码阅读的第一篇以及dir篇之后，对于 gobuster 的实现思路已经比较熟悉。本文就对剩下的模块进行一个讲解，由于一些公共模块在前面的两篇文章中已经提过，所以本文主要专注于每个模块所独有的部分。
-在前面的文章中提到过，gobuster 中的各个模块中的核心功能都是基于 libgobuster/interfaces.go 中接口的实现。而 PreRun 以及 Run 函数则是每个模块实现的核心所在，所以关 …</p>
+  <p class="post-summary">本文围绕《gobuster源码阅读--终篇》展开，重点梳理dns、s3和vhost等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gobuster3/">Read More →</a>
   </footer>
@@ -306,10 +285,7 @@ LICENSE: MIT
     <p class="post-meta">@Neal · Apr 21, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">gobuster 作为一款信息收集工具，深受安全业界的欢迎。希望通过阅读优秀工具的源码，能够了解其工作的具体细节，为自己日后造轮子也做好准备工作。
-入口 得益于 Golang 的跨平台属性，其编译过程极其简单，编译的结果直接为二进制程序，可以直接使用，这也是越来越多安全工具选择 Golang 的原因之一。对于每一个 Golang 项目，其根目录下都有一个 main.go 的文件，gobuster 也不例外。
-func main() { …</p>
+  <p class="post-summary">本文围绕《gobuster源码阅读--入口篇》展开，重点梳理入口、cmd和总结等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gobuster1/">Read More →</a>
   </footer>
@@ -322,9 +298,7 @@ func main() { …</p>
     <p class="post-meta">@Neal · Apr 21, 2022 · 3 min read</p>
   </header>
   
-  
-  <p class="post-summary">在本系列的第一篇中，主要阅读了 gobuster 入口的这一部分。后续主要是阅读各个模块工作的细节，本文主要讲解 dir 模块。dir 模块主要是实现目录爆破的功能，其主要命令行配置项包括以下内容：
-Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, --cookies string Cookies to use for the …</p>
+  <p class="post-summary">本文围绕《gobuster源码阅读--dir篇》展开，重点梳理ErrWildcard、Label和核心 worker等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/gobuster2/">Read More →</a>
   </footer>
@@ -337,9 +311,7 @@ Usage: gobuster dir [flags] Flags: -f, --add-slash Append / to each request -c, 
     <p class="post-meta">@Neal · Feb 23, 2022 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
-最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。 …</p>
+  <p class="post-summary">本文围绕《基于golang实现报告生成技术方案》梳理开发、Go和数据可视化相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/go-report/">Read More →</a>
   </footer>

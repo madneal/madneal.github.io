@@ -18,15 +18,7 @@
       <pubDate>Wed, 28 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/</guid>
-      <description>需求 想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：
-问题定义 我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 pages，当前选择的页码为 p,p 往左走或者往右走的步长是固定的，令步长为 step。那么我们现在要做的事情可以这么理解，我们要从 1 到 pages 之间截取可用的页码数，假设开始页码为 startIndex，结束页码为 endIndex。抽象一下，我们可以总结出以下几种情况：
-Condition1 startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages
-Condition2 startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages
-Condition3 startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages
-Condition4 startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages
-这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 pages 截取页码。
-代码实现 Show me the code.
-func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startIndex := p - step endIndex := p + step if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;lt;= pages { startIndex = 1 endIndex = startIndex + 2 * step } else if startIndex &amp;gt;= 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { endIndex = pages startIndex = pages - 2 * step } else if startIndex &amp;lt; 1 &amp;amp;&amp;amp; endIndex &amp;gt; pages { startIndex = 1 endIndex = pages } // handle some special cases 	if startIndex &amp;lt; 1 { startIndex = 1 } if endIndex &amp;gt; pages { endIndex = pages } for i := startIndex; i &amp;lt;= endIndex; i++ { pageList = append(pageList, i) } return pageList } 结语 没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</description>
+      <description>本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -35,11 +27,7 @@ func GetPageList(p, step, pages int) ([]int) { pageList := make([]int, 0) startI
       <pubDate>Wed, 26 Oct 2016 17:34:25 +0000</pubDate>
       
       <guid>https://madneal.com/post/the-sum-of-two-fixed-value/</guid>
-      <description>the sum of two fixed value
-description
-Input an array and an integer, fina a pair of number in the array so that the sum is equals to the inputed integer. If there are several pairs, you can output any pair. For example, if the input array is [1,2,4,5,7,11,15] and an integer 15, because 4 + 11 = 15, hence output 4 and 11.
-analysis and solution
-We try to figure out this problem step by step.</description>
+      <description>本文围绕《the sum of two fixed value》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -48,9 +36,7 @@ We try to figure out this problem step by step.</description>
       <pubDate>Fri, 01 Jul 2016 13:42:49 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E5%A4%9A%E4%B8%AA%E5%B1%9E%E6%80%A7%E6%98%AF%E5%90%A6%E9%87%8D%E5%A4%8D/</guid>
-      <description>js中判断数组元素的重复的方法有很多，可以用hash的方法或者排序之后再进行比较，但是我们这里说的case是这样的。假设我有一个数组[{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;neal&#39;,age:&#39;18&#39;},{name:&#39;jane&#39;,age:&#39;20&#39;}].假如数组中元素name和age这两个属性都相同我们则给这个元素加一个属性flag设置为true,否则设置为false.其实就是判断数组中元素中多个属性是否重复的问题了。 这种问题有一个比较死的方法就是拿两个循环来做处理
-for (var i = 0,len = collection.length;i &amp;lt; len;i++) { var count = 0; for (var j = 0;j &amp;lt; len;j++) { if (collection[i].name === collection[j].name &amp;amp;&amp;amp; collection[i].age === collection[j].age) { count = count + 1; } } if (count &amp;gt; 1) { collection[i].flag = true; } else { collection[i].flag = false; } } return collection; }; 另外一种方法是使用underscore.js里面的方法了,不过由于underscore一次只能按照一个属性来groupBy，所以也需要多次嵌套
-collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { if (collection[i].</description>
+      <description>本文围绕《判断数组中元素多个属性是否重复》梳理web前端、JavaScript和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -59,8 +45,7 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
       <pubDate>Mon, 28 Dec 2015 15:50:34 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</guid>
-      <description>数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码
-#include &amp;lt;stdio.h&amp;gt; #include &amp;lt;malloc.h&amp;gt; #include&amp;lt;iostream&amp;gt; using namespace std; //线性表的定义 typedef int ElemType; typedef struct LNode{ ElemType data; struct LNode *next; }LNode,*LinkList; //线性表的初始化 int InitList_L(LinkList &amp;amp;L) { L = (LinkList)malloc(sizeof(LNode)); L-&amp;gt;next = NULL; return 1; } //线性表的插入 int ListInsert_L(LinkList &amp;amp;L,int i,ElemType e) { LinkList p; p = L; int j = 0; while(p&amp;amp;&amp;amp;j&amp;lt;i-1) { p=p-&amp;gt;next; ++j; } if(!p||j&amp;gt;i-1) return 0; LinkList s = (LinkList)malloc(sizeof(LNode)); s-&amp;gt;data = e; s-&amp;gt;next=p-&amp;gt;next; p-&amp;gt;next=s; return 1; } //清空线性表 void Delete_L(LinkList L) { LinkList p = L-&amp;gt;next; if(!</description>
+      <description>本文围绕《数据结构线性表相关操作》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -69,10 +54,7 @@ collection = _.groupBy(collection,&#39;name&#39;); for (var i in collection) { i
       <pubDate>Sat, 14 Nov 2015 14:49:14 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
-      <description>C/C++中每个字符串都以字符&amp;rsquo;\0&amp;rsquo;作为结尾，这样我们就可以很方便的找到字符串最后的尾部。由于这个特点，每个字符串中都有一个额外字符的开销，稍不留神就会造成字符串的越界。 为了节省内存，C/C++把常量字符串放到单独的一个内存取余。当几个指针赋值给相同的常量字符串时，它们实际上会指向相同的内存地址。
-int main() { char str1[] = &amp;quot;hello world&amp;quot;; char str2[] = &amp;quot;hello world&amp;quot;; char* str3 = &amp;quot;hello world&amp;quot;; char* str4 = &amp;quot;hello world&amp;quot;; if(str1 == str2) printf(&amp;quot;str1 and str2 are same.\n&amp;quot;); else printf(&amp;quot;str1 and str2 are not same.\n&amp;quot;); if(str3 == str4) printf(&amp;quot;str3 and str4 are same.\n&amp;quot;); else printf(&amp;quot;str3 and str4 are not same.\n&amp;quot;); return 0; }  str1和str2是两个字符串数组，我们会为它们分配两个长度为12个字节的空间，并把&amp;rdquo;hello world&amp;rdquo;的内容复制上去。这是两个初始地址不同的数组，因此str1和str2的值也不相同。 str3和str4是两个指针，我们无须为它们分配内存以存储字符串的内容，而只需要把它们指向&amp;rdquo;hello world&amp;rdquo;在内存中的地址就可以了。由于&amp;rdquo;hello world&amp;rdquo;是常量字符串，它在内存中只有一个拷贝，因此str3和str4指向的是同一个地址。
-在C#中，封装字符串的类型System.String有一个非常特殊的性质：String中的内容是不能改变的。一旦试图改变String的内容，就会产生一个新的实例。
-String str = &amp;quot;hello&amp;quot;; str.ToUpper(); str.</description>
+      <description>本文围绕《剑指offer&amp;ndash;字符串》梳理winform开发和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -81,10 +63,7 @@ String str = &amp;quot;hello&amp;quot;; str.ToUpper(); str.</description>
       <pubDate>Sat, 14 Nov 2015 12:08:09 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</guid>
-      <description>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。 1 2 8 9 2 4 9 12
-4 7 10 13 6 8 11 15 我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。
-从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。
-bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matrix != null &amp;amp;&amp;amp; rows &amp;gt; 0 &amp;amp;&amp;amp; cols &amp;gt; 0) { int row = 0; int col = cols - 1; while(row &amp;lt; rows &amp;amp;&amp;amp; col &amp;gt;= 0) { if (matrix[row*cols + col] == num) { found = true; break; } else if(matrix[row*cols + col] &amp;gt; num) -- col; else ++ row; } } return found; }  </description>
+      <description>本文围绕《剑指offer学习读书笔记&amp;ndash;二维数组中的查找》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -93,9 +72,7 @@ bool Find(int* matrix,int rows,int cols,int num) { bool found = false; if (matri
       <pubDate>Fri, 13 Nov 2015 12:48:17 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0-%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
-      <description>只能生成一个实例的类是为了实现单例模式的类型。
-加同步锁前后两次判断实例是否已存在 我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。
-public sealed class Singleton { private Singelton() { } private static object syncObj = new object(); private static Singleton instance = null; public static Singleton Instance { get { if (instance == null) { locak(syncObj) { if (instance == null) instance = new Singleton();	} } return instance; } } }  利用静态构造函数 public seled class Singleton { private Singelton() { } private static Singleton instance = new Singleton(); public static Singleton Instance { get { return instance; } } }  由于C#中调用静态构造函数时初始化静态变量，.</description>
+      <description>本文围绕《剑指offer学习&amp;ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -104,8 +81,7 @@ public sealed class Singleton { private Singelton() { } private static object sy
       <pubDate>Fri, 06 Nov 2015 19:03:15 +0000</pubDate>
       
       <guid>https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/</guid>
-      <description>想去掉latex算法步骤前面的序号，如下 我想去掉每个算法步骤前面的数字序号，1，2，3，因为我已经写了step。我们只需要引用a lgorithmic这个包就可以了，代码如下：
-\usepackage{algorithmic} \begin{algorithm}[htb] \caption{SDE} \label{alg2} \begin{algorithmic} \STATE Step 1. Compute the covariance matrix $C$ of the current population, then apply Eigen decomposition to $C$ as follows: \begin{equation} \label{eve} C=EDE^T \end{equation} where $E$ is the eigenvector matrix of the population, $E^T$ is the corresponding transposed matrix. $D$ is a diagonal matrix composed of eigenvalues. \STATE Step 2. Compute the the projection of the population with eigenvector matrix $E$. \begin{equation} \label{proj} P=X_G\cdot{E} \end{equation} \STATE Step 3.</description>
+      <description>本文围绕《latex算法步骤如何去掉序号》梳理论文写作、算法和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -114,9 +90,7 @@ public sealed class Singleton { private Singelton() { } private static object sy
       <pubDate>Wed, 28 Oct 2015 14:17:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83-%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</guid>
-      <description>现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。 直接插入排序可以这么理解，把A[j]和A[0]&amp;hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2). 先给出伪代码分析
-//the index of array is from 0 for j=1 to num.length key = num[j]; i = j-1; while i &amp;gt;= 0 and num[i] &amp;gt; key { num[i+1] = num[i]; i--; } num[i+1] = key;  下面用c++来实现
-// insertsort.cpp : 定义控制台应用程序的入口点。 // #include &amp;quot;stdafx.h&amp;quot; #include&amp;lt;iostream&amp;gt; #include&amp;lt;stdlib.h&amp;gt; using namespace std; int main() { int num[10] = {10,20,1,78,34,99,12,21,2,55}; int key; cout &amp;lt;&amp;lt; &amp;quot;the number has not been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int i = 0;i &amp;lt; 10;i++) { cout &amp;lt;&amp;lt; num[i] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; cout &amp;lt;&amp;lt; &amp;quot;the number has been sorted:&amp;quot; &amp;lt;&amp;lt; endl; for (int j =1;j &amp;lt;10;j++) { int key = num[j]; int i = j-1; while(i &amp;gt;=0&amp;amp;&amp;amp;num[i]&amp;gt;key) { num[i+1] = num[i]; i--; } num[i+1] = key; } for (int m = 0;m &amp;lt; 10;m++) { cout &amp;lt;&amp;lt; num[m] &amp;lt;&amp;lt; &#39; &#39;; } cout &amp;lt;&amp;lt; endl; return 0; }  今天一练，到此结束。</description>
+      <description>本文围绕《每日一练&amp;ndash;直接插入排序》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -125,8 +99,7 @@ public sealed class Singleton { private Singelton() { } private static object sy
       <pubDate>Mon, 26 Oct 2015 08:44:06 +0000</pubDate>
       
       <guid>https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/</guid>
-      <description>DE算法是遗传算法中一种比较流行的算法，这种算法比较简单，速度也比较快，下面给出一份示例代码
-clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*x1^2é2.1*x1^4+(x1^6)/3+x1*x2é4*x2^2+4*x2^4’,’x1’,’x2’); 5 objf=vectorize(objf); 6 %Initialization of DE parameters 7 N=20; %population size (total function evaluations will be itmax*N, must be &amp;gt;=5) 8 itmax=30; 9 F=0.8; CR=0.5; %mutation and crossover ratio 10 %Problem bounds 11 a(1:N,1)=é1.9; b(1:N,1)=1.9; %bounds on variable x1 12 a(1:N,2)=é1.1; b(1:N,2)=1.1; %bounds on variable x2 13 d=(béa); 14 basemat=repmat(int16(linspace(1,N,N)),N,1); %used later 15 basej=repmat(int16(linspace(1,D,D)),N,1); %used later 16 %Random initialization of positions 17 x=a+d.</description>
+      <description>本文围绕《differential evolution代码实例（DE算法）》梳理机器学习和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -135,12 +108,7 @@ clear all; close all; clc 2 %Function to be minimized 3 D=2; 4 objf=inline(’4*
       <pubDate>Wed, 21 Oct 2015 13:28:02 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0-%E5%88%9D%E7%BA%A7c&#43;&#43;%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
-      <description>定义一个空的类型，里面没有任何成员函数和成员变量，对该类型求sizeof,得到的结果是多少？ 答案是1。空类型中的实例中不包含任何信息，本来求sizeof应该是0，但是当我们声明该类型的实例的时候，他必须在内存中占有一定的空间，否则无法使用这些实例。至于占用多少内存，由编译器决定。Visual Studio中每个空类型的实例占用1字节的空间。
- 如果在该类型中添加一个构造函数和析构函数，在对该类型求sizeof，得到的结果又是多少？ 和前面一样，还是1.调用构造函数和析构函数只需要知道函数的地址即可，而这些函数的地址止于类型相关，而与类型的实例无关，编译器也不会因为这两个函数而在实例内添加任何额外的信息。
-  那如果把析构函数标记为虚函数呢？ C++的编译器一旦发现一个类型中有虚函数，就会为该类型生成虚函数表，并在该类型中的每一个实例中添加一个指向虚函数表的指针。在32位的机器上，一个指针占4字节的空间，因此求sizeof是4；如果是64位的机器，那么结果就是8.
-分析下面代码运行结果：
-class A { private: int value; public: A(int n) { value = n; } A(A other) { value = other.value; } void print() { std::cout&amp;lt;&amp;lt;value&amp;lt;&amp;lt;endl; } }; int main() { A a = 10; A b = a; b.print(); }  在上述代码中，复制构造函数A（A other)传入的参数是A的一个实例。由于是传值参数，我们把形参复制到实参会调用复制构造函数。因此如果允许复制构造函数传值，就会在复制构造函数内调用复制构造函数，就会形成永无止境的递归调用从而导致栈溢出。因此C++的标准不允许复制构造函数传递参数，因此会编译出错。要解决这个问题，我们可以把构造函数修改为A(const A&amp;amp;other)，也就是把传值参数改为常量引用。
-C++中可以使用struct和class来定义类型，这两种类型有什么区别？ 如果没有标明成员函数或者成员变量的访问权限级别，在struct中默认的是public,而在class中默认的是private。 那么在C#中呢？ C#和C++不一样。在C#中如果没有标明成员函数或者成员变量的访问权限，struct和class都是private。struct和class的区别是struct定义的是值类型，值类型的实例在栈上分配内存；而class定义的是引用类型，引用类型的实例是在堆上分配内存的。</description>
+      <description>本文围绕《剑指offer学习&amp;ndash;初级c++面试题》梳理cpp和算法相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -149,11 +117,7 @@ C++中可以使用struct和class来定义类型，这两种类型有什么区别
       <pubDate>Sat, 20 Jun 2015 09:11:39 +0000</pubDate>
       
       <guid>https://madneal.com/post/pca%E7%AE%97%E6%B3%95%E5%92%8C%E5%AE%9E%E4%BE%8B/</guid>
-      <description>PCA算法 算法步骤： 假设有m条n维数据。 1. 将原始数据按列组成n行m列矩阵X 2. 将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值 3. 求出协方差矩阵C=1/mXXT 4. 求出协方差矩阵的特征值以及对应的特征向量 5. 将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P 6. Y=PX即为降维到k维后的数据
-实例 以这个为例，我们用PCA的方法将这组二维数据降到一维 因为这个矩阵的每行已经是零均值，所以我们可以直接求协方差矩阵：
-然后求其特征值和特征向量，求解后的特征值为： λ1=2,λ2=2&amp;frasl;5 其对应的特征向量分别是： 由于对应的特征向量分别是一个通解，c1和c2可取任意实数。那么标准化后的特征向量为：
-因此我们的矩阵P是： 可以验证协方差矩阵C的对角化： 最好我们用P的第一行诚意数据矩阵，就得到了降维后的数据表示： 降维后的投影结果如下图： PCA本质上是将方差最大的方向作为主要特征，并且在各个正交方向上将数据“离相关”，也就是让它们在不同的正交方向上没有相关性。 因此，PCA也存在一些限制，例如它可以很好地解除线性相关，但是对于高阶相关性就没有办法了。对于存在高阶相关性的数据，可以考虑Kernel PCA,通过Kernel将非线性相关转化为线性相关。另外，PCA假设数据各特征分布在正交方向上，如果在非正交方向上存在几个方差较大的方向，PCA的效果就大打折扣。 PCA是一种无参数技术，也就是说面对同样的数据，如果不考虑清晰，谁来做结果都一样，没有主观参数的介入，所以PCA便于通用实现，但是本身没有个性化的优化。
-本文主要参考：http://blog.codinglabs.org/articles/pca-tutorial.html</description>
+      <description>本文围绕《PCA算法和实例》展开，重点梳理PCA算法和实例等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -162,8 +126,7 @@ C++中可以使用struct和class来定义类型，这两种类型有什么区别
       <pubDate>Sat, 18 Apr 2015 19:38:02 +0000</pubDate>
       
       <guid>https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/</guid>
-      <description>这个算法是汪悦在 Lane detection and tracking using B-spline中提出来的。他在这篇论文中主要用的是B-spline模型，这个模型的主要优点是鲁棒性好，可以针对不同的情景进行处理，而且他将检测道路两边的边缘的问题转化成求解道路中间线的问题。 下面主要描述一下CHEVP算法：
- 边缘像素提取 我们使用Canny边缘检测来获得边缘映射和边缘定位映射。选择方差σ = 1 并且模板的尺寸是9*1在X方向和Y方向上进行高斯卷积。边缘映射是通过一个合适的阈值处理得到的结果。在图表1中，图b是通过Canny边缘检测得到的边缘映射，图c则是边缘定位映射。  通过霍夫变化检测直线 检测到的边缘点将被用于对直线参数空间中可能的存在的线进行投票。图像被水平地分为几个部分，如图2a所示，为了适应因为道路弯曲从而导致道路消失点的变化。图像部分自下而上高度越来越小。每个图像分割部分都有它们自己的直线参数空间，每个图像分割部分中边缘点分别为可能的直线进行投票。通过对于规范化后的累加空间的阈值处理，直线分割最终能够在每一个图像分割部分中检测出来。  地平线和消失点检测 每一个图像分割部分中检测到的直线都是成对出现的，任意一队直线的相交部分会为另外一个霍夫空间中的消失点进行投票。投票的权重是根据最后一步产生的成对直线的规范化累加值决定的。这个过程在每个图像分割部分中分别重复，但是会在相同的霍夫空间中投票。 霍夫空间中对于每一列的投票会归总起来从来检测可能的消失点。获得投票最多的一行将会被选择座位地平线在图像平面中，如下图所示： 对于每个图像分割部分来说，它的消失点由地平线附近投票最多的点所决定。所有检测到的消失点可以再图4b中看到。注意一点，对于图像部分5，没有消失点存在，因为在这个图像分割部分并没有检测到直线。  根据检测的道路线估计道路中间线的参数k 对于消失点进行投票的直线被认为是每个图像分割部分中道路线。从图像最下面的图像分割部分往上，挑选出在各个图像分割部分中的左右两边挑选出最接近去中间一列的检测到的道路线。如果这两条道路线在这个图像分割部分中并不存在，这个过程就会在更高的图像分割部分中进行，知道获得需要的道路线。图6表示两条直线L1和L2在图像分割部分4中，因为没有直线存在图像分割部分5中。 然后连接图像分割部分4中的消失点和P-l4和P-r4的中点P-m4（直线L1和直线L2的相交的部分） 参数k可以通过以下公式进行估计： 对于图7中中间线的估计的例子如下所示： 从图像分割部分4开始，因为图像分割部分5中不存在消失点，我们假设这个部分的消失点跟在分割部分4中的消失点。延伸通过vp4和P-m4交于图像分割部分5的P-m5点。同样的，我们在图像分割部分3中我们也能够检测到消失点。直线（vp3-P-m3)交于图像分割部分2的底部的P-m2处。同样的道理，适用于以上的部分 通过构建道路中间线，通过参数k和道路中间线我们可以估计处道路的两条边缘线，图8给出了例子  计算道路模型的控制点来接近检测的道路中间线 可以利用很多方法来计算B-spline中的控制点通过中间线。因为B-spline后面的部分会准确地逼近道路边缘，这里我们只是粗略地使用B-spline来接近检测到的道路中间线。 我们是通过使用3个不同的控制点来构成两个部分的B-spline。为了让B-spline通过第一个和最后一个控制点，我们使用三倍的第一个和最后一个控制点。因此事实上一共有7个控制点，3个第一个控制点和3个最后一个控制点都是相同的。 我们首先选择P-m0和P-m5分别代表道路模型中的第一个控制点Q0和最后一个控制点Q2.节点P1的选择取决于图9中β1和β2的值。如果β1和β2的值不等于0，我们则选择P-m作为Q1。即P1=P-m，P-m是P-m1和P-m2的中点。如果β1为0，而β2不等于0.我们则选择P-m1作为P1(Q1).其他的情况，我们则选择P-m2作为P1(Q1).因此控制点Q1可以通过下面的公式计算： 实验结果   引用： Wang, Yue, Eam Khwang Teoh, and Dinggang Shen. &amp;ldquo;Lane detection and tracking using B-Snake.&amp;rdquo; Image and Vision computing 22.4 (2004): 269-280.</description>
+      <description>本文围绕《CHEVP算法（CannyHough Estimation of Vanishing Points)》展开，重点梳理实验结果等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -172,15 +135,7 @@ C++中可以使用struct和class来定义类型，这两种类型有什么区别
       <pubDate>Sat, 11 Apr 2015 18:16:39 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/</guid>
-      <description> 题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a+b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a+b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;quot;%d&amp;quot;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;quot;%d %d\n&amp;quot;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i ++) { if(x % i == 0) return false; } return true; }  </description>
+      <description>本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -189,26 +144,7 @@ Sample Input
       <pubDate>Sat, 11 Apr 2015 10:16:26 +0000</pubDate>
       
       <guid>https://madneal.com/post/rot13%E5%8A%A0%E5%AF%86%E5%92%8C%E8%A7%A3%E5%AF%86/</guid>
-      <description>问题 ROT13（回转13位）是一种简易的替换式密码算法。它是一种在英文网络论坛用作隐藏八卦、妙句、谜题解答以及某些脏话的工具，目的是逃过版主或管理员的匆匆一瞥。ROT13 也是过去在古罗马开发的凯撒密码的一种变体。ROT13是它自身的逆反，即：要还原成原文只要使用同一算法即可得，故同样的操作可用于加密与解密。该算法并没有提供真正密码学上的保全，故它不应该被用于需要保全的用途上。它常常被当作弱加密示例的典型。
-应用ROT13到一段文字上仅仅只需要检查字母顺序并取代它在13位之后的对应字母，有需要超过时则重新绕回26英文字母开头即可。A换成N、B换成O、依此类推到M换成Z，然后串行反转：N换成A、O换成B、最后Z换成M（如图所示）。只有这些出现在英文字母里的字符受影响；数字、符号、空白字符以及所有其他字符都不变。替换后的字母大小写保持不变。
-例如，下面的英文笑话，精华句被ROT13所隐匿：
-How can you tell an extrovert from an
-introvert at NSA? Va gur ryringbef,
-gur rkgebireg ybbxf ng gur BGURE thl&amp;rsquo;f fubrf.
-通过ROT13转换，该笑话的解答揭露如下：
-Ubj pna lbh gryy na rkgebireg sebz na
-vagebireg ng AFN? In the elevators,
-the extrovert looks at the OTHER guy&amp;rsquo;s shoes.
-第二次使用ROT13将恢复为原文。
-Input
-第1行：一个整数T（1≤T≤10）为问题数。
-接下来共T行。每行为长度不超过1000个字符的一段文字。内含大小写字母、空格、数字和各种符号等。
-Output
-对于每个问题，输出一行问题的编号（0开始编号，格式：case #0: 等）。
-然后对应每个问题在一行中输出经过ROT13加密后的一段文字。
-Sample Input
-3
-How can you tell an extrovert from an</description>
+      <description>本文围绕《ROT13加密和解密》展开，重点梳理问题和代码等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -217,11 +153,7 @@ How can you tell an extrovert from an</description>
       <pubDate>Sat, 11 Apr 2015 10:04:08 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/</guid>
-      <description>有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。
-题目 ime Limit: 1000 MS Memory Limit: 32768 K 给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。 输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。
-输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&amp;lt;=n&amp;lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。
-样例： 输入： 10 18 38 83 93 53 36 39 58 8 93 10 55 79 20 71 60 66 79 55 78 66 输出 10 -19 -3 146 115 46 6 -1 61 -62 120
-代码 #include &amp;quot;stdafx.h&amp;quot; #include&amp;lt;iostream&amp;gt; using namespace std; int main() { int a[100],b[100],c[100]; int n,n_; cin &amp;gt;&amp;gt; n; int m,m_; for (int i = 0; i &amp;lt; n;++ i) { cin &amp;gt;&amp;gt; m; a[i] = m;	} cin &amp;gt;&amp;gt;n_; for (int i = 0;i &amp;lt; n; ++ i) { cin &amp;gt;&amp;gt; m_; b[i] = m_; } for (int i = 0;i &amp;lt;= n;i++) { if (i == 0) cout &amp;lt;&amp;lt; n &amp;lt;&amp;lt; &amp;quot; &amp;quot;; else cout &amp;lt;&amp;lt; a[i-1]*2 - b[i-1] &amp;lt;&amp;lt; &amp;quot; &amp;quot;; } return 0; }  这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</description>
+      <description>本文围绕《一个简单的输入输出算法题》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
   </channel>

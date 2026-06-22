@@ -26,42 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
-指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
-nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 1：Nil panic 报错">
+  <meta name="description" content="本文围绕《NilAway：实用的 Go Nil Panic 检测方式》展开，重点梳理nil panic 问题、NilAway 的核心理念和NilAway 的设计和实现等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="NilAway：实用的 Go Nil Panic 检测方式">
-    <meta name="twitter:description" content="原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
-指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
-nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 1：Nil panic 报错">
+    <meta name="twitter:description" content="本文围绕《NilAway：实用的 Go Nil Panic 检测方式》展开，重点梳理nil panic 问题、NilAway 的核心理念和NilAway 的设计和实现等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="NilAway：实用的 Go Nil Panic 检测方式">
-  <meta property="og:description" content="原文：NilAway: Practical Nil Panic Detection for Go
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- Uber 由于 Go 语言的高性能，广泛采用其作为实现后端服务和库的主要编程语言。Uber 的 Go monorepo 是 Uber 最大的代码库，包含 9000 万行代码（并且还在增长）。这使得编写可靠 Go 代码的工具成为我们开发基础设施的重要组成部分。
-指针（保存其他变量的内存地址而不是其实际值的变量）是 Go 编程语言的一个重要组成部分，有助于高效的内存管理和有效的数据操作。因此，程序员在编写 Go 程序时广泛使用指针，出于多种目的，如原地数据修改、并发编程、数据共享优化、内存使用优化以及支持接口和多态性。虽然指针功能强大且被广泛使用，但必须谨慎和明智地使用它们，以避免诸如空指针解引用导致的 nil panic 等常见陷阱。
-nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生的运行时 panic。当一个指针为 nil 时，意味着它不指向任何有效的内存地址，尝试访问它指向的值将导致 panic（即运行时错误），错误信息如图 1 所示。
-图 1：Nil panic 报错">
+  <meta property="og:description" content="本文围绕《NilAway：实用的 Go Nil Panic 检测方式》展开，重点梳理nil panic 问题、NilAway 的核心理念和NilAway 的设计和实现等内容，提炼背景、思路与实践注意点。">
   <meta property="og:url" content="https://madneal.com/post/nilayay/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -349,7 +328,7 @@ nil panic 问题 nil panic 是指程序尝试解引用一个 nil 指针时发生
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>568</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>569</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

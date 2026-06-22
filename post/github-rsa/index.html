@@ -26,30 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
-GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
-报错信息可能如下：
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!">
+  <meta name="description" content="本文围绕《GitHub 更新了 RSA SSH host key》梳理security、安全、Git和开源相关的背景、方法和实践细节，可作为排查与学习记录。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="GitHub 更新了 RSA SSH host key">
-    <meta name="twitter:description" content="今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
-GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
-报错信息可能如下：
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!">
+    <meta name="twitter:description" content="本文围绕《GitHub 更新了 RSA SSH host key》梳理security、安全、Git和开源相关的背景、方法和实践细节，可作为排查与学习记录。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="GitHub 更新了 RSA SSH host key">
-  <meta property="og:description" content="今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据官方博客，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。
-GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。
-报错信息可能如下：
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!">
+  <meta property="og:description" content="本文围绕《GitHub 更新了 RSA SSH host key》梳理security、安全、Git和开源相关的背景、方法和实践细节，可作为排查与学习记录。">
   <meta property="og:url" content="https://madneal.com/post/github-rsa/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -257,7 +248,7 @@ $ curl -L https://api.github.com/meta | jq -r '.ssh_keys | .[]' | sed -e 's/^/gi
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1185</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>1186</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -194,9 +194,7 @@
     <p class="post-meta">@Neal · Feb 23, 2018 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">前段时间，答题 APP 如火如荼的发展，各大互联网公司都加入了撒币大战，包括像冲顶大会，百万英雄，芝士英雄等等。随之而来的也是各个答题应用辅助的兴起。
-网上已经有不少答题应用的辅助，一般来说包括两个步骤，即获取题目选项以及搜索答案。对于题目以及选项的获取包括利用 adb 抓取手机屏幕截图，然后使用 ocr(optical character recognization) 的方式去识别题目和选项。大多数使用的 ocr …</p>
+  <p class="post-summary">本文围绕《聊聊答题应用题库的建立》展开，重点梳理使用 elasticsearch 建立题库、从图片中获取问题和答案和结语等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%81%8A%E8%81%8A%E7%AD%94%E9%A2%98%E5%BA%94%E7%94%A8%E9%A2%98%E5%BA%93%E7%9A%84%E5%BB%BA%E7%AB%8B/">Read More →</a>
   </footer>
@@ -209,8 +207,7 @@
     <p class="post-meta">@Neal · Apr 26, 2016 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">因为爬虫项目需要模拟登陆，可是有一个网站的登录需要输入验证码。其实这种登录有2种解决方案，一种是利用cookie，一种是识别图片。前者需要人工登录一次，而且有时效限制，故不太现实。后者可以，但是难点是如何识别出验证码。 这里面就要介绍一个神器了，tesseract-ocr这个项目是一个开源项目，可以用于图像识别。不过这个项目现在托管于google，所以不好下载，你可以搜一下，选择在国内下 …</p>
+  <p class="post-summary">本文围绕《利用tesseract-ocr进行验证码识别》梳理计算机视觉和学习笔记相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%88%A9%E7%94%A8tesseract-ocr%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81%E7%A0%81%E8%AF%86%E5%88%AB/">Read More →</a>
   </footer>
@@ -223,8 +220,7 @@
     <p class="post-meta">@Neal · May 18, 2015 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform”,我实在无法理解他的建模，还有他的建模参数到底如何求解： 我无法理解他为什么要设置那个角 …</p>
+  <p class="post-summary">本文围绕《道路模型--linear-parabolic model》梳理计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B-linear-parabolic-model/">Read More →</a>
   </footer>
@@ -237,9 +233,7 @@
     <p class="post-meta">@Neal · May 10, 2015 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">RGB色彩模式是工业界的一种颜色标准，它通过对红（RED）、绿（GREEN）、蓝（BLUE）三种基本颜色的相互组合从而叠加出各种颜色。RGB色彩模式为每一个红、绿、蓝分类了0-255范围内的亮度值。 RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个数字分别表示红、绿、蓝的亮度值，常用的颜色的RGB颜色分布有以下这些：
- 品红色 （255,0,255） 蓝色 （0,0,255） 青色 （0,255,255） …</p>
+  <p class="post-summary">本文围绕《常用颜色的RGB分布》梳理计算机视觉和学习笔记相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/">Read More →</a>
   </footer>
@@ -252,9 +246,7 @@
     <p class="post-meta">@Neal · Apr 18, 2015 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">这个算法是汪悦在 Lane detection and tracking using B-spline中提出来的。他在这篇论文中主要用的是B-spline模型，这个模型的主要优点是鲁棒性好，可以针对不同的情景进行处理，而且他将检测道路两边的边缘的问题转化成求解道路中间线的问题。 下面主要描述一下CHEVP算法：
- 边缘像素提取 我们使用Canny边缘检测来获得边缘映射和边缘定位映射。选择方差σ = 1 并且模板的尺寸是9*1在X方向和Y …</p>
+  <p class="post-summary">本文围绕《CHEVP算法（CannyHough Estimation of Vanishing Points)》展开，重点梳理实验结果等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/chevp%E7%AE%97%E6%B3%95cannyhough-estimation-of-vanishing-points/">Read More →</a>
   </footer>
@@ -267,8 +259,7 @@
     <p class="post-meta">@Neal · Apr 15, 2015 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary"> 我们可能经常面临这样的困惑，Iplimage和Mat这两种数据结构，我们应该用哪一种数据结构。 Iplimage一开始就存在opencv库之中，他来源于Intel的另外一个函数库Intel Image Processing Library(IPL)，这是一种非常重要的数据结构。在经典书籍里面的sample用的基本都是Iplimage这个数据结构。但是这是一种C风格的数据结构，你必须为他分配以及释放内存。 Mat则是一种新的数据结构，越 …</p>
+  <p class="post-summary">本文围绕《Iplimage versus Mat》展开，重点梳理将Iplimage转化为Mat等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/iplimage-versus-mat/">Read More →</a>
   </footer>
@@ -281,9 +272,7 @@
     <p class="post-meta">@Neal · Apr 15, 2015 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。
-opencvsharp版本 using System; …</p>
+  <p class="post-summary">本文围绕《道路识别demo》展开，重点梳理opencvsharp版本和opencv版本等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">Read More →</a>
   </footer>
@@ -296,9 +285,7 @@ opencvsharp版本 using System; …</p>
     <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">Opencv提供一个简单易用的框架以提取视频文件和USB摄像头中的图像帧，如果只是想读取某个视频，你只需要创建一个VideoCapture实例，然后在循环中提取每一帧。下面是一个简单的代码
-#include&lt;opencv2\core\core.hpp&gt; #include&lt;opencv2\imgproc\imgproc.hpp&gt; #include&lt;opencv2\highgui\highgui.hpp&gt; …</p>
+  <p class="post-summary">本文围绕《opencv视频流的读取和处理》梳理计算机视觉和安全相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/opencv%E8%A7%86%E9%A2%91%E6%B5%81%E7%9A%84%E8%AF%BB%E5%8F%96%E5%92%8C%E5%A4%84%E7%90%86/">Read More →</a>
   </footer>
@@ -311,10 +298,7 @@ opencvsharp版本 using System; …</p>
     <p class="post-meta">@Neal · Apr 11, 2015 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">我们老板希望我能在道路识别这个方面做一些东西，这方面的东西一直在看，但是一直都是模模糊糊，我希望自己能够用一个合适的方式总结一下道路识别的问题。
-道路识别问题其实也正正恰好是识别问题中的一个方面，所以道路识别问题的关键也是在于如何选取一个特征来进行识别。道路识别问题可以使用不同的方法来解决，我打算从下面这些方面来阐述一下我自己对道路识别的一个理解：
- 我们要解决什么情况下的道路问题 其实我觉得这点挺重要的，因为很多计算机视觉的问题在不同 …</p>
+  <p class="post-summary">本文围绕《道路识别》梳理计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/">Read More →</a>
   </footer>
@@ -327,10 +311,7 @@ opencvsharp版本 using System; …</p>
     <p class="post-meta">@Neal · Apr 11, 2015 · 3 min read</p>
   </header>
   
-  
-  <p class="post-summary">转载：http://blog.csdn.net/carson2005/article/details/6601109
-提示：本文为笔者原创，转载请注明出处：blog.csdn.net/carson2005
- 以下链接是本人整理的关于计算机视觉（ComputerVision, CV）相关领域的网站链接，其中有CV牛人的主页，CV研究小组的主页，CV领域的paper,代码，CV领域的最新动态，国内的应用情况等等。打算从事这个行业或者刚入门的 …</p>
+  <p class="post-summary">本文围绕《计算机视觉领域的一些牛人博客，超有实力的研究机构等的网站链接》梳理计算机视觉和博客相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E9%A2%86%E5%9F%9F%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%9B%E4%BA%BA%E5%8D%9A%E5%AE%A2%E8%B6%85%E6%9C%89%E5%AE%9E%E5%8A%9B%E7%9A%84%E7%A0%94%E7%A9%B6%E6%9C%BA%E6%9E%84%E7%AD%89%E7%9A%84%E7%BD%91%E7%AB%99%E9%93%BE%E6%8E%A5/">Read More →</a>
   </footer>

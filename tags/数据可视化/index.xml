@@ -18,15 +18,7 @@
       <pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/circleci-incident/</guid>
-      <description>CircleCI 20230104 安全事件报告  原文：CircleCI incident report for January 4, 2023 security incident
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 2023 年 1 月 4 日，我们提醒客户 一起安全事件。 今天，我们想与您分享发生的事情、我们学到的知识以及我们未来不断改善安全态势的计划。
-我们要感谢我们的客户对于重置密钥的关注，并对此次事件可能对您的工作造成的任何干扰表示歉意。我们鼓励尚未采取行动的客户采取行动，以防止未经授权访问第三方系统和存储。此外，我们要感谢我们的客户和社区在我们进行彻底调查期间的耐心等待。为了实现负责任的披露，我们已尽最大努力在共享信息的速度与保持调查的完整性之间取得平衡。
-本报告包含:
- 发生了什么？ 我们怎么知道这个攻击向量已经关闭并且可以安全构建？ 与客户的沟通和支持 如何判断我是否受影响？ 可能有助于您的团队进行内部调查的详细信息 我们从这次事件中学到了什么以及我们下一步将做什么 关于员工责任与系统保障措施的说明 安全最佳实践 结语  发生了什么？ 除非另有说明，否则所有日期和时间均以 UTC 报告。
-2022 年 12 月 29 日，我们的一位客户提醒我们注意可疑的 GitHub OAuth 活动。此通知启动了 CircleCI 的安全团队与 GitHub 的更深入审查。</description>
+      <description>本文围绕《CircleCI 20230104 安全事件报告》展开，重点梳理发生了什么？、我们怎么知道这个攻击向量已经关闭并且可以安全构建？和与客户的沟通和支持等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -35,10 +27,7 @@ LICENSE: MIT
       <pubDate>Wed, 23 Feb 2022 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/go-report/</guid>
-      <description>最近在做一个基于历史数据生成报告的需求，在做这个需求的时候遇到过一些小坑，所以想在这篇文章分享一下踩坑经验。
-最初的需求是基于历史数据来生成一个 word 报告，这种需求其实在大多数应用中也算比较常见的需求。但是由于我们使用的语言是 golang，而 golang 关于 word 方面的轮子是少之又少，只有一个国外的商业产品以及极少的特别不成熟的库，比如做一些简单的文字替换的，这些都比较难以满足需求现状。也不可能为了这么个需求就造一个 word 方面的轮子，况且还不一定造的出来。这种方案实现，如果是使用 java 或者 python 会轻松很多，的确 golang 在某些方面的轮子还是存在缺失。后来想到的方案是，先渲染 html 模板，然后再把 html 转成 pdf。渲染 html 不然，基于 template，理论上可以实现任意文本格式文件的填充，但是转 pdf 又又涉及另外一个轮子，也是一番调研，有一些，但是不太多，看起来也不是特别好用。同时，这个方案也不是很优雅。就在一筹莫展之际时，我想到我们内部其实非常热衷于通过自研的 wiki 平台来分享报告，大家分享的时候也经常通过这个平台来直接链接。（其实中间也看了腾讯文档的开放平台，但是这个开放平台根本就不成熟，都没有开放写入的能力，只开放了创建文档的 API，不能写入，那能有啥用呢。）后来找对应平台的开发聊过，幸好他们提供写入的 API，这样实现报告的方案就实现了。平台支持 markdown 的语法，只需要通过 markdown 的语法来渲染好模板，然后写入就可以了。随便提一句，任何不支持 markdown 语法的编辑器都是极其不友好的，所以非常难理解当初 freebuf 改造 markdown 编辑器居然花了一两年的时间，不知道是如何做到的。其实，我自己都为这个方案拍案叫绝，不过这好像也是唯一能实现的技术方案，但在我看来，也是最优雅的实现方式。
-这个需求另外一个小坑就是图标的实现。wiki 平台自身没有提供基于数据实现图表的功能，所欲图表的需求是需要我们自己来实现的。这种最能想到的方式就是基于数据生成图表的图片，然后插入到 markdown 中。在调研图表的方案中，是有看到一个 go-chart 的方案。但是这个库看起来可定制型不是很高。echarts 是前端领域大名鼎鼎的数据可视化方案，可以说的上是百度做的开源精品，现在已经属于 apace 基金维护的开源产品。go-echarts 是一个基于 echarts 的 golang，其本质应该还是通过 echarts 来渲染前端。所以在使用这个库的时候有一个问题，它不会直接生成图片，而是通过 html 来进行渲染的。那么在嵌入图表的时候就不能使用图片，但是正因为之前使用的方案是 markdown，且一般来说大多数 markdown 是兼容 html 的，所以只要将 html 通过 iframe 的形式嵌入，那么这个问题也就迎刃而解了。
-&amp;lt;iframe src=&amp;quot;%s&amp;quot; frameborder=0 width=&amp;quot;1000&amp;quot; height=&amp;quot;600&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;  同时得益于 echarts 的灵活，这个方案也可以实现高度定制化的可视化方案。不过这个库并没有丰富的文档，大多数的使用教程都是通过 examples 里面的代码样例来进行说明，这个仓库里面有很多图表的各种形式展现的代码样例。不过在图表的时候也遇到一些问题。比如 x 坐标轴的 label 文字过宽，导致容器容纳有问题，这个一般的做法都是将 label 进行旋转，这在 echarts 里面也是比较常见的做法，在 go-echarts 里面有一定的配置语法。</description>
+      <description>本文围绕《基于golang实现报告生成技术方案》梳理开发、Go和数据可视化相关的背景、方法和实践细节，可作为排查与学习记录。</description>
     </item>
     
     <item>
@@ -47,10 +36,7 @@ LICENSE: MIT
       <pubDate>Thu, 16 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/%E5%88%A9%E7%94%A8python%E7%94%9F%E6%88%90%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%A5%E5%91%8A/</guid>
-      <description>Python 作为一种常用的胶水语言，可用于各种用途。最近有个需求需要获取 SIME 平台的数据并形成月度报告。我的想法就是通过平台的 API 获取数据，然后基于 word 以及 matplotlib 来生成可视化报告。在这里要介绍一个比较好用的 python 库，docxtpl。这个库是一个基于 python-docx 的库，可以通过模板来生成报告。下面就介绍一下如何使用这些库，以及使用过程中的一些小问题。
-模板 docxtpl 是基于 jinja2 引擎的语法，类似于常见的 html 模板语法，变量经常会放在 {{}} 中。假如我们希望在模板中设置变量 a 的值，那么我么可以在模板中填写 {{a}}。最后，我们通过 render 来渲染模板即可。
-doc = Docxtpl(filename) context = { &amp;#34;a&amp;#34;: &amp;#34;13413&amp;#34; } doc.Render(context) 那么如果我们希望在模板中插入一个图片该怎么做呢，可以使用 InlineImage 去实例化图片：
-from docxtpl import DocxTemplate, InlineImage # for height and width you have to use millimeters (Mm), inches or points(Pt) class : from docx.shared import Mm, Inches, Pt import jinja2 from jinja2.</description>
+      <description>本文围绕《利用 python 生成可视化报告》展开，重点梳理模板和Matplotlib等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
   </channel>

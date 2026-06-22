@@ -194,9 +194,7 @@
     <p class="post-meta">@Neal · Oct 17, 2019 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">今日，有人公开了 Kibana 任意代码执行漏洞（CVE-2019-7609）的 POC。这个漏洞的主要原理是因为 Kibana 中的 Timelion 中具有原形链污染漏洞，因此可以导致指定变量的原型链污染，通过传递 NODE 环境变量参数，利用 Kibana 的 Canvas 会创建新进程的特性可以达到远程执行命令的效果。
-在本地尝试搭建环境复现，忙活了半天，一开始尝试的是 6.4.2 版本的 Kibana。尝试执行命令的时候，发现 …</p>
+  <p class="post-summary">本文围绕《Kibana 任意代码执行漏洞》展开，重点梳理原型链攻击和漏洞防范等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/kibana%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
@@ -209,9 +207,7 @@
     <p class="post-meta">@Neal · Aug 22, 2019 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">最近在公司内网发现了好几个 XSS 漏洞，后来看了一下系统，都是使用的开源项目。后来发现是开源项目自身的漏洞。后面我就去看了一下源代码，下面我们就聊一下这些 XSS 漏洞。
-最近公司的被动扫描器发现了一个 XSS 漏洞，后来发现是登录的时候发现是登录请求传入的 ReturnURL 参数导致的 DOM 型 XSS 漏洞。后来，又看了一下系统，发现这是一个开源的系统，RAP。 RAP 是一个开源的 Web 接口管理工具，由阿里妈妈前端团队开 …</p>
+  <p class="post-summary">本文围绕《偶遇 XSS 漏洞》展开，重点梳理总结等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%81%B6%E9%81%87%E7%9A%84xss%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
@@ -224,9 +220,7 @@
     <p class="post-meta">@Neal · Jul 4, 2019 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。
-可以通过 https://cve.circl.lu/api/ …</p>
+  <p class="post-summary">本文围绕《cve check》梳理安全开发、安全、漏洞分析和Python相关的背景、方法和实践细节，可作为排查与学习记录。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/check-cve/">Read More →</a>
   </footer>
@@ -239,10 +233,7 @@
     <p class="post-meta">@Neal · May 20, 2019 · 6 min read</p>
   </header>
   
-  
-  <p class="post-summary">Introduction Target: 10.10.10.25(Linux)
-Kali: 10.10.16.65
-Holiday is an insane box officially. It’s really difficult to get the user permission. The most difficult part should be how to pass the XSS filter. It may need a …</p>
+  <p class="post-summary">本文围绕《Holiday -- hack the box》展开，重点梳理Introduction和Information enumeration等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/holiday-hack-the-box/">Read More →</a>
   </footer>
@@ -255,9 +246,7 @@ Holiday is an insane box officially. It’s really difficult to get the user per
     <p class="post-meta">@Neal · Apr 15, 2019 · 6 min read</p>
   </header>
   
-  
-  <p class="post-summary">介绍 在 Forcepoint，我们不断寻求改善我们产品所提供的防护。为此，我们经常研究不寻常或潜在新颖的攻击技术。最近的一个研究课题是从公网发起的针对 localhost 和内网的攻击。
-虽然不是新的攻击，但在安全研究社区之外，恶意 JavaScript 可以攻击内网并不广为人知。在关于该主题的有限文档中，大多数资源是从 inter-protol(协议间)漏洞来描述 [1] [2]，而我们的重点是 intra-protol(协议内部) …</p>
+  <p class="post-summary">本文围绕《使用浏览器作为代理从公网攻击内网》展开，重点梳理介绍、可疑行为：公网到局域网的连接和同源策略不会阻止本地攻击吗？等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BD%9C%E4%B8%BA%E4%BB%A3%E7%90%86%E4%BB%8E%E5%85%AC%E7%BD%91%E6%94%BB%E5%87%BB%E5%86%85%E7%BD%91/">Read More →</a>
   </footer>
@@ -270,8 +259,7 @@ Holiday is an insane box officially. It’s really difficult to get the user per
     <p class="post-meta">@Neal · Feb 21, 2019 · 2 min read</p>
   </header>
   
-  
-  <p class="post-summary">概述 跨站请求伪造（CSRF）攻击强迫终端用户在他们身份被认证的情况下执行对于目标应用未知的操作（恶意的）。CSRF 攻击一般针对状态更改请求，而不是数据被盗，因为攻击者无法查看对伪造请求的响应。通过社会工程的（例如通过电子邮件或聊天发送链接）方法，攻击者可以欺骗 Web 应用程序的用户执行攻击者选择的操作。如果受害者是普通用户，则成功的 CSRF 攻击可以强制用户执行状态更改请求，例如转账，更改其电子邮件地址等。如果受害者是管理帐 …</p>
+  <p class="post-summary">本文围绕《跨站请求伪造（CSRF）攻击》展开，重点梳理概述、CSRF 的工作原理和如何定位存在潜在漏洞的代码等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">Read More →</a>
   </footer>
@@ -284,11 +272,7 @@ Holiday is an insane box officially. It’s really difficult to get the user per
     <p class="post-meta">@Neal · Jan 28, 2019 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">原文：“steganography” - obfuscating PDF exploits in depth
-译者：neal1991
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT …</p>
+  <p class="post-summary">本文围绕《隐写术-深入研究 PDF 混淆漏洞》展开，重点梳理总结等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E9%9A%90%E5%86%99%E6%9C%AF-%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6pdf%E6%B7%B7%E6%B7%86%E6%BC%8F%E6%B4%9E/">Read More →</a>
   </footer>
@@ -301,8 +285,7 @@ LICENSE: MIT …</p>
     <p class="post-meta">@Neal · Jan 4, 2019 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">什么是 DDOS DDOS(Distributed Denial of Service)，即分布式拒绝服务，是一种针对于网络服务的攻击行为。对于 DDOS 我们可以这样通俗地理解，假如有一家商店在售卖商品，突然涌过来一大帮人说要买东西，这里面有的人是真正地顾客，有的人只是过来捣乱的，但是售货员如果没办法及时处置，就会导致一种拒绝服务攻击了。而分布式拒绝服务攻击，则是因为黑客控制了很多台肉鸡来发动攻击。这种攻击近些年来越来越流行，对于攻击 …</p>
+  <p class="post-summary">本文围绕《什么是DDOS》展开，重点梳理什么是 DDOS、DDOS 攻击类型和传输层 DDOS 攻击等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AFddos/">Read More →</a>
   </footer>
@@ -315,9 +298,7 @@ LICENSE: MIT …</p>
     <p class="post-meta">@Neal · Nov 16, 2017 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">公司希望能够搭建自己的日志分析系统。现在基于ELK的技术分析日志的公司越来越多，在此也记录一下我利用ELK搭建的日志分析系统。
-系统搭建 系统主要是基于elasticsearch+logstash+filebeat+kibana+nginx，其实我这个用的还是比较多的，可以直接用logstash直接去采集日志。不过由于logstash的性能影响都比较大，而且filebeat安装很方便，而且占用资源很小，所以现在filebeat现在被广泛 …</p>
+  <p class="post-summary">本文围绕《基于ELK进行邮箱访问日志的分析》展开，重点梳理系统搭建、Logstash和filter等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E5%9F%BA%E4%BA%8Eelk%E8%BF%9B%E8%A1%8C%E9%82%AE%E7%AE%B1%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%86%E6%9E%90/">Read More →</a>
   </footer>
@@ -330,12 +311,7 @@ LICENSE: MIT …</p>
     <p class="post-meta">@Neal · Aug 6, 2017 · 1 min read</p>
   </header>
   
-  
-  <p class="post-summary">什么是服务端伪造（SSRF）  原文：GitHub Pages and Single-Page Apps
-译者：neal1991
-welcome to star my articles-translator , providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 服务端伪造（SSRF）指 …</p>
+  <p class="post-summary">本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。</p>
   <footer class="post-footer">
     <a class="read-more" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">Read More →</a>
   </footer>

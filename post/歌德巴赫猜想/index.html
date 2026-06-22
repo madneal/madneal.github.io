@@ -26,45 +26,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content=" 题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;quot;%d&amp;quot;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;quot;%d %d\n&amp;quot;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  ">
+  <meta name="description" content="本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="歌德巴赫猜想">
-    <meta name="twitter:description" content=" 题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;quot;%d&amp;quot;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;quot;%d %d\n&amp;quot;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  ">
+    <meta name="twitter:description" content="本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="歌德巴赫猜想">
-  <meta property="og:description" content=" 题目 Description
-歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。 现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a&#43;b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5； 又如n=10，质数3、7以及5、5满足a&#43;b=n, a≤b，而乘积大的那组是5、5。 Input
-每行一个偶数n（4 &amp;lt; n &amp;lt;= 20000）
-Output
-对应于每个输入的偶数，输出a、一个空格、b、一个换行符
-Sample Input
-8 10 1000 Sample Output
-3 5 5 5 491 509
-代码 #include&amp;lt;stdio.h&amp;gt; #include&amp;lt;math.h&amp;gt; bool isPrime(int x); int main() { int n,i,j; while (scanf(&amp;quot;%d&amp;quot;,&amp;amp;n) != EOF) { for (i = n/2;i &amp;gt; 0;i -= 2) { if(i%2 == 0) i --; j = n - i; if(isPrime(i)&amp;amp;&amp;amp;isPrime(j)) { printf(&amp;quot;%d %d\n&amp;quot;,i,j); break; } } } return 0; } bool isPrime(int x) { int len = sqrt((float)x); for (int i = 2;i &amp;lt;= len;i &#43;&#43;) { if(x % i == 0) return false; } return true; }  ">
+  <meta property="og:description" content="本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
   <meta property="og:url" content="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -287,7 +263,7 @@ bool isPrime(int x)
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4088</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4089</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

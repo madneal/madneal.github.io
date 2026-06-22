@@ -18,19 +18,7 @@
       <pubDate>Sat, 17 Jan 2026 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/burp-ai/</guid>
-      <description>原文：不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI 
-译者：madneal
-welcome to star my articles-translator, providing you advanced articles translation. Any suggestion, please issue or contact me
-LICENSE: MIT
- 不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）
-注：本文为客座文章，由渗透测试人员 Julen Garrido Estévez（@b3xal）撰写。
- 方法论
- 关键结果
- 示例
- 关键心得
- 提示词模板
- 从渗透测试视角看 Burp AI
-  渗透测试人员 Julen Garrido Estévez（@b3xal）想验证 Burp AI 是否能在日常工作中带来真实价值：它能否加速向量发现、PoC 生成与上下文分析？是否值得消耗 credits？哪种提示词（prompt）写法效果最好？</description>
+      <description>本文围绕《不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  》展开，重点梳理方法论、提示词风格校准和关键结果等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
     <item>
@@ -39,12 +27,7 @@ LICENSE: MIT
       <pubDate>Fri, 22 Aug 2025 00:00:00 +0000</pubDate>
       
       <guid>https://madneal.com/post/gorm/</guid>
-      <description>背景：一道出乎意料的笔试题 最近在校招面试中，我发现一道关于 GORM SQL 注入的笔试题，所有人的答案都错了。题目代码大致如下：
-func UsersHandler(c *gin.Context) { groupId := c.Query(&amp;#34;group_id&amp;#34;) var group GroupModel // 注意这里的用法 	err := DB.First(&amp;amp;group, groupId).Error if err != nil { c.Status(404) return } c.JSON(http.StatusOK, gin.H{ &amp;#34;group&amp;#34;: group, }) } 问题是：这段代码是否存在 SQL 注入漏洞？
-正确答案是：会。
-说实话，这个答案起初也让我感到意外。在日常业务开发中，我们很少会这样直接将变量传给 First 函数。First 通常用于获取按主键排序的第一条记录，更常见的做法是通过 Where 方法来构建查询条件。这不禁让我怀疑：这道题本身是不是有问题？
-初探源码：First 函数的内部实现 简单看了一下 First 函数的实现：
-// First finds the first record ordered by primary key, matching given conditions conds func (db *DB) First(dest interface{}, conds .</description>
+      <description>本文围绕《AI 审代码，靠谱吗？》展开，重点梳理背景：一道出乎意料的笔试题、初探源码：First 函数的内部实现和AI 怎么说？等内容，提炼背景、思路与实践注意点。</description>
     </item>
     
   </channel>
