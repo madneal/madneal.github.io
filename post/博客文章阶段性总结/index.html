@@ -19,7 +19,7 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
@@ -47,7 +47,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E9%98%B6%E6%AE%B5%E6%80%A7%E6%80%BB%E7%BB%93/">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -189,30 +189,17 @@
       <h1 class="post-title">博客考古：从漏洞、工具到生活折腾</h1>
       <p class="post-meta">@Neal · Jun 19, 2026 · 2 min read</p>
     </header>
-    <article class="post-content">
-
-<h2 id="前言">前言</h2>
-
+    <article class="post-content"><h2 id="前言">前言</h2>
 <p>最近翻了一下自己的博客，感觉像是在翻一个大型考古现场。</p>
-
 <p>有些文章现在看还挺有意思，有些文章则属于“当年我为什么会写这个”的系列。早期有不少内容就是学习笔记，甚至有些只是把一个小问题解决了顺手记一下。现在再把这些文章全部端上来，其实没什么意义。毕竟人总不能一直回味自己当年怎么配置环境、怎么写第一个 demo。</p>
-
 <p>所以这篇文章不打算做一个完整目录。完整目录这种东西博客本身已经有了，再写一遍除了显得勤奋，其实也没啥用。这里更像是笔者给自己做一次“技术路线复盘”：哪些文章代表了一个阶段，哪些东西后来真的影响了我的方向，哪些坑虽然当时痛苦，但现在回头看也挺值。</p>
-
 <p>简单来说，这篇文章不是“我的全部文章总结”，而是“我觉得还值得拿出来说几句的文章”。</p>
-
-<h2 id="安全-从看热闹到修系统">安全：从看热闹到修系统</h2>
-
+<h2 id="安全从看热闹到修系统">安全：从看热闹到修系统</h2>
 <p>安全应该是这个博客后面最主要的内容。最开始写 XSS、CSRF、SSRF 的时候，更多还是在分析一个个具体漏洞。这个参数怎么进来的，为什么能打到页面，为什么这里能绕过，为什么框架没有兜住。那时候写漏洞文章，会有一种解谜的快感。</p>
-
 <p>但写着写着就会发现，漏洞分析最有意思的地方不是 payload 本身，而是背后的错误假设。开发以为这里不会被外部访问，浏览器以为自己只负责执行规则，框架以为开发者知道自己在干什么，最后大家都觉得自己没问题，问题就出来了。</p>
-
 <p>比如 XSS 这类问题，很多时候不是“不知道要过滤”这么简单，而是你要理解数据从输入到展示到底经过了多少层。富文本、模板、DOM、编码、浏览器解析，每一层都可能有自己的脾气。SSRF 和开放重定向也类似，它们会不断提醒你：系统边界从来不是你画在架构图上的那条线。</p>
-
 <p>后来写 MyBatis、GORM、Kibana、Webpack 这些文章，关注点就更偏开发侧了。很多漏洞并不是因为技术多高深，而是大家太相信默认行为了。ORM 很好，框架也很好，但框架不会替你理解业务，也不会替你判断输入是否可信。这个道理听起来简单，真到代码里就不一定了。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/%E5%8F%8D%E5%B0%84%E6%80%A7xss%E7%9F%A5%E8%A7%A3123/">XSS 漏洞知解 123</a></li>
 <li><a href="https://madneal.com/post/stored-xss/">富文本场景下的 XSS</a></li>
@@ -230,19 +217,12 @@
 <li><a href="https://madneal.com/chatgpt-ato/">ChatGPT账户接管 - 通配符网页缓存欺骗</a></li>
 <li><a href="https://madneal.com/post/cookie-tossing/">通过 Cookie Tossing 劫持 OAUTH 流程</a></li>
 </ul>
-
-<h2 id="安全工程-不只是把洞挖出来">安全工程：不只是把洞挖出来</h2>
-
+<h2 id="安全工程不只是把洞挖出来">安全工程：不只是把洞挖出来</h2>
 <p>只会发现漏洞是不够的。这个道理说起来很简单，但真正做企业安全的时候会特别明显。</p>
-
 <p>如果一个漏洞提上去之后没人修，或者责任人不准，或者状态没人跟，或者修完没人验证，那这个漏洞和写在本子上的愿望差不多。安全真正麻烦的地方，往往不是技术本身，而是怎么把事情推进下去。</p>
-
 <p>这也是为什么我后来写了 GShark、安全运营平台、被动扫描器、Burp 插件、Zeek、Qradar、SAST 这些内容。它们看起来不像单个漏洞那么刺激，但更接近实际工作。安全运营平台那篇其实印象挺深，倒不是因为技术多复杂，而是因为需求太碎。各种角色、权限、状态、通知、资产、漏洞、事件，像一堆线头缠在一起。你不把它们一根根捋顺，后面就会一直打结。</p>
-
 <p>GShark 也是类似。一开始只是想监测 GitHub 敏感信息，后面慢慢就会想到 GitLab、SearchCode、权限、任务、前端体验、误报处理。安全工具做着做着，最后都会变成工程问题。工具能不能长期跑，能不能让别人愿意用，能不能降低处理成本，这些问题比写一个扫描规则更难。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">GShark-监测你的 Github 敏感信息泄露</a></li>
 <li><a href="https://madneal.com/post/gshark/">多平台的敏感信息检测工具-GShark</a></li>
@@ -255,17 +235,11 @@
 <li><a href="https://madneal.com/post/cpe/">CPE 获取指南</a></li>
 <li><a href="https://madneal.com/post/go-vuln-management/">Go 的漏洞管理</a></li>
 </ul>
-
-<h2 id="考试-靶机和训练">考试、靶机和训练</h2>
-
+<h2 id="考试靶机和训练">考试、靶机和训练</h2>
 <p>Hack The Box、OSWE、PWK/OSCP、CISSP 这些文章，更像是某个阶段的训练记录。</p>
-
 <p>靶机的好处是直接。你扫不出来就是扫不出来，打不进去就是打不进去，不会因为你写了很长的分析就对你网开一面。OSWE 也是类似，代码摆在那里，漏洞要自己读出来。CISSP 则刚好相反，它不是让你打一台机器，而是把安全这件事放到更大的管理和体系里面。</p>
-
 <p>现在看这些文章，最有价值的不是里面具体某个命令，而是那种训练过程。信息收集有没有遗漏，假设有没有验证，失败之后有没有换思路，最后能不能把攻击链讲清楚。安全这件事，很多时候还是靠大量案例把手感练出来。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/oswe/">一键 Shell，我的 OSWE 之旅</a></li>
 <li><a href="https://madneal.com/post/pwk%E4%BB%A5%E5%8F%8Aoscp%E6%9C%80%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/">PWK 以及 OSCP 最常见的问题</a></li>
@@ -278,19 +252,12 @@
 <li><a href="https://madneal.com/post/haystack/">Haystack - hack the box</a></li>
 <li><a href="https://madneal.com/post/%E5%AF%BB%E6%89%BE%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%BC%8F%E6%B4%9E/">寻找你的第一个漏洞</a></li>
 </ul>
-
-<h2 id="工具和工程化-程序猿的自我安慰">工具和工程化：程序猿的自我安慰</h2>
-
+<h2 id="工具和工程化程序猿的自我安慰">工具和工程化：程序猿的自我安慰</h2>
 <p>笔者一直觉得，自己首先还是一个写代码的人。哪怕后来做安全，很多事情最后也还是会回到代码和工程上。</p>
-
 <p>工具类文章里，我比较喜欢 Goland SCA 插件那篇。不是因为插件本身多么成熟，而是那个过程非常真实：一开始觉得写个插件应该还好，真正开始才发现文档不够、API 复杂、模板很重、Gradle 还会给你一点小惊喜。程序猿最讨厌的事情之一就是看别人的文档，结果插件开发偏偏让你把这件事做个够。</p>
-
 <p>Go 版本工具链、GORM、报告生成、Chrome 插件持续发布这些文章，也都属于类似的东西。它们不是单纯讲某个知识点，而是围绕一个具体问题折腾一圈，最后得到一个比较明确的结论。比如 Go toolchain 那篇，本来只是一个版本争论，最后发现真正关键的是 <code>GOTOOLCHAIN</code>。这种文章写起来其实挺舒服，因为它不是硬凑观点，而是真的有一个问题被解决了。</p>
-
 <p>工具的意义就在这里。能不能把重复劳动变少一点，能不能把人工判断变稳一点，能不能让下次遇到同样问题少掉一点头发。虽然写工具本身也可能掉头发，但至少掉得有意义。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/toolchain/">Go 版本不一致？别慌，这是特性！</a></li>
 <li><a href="https://madneal.com/post/gorm/">AI 审代码，靠谱吗？</a></li>
@@ -306,17 +273,11 @@
 <li><a href="https://madneal.com/post/export-to-markdown/">大佬，您这是在借鉴嘛</a></li>
 <li><a href="https://madneal.com/post/drive/">Google Drive 的信息检索</a></li>
 </ul>
-
 <h2 id="早年的计算机视觉">早年的计算机视觉</h2>
-
 <p>计算机视觉这一段，现在看更像是博客的史前时代。道路识别、车道线模型、消失点估计、OpenCV、PCA、SVD、ICA、演化计算，这些文章带有很明显的研究生阶段痕迹。</p>
-
 <p>笔者后来没有继续在这条路上深挖，说不上遗憾，更多是方向自然变化了。但这段经历并没有白费。视觉问题会逼着你去想特征、模型、评价、数据和场景；论文写作会逼着你把一个问题讲完整。后来做安全分析和工程设计，其实也经常用到类似的方法：先拆问题，再找关键变量，最后验证假设。</p>
-
 <p>这里就挑几篇留作纪念。毕竟不能每次总结都把古早算法题拿出来晒太阳。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%AB/">道路识别</a></li>
 <li><a href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/">道路模型&ndash;linear-parabolic model</a></li>
@@ -328,17 +289,11 @@
 <li><a href="https://madneal.com/post/%E6%BC%94%E5%8C%96%E8%AE%A1%E7%AE%97%E4%BC%9A%E8%AE%AE/">演化计算会议</a></li>
 <li><a href="https://madneal.com/post/%E8%B0%88%E8%B0%88cs%E8%8B%B1%E6%96%87%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/">谈谈CS英文论文写作</a></li>
 </ul>
-
-<h2 id="博客-开源和成长">博客、开源和成长</h2>
-
+<h2 id="博客开源和成长">博客、开源和成长</h2>
 <p>有几篇文章不太适合放到某个技术分类里，但对我自己还挺重要，比如 Github 1000+ contributions、全栈工程师的成长、全栈工程师的百宝箱、架构整洁之道读后感。</p>
-
 <p>这些文章今天看起来可能有点“年轻人踌躇满志”，但那也是当时真实的状态。那时候会觉得 Github 很酷，开源很酷，写博客很酷。现在看当然会平静很多，但我还是觉得这些事情很有价值。至少它们让我养成了一个习惯：遇到问题不要只是在脑子里过一遍，尽量写下来。</p>
-
 <p>写博客最有意思的地方是，它会暴露你到底有没有想清楚。很多东西自己觉得懂了，一写就发现其实只是大概懂。写不下去的时候，就是知识边界露出来的时候。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/programer/">菜鸟程序员成长史 &ndash;记 Github 1000+ contributions</a></li>
 <li><a href="https://madneal.com/%E5%85%A8%E6%A0%88%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E6%88%90%E9%95%BF/">全栈工程师的成长</a></li>
@@ -346,17 +301,11 @@
 <li><a href="https://madneal.com/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E8%AF%BB%E5%90%8E%E6%84%9F/">架构整洁之道读后感</a></li>
 <li><a href="https://madneal.com/post/hr/">关于招人的那点小事</a></li>
 </ul>
-
 <h2 id="生活里的折腾">生活里的折腾</h2>
-
 <p>技术博客写生活内容，多少有点不务正业。但笔者一直觉得这些东西也挺值得记。</p>
-
 <p>车、显示器、键盘、智能家居、骑行、颈椎，这些东西都不是纯参数问题。买之前大家都看参数，买之后真正影响体验的反而是稳定性、售后、噪音、手感、每天使用时的小细节。比如车不是只有百公里加速，显示器不是只有分辨率，键盘也不是只有轴体。很多东西只有长期用，才知道它是不是适合自己。</p>
-
 <p>所以这些文章虽然不算技术文章，但也算是另一种工程观察。只不过观察对象从代码变成了车、设备和日常生活。</p>
-
 <p>相关文章导航：</p>
-
 <ul>
 <li><a href="https://madneal.com/post/xiaopeng/">技术宅的第一辆车&ndash;小鹏P7</a></li>
 <li><a href="https://madneal.com/post/xp/">提车二月记&ndash;小鹏P7</a></li>
@@ -372,13 +321,9 @@
 <li><a href="https://madneal.com/post/%E9%A2%88%E6%A4%8E/">颈椎康复指南&ndash;桌面篇</a></li>
 <li><a href="https://madneal.com/post/%E9%AA%91%E8%A1%8C/">菜腿的骑行通勤</a></li>
 </ul>
-
 <h2 id="总结">总结</h2>
-
 <p>这次整理博客，最大的感受是很多东西不是计划出来的。</p>
-
 <p>一开始写博客只是为了记录问题，后来记录多了，才慢慢看出自己的方向变化。先是学习笔记，然后是开发踩坑，然后是安全漏洞，再到安全工程、代码审计、工具开发和一些生活体验。每个阶段都不一定成熟，但至少都是真实的。</p>
-
 <p>后面还是希望继续写。遇到坑就写坑，做了工具就写工具，想明白一个问题就写问题。博客不一定能带来什么立竿见影的收益，但长期来看，它的确是技术成长里面非常划算的一件事。</p>
 </article>
     <footer class="post-footer">
@@ -396,7 +341,7 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.
+        
       </p>
     </footer>
     
@@ -468,19 +413,6 @@
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

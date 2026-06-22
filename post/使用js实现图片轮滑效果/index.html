@@ -19,7 +19,7 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
@@ -47,7 +47,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
 <link rel="canonical" href="https://madneal.com/post/%E4%BD%BF%E7%94%A8js%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E8%BD%AE%E6%BB%91%E6%95%88%E6%9E%9C/">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -191,44 +191,40 @@
     </header>
     <article class="post-content"><p>经常在购物网站，看到那种图片轮滑的效果，所以看到有人实现了，所以我也就学习下了。
 首先贴出html代码：</p>
-
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
+<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
 &lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta charset=&#34;UTF-8&#34;&gt;
     &lt;title&gt;document&lt;/title&gt;
-    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;&gt;
-    &lt;script type=&quot;text/javascript&quot; src=&quot;javascript.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;style.css&#34;&gt;
+    &lt;script type=&#34;text/javascript&#34; src=&#34;javascript.js&#34;&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;div id=&quot;flash&quot;&gt;
-    &lt;ul id=&quot;pic&quot;&gt;
-        &lt;li style=&quot;display:block&quot;&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot; &gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
-        &lt;li&gt;&lt;img src=&quot;&quot;&gt;&lt;/li&gt;
+&lt;div id=&#34;flash&#34;&gt;
+    &lt;ul id=&#34;pic&#34;&gt;
+        &lt;li style=&#34;display:block&#34;&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34; &gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&#34;&#34;&gt;&lt;/li&gt;
     &lt;/ul&gt;
-    &lt;ol id=&quot;num&quot;&gt;
-        &lt;li class=&quot;activate&quot;&gt;1&lt;/li&gt;
+    &lt;ol id=&#34;num&#34;&gt;
+        &lt;li class=&#34;activate&#34;&gt;1&lt;/li&gt;
         &lt;li&gt;2&lt;/li&gt;
         &lt;li&gt;3&lt;/li&gt;
         &lt;li&gt;4&lt;/li&gt;
         &lt;li&gt;5&lt;/li&gt;
         &lt;li&gt;6&lt;/li&gt;
     &lt;/ol&gt;
-    &lt;a href=&quot;javascript:;&quot; class=&quot;arrow&quot; id=&quot;left&quot;&gt;&amp;lt;&lt;/a&gt;
-    &lt;a href=&quot;javascript:;&quot; class=&quot;arrow&quot; id=&quot;right&quot;&gt;&amp;gt;&lt;/a&gt;
+    &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;left&#34;&gt;&amp;lt;&lt;/a&gt;
+    &lt;a href=&#34;javascript:;&#34; class=&#34;arrow&#34; id=&#34;right&#34;&gt;&amp;gt;&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
-
-<p>图像的原路径我就不制定了，css文件</p>
-
-<pre><code>* {
+</code></pre><p>图像的原路径我就不制定了，css文件</p>
+<pre tabindex="0"><code>* {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -307,21 +303,18 @@ a
 {
     right: 2%;
 }
-</code></pre>
-
-<p>js代码：</p>
-
-<pre><code>function $(id) {
-    return typeof id==='string'?document.getElementById(id):id;
+</code></pre><p>js代码：</p>
+<pre tabindex="0"><code>function $(id) {
+    return typeof id===&#39;string&#39;?document.getElementById(id):id;
 }
 window.onload=function(){
     var index=0;
     var timer=null;
-    var pic=$(&quot;pic&quot;).getElementsByTagName(&quot;li&quot;);
-    var num=$(&quot;num&quot;).getElementsByTagName(&quot;li&quot;);
-    var flash=$(&quot;flash&quot;);
-    var left=$(&quot;left&quot;);
-    var right=$(&quot;right&quot;);
+    var pic=$(&#34;pic&#34;).getElementsByTagName(&#34;li&#34;);
+    var num=$(&#34;num&#34;).getElementsByTagName(&#34;li&#34;);
+    var flash=$(&#34;flash&#34;);
+    var left=$(&#34;left&#34;);
+    var right=$(&#34;right&#34;);
     //单击左箭头
     left.onclick=function()
     {
@@ -368,17 +361,15 @@ window.onload=function(){
     {
         console.log(index)
         for(var j=0;j&lt;num.length;j++){
-            pic[j].style.display=&quot;none&quot;;
-            num[j].className=&quot;&quot;;
+            pic[j].style.display=&#34;none&#34;;
+            num[j].className=&#34;&#34;;
         }
-        pic[curindex].style.display=&quot;block&quot;;
-        num[curindex].className=&quot;active&quot;;
+        pic[curindex].style.display=&#34;block&#34;;
+        num[curindex].className=&#34;active&#34;;
         index=curindex;
     }
 }
-</code></pre>
-
-<p>如果想看结果可以上<a href="http://neal1991.pythonanywhere.com，这个有实现结果的。">http://neal1991.pythonanywhere.com，这个有实现结果的。</a></p>
+</code></pre><p>如果想看结果可以上http://neal1991.pythonanywhere.com，这个有实现结果的。</p>
 </article>
     <footer class="post-footer">
       
@@ -389,7 +380,7 @@ window.onload=function(){
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3896</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>3896</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -461,19 +452,6 @@ window.onload=function(){
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

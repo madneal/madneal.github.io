@@ -19,7 +19,7 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
@@ -47,7 +47,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
 <link rel="canonical" href="https://madneal.com/post/export-to-markdown/">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -189,50 +189,27 @@
       <h1 class="post-title">大佬，您这是在借鉴嘛</h1>
       <p class="post-meta">@Neal · Jun 27, 2024 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>今天闲来没事看到一篇文章，感觉质量挺好的，就想翻译一下。之前写过一个将文档导出成 markdown 的插件，因为这个插件一开始是为了翻译 Medium 文章开发的，但是后来因为 Medium 的 json 接口启用了，所以这个插件后面也不怎么维护了。不搜不知道，一搜吓一跳，居然发现一个和插件差不多的插件，不会吧，这么烂的插件也有人抄？后来仔细看了一看，这个大佬应该是在借鉴我的插件，辛苦地改了几个中文。</p>
-
-<p><img src="https://s2.loli.net/2024/06/27/UFshrZmgiaCtRPb.png" alt="export-markdown1.png" /></p>
-
+    <article class="post-content"><p>今天闲来没事看到一篇文章，感觉质量挺好的，就想翻译一下。之前写过一个将文档导出成 markdown 的插件，因为这个插件一开始是为了翻译 Medium 文章开发的，但是后来因为 Medium 的 json 接口启用了，所以这个插件后面也不怎么维护了。不搜不知道，一搜吓一跳，居然发现一个和插件差不多的插件，不会吧，这么烂的插件也有人抄？后来仔细看了一看，这个大佬应该是在借鉴我的插件，辛苦地改了几个中文。</p>
+<p><img src="https://s2.loli.net/2024/06/27/UFshrZmgiaCtRPb.png" alt="export-markdown1.png"></p>
 <p>两款插件名名字几乎一模一样，只是这个借鉴者加了一个后缀：掘金翻译计划版。不确定和掘金有没有关系，我知道掘金是有一个翻译项目的，以前我也参与过。</p>
-
 <h2 id="对比">对比</h2>
-
 <h3 id="插件介绍">插件介绍</h3>
-
 <h4 id="我的插件">我的插件</h4>
-
-<p><img src="https://s2.loli.net/2024/06/27/NiF2Wmut8VcIoQL.png" alt="image.png" /></p>
-
-<p><img src="https://s2.loli.net/2024/06/27/YkpfmW3UrxcsGFP.png" alt="image.png" /></p>
-
+<p><img src="https://s2.loli.net/2024/06/27/NiF2Wmut8VcIoQL.png" alt="image.png"></p>
+<p><img src="https://s2.loli.net/2024/06/27/YkpfmW3UrxcsGFP.png" alt="image.png"></p>
 <h4 id="李鬼插件">李鬼插件</h4>
-
-<p><img src="https://s2.loli.net/2024/06/27/zwrQXv1eHiDOmox.png" alt="image.png" /></p>
-
-<p><img src="https://s2.loli.net/2024/06/27/5W9kGABKdOEcxiY.png" alt="image.png" /></p>
-
+<p><img src="https://s2.loli.net/2024/06/27/zwrQXv1eHiDOmox.png" alt="image.png"></p>
+<p><img src="https://s2.loli.net/2024/06/27/5W9kGABKdOEcxiY.png" alt="image.png"></p>
 <h3 id="代码对比">代码对比</h3>
-
 <p>上面的简洁基本上已经展现了浓重的李鬼味道，本着客观严谨的态度，我还是去看了一下代码。</p>
-
 <h4 id="我的插件-1">我的插件</h4>
-
-<p><img src="https://s2.loli.net/2024/06/27/6DE4ZUfvYnMrkpV.png" alt="image.png" /></p>
-
+<p><img src="https://s2.loli.net/2024/06/27/6DE4ZUfvYnMrkpV.png" alt="image.png"></p>
 <h4 id="李鬼插件-1">李鬼插件</h4>
-
-<p><img src="https://s2.loli.net/2024/06/27/Ok9YVIlLcMg3Rty.png" alt="image.png" /></p>
-
+<p><img src="https://s2.loli.net/2024/06/27/Ok9YVIlLcMg3Rty.png" alt="image.png"></p>
 <p>除了一个 js 文件的引用，几乎可以说是一模一样了。核心的文件是 widget.js 这个文件，这个属于插件自身的 js 文件。</p>
-
-<p><img src="https://s2.loli.net/2024/06/27/hoHp1TNFe7kbx8Y.png" alt="image.png" /></p>
-
+<p><img src="https://s2.loli.net/2024/06/27/hoHp1TNFe7kbx8Y.png" alt="image.png"></p>
 <p>从这代码对比，可以看得出这个借鉴者巨大的工作量。</p>
-
 <h2 id="总结">总结</h2>
-
 <p>鄙人的这款<a href="https://github.com/madneal/export-to-markdown">插件</a>是在 GitHub 上开源的，当时也是出于个人需求搞得这么个小玩意，但是没想到居然还有李鬼借鉴，还真是离谱他妈给离谱开门。大家如果有空的话，还是动一下发财的小手点一下 Report，这个<a href="https://chromewebstore.google.com/detail/olfhadgfelbdikjlnejcfjeockobpijm?hl=zh-CN&amp;utm_source=ext_sidebar">李鬼插件</a>还是下架比较好。我也联系了这个开发同学，希望他能及时下架。</p>
 </article>
     <footer class="post-footer">
@@ -248,7 +225,7 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>725</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>725</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -320,19 +297,6 @@
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

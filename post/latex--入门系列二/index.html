@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>从后台看python--为什么说python是慢的</title>
+  <title>Latex--入门系列二</title>
 
   
   
@@ -19,38 +19,38 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《从后台看python&amp;ndash;为什么说python是慢的》展开，重点梳理2.python是一种解释型的语言而不是编译型的和3.python的对象模型导致存储效率低下等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="本文围绕《Latex&ndash;入门系列二》展开，重点梳理基本的使用、TeX会产生什么和输出文件等内容，提炼背景、思路与实践注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="从后台看python--为什么说python是慢的">
-    <meta name="twitter:description" content="本文围绕《从后台看python&amp;ndash;为什么说python是慢的》展开，重点梳理2.python是一种解释型的语言而不是编译型的和3.python的对象模型导致存储效率低下等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:title" content="Latex--入门系列二">
+    <meta name="twitter:description" content="本文围绕《Latex&ndash;入门系列二》展开，重点梳理基本的使用、TeX会产生什么和输出文件等内容，提炼背景、思路与实践注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="从后台看python--为什么说python是慢的">
-  <meta property="og:description" content="本文围绕《从后台看python&amp;ndash;为什么说python是慢的》展开，重点梳理2.python是一种解释型的语言而不是编译型的和3.python的对象模型导致存储效率低下等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">
+  <meta property="og:title" content="Latex--入门系列二">
+  <meta property="og:description" content="本文围绕《Latex&ndash;入门系列二》展开，重点梳理基本的使用、TeX会产生什么和输出文件等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:url" content="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/">
   <meta property="og:image" content="/img/avatar.jpg">
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
-<link rel="canonical" href="https://madneal.com/post/%E4%BB%8E%E5%90%8E%E5%8F%B0%E7%9C%8Bpython-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4python%E6%98%AF%E6%85%A2%E7%9A%84/">
+<link rel="canonical" href="https://madneal.com/post/latex--%E5%85%A5%E9%97%A8%E7%B3%BB%E5%88%97%E4%BA%8C/">
 
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -186,91 +186,37 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">从后台看python--为什么说python是慢的</h1>
-      <p class="post-meta">@Neal · Dec 8, 2015 · 1 min read</p>
+      <h1 class="post-title">Latex--入门系列二</h1>
+      <p class="post-meta">@Neal · Dec 6, 2016 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>python越来越作为一种科学技术研究的语言越来越流行，可是我们经常听到一个问题，python是慢的。那么我们从后台分析一下，为什么python是慢的。
-python是一种动态类型，解释型语言，它的值都是存储在分散的对象中，而不是紧密的缓存之中。</p>
-
-<h2 id="1-python是动态类型语言">1.python是动态类型语言</h2>
-
-<p>这意味着编译器在程序执行之前并不知道变量定义的类型。C定义变量和Python定义变量的方式的区别：
-对于C，编译器通过定义知道变量的类型；然而对于python中的变量，当你知道变量的类型的时候已经是程序执行的时候了。
-我们分析一小段代码分别在python和C中执行的具体区别：
-在C中，如果你写如下代码：</p>
-
-<pre><code>int a = 1;
-int b = 2;
-int c = a + b;
-</code></pre>
-
-<p>1.分配一个<int>类型1给a
-2.分配一个<int>类型2给b
-3.调用一个二进制加法<int,int>(a,b)
-4.将结果分配给c</p>
-
-<p>在python中，同样的</p>
-
-<pre><code>a = 1
-b = 2
-c = a + b
-</code></pre>
-
-<p>1.分配1给a</p>
-
-<ul>
-<li>设置一个对象，然后将它的类型设置为整数</li>
-
-<li><p>将它的值设为1
-2.分配2给b</p></li>
-
-<li><p>设置一个对象，然后将它的类型设置为整数</p></li>
-
-<li><p>将它的值设为2
-3.调用一个二进制加法(a,b)</p></li>
-
-<li><p>寻找一个类型在对象中</p></li>
-
-<li><p>a是一个整数，它的值是a</p></li>
-
-<li><p>寻找一个类型在对象中</p></li>
-
-<li><p>b是一个整数，它的值是b</p></li>
-
-<li><p>调用一个二进制加法</p></li>
-
-<li><p>返回结果，结果是一个整数
-4.产生一个对象c</p></li>
-
-<li><p>将一个对象的类型设置为整数</p></li>
-
-<li><p>将它的值分配给结果
-动态类型意味着每一步操作需要更多的步骤。python比c慢的一个基本的原因就是数字计算上面的操作。</p></li>
-</ul>
-
-<h2 id="2-python是一种解释型的语言而不是编译型的">2.python是一种解释型的语言而不是编译型的</h2>
-
-<p>我们可以看到解释型语言和编译型语言的区别。一个聪明的编译器知道怎么提前优化，避免重复和不必要的操作，从而提高效率。当然，在这一点上也是仁者见仁智者见智。</p>
-
-<h2 id="3-python的对象模型导致存储效率低下">3.python的对象模型导致存储效率低下</h2>
-
-<p>python存储数据效率低下的原因，主要可以从下图看出：
-<img src="http://img.blog.csdn.net/20151208101154529" alt="这里写图片描述" /></p>
-
-<p>当然说了python这么多缺点，为什么python用的人还这么多，因为它很简单啊。python用起来的确很简单，就我个人的使用感受而言，除了matlab，我没有看过比python还要简单的语言了。而且python的开源的库很多，所以做很多东西都很方便。</p>
+    <article class="post-content"><p>Latex 专业的参考</p>
+<p>tex对于论文写作或者其他的一些需要拍版的写作来说，还是非常有意义的。我在网上看到这个对于Latex的入门介绍还是比较全面的，<a href="http://latex.knobs-dials.com">Arbitrary reference </a>.所以将会翻译出来，供初学者学习
+基本的使用</p>
+<h2 id="基本的使用">基本的使用</h2>
+<h3 id="tex会产生什么">TeX会产生什么</h3>
+<p>最基本的来说，你会生成一个.tex文件，即你的文档，即<code>youfile.tex</code>。</p>
+<p>运行<code>latex you file.tex</code>可以让TeX工作并且生成<code>your file.dvi</code>，这是当下的输出。dvi是一个独立的排版语言。</p>
+<p>因为dvi不能够存储图像， 所以它经常被用来作为媒介步骤来产生文档。</p>
+<p>dvi也可以被转化成pdf文件，所以pdf文件经常是可以立即生成的，不要dvi文件作为媒介可以直接调用<code>pdflatex yourfile.tex</code>。</p>
+<h3 id="输出文件">输出文件:</h3>
+<p>LaTeX运行一次会产生很多文件，其中很多文件产生的原因是因为LaTeX是单流的;很多文件指示文档编译的信息文件，它们也能用于下次运行，当你编译文档的时候你还可以引用它们。比如，图的引用，章节的引用，以及其他文献的引用。鉴于此，它产生的数据是有特定用途的。(<code>.aux</code>文件是引用的，<code>toc</code>是给章头用的等等)，这些数据下次运行还可以继续使用。</p>
+<p>注意这可能是你经常需要运行LaTeX两次来确保引用正常工作从而来更新它们。在一些特别变态的情况下，你甚至要运行更多次。你可以忽略掉这些额外的文件，你可以在生成文档后删除这些文件。</p>
+<p>如果你用的是unix的系统，我建议你可以看看<a href="http://www.pps.jussieu.fr/~beffara/soft/rubber/">rubber</a>。它的目的是为了在必要的时候重新编译文档。它不是特别简单的，但是能给你带来很多便利。</p>
+<p>一个<code>.log</code>文件也会产生，它是tex文件编译产生的一些相关信息。</p>
+<p>注意一点，一旦这个文件生成了，你无需担心保存除了原始数据(.text, .bib)其它的任何数据。log,aux, toc文件可能在运行之后看起来比较混乱，你也可以删掉它们。</p>
+<h3 id="其他可能输出的格式">其他可能输出的格式</h3>
+<p>除了在unix系统用于xdvi以及打印，dvi格式并不是很有用。上文曾经提到过，通过<code>dvips</code>软件可以将dvi文件转化为PostScript。你甚至可以先转成PS,然后再转成pdf文件，或者直接转成pdf文件。但是这些间接的步骤可能只是引发新的问题，在pdf方面经常不会怎么使用。更重要的是，这还会存在一个<a href="http://www.utdallas.edu/~cantrell/online/tex-pdf.html">字体渲染的问题</a>。对于pdf，我建议你使用<code>pdflatex</code>或者类似的工具从而避免字体的一系列问题。你必须将所有的<code>.ps/.eps</code>文件转化为pdf，但这不是很困难的事。你可以在图片章节找到更多的细节。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
+          <li><a href="https://madneal.com/tags/latex"><span class="tag">LaTeX</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3849</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>3484</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -342,19 +288,6 @@ c = a + b
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

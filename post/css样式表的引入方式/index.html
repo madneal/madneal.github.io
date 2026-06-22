@@ -19,7 +19,7 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
@@ -47,7 +47,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
 <link rel="canonical" href="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -190,14 +190,10 @@
       <p class="post-meta">@Neal · Oct 6, 2015 · 1 min read</p>
     </header>
     <article class="post-content"><p>一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：</p>
+<pre tabindex="0"><code>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt;
 
-<pre><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css文件&quot;&gt;
-
-@import &quot;css文件&quot;
-
-</code></pre>
-
-<p>显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于<link>是html标记，而@import是css语法。<link>标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
+@import &#34;css文件&#34;
+</code></pre><p>显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于<link>是html标记，而@import是css语法。<link>标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
 </article>
     <footer class="post-footer">
       
@@ -208,7 +204,7 @@
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3911</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>3911</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -280,19 +276,6 @@
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

@@ -19,7 +19,7 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
@@ -47,7 +47,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
 <link rel="canonical" href="https://madneal.com/post/%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -189,46 +189,28 @@
       <h1 class="post-title">回调函数</h1>
       <p class="post-meta">@Neal · Apr 12, 2015 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<h2 id="回调函数">回调函数</h2>
-
+    <article class="post-content"><h2 id="回调函数">回调函数</h2>
 <p>在计算机程序设计中，回调函数，是指通过函数参数传递到其他代码的，某一块可执行代码的引用。这一设计允许了底层的代码调用高层的子程序。回调函数在.net平台中相当于委托。</p>
-
 <h2 id="回调函数的机制">回调函数的机制</h2>
-
 <ol>
 <li>定义一个回调函数。</li>
 <li>提供函数实现的一方在初始化的时候，将回调函数的函数指针给调用者。</li>
 <li>当特定的事件或条件发生的时候，调用者使用函数指针调用回调函数对事件进行处理。</li>
 </ol>
-
 <h2 id="为什么要使用回调函数">为什么要使用回调函数</h2>
-
 <p>因为可以把调用者和被调用者分开，所以调用者不关心谁是被调用者。它只需要知道存在一个具有特定原型和限制条件的被调用函数。</p>
-
 <h2 id="代码实现">代码实现</h2>
-
 <p>下面创建了一个sort.dll的动态链接库，它导出了一个名为CompareFunction的类型&ndash;typedef int (__stdcall <em>CompareFunction)(const byte</em>,const byte*），它就是回调函数的类型。另外，它也导出了两个方法：Bubblesort（）和Quicksort（），这两个方法原型相同，但实现了不同的排序算法。</p>
-
-<pre><code>void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc);
+<pre tabindex="0"><code>void DLLDIR __stdcall Bubblesort(byte* array,int size,int elem_size,CompareFunction cmpFunc);
 
 void DLLDIR __stdcall Quicksort(byte* array,int size,int elem_size,CompareFunction cmpFunc);
-</code></pre>
-
-<p>这两个函数接受以下参数：</p>
-
+</code></pre><p>这两个函数接受以下参数：</p>
 <p>·byte * array：指向元素数组的指针（任意类型）。</p>
-
 <p>·int size：数组中元素的个数。</p>
-
 <p>·int elem_size：数组中一个元素的大小，以字节为单位。</p>
-
 <p>·CompareFunction cmpFunc：带有上述原型的指向回调函数的指针。</p>
-
 <h2 id="回调函数实例">回调函数实例</h2>
-
-<pre><code>int __stdcall CompareInts(const byte* velem1,const byte* velem2)
+<pre tabindex="0"><code>int __stdcall CompareInts(const byte* velem1,const byte* velem2)
 
 {
 
@@ -259,55 +241,28 @@ const char* elem2 = (char*)velem2;
 return strcmp(elem1,elem2);
 
 }
-
-</code></pre>
-
-<pre><code>
-</code></pre>
-
-<p>int main(int argc,char* argv[])</p>
-
+</code></pre><pre tabindex="0"><code></code></pre><p>int main(int argc,char* argv[])</p>
 <p>{</p>
-
 <p>int i;</p>
-
 <p>int array[] = {5432,4321,3210,2109,1098};</p>
-
-<p>cout &lt;&lt; &ldquo;Before sorting ints with Bubblesort\n&rdquo;;</p>
-
+<p>cout &laquo; &ldquo;Before sorting ints with Bubblesort\n&rdquo;;</p>
 <p>for(i=0; i &lt; 5; i++)</p>
-
-<p>cout &lt;&lt; array&lt;&lt; &lsquo;\n&rsquo;;</p>
-
+<p>cout &laquo; array&laquo; &lsquo;\n&rsquo;;</p>
 <p>Bubblesort((byte*)array,5,sizeof(array[0]),&amp;CompareInts);</p>
-
-<p>cout &lt;&lt; &ldquo;After the sorting\n&rdquo;;</p>
-
+<p>cout &laquo; &ldquo;After the sorting\n&rdquo;;</p>
 <p>for(i=0; i &lt; 5; i++)</p>
-
-<p>cout &lt;&lt; array&lt;&lt; &lsquo;\n&rsquo;;</p>
-
+<p>cout &laquo; array&laquo; &lsquo;\n&rsquo;;</p>
 <p>const char str[5][10] = {&ldquo;estella&rdquo;,&ldquo;danielle&rdquo;,&ldquo;crissy&rdquo;,&ldquo;bo&rdquo;,&ldquo;angie&rdquo;};</p>
-
-<p>cout &lt;&lt; &ldquo;Before sorting strings with Quicksort\n&rdquo;;</p>
-
+<p>cout &laquo; &ldquo;Before sorting strings with Quicksort\n&rdquo;;</p>
 <p>for(i=0; i &lt; 5; i++)</p>
-
-<p>cout &lt;&lt; str&lt;&lt; &lsquo;\n&rsquo;;</p>
-
+<p>cout &laquo; str&laquo; &lsquo;\n&rsquo;;</p>
 <p>Quicksort((byte*)str,5,10,&amp;CompareStrings);</p>
-
-<p>cout &lt;&lt; &ldquo;After the sorting\n&rdquo;;</p>
-
+<p>cout &laquo; &ldquo;After the sorting\n&rdquo;;</p>
 <p>for(i=0; i &lt; 5; i++)</p>
-
-<p>cout &lt;&lt; str&lt;&lt; &lsquo;\n&rsquo;;</p>
-
+<p>cout &laquo; str&laquo; &lsquo;\n&rsquo;;</p>
 <p>return 0;</p>
-
-<p>}
-```</p>
-</article>
+<p>}</p>
+<pre tabindex="0"><code></code></pre></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -317,7 +272,7 @@ return strcmp(elem1,elem2);
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>4088</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>4088</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -389,19 +344,6 @@ return strcmp(elem1,elem2);
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

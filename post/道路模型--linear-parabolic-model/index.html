@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>剑指offer学习--实现单例模式</title>
+  <title>道路模型--linear-parabolic model</title>
 
   
   
@@ -19,38 +19,38 @@
   
   
   
-  <link href="//www.google-analytics.com" rel="dns-prefetch">
+  
   
 
   
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《剑指offer学习&amp;ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="本文围绕《道路模型&ndash;linear-parabolic model》梳理计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="剑指offer学习--实现单例模式">
-    <meta name="twitter:description" content="本文围绕《剑指offer学习&amp;ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:title" content="道路模型--linear-parabolic model">
+    <meta name="twitter:description" content="本文围绕《道路模型&ndash;linear-parabolic model》梳理计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="剑指offer学习--实现单例模式">
-  <meta property="og:description" content="本文围绕《剑指offer学习&amp;ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0-%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+  <meta property="og:title" content="道路模型--linear-parabolic model">
+  <meta property="og:description" content="本文围绕《道路模型&ndash;linear-parabolic model》梳理计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:url" content="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/">
   <meta property="og:image" content="/img/avatar.jpg">
 
 
 
 
-<meta name="generator" content="Hugo 0.55.6">
+<meta name="generator" content="Hugo 0.163.3">
 
 
-<link rel="canonical" href="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0-%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+<link rel="canonical" href="https://madneal.com/post/%E9%81%93%E8%B7%AF%E6%A8%A1%E5%9E%8B--linear-parabolic-model/">
 
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -127,9 +127,9 @@
     
     
   <header class="site-header">
-  <a href="https://madneal.com"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
+  <a href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar"></a>
   
-  <h2 class="title"><a href="https://madneal.com">Neal&#39;s Blog</a></h2>
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
   
   <p class="subtitle">Development &amp; Security</p>
   <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
@@ -186,100 +186,39 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">剑指offer学习--实现单例模式</h1>
-      <p class="post-meta">@Neal · Nov 13, 2015 · 1 min read</p>
+      <h1 class="post-title">道路模型--linear-parabolic model</h1>
+      <p class="post-meta">@Neal · May 18, 2015 · 1 min read</p>
     </header>
-    <article class="post-content">
-
-<p>只能生成一个实例的类是为了实现单例模式的类型。</p>
-
-<h2 id="加同步锁前后两次判断实例是否已存在">加同步锁前后两次判断实例是否已存在</h2>
-
-<p>我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。</p>
-
-<pre><code>public sealed class Singleton
-{
-	private Singelton()
-	{
-	}
-private static object syncObj = new object();
-
-private static Singleton instance = null;
-public static Singleton Instance
-{
-	get
-	{
-		if (instance == null)
-		{
-			locak(syncObj)
-			{
-				if (instance == null)
-					instance = new Singleton();				
-			}
-		}
-		return instance;
-	}
-}
-}
-</code></pre>
-
-<h2 id="利用静态构造函数">利用静态构造函数</h2>
-
-<pre><code>public seled class Singleton
-{
-	private Singelton()
-	{
-	}
-
-	private static Singleton instance = new Singleton();
-	public static Singleton Instance
-	{
-		get
-		{
-			return instance;
-		}
-	}
-}
-</code></pre>
-
-<p>由于C#中调用静态构造函数时初始化静态变量，.NET运行时能够保证只调用一次静态构造函数，这样我们就能够保证只初始化一次instance。C#中调用静态构造函数的时机不是由程序员掌控的，而是当.NET运行时发现第一使用一个类型的时候自动调用该类型的静态构造函数。在Singleton中，实例instance并不是第一次调用属性Singleton.Instance的时候创建的，而是在第一次用到Singleton的时候就会被创建。</p>
-
-<h2 id="实现按需创建实例">实现按需创建实例</h2>
-
-<pre><code>public sealed class Singleton
-{
-	Singleton()
-	{
-	}
-
-	public static Singleton Instance;
-	{
-		get
-		{
-			return Nested.instance;
-		}
-	}
-
-	class Nested
-	{
-		static Nested()
-		{
-		}
-		internal static readonly Singleton instance = new Singleton();
-	}
-}
-</code></pre>
+    <article class="post-content"><p>读过很多道路追踪的论文，经常都需要道路模型的建模。我不知道是不是因为自己太笨还是怎样，好多人建的模型我实在无法理解他的用意何在，而且我真的深刻怀疑他们那些模型的参数是不是真的可以求出来。就比如这篇文章“lane detection and tracking using a new lane model and distance transform&quot;,我实在无法理解他的建模，还有他的建模参数到底如何求解：
+<img src="http://img.blog.csdn.net/20150518190431697" alt="这里写图片描述">
+我无法理解他为什么要设置那个角度，我也不知道那个顶点的位置如何获取，如果有大神知道的，还望告知一下。
+好，说完不好的，我就要说个我觉得很通俗易懂的模型，这是我第一个遇到一个我能看的懂，而且我又觉得具有实用意义的道路模型，首先如图所示：
+<img src="http://img.blog.csdn.net/20150518190804313" alt="这里写图片描述">
+这个图片被xm分成为了两个部分，一个部分我们称为far feild,一个部分我们称为near feild，对于这两个部分采用了不同的建模方法。道路模型f(x)由这两个部分组成，near feild线性的，而far feild是抛物线的，定义如下：
+<img src="http://img.blog.csdn.net/20150518191415641" alt="这里写图片描述">
+这里的xm就是代表了原图中的边界线，同时我们根据道路模型的连续性，可以得出
+<img src="http://img.blog.csdn.net/20150518191648626" alt="这里写图片描述">
+因为在xm两边的函数值是相等的，并且导数也是相等的。
+从而我们就能得到下面的公式：
+<img src="http://img.blog.csdn.net/20150518191843692" alt="这里写图片描述">
+这样我们可以把c和e用别的变量来表达
+<img src="http://img.blog.csdn.net/20150518192033598" alt="这里写图片描述">
+因此我们可以把最终的道路模型参数用下面的函数来表达
+<img src="http://img.blog.csdn.net/20150518192128183" alt="这里写图片描述">
+这就是这个论文提出的道路模型，这样是不是很好理解，而且很有根据。
+Reference
+Jung C R, Kelber C R. A robust linear-parabolic model for lane following[C]//Computer Graphics and Image Processing, 2004. Proceedings. 17th Brazilian Symposium on. IEEE, 2004: 72-79.</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
+          <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        © This post is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License，please give source if you wish to quote or reproduce.This post was published <strong>3873</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>4052</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -351,19 +290,6 @@ public static Singleton Instance
 </script>
 
 
-
-
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-104405154-2', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
