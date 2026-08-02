@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 
   <meta charset="utf-8" />
@@ -8,89 +8,8 @@
   <title>GShark-监测你的 Github 敏感信息泄露</title>
 
   
-  <meta name="author" content="Neal" />
-<meta name="description" content="介绍基于 Go 和 GitHub API 的 GShark 敏感信息检测工具，梳理代码搜索、结果审核和权限管理的实现思路。" />
-<meta name="generator" content="Hugo 0.163.3" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="GShark-监测你的 Github 敏感信息泄露 | Neal&#39;s Blog" />
-<meta property="og:description" content="介绍基于 Go 和 GitHub API 的 GShark 敏感信息检测工具，梳理代码搜索、结果审核和权限管理的实现思路。" />
-<meta property="og:url" content="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" />
-<meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
-<meta property="og:image:alt" content="GShark-监测你的 Github 敏感信息泄露 | Neal&#39;s Blog" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-<meta property="og:locale" content="zh_CN" />
-
-<meta property="article:published_time" content="2018-10-31T00:00:00&#43;08:00" />
-<meta property="article:modified_time" content="2018-10-31T00:00:00&#43;08:00" />
-<meta property="article:tag" content="安全" />
-<meta property="article:tag" content="安全工程" />
-<meta property="article:tag" content="Go" />
-<meta property="article:tag" content="GShark" />
-
-
-
-
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="GShark-监测你的 Github 敏感信息泄露 | Neal&#39;s Blog" />
-<meta name="twitter:description" content="介绍基于 Go 和 GitHub API 的 GShark 敏感信息检测工具，梳理代码搜索、结果审核和权限管理的实现思路。" />
-<meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
-<meta name="twitter:image:alt" content="GShark-监测你的 Github 敏感信息泄露 | Neal&#39;s Blog" />
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "GShark-监测你的 Github 敏感信息泄露",
-  "description": "介绍基于 Go 和 GitHub API 的 GShark 敏感信息检测工具，梳理代码搜索、结果审核和权限管理的实现思路。",
-  "url": "https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/"
-  },
-  "inLanguage": "zh-CN",
-  "datePublished": "2018-10-31T00:00:00+08:00",
-  "dateModified": "2018-10-31T00:00:00+08:00",
-  "wordCount":  362 ,
-  "author": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/",
-    "sameAs": ["https://github.com/madneal"]
-  },
-  "image": ["https://madneal.com/img/avatar.jpg"]
-}
-</script>
-
-
-
-<link rel="canonical" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
-
-
-
-
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
   <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
   <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
   
@@ -103,6 +22,50 @@
   
   
   
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="本文围绕《GShark-监测你的 Github 敏感信息泄露》展开，重点梳理起源、原理和遇到过的问题等内容，提炼背景、思路与实践注意点。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="GShark-监测你的 Github 敏感信息泄露">
+    <meta name="twitter:description" content="本文围绕《GShark-监测你的 Github 敏感信息泄露》展开，重点梳理起源、原理和遇到过的问题等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GShark-监测你的 Github 敏感信息泄露">
+  <meta property="og:description" content="本文围绕《GShark-监测你的 Github 敏感信息泄露》展开，重点梳理起源、原理和遇到过的问题等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:url" content="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">
+  <meta property="og:image" content="/img/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/post/gshark-%E7%9B%91%E6%B5%8B%E4%BD%A0%E7%9A%84github%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
 
 
 <meta name="theme-color" content="#02b875">

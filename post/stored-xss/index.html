@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 
   <meta charset="utf-8" />
@@ -8,89 +8,8 @@
   <title>富文本场景下的 XSS</title>
 
   
-  <meta name="author" content="Neal" />
-<meta name="description" content="本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。" />
-<meta name="generator" content="Hugo 0.163.3" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="富文本场景下的 XSS | Neal&#39;s Blog" />
-<meta property="og:description" content="本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。" />
-<meta property="og:url" content="https://madneal.com/post/stored-xss/" />
-<meta property="og:image" content="https://madneal.com/img/post-covers/stored-xss-fb4942f010.jpg" />
-<meta property="og:image:alt" content="富文本场景下的 XSS | Neal&#39;s Blog" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-<meta property="og:locale" content="zh_CN" />
-
-<meta property="article:published_time" content="2021-08-30T00:00:00&#43;08:00" />
-<meta property="article:modified_time" content="2021-08-30T00:00:00&#43;08:00" />
-<meta property="article:tag" content="安全" />
-<meta property="article:tag" content="Web安全" />
-<meta property="article:tag" content="Go" />
-<meta property="article:tag" content="JavaScript" />
-
-
-
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="富文本场景下的 XSS | Neal&#39;s Blog" />
-<meta name="twitter:description" content="本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。" />
-<meta name="twitter:image" content="https://madneal.com/img/post-covers/stored-xss-fb4942f010.jpg" />
-<meta name="twitter:image:alt" content="富文本场景下的 XSS | Neal&#39;s Blog" />
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "富文本场景下的 XSS",
-  "description": "本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。",
-  "url": "https://madneal.com/post/stored-xss/",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://madneal.com/post/stored-xss/"
-  },
-  "inLanguage": "zh-CN",
-  "datePublished": "2021-08-30T00:00:00+08:00",
-  "dateModified": "2021-08-30T00:00:00+08:00",
-  "wordCount":  370 ,
-  "author": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/",
-    "sameAs": ["https://github.com/madneal"]
-  },
-  "image": ["https://madneal.com/img/post-covers/stored-xss-fb4942f010.jpg"]
-}
-</script>
-
-
-
-<link rel="canonical" href="https://madneal.com/post/stored-xss/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
-
-
-
-
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
   <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
   <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
   
@@ -103,6 +22,50 @@
   
   
   
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。">
+
+  
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="富文本场景下的 XSS">
+    <meta name="twitter:description" content="本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。">
+    <meta name="twitter:image" content="https://madneal.com/img/post-covers/stored-xss-fb4942f010.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="富文本场景下的 XSS">
+  <meta property="og:description" content="本文围绕《富文本场景下的 XSS》梳理安全、Web安全、Go和JavaScript相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:url" content="https://madneal.com/post/stored-xss/">
+  <meta property="og:image" content="https://madneal.com/img/post-covers/stored-xss-fb4942f010.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/post/stored-xss/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
 
 
 <meta name="theme-color" content="#02b875">

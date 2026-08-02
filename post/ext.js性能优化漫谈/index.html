@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 
   <meta charset="utf-8" />
@@ -8,86 +8,8 @@
   <title>Ext.js性能优化漫谈</title>
 
   
-  <meta name="author" content="Neal" />
-<meta name="description" content="Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但 …" />
-<meta name="generator" content="Hugo 0.163.3" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="Ext.js性能优化漫谈 | Neal&#39;s Blog" />
-<meta property="og:description" content="Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但 …" />
-<meta property="og:url" content="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/" />
-<meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
-<meta property="og:image:alt" content="Ext.js性能优化漫谈 | Neal&#39;s Blog" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-<meta property="og:locale" content="zh_CN" />
-
-<meta property="article:published_time" content="2017-02-22T21:40:16&#43;08:00" />
-<meta property="article:modified_time" content="2017-02-22T21:40:16&#43;08:00" />
-<meta property="article:tag" content="前端" />
-
-
-
-
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Ext.js性能优化漫谈 | Neal&#39;s Blog" />
-<meta name="twitter:description" content="Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但 …" />
-<meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
-<meta name="twitter:image:alt" content="Ext.js性能优化漫谈 | Neal&#39;s Blog" />
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Ext.js性能优化漫谈",
-  "description": "Ext.js是一个用于建立企业级应用的纯JS框架。毫无疑问，它为我们提供了大量的组件，比如container,panel,field,grid，这些组件使用起来很方便，不需要去写js和html，但是ext.js的性能却存在很大的问题。比如，我在公司负责的页面，在本地的加载时间居然需要十几秒，当然这可能和后台服务有关，但 …",
-  "url": "https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/"
-  },
-  "inLanguage": "zh-CN",
-  "datePublished": "2017-02-22T21:40:16+08:00",
-  "dateModified": "2017-02-22T21:40:16+08:00",
-  "wordCount":  19 ,
-  "author": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/",
-    "sameAs": ["https://github.com/madneal"]
-  },
-  "image": ["https://madneal.com/img/avatar.jpg"]
-}
-</script>
-
-
-
-<link rel="canonical" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
-
-
-
-
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
   <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
   <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
   
@@ -100,6 +22,50 @@
   
   
   
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="本文围绕《Ext.js性能优化漫谈》梳理web前端和前端相关的背景、方法和实践细节，可作为排查与学习记录。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="Ext.js性能优化漫谈">
+    <meta name="twitter:description" content="本文围绕《Ext.js性能优化漫谈》梳理web前端和前端相关的背景、方法和实践细节，可作为排查与学习记录。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Ext.js性能优化漫谈">
+  <meta property="og:description" content="本文围绕《Ext.js性能优化漫谈》梳理web前端和前端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:url" content="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">
+  <meta property="og:image" content="/img/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/post/ext.js%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%BC%AB%E8%B0%88/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
 
 
 <meta name="theme-color" content="#02b875">

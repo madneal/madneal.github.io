@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 
   <meta charset="utf-8" />
@@ -8,86 +8,8 @@
   <title>sqlite操作</title>
 
   
-  <meta name="author" content="Neal" />
-<meta name="description" content="导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。" />
-<meta name="generator" content="Hugo 0.163.3" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="sqlite操作 | Neal&#39;s Blog" />
-<meta property="og:description" content="导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。" />
-<meta property="og:url" content="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" />
-<meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
-<meta property="og:image:alt" content="sqlite操作 | Neal&#39;s Blog" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-<meta property="og:locale" content="zh_CN" />
-
-<meta property="article:published_time" content="2015-04-15T15:48:00&#43;08:00" />
-<meta property="article:modified_time" content="2015-04-15T15:48:00&#43;08:00" />
-<meta property="article:tag" content="后端" />
-
-
-
-
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="sqlite操作 | Neal&#39;s Blog" />
-<meta name="twitter:description" content="导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。" />
-<meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
-<meta name="twitter:image:alt" content="sqlite操作 | Neal&#39;s Blog" />
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "sqlite操作",
-  "description": "导入excel到表格 本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。",
-  "url": "https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/"
-  },
-  "inLanguage": "zh-CN",
-  "datePublished": "2015-04-15T15:48:00+08:00",
-  "dateModified": "2015-04-15T15:48:00+08:00",
-  "wordCount":  19 ,
-  "author": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/",
-    "sameAs": ["https://github.com/madneal"]
-  },
-  "image": ["https://madneal.com/img/avatar.jpg"]
-}
-</script>
-
-
-
-<link rel="canonical" href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
-
-
-
-
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
   <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
   <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
   
@@ -100,6 +22,50 @@
   
   
   
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="sqlite操作">
+    <meta name="twitter:description" content="本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="sqlite操作">
+  <meta property="og:description" content="本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:url" content="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/">
+  <meta property="og:image" content="/img/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
 
 
 <meta name="theme-color" content="#02b875">

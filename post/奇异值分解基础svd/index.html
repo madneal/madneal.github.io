@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 
   <meta charset="utf-8" />
@@ -8,86 +8,8 @@
   <title>奇异值分解基础(SVD)</title>
 
   
-  <meta name="author" content="Neal" />
-<meta name="description" content="最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要 …" />
-<meta name="generator" content="Hugo 0.163.3" />
-
-
-<meta property="og:type" content="article" />
-<meta property="og:title" content="奇异值分解基础(SVD) | Neal&#39;s Blog" />
-<meta property="og:description" content="最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要 …" />
-<meta property="og:url" content="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/" />
-<meta property="og:image" content="https://madneal.com/img/avatar.jpg" />
-<meta property="og:image:alt" content="奇异值分解基础(SVD) | Neal&#39;s Blog" />
-<meta property="og:site_name" content="Neal&#39;s Blog" />
-<meta property="og:locale" content="zh_CN" />
-
-<meta property="article:published_time" content="2015-06-27T18:10:15&#43;08:00" />
-<meta property="article:modified_time" content="2015-06-27T18:10:15&#43;08:00" />
-<meta property="article:tag" content="计算机视觉" />
-
-
-
-
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="奇异值分解基础(SVD) | Neal&#39;s Blog" />
-<meta name="twitter:description" content="最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要 …" />
-<meta name="twitter:image" content="https://madneal.com/img/avatar.jpg" />
-<meta name="twitter:image:alt" content="奇异值分解基础(SVD) | Neal&#39;s Blog" />
-
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "奇异值分解基础(SVD)",
-  "description": "最近要了解一下Incremental PCA的一些知识，然后看到一篇论文里面讲到了SVD（奇异值分解），奈何自己以前没有把机器学习的课好好上，现在很多东西还是要补回来。所以，我就想了解一些SVD的基础知识。 PCA的实现一般有两种方法，一种是用特征值分解去实现，一种是用奇异值分解去实现的，SVD貌似在很多领域都有很重要 …",
-  "url": "https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/"
-  },
-  "inLanguage": "zh-CN",
-  "datePublished": "2015-06-27T18:10:15+08:00",
-  "dateModified": "2015-06-27T18:10:15+08:00",
-  "wordCount":  27 ,
-  "author": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Neal",
-    "url": "https://madneal.com/",
-    "sameAs": ["https://github.com/madneal"]
-  },
-  "image": ["https://madneal.com/img/avatar.jpg"]
-}
-</script>
-
-
-
-<link rel="canonical" href="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/" />
-<link rel="alternate" href="https://madneal.com/index.xml" title="Neal&#39;s Blog" type="application/rss+xml" />
-
-
-
-<meta name="robots" content="index,follow" />
-<meta name="referrer" content="origin-when-cross-origin" />
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc" />
-
-
-
-
-
-
-<meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="format-detection" content="telephone=no,email=no,address=no" />
-<meta http-equiv="Cache-Control" content="no-transform" />
-
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
   <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
   <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
   
@@ -100,6 +22,50 @@
   
   
   
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="本文围绕《奇异值分解基础(SVD)》展开，重点梳理特征值和特征向量、奇异值和SVD和PCA等内容，提炼背景、思路与实践注意点。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="奇异值分解基础(SVD)">
+    <meta name="twitter:description" content="本文围绕《奇异值分解基础(SVD)》展开，重点梳理特征值和特征向量、奇异值和SVD和PCA等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="奇异值分解基础(SVD)">
+  <meta property="og:description" content="本文围绕《奇异值分解基础(SVD)》展开，重点梳理特征值和特征向量、奇异值和SVD和PCA等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:url" content="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/">
+  <meta property="og:image" content="/img/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/post/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E5%9F%BA%E7%A1%80svd/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
 
 
 <meta name="theme-color" content="#02b875">
