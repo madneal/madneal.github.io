@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>latex如何给表格添加注释</title>
+  <title>LaTeX 表格脚注：用 threeparttable 给表格加注释</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《latex如何给表格添加注释》梳理论文写作和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="论文表格需要对单元格加说明时，用 threeparttable &#43; tablenotes 的完整写法、常见错误，以及和 table note 的对比。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="latex如何给表格添加注释">
-    <meta name="twitter:description" content="本文围绕《latex如何给表格添加注释》梳理论文写作和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/latex-table-notes-651947993c.jpg">
+    <meta name="twitter:title" content="LaTeX 表格脚注：用 threeparttable 给表格加注释">
+    <meta name="twitter:description" content="论文表格需要对单元格加说明时，用 threeparttable &#43; tablenotes 的完整写法、常见错误，以及和 table note 的对比。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="latex如何给表格添加注释">
-  <meta property="og:description" content="本文围绕《latex如何给表格添加注释》梳理论文写作和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="LaTeX 表格脚注：用 threeparttable 给表格加注释">
+  <meta property="og:description" content="论文表格需要对单元格加说明时，用 threeparttable &#43; tablenotes 的完整写法、常见错误，以及和 table note 的对比。">
   <meta property="og:url" content="https://madneal.com/post/latex%E5%A6%82%E4%BD%95%E7%BB%99%E8%A1%A8%E6%A0%BC%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/latex-table-notes-651947993c.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,47 +208,101 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">latex如何给表格添加注释</h1>
+      <h1 class="post-title">LaTeX 表格脚注：用 threeparttable 给表格加注释</h1>
       <p class="post-meta">@Neal · Dec 10, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>在latex中，想给表格添加注释，可以使用threeparttable这个包
-代码如下：</p>
-<pre tabindex="0"><code>\usepackage{threeparttable}
-\begin{table*}
-\begin{threeparttable}
-\centering \caption{Statistical results of the IGD values of the final populations obtained by RM-MEDA and RM-MEDA-II on the 10 test instances over 30 runs.}
-\label{TAB1}
-\begin{tabular}{l|cccc|cccc}\hline\hline
-instance&amp;\multicolumn{4}{c}{RM-MEDA}&amp;\multicolumn{4}{|c}{RM-MEDA-II}\\
-&amp;mean&amp;std.&amp;best&amp;worst&amp;mean&amp;std.&amp;best&amp;worst\\\hline
-$F_{1}$	&amp;$3.90e-03$	&amp;$1.39e-04$	&amp;$3.70e-03$	&amp;$4.20e-03$	&amp;$\textbf{3.60e-03}$	&amp;$1.02e-04$	&amp;$3.40e-03$	&amp;$3.80e-03$\\\\
-$F_{2}$	&amp;$3.80e-03$	&amp;$1.43e-04$	&amp;$3.50e-03$	&amp;$4.10e-03$	&amp;$\textbf{3.70e-03}$	 &amp;$9.83e-05$	&amp;$3.50e-03$	&amp;$3.90e-03$\\\\
-$F_{3}$	&amp;$7.20e-03$	&amp;$3.90e-03$	&amp;$3.60e-03$	&amp;$1.55e-02$	&amp;$\textbf{6.70e-03}$	 &amp;$1.10e-03$	&amp;$3.80e-03$	&amp;$8.50e-03$\\\\
-$F_{4}$	&amp;$5.03e-02$	&amp;$1.30e-03$	&amp;$4.82e-02$	&amp;$5.35e-02$	&amp;$\textbf{5.08e-02}$	 &amp;$2.10e-03$	&amp;$4.81e-02$	&amp;$5.62e-02$\\\\
-$F_{5}$	&amp;$5.30e-03$	&amp;$3.00e-03$	&amp;$4.40e-03$	&amp;$2.12e-02$	&amp;$\textbf{4.50e-03}$	 &amp;$1.53e-04$	&amp;$4.20e-03$	&amp;$4.80e-03$\\\\
-$F_{6}$	&amp;$8.30e-03$	&amp;$2.10e-03$	&amp;$5.70e-03$	&amp;$1.50e-02$	&amp;$1.62e-02$	 	     &amp;$2.30e-02$ &amp;$5.40e-03$	&amp;$1.20e-01$\\\\
-$F_{7}$	&amp;$1.60e-01$	&amp;$2.35e-01$	&amp;$7.96e-02$	&amp;$1.03e+0$	&amp;$1.76e-01$	 	     &amp;$2.33e-01$ &amp;$3.28e-02$  &amp;$1.02e+0$\\\\
-$F_{8}$	&amp;$6.59e-02$	&amp;$3.50e-03$	&amp;$6.05e-02$	&amp;$7.69e-02$	&amp;$\textbf{6.37e-02}$	 &amp;$3.60e-03$	&amp;$5.81e-02$	&amp;$7.65e-02$\\\\
-$F_{9}$	&amp;$8.00e-03$	&amp;$2.80e-03$	&amp;$5.80e-03$	&amp;$1.48e-02$	&amp;$\textbf{7.70e-03}$	 &amp;$3.20e-03$	&amp;$5.40e-03$	&amp;$2.24e-02$\\\\
-$F_{10}$ &amp;$1.25e+02$	&amp;$2.35e+01$	&amp;$2.27e+01$	&amp;$1.44e+02$	&amp;$\textbf{2.36e+02}$	 &amp;$3.48e+01$	&amp;$5.02e+0$	&amp;$1.38e+02$\\
-\hline\hline 
-\end{tabular}
-\begin{tablenotes}
-\item[1] The bolder ones mean better.
-\end{tablenotes}
-\end{threeparttable}
-\end{table*}
-</code></pre></article>
+    <article class="post-content"><p>写实验论文时，表格里经常要解释「粗体表示更优」「单位是秒」「某列为 30 次独立运行的均值」。把说明塞进 caption 会又臭又长；直接写在表格外又对不齐。<code>threeparttable</code> 就是为这种「表 + 脚注」准备的。</p>
+<h2 id="最小工作示例">最小工作示例</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{threeparttable}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{booktabs} <span style="color:#75715e">% 可选，更美观的三线表
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{table}[htbp]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\centering</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\begin</span>{threeparttable}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\caption</span>{两种算法在测试集上的 IGD 统计（30 次独立运行）}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\label</span>{tab:igd}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\begin</span>{tabular}{lcccc}
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">\toprule</span>
+</span></span><span style="display:flex;"><span>      Instance &amp; mean &amp; std &amp; best &amp; worst <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">\midrule</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">$</span>F_<span style="color:#ae81ff">1</span><span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">90</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>}<span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">39</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">4</span>}<span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">70</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>}<span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">4</span>.<span style="color:#ae81ff">20</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>}<span style="color:#e6db74">$</span> <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#e6db74">$</span>F_<span style="color:#ae81ff">2</span><span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span>\mathbf{<span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">70</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>}}<span style="color:#e6db74">$</span><span style="color:#66d9ef">\tnote</span>{1} &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">9</span>.<span style="color:#ae81ff">83</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>}<span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">50</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>}<span style="color:#e6db74">$</span> &amp; <span style="color:#e6db74">$</span><span style="color:#ae81ff">3</span>.<span style="color:#ae81ff">90</span>\times<span style="color:#ae81ff">10</span>^{<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>}<span style="color:#e6db74">$</span> <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">\bottomrule</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\end</span>{tabular}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\begin</span>{tablenotes}
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">\small</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">\item</span><span style="color:#a6e22e">[1]</span> 粗体表示在该实例上更优。
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">\item</span> 所有结果在相同随机种子策略下复现。
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\end</span>{tablenotes}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\end</span>{threeparttable}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{table}
+</span></span></code></pre></div><p>要点：</p>
+<ol>
+<li><code>table</code> 负责浮动与 caption</li>
+<li><code>threeparttable</code> 把「表体 + 注释」绑成同一宽度逻辑</li>
+<li><code>\tnote{1}</code> 在单元格里打标记，<code>tablenotes</code> 里用 <code>\item[1]</code> 对应</li>
+</ol>
+<h2 id="双栏模板用-table">双栏模板用 <code>table*</code></h2>
+<p>会议模板常是双栏，宽表要用 <code>table*</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{table*}[htbp]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\begin</span>{threeparttable}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% ... tabular ...
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\end</span>{threeparttable}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{table*}
+</span></span></code></pre></div><h2 id="常见坑">常见坑</h2>
+<table>
+	<thead>
+			<tr>
+					<th>现象</th>
+					<th>原因</th>
+					<th>处理</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>注释比表格宽出去</td>
+					<td>没用 threeparttable，只是手写段落</td>
+					<td>包进 <code>threeparttable</code></td>
+			</tr>
+			<tr>
+					<td><code>\tnote</code> 未定义</td>
+					<td>包未导入或写在环境外</td>
+					<td><code>\usepackage{threeparttable}</code></td>
+			</tr>
+			<tr>
+					<td>编号与正文引用混乱</td>
+					<td>caption 的 label 放错位置</td>
+					<td><code>\label</code> 紧跟 <code>\caption</code> 后</td>
+			</tr>
+			<tr>
+					<td>与 <code>beamer</code> 不兼容折腾</td>
+					<td>幻灯片表格脚注需求不同</td>
+					<td>幻灯片直接写在 frame 底部更简单</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="和-footnote-的区别">和 <code>\footnote</code> 的区别</h2>
+<p>在 <code>tabular</code> 里直接 <code>\footnote</code> 往往失效或跑到错误位置。<code>threeparttable</code> 的 <code>\tnote</code> 是表格语义上的注释，不会和页脚注混用，审稿人读表更自然。</p>
+<h2 id="排版建议">排版建议</h2>
+<ul>
+<li>注释用 <code>\small</code> 或 <code>\footnotesize</code>，避免比正文还抢眼</li>
+<li>指标单位、运行次数、硬件环境优先放 caption 第一句，细节放 notes</li>
+<li>统计显著性若只对部分格成立，用 <code>tnote</code> 逐个标，不要只在 caption 含糊说「部分加粗」</li>
+</ul>
+<p>掌握 <code>threeparttable</code> 之后，实验表从「一堆数」变成「可独立阅读的结果单元」，这在 rebuttal 阶段特别省事。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/latex"><span class="tag">LaTeX</span></a></li>
         
+          <li><a href="https://madneal.com/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C"><span class="tag">论文写作</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3890</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -262,75 +330,22 @@ $F_{10}$ &amp;$1.25e+02$	&amp;$2.35e+01$	&amp;$2.27e+01$	&amp;$1.44e+02$	&amp;$\
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

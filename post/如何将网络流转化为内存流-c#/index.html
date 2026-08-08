@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>如何将网络流转化为内存流 C#</title>
+  <title>如何将网络流转化为内存流（C#）</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《如何将网络流转化为内存流 C#》梳理winform开发和后端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="WinForms/后端场景下把任意 Stream 完整读入 MemoryStream 的写法、易错点，以及 CopyTo / 异步 / 不支持 Seek 的流的处理方式。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="如何将网络流转化为内存流 C#">
-    <meta name="twitter:description" content="本文围绕《如何将网络流转化为内存流 C#》梳理winform开发和后端相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/csharp-stream-convert-43bd871f1c.jpg">
+    <meta name="twitter:title" content="如何将网络流转化为内存流（C#）">
+    <meta name="twitter:description" content="WinForms/后端场景下把任意 Stream 完整读入 MemoryStream 的写法、易错点，以及 CopyTo / 异步 / 不支持 Seek 的流的处理方式。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="如何将网络流转化为内存流 C#">
-  <meta property="og:description" content="本文围绕《如何将网络流转化为内存流 C#》梳理winform开发和后端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="如何将网络流转化为内存流（C#）">
+  <meta property="og:description" content="WinForms/后端场景下把任意 Stream 完整读入 MemoryStream 的写法、易错点，以及 CopyTo / 异步 / 不支持 Seek 的流的处理方式。">
   <meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%B0%86%E7%BD%91%E7%BB%9C%E6%B5%81%E8%BD%AC%E5%8C%96%E4%B8%BA%E5%86%85%E5%AD%98%E6%B5%81-c%23/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/csharp-stream-convert-43bd871f1c.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,49 +208,145 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">如何将网络流转化为内存流 C#</h1>
-      <p class="post-meta">@Neal · Apr 28, 2015 · 3 min read</p>
+      <h1 class="post-title">如何将网络流转化为内存流（C#）</h1>
+      <p class="post-meta">@Neal · Apr 28, 2015 · 6 min read</p>
     </header>
-    <article class="post-content"><pre tabindex="0"><code>        //将获取的文件流转化为内存流
-        public static MemoryStream ConvertStreamToMemoryStream(Stream stream)
-        {
-            MemoryStream memoryStream = new MemoryStream();
-            if (stream != null)
-            {
-                byte[] buffer = ReadFull(stream);
-                if (buffer != null)
-                {
-                    var binaryWriter = new BinaryWriter(memoryStream);
-                    binaryWriter.Write(buffer);
-                }
-            }
-            return memoryStream;
-        }
-
-        public static byte[] ReadFull(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) &gt; 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
-            }
-        }
-</code></pre></article>
+    <article class="post-content"><p>在 WinForms 或服务端代码里，经常会拿到一个「只能向前读」的 <code>Stream</code>（网络响应体、上传流、压缩流等），而下游 API 又要求 <code>MemoryStream</code> 或 <code>byte[]</code>。把网络流完整落到内存，看起来简单，实际很容易踩三个坑：流是否可读完、位置是否归零、以及大文件把内存打爆。</p>
+<h2 id="为什么要转-memorystream">为什么要转 MemoryStream</h2>
+<p>常见动机：</p>
+<ol>
+<li><strong>下游只接受可 Seek 的流</strong>：例如某些第三方库要 <code>stream.Position = 0</code> 再读一遍。</li>
+<li><strong>需要多次消费同一份内容</strong>：先算 MD5，再上传，再写本地缓存。</li>
+<li><strong>接口边界清晰</strong>：网络 I/O 与业务处理解耦，业务侧只面对内存里的字节。</li>
+</ol>
+<p>注意：这不是默认最优方案。若文件可能很大，应优先「边读边写到磁盘」或流式处理，而不是无脑 <code>ToArray()</code>。</p>
+<h2 id="推荐写法net-现代-api">推荐写法（.NET 现代 API）</h2>
+<p>如果目标框架支持，优先用 <code>CopyTo</code> / <code>CopyToAsync</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryStream ToMemoryStream(Stream input)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (input == <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ArgumentNullException(nameof(input));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (!input.CanRead) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> InvalidOperationException(<span style="color:#e6db74">&#34;Stream is not readable.&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> ms = <span style="color:#66d9ef">new</span> MemoryStream();
+</span></span><span style="display:flex;"><span>    input.CopyTo(ms);          <span style="color:#75715e">// 内部按缓冲块拷贝</span>
+</span></span><span style="display:flex;"><span>    ms.Position = <span style="color:#ae81ff">0</span>;           <span style="color:#75715e">// 关键：调用方通常希望从头读</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ms;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">async</span> Task&lt;MemoryStream&gt; ToMemoryStreamAsync(
+</span></span><span style="display:flex;"><span>    Stream input, CancellationToken ct = <span style="color:#66d9ef">default</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> ms = <span style="color:#66d9ef">new</span> MemoryStream();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">await</span> input.CopyToAsync(ms, <span style="color:#ae81ff">81920</span>, ct).ConfigureAwait(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>    ms.Position = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ms;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对应地，如果只要字节数组：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">byte</span>[] ReadAllBytes(Stream input)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">using</span> var ms = ToMemoryStream(input);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ms.ToArray();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="兼容旧代码的缓冲读法">兼容旧代码的缓冲读法</h2>
+<p>早期笔记里常见「固定 16KB 缓冲循环读」：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">byte</span>[] ReadFull(Stream input)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">byte</span>[] buffer = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span>[<span style="color:#ae81ff">16</span> * <span style="color:#ae81ff">1024</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> ms = <span style="color:#66d9ef">new</span> MemoryStream())
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> read;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> ((read = input.Read(buffer, <span style="color:#ae81ff">0</span>, buffer.Length)) &gt; <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            ms.Write(buffer, <span style="color:#ae81ff">0</span>, read);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ms.ToArray();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> MemoryStream ConvertStreamToMemoryStream(Stream stream)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> memoryStream = <span style="color:#66d9ef">new</span> MemoryStream();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (stream == <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span> memoryStream;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">byte</span>[] buffer = ReadFull(stream);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (buffer != <span style="color:#66d9ef">null</span> &amp;&amp; buffer.Length &gt; <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        memoryStream.Write(buffer, <span style="color:#ae81ff">0</span>, buffer.Length);
+</span></span><span style="display:flex;"><span>        memoryStream.Position = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> memoryStream;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这种写法和 <code>CopyTo</code> 本质相同，但有两点建议改掉：</p>
+<ul>
+<li><strong>不必再用 <code>BinaryWriter</code> 包一层</strong> 去写 <code>byte[]</code>，直接 <code>Write</code> 更清晰。</li>
+<li><strong>写完务必 <code>Position = 0</code></strong>，否则调用方 <code>Read</code> 可能立刻读到 EOF。</li>
+</ul>
+<h2 id="容易踩的坑">容易踩的坑</h2>
+<h3 id="1-网络流通常不能-length--seek">1. 网络流通常不能 <code>Length</code> / <code>Seek</code></h3>
+<p><code>HttpWebResponse.GetResponseStream()</code> 往往不支持 <code>CanSeek</code>。不要写：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#75715e">// 危险：很多网络流会抛 NotSupportedException</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">byte</span>[] buf = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span>[stream.Length];
+</span></span><span style="display:flex;"><span>stream.Read(buf, <span style="color:#ae81ff">0</span>, buf.Length);
+</span></span></code></pre></div><p>应始终按「读到返回 0」循环，或用 <code>CopyTo</code>。</p>
+<h3 id="2-流可能已被部分消费">2. 流可能已被部分消费</h3>
+<p>若前面的代码已经读过 header 或探测字节，再转 MemoryStream 会丢数据。需要时在入口就完整缓存。</p>
+<h3 id="3-大文件-oom">3. 大文件 OOM</h3>
+<p>把 2GB 上传直接 <code>ToArray()</code> 会压垮进程。阈值：</p>
+<ul>
+<li>超过阈值（例如 20MB）改写临时文件；</li>
+<li>或使用 <code>StreamContent</code> / 分块上传，避免整包进内存。</li>
+</ul>
+<h3 id="4-用完记得释放">4. 用完记得释放</h3>
+<p><code>MemoryStream</code> 一般较轻，但持有大数组时仍应 <code>using</code>，并避免无意中复制多份 <code>ToArray()</code>。</p>
+<h2 id="和-httpclient-的配合示例">和 HttpClient 的配合示例</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> var resp = <span style="color:#66d9ef">await</span> http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+</span></span><span style="display:flex;"><span>resp.EnsureSuccessStatusCode();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">await</span> <span style="color:#66d9ef">using</span> var net = <span style="color:#66d9ef">await</span> resp.Content.ReadAsStreamAsync();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> var ms = <span style="color:#66d9ef">await</span> ToMemoryStreamAsync(net);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 后续：解析、校验、再转发</span>
+</span></span></code></pre></div><h2 id="小结">小结</h2>
+<table>
+	<thead>
+			<tr>
+					<th>场景</th>
+					<th>建议</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>小文件、需多次读取</td>
+					<td><code>CopyTo</code> → <code>MemoryStream</code>，并重置 <code>Position</code></td>
+			</tr>
+			<tr>
+					<td>只需一次字节数组</td>
+					<td><code>ReadAllBytes</code> / <code>CopyTo</code> + <code>ToArray</code></td>
+			</tr>
+			<tr>
+					<td>大文件</td>
+					<td>落盘或流式处理，勿整包进内存</td>
+			</tr>
+			<tr>
+					<td>旧框架</td>
+					<td>16KB 缓冲循环读即可，逻辑与 <code>CopyTo</code> 等价</td>
+			</tr>
+	</tbody>
+</table>
+<p>把网络流转成内存流本身不难，难的是在 <strong>正确性（读全、归零）</strong> 和 <strong>资源边界（内存上限）</strong> 上一次做对。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF"><span class="tag">后端</span></a></li>
         
+          <li><a href="https://madneal.com/tags/c"><span class="tag">C#</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/.net"><span class="tag">.NET</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4116</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -264,75 +374,22 @@
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

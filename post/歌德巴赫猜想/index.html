@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>歌德巴赫猜想</title>
+  <title>验证歌德巴赫猜想：偶数拆成两素数且乘积最大</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="OJ 题：对每个偶数 n 找素数 a≤b、a&#43;b=n 且 a*b 最大。解释从 n/2 向两端搜索的策略与素数判定优化。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="歌德巴赫猜想">
-    <meta name="twitter:description" content="本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/goldbach-conjecture-9e195830d7.jpg">
+    <meta name="twitter:title" content="验证歌德巴赫猜想：偶数拆成两素数且乘积最大">
+    <meta name="twitter:description" content="OJ 题：对每个偶数 n 找素数 a≤b、a&#43;b=n 且 a*b 最大。解释从 n/2 向两端搜索的策略与素数判定优化。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="歌德巴赫猜想">
-  <meta property="og:description" content="本文围绕《歌德巴赫猜想》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="验证歌德巴赫猜想：偶数拆成两素数且乘积最大">
+  <meta property="og:description" content="OJ 题：对每个偶数 n 找素数 a≤b、a&#43;b=n 且 a*b 最大。解释从 n/2 向两端搜索的策略与素数判定优化。">
   <meta property="og:url" content="https://madneal.com/post/%E6%AD%8C%E5%BE%B7%E5%B7%B4%E8%B5%AB%E7%8C%9C%E6%83%B3/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/goldbach-conjecture-9e195830d7.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,71 +208,78 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">歌德巴赫猜想</h1>
+      <h1 class="post-title">验证歌德巴赫猜想：偶数拆成两素数且乘积最大</h1>
       <p class="post-meta">@Neal · Apr 11, 2015 · 3 min read</p>
     </header>
     <article class="post-content"><h2 id="题目">题目</h2>
-<p>Description</p>
-<p>歌德巴赫猜想，是指对于每一个大于4的偶数ｎ，都能表示成两个质数之和。
-现在，你需要写程序验证这一猜想。对于n，找出质数a和b, 满足a+b=n, a≤b，且a*b最大。例如n=8，满足条件的a和b分别为3和5；
-又如n=10，质数3、7以及5、5满足a+b=n, a≤b，而乘积大的那组是5、5。
-Input</p>
-<p>每行一个偶数n（4 &lt; n &lt;= 20000）</p>
-<p>Output</p>
-<p>对应于每个输入的偶数，输出a、一个空格、b、一个换行符</p>
-<p>Sample Input</p>
-<p>8
-10
-1000
-Sample Output</p>
-<p>3 5
-5 5
-491 509</p>
-<h2 id="代码">代码</h2>
-<pre tabindex="0"><code>#include&lt;stdio.h&gt;
-#include&lt;math.h&gt;
- 
-bool isPrime(int x); 
-int main()
-{
-	int n,i,j;
-	while (scanf(&#34;%d&#34;,&amp;n) != EOF)
-	{
-		for (i = n/2;i &gt; 0;i -= 2)
-		{
-			if(i%2 == 0)
-				i --;
-			j = n - i;
-		if(isPrime(i)&amp;&amp;isPrime(j))
-		{
-				printf(&#34;%d %d\n&#34;,i,j);
-				break;
-		}
-		}
-	}
-	return 0;
-}
-bool isPrime(int x)
-{
-	int len = sqrt((float)x);
-	for (int i = 2;i &lt;= len;i ++)
-	{
-		if(x % i == 0)
-			return false;
-	}
-	return true;
-}
-</code></pre></article>
+<p>歌德巴赫猜想的一种计算验证：对每个大于 4 的偶数 (n)，存在素数 (a,b) 使 (a+b=n)。本题额外要求：</p>
+<ul>
+<li>(a \le b)</li>
+<li>在所有合法对中 <strong>(a \times b) 最大</strong></li>
+</ul>
+<p>输入：多行，每行一个偶数 (n)（(4 &lt; n \le 20000)）<br>
+输出：对应的 <code>a b</code></p>
+<p>样例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>输入          输出
+</span></span><span style="display:flex;"><span>8      -&gt;     3 5
+</span></span><span style="display:flex;"><span>10     -&gt;     5 5
+</span></span><span style="display:flex;"><span>1000   -&gt;     491 509
+</span></span></code></pre></div><h2 id="关键观察">关键观察</h2>
+<p>在 (a+b=n) 且 (a\le b) 时，(b=n-a)，乘积 (a(n-a)) 是关于 (a) 的二次函数，对称轴在 (a=n/2)。因此 <strong>(a) 越靠近 (n/2)，乘积越大</strong>。</p>
+<p>策略：从 (a=\lfloor n/2 \rfloor) 向下枚举，找到的第一对「(a) 与 (n-a) 都是素数」就是答案。</p>
+<h2 id="参考实现">参考实现</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cmath&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isPrime</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> lim <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>)std<span style="color:#f92672">::</span>sqrt((<span style="color:#66d9ef">double</span>)x);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; i <span style="color:#f92672">&lt;=</span> lim; i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">%</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>n) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; a <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">2</span>; <span style="color:#f92672">--</span>a) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> a;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">&gt;</span> b) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (isPrime(a) <span style="color:#f92672">&amp;&amp;</span> isPrime(b)) {
+</span></span><span style="display:flex;"><span>                printf(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a, b);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>比旧代码更干净：不必手写「偶数就 <code>--</code>」的别扭循环，从中点递减即可。</p>
+<h2 id="复杂度">复杂度</h2>
+<ul>
+<li>单次素数判定 (O(\sqrt{n}))</li>
+<li>从中点向下最多试 (O(n)) 次，但实际很快命中</li>
+<li>(n\le 20000) 完全可过；若 (n) 到 (10^7) 级应预筛素数表</li>
+</ul>
+<h2 id="预筛优化可选">预筛优化（可选）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// 埃氏筛预处理 isPrime[0..N]
+</span></span></span></code></pre></div><p>多组查询时收益明显。</p>
+<h2 id="小结">小结</h2>
+<p>本题考的不是证明歌德巴赫，而是：<strong>约束下的搜索起点选择</strong>。乘积最大 ⇒ 从 (n/2) 往下找第一对素数解。写出正确的 <code>isPrime</code> 边界后，代码非常短。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
+          <li><a href="https://madneal.com/tags/oj"><span class="tag">OJ</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4133</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -286,24 +307,21 @@ bool isPrime(int x)
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -314,7 +332,7 @@ bool isPrime(int x)
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       TeX: { equationNumbers: { autoNumber: "AMS" },
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
+    }
   });
 </script>
 <script type="text/x-mathjax-config">
@@ -326,35 +344,8 @@ bool isPrime(int x)
   });
 </script>
 
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

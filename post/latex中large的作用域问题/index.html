@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>latex中large的作用域问题</title>
+  <title>LaTeX 中 large 命令的作用域：为什么第一种写法会污染后面全文</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《latex中large的作用域问题》梳理论文写作和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="对比 large 的三种写法与分组作用域，解释字体切换命令如何收尾，给出论文排版实用建议。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="latex中large的作用域问题">
-    <meta name="twitter:description" content="本文围绕《latex中large的作用域问题》梳理论文写作和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/latex-large-scope-9e62d7d638.jpg">
+    <meta name="twitter:title" content="LaTeX 中 large 命令的作用域：为什么第一种写法会污染后面全文">
+    <meta name="twitter:description" content="对比 large 的三种写法与分组作用域，解释字体切换命令如何收尾，给出论文排版实用建议。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="latex中large的作用域问题">
-  <meta property="og:description" content="本文围绕《latex中large的作用域问题》梳理论文写作和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="LaTeX 中 large 命令的作用域：为什么第一种写法会污染后面全文">
+  <meta property="og:description" content="对比 large 的三种写法与分组作用域，解释字体切换命令如何收尾，给出论文排版实用建议。">
   <meta property="og:url" content="https://madneal.com/post/latex%E4%B8%ADlarge%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/latex-large-scope-9e62d7d638.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,22 +208,68 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">latex中large的作用域问题</h1>
+      <h1 class="post-title">LaTeX 中 large 命令的作用域：为什么第一种写法会污染后面全文</h1>
       <p class="post-meta">@Neal · Jan 6, 2017 · 3 min read</p>
     </header>
-    <article class="post-content"><p>在毕业论文的写作过程中，遇到了一个<code>\large</code> 作用域的问题。假设下面有三种写法：</p>
-<pre tabindex="0"><code class="language-[latex]" data-lang="[latex]">I am cool \large{you are right}, yeah, yeah, yeah
-I am cool {\large you are right}, yeah, yeah, yeah
-I am cool 
-\begin{large}
-you are right
-\end{large}, yeah, yeah, yeah
-</code></pre><p>我们希望的结果是you are right，这三个单词可以放大，而其他的文字仍然是正常大小，那么以后三个哪些是正确的呢？
-下面且看这三个命令的分别显示结果：
-<img src="http://img.blog.csdn.net/20170106220409363?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large1">
-<img src="http://img.blog.csdn.net/20170106220438270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large2">
-<img src="http://img.blog.csdn.net/20170106220457091?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbmVhbDE5OTE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="large3">
-很明显可以看的出来，第二个和第三个是正确的，而第一个不是正确的。第一个后面的文字都受到了前面<code>\large</code> 的影响，也变成了放大的字体。这就是<code>\large</code>的作用域问题，第一条命令并没有限制好作用域。可以看的出来，应该要把命令放在花括号中。第三种写法也是可以工作的，像一般的环境都是有这种写法的，但是这种写法比较麻烦，不是特别推荐。</p>
+    <article class="post-content"><p>写毕业论文时，我踩过一次 <code>\large</code> 的坑：只想放大三个词，结果后面整段都变大。根因是 <strong>字体大小命令的作用域靠分组（group）</strong>，不是靠「函数参数」那种直觉。</p>
+<h2 id="三种写法">三种写法</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>I am cool <span style="color:#66d9ef">\large</span>{you are right}, yeah, yeah, yeah
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>I am cool {<span style="color:#66d9ef">\large</span> you are right}, yeah, yeah, yeah
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>I am cool
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{large}
+</span></span><span style="display:flex;"><span>you are right
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{large}, yeah, yeah, yeah
+</span></span></code></pre></div><p>期望：只有 <code>you are right</code> 变大。</p>
+<h2 id="结果">结果</h2>
+<ol>
+<li>
+<p><strong>错误</strong>：<code>\large{you are right}</code><br>
+<code>\large</code> 是 <strong>声明式</strong> 字体命令，不是 <code>\textbf</code> 那种必吃参数的宏。后面的 <code>{...}</code> 只是普通分组内容，<strong>不会</strong>自动结束 <code>\large</code>。于是 <code>\large</code> 一直生效到当前组结束——常常是到环境/文档更大范围，于是后面的 <code>yeah</code> 也变大。</p>
+</li>
+<li>
+<p><strong>正确</strong>：<code>{\large you are right}</code><br>
+显式分组：进入 <code>{</code> 后切换 large，<code>}</code> 结束恢复原字体。</p>
+</li>
+<li>
+<p><strong>正确但啰嗦</strong>：<code>\begin{large}...\end{large}</code><br>
+环境自带分组，效果对，但为短文本过重。</p>
+</li>
+</ol>
+<h2 id="同类命令">同类命令</h2>
+<p><code>\tiny \scriptsize \footnotesize \small \normalsize \large \Large \LARGE \huge \Huge</code> 都是声明式，正确局部用法统一为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>{<span style="color:#66d9ef">\Large</span> 标题片段}
+</span></span></code></pre></div><p>相对地，<code>\textbf{...}</code> <code>\textit{...}</code> <code>\emph{...}</code> 是带参数的命令，写法不同。</p>
+<h2 id="实用建议">实用建议</h2>
+<table>
+	<thead>
+			<tr>
+					<th>场景</th>
+					<th>建议</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>临时放大几词</td>
+					<td><code>{\large ...}</code></td>
+			</tr>
+			<tr>
+					<td>标题</td>
+					<td>用 <code>\section</code> 等结构命令</td>
+			</tr>
+			<tr>
+					<td>全文默认字号</td>
+					<td>文档类选项 <code>11pt</code>/<code>12pt</code></td>
+			</tr>
+			<tr>
+					<td>强调</td>
+					<td>优先语义命令 <code>\emph</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="小结">小结</h2>
+<p>LaTeX 里「看起来像函数」的不一定吃参数。<strong>字体大小靠分组收尾</strong>；记住 <code>{\large ...}</code> 就能避免「放大传染病」。旧文截图外链可能失效，但结论不变。</p>
 </article>
     <footer class="post-footer">
       
@@ -217,10 +277,12 @@ you are right
         
           <li><a href="https://madneal.com/tags/latex"><span class="tag">LaTeX</span></a></li>
         
+          <li><a href="https://madneal.com/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C"><span class="tag">论文写作</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -248,75 +310,22 @@ you are right
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>matlab批量修改变量的名称</title>
+  <title>MATLAB：批量 load 后按文件名重命名变量</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《matlab批量修改变量的名称》梳理matlab和计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="多个 .mat 内变量同名时，用脚本按文件名重命名并写回；对比 eval 与动态字段名，并提醒 eval 的风险。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="matlab批量修改变量的名称">
-    <meta name="twitter:description" content="本文围绕《matlab批量修改变量的名称》梳理matlab和计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/matlab-rename-vars-7f8abae140.jpg">
+    <meta name="twitter:title" content="MATLAB：批量 load 后按文件名重命名变量">
+    <meta name="twitter:description" content="多个 .mat 内变量同名时，用脚本按文件名重命名并写回；对比 eval 与动态字段名，并提醒 eval 的风险。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="matlab批量修改变量的名称">
-  <meta property="og:description" content="本文围绕《matlab批量修改变量的名称》梳理matlab和计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="MATLAB：批量 load 后按文件名重命名变量">
+  <meta property="og:description" content="多个 .mat 内变量同名时，用脚本按文件名重命名并写回；对比 eval 与动态字段名，并提醒 eval 的风险。">
   <meta property="og:url" content="https://madneal.com/post/matlab%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E7%9A%84%E5%90%8D%E7%A7%B0/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/matlab-rename-vars-7f8abae140.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,22 +208,87 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">matlab批量修改变量的名称</h1>
+      <h1 class="post-title">MATLAB：批量 load 后按文件名重命名变量</h1>
       <p class="post-meta">@Neal · Sep 8, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>使用matlab做实验的时候，保存的文件里面的变量名都是一样的 ，所以希望能够把变量名全部都重命名。我举个个例子，假设我一堆文件，文件名分别是gds1,gds2,gds2,&hellip;.. 但是实际上load进来之后的变量名称都是gds，所以我希望能够把变量名能够改成相对应的文件名称。在这里，我使用了eval这个函数，这个函数到是一个非常方便的选择。
-<code>%% 变量批量重命名 clear all rootname = 'gds'; extension = '.mat'; for i = 1:n variable = [rootname,int2str(i)]; filename = [variable,extension]; load(filename); eval(['gds',num2str(i),'=','gds',';']); save(filename,variable); clear gds variable filename; end clear all</code></p>
+    <article class="post-content"><p>做实验常会存一堆 <code>gds1.mat</code> … <code>gdsN.mat</code>，但每个文件内部变量都叫 <code>gds</code>。一次性 <code>load</code> 会互相覆盖，所以需要 <strong>按文件名重命名</strong> 再保存或送进后续分析。</p>
+<h2 id="典型脚本">典型脚本</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>rootname = <span style="color:#e6db74">&#39;gds&#39;</span>;
+</span></span><span style="display:flex;"><span>ext = <span style="color:#e6db74">&#39;.mat&#39;</span>;
+</span></span><span style="display:flex;"><span>n = <span style="color:#ae81ff">10</span>;  <span style="color:#75715e">% 文件个数</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>    varname = sprintf(<span style="color:#e6db74">&#39;%s%d&#39;</span>, rootname, i);  <span style="color:#75715e">% gds1</span>
+</span></span><span style="display:flex;"><span>    filename = [varname, ext];               <span style="color:#75715e">% gds1.mat</span>
+</span></span><span style="display:flex;"><span>    S = load(filename);                      <span style="color:#75715e">% 结构体，字段是原变量名</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">% 假设文件内变量名为 gds</span>
+</span></span><span style="display:flex;"><span>    data = S.gds;
+</span></span><span style="display:flex;"><span>    out.(varname) = data;                    <span style="color:#75715e">% 动态字段，避免 eval</span>
+</span></span><span style="display:flex;"><span>    save(filename, <span style="color:#e6db74">&#39;-struct&#39;</span>, <span style="color:#e6db74">&#39;tmp&#39;</span>, varname); <span style="color:#75715e">% 见下一种写回方式</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>更直白的写回：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>    varname = sprintf(<span style="color:#e6db74">&#39;gds%d&#39;</span>, i);
+</span></span><span style="display:flex;"><span>    filename = [varname, <span style="color:#e6db74">&#39;.mat&#39;</span>];
+</span></span><span style="display:flex;"><span>    S = load(filename);
+</span></span><span style="display:flex;"><span>    tmp = struct(varname, S.gds);
+</span></span><span style="display:flex;"><span>    save(filename, <span style="color:#e6db74">&#39;-fromStruct&#39;</span>, tmp); <span style="color:#75715e">% 旧版本可用 save(filename, varname) 配合 assign</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>兼容旧习惯的 <code>eval</code> 写法（<strong>不推荐，但能看懂旧笔记</strong>）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>load(filename);                 <span style="color:#75715e">% 得到 gds</span>
+</span></span><span style="display:flex;"><span>eval([varname <span style="color:#e6db74">&#39;= gds;&#39;</span>]);       <span style="color:#75715e">% gds1 = gds</span>
+</span></span><span style="display:flex;"><span>save(filename, varname);
+</span></span><span style="display:flex;"><span>clear gds
+</span></span></code></pre></div><h2 id="为什么优先不用-eval">为什么优先不用 eval</h2>
+<table>
+	<thead>
+			<tr>
+					<th>方式</th>
+					<th>优点</th>
+					<th>缺点</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>eval</code></td>
+					<td>短</td>
+					<td>难调试、有注入感、静态分析失效</td>
+			</tr>
+			<tr>
+					<td><code>load</code> 返回 struct</td>
+					<td>清晰</td>
+					<td>稍长</td>
+			</tr>
+			<tr>
+					<td><code>matfile</code> 对象</td>
+					<td>大文件友好</td>
+					<td>API 需熟悉</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="批量进工作区一次分析">批量进工作区一次分析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>allData = struct();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:n
+</span></span><span style="display:flex;"><span>    fn = sprintf(<span style="color:#e6db74">&#39;gds%d.mat&#39;</span>, i);
+</span></span><span style="display:flex;"><span>    S = load(fn);
+</span></span><span style="display:flex;"><span>    allData.(sprintf(<span style="color:#e6db74">&#39;gds%d&#39;</span>, i)) = S.gds;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>后续 <code>allData.gds3</code> 即可，不必污染一堆全局变量。</p>
+<h2 id="小结">小结</h2>
+<p>批量重命名的本质是：<strong>文件名 → 新变量名 → save</strong>。能用 struct 动态字段就别用 <code>eval</code>；旧实验脚本可以继续跑，新脚本请写得可维护一些。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/matlab"><span class="tag">MATLAB</span></a></li>
         
           <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3983</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -237,75 +316,22 @@
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

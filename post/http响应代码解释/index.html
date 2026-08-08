@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>http响应代码解释</title>
+  <title>HTTP 状态码速览：从 2xx 成功到 5xx 服务器错误</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《http响应代码解释》梳理web前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="按类别解释常见 HTTP 状态码语义、客户端应如何处理，以及安全测试里容易误读的 301/302/401/403/404/500。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="http响应代码解释">
-    <meta name="twitter:description" content="本文围绕《http响应代码解释》梳理web前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/http-status-codes-6de6734224.jpg">
+    <meta name="twitter:title" content="HTTP 状态码速览：从 2xx 成功到 5xx 服务器错误">
+    <meta name="twitter:description" content="按类别解释常见 HTTP 状态码语义、客户端应如何处理，以及安全测试里容易误读的 301/302/401/403/404/500。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="http响应代码解释">
-  <meta property="og:description" content="本文围绕《http响应代码解释》梳理web前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="HTTP 状态码速览：从 2xx 成功到 5xx 服务器错误">
+  <meta property="og:description" content="按类别解释常见 HTTP 状态码语义、客户端应如何处理，以及安全测试里容易误读的 301/302/401/403/404/500。">
   <meta property="og:url" content="https://madneal.com/post/http%E5%93%8D%E5%BA%94%E4%BB%A3%E7%A0%81%E8%A7%A3%E9%87%8A/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/http-status-codes-6de6734224.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,25 +208,182 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">http响应代码解释</h1>
+      <h1 class="post-title">HTTP 状态码速览：从 2xx 成功到 5xx 服务器错误</h1>
       <p class="post-meta">@Neal · Oct 10, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>200：成功响应
-302：找到，但是请求的资源在另外一个不同的url中。
-400：错误请求。这个请求不能被服务器所理解，客户端必须修改请求。
-401：未认证，这个请求需要用户认证。
-404：未找到。服务器没有找到任何和这个请求符合的资源。</p>
+    <article class="post-content"><p>HTTP 状态码是服务端对「这次请求结果」的标准化摘要。写前端、做网关、做安全测试时，都要能从状态码判断：<strong>问题在客户端、权限、资源，还是服务端</strong>。下面按类别把最常见的码讲清楚。</p>
+<h2 id="1xx-信息性少见">1xx 信息性（少见）</h2>
+<p>表示临时响应，如 <code>100 Continue</code>。日常业务代码很少直接处理。</p>
+<h2 id="2xx-成功">2xx 成功</h2>
+<table>
+	<thead>
+			<tr>
+					<th>码</th>
+					<th>含义</th>
+					<th>备注</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>200 OK</strong></td>
+					<td>成功，响应体通常含资源</td>
+					<td>最常见</td>
+			</tr>
+			<tr>
+					<td><strong>201 Created</strong></td>
+					<td>创建成功</td>
+					<td>REST POST 常用，带 Location</td>
+			</tr>
+			<tr>
+					<td><strong>204 No Content</strong></td>
+					<td>成功但无正文</td>
+					<td>DELETE 常见</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="3xx-重定向">3xx 重定向</h2>
+<table>
+	<thead>
+			<tr>
+					<th>码</th>
+					<th>含义</th>
+					<th>注意</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>301</strong></td>
+					<td>永久重定向</td>
+					<td>SEO/缓存会记新地址</td>
+			</tr>
+			<tr>
+					<td><strong>302</strong></td>
+					<td>临时重定向</td>
+					<td>历史语义含糊，见下</td>
+			</tr>
+			<tr>
+					<td><strong>303</strong></td>
+					<td>看其它 URI（通常 GET）</td>
+					<td>POST 后 PRG 模式</td>
+			</tr>
+			<tr>
+					<td><strong>304</strong></td>
+					<td>缓存未修改</td>
+					<td>配合条件请求</td>
+			</tr>
+			<tr>
+					<td><strong>307/308</strong></td>
+					<td>严格保留方法的重定向</td>
+					<td>比 302/301 更清晰</td>
+			</tr>
+	</tbody>
+</table>
+<p>旧笔记写「302：找到，但资源在另一个 URL」——方向对，但不完整。安全上要关注 <strong>开放重定向</strong>：若 <code>Location</code> 可被参数控制，会变成钓鱼跳板。</p>
+<h2 id="4xx-客户端错误">4xx 客户端错误</h2>
+<table>
+	<thead>
+			<tr>
+					<th>码</th>
+					<th>含义</th>
+					<th>常见原因</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>400</strong></td>
+					<td>请求无法理解</td>
+					<td>参数/JSON 坏了</td>
+			</tr>
+			<tr>
+					<td><strong>401 Unauthorized</strong></td>
+					<td>未认证</td>
+					<td>缺/错凭证；名称历史包袱，实际是 authentication</td>
+			</tr>
+			<tr>
+					<td><strong>403 Forbidden</strong></td>
+					<td>已认证但不许</td>
+					<td>权限不足；也可能未登录却统一返回 403</td>
+			</tr>
+			<tr>
+					<td><strong>404 Not Found</strong></td>
+					<td>无此资源</td>
+					<td>路径错或故意隐藏</td>
+			</tr>
+			<tr>
+					<td><strong>405</strong></td>
+					<td>方法不允许</td>
+					<td>GET/POST 用错</td>
+			</tr>
+			<tr>
+					<td><strong>409</strong></td>
+					<td>冲突</td>
+					<td>版本冲突、重复创建</td>
+			</tr>
+			<tr>
+					<td><strong>429</strong></td>
+					<td>太多请求</td>
+					<td>限流</td>
+			</tr>
+	</tbody>
+</table>
+<p>安全测试里：</p>
+<ul>
+<li><strong>401 vs 403</strong> 泄露「用户是否存在/是否登录」的信息差</li>
+<li><strong>404 vs 403</strong> 有时被用来隐藏管理路径</li>
+</ul>
+<h2 id="5xx-服务端错误">5xx 服务端错误</h2>
+<table>
+	<thead>
+			<tr>
+					<th>码</th>
+					<th>含义</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>500</strong></td>
+					<td>通用内部错误</td>
+			</tr>
+			<tr>
+					<td><strong>502</strong></td>
+					<td>网关上游坏了</td>
+			</tr>
+			<tr>
+					<td><strong>503</strong></td>
+					<td>不可用（过载/维护）</td>
+			</tr>
+			<tr>
+					<td><strong>504</strong></td>
+					<td>网关超时</td>
+			</tr>
+	</tbody>
+</table>
+<p>对调用方：5xx 适合重试（要退避）；4xx 多数不该盲目重试。</p>
+<h2 id="客户端处理建议">客户端处理建议</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>2xx -&gt; 解析业务 body
+</span></span><span style="display:flex;"><span>3xx -&gt; 跟随或暴露给上层（注意循环与跨域）
+</span></span><span style="display:flex;"><span>401 -&gt; 走登录/刷新 token
+</span></span><span style="display:flex;"><span>403 -&gt; 提示无权限，不要当「再试一次密码」
+</span></span><span style="display:flex;"><span>404 -&gt; 资源不存在 UI
+</span></span><span style="display:flex;"><span>429 -&gt; 指数退避
+</span></span><span style="display:flex;"><span>5xx -&gt; 有限次重试 + 熔断
+</span></span></code></pre></div><h2 id="小结">小结</h2>
+<p>状态码是协议层契约，不是错误文案本身。写 API 时 <strong>语义正确比全部 200 包业务码更重要</strong>；做测试时则要结合 body、头字段一起看，单独一个 302 远远不够下结论。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/http"><span class="tag">HTTP</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/web"><span class="tag">Web</span></a></li>
         
           <li><a href="https://madneal.com/tags/%E5%B7%A5%E5%85%B7"><span class="tag">工具</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3951</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -240,75 +411,22 @@
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

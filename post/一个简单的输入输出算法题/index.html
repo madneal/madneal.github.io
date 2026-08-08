@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>一个简单的输入输出算法题</title>
+  <title>一道简单却易错的数组输入输出题</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《一个简单的输入输出算法题》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="根据 a[i]*2-b[i] 生成数组 c：读题、处理「首元素是长度」的输入格式，并给出不易越界的 C&#43;&#43; 写法。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="一个简单的输入输出算法题">
-    <meta name="twitter:description" content="本文围绕《一个简单的输入输出算法题》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/simple-io-algo-034e6ccafa.jpg">
+    <meta name="twitter:title" content="一道简单却易错的数组输入输出题">
+    <meta name="twitter:description" content="根据 a[i]*2-b[i] 生成数组 c：读题、处理「首元素是长度」的输入格式，并给出不易越界的 C&#43;&#43; 写法。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="一个简单的输入输出算法题">
-  <meta property="og:description" content="本文围绕《一个简单的输入输出算法题》展开，重点梳理题目和代码等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="一道简单却易错的数组输入输出题">
+  <meta property="og:description" content="根据 a[i]*2-b[i] 生成数组 c：读题、处理「首元素是长度」的输入格式，并给出不易越界的 C&#43;&#43; 写法。">
   <meta property="og:url" content="https://madneal.com/post/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E7%AE%97%E6%B3%95%E9%A2%98/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/simple-io-algo-034e6ccafa.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,52 +208,59 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">一个简单的输入输出算法题</h1>
+      <h1 class="post-title">一道简单却易错的数组输入输出题</h1>
       <p class="post-meta">@Neal · Apr 11, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>有一天同学给了一个非常简单的算题，我居然写了半天，这次我要把它记录下来，以此明志，以后应该要更加注重这方面的锻炼。</p>
+    <article class="post-content"><p>有同学随手出了道「超级简单」的题，我当年还是写磕绊了——说明 <strong>输入格式</strong> 比公式更容易害人。记录如下。</p>
 <h2 id="题目">题目</h2>
-<p>ime Limit: 1000 MS Memory Limit: 32768 K
-给定两个同样长度的整数数组a[n]和b[n]，按照公式c[n]=a[n] * 2 - b[n]生成数组c[n]，并输出。
-输入格式： 共2行数据，每一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)， 接下来是n个正整数表示数组元素,每个整数不超过100。</p>
-<p>输出格式： 共1行数据，第一行是以空格为分隔符的数组，第一个数是一个正整数n，表示数组元素的个数（2&lt;=n&lt;=100)，接下来是n个正整数表示数组元素,每个整数不超过100。</p>
-<p>样例：
-输入：
-10 18 38 83 93 53 36 39 58 8 93
-10 55 79 20 71 60 66 79 55 78 66
-输出
-10 -19 -3 146 115 46 6 -1 61 -62 120</p>
-<h2 id="代码">代码</h2>
-<pre tabindex="0"><code>#include &#34;stdafx.h&#34;
-#include&lt;iostream&gt;
-using namespace std;
-int main()
-{
-	int a[100],b[100],c[100];
-	int n,n_;
-	cin &gt;&gt; n;
-	int m,m_;
-	for (int i = 0; i &lt; n;++ i)
-	{
-		cin &gt;&gt; m;
-		a[i] = m;	
-	}
-	cin &gt;&gt;n_;
-	for (int i = 0;i &lt; n; ++ i)
-	{
-		cin &gt;&gt; m_;
-		b[i] = m_;
-	}
-	for (int i = 0;i &lt;= n;i++)
-	{
-		if (i == 0)
-			cout &lt;&lt; n &lt;&lt; &#34; &#34;;
-		else
-			cout &lt;&lt; a[i-1]*2 - b[i-1] &lt;&lt; &#34; &#34;;
-	}
-	return 0;
-}
-</code></pre><p>这个程序很简单，只是数组的输入输出就好了，以后应该还是要找点OJ题目练习一下。</p>
+<ul>
+<li>给定等长数组 (a[n], b[n])</li>
+<li>(c[i] = a[i]\times 2 - b[i])</li>
+<li>输入两行：每行先是正整数 (n)，再跟 (n) 个数</li>
+<li>输出一行：先 <code>n</code>，再 <code>n</code> 个 (c[i])（空格分隔）</li>
+</ul>
+<p>样例：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>输入:
+</span></span><span style="display:flex;"><span>10 18 38 83 93 53 36 39 58 8 93
+</span></span><span style="display:flex;"><span>10 55 79 20 71 60 66 79 55 78 66
+</span></span><span style="display:flex;"><span>输出:
+</span></span><span style="display:flex;"><span>10 -19 -3 146 115 46 6 -1 61 -62 120
+</span></span></code></pre></div><h2 id="易错点">易错点</h2>
+<ol>
+<li><strong>第一个数是长度</strong>，不是 <code>a[0]</code></li>
+<li>两行的 (n) 应一致，生产代码应校验</li>
+<li>循环边界：<code>for (i=0;i&lt;n;i++)</code>，不要写成 <code>i&lt;=n</code> 导致多输出</li>
+<li>结果可能为负，注意类型用 <code>int</code> 足够本题</li>
+</ol>
+<h2 id="参考代码">参考代码</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n1, n2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(cin <span style="color:#f92672">&gt;&gt;</span> n1)) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">100</span>], b[<span style="color:#ae81ff">100</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n1; <span style="color:#f92672">++</span>i) cin <span style="color:#f92672">&gt;&gt;</span> a[i];
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n2; <span style="color:#f92672">++</span>i) cin <span style="color:#f92672">&gt;&gt;</span> b[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> n1;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n1 <span style="color:#f92672">!=</span> n2) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 题目保证相同；防御式取最小
+</span></span></span><span style="display:flex;"><span>        n <span style="color:#f92672">=</span> n1 <span style="color:#f92672">&lt;</span> n2 <span style="color:#f92672">?</span> n1 : n2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> (a[i] <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> b[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="教训">教训</h2>
+<p>OJ 入门期，<strong>I/O 格式熟练度</strong> 和算法同等重要。公式一眼能看懂，却在 <code>cin</code> 顺序上栽跟头，非常正常。把它当「输入输出健身」即可。</p>
+<h2 id="小结">小结</h2>
+<p>读题 → 画一版输入解析 → 再写变换。这题本身没有算法含量，但很适合当作「是否细心」的热身。</p>
 </article>
     <footer class="post-footer">
       
@@ -247,10 +268,14 @@ int main()
         
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
+          <li><a href="https://madneal.com/tags/oj"><span class="tag">OJ</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/c&#43;&#43;"><span class="tag">C&#43;&#43;</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4133</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -278,24 +303,21 @@ int main()
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -306,7 +328,7 @@ int main()
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       TeX: { equationNumbers: { autoNumber: "AMS" },
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
+    }
   });
 </script>
 <script type="text/x-mathjax-config">
@@ -318,35 +340,8 @@ int main()
   });
 </script>
 
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

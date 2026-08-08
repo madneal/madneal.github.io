@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>常用颜色的RGB分布</title>
+  <title>常用颜色的 RGB 值速查与色彩模型笔记</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《常用颜色的RGB分布》梳理计算机视觉和学习笔记相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="整理常见颜色的 RGB 三元组，说明 0–255 含义，并补充 HEX、OpenCV 的 BGR 顺序差异与使用注意。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="常用颜色的RGB分布">
-    <meta name="twitter:description" content="本文围绕《常用颜色的RGB分布》梳理计算机视觉和学习笔记相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/rgb-color-distribution-19a47fed51.jpg">
+    <meta name="twitter:title" content="常用颜色的 RGB 值速查与色彩模型笔记">
+    <meta name="twitter:description" content="整理常见颜色的 RGB 三元组，说明 0–255 含义，并补充 HEX、OpenCV 的 BGR 顺序差异与使用注意。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="常用颜色的RGB分布">
-  <meta property="og:description" content="本文围绕《常用颜色的RGB分布》梳理计算机视觉和学习笔记相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="常用颜色的 RGB 值速查与色彩模型笔记">
+  <meta property="og:description" content="整理常见颜色的 RGB 三元组，说明 0–255 含义，并补充 HEX、OpenCV 的 BGR 顺序差异与使用注意。">
   <meta property="og:url" content="https://madneal.com/post/%E5%B8%B8%E7%94%A8%E9%A2%9C%E8%89%B2%E7%9A%84rgb%E5%88%86%E5%B8%83/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/rgb-color-distribution-19a47fed51.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,40 +208,170 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">常用颜色的RGB分布</h1>
+      <h1 class="post-title">常用颜色的 RGB 值速查与色彩模型笔记</h1>
       <p class="post-meta">@Neal · May 10, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>RGB色彩模式是工业界的一种颜色标准，它通过对红（RED）、绿（GREEN）、蓝（BLUE）三种基本颜色的相互组合从而叠加出各种颜色。RGB色彩模式为每一个红、绿、蓝分类了0-255范围内的亮度值。
-RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个数字分别表示红、绿、蓝的亮度值，常用的颜色的RGB颜色分布有以下这些：</p>
+    <article class="post-content"><p>RGB 是工业界常用的加色模型：红（R）、绿（G）、蓝（B）三通道各用 0–255 的强度叠加出颜色。写作前端样式或写 OpenCV 实验时，记一批「基色」能省事。</p>
+<h2 id="常见颜色rgb">常见颜色（RGB）</h2>
+<table>
+	<thead>
+			<tr>
+					<th>颜色</th>
+					<th style="text-align: right">R</th>
+					<th style="text-align: right">G</th>
+					<th style="text-align: right">B</th>
+					<th>HEX</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>黑</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">0</td>
+					<td><code>#000000</code></td>
+			</tr>
+			<tr>
+					<td>白</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">255</td>
+					<td><code>#FFFFFF</code></td>
+			</tr>
+			<tr>
+					<td>红</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">0</td>
+					<td><code>#FF0000</code></td>
+			</tr>
+			<tr>
+					<td>绿</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">0</td>
+					<td><code>#00FF00</code></td>
+			</tr>
+			<tr>
+					<td>蓝</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">255</td>
+					<td><code>#0000FF</code></td>
+			</tr>
+			<tr>
+					<td>黄</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">0</td>
+					<td><code>#FFFF00</code></td>
+			</tr>
+			<tr>
+					<td>青</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">255</td>
+					<td><code>#00FFFF</code></td>
+			</tr>
+			<tr>
+					<td>品红</td>
+					<td style="text-align: right">255</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">255</td>
+					<td><code>#FF00FF</code></td>
+			</tr>
+			<tr>
+					<td>灰</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">128</td>
+					<td><code>#808080</code></td>
+			</tr>
+			<tr>
+					<td>银</td>
+					<td style="text-align: right">192</td>
+					<td style="text-align: right">192</td>
+					<td style="text-align: right">192</td>
+					<td><code>#C0C0C0</code></td>
+			</tr>
+			<tr>
+					<td>栗色</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">0</td>
+					<td><code>#800000</code></td>
+			</tr>
+			<tr>
+					<td>橄榄</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">0</td>
+					<td><code>#808000</code></td>
+			</tr>
+			<tr>
+					<td>深绿</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">0</td>
+					<td><code>#008000</code></td>
+			</tr>
+			<tr>
+					<td>紫</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">128</td>
+					<td><code>#800080</code></td>
+			</tr>
+			<tr>
+					<td>深蓝（navy 近似）</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">128</td>
+					<td><code>#000080</code></td>
+			</tr>
+			<tr>
+					<td>鸭绿/茶色系近似</td>
+					<td style="text-align: right">0</td>
+					<td style="text-align: right">128</td>
+					<td style="text-align: right">128</td>
+					<td><code>#008080</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>旧文把「深蓝色」和「鸭绿色」都写成 <code>(0,128,128)</code>，那是 <strong>teal（蓝绿）</strong> 的值；真正 navy 更接近 <code>(0,0,128)</code>。上表已分开。</p>
+<h2 id="和其它表示">和其它表示</h2>
 <ul>
-<li>品红色 （255,0,255）</li>
-<li>蓝色    （0,0,255）</li>
-<li>青色  （0,255,255）</li>
-<li>绿色 （0,255,0）</li>
-<li>黄色 （255,255,0）</li>
-<li>红色 （255,0,0）</li>
-<li>紫色  (128,0,128)</li>
-<li>深蓝色 （0,128,128）</li>
-<li>鸭绿色 （0,128,128）</li>
-<li>深绿色 （0,128,0）</li>
-<li>橄榄绿 （128,128,0）</li>
-<li>栗色 （128,0,0）</li>
-<li>黑色 (0,0,0)</li>
-<li>灰色 （128,128,128）</li>
-<li>银色 （192,192,192）</li>
-<li>白色 （255,255,255）</li>
+<li><strong>HEX</strong>：Web CSS <code>#RRGGBB</code></li>
+<li><strong>归一化</strong>：机器学习里常用 0–1 浮点</li>
+<li><strong>OpenCV</strong>：默认 <strong>BGR</strong> 顺序，<code>(255,0,0)</code> 在 OpenCV 里是蓝不是红</li>
 </ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> cv2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>img <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">100</span>,<span style="color:#ae81ff">3</span>), dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>uint8)
+</span></span><span style="display:flex;"><span>img[:] <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>)  <span style="color:#75715e"># BGR：红色</span>
+</span></span></code></pre></div><h2 id="使用建议">使用建议</h2>
+<ol>
+<li>UI 不要只靠纯 <code>#00FF00</code> 这种刺眼基色，设计系统会定义主色板。</li>
+<li>打印场景 RGB 与 CMYK 不等价。</li>
+<li>色盲友好：不要只靠红/绿编码信息。</li>
+</ol>
+<h2 id="小结">小结</h2>
+<p>RGB 三元组是跨前端与视觉算法的「普通话」。记住基色、分清 BGR、会换算 HEX，就够应付大多数笔记级需求。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="tag">学习笔记</span></a></li>
+          <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF"><span class="tag">前端</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E8%AE%BE%E8%AE%A1"><span class="tag">设计</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4104</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -255,75 +399,22 @@ RGB色彩模式通常RGB(0，0，0）的格式来表示颜色，括号中的3个
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

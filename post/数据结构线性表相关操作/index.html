@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>数据结构线性表相关操作</title>
+  <title>单链表线性表：初始化、插入、遍历与有序合并</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《数据结构线性表相关操作》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="用带头结点的单链表实现 Init、Insert、遍历打印与有序合并，说明指针移动边界、旧代码里命名混淆，以及复杂度。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="数据结构线性表相关操作">
-    <meta name="twitter:description" content="本文围绕《数据结构线性表相关操作》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/linear-list-ops-908d5efc36.jpg">
+    <meta name="twitter:title" content="单链表线性表：初始化、插入、遍历与有序合并">
+    <meta name="twitter:description" content="用带头结点的单链表实现 Init、Insert、遍历打印与有序合并，说明指针移动边界、旧代码里命名混淆，以及复杂度。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="数据结构线性表相关操作">
-  <meta property="og:description" content="本文围绕《数据结构线性表相关操作》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="单链表线性表：初始化、插入、遍历与有序合并">
+  <meta property="og:description" content="用带头结点的单链表实现 Init、Insert、遍历打印与有序合并，说明指针移动边界、旧代码里命名混淆，以及复杂度。">
   <meta property="og:url" content="https://madneal.com/post/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/linear-list-ops-908d5efc36.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,106 +208,168 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">数据结构线性表相关操作</h1>
-      <p class="post-meta">@Neal · Dec 28, 2015 · 3 min read</p>
+      <h1 class="post-title">单链表线性表：初始化、插入、遍历与有序合并</h1>
+      <p class="post-meta">@Neal · Dec 28, 2015 · 6 min read</p>
     </header>
-    <article class="post-content"><p>数据结构线性表是数据结构最基础的一章内容，也是数据结构最基础的一段，包括线性表的定义，线性表的初始化，线性表的插入，删除，合并。下面贴上代码</p>
-<pre tabindex="0"><code>#include &lt;stdio.h&gt;
-#include &lt;malloc.h&gt;
-#include&lt;iostream&gt;
-using namespace std;
-//线性表的定义
-typedef int ElemType;
-typedef struct LNode{
-	ElemType data;
-	struct LNode *next;
-}LNode,*LinkList;
-//线性表的初始化
-int InitList_L(LinkList &amp;L)
-{
-	L = (LinkList)malloc(sizeof(LNode));
-	L-&gt;next = NULL;
-	return 1;
-}
-//线性表的插入
-int ListInsert_L(LinkList &amp;L,int i,ElemType e)
-{
-	LinkList p;
-	p = L;
-	int j = 0;
-	while(p&amp;&amp;j&lt;i-1)
-	{
-		p=p-&gt;next;
-		++j;
-	}
-	if(!p||j&gt;i-1)
-		return 0;
-	LinkList s = (LinkList)malloc(sizeof(LNode));
-	s-&gt;data = e;
-	s-&gt;next=p-&gt;next;
-	p-&gt;next=s;
-	return 1;
-}
-//清空线性表
-void Delete_L(LinkList L)
-{
-	LinkList p = L-&gt;next;
-	if(!p)
-		cout &lt;&lt; &#34;this list is empty!&#34;;
-	while(p)
-	{
-		cout &lt;&lt; p-&gt;data;
-		p = p-&gt;next;
-	}
-	cout &lt;&lt; endl;
-}
-//合并线性表
-void MergeList_L(LinkList &amp;La,LinkList &amp;Lb,LinkList &amp;Lc)
-{
-	LinkList pa = La-&gt;next;
-	LinkList pb = Lb-&gt;next;
-	LinkList pc = Lc=La;
-	while (pa&amp;&amp;pb)
-	{
-		if(pa-&gt;data&lt;pb-&gt;data)
-		{
-			pc-&gt;next=pa;
-			pc=pa;
-			pa=pa-&gt;next;
-		}
-		else
-		{
-			pc-&gt;next=pb;
-			pc=pb;
-			pb=pb-&gt;next;
-		}
-	}
-	pc-&gt;next=pa?pa:pb;
-	free(Lb);
-}
-
-int main()
-{
-	LinkList La,Lb,Lc;
-	InitList_L(La);
-	InitList_L(Lb);
-	InitList_L(Lc);
-	ListInsert_L(La,1,2);
-	ListInsert_L(La,2,3);
-	ListInsert_L(La,3,5);
-	Delete_L(La);
-}
-</code></pre></article>
+    <article class="post-content"><p>线性表是数据结构的入门章。顺序表靠数组，链表靠指针。下面用 <strong>带头结点的单链表</strong> 把初始化、按位插入、遍历和有序合并写清楚，并修正早期笔记里「函数名叫 Delete 实际在打印」这类命名问题。</p>
+<h2 id="结点定义与初始化">结点定义与初始化</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> ElemType;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">LNode</span> {
+</span></span><span style="display:flex;"><span>    ElemType data;
+</span></span><span style="display:flex;"><span>    LNode<span style="color:#f92672">*</span> next;
+</span></span><span style="display:flex;"><span>} LNode, <span style="color:#f92672">*</span>LinkList;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 带头结点空表
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">InitList</span>(LinkList<span style="color:#f92672">&amp;</span> L) {
+</span></span><span style="display:flex;"><span>    L <span style="color:#f92672">=</span> (LinkList)malloc(<span style="color:#66d9ef">sizeof</span>(LNode));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>L) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    L<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>头结点不存业务数据，统一插入/删除边界，是教材里最省事的写法。</p>
+<h2 id="按位插入在第-i-个位置前插">按位插入（在第 i 个位置前插）</h2>
+<p>位序从 1 开始：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">ListInsert</span>(LinkList<span style="color:#f92672">&amp;</span> L, <span style="color:#66d9ef">int</span> i, ElemType e) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    LNode<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> L;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (p <span style="color:#f92672">&amp;&amp;</span> j <span style="color:#f92672">&lt;</span> i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">++</span>j;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>p) <span style="color:#66d9ef">return</span> false; <span style="color:#75715e">// i 过大
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    LNode<span style="color:#f92672">*</span> s <span style="color:#f92672">=</span> (LNode<span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(LNode));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>s) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">=</span> e;
+</span></span><span style="display:flex;"><span>    s<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>    p<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> s;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>复杂度 (O(n))，瓶颈在查找第 (i-1) 个结点。</p>
+<h2 id="遍历打印">遍历打印</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">PrintList</span>(LinkList L) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (LNode<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> L<span style="color:#f92672">-&gt;</span>next; p; p <span style="color:#f92672">=</span> p<span style="color:#f92672">-&gt;</span>next) {
+</span></span><span style="display:flex;"><span>        cout <span style="color:#f92672">&lt;&lt;</span> p<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="有序表合并假设升序">有序表合并（假设升序）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MergeList</span>(LinkList<span style="color:#f92672">&amp;</span> La, LinkList<span style="color:#f92672">&amp;</span> Lb, LinkList<span style="color:#f92672">&amp;</span> Lc) {
+</span></span><span style="display:flex;"><span>    LNode<span style="color:#f92672">*</span> pa <span style="color:#f92672">=</span> La<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>    LNode<span style="color:#f92672">*</span> pb <span style="color:#f92672">=</span> Lb<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>    Lc <span style="color:#f92672">=</span> La;                 <span style="color:#75715e">// 复用 La 的头结点
+</span></span></span><span style="display:flex;"><span>    LNode<span style="color:#f92672">*</span> pc <span style="color:#f92672">=</span> Lc;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (pa <span style="color:#f92672">&amp;&amp;</span> pb) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (pa<span style="color:#f92672">-&gt;</span>data <span style="color:#f92672">&lt;=</span> pb<span style="color:#f92672">-&gt;</span>data) {
+</span></span><span style="display:flex;"><span>            pc<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> pa;
+</span></span><span style="display:flex;"><span>            pc <span style="color:#f92672">=</span> pa;
+</span></span><span style="display:flex;"><span>            pa <span style="color:#f92672">=</span> pa<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            pc<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> pb;
+</span></span><span style="display:flex;"><span>            pc <span style="color:#f92672">=</span> pb;
+</span></span><span style="display:flex;"><span>            pb <span style="color:#f92672">=</span> pb<span style="color:#f92672">-&gt;</span>next;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    pc<span style="color:#f92672">-&gt;</span>next <span style="color:#f92672">=</span> pa <span style="color:#f92672">?</span> pa : pb;
+</span></span><span style="display:flex;"><span>    free(Lb); <span style="color:#75715e">// 释放 Lb 头结点；结点已链入 Lc
+</span></span></span><span style="display:flex;"><span>    Lb <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>时间 (O(len(a)+len(b)))，空间 (O(1)) 额外指针。</p>
+<h2 id="主函数演示">主函数演示</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    LinkList La, Lb, Lc;
+</span></span><span style="display:flex;"><span>    InitList(La);
+</span></span><span style="display:flex;"><span>    InitList(Lb);
+</span></span><span style="display:flex;"><span>    ListInsert(La, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    ListInsert(La, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+</span></span><span style="display:flex;"><span>    ListInsert(La, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>    PrintList(La); <span style="color:#75715e">// 2 3 5
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="旧笔记问题对照">旧笔记问题对照</h2>
+<table>
+	<thead>
+			<tr>
+					<th>旧代码</th>
+					<th>问题</th>
+					<th>修正</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>Delete_L</code></td>
+					<td>实际在打印</td>
+					<td>改名 <code>PrintList</code></td>
+			</tr>
+			<tr>
+					<td>缺少空指针检查</td>
+					<td><code>malloc</code> 失败未处理</td>
+					<td>返回 <code>bool</code></td>
+			</tr>
+			<tr>
+					<td>合并后 <code>Lb</code> 悬空</td>
+					<td>头结点 free 后未置空</td>
+					<td><code>Lb = nullptr</code></td>
+			</tr>
+			<tr>
+					<td>无销毁函数</td>
+					<td>长期运行泄漏</td>
+					<td>应补 <code>DestroyList</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="何时用链表-vs-顺序表">何时用链表 vs 顺序表</h2>
+<table>
+	<thead>
+			<tr>
+					<th>操作</th>
+					<th>顺序表</th>
+					<th>链表</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>随机访问</td>
+					<td>(O(1))</td>
+					<td>(O(n))</td>
+			</tr>
+			<tr>
+					<td>任意位置插入删除</td>
+					<td>(O(n)) 搬移</td>
+					<td>(O(1)) 改指针（已知位置）</td>
+			</tr>
+			<tr>
+					<td>缓存友好</td>
+					<td>好</td>
+					<td>差</td>
+			</tr>
+	</tbody>
+</table>
+<p>笔试面试里，带头结点单链表几乎是必默写项；真正工程中更常用 <code>std::vector</code> / <code>std::list</code>，但指针基本功仍要过关。</p>
+<h2 id="小结">小结</h2>
+<p>线性表链表实现的核心是 <strong>找准前驱指针再改 next</strong>。把插入与合并的边界条件画在纸上走一遍，比只背代码牢靠得多。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
+          <li><a href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="tag">数据结构</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/c/c&#43;&#43;"><span class="tag">C/C&#43;&#43;</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3872</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -321,24 +397,21 @@ int main()
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -349,7 +422,7 @@ int main()
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       TeX: { equationNumbers: { autoNumber: "AMS" },
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
+    }
   });
 </script>
 <script type="text/x-mathjax-config">
@@ -361,35 +434,8 @@ int main()
   });
 </script>
 
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

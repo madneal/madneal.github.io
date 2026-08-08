@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>如何查找django安装路径</title>
+  <title>如何查找 Django 的安装路径与版本信息</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《如何查找django安装路径》梳理web前端和后端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="用 django.file、pip show、python -c 等方式定位 Django 安装目录，并说明虚拟环境、多 Python 并存时的排查思路。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="如何查找django安装路径">
-    <meta name="twitter:description" content="本文围绕《如何查找django安装路径》梳理web前端和后端相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/django-install-path-3328fafd6d.jpg">
+    <meta name="twitter:title" content="如何查找 Django 的安装路径与版本信息">
+    <meta name="twitter:description" content="用 django.file、pip show、python -c 等方式定位 Django 安装目录，并说明虚拟环境、多 Python 并存时的排查思路。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="如何查找django安装路径">
-  <meta property="og:description" content="本文围绕《如何查找django安装路径》梳理web前端和后端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="如何查找 Django 的安装路径与版本信息">
+  <meta property="og:description" content="用 django.file、pip show、python -c 等方式定位 Django 安装目录，并说明虚拟环境、多 Python 并存时的排查思路。">
   <meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E6%9F%A5%E6%89%BEdjango%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/django-install-path-3328fafd6d.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,24 +208,94 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">如何查找django安装路径</h1>
+      <h1 class="post-title">如何查找 Django 的安装路径与版本信息</h1>
       <p class="post-meta">@Neal · Oct 10, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>需要找到django的安装路径，官方说的那个方法不好用，国内搜索都是都不到的，后来谷歌搜到了很简单
-import django
-django
-这样就可以找django的安装路径了，真心不懂为什么国内都看不到</p>
+    <article class="post-content"><p>调试模板标签、阅读源码、确认「到底 import 到了哪一份 Django」时，第一件事往往是：<strong>安装路径在哪</strong>。文档里有时写得很绕，其实 Python 自己就能告诉你。</p>
+<h2 id="最快的方式">最快的方式</h2>
+<p>在你 <strong>实际运行项目的同一个解释器</strong> 里执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -c <span style="color:#e6db74">&#34;import django; print(django.__file__); print(django.get_version())&#34;</span>
+</span></span></code></pre></div><p>示例输出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>/Users/you/.venv/lib/python3.12/site-packages/django/__init__.py
+</span></span><span style="display:flex;"><span>5.0.2
+</span></span></code></pre></div><p>包根目录就是 <code>__file__</code> 所在目录的上一级（去掉 <code>__init__.py</code>）。</p>
+<p>在 REPL 里也一样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> django
+</span></span><span style="display:flex;"><span>django  <span style="color:#75715e"># 交互环境有时会显示 repr</span>
+</span></span><span style="display:flex;"><span>print(django<span style="color:#f92672">.</span>__file__)
+</span></span><span style="display:flex;"><span>print(django<span style="color:#f92672">.</span>get_version())
+</span></span></code></pre></div><h2 id="用-pip-查看元数据">用 pip 查看元数据</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip show django
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 或</span>
+</span></span><span style="display:flex;"><span>python -m pip show django
+</span></span></code></pre></div><p>关注：</p>
+<ul>
+<li><code>Version</code></li>
+<li><code>Location</code>（site-packages 路径）</li>
+<li><code>Requires</code></li>
+</ul>
+<p>若 <code>pip show</code> 有结果但 <code>import django</code> 失败，多半是 <strong>pip 绑定的 Python 与当前 shell 的 python 不是同一个</strong>。</p>
+<h2 id="多环境并存时怎么排">多环境并存时怎么排</h2>
+<table>
+	<thead>
+			<tr>
+					<th>现象</th>
+					<th>可能原因</th>
+					<th>处理</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>系统 Python 有 Django，venv 没有</td>
+					<td>没装进虚拟环境</td>
+					<td><code>python -m pip install django</code></td>
+			</tr>
+			<tr>
+					<td>版本与预期不符</td>
+					<td>PATH 指错解释器</td>
+					<td><code>which python</code> / <code>py -0p</code></td>
+			</tr>
+			<tr>
+					<td>IDE 能跑、终端不能跑</td>
+					<td>IDE 选了别的 interpreter</td>
+					<td>对齐解释器</td>
+			</tr>
+			<tr>
+					<td>Docker 内路径不同</td>
+					<td>容器内 site-packages</td>
+					<td>在容器里执行同上命令</td>
+			</tr>
+	</tbody>
+</table>
+<p>永远记住：<strong>路径必须相对于「运行 manage.py 的那个 python」</strong>。</p>
+<h2 id="源码阅读小技巧">源码阅读小技巧</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python -c <span style="color:#e6db74">&#34;import django, pathlib; print(pathlib.Path(django.__file__).resolve().parent)&#34;</span>
+</span></span></code></pre></div><p>然后用编辑器直接打开该目录，例如查 <code>django/middleware/</code>、<code>django/contrib/auth/</code>。</p>
+<h2 id="和安全相关的一点">和安全相关的一点</h2>
+<p>生产镜像里请固定版本（<code>Django==x.y.z</code>），并关注 <a href="https://www.djangoproject.com/weblog/">Django security releases</a>。「能 import」不等于「版本可接受」；查路径的同时把 <code>get_version()</code> 记进部署检查清单。</p>
+<h2 id="小结">小结</h2>
+<ol>
+<li><code>python -c &quot;import django; print(django.__file__)&quot;</code> 最直接</li>
+<li><code>pip show django</code> 看安装元数据</li>
+<li>路径争议 = 解释器争议，先统一 <code>python</code></li>
+<li>顺手打印版本，避免环境漂移</li>
+</ol>
+<p>这就是当年那条「<code>import django; django</code>」笔记真正想表达的东西——补全上下文后，它才配得上单独成文。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/django"><span class="tag">Django</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
         
           <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF"><span class="tag">后端</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3951</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -239,75 +323,22 @@ django
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

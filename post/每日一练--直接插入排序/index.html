@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>每日一练--直接插入排序</title>
+  <title>每日一练：直接插入排序（C&#43;&#43;）</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《每日一练&ndash;直接插入排序》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="讲清插入排序的扑克牌整理直觉、不变式、C&#43;&#43; 实现、复杂度，以及与希尔排序的关系。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="每日一练--直接插入排序">
-    <meta name="twitter:description" content="本文围绕《每日一练&ndash;直接插入排序》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/insertion-sort-daily-b4fed6ca81.jpg">
+    <meta name="twitter:title" content="每日一练：直接插入排序（C&#43;&#43;）">
+    <meta name="twitter:description" content="讲清插入排序的扑克牌整理直觉、不变式、C&#43;&#43; 实现、复杂度，以及与希尔排序的关系。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="每日一练--直接插入排序">
-  <meta property="og:description" content="本文围绕《每日一练&ndash;直接插入排序》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="每日一练：直接插入排序（C&#43;&#43;）">
+  <meta property="og:description" content="讲清插入排序的扑克牌整理直觉、不变式、C&#43;&#43; 实现、复杂度，以及与希尔排序的关系。">
   <meta property="og:url" content="https://madneal.com/post/%E6%AF%8F%E6%97%A5%E4%B8%80%E7%BB%83--%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/insertion-sort-daily-b4fed6ca81.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,62 +208,78 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">每日一练--直接插入排序</h1>
-      <p class="post-meta">@Neal · Oct 28, 2015 · 3 min read</p>
+      <h1 class="post-title">每日一练：直接插入排序（C&#43;&#43;）</h1>
+      <p class="post-meta">@Neal · Apr 12, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>现在找工作的压力这么大，为了以后好找工作，现在开始要多看看算法，所以以后可以每天做个小题目，练习一下。今天作为第一天，说个最简单的直接插入排序。
-直接插入排序可以这么理解，把A[j]和A[0]&hellip;.A[j-1]的数进行比较，如果比他们小，就插入到比它小的前一位，直接插入排序的时间复杂度是O(n^2).
-先给出伪代码分析</p>
-<pre tabindex="0"><code>//the index of array is from 0
-for j=1 to num.length
-	key = num[j];
-	i = j-1;
-	while i &gt;= 0 and num[i] &gt; key
-	{
-		num[i+1] = num[i];
-		i--;
-	}
-	num[i+1] = key;
-</code></pre><p>下面用c++来实现</p>
-<pre tabindex="0"><code>// insertsort.cpp : 定义控制台应用程序的入口点。
-//
-
-#include &#34;stdafx.h&#34;
-#include&lt;iostream&gt;
-#include&lt;stdlib.h&gt;
-using namespace std;
-
-int main()
-{
-	int num[10] = {10,20,1,78,34,99,12,21,2,55};
-	int key;
-	cout &lt;&lt; &#34;the number has not been sorted:&#34; &lt;&lt; endl;
-	for (int i = 0;i &lt; 10;i++)
-	{
-		cout &lt;&lt; num[i] &lt;&lt; &#39; &#39;;
-	}
-	cout &lt;&lt; endl;
-	cout &lt;&lt; &#34;the number has been sorted:&#34; &lt;&lt; endl;
-	for (int j =1;j &lt;10;j++)
-	{
-		int key = num[j];
-		int i = j-1;
-		while(i &gt;=0&amp;&amp;num[i]&gt;key)
-		{
-			num[i+1] = num[i];
-			i--;
-		}
-		num[i+1] = key;
-	}
-
-	for (int m = 0;m &lt; 10;m++)
-	{
-		cout &lt;&lt; num[m] &lt;&lt; &#39; &#39;;
-	}
-	cout &lt;&lt; endl;
-	return 0;
-}
-</code></pre><p>今天一练，到此结束。</p>
+    <article class="post-content"><p>直接插入排序（Insertion Sort）像整理扑克：左手已有有序牌，右手每拿一张就插入到正确位置。它简单、稳定，在 <strong>近乎有序</strong> 或 <strong>n 很小</strong> 时非常实用，也是理解更复杂排序的基础。</p>
+<h2 id="算法过程">算法过程</h2>
+<p>对数组 <code>a[0..n-1]</code>：</p>
+<ol>
+<li>假设前缀 <code>a[0..j-1]</code> 已有序</li>
+<li>取 <code>key = a[j]</code></li>
+<li>把比 <code>key</code> 大的元素向右挪</li>
+<li>把 <code>key</code> 放入空位</li>
+<li><code>j</code> 从 1 扫到 n-1</li>
+</ol>
+<h2 id="c-实现">C++ 实现</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertionSort</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> a, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>j) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> key <span style="color:#f92672">=</span> a[j];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> a[i] <span style="color:#f92672">&gt;</span> key) {
+</span></span><span style="display:flex;"><span>            a[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> a[i];
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">--</span>i;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        a[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> key;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> num[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>    insertionSort(num, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; m <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#f92672">++</span>m) cout <span style="color:#f92672">&lt;&lt;</span> num[m] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span>;
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="复杂度与性质">复杂度与性质</h2>
+<table>
+	<thead>
+			<tr>
+					<th>项</th>
+					<th>值</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>最好</td>
+					<td>(O(n))（已有序，只比较）</td>
+			</tr>
+			<tr>
+					<td>最坏/平均</td>
+					<td>(O(n^2))</td>
+			</tr>
+			<tr>
+					<td>空间</td>
+					<td>(O(1))</td>
+			</tr>
+			<tr>
+					<td>稳定</td>
+					<td>是（相等元素不跨越）</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="练习延伸">练习延伸</h2>
+<ol>
+<li>改成降序</li>
+<li>统计移动次数</li>
+<li>对链表实现插入排序</li>
+<li>了解希尔排序如何分组插入以改进性能</li>
+</ol>
+<h2 id="小结">小结</h2>
+<p>插入排序代码短、好证不变式，适合做每日一练的第一题。工程上 <code>n</code> 大时请用 <code>std::sort</code>，但面试手写插入/快排/归并仍是基本功。</p>
 </article>
     <footer class="post-footer">
       
@@ -257,10 +287,12 @@ int main()
         
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
+          <li><a href="https://madneal.com/tags/%E6%8E%92%E5%BA%8F"><span class="tag">排序</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3933</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -288,24 +320,21 @@ int main()
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -316,7 +345,7 @@ int main()
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       TeX: { equationNumbers: { autoNumber: "AMS" },
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
+    }
   });
 </script>
 <script type="text/x-mathjax-config">
@@ -328,35 +357,8 @@ int main()
   });
 </script>
 
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

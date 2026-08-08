@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>datagridview里面的checkbox全选和取消全选</title>
+  <title>WinForms DataGridView：CheckBox 列的全选与取消全选</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《datagridview里面的checkbox全选和取消全选》展开，重点梳理全选和取消全选等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="遍历 DataGridView 勾选列实现全选/取消全选，并补充布尔值写入方式、表头全选、大数据量与数据绑定注意点。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="datagridview里面的checkbox全选和取消全选">
-    <meta name="twitter:description" content="本文围绕《datagridview里面的checkbox全选和取消全选》展开，重点梳理全选和取消全选等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/datagrid-checkbox-2684be345a.jpg">
+    <meta name="twitter:title" content="WinForms DataGridView：CheckBox 列的全选与取消全选">
+    <meta name="twitter:description" content="遍历 DataGridView 勾选列实现全选/取消全选，并补充布尔值写入方式、表头全选、大数据量与数据绑定注意点。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="datagridview里面的checkbox全选和取消全选">
-  <meta property="og:description" content="本文围绕《datagridview里面的checkbox全选和取消全选》展开，重点梳理全选和取消全选等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="WinForms DataGridView：CheckBox 列的全选与取消全选">
+  <meta property="og:description" content="遍历 DataGridView 勾选列实现全选/取消全选，并补充布尔值写入方式、表头全选、大数据量与数据绑定注意点。">
   <meta property="og:url" content="https://madneal.com/post/datagridview%E9%87%8C%E9%9D%A2%E7%9A%84checkbox%E5%85%A8%E9%80%89%E5%92%8C%E5%8F%96%E6%B6%88%E5%85%A8%E9%80%89/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/datagrid-checkbox-2684be345a.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,49 +208,118 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">datagridview里面的checkbox全选和取消全选</h1>
+      <h1 class="post-title">WinForms DataGridView：CheckBox 列的全选与取消全选</h1>
       <p class="post-meta">@Neal · Apr 22, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><h2 id="全选">全选</h2>
-<p>设置全选button，选中所有的checkbox</p>
-<pre tabindex="0"><code>        private void selectAll_Click(object sender, EventArgs e)
-        {
-        //遍历datagridview中的每一行，判断是否选中，若为选中，则选中
-            for (int i = 0; i &lt; dataGridView1.Rows.Count; i++)
-            {
-                if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == false))
-                {
-                    dataGridView1.Rows[i].Cells[0].Value = &#34;True&#34;;
-                }
-                else
-                    continue;
-            }
-        }
-</code></pre><h2 id="取消全选">取消全选</h2>
-<p>设置取消全选button，取消选中的所有checkbox</p>
-<pre tabindex="0"><code>        private void cancelAll_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i &lt; dataGridView1.Rows.Count; i++)
-            {
-                if ((Convert.ToBoolean(dataGridView1.Rows[i].Cells[0].Value) == true))
-                {
-                    dataGridView1.Rows[i].Cells[0].Value = &#34;False&#34;;
-                }
-                else
-                    continue;
-            }
-        }
-</code></pre></article>
+    <article class="post-content"><p>桌面管理系统里，表格第一列放 CheckBox、工具栏放「全选 / 取消全选」非常常见。逻辑不复杂，但 <code>DataGridView</code> 的单元格值类型、编辑提交时机，经常让人写出「点了没反应」的代码。</p>
+<h2 id="基本实现">基本实现</h2>
+<p>假设第 0 列是 <code>DataGridViewCheckBoxColumn</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> selectAll_Click(<span style="color:#66d9ef">object</span> sender, EventArgs e)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; dataGridView1.Rows.Count; i++)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> row = dataGridView1.Rows[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (row.IsNewRow) <span style="color:#66d9ef">continue</span>; <span style="color:#75715e">// 允许用户添加行时跳过最后空行</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">bool</span> selected = <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (row.Cells[<span style="color:#ae81ff">0</span>].Value != <span style="color:#66d9ef">null</span> &amp;&amp; row.Cells[<span style="color:#ae81ff">0</span>].Value != DBNull.Value)
+</span></span><span style="display:flex;"><span>            selected = Convert.ToBoolean(row.Cells[<span style="color:#ae81ff">0</span>].Value);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (!selected)
+</span></span><span style="display:flex;"><span>            row.Cells[<span style="color:#ae81ff">0</span>].Value = <span style="color:#66d9ef">true</span>; <span style="color:#75715e">// 用 bool，而不是字符串 &#34;True&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    dataGridView1.EndEdit();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">void</span> cancelAll_Click(<span style="color:#66d9ef">object</span> sender, EventArgs e)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; dataGridView1.Rows.Count; i++)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> row = dataGridView1.Rows[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (row.IsNewRow) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        row.Cells[<span style="color:#ae81ff">0</span>].Value = <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    dataGridView1.EndEdit();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="为什么不建议写-true--false-字符串">为什么不建议写 <code>&quot;True&quot;</code> / <code>&quot;False&quot;</code> 字符串</h2>
+<p>CheckBox 列底层期望的是 <strong>布尔</strong> 或可转换的值。写入字符串有时能显示，但在：</p>
+<ul>
+<li>数据绑定到 <code>bool</code> 属性</li>
+<li>参与条件过滤</li>
+<li>与三态（Indeterminate）交互</li>
+</ul>
+<p>时容易出现类型不一致。统一用 <code>true</code> / <code>false</code>。</p>
+<h2 id="表头复选框更现代的-ux">表头复选框（更现代的 UX）</h2>
+<p>比两个按钮更省地方的做法是：在列头画一个 CheckBox，点击切换全部状态。实现要点：</p>
+<ol>
+<li>处理 <code>ColumnHeaderMouseClick</code></li>
+<li>维护 <code>_allChecked</code> 状态</li>
+<li>批量赋值后 <code>InvalidateHeader</code> 重绘</li>
+</ol>
+<p>若行数上万，循环赋值会卡 UI，可：</p>
+<ul>
+<li>临时 <code>dataGridView1.SuspendLayout()</code></li>
+<li>或在绑定的 <code>DataTable</code> / <code>BindingList</code> 层改数据，再一次性重置绑定</li>
+</ul>
+<h2 id="数据绑定场景">数据绑定场景</h2>
+<p>若网格绑的是对象列表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RowItem</span> { <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">bool</span> Checked { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; } }
+</span></span></code></pre></div><p>应改 <code>Checked</code> 属性并通知 <code>INotifyPropertyChanged</code>，而不是只改单元格 <code>Value</code>，否则保存时丢状态。</p>
+<h2 id="权限与安全桌面程序也有">权限与安全（桌面程序也有）</h2>
+<p>全选后批量删除、批量导出时：</p>
+<ul>
+<li>二次确认</li>
+<li>记录操作者与数量</li>
+<li>对敏感列（路径、密钥）导出前脱敏</li>
+</ul>
+<p>这些和 Web 后台的 bulk action 是同一类风险。</p>
+<h2 id="小结">小结</h2>
+<table>
+	<thead>
+			<tr>
+					<th>点</th>
+					<th>建议</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>赋值类型</td>
+					<td><code>true</code>/<code>false</code></td>
+			</tr>
+			<tr>
+					<td>新行</td>
+					<td>跳过 <code>IsNewRow</code></td>
+			</tr>
+			<tr>
+					<td>编辑态</td>
+					<td><code>EndEdit()</code></td>
+			</tr>
+			<tr>
+					<td>大数据</td>
+					<td>暂停布局或改数据源</td>
+			</tr>
+			<tr>
+					<td>UX</td>
+					<td>表头 CheckBox 优于双按钮</td>
+			</tr>
+	</tbody>
+</table>
+<p>把全选做对，本质是：<strong>改对数据模型，而不是只改屏幕上的方框</strong>。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="tag">学习笔记</span></a></li>
+          <li><a href="https://madneal.com/tags/c"><span class="tag">C#</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/winforms"><span class="tag">WinForms</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/.net"><span class="tag">.NET</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4122</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -264,75 +347,22 @@
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

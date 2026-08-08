@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>道路识别demo</title>
+  <title>简易车道线检测 Demo：OpenCvSharp 与 C&#43;&#43; OpenCV</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《道路识别demo》展开，重点梳理opencvsharp版本和opencv版本等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="回顾早期车道线检测流水线：降采样、ROI、灰度、高斯、Canny、概率霍夫，并说明角度过滤与工程局限。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="道路识别demo">
-    <meta name="twitter:description" content="本文围绕《道路识别demo》展开，重点梳理opencvsharp版本和opencv版本等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/road-recognition-demo-8d9902207c.jpg">
+    <meta name="twitter:title" content="简易车道线检测 Demo：OpenCvSharp 与 C&#43;&#43; OpenCV">
+    <meta name="twitter:description" content="回顾早期车道线检测流水线：降采样、ROI、灰度、高斯、Canny、概率霍夫，并说明角度过滤与工程局限。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="道路识别demo">
-  <meta property="og:description" content="本文围绕《道路识别demo》展开，重点梳理opencvsharp版本和opencv版本等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="简易车道线检测 Demo：OpenCvSharp 与 C&#43;&#43; OpenCV">
+  <meta property="og:description" content="回顾早期车道线检测流水线：降采样、ROI、灰度、高斯、Canny、概率霍夫，并说明角度过滤与工程局限。">
   <meta property="og:url" content="https://madneal.com/post/%E9%81%93%E8%B7%AF%E8%AF%86%E5%88%ABdemo/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/road-recognition-demo-8d9902207c.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,152 +208,73 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">道路识别demo</h1>
-      <p class="post-meta">@Neal · Apr 15, 2015 · 6 min read</p>
+      <h1 class="post-title">简易车道线检测 Demo：OpenCvSharp 与 C&#43;&#43; OpenCV</h1>
+      <p class="post-meta">@Neal · Apr 15, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>最近做的道路识别一开始终于弄懂了点东西，一开始在网上找到了一个简单的道路识别的opencvsharp的版本。我觉得opencvsharp真的是一个很好的东西，它封装了比opencv更多的数据结构和库，而且得益于.net平台的强大，使用起来也非常的便捷。唯一的缺点就是目前关于这方面的资料还是少之又少，后来我还是想一想把这个demo转换成cpp版本，也是一个非常简单的demo。</p>
-<h2 id="opencvsharp版本">opencvsharp版本</h2>
-<pre tabindex="0"><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
-using OpenCvSharp;
-
-namespace LaneDetection
-{
-    class Program
-    {
-        [STAThread]
-        static void Main()
-        {
-            CvCapture cap = CvCapture.FromFile(&#34;test1.mp4&#34;);
-            CvWindow w = new CvWindow(&#34;Lane Detection&#34;);
-            CvWindow canny = new CvWindow(&#34;Canny&#34;);
-            IplImage src, gray, dstCanny, halfFrame, smallImg;
-            CvMemStorage storage = new CvMemStorage();
-            CvSeq lines;
-
-            while (CvWindow.WaitKey(10) &lt; 0)
-            {
-                src = cap.QueryFrame();
-                halfFrame = new IplImage(new CvSize(src.Size.Width / 2, src.Size.Height / 2), BitDepth.U8, 3);
-                Cv.PyrDown(src, halfFrame, CvFilter.Gaussian5x5);
-
-                gray = new IplImage(src.Size, BitDepth.U8, 1);
-                dstCanny = new IplImage(src.Size, BitDepth.U8, 1);
-                storage.Clear();
-                
-                // Crop off top half of image since we&#39;re only interested in the lower portion of the video
-                int halfWidth = src.Width / 2;
-                int halfHeight = src.Height / 2;
-                int startX = halfWidth - (halfWidth / 2);
-                src.SetROI(new CvRect(0, halfHeight - 0, src.Width - 1, src.Height - 1));
-
-                gray.SetROI(src.GetROI());
-                dstCanny.SetROI(src.GetROI());
-
-                src.CvtColor(gray, ColorConversion.BgrToGray);
-                Cv.Smooth(gray, gray, SmoothType.Gaussian, 5, 5);
-                Cv.Canny(gray, dstCanny, 50, 200, ApertureSize.Size3);
-                canny.Image = dstCanny;
-                storage.Clear();
-                lines = dstCanny.HoughLines2(storage, HoughLinesMethod.Probabilistic, 1, Math.PI / 180, 50, 50, 100);
-
-                for (int i = 0; i &lt; lines.Total; i++)
-                {
-                    CvLineSegmentPoint elem = lines.GetSeqElem&lt;CvLineSegmentPoint&gt;(i).Value;
-                    
-                    int dx = elem.P2.X - elem.P1.X;
-                    int dy = elem.P2.Y - elem.P1.Y;
-                    double angle = Math.Atan2(dy, dx) * 180 / Math.PI;
-
-                    if (Math.Abs(angle) &lt;= 10)
-                        continue;
-
-                    if (elem.P1.Y &gt; elem.P2.Y + 50  || elem.P1.Y &lt; elem.P2.Y -50 )
-                    {
-                        src.Line(elem.P1, elem.P2, CvColor.Red, 2, LineType.AntiAlias, 0);
-                    }
-                }
-                src.ResetROI();
-                storage.Clear();
-                w.Image = src;
-            }
-        }
-    }
-}
-</code></pre><h2 id="opencv版本">opencv版本</h2>
-<pre tabindex="0"><code>#include &#34;stdafx.h&#34;
-#include &lt;highgui.h&gt;
-#include &lt;cv.h&gt;
-#include &lt;math.h&gt;
-
-using namespace cv;
-using namespace std;
-
-#define INF 99999999
-CvCapture* g_capture = NULL;
-
-int g_slider_pos = 0 ;
-int frame_count = 0;
-CvSeq* lines;
-
-
-int main(int argc,char* argv[])
-{                  
-    cvNamedWindow( &#34;show&#34;);      
-	g_capture=cvCreateFileCapture( &#34;D:\\road.avi&#34;);
-    IplImage* frame;
-    while(1)
-    {  
-		CvMemStorage* storage = cvCreateMemStorage();
-		frame=cvQueryFrame(g_capture);
-
-		//set the ROI of the original image
-		int x = 0,y = frame-&gt;height/2;
-		int width = frame-&gt;width,height = frame-&gt;height/2;
-
-		if(!frame) 
-			break; 
-
-		cvSetImageROI(frame,cvRect(x,y,width,height));
-		IplImage* gray = cvCreateImage(cvGetSize(frame),8,1);
-		cvCvtColor(frame,gray,CV_BGR2GRAY);
-
-		cvCanny(gray,gray,50,100);
-		cvShowImage(&#34;canny&#34;,gray);
-		cvSmooth(gray,gray,CV_GAUSSIAN,3,1,0);
-
-		//Hough
-		lines = cvHoughLines2(gray,storage,CV_HOUGH_PROBABILISTIC,1,CV_PI/180,50,90,50);
-
-		//select approprivate lines acoording to the slope
-		for (int i = 0;i &lt; lines-&gt;total;i ++)
-		{
-			double k =INF;
-			CvPoint* line = (CvPoint*)cvGetSeqElem(lines,i);
-			int dx = line[1].x - line[0].x;
-			int dy = line[1].x - line[0].y;
-			double angle = atan2(dy,dx) * 180 /CV_PI;
-			if (abs(angle) &lt;= 10)
-				continue;
-			if (line[0].y &gt; line[1].y + 50 || line[0].y &lt; line[1].y - 50)
-			{
-				cvLine(frame,line[0],line[1],CV_RGB(255,0,0),2,CV_AA);
-			}
-		}
-		cvResetImageROI(frame);		
-		cvShowImage( &#34;show&#34;,frame);
-        char c = cvWaitKey(33);            
-        if(c==27)
-            break;
-    } 
-	cvReleaseCapture(&amp;g_capture);
-	cvDestroyWindow( &#34;show&#34;);               
-    return 0;
-}
-</code></pre><p>非常希望有弄这方面的人能和我讨论一下，若转载请注明出处，谢谢。</p>
+    <article class="post-content"><p>很早以前做道路/车道线相关练习时，先找到一个 <strong>OpenCvSharp</strong> 示例，再改成 C++ OpenCV。流水线经典而粗糙，但足够建立直觉。本文保留思路，并写明局限——它不是生产级自动驾驶感知。</p>
+<h2 id="经典流水线">经典流水线</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>读帧 → 缩小/模糊 → 取下半幅 ROI → 灰度
+</span></span><span style="display:flex;"><span>    → Gaussian → Canny → HoughLinesP → 按角度过滤 → 画线
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>步骤</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>ROI 裁剪</td>
+					<td>天空无车道，减计算、减误检</td>
+			</tr>
+			<tr>
+					<td>Canny</td>
+					<td>提边缘</td>
+			</tr>
+			<tr>
+					<td>概率霍夫</td>
+					<td>把边缘点聚成线段</td>
+			</tr>
+			<tr>
+					<td>角度过滤</td>
+					<td>去掉近似水平的噪线（引擎盖、阴影）</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="c-伪代码结构">C++ 伪代码结构</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (capture.read(frame)) {
+</span></span><span style="display:flex;"><span>    Mat roi <span style="color:#f92672">=</span> frame(Rect(<span style="color:#ae81ff">0</span>, frame.rows<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, frame.cols, frame.rows<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>    Mat gray, edges;
+</span></span><span style="display:flex;"><span>    cvtColor(roi, gray, COLOR_BGR2GRAY);
+</span></span><span style="display:flex;"><span>    GaussianBlur(gray, gray, Size(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    Canny(gray, edges, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">200</span>);
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>Vec4i<span style="color:#f92672">&gt;</span> lines;
+</span></span><span style="display:flex;"><span>    HoughLinesP(edges, lines, <span style="color:#ae81ff">1</span>, CV_PI<span style="color:#f92672">/</span><span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">100</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> l : lines) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> angle <span style="color:#f92672">=</span> atan2(l[<span style="color:#ae81ff">3</span>]<span style="color:#f92672">-</span>l[<span style="color:#ae81ff">1</span>], l[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">-</span>l[<span style="color:#ae81ff">0</span>]) <span style="color:#f92672">*</span> <span style="color:#ae81ff">180</span> <span style="color:#f92672">/</span> CV_PI;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (fabs(angle) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">continue</span>; <span style="color:#75715e">// 过滤近水平
+</span></span></span><span style="display:flex;"><span>        line(roi, Point(l[<span style="color:#ae81ff">0</span>],l[<span style="color:#ae81ff">1</span>]), Point(l[<span style="color:#ae81ff">2</span>],l[<span style="color:#ae81ff">3</span>]), Scalar(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>), <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    imshow(<span style="color:#e6db74">&#34;lane&#34;</span>, frame);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (waitKey(<span style="color:#ae81ff">30</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">27</span>) <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>OpenCvSharp 版本 API 不同（<code>IplImage</code>/<code>CvCapture</code> 偏老），逻辑一致。新代码请优先 <code>Mat</code>。</p>
+<h2 id="参数怎么调">参数怎么调</h2>
+<ul>
+<li><strong>Canny 高低阈值</strong>：比值常 1:2 或 1:3；过低噪点爆炸</li>
+<li><strong>Hough 阈值与最小线长</strong>：城市车道可加长 <code>minLineLength</code></li>
+<li><strong>角度</strong>：水平过滤 10° 只是经验值，弯道/坡道要自适应</li>
+</ul>
+<h2 id="明显局限">明显局限</h2>
+<ol>
+<li>强依赖边缘，雨夜、强光、磨损标线会挂</li>
+<li>无左右车道建模，只是「画很多红线」</li>
+<li>无时间序列跟踪，帧间抖动大</li>
+<li>老 API（<code>IplImage</code>）与现代 OpenCV4 不兼容</li>
+</ol>
+<p>进阶应看：透视变换鸟瞰、滑动窗口拟合、U-Net 分割、或现成开源车道方案。</p>
+<h2 id="小结">小结</h2>
+<p>这个 demo 的价值是 <strong>跑通视觉流水线</strong>，不是上街。若你仍在用 OpenCvSharp，建议迁移到 OpenCvSharp4 + <code>Mat</code>，并固定输入视频做回归，避免「调参玄学」。</p>
 </article>
     <footer class="post-footer">
       
@@ -347,10 +282,14 @@ int main(int argc,char* argv[])
         
           <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
         
+          <li><a href="https://madneal.com/tags/opencv"><span class="tag">OpenCV</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/c"><span class="tag">C#</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4129</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -378,75 +317,22 @@ int main(int argc,char* argv[])
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

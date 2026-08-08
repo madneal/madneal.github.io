@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>latex算法步骤如何去掉序号</title>
+  <title>LaTeX 算法环境：去掉 algorithmic 自动行号</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《latex算法步骤如何去掉序号》梳理论文写作、算法和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="当步骤里已经写了 Step 1/2/3 时，如何去掉 algorithmic 自动编号，并对比 algorithm2e / algpseudocode 的常见写法。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="latex算法步骤如何去掉序号">
-    <meta name="twitter:description" content="本文围绕《latex算法步骤如何去掉序号》梳理论文写作、算法和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/latex-algo-numbers-b53d8ef71b.jpg">
+    <meta name="twitter:title" content="LaTeX 算法环境：去掉 algorithmic 自动行号">
+    <meta name="twitter:description" content="当步骤里已经写了 Step 1/2/3 时，如何去掉 algorithmic 自动编号，并对比 algorithm2e / algpseudocode 的常见写法。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="latex算法步骤如何去掉序号">
-  <meta property="og:description" content="本文围绕《latex算法步骤如何去掉序号》梳理论文写作、算法和LaTeX相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="LaTeX 算法环境：去掉 algorithmic 自动行号">
+  <meta property="og:description" content="当步骤里已经写了 Step 1/2/3 时，如何去掉 algorithmic 自动编号，并对比 algorithm2e / algpseudocode 的常见写法。">
   <meta property="og:url" content="https://madneal.com/post/latex%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4%E5%A6%82%E4%BD%95%E5%8E%BB%E6%8E%89%E5%BA%8F%E5%8F%B7/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/latex-algo-numbers-b53d8ef71b.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,58 +208,97 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">latex算法步骤如何去掉序号</h1>
+      <h1 class="post-title">LaTeX 算法环境：去掉 algorithmic 自动行号</h1>
       <p class="post-meta">@Neal · Nov 6, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>想去掉latex算法步骤前面的序号，如下
-<img src="http://img.blog.csdn.net/20151106185801079" alt="这里写图片描述">
-我想去掉每个算法步骤前面的数字序号，1，2，3，因为我已经写了step。我们只需要引用a lgorithmic这个包就可以了，代码如下：</p>
-<pre tabindex="0"><code>\usepackage{algorithmic}
-\begin{algorithm}[htb]
-\caption{SDE}
-\label{alg2}
-\begin{algorithmic}
-\STATE Step 1. Compute the covariance matrix $C$ of the current population, then apply Eigen decomposition to $C$ as follows:
-\begin{equation}
-\label{eve}
-C=EDE^T
-\end{equation}
-where $E$ is the eigenvector matrix of the population, $E^T$ is the corresponding transposed matrix. $D$ is a diagonal matrix composed of eigenvalues.
-
-\STATE Step 2. Compute the the projection of the population with eigenvector matrix $E$.
-\begin{equation}
-\label{proj}
-P=X_G\cdot{E} 
-\end{equation}
-
-\STATE Step 3. Operate the mutation in Eigen coordinate sysytem.
-\begin{equation}
-\label{mut}
-P&#39;=P_{r_1}+F\cdot(P_{r_2}-P_{r_3})
-\end{equation}
-where $P_{r_1}$, $P_{r_2}$ and $P_{r_3}$ are sampled randomly from the projection $P$, $P&#39;$ is the projection of mutation vector.
-
-\STATE Step 4. Transform $P&#39;$ to original coordinate system to obtain next generation of population $X_{G+1}$.
-\begin{equation}\label{org}
-  X_{G+1}=P&#39;\cdot{E^T}
-\end{equation}
-
-\end{algorithmic}
-\end{algorithm}
-</code></pre><p>ok,搞定</p>
+    <article class="post-content"><p>论文里贴伪代码时，<code>algorithm</code> + <code>algorithmic</code> 很常见。默认会在每一行前面自动加 <code>1: 2: 3:</code>。若你已经在文本里写了 <code>Step 1. ...</code>，就会出现 <strong>双重编号</strong>，既难看也浪费栏宽。</p>
+<h2 id="目标效果">目标效果</h2>
+<p>只要：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Step 1. ...
+</span></span><span style="display:flex;"><span>Step 2. ...
+</span></span></code></pre></div><p>不要：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>1: Step 1. ...
+</span></span><span style="display:flex;"><span>2: Step 2. ...
+</span></span></code></pre></div><h2 id="做法用-algorithmic-且不启用行号包变体">做法：用 <code>algorithmic</code> 且不启用行号包变体</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{algorithm}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{algorithmic} <span style="color:#75715e">% 注意：不是 algorithmicx 的那套命令混用
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{algorithm}[htb]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\caption</span>{SDE 主流程}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\label</span>{alg:sde}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{algorithmic}  <span style="color:#75715e">% 某些版本可用 \begin{algorithmic}[0] 关闭编号
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">\STATE</span> Step 1. 计算当前种群协方差矩阵 <span style="color:#e6db74">$</span>C<span style="color:#e6db74">$</span>，并做特征分解 <span style="color:#e6db74">$</span>C<span style="color:#f92672">=</span>EDE^{T}<span style="color:#e6db74">$</span>。
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\STATE</span> Step 2. 将种群投影到特征坐标：<span style="color:#e6db74">$</span>P<span style="color:#f92672">=</span>X_{G}E<span style="color:#e6db74">$</span>。
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\STATE</span> Step 3. 在特征坐标中做差分变异，得到 <span style="color:#e6db74">$</span>P&#39;<span style="color:#e6db74">$</span>。
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\STATE</span> Step 4. 变换回原坐标：<span style="color:#e6db74">$</span>X_{G<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>}<span style="color:#f92672">=</span>P&#39;E^{T}<span style="color:#e6db74">$</span>。
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{algorithmic}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{algorithm}
+</span></span></code></pre></div><p>说明：</p>
+<ul>
+<li>经典 <code>algorithms</code> 束中的 <code>algorithmic</code>，<strong>不显式给行号参数</strong> 时通常就不带 <code>1: 2:</code>。</li>
+<li>若你用的是 <code>algpseudocode</code>（<code>algorithmicx</code>），默认 <code>\begin{algorithmic}[1]</code> 会编号；改成：</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{algorithmic}[0]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\State</span> Step 1. ...
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{algorithmic}
+</span></span></code></pre></div><p><code>[0]</code> 表示不显示行号。</p>
+<h2 id="两套宏包不要混">两套宏包不要混</h2>
+<table>
+	<thead>
+			<tr>
+					<th>体系</th>
+					<th>常见命令</th>
+					<th>行号</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>algorithmic</code></td>
+					<td><code>\STATE \IF \FOR</code></td>
+					<td>老风格</td>
+			</tr>
+			<tr>
+					<td><code>algpseudocode</code></td>
+					<td><code>\State \If \For</code></td>
+					<td><code>\begin{algorithmic}[1]</code></td>
+			</tr>
+			<tr>
+					<td><code>algorithm2e</code></td>
+					<td><code>\If{...}\tcp{...}</code></td>
+					<td>自带另一套选项</td>
+			</tr>
+	</tbody>
+</table>
+<p>混用会导致「Undefined control sequence」。选一套用到底。</p>
+<h2 id="需要引用某一步怎么办">需要引用某一步怎么办</h2>
+<p>若关掉自动编号又想引用，可以：</p>
+<ul>
+<li>在 Step 文本里写死编号，正文写「见算法 1 的 Step 3」</li>
+<li>或使用 <code>algorithmicx</code> 的线标签功能（需要编号时再打开）</li>
+</ul>
+<h2 id="排版建议">排版建议</h2>
+<ol>
+<li>长公式不要硬塞进 <code>\STATE</code> 一行，可 <code>\STATE</code> + <code>equation</code> 环境。</li>
+<li><code>\caption</code> 写「做什么」，细节放步骤。</li>
+<li>双栏模板注意算法浮动体用 <code>[t]</code>/<code>[htbp]</code>，避免漂到附录。</li>
+</ol>
+<h2 id="小结">小结</h2>
+<p>双重编号 = 自动行号 + 手写 Step 冲突。要么去掉自动行号（<code>[0]</code> 或换不编号的 <code>algorithmic</code>），要么删掉手写 Step 改用纯行号。论文里我更偏好 <strong>手写 Step + 无自动行号</strong>，审稿人按步骤讨论更自然。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
+          <li><a href="https://madneal.com/tags/latex"><span class="tag">LaTeX</span></a></li>
+        
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
-          <li><a href="https://madneal.com/tags/latex"><span class="tag">LaTeX</span></a></li>
+          <li><a href="https://madneal.com/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C"><span class="tag">论文写作</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3924</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -273,75 +326,22 @@ where $P_{r_1}$, $P_{r_2}$ and $P_{r_3}$ are sampled randomly from the projectio
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

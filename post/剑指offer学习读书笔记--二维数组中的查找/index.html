@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>剑指offer学习读书笔记--二维数组中的查找</title>
+  <title>剑指 Offer：二维数组中的查找</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《剑指offer学习读书笔记&ndash;二维数组中的查找》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="杨氏矩阵从右上角或左下角出发，每次剔除一行或一列，O(n&#43;m) 查找目标数；含正确索引计算与边界条件。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="剑指offer学习读书笔记--二维数组中的查找">
-    <meta name="twitter:description" content="本文围绕《剑指offer学习读书笔记&ndash;二维数组中的查找》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/jianzhi-2d-search-38e801e9ca.jpg">
+    <meta name="twitter:title" content="剑指 Offer：二维数组中的查找">
+    <meta name="twitter:description" content="杨氏矩阵从右上角或左下角出发，每次剔除一行或一列，O(n&#43;m) 查找目标数；含正确索引计算与边界条件。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="剑指offer学习读书笔记--二维数组中的查找">
-  <meta property="og:description" content="本文围绕《剑指offer学习读书笔记&ndash;二维数组中的查找》梳理算法OJ和算法相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="剑指 Offer：二维数组中的查找">
+  <meta property="og:description" content="杨氏矩阵从右上角或左下角出发，每次剔除一行或一列，O(n&#43;m) 查找目标数；含正确索引计算与边界条件。">
   <meta property="og:url" content="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0--%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/jianzhi-2d-search-38e801e9ca.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,49 +208,70 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">剑指offer学习读书笔记--二维数组中的查找</h1>
+      <h1 class="post-title">剑指 Offer：二维数组中的查找</h1>
       <p class="post-meta">@Neal · Nov 14, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都是按照从上到下递增的顺序排序。请设计一个函数，输入这样的一个二维数组和一个整数，判断数组是否含有这个整数。
-1		2		8		9
-2		4		9		12
-4		7		10		13
-6		8		11		15
-我们可以发现以下规律：首先选取数组右上角的数字。如果这个数字是要寻找的数字，则返回结果。若这个数字大于我们要寻找的数字，则去除这个数字所在的列；若这个数字小于我们要寻找的数字，则去除这个数字所在的行。也就是说如果查找的数字不在数组的右上角，则每一次都在数组查找范围中剔除一行或者一列，这样每一步都可以缩小查找的范围了，直到找到需要查找的数字或者查找的范围为空。</p>
-<p>从另外一个角度看，从左下角的数字来看，如果这个数字大于查找的数字，则剔除该行，若这个数字小于查找的数字，则剔除该列。</p>
-<pre tabindex="0"><code>bool Find(int* matrix,int rows,int cols,int num)
-{
-	bool found = false;
-	if (matrix != null &amp;&amp; rows &gt; 0 &amp;&amp; cols &gt; 0)
-	{
-		int row = 0;
-		int col = cols - 1;
-		while(row &lt; rows &amp;&amp; col &gt;= 0)
-		{
-			if (matrix[row*cols + col] == num)
-			{
-				found = true;
-				break;
-			}
-			else if(matrix[row*cols + col] &gt; num)
-			-- col;
-			else
-			++ row;
-		}
-	}
-	return found;
-}
-</code></pre></article>
+    <article class="post-content"><h2 id="题目">题目</h2>
+<p>在一个二维数组中，每一行从左到右递增，每一列从上到下递增。请判断数组中是否含有整数 <code>num</code>。</p>
+<p>示例矩阵：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>1  2  8  9
+</span></span><span style="display:flex;"><span>2  4  9  12
+</span></span><span style="display:flex;"><span>4  7  10 13
+</span></span><span style="display:flex;"><span>6  8  11 15
+</span></span></code></pre></div><h2 id="思路">思路</h2>
+<p>暴力 (O(nm)) 可过小数据，但利用单调性可做到 (O(n+m))：</p>
+<p>从 <strong>右上角</strong> 出发（当前值 <code>t</code>）：</p>
+<ul>
+<li><code>t == num</code>：找到</li>
+<li><code>t &gt; num</code>：该列下面更大，<strong>删当前列</strong>（<code>--col</code>）</li>
+<li><code>t &lt; num</code>：该行左边更小，<strong>删当前行</strong>（<code>++row</code>）</li>
+</ul>
+<p>从左下角出发对称。每次排除一行或一列，故线性。</p>
+<h2 id="代码一维数组模拟矩阵">代码（一维数组模拟矩阵）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">Find</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> matrix, <span style="color:#66d9ef">int</span> rows, <span style="color:#66d9ef">int</span> cols, <span style="color:#66d9ef">int</span> num) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (matrix <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span> <span style="color:#f92672">||</span> rows <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> cols <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> row <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> col <span style="color:#f92672">=</span> cols <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (row <span style="color:#f92672">&lt;</span> rows <span style="color:#f92672">&amp;&amp;</span> col <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> t <span style="color:#f92672">=</span> matrix[row <span style="color:#f92672">*</span> cols <span style="color:#f92672">+</span> col];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (t <span style="color:#f92672">==</span> num) <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (t <span style="color:#f92672">&gt;</span> num) <span style="color:#f92672">--</span>col;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#f92672">++</span>row;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>旧笔记写 <code>matrix != null</code> 是 Java/C# 习惯；C++ 用 <code>nullptr</code>。</p>
+<h2 id="正确性直觉">正确性直觉</h2>
+<p>右上角是所在行最大、所在列最小（在单调假设下）。比较一次就能扔掉一整行或一整列，不会漏解。</p>
+<h2 id="复杂度">复杂度</h2>
+<ul>
+<li>时间 (O(rows+cols))</li>
+<li>空间 (O(1))</li>
+</ul>
+<h2 id="变形">变形</h2>
+<ul>
+<li>行列严格递增条件减弱时，算法可能失效</li>
+<li>若只要任一出现位置，可返回坐标</li>
+<li>与二分每行 (O(n\log m)) 相比，数据接近方阵时本解法更优</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>这是「利用有序二维结构缩小搜索空间」的经典题。记住 <strong>右上角出发 + 删行删列</strong>，比背代码更重要。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
+          <li><a href="https://madneal.com/tags/%E5%89%91%E6%8C%87offer"><span class="tag">剑指Offer</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/oj"><span class="tag">OJ</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3916</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -264,24 +299,21 @@
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -292,7 +324,7 @@
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       TeX: { equationNumbers: { autoNumber: "AMS" },
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
+    }
   });
 </script>
 <script type="text/x-mathjax-config">
@@ -304,35 +336,8 @@
   });
 </script>
 
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

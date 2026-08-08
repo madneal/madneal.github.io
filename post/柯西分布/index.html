@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>柯西分布</title>
+  <title>柯西分布：密度、标准型与为何「均值不存在」</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《柯西分布》梳理机器学习和计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="介绍柯西分布的位置/尺度参数、标准柯西密度形态，解释均值与方差为何不存在，以及在稳健统计与物理共振中的直观。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="柯西分布">
-    <meta name="twitter:description" content="本文围绕《柯西分布》梳理机器学习和计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/cauchy-distribution-fb68127e25.jpg">
+    <meta name="twitter:title" content="柯西分布：密度、标准型与为何「均值不存在」">
+    <meta name="twitter:description" content="介绍柯西分布的位置/尺度参数、标准柯西密度形态，解释均值与方差为何不存在，以及在稳健统计与物理共振中的直观。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="柯西分布">
-  <meta property="og:description" content="本文围绕《柯西分布》梳理机器学习和计算机视觉相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="柯西分布：密度、标准型与为何「均值不存在」">
+  <meta property="og:description" content="介绍柯西分布的位置/尺度参数、标准柯西密度形态，解释均值与方差为何不存在，以及在稳健统计与物理共振中的直观。">
   <meta property="og:url" content="https://madneal.com/post/%E6%9F%AF%E8%A5%BF%E5%88%86%E5%B8%83/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/cauchy-distribution-fb68127e25.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,26 +208,101 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">柯西分布</h1>
+      <h1 class="post-title">柯西分布：密度、标准型与为何「均值不存在」</h1>
       <p class="post-meta">@Neal · Oct 12, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>柯西分布的概率密度函数是：
-<img src="http://img.blog.csdn.net/20151012184506718" alt="这里写图片描述">
-t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准柯西分布，标准柯西分布的密度函数是：
-<img src="http://img.blog.csdn.net/20151012184716352" alt="这里写图片描述">
-下面的是标准柯西分布概率密度函数分布图：
-<img src="http://img.blog.csdn.net/20151012184835547" alt="这里写图片描述"></p>
+    <article class="post-content"><p>柯西分布（Cauchy distribution）是概率课里著名的「反直觉」例子：看起来像正态的钟形，却 <strong>没有期望、没有方差</strong>。做机器学习或信号处理时，它常作为重尾噪声或稳健统计的对比分布出现。</p>
+<h2 id="密度函数">密度函数</h2>
+<p>位置参数 (x_0)（location），尺度参数 (\gamma&gt;0)（scale）时，概率密度为：</p>
+<p>[
+f(x; x_0, \gamma) = \frac{1}{\pi\gamma\left[1+\left(\frac{x-x_0}{\gamma}\right)^2\right]}
+]</p>
+<p>当 (x_0=0,\ \gamma=1) 时得到 <strong>标准柯西分布</strong>：</p>
+<p>[
+f(x) = \frac{1}{\pi(1+x^2)}
+]</p>
+<p>形态上关于 (x_0) 对称，峰值在 (x_0)，(\gamma) 控制「胖瘦」：(\gamma) 越大，尾巴越厚、峰越平。</p>
+<h2 id="和正态分布差在哪">和正态分布差在哪</h2>
+<table>
+	<thead>
+			<tr>
+					<th>性质</th>
+					<th>正态</th>
+					<th>柯西</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>尾部</td>
+					<td>指数衰减</td>
+					<td>多项式级重尾</td>
+			</tr>
+			<tr>
+					<td>期望</td>
+					<td>有</td>
+					<td><strong>不存在</strong>（积分不绝对收敛）</td>
+			</tr>
+			<tr>
+					<td>方差</td>
+					<td>有</td>
+					<td><strong>不存在</strong></td>
+			</tr>
+			<tr>
+					<td>大数定律</td>
+					<td>样本均值收敛</td>
+					<td>样本均值仍是柯西，不收敛到常数</td>
+			</tr>
+			<tr>
+					<td>中心极限</td>
+					<td>满足经典 CLT 条件</td>
+					<td>属于稳定分布另一分支</td>
+			</tr>
+	</tbody>
+</table>
+<p>直观：极大的离群样本出现得足够频繁，把「平均」拉得没有极限。</p>
+<h2 id="为什么均值积分会挂">为什么均值积分会挂</h2>
+<p>形式上写 (\mathbb{E}[X]=\int_{-\infty}^{\infty} x f(x),dx)，对标准柯西：</p>
+<p>[
+\int \frac{x}{\pi(1+x^2)} dx
+]</p>
+<p>是奇函数主值可为 0，但 <strong>不绝对可积</strong>，按概率论定义期望不存在。工程上若强行对柯西样本取平均，结果会剧烈跳动。</p>
+<h2 id="在哪会碰到">在哪会碰到</h2>
+<ol>
+<li><strong>物理</strong>：受迫共振等场景下，功率谱或振幅响应可呈柯西型（Cauchy–Lorentz）。</li>
+<li><strong>稳健统计</strong>：用中位数、MAD 等代替均值/方差。</li>
+<li><strong>贝叶斯</strong>：Cauchy 可作重尾先验。</li>
+<li><strong>生成模型/噪声</strong>：模拟离群点比正态更「狠」。</li>
+</ol>
+<h2 id="采样与数值">采样与数值</h2>
+<p>标准柯西可用：</p>
+<p>[
+X = \tan(\pi(U-1/2)),\quad U\sim \mathrm{Uniform}(0,1)
+]</p>
+<p>或看作两个独立标准正态之比（相关构造）。数值上注意：(x) 很大时密度近似 (1/(\pi x^2))。</p>
+<h2 id="旧文配图说明">旧文配图说明</h2>
+<p>早期版本依赖 CSDN 外链公式图，长期会失效。本文改为公式直接书写；若需绘图，可用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#f92672">-</span><span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>(np<span style="color:#f92672">.</span>pi<span style="color:#f92672">*</span>(<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(x, f)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>title(<span style="color:#e6db74">&#34;Standard Cauchy PDF&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></div><h2 id="小结">小结</h2>
+<p>柯西分布提醒我们：<strong>钟形 ≠ 正态</strong>，也 <strong>≠ 一定有均值</strong>。看到重尾数据时，先别急着报 mean±std，先问分布是否允许这两个量存在。</p>
 </article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
+          <li><a href="https://madneal.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="tag">机器学习</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E6%A6%82%E7%8E%87%E7%BB%9F%E8%AE%A1"><span class="tag">概率统计</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3949</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -241,24 +330,21 @@ t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准�
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -269,7 +355,7 @@ t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准�
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       TeX: { equationNumbers: { autoNumber: "AMS" },
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
+    }
   });
 </script>
 <script type="text/x-mathjax-config">
@@ -281,35 +367,8 @@ t是location parameter,s是scale parameter.当t=0以及s=1的时候称为标准�
   });
 </script>
 
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 

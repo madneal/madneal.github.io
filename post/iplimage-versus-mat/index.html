@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>Iplimage versus Mat</title>
+  <title>OpenCV：IplImage 与 Mat 该用哪个？</title>
 
   
   
@@ -27,23 +27,23 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《Iplimage versus Mat》展开，重点梳理将Iplimage转化为Mat等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="对比 C-API 的 IplImage 与 C&#43;&#43; API 的 Mat：内存管理、生态现状，以及 cvarrToMat 转换与迁移建议。">
 
   
   
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="Iplimage versus Mat">
-    <meta name="twitter:description" content="本文围绕《Iplimage versus Mat》展开，重点梳理将Iplimage转化为Mat等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/iplimage-vs-mat-529bd2555a.jpg">
+    <meta name="twitter:title" content="OpenCV：IplImage 与 Mat 该用哪个？">
+    <meta name="twitter:description" content="对比 C-API 的 IplImage 与 C&#43;&#43; API 的 Mat：内存管理、生态现状，以及 cvarrToMat 转换与迁移建议。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Iplimage versus Mat">
-  <meta property="og:description" content="本文围绕《Iplimage versus Mat》展开，重点梳理将Iplimage转化为Mat等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="OpenCV：IplImage 与 Mat 该用哪个？">
+  <meta property="og:description" content="对比 C-API 的 IplImage 与 C&#43;&#43; API 的 Mat：内存管理、生态现状，以及 cvarrToMat 转换与迁移建议。">
   <meta property="og:url" content="https://madneal.com/post/iplimage-versus-mat/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/iplimage-vs-mat-529bd2555a.jpg">
+  <meta property="og:image" content="/img/avatar.jpg">
 
 
 
@@ -172,6 +172,20 @@
           <a href="https://madneal.com/tags/">Tags</a>
         </li>
       
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
     </ul>
   </nav>
   <nav class="social-menu collapsed">
@@ -194,27 +208,82 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">Iplimage versus Mat</h1>
+      <h1 class="post-title">OpenCV：IplImage 与 Mat 该用哪个？</h1>
       <p class="post-meta">@Neal · Apr 15, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>我们可能经常面临这样的困惑，Iplimage和Mat这两种数据结构，我们应该用哪一种数据结构。
-Iplimage一开始就存在opencv库之中，他来源于Intel的另外一个函数库Intel Image Processing Library(IPL)，这是一种非常重要的数据结构。在经典书籍<learning opencv>里面的sample用的基本都是Iplimage这个数据结构。但是这是一种C风格的数据结构，你必须为他分配以及释放内存。
-Mat则是一种新的数据结构，越来越多的人也在使用这种数据结构了，因为它是面向对象的。所以我们不需要自己来为它管理内存。它是通过计数的方式来进行引用，如果它的引用计数为0的话，那么它就会自动释放内存。
-老实说，用什么数据结构，我也不知道。因为我觉得有些方法，Mat数据结构还不具备，有的方法只有运用Iplimage才可以。</p>
-<h2 id="将iplimage转化为mat">将Iplimage转化为Mat</h2>
-<pre tabindex="0"><code>IplImage* ipl;
-Mat m = cvarrToMat(ipl);
-</code></pre></article>
+    <article class="post-content"><p>学 OpenCV 时总会撞见两套图像结构：老的 <strong><code>IplImage</code></strong> 和新的 <strong><code>cv::Mat</code></strong>。2015 年前后教材还在大量用 IplImage；今天结论已经很明确：<strong>新代码用 Mat</strong>。</p>
+<h2 id="简史">简史</h2>
+<ul>
+<li><code>IplImage</code> 来自 Intel Image Processing Library 风格，是 C-API 核心类型。需要 <code>cvCreateImage</code> / <code>cvReleaseImage</code> 手动管理。</li>
+<li><code>cv::Mat</code> 是 C++ API 的矩阵/图像类，<strong>引用计数</strong> 自动释放，支持 ROI、类型系统、与现代 STL 风格算法更好集成。</li>
+</ul>
+<h2 id="对比">对比</h2>
+<table>
+	<thead>
+			<tr>
+					<th>维度</th>
+					<th>IplImage</th>
+					<th>Mat</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>语言风格</td>
+					<td>C</td>
+					<td>C++</td>
+			</tr>
+			<tr>
+					<td>内存</td>
+					<td>手动</td>
+					<td>自动（引用计数）</td>
+			</tr>
+			<tr>
+					<td>新功能</td>
+					<td>基本冻结</td>
+					<td>持续更新</td>
+			</tr>
+			<tr>
+					<td>示例代码</td>
+					<td>老书/老博客</td>
+					<td>官方新文档</td>
+			</tr>
+			<tr>
+					<td>安全性</td>
+					<td>易泄漏/悬挂</td>
+					<td>仍可能误用，但轻松很多</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="转换">转换</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>IplImage<span style="color:#f92672">*</span> ipl <span style="color:#f92672">=</span> ...;
+</span></span><span style="display:flex;"><span>cv<span style="color:#f92672">::</span>Mat m <span style="color:#f92672">=</span> cv<span style="color:#f92672">::</span>cvarrToMat(ipl); <span style="color:#75715e">// 共享数据，注意生命周期
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 深拷贝：
+</span></span></span><span style="display:flex;"><span>cv<span style="color:#f92672">::</span>Mat m2 <span style="color:#f92672">=</span> cv<span style="color:#f92672">::</span>cvarrToMat(ipl).clone();
+</span></span></code></pre></div><p>反过来（仅维护老接口时）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>IplImage ipl <span style="color:#f92672">=</span> cvIplImage(mat); <span style="color:#75715e">// 视 OpenCV 版本 API 略有差异
+</span></span></span></code></pre></div><p>注意：共享数据时，<strong>不要先 release 源再用目标</strong>。</p>
+<h2 id="迁移建议">迁移建议</h2>
+<ol>
+<li>新项目直接 <code>Mat</code> + <code>VideoCapture</code> + <code>imshow</code></li>
+<li>维护老项目时，在边界 <code>cvarrToMat</code>，内部别继续扩散 IplImage</li>
+<li>OpenCvSharp 用户使用与 <code>Mat</code> 对应的类型，避免 <code>IplImage</code> 封装</li>
+</ol>
+<h2 id="小结">小结</h2>
+<p>「有的方法只有 IplImage 才有」在早期部分成立，现在几乎不成立。把 IplImage 当作历史兼容层即可；<strong>默认 Mat</strong>。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89"><span class="tag">计算机视觉</span></a></li>
         
+          <li><a href="https://madneal.com/tags/opencv"><span class="tag">OpenCV</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4129</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
@@ -242,75 +311,22 @@ Mat m = cvarrToMat(ipl);
       
     
   </section>
-  
-<footer class="site-footer">
-  <p>© 2017-2026 Neal&#39;s Blog</p>
-  <p>Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank" rel="noopener">Nuo</a>.</p>
-  
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
 </footer>
 
 
-<script src="https://cdn.jsdelivr.net/npm/smooth-scroll@15.0.0/dist/smooth-scroll.min.js"></script>
-
-
-
-<script async src="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video.min.js"></script>
 
 
 
 
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      displayMath: [['$$','$$'], ['\\[','\\]']],
-      processEscapes: true,
-      processEnvironments: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-      TeX: { equationNumbers: { autoNumber: "AMS" },
-      extensions: ["AMSmath.js", "AMSsymbols.js"] }
-    },
-  });
-</script>
-<script type="text/x-mathjax-config">
-  // Fix <code> tags after MathJax finishes running. This is a
-  // hack to overcome a shortcoming of Markdown. Discussion at
-  // https://github.com/mojombo/jekyll/issues/199
-  MathJax.Hub.Queue(() => {
-    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
-  });
-</script>
-
-
-
-<script src="https://madneal.com/scripts/index.min.js"></script>
-
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      registrations.forEach(function(registration) {
-        registration.unregister();
-      });
-    });
-  }
-  if ('caches' in window) {
-    caches.keys().then(function(keys) {
-      keys.forEach(function(key) {
-        if (key.indexOf('hugo-nuo-') === 0) {
-          caches.delete(key);
-        }
-      });
-    });
-  }
-</script>
-
-
-
-
-
-
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
 
 
 
