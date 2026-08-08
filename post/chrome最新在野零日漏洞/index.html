@@ -224,9 +224,7 @@
 <p>卡巴斯基情报报告的客户可以获取有关 CVE-2019-13720 和最近的 DarkHotel 的 false flag 攻击的详细信息。有关更多信息，请联系：intelreports@kaspersky.com。</p>
 <h2 id="技术细节">技术细节</h2>
 <p>攻击利用朝鲜语新闻门户上的水坑式注入。在主页中插入了恶意的 JavaScript 代码，恶意代码又从远程站点加载了分析脚本。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/02/KL1Qk8.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-e109ed9866dd24a7a21ae1df6863f969.png" alt="Chrome 漏洞分析截图"></p>
 <p><strong>重定向到漏洞利用登录页面</strong></p>
 <p>主页上托管了一个从 hxxp://code.jquery.cdn.behindcorona[.]com/ 中加载了远程脚本的微不足道的 JavaScript 标签。</p>
 <p>然后，该脚本将加载另一个名为 .charlie.XXXXXXXX.js 的脚本。该 JavaScript 通过与浏览器的用户代理进行比较来检查受害者的系统是否能被感染，程序应在 64位 版本的 Windows 上运行，而不是 WOW64 进程；它还尝试获取浏览器的名称和版本。该漏洞试图利用 Google Chrome 浏览器中的 bug，脚本会检查该版本是否大于或等于65（当前的Chrome版本为78）：</p>
