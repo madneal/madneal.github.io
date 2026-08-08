@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>LaTeX 画一张简单三线表</title>
+
+  
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  <link href="///disqus.com" rel="dns-prefetch">
+  <link href="//c.disquscdn.com" rel="dns-prefetch">
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="从 tabular 基础列格式讲到 booktabs 三线表、caption/label 与跨页长表入口，给出论文里最常用的最小模板。">
+
+  
+  
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@gohugoio">
+    <meta name="twitter:title" content="LaTeX 画一张简单三线表">
+    <meta name="twitter:description" content="从 tabular 基础列格式讲到 booktabs 三线表、caption/label 与跨页长表入口，给出论文里最常用的最小模板。">
+    <meta name="twitter:image" content="/img/avatar.jpg">
+  
+
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LaTeX 画一张简单三线表">
+  <meta property="og:description" content="从 tabular 基础列格式讲到 booktabs 三线表、caption/label 与跨页长表入口，给出论文里最常用的最小模板。">
+  <meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/">
+  <meta property="og:image" content="/img/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E7%94%A8latex%E7%94%BB%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%A1%A8%E6%A0%BC/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
+
+
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
+
+
+
+  
+  
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+        
+	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
+  
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  
+  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
+    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
+  </a>
+  
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+           is-active">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">LaTeX 画一张简单三线表</h1>
+      <p class="post-meta">@Neal · Sep 26, 2015 · 3 min read</p>
+    </header>
+    <article class="post-content"><p>LaTeX 表格的基本单元是 <code>tabular</code>：先声明每一列怎么对齐，再一行行填单元格。论文里更推荐 <strong>三线表</strong>（<code>booktabs</code>），而不是满屏竖线。</p>
+<h2 id="最小例子">最小例子</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{table}[htbp]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\centering</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\caption</span>{算法时间复杂度对比}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\label</span>{tab:complexity}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\begin</span>{tabular}{cc}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\hline</span>
+</span></span><span style="display:flex;"><span>    Algorithm &amp; Time complexity <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\hline</span>
+</span></span><span style="display:flex;"><span>    RM-MEDA  &amp; <span style="color:#e6db74">$</span>O<span style="color:#f92672">(</span>NM<span style="color:#f92672">)</span><span style="color:#e6db74">$</span> <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>    IRM-MEDA &amp; <span style="color:#e6db74">$</span>O<span style="color:#f92672">(</span>NK<span style="color:#f92672">)</span><span style="color:#e6db74">$</span> <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\hline</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\end</span>{tabular}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{table}
+</span></span></code></pre></div><p>列格式：</p>
+<ul>
+<li><code>c</code> 居中，<code>l</code> 左，<code>r</code> 右</li>
+<li><code>p{3cm}</code> 固定宽度并自动换行</li>
+<li><code>|</code> 画竖线（正式论文常不用）</li>
+</ul>
+<h2 id="更推荐的三线表">更推荐的三线表</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\usepackage</span>{booktabs}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\begin</span>{table}[htbp]
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\centering</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\caption</span>{算法时间复杂度对比}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\label</span>{tab:complexity}
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\begin</span>{tabular}{ll}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\toprule</span>
+</span></span><span style="display:flex;"><span>    Algorithm &amp; Time complexity <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\midrule</span>
+</span></span><span style="display:flex;"><span>    RM-MEDA  &amp; <span style="color:#e6db74">$</span>O<span style="color:#f92672">(</span>NM<span style="color:#f92672">)</span><span style="color:#e6db74">$</span> <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>    IRM-MEDA &amp; <span style="color:#e6db74">$</span>O<span style="color:#f92672">(</span>NK<span style="color:#f92672">)</span><span style="color:#e6db74">$</span> <span style="color:#66d9ef">\\</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">\bottomrule</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">\end</span>{tabular}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{table}
+</span></span></code></pre></div><p><code>\toprule \midrule \bottomrule</code> 线宽层次更符合排版规范。</p>
+<h2 id="合并单元格">合并单元格</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="color:#66d9ef">\multicolumn</span>{2}{c}{Overall} <span style="color:#66d9ef">\\</span>
+</span></span></code></pre></div><p>多行合并用 <code>multirow</code> 宏包。</p>
+<h2 id="浮动体位置">浮动体位置</h2>
+<p><code>[htbp]</code> 是建议位置：here / top / bottom / page。不要迷信 <code>[h]</code> 一定「就在这」——LaTeX 会整体优化。大表可用 <code>table*</code>（双栏模板）。</p>
+<h2 id="常见错误">常见错误</h2>
+<ol>
+<li><code>\caption</code> 放在 <code>tabular</code> 外、<code>table</code> 内（正确）；放反会报错或编号乱。</li>
+<li><code>\label</code> 必须在 <code>\caption</code> <strong>之后</strong>。</li>
+<li>单元格里的 <code>_</code> 要进数学模式 <code>$O(N_m)$</code>。</li>
+<li>超宽表：换 <code>p{}</code>、<code>tabularx</code> 或缩小 <code>\small</code>。</li>
+</ol>
+<h2 id="下一步">下一步</h2>
+<ul>
+<li>表注：见《threeparttable》一文</li>
+<li>超长表：<code>longtable</code></li>
+<li>与数据生成：用脚本吐 LaTeX 行，避免手敲实验数字</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>先掌握 <code>tabular</code> + <code>table</code> + <code>caption</code>，再换成 <code>booktabs</code> 三线表，就覆盖了 80% 的论文表格需求。简单，但是要写对浮动与引用。</p>
+<h2 id="单元格内换行与宽度">单元格内换行与宽度</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>egin{tabular}{p{4cm}c}
+</span></span><span style="display:flex;"><span>长文本会在固定宽度内换行 &amp; 短 <span style="color:#66d9ef">\</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{tabular}
+</span></span></code></pre></div><h2 id="引用表格">引用表格</h2>
+<p>正文写：<code>见表~ ef{tab:complexity}</code>。编译需 <strong>两次</strong> 才能解析引用。</p>
+<p>掌握最小表后，再学 <code>booktabs</code>、<code>multirow</code>、<code>longtable</code> 即可覆盖绝大多数论文表。</p>
+</article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/latex"><span class="tag">LaTeX</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C"><span class="tag">论文写作</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        
+      </p>
+    </footer>
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
+</footer>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
+
+
+
+  </body>
+</html>
