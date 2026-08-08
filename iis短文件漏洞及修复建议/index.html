@@ -221,9 +221,7 @@
     <article class="post-content"><p>最近公司有几个系统有发现 IIS 短文件名的漏洞，这个漏洞也是比较久的漏洞了，网上也是有不少的修复方案。但是有的修复方案还是没有彻底修复。以下也是自己做一个全面的总结以及彻底以及完美的修复方案。</p>
 <h2 id="什么是-iis-短文件漏洞">什么是 IIS 短文件漏洞</h2>
 <p>为了兼容 16 位的 MS-DOS 程序，Windows 为文件名较长的文件（文件夹）生成了对应的 windows 8.3 短文件名。在 Windows 下，对应的短文件名可以使用 <code>dir /x</code> 命令来查看。如下图，<code>.gitconfig</code> 对应的短文件名就是 <code>GITCON~1</code>.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/d28b47baf074.png" alt="FxOYFA.png"></p>
 <p>基于此特性，并结合 IIS 对于请求路径中包含通配符不同的响应的特性，IIS 对于存在的短文件名的响应码为 404，对不存在的短文件名的响应码是 400.根据这个特点，可以暴力破解出 IIS 中存在的短文件名。关于短文件漏洞， Soroush Dalili 在 2012 年就有<a href="https://soroush.secproject.com/downloadable/microsoft_iis_tilde_character_vulnerability_feature.pdf">论文</a>是关于这方面的研究。里面详细阐述了 IIS 短文件名的漏洞利用原理。</p>
 <h2 id="漏洞修复">漏洞修复</h2>
 <p>关于该漏洞的修复，一般的修复就是停止创建短文件名，可以通过修改注册表来实现：</p>

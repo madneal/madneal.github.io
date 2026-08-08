@@ -265,7 +265,7 @@
 <p>受害者的机器将始终回复 IP 地址 127.0.0.1，这对我们很有用。除此之外，了解受害者的机器在内网进行通信时使用的 IP 地址是有益的。原因是知道内部 IP 地址将允许我们对附近的其他主机进行更有针对性的搜索。</p>
 <p>JavaScript 可以使用 WebRTC API 找出受害者的内部 IP 地址。 可以在 Ipcalf [14] 找到对此的概念证明。它不适用于浏览器和平台的所有组合，但这是在 Linux上 中运行 Chrome 时的样子：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4hg6e.png</code></p>
 </blockquote>
 <p><strong>图例 1</strong>: 使用 JavaScript 显示内部 IP 地址</p>
 <p>通过恶意 JavaScript 实现的这种技术可能会将有关内部 IP 地址的信息发送给攻击者。</p>
@@ -353,7 +353,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>当受害者访问这个页面是，我们将获得：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4W87q.png</code></p>
 </blockquote>
 <p><strong>图例 2</strong>: 使用 JavaScript 端口扫描的结果</p>
 <p>targetorg.com 域存在于我们的实验室网络中，通过受害者的浏览器使用目标的内部 DNS 服务器来完成对于这些名称的 DNS 查询。对于攻击其他组织，我们可以将 “targetorg.com” 替换为合适的域名，否则我们可以尝试例如 &lsquo;printer&rsquo;，没有任何域名，让受害者的 DNS 解析器自动添加正确的域名。</p>
@@ -400,7 +400,7 @@ scan(resultElem,hostport,&#39;seagate&#39;,&#39;/assets/img/Logo_Seagate_White.p
 scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 </code></pre><p>当受害者访问我们的恶意页面时，结果是：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4WL8S.png</code></p>
 </blockquote>
 <p><strong>图例 3</strong>: 本地以及本地局域网上服务的指纹</p>
 <p>再一次，结果将被发送给攻击者。主机 printer.targetorg.com 和 192.168.1.102 可能是同一台主机，因为根据指纹识别它们似乎都是 Lexmark 打印机。intranet.targetorg.com 和 192.168.1.100 可能也是同一个主机。</p>
@@ -416,7 +416,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <p>同源策略不会阻止从同一个源的读取页面，并且页面可能会更改其自己的源，以便能够与子域 [21] 进行通信。例如，如果 <a href="http://targetorg.com">http://targetorg.com</a> 已配置为能够与 <a href="http://intranet.targetorg.com">http://intranet.targetorg.com</a> 通信，那么如果我们能够在 targetorg.com 上运行 JavaScript 代码，我们可以像攻击者一样。 <a href="http://targetorg.com">http://targetorg.com</a> 上的跨站脚本（XSS）漏洞可能允许这个场景。</p>
 <p>在用于我们设置的实验室环境中，我们将 targetorg.com 的 DNS 指向公共 IP 地址，因此，它可供攻击者（即我们）进行实验。攻击者在 <a href="http://targetorg.com">http://targetorg.com</a> 网站上发现了一个 XSS 漏洞：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4WxDs.png</code></p>
 </blockquote>
 <p><strong>图例 4</strong>: <a href="http://targetorg.com">http://targetorg.com</a> 上的 XSS</p>
 <p>HTML 的源代码为：</p>
@@ -440,7 +440,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 </span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">theiframe</span>);
 </span></span></code></pre></div><p>当受害者浏览我们的恶意 URL，结果是：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4fl8O.png</code></p>
 </blockquote>
 <p><strong>图例 5</strong>: 通过公网服务器上的 JavaScript 浏览受害者的内网。</p>
 <p>图例 5 中的截图显示 JavaScript 确实可以访问内网的内容，而不仅仅是在 iframe中 显示它。因此，它也可以将其发送给攻击者。外部 iframe 可以在 targetorg.com 的同源内运行，并且可以访问来自 intranet.targetorg.com 的内部 iframe 的数据。 从本质上讲，这允许我们浏览受害者的内网，查看他们的内网网页。</p>
@@ -453,7 +453,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <h3 id="用我们的-jenkins-实例做实验">用我们的 Jenkins 实例做实验</h3>
 <p>从我们之前做过的侦察中，我们有可以明确推断出有一个 Jenkins 实例运行在 http://127.0.0.1:8080 。作为攻击者，我们可以设置我们自己的 Jenkins 实例并进行一些实验以准备攻击。Jenkins 有一个可用于执行脚本甚至操作系统命令脚本控制台：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4f3xe.png</code></p>
 </blockquote>
 <p><strong>图例 6</strong>: Jenkins 脚本控制台</p>
 <p>对于执行操作系统命令，我们可以在脚本控制台中输入以下内容并点击运行 [22]：</p>

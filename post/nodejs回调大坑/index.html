@@ -220,9 +220,7 @@
 <p>这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。
 回调</p>
 <p>在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示：</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/34ef40842d9a.png" alt="这里写图片描述"></p>
 <p>下面一个例子说明回调样例的恶心之处：</p>
 <pre tabindex="0"><code>module.exports = function (param, cb) {
   asyncFun1(param, function (er, data) {

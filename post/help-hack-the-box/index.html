@@ -211,9 +211,7 @@
       <h1 class="post-title">Help -- hack the box</h1>
       <p class="post-meta">@Neal · Apr 22, 2019 · 15 min read</p>
     </header>
-    <article class="post-content"><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+    <article class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/1df0723f0d7c.png" alt="EFe80A.png"></p>
 <h2 id="introduction">Introduction</h2>
 <p>Target: 10.10.10.121(OS: Linux)</p>
 <p>Kali: 10.10.16.28</p>
@@ -242,20 +240,14 @@ Service detection performed. Please report any incorrect results at https://nmap
 </code></pre><p>The port 80 seems to be an HTTP service. Access to <code>http://10.10.10.121</code>, nothing special but just the apache default web page. Try gobuster:</p>
 <pre tabindex="0"><code>gobuster -u http://10.10.10.121 -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.tx -t 50
 </code></pre><p>We have found an interesting folder called: <code>support</code>:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/1e683a42015d.png" alt="EFeHtx.png"></p>
 <p>The 80 seems to be help support website. We will dive in  more later.</p>
 <p>For the <code>3000</code> port, it seems to be an express application. And nothing found for this.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/760da5f9b8c4.png" alt="EFeXcD.png"></p>
 <h2 id="exploitation">Exploitation</h2>
 <h3 id="http">http</h3>
 <p>In the above, we can see <code>HelpDeskZ</code> on the web page. It may be a kind of product. Search related exploits, <code>searchsploit HelpDeskZ</code>.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/75b478f48b80.png" alt="EF0rkt.png"></p>
 <p>There two exploits about <code>HelpDeskZ</code>. <code>Arbitrary File Upload</code> is interesting, it seems that it can be exploited without valid credentials. The payload can be seen <a href="https://www.exploit-db.com/exploits/40300">here</a>. It&rsquo;s really significant to understand the root cause of the exploit. So know the details of the payload will be beneficial.</p>
 <p>The step of exploitation is:</p>
 <ol>
@@ -296,9 +288,7 @@ if(!isset($error_msg) && $settings['ticket_attachment']==1){
 }    
 </pre>
 <p>The most important code: <code>$filename = md5($_FILES['attachment']['name'].time()).&quot;.&quot;.$ext;</code>. We can find the rule of the name of the uploaded file. So it will be possible to find the uploaded attachment. And there is another stuff when submitted a reverse shell php file, you will get a hint: <code>File is not allowed</code>. However, the attachment has been uploaded. Because it will upload the attachment firstly. And then just give the error information.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/2dae3aaa1805.png" alt="EF4Ezd.png"></p>
 <pre>
 <b>if (!move_uploaded_file($_FILES['attachment']['tmp_name'], $uploadedfile)) {</b>
     $show_step2 = true;
@@ -311,17 +301,13 @@ if(!isset($error_msg) && $settings['ticket_attachment']==1){
         <b>$error_msg = $LANG['INVALID_FILE_EXTENSION'];</b>
 </pre>
 <p>Firstly, submit a ticket with the attachment of <code>a.php(php-reverse-shell.php</code> and will get error information <code>File is not allowed</code>. However, the script has been uploaded actually.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/1df0723f0d7c.png" alt="EFe80A.png"></p>
 <p>Then, try to run the script:</p>
 <pre tabindex="0"><code>python exploit.py http://10.10.10.121/support/ a.php
 </code></pre><p>In order to decrease the complexity of the md5 hash, the <code>php-reverse-shell.php</code> is renamed to <code>a.php</code>. However, there are two problems so that I obtain nothing for the whole afternoon. The first problem is the timezone. The uploaded filename depends on the file time. So it is important to keep the same timezone for the local machine and the server. We can find that the server timezone is GMT from the response header of Date. So modify the timezone of the local machine:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>timedatectl set-timezone GMT
 </span></span></code></pre></div><p>After modifying the timezone, still have not found anything. It has some problem with the url. Read the source code and you will find the upload directory should be: <code>UPLOAD_DIR.'tickets/</code>:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/1e683a42015d.png" alt="EFeHtx.png"></p>
 <p>Hence, the url should be <code>http://10.10.10.121/support/uploads/tickets/</code>. So run the script:</p>
 <p><code>python exploit.py http://10.10.10.121/support/uploads/tickets/ a.php</code></p>
 <p>I have modified the script slightly for my own purpose.</p>
@@ -356,16 +342,12 @@ if(!isset($error_msg) && $settings['ticket_attachment']==1){
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>print <span style="color:#e6db74">&#34;Sorry, I did not find anything&#34;</span>
 </span></span></code></pre></div><p>Remember to set nc listen to a port in the beginning. After some time, the shell is returned.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/760da5f9b8c4.png" alt="EFeXcD.png"></p>
 <h2 id="privilege-escalation">Privilege escalation</h2>
 <p>In contrast to the user shell, the root shell is extremely simple. But the basic method might be overlooked sometimes. Obtain root shell by kernel exploit is uncommon recently. But it never is insignificant to have a try. Obtain the kernel of the Linux by <code>uname a</code>:</p>
 <p><code>Linux help 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</code></p>
 <p>Google for <code>linux kernel 4.4.0--116</code>. Congratulations! Find the <a href="https://github.com/SecWiki/linux-kernel-exploits/tree/master/2017/CVE-2017-16995">payload</a>. Just download the payload and compile. After execution, the root shell is obtained.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/75b478f48b80.png" alt="EF0rkt.png"></p>
 </article>
     <footer class="post-footer">
       

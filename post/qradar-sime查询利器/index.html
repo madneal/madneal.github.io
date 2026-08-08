@@ -214,9 +214,7 @@
     <article class="post-content"><p>对于 SIEM 平台来说，好用的查询方式非常重要。之前有体验基于 ELK 搭建的平台，在 kibana 上面是可以通过一些 filter 来做一些过滤并且是支持 lucene 的语法，包括一些简单的逻辑查询以及 wildquery 等等。但是的确是在做一些汇聚之类时不是很方便，一般需要通过 json 来构建更高级的查询语句。后来好像也有转 SQL 之类的插件，但我也没有使用过，总的来说体验比较一般。</p>
 <h2 id="qradar">Qradar</h2>
 <p>Qradar 是 IBM 一款比较成熟的商业 SIEM 平台（尽管他们的 BUG 一大堆，但架不住别的更差啊），基本上也是属于业界 TOP 5。商业产品的好处就是不用自己太折腾，搞搞就可以用，缺点就是贵。AQL（Ariel Query Language）是 Qradar 中的一种查询语言，与普通的 SQL 的语句类似，但是阉割了一些功能也增加了一些功能。以下是 AQL 的基本流程：</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/4fcc44909606.png" alt="iyJDmD.png"></p>
 <p>可以看出 AQL 是一种非常类似于 SQL 的语言，所以基本上你用过 SQL 学会 AQL 也就分分钟的事情，而且你也不会拿它去做特别复杂的嵌套查询（因为它也不支持。。。）</p>
 <h2 id="tips">Tips</h2>
 <p>虽然 AQL 终于让我们有枪可以搞一搞了，但是还是有一些地方值得吐槽的地方。第一就是很多 ID 不知道其具体的映射，就比如我们想查询一些事件的名称或者规则的名称，AQL 是不存在字段名是事件名称或者规则名称的。不过你可以通过函数来进行转换，比如使用 <code>QIDNAME(qid)</code> 来获取事件名称，<code>RULENAME(123)</code> 来获取规则名称。你没办法知道事件名称或者规则名称到底是对应什么 ID，目前我用的办法就是先去 IBM Develop API 里面先去查询。第二，AQL 查询的结果我发现有某个规则的查询结果和用 filter 查询的结果不一致，不知道这是不是特例。还有其他的，想到再说。</p>
@@ -237,9 +235,7 @@ WHERE LastTime - FirstTime &gt; xxxx
 GROUP BY sourceip,EventName
 </code></pre><h3 id="查询当前月份的事件">查询当前月份的事件</h3>
 <p>IBM 与日期相关的函数主要就是4个，即 <code>LAST, START, STOP, NOW</code>。日期实现的逻辑太单一了，你只能指定具体的起始时间以及终止时间或者是 <code>LAST 1 DAYS</code> 这种。但是有一个非常普遍的场景就是我需要知道当前月份的情况，这就无法通过这几个关键词直接来实现，因为 <code>Current Month IS NOT LAST 30 DAYS</code>.那么我们需要介绍一个函数 <code>DATEFORMAT</code>,通过这个函数我们可以将时间转化为字符串类型，结合 <code>NOW</code> 以及 <code>START, STOP</code> 函数，既可以实现。</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/4fcc44909606.png" alt="iyJDmD.png"></p>
 <p>那么我么就可以写出函数：</p>
 <pre tabindex="0"><code>CONCAT(SUBSTRING(DATEFORMAT(NOW(), &#39;yyyy-MM-dd&#39;), 0, 8), 01 00:00)
 </code></pre><p>将这个时间作为起始时间，那么我们就可以获取当前月的事件了。其实，按照这种思路，理论上你可以获取任意时间间隔。</p>

