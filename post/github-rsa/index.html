@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -209,7 +209,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">GitHub 更新了 RSA SSH host key</h1>
-      <p class="post-meta">@Neal · Mar 24, 2023 · 3 min read</p>
+      <p class="post-meta">@Neal · Mar 24, 2023 · 6 min read</p>
     </header>
     <article class="post-content"><p>今天在 push 自己 GitHub 仓库代码的时候遇到了报错，后来发现是 GitHub 已经将 RSA SSH host key 进行了更新。依据<a href="https://github.blog/2023-03-23-we-updated-our-rsa-ssh-host-key/">官方博客</a>，GitHub 于 3月24日 05:00 UTC 时间 由于安全原因将 RSA SSH host key 进行了更新。主要是为了避免 GitHub 用户的 git 操作被任何不法分子监听。这个变更仅影响基于 RSA 的 SSH 协议使用 GitHub 进行 git 操作的用户。变更也只影响 RSA 算法，不影响 ECDSA 或者 Ed25519 用户。</p>
 <p>GitHub 这周发现了他们的 RSA SSH 密钥在公共仓库中暴露。根据他们的调查结果，这个问题暂不涉及 GitHub 任何系统或者用户信息被窃取。依据他们的解释是保险起见进行 host key 的更新。</p>
@@ -238,6 +238,27 @@ $ curl -L https://api.github.com/meta | jq -r &#39;.ssh_keys | .[]&#39; | sed -e
 <ul>
 <li><a href="https://github.blog/2023-03-23-we-updated-our-rsa-ssh-host-key/">https://github.blog/2023-03-23-we-updated-our-rsa-ssh-host-key/</a></li>
 </ul>
+<h2 id="操作清单更新后">操作清单（更新后）</h2>
+<ol>
+<li>阅读 <a href="https://github.blog/2023-03-23-we-updated-our-rsa-ssh-host-key/">GitHub 官方说明</a>，确认指纹。</li>
+<li>从 <code>~/.ssh/known_hosts</code> 删除旧 <code>github.com</code> 条目（<code>ssh-keygen -R github.com</code>）。</li>
+<li>重新连接一次：<code>ssh -T git@github.com</code>，核对新 RSA 指纹后接受。</li>
+<li>企业代理/跳板机上的 <code>known_hosts</code> 也要同步更新，否则 CI 仍会失败。</li>
+<li>若使用 <code>ssh.github.com</code> 或自定义 Host 别名，对应条目一并处理。</li>
+</ol>
+<h2 id="安全含义">安全含义</h2>
+<p>Host key 相当于「你连上的是不是真的 GitHub」。泄露或替换 host key 可导致中间人截获 Git 凭据与代码。GitHub 主动轮换是正确响应；用户侧最重要的是 <strong>不要盲目点 yes</strong>，而要对照官方公布的指纹。</p>
+<h2 id="与密钥类型">与密钥类型</h2>
+<p>此次是 <strong>服务器 host key</strong> 变更，不是你本机 <code>id_rsa</code> 用户密钥。用户仍可继续用 Ed25519/ECDSA/RSA 用户密钥；推荐新环境优先 <code>ed25519</code>。</p>
+<h2 id="小结">小结</h2>
+<p>看到 <code>REMOTE HOST IDENTIFICATION HAS CHANGED</code> 先停手，查官方指纹，清理 known_hosts，再恢复 push/pull。把该检查写进团队 onboarding，可减少集体踩坑。</p>
+<h2 id="cicd-特别注意">CI/CD 特别注意</h2>
+<p>GitHub Actions、Jenkins、GitLab Runner 镜像里的 <code>known_hosts</code> 可能被烤进基础镜像。轮换 host key 后，要重建镜像或在 pipeline 里显式更新指纹，否则只有本地能推、流水线全红。</p>
+<p>建议在 Ansible/镜像构建脚本中集中管理 Git 托管商 host key，并做版本注释，避免各处手工 <code>ssh-keygen -R</code>。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -252,7 +273,7 @@ $ curl -L https://api.github.com/meta | jq -r &#39;.ssh_keys | .[]&#39; | sed -e
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>1233</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

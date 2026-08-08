@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -27,19 +27,19 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="全栈工程师的进击">
+  <meta name="description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
 
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@gohugoio">
   <meta name="twitter:title" content="Neal 的博客">
-  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta name="twitter:image" content="/img/avatar.jpg">
 
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="Neal 的博客">
-  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta property="og:url" content="https://madneal.com/iis%E7%9F%AD%E6%96%87%E4%BB%B6%E6%BC%8F%E6%B4%9E%E5%8F%8A%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -209,6 +209,11 @@
     <li><a href="#什么是-iis-短文件漏洞">什么是 IIS 短文件漏洞</a></li>
     <li><a href="#漏洞修复">漏洞修复</a></li>
     <li><a href="#reference">Reference</a></li>
+    <li><a href="#修复要点务实">修复要点（务实）</a></li>
+    <li><a href="#业务影响">业务影响</a></li>
+    <li><a href="#小结">小结</a></li>
+    <li><a href="#验证命令思路">验证命令思路</a></li>
+    <li><a href="#延伸阅读与实践">延伸阅读与实践</a></li>
   </ul>
 </nav>
       </nav>
@@ -216,7 +221,9 @@
     <article class="post-content"><p>最近公司有几个系统有发现 IIS 短文件名的漏洞，这个漏洞也是比较久的漏洞了，网上也是有不少的修复方案。但是有的修复方案还是没有彻底修复。以下也是自己做一个全面的总结以及彻底以及完美的修复方案。</p>
 <h2 id="什么是-iis-短文件漏洞">什么是 IIS 短文件漏洞</h2>
 <p>为了兼容 16 位的 MS-DOS 程序，Windows 为文件名较长的文件（文件夹）生成了对应的 windows 8.3 短文件名。在 Windows 下，对应的短文件名可以使用 <code>dir /x</code> 命令来查看。如下图，<code>.gitconfig</code> 对应的短文件名就是 <code>GITCON~1</code>.</p>
-<p><img src="https://s2.ax1x.com/2019/01/14/FxOYFA.png" alt="FxOYFA.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>基于此特性，并结合 IIS 对于请求路径中包含通配符不同的响应的特性，IIS 对于存在的短文件名的响应码为 404，对不存在的短文件名的响应码是 400.根据这个特点，可以暴力破解出 IIS 中存在的短文件名。关于短文件漏洞， Soroush Dalili 在 2012 年就有<a href="https://soroush.secproject.com/downloadable/microsoft_iis_tilde_character_vulnerability_feature.pdf">论文</a>是关于这方面的研究。里面详细阐述了 IIS 短文件名的漏洞利用原理。</p>
 <h2 id="漏洞修复">漏洞修复</h2>
 <p>关于该漏洞的修复，一般的修复就是停止创建短文件名，可以通过修改注册表来实现：</p>
@@ -227,6 +234,24 @@
 <p><a href="https://support.microsoft.com/en-us/help/121007/how-to-disable-8-3-file-name-creation-on-ntfs-partitions">https://support.microsoft.com/en-us/help/121007/how-to-disable-8-3-file-name-creation-on-ntfs-partitions</a></p>
 <p><a href="https://www.tecklyfe.com/windows-server-tip-disable-8-3-naming-strip-existing-short-names/">https://www.tecklyfe.com/windows-server-tip-disable-8-3-naming-strip-existing-short-names/</a></p>
 <p><a href="https://serverfault.com/questions/670658/fixing-the-iis-tilde-vulnerability">https://serverfault.com/questions/670658/fixing-the-iis-tilde-vulnerability</a></p>
+<h2 id="修复要点务实">修复要点（务实）</h2>
+<ol>
+<li>确认问题：用短文件名探测工具在 <strong>授权范围</strong> 内验证 404/400 差异。</li>
+<li>注册表/组策略关闭 8.3 名生成（需评估遗留应用兼容性）。</li>
+<li>IIS 配置与补丁按微软与安全厂商通告落地。</li>
+<li>仅关「模糊错误页」往往不够，要组合文件系统策略。</li>
+<li>修复后回归：旧探测路径应不再可区分。</li>
+</ol>
+<h2 id="业务影响">业务影响</h2>
+<p>短文件名泄露可帮助攻击者猜 <code>.aspx</code>、备份、<code>web.config</code> 等敏感路径，从而加速后续利用。它常被当成「信息泄露」低估，在渗透链路里却很值钱。</p>
+<h2 id="小结">小结</h2>
+<p>老洞也能打穿新资产。修复要 <strong>验证—加固—再验证</strong>，并记录兼容性例外，而不是只丢一条「已加固」工单。</p>
+<h2 id="验证命令思路">验证命令思路</h2>
+<p>在授权环境中对比短名猜测与真实资源响应差异；修复后相同探测应收敛为一致的拒绝或 404。将验证截图与变更单号归档，方便审计复查。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       <div class="wechat-card">
@@ -245,7 +270,7 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2763</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

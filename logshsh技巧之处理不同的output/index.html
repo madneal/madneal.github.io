@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -27,19 +27,19 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="全栈工程师的进击">
+  <meta name="description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
 
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@gohugoio">
   <meta name="twitter:title" content="Neal 的博客">
-  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta name="twitter:image" content="/img/avatar.jpg">
 
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="Neal 的博客">
-  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta property="og:url" content="https://madneal.com/logshsh%E6%8A%80%E5%B7%A7%E4%B9%8B%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C%E7%9A%84output/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -199,7 +199,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">Logstash技巧之处理不同的output</h1>
-      <p class="post-meta">@Neal · <time datetime="2020-05-18">2020-05-18</time> · 约 1 分钟阅读</p>
+      <p class="post-meta">@Neal · <time datetime="2020-05-18">2020-05-18</time> · 约 2 分钟阅读</p>
     </header>
     
       <nav class="post-toc" aria-label="文章目录">
@@ -212,6 +212,12 @@
     <li><a href="#其它做法">其它做法</a></li>
     <li><a href="#坑">坑</a></li>
     <li><a href="#小结">小结</a></li>
+    <li><a href="#与-pipeline-to-pipeline-的对比">与 pipeline-to-pipeline 的对比</a></li>
+    <li><a href="#观测与测试">观测与测试</a></li>
+    <li><a href="#安全">安全</a></li>
+    <li><a href="#小结-1">小结</a></li>
+    <li><a href="#配置片段放置建议">配置片段放置建议</a></li>
+    <li><a href="#延伸阅读与实践">延伸阅读与实践</a></li>
   </ul>
 </nav>
       </nav>
@@ -298,6 +304,25 @@
 </ul>
 <h2 id="小结">小结</h2>
 <p>多 output 要「同学不同貌」，优先 <strong>clone + 条件 mutate + 条件 output</strong>。这比在 output 插件里找「按目的地删字段」更通用，也是当时卡住很久后最省事的解法。</p>
+<h2 id="与-pipeline-to-pipeline-的对比">与 pipeline-to-pipeline 的对比</h2>
+<p>Logstash 多 pipeline + pipeline-to-pipeline 通信也能实现「分叉」，适合超大流量与隔离失败域。小团队单 pipeline + <code>clone</code> 通常足够，配置也集中。</p>
+<h2 id="观测与测试">观测与测试</h2>
+<ul>
+<li>用 <code>stdout { codec =&gt; rubydebug }</code> 临时验证 clone 后字段</li>
+<li>指标：events.in / events.out、Kafka 发送失败、ES reject</li>
+<li>变更配置走 <code>logstash --config.test_and_exit</code></li>
+</ul>
+<h2 id="安全">安全</h2>
+<p>日志可能含 token、身份证号。对 Kafka 与 ES 的字段集做不同脱敏时，clone 正好能「出口 A 打码、出口 B 全量仅限安全区」。别把全量敏感日志送到低权限主题。</p>
+<h2 id="小结-1">小结</h2>
+<p><code>clone</code> 解决的是 <strong>同一事件多出口异构</strong>。先分叉再 mutate，比在 output 里硬掰字段更清晰；量大时再评估双 pipeline。</p>
+<h2 id="配置片段放置建议">配置片段放置建议</h2>
+<p>将 <code>clone</code> 相关 filter 单独放进片段文件，用 <code>config.reload.automatic</code> 或编排工具下发。评审时重点看：条件是否写反、是否误删两边都需要的字段、Kafka 与 ES 失败是否互相拖累。</p>
+<p>复杂路由最终应画一张数据流图贴进仓库 README，新人才能快速理解「为什么有两条几乎一样的事件」。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       <div class="wechat-card">

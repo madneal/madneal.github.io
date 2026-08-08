@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -209,7 +209,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">SFTP 未关闭 Session 导致服务器 sshd 进程残留</h1>
-      <p class="post-meta">@Neal · Jul 28, 2016 · 3 min read</p>
+      <p class="post-meta">@Neal · Jul 28, 2016 · 6 min read</p>
     </header>
     <article class="post-content"><h2 id="现象">现象</h2>
 <p>项目里用 <strong>JSch</strong> 做 SFTP 上传下载。代码上线后，服务器上多了很多迟迟不退出的进程（与 sshd/会话相关）。业务「看起来能传文件」，但主机连接数与进程表被慢慢打满。</p>
@@ -303,6 +303,32 @@
 </table>
 <h2 id="小结">小结</h2>
 <p>JSch 资源释放的口诀：<strong>Channel 和 Session 都要断，且放在 finally</strong>。只 <code>sftp.disconnect()</code> 等于只关了一半门，sshd 侧的「人」还没走。</p>
+<h2 id="生产落地检查表">生产落地检查表</h2>
+<ul>
+<li>代码评审：所有 JSch 使用点是否 <code>finally</code> 断开 Session</li>
+<li>监控：sshd 进程数、ESTABLISHED 连接数告警</li>
+<li>压测：高频短连接上传是否泄漏</li>
+<li>日志：连接失败路径是否仍泄漏半开 Session</li>
+<li>配置：Idle timeout，避免僵死连接长期占用</li>
+</ul>
+<h2 id="和对象存储的取舍">和对象存储的取舍</h2>
+<p>若业务只是「传文件」，长期更稳的是 S3 兼容对象存储 + 预签名 URL，把会话生命周期交给云厂商。SFTP 适合对接遗留客户与合规专线；自建时务必把 Session 生命周期当成一等公民。</p>
+<h2 id="安全补充">安全补充</h2>
+<p><code>StrictHostKeyChecking=no</code> 仅适合实验。生产应固定 host key 或使用可信 CA。密码写进配置文件等于把横向移动入口留给攻击者；改用密钥 + 密钥管理服务。</p>
+<h2 id="小结-1">小结</h2>
+<p>资源泄漏在安全与稳定性上都会放大：连接打满既是可用性事故，也可能逼运维关掉安全限制。关 Channel、关 Session、可观测，三件套缺一不可。</p>
+<h2 id="代码评审清单">代码评审清单</h2>
+<ul>
+<li>是否有全局单例 Session 却无并发保护</li>
+<li>异常是否吞掉导致 finally 未执行</li>
+<li>是否在线程池任务里打开连接却忘记归还</li>
+<li>单元测试是否覆盖「上传失败」路径</li>
+</ul>
+<p>把「连接」当成文件描述符一样管理，问题会少大半。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       

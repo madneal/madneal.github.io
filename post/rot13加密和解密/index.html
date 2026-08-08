@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -305,7 +305,27 @@ int main()
 }
 return 0;
 }
-</code></pre></article>
+</code></pre><h2 id="算法性质">算法性质</h2>
+<p>ROT13 是凯撒密码的特例：字母表旋转 13 位。因 26=13×2，<strong>加密与解密同一操作</strong>。它不提供密码学安全，只适合论坛剧透遮罩等场景。</p>
+<h2 id="实现注意">实现注意</h2>
+<ul>
+<li>只处理 A–Z / a–z，数字与符号保持不变</li>
+<li>非 ASCII 文本不适用经典 ROT13</li>
+<li>CTF 里常与 Base64、多重编码叠加</li>
+</ul>
+<h2 id="安全课上的位置">安全课上的位置</h2>
+<p>用 ROT13 当「加密」是典型错误示例：说明 <strong>混淆 ≠ 加密</strong>。真正保密需要现代 AEAD（如 AES-GCM）与密钥管理。</p>
+<h2 id="小结">小结</h2>
+<p>认识 ROT13 是为了识破它，而不是用它保护数据。见「加密」字样先问：算法、密钥、威胁模型分别是什么。</p>
+<h2 id="快速自测">快速自测</h2>
+<p>对字符串 <code>Hello</code> 应用 ROT13 应得 <code>Uryyb</code>；再应用一次回到 <code>Hello</code>。若结果不对，检查是否错误处理了非字母字符。理解对称性有助于在 CTF 里一眼识破。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
+<h2 id="译者实践注">译者实践注</h2>
+<p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -315,7 +335,7 @@ return 0;
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4137</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

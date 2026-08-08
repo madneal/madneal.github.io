@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -245,6 +245,45 @@ Via
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name">https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name</a></li>
 </ul>
+<h2 id="为什么浏览器要锁-referer">为什么浏览器要锁 Referer</h2>
+<p><code>Referer</code> 参与 CSRF 防护、统计分析、防盗链。若页面脚本可任意改写，攻击者就能伪造来源，绕过「只接受本站 Referer」的弱校验，或污染日志。因此规范把一批请求头列为 <strong>禁止被 JS 篡改</strong>（forbidden request headers），包括 <code>Cookie</code>、<code>Host</code>、<code>Referer</code> 等。</p>
+<h2 id="开发者能做什么">开发者能做什么</h2>
+<table>
+	<thead>
+			<tr>
+					<th>需求</th>
+					<th>做法</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>控制发送策略</td>
+					<td><code>Referrer-Policy</code> 响应头</td>
+			</tr>
+			<tr>
+					<td>少泄露路径</td>
+					<td><code>strict-origin-when-cross-origin</code> 等</td>
+			</tr>
+			<tr>
+					<td>服务端校验</td>
+					<td>勿把 Referer 当唯一 CSRF 防线，应用 Token + SameSite</td>
+			</tr>
+			<tr>
+					<td>测试伪造</td>
+					<td>用 Burp 改请求，而不是幻想页面 JS 改 Referer</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="与安全测试">与安全测试</h2>
+<p>测试防盗链或 CSRF 时，在代理里改 Referer 是合法手法；前端 XSS 无法直接「设一个完美 Referer」来冒充站内跳转。若业务只靠 Referer 做鉴权，本身就是设计缺陷。</p>
+<h2 id="小结">小结</h2>
+<p>浏览器里的 JS <strong>不能</strong>可靠修改 <code>Referer</code>。这是平台安全边界，不是 bug。业务安全应建立在 Cookie 策略、CSRF Token 与服务端鉴权上，而不是信任来源头。</p>
+<h2 id="相关头字段">相关头字段</h2>
+<p>除 <code>Referer</code> 外，<code>Origin</code>、<code>Sec-Fetch-*</code> 等也为浏览器控制。服务端做 CSRF 判断时可组合这些信号，但仍不能替代 CSRF Token。了解「谁能改什么头」是 Web 安全基本功。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -259,7 +298,7 @@ Via
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>1978</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

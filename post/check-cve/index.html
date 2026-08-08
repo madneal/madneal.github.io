@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -213,7 +213,9 @@
     </header>
     <article class="post-content"><p>今天想检查一下 Gitlab 11.9.0 产品受哪些 cve 的影响。其实网上已经有很多网站可以查询产品的相关 cve，但就是粒度比较粗。我想在 cve 列表中筛选出特定的版本，已经特定的版本，比如是社区版还是旗舰版。找了一下，没有发现完全符合这个要求的。后来在网上我就看到了一个网站是可以提供 cve 的 API 查询的。可以通过网站 API 可以获取特定的数据。</p>
 <p>可以通过 <a href="https://cve.circl.lu/api/">https://cve.circl.lu/api/</a> 可以看到 API 文档。可以通过 cve id 以及 product 以及其他更多信息来查询。最有用的 API 就是这一个，</p>
-<p><img src="https://s2.ax1x.com/2019/07/04/ZUIwgH.png" alt="ZUIwgH.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>可以通过 vendor 以及 product 获取指定 vendor 和 product 的 cve 列表。这个 API 返回的结果是一个 JSON 数组，我们需要在这里面过滤出相应的版本号以及 edition 版本。另外由于请求的结果一般是一个很长的 json 数据，我的做法是第一次请求，可以吧结果保存成 JSON 文件，第二次请求的时候首先检查这个 JSON 文件的最近修改时间，如果最近修改时间小于指定的天数，比如 3 天，如果 3 天内修改过的话，直接从 JSON 文件加载数据，否则重新发送请求，加载数据。</p>
 <pre tabindex="0"><code># check if file modified in the last several days
 def check_file_modified(filename, days):
@@ -271,6 +273,65 @@ def search(params, options):
     except Exception as e:
         print(e)
 </code></pre><p>完整的项目地址可以参考 <a href="https://github.com/neal1991/check-cve/blob/master/check-cve.py">https://github.com/neal1991/check-cve/blob/master/check-cve.py</a></p>
+<h2 id="用-circl-cve-api-做版本筛选的思路">用 CIRCL CVE API 做版本筛选的思路</h2>
+<p>公开站点粒度粗时，可走 <a href="https://cve.circl.lu/api/">cve.circl.lu API</a> 拉产品相关条目，再在本地按版本区间过滤（社区版/企业版关键字、cpe 字符串）。</p>
+<p>典型流程：</p>
+<ol>
+<li>按 vendor/product 拉取候选 CVE 列表</li>
+<li>解析 description / vulnerable_configuration 中的版本线索</li>
+<li>与资产台账中的精确版本比对</li>
+<li>输出「影响 / 不影响 / 需人工确认」三态</li>
+</ol>
+<p>注意：公开 API 的 CPE 与版本语法并不完美，<strong>不能替代原厂 advisory</strong>，只能做初筛。</p>
+<h2 id="企业内更稳的做法">企业内更稳的做法</h2>
+<ul>
+<li>订阅 NVD/OSV/GitHub Advisory，结合 SBOM</li>
+<li>用 <code>grype</code> / <code>trivy</code> 扫容器与文件系统</li>
+<li>维护内部「产品-版本-补丁」矩阵</li>
+<li>高危洞 24h 内人工确认利用前提（需认证？默认配置？）</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>「查 CVE」不是打开一个网页，而是 <strong>数据源 + 版本语义 + 资产上下文</strong>。API 帮你自动化初筛，最终结论仍要落到补丁与风险接受记录上。</p>
+<h2 id="输出给业务方的格式">输出给业务方的格式</h2>
+<table>
+	<thead>
+			<tr>
+					<th>字段</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>CVE</td>
+					<td>编号与链接</td>
+			</tr>
+			<tr>
+					<td>产品版本</td>
+					<td>资产实值</td>
+			</tr>
+			<tr>
+					<td>利用条件</td>
+					<td>网络/权限/配置</td>
+			</tr>
+			<tr>
+					<td>补丁版本</td>
+					<td>官方修复</td>
+			</tr>
+			<tr>
+					<td>临时缓解</td>
+					<td>WAF/禁用功能</td>
+			</tr>
+			<tr>
+					<td>截止时间</td>
+					<td>按等级</td>
+			</tr>
+	</tbody>
+</table>
+<p>表格化输出比丢一串链接更容易推动修复。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -285,7 +346,7 @@ def search(params, options):
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2592</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

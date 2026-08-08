@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -219,10 +219,14 @@
 <li>Kibana 需要安装了 Canvas 插件。</li>
 <li>目前公开的 POC 因为使用了 linux 特有的环境变量，所以目前这个 POC 只能作用于 linux 机器。</li>
 </ol>
-<p><img src="https://s2.ax1x.com/2019/10/18/KecZYd.png" alt="KecZYd.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="原型链攻击">原型链攻击</h2>
 <p>如果熟悉 JavaScript 的同学，对于原型链应该会比较熟悉。传统的 JavaScript 对象的集成就是基于原型链实现的。如果可以利用程序漏洞可以去修改 Object.protootype 就会导致所有的 JavaScript 的变量收到影响。针对本次漏洞，修复方式就是通过 hasOwnProperty 方法可以确保直接通过 <strong>proto</strong> 属性直接去修改 prototype。</p>
-<p><img src="https://s2.ax1x.com/2019/10/18/Kernqe.png" alt="Kernqe.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>原型链攻击现在一般虽然不能直接用于攻击，但是一般配合系统功能可以达到一些运行恶意命令的效果。如果一个程序有原型链漏洞，并且这个程序会创建新的进程，那么这个程序就极有可能有远程命令执行漏洞。</p>
 <h2 id="漏洞防范">漏洞防范</h2>
 <ol>
@@ -233,6 +237,23 @@
 <ul>
 <li><a href="https://slides.com/securitymb/prototype-pollution-in-kibana/">https://slides.com/securitymb/prototype-pollution-in-kibana/</a></li>
 </ul>
+<h2 id="处置建议">处置建议</h2>
+<ol>
+<li>升级到官方修复版本，勿长期暴露旧 Kibana 于公网</li>
+<li>管理界面放在 VPN / SSO 之后，限制来源 IP</li>
+<li>最小权限运行 Kibana 进程，限制其出站与命令解释能力</li>
+<li>监控异常 Canvas/Timelion 请求与子进程创建</li>
+</ol>
+<h2 id="原理提醒">原理提醒</h2>
+<p>原型链污染 + 危险的环境变量传递 + 会拉起新进程的功能点，三者叠出 RCE。修洞时要理解利用链，避免「只关一个菜单」的假修复。</p>
+<h2 id="小结">小结</h2>
+<p>ELK 是运维亲儿子，也是攻击者眼中的高价值控制台。版本管理与网络暴露面，比再写一条检测规则优先。</p>
+<h2 id="复现伦理">复现伦理</h2>
+<p>仅在自建实验室复现公开 POC，不要对互联网暴露的陌生 Kibana 验证。发现资产漏洞走正规披露与工单流程。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -247,7 +268,7 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2487</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

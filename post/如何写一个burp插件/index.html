@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -218,7 +218,9 @@
 <li>配置 DEBUG</li>
 </ol>
 <p>首先是在 IDEA 里面配置调试。点击右上角里面的配置，点击 &ldquo;Edit Configurations&rdquo; 就可以进入对 DEBUG 的配置页面。新增一个 Remote 配置，命名可以随自己的喜好。</p>
-<p><img src="https://s2.ax1x.com/2019/08/31/mxiIde.png" alt="mxiIde.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <ol start="2">
 <li>命令行启动 Burp</li>
 </ol>
@@ -228,7 +230,9 @@
 <li>部署 jar 包，打断点</li>
 </ol>
 <p>可以现在程序中打一下断点。接着就是编译 jar 包，并且启动 IDE 的 DEBUG。将 jar 包部署到 Burp 中，下面就可以快乐地调试了。</p>
-<p><img src="https://s2.ax1x.com/2019/09/01/nSZGi8.png" alt="nSZGi8.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="burp-开发">Burp 开发</h2>
 <p>老是说其实 Burp 插件开发其实还是比较简单的，只要你掌握常规的套路，熟悉了基本的 API 之后，基本就可以进行插件的开发。插件开发最困难的部分其实是 GUI 的开发，不过这也属于 JAVA GUI 开发的范畴，这个暂不讨论。Burp 开发注意以下几点：</p>
 <ul>
@@ -258,6 +262,17 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div><h2 id="总结">总结</h2>
 <p>其实总的来说 Burp 插件开发并不特别困难，只要当一个合格的 API 调用者就可以了。网上目前也有很多开源的 Burp 插件代码，其实你可以找一个感兴趣的 Burp 插件代码看一下，你就可以快速地了解这些 API 的作用。其实 Burp 的 Extender 中的 APIs 就已经列出了所有可用的 API 接口。</p>
+<h2 id="调试与工程化建议">调试与工程化建议</h2>
+<ul>
+<li>用官方 Extender API 文档 + 示例项目起步</li>
+<li>IDE 远程调试或日志级别可切换，避免「打 jar → 重启 Burp」死循环</li>
+<li>版本控制插件源码，CI 编译发布</li>
+<li>权限最小化：插件能碰的流量范围要克制</li>
+</ul>
+<h2 id="插件能解决的问题">插件能解决的问题</h2>
+<p>被动扫描规则、高亮、自动打标签、与企业内部平台联动、AI 辅助分析（需注意数据出域）。先解决自己每天重复的 10 分钟，再考虑发布社区。</p>
+<h2 id="小结">小结</h2>
+<p>Burp 插件开发的门槛在环境与调试，不在 Java 语法。把调试链路打通，后面都是 API 熟悉度问题。</p>
 </article>
     <footer class="post-footer">
       
@@ -274,7 +289,7 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2534</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

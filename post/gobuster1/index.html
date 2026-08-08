@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -284,6 +284,17 @@ type OptionsDir struct {
 }
 </code></pre><h2 id="总结">总结</h2>
 <p>本文是 gobuster 的第一次探索，主要是看了下程序的入口以及一些配置项的初始化工作，后续会阅读每个对应模块的具体实现细节。</p>
+<h2 id="源码阅读方法">源码阅读方法</h2>
+<ol>
+<li>从 <code>main</code>/<code>Execute</code> 看清 CLI 如何分发子命令</li>
+<li>找核心接口（如 <code>PreRun</code>/<code>Run</code>）理解扩展点</li>
+<li>对照「目录爆破」数据流：字典 → 并发 worker → HTTP → 结果过滤</li>
+<li>记录可复用设计：限速、上下文取消、输出格式</li>
+</ol>
+<h2 id="对自己工具的启发">对自己工具的启发</h2>
+<p>写扫描器时优先：上下文取消、错误分类、可测试的 HTTP 客户端接口。gobuster 流行不只因为快，更因为结构清晰、模块可插拔。</p>
+<h2 id="小结">小结</h2>
+<p>读工具源码是成为「能造轮子」的捷径。入口篇先建立地图，再钻 dir 模块细节。</p>
 </article>
     <footer class="post-footer">
       
@@ -300,7 +311,7 @@ type OptionsDir struct {
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>1570</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

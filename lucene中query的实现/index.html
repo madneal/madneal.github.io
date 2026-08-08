@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -27,19 +27,19 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="全栈工程师的进击">
+  <meta name="description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
 
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@gohugoio">
   <meta name="twitter:title" content="Neal 的博客">
-  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta name="twitter:image" content="/img/avatar.jpg">
 
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="Neal 的博客">
-  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta property="og:url" content="https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -212,6 +212,11 @@
     <li><a href="#使用上的注意">使用上的注意</a></li>
     <li><a href="#建议的阅读顺序">建议的阅读顺序</a></li>
     <li><a href="#小结">小结</a></li>
+    <li><a href="#实践建议">实践建议</a></li>
+    <li><a href="#和安全的交界">和安全的交界</a></li>
+    <li><a href="#小结-1">小结</a></li>
+    <li><a href="#调试技巧">调试技巧</a></li>
+    <li><a href="#延伸阅读与实践">延伸阅读与实践</a></li>
   </ul>
 </nav>
       </nav>
@@ -316,6 +321,23 @@
 </ol>
 <h2 id="小结">小结</h2>
 <p>Lucene Query 体系是「语义 → 可执行结构」的分层。<code>RegexpQuery</code> 不是孤立类，而是 <strong>正则 → 自动机 → 多 term 枚举 → 打分</strong> 链路上的一环。抓住继承关系，源码阅读会顺很多。</p>
+<h2 id="实践建议">实践建议</h2>
+<ul>
+<li>线上避免无约束的前导通配与复杂正则</li>
+<li>对用户输入做长度与复杂度限制，防慢查询打满 CPU</li>
+<li>用 explain API（ES）理解评分与匹配 term</li>
+<li>升级 Lucene/ES 大版本时回归查询语义</li>
+</ul>
+<h2 id="和安全的交界">和安全的交界</h2>
+<p>搜索入口若直接拼接用户输入到查询 DSL，可能出现查询注入或昂贵表达式 DoS。应将用户检索词映射到受控 Query 构造器，而不是字符串拼接。</p>
+<h2 id="小结-1">小结</h2>
+<p>读懂 <code>Query</code> 继承树，是读搜索引擎与加固搜索入口的共同基础。从 Term/Boolean 开始，再进自动机类查询，路径最稳。</p>
+<h2 id="调试技巧">调试技巧</h2>
+<p>构造最小索引（几个文档几个字段），对目标 Query 打印改写后的布尔结构或使用 Luke 等工具看 term。比直接在生产 ES 上试验更安全、更快。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       <div class="wechat-card">

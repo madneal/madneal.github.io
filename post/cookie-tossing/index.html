@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -338,6 +338,8 @@ Set-Cookie: userId=patch01; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Domain=.snyk.
 <p>幸运的是，解决 Cookie Tossing 问题有一个简单的方案。可以使用 <code>__Host-</code> cookie 前缀来限制 cookie 仅发送到设置该 cookie 的 host。此外，带有 <code>__Host-</code> 前缀的 cookie 不能修改 <code>domain</code> 或 <code>path</code> 属性，这防止了恶意子域能够在父域上设置 cookie 或针对特定路径。</p>
 <p>最后的思考</p>
 <p>Cookie Tossing 是一种独特且常被忽视的漏洞，影响那些没有明确使用 <code>__Host-</code> cookie 前缀的应用程序。我们已经展示了这种弱点如何被利用，以迫使敏感请求在攻击者的会话上下文中执行，从而可能暴露敏感数据。在复杂的工作流程中，例如利用 OAuth 协议的工作流程，这可能无意中授予攻击者对第三方服务资源的访问权限。我们之前的研究表明，使用 <code>__Host-</code> 前缀的情况很少，这使得许多组织，特别是那些在子域上托管应用程序的组织，处于脆弱状态。每当状态改变请求满足本文所述的条件时，它们可能会受到劫持的威胁。</p>
+<h2 id="译者实践注">译者实践注</h2>
+<p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p>
 </article>
     <footer class="post-footer">
       

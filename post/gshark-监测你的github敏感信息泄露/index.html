@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -217,7 +217,9 @@
 <p>废话说了一大通（可能是最近看安全大佬的文章看多了），终于要介绍一下我的这个项目，<a href="https://github.com/neal1991/gshark">GShark</a>。这个工具主要是基于 golang 实现，这也是第一次学习 golang 的项目，结合 go-macron Web 框架实现的一个系统。其实最初我是看到小米安全开源的 <a href="https://github.com/MiSecurity/x-patrol">x-patrol</a> 项目。网上这种扫描 Github 敏感信息的工具多如皮毛，我看过那种 star 数上千的项目，感觉实现方式也没有很好。因为说到底，大家都是通过 Github 提供的 API 结合相应的关键字来进行搜索的。但是，x-patrol 的这种实现方式我觉得是比较合理的，通过爬虫爬取信息，并对结果进行审核。所以，最初我是一个 x-patrol 的使用者。使用过程中，也遇到过一些问题，因为这个库似乎就是小米的某个固定的人维护的，文档写的不是特别清晰。中间我有提过 PR，但都被直接拒绝掉了。后来，我就想基于 x-patrol 来实现一套自己的系统，这也就是 GShark 的来由了。目前，这个项目与 x-patrol 已经有着很大的变化，比如移除了本地代码的检测，因为这个场景没有需求，其实我本身自己也实现了一个基于 lucene 的敏感信息检索工具。另外，将前端代码进行了梳理，并使用模板引擎来做模板的嵌套使用。基于 <a href="https://github.com/casbin/casbin">casbin</a>实现基于角色的权限控制等等。</p>
 <h2 id="原理">原理</h2>
 <p>讲完了起源，接着讲一讲这个系统的原理。基本上，这类工具都是首先会在 Github 申请相应的 token 来实现，接着通过相应的 API 来进行爬取。本项目主要是基于 Google 的 <a href="https://github.com/google/go-github">go-github</a>。这个 API 使用起来还是比较方便的。通过这个 API 我们可实现在 Github 来进行搜索，其实这基本上等同于 <a href="https://github.com/search/advanced?">Advanced Search</a>。因为 API 提供的搜索能力肯定就是 Github 本身所具有的搜索能力。最基本的包括关键及，以及一些 owner 信息以及 star 数等等。</p>
-<p><a href="https://imgchr.com/i/iWe0kn"><img src="https://s1.ax1x.com/2018/10/31/iWe0kn.md.png" alt="iWe0kn.md.png"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>另外一点就是 Github 的搜索是基于 elasticsearch 的，因此也是支持 lucene 语法的。GShark 的黑名单过滤其实就是通过这个规则来实现的。</p>
 <p>通过爬虫将代码结果爬取到数据库中，那么我们就可以在 Web 界面进行代码的审核。因为其实很多包含关键字的代码并不一定就是你想要的，有很多种可能，爬虫项目，一些文件的随机乱码，博客等等。但是一般来说对于人工审核来说，一般这种代码仓库很容易就可以区分出，审核就是还快的。对于那种比较疑似的，可能需要进一步调查，可能就需要进一步获取信息，比如阅读代码信息，查看上传者信息等等。对于一条记录，一共有三种操作，确认为敏感信息，忽略这条记录，忽略包含这条记录的代码仓库的所有记录。</p>
 <h2 id="遇到过的问题">遇到过的问题</h2>

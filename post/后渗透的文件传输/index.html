@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -225,7 +225,63 @@
 </code></pre><h3 id="python3">python3</h3>
 <pre tabindex="0"><code>python3 -m http.server 80
 </code></pre><h3 id="php">php</h3>
-</article>
+<h2 id="原则回顾">原则回顾</h2>
+<ul>
+<li>工具越简单越好，优先系统自带</li>
+<li>少装额外二进制，降低杀软与审计噪声</li>
+<li>稳定可重试，支持大文件与断点</li>
+</ul>
+<h2 id="常见手法分类">常见手法分类</h2>
+<table>
+	<thead>
+			<tr>
+					<th>场景</th>
+					<th>示例思路</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>有 HTTP</td>
+					<td>目标 <code>curl</code>/<code>wget</code> 拉 VPS；或 python <code>-m http.server</code></td>
+			</tr>
+			<tr>
+					<td>有 SMB</td>
+					<td><code>smbclient</code>、<code>impacket</code>、<code>copy \unc</code></td>
+			</tr>
+			<tr>
+					<td>Windows</td>
+					<td><code>certutil</code>、<code>iwr</code>、<code>bitsadmin</code>（注意告警）</td>
+			</tr>
+			<tr>
+					<td>纯 shell</td>
+					<td><code>base64</code> 分段粘贴（小文件）</td>
+			</tr>
+			<tr>
+					<td>加密通道</td>
+					<td>已控 SSH/云隧道上 scp/sftp</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="安全与合规">安全与合规</h2>
+<p>后渗透技术 <strong>仅能在授权测试与靶场</strong> 使用。生产红队需提前约定 C2 域名、上传目录与清理策略，避免残留工具成为真实攻击者的礼物。</p>
+<h2 id="小结">小结</h2>
+<p>文件传输是攻击链的「物流」。先判出站/入站协议，再选最「像运维」的原生命令，最后记录哈希与清理步骤。把清单背熟，比收集一百个冷门工具有用。</p>
+<h2 id="操作记录模板">操作记录模板</h2>
+<pre tabindex="0"><code>时间/授权单号：
+源主机/目的主机：
+协议与工具：
+文件名与 SHA256：
+是否清理临时文件：
+
+
+## 延伸阅读与实践
+
+把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。
+
+若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。
+
+对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。
+</code></pre></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -237,7 +293,7 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2641</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

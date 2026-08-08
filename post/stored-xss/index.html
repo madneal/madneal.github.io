@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -364,6 +364,17 @@ console.log(html);
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 正则表达式白名单</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">AllowElementMatch</span>(<span style="color:#a6e22e">regex</span>.<span style="color:#a6e22e">MustCompile</span>(<span style="color:#e6db74">&#34;^my-element-&#34;</span>))
 </span></span></code></pre></div><p>其实从原理上来说，bluemonday 与 js-xss 并没有本质的区别，主要就是基于标签和属性的过滤，可以基于自己的技术场景去选择。不过记得一点是两种方案过滤时机的选择。</p>
+<h2 id="富文本防护分层">富文本防护分层</h2>
+<ol>
+<li><strong>存储前</strong>：服务端 HTML 消毒（白名单标签/属性）</li>
+<li><strong>输出时</strong>：正确上下文编码；CSP 降低危害</li>
+<li><strong>前端</strong>：<code>js-xss</code> 等仅作辅助，不可信为唯一防线</li>
+<li><strong>编辑器</strong>：选维护活跃、有安全说明的组件</li>
+</ol>
+<h2 id="绕过意识">绕过意识</h2>
+<p>事件属性、协议、SVG/MathML、编码嵌套、模板二次渲染，都是富文本 XSS 的老舞台。回归测试应包含已知绕过向量库。</p>
+<h2 id="小结">小结</h2>
+<p>富文本不能「一刀转义」，只能 <strong>白名单消毒 + 多层防御</strong>。把 XSS 当产品功能缺陷管理，而不是扫出来再补。</p>
 </article>
     <footer class="post-footer">
       
@@ -380,7 +391,7 @@ console.log(html);
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>1804</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

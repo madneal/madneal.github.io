@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -320,7 +320,34 @@
 </span></span></code></pre></div><p><code>createImgByCode</code> 函数可以将任意字符串转化为一个图片，接着通过 canvas 去加载代码。不过这里面有一个问题，就是通过<code>createImgByCode</code> 函数生成的图片是一个 base64 图片，不能够直接被加载，这个图片必须被存储为 png 格式才能够通过另一个函数去加载代码。</p>
 <p>以上。</p>
 <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-<p><img src="https://s1.ax1x.com/2018/02/17/9tMvlT.jpg" alt="9tMvlT.jpg"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
+<h2 id="分析收获">分析收获</h2>
+<p>黑产前端常把真实逻辑藏在：</p>
+<ul>
+<li>图片像素 / canvas 像素读回</li>
+<li>多重 <code>eval</code> / <code>Function</code></li>
+<li>动态域名与特征混淆</li>
+</ul>
+<p>用 canvas 承载代码，是为了绕过简单静态特征与部分 WAF 关键字检测。</p>
+<h2 id="防护与检测建议">防护与检测建议</h2>
+<ol>
+<li>CSP 限制 <code>unsafe-eval</code> 与外来脚本</li>
+<li>对异常 <code>canvas</code> + 大量像素读写做行为检测</li>
+<li>邮件/落地页走沙箱复现</li>
+<li>不要对「看起来只是图片」的请求放松审计</li>
+</ol>
+<h2 id="合规">合规</h2>
+<p>分析样本仅用于防御研究；不要传播未脱敏的完整黑产武器化代码。</p>
+<h2 id="小结">小结</h2>
+<p>对抗样本是最好的教材之一：它们用尽浏览器能力边界。理解 canvas 加载链，有助于写更好的检测规则与应急手册。</p>
+<h2 id="分析环境建议">分析环境建议</h2>
+<p>在隔离虚拟机中打开样本，断网或假 DNS，使用代理记录所有出站。对 canvas 相关 API 下断点，观察像素数据如何转成字符串与函数。过程记录比一次「跑通」更有长期价值。</p>
+<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
+<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
+<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
+<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
 </article>
     <footer class="post-footer">
       
@@ -333,7 +360,7 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>2918</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

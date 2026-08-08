@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -219,9 +219,11 @@
 <p>为什么会有坑？这要从后续传递风格（continuation-passing style&ndash;CPS)说起。这种编程风格最开始是由Gerald Jay Sussman和Guy L. Steele, Jr. 在AI Memo 349上提出来的，那一年是1975年，Schema语言的第一次亮相。既然JavaScript的函数式编程设计原则主要源自Schema，这种风格自然也被带到了Javascript中。</p>
 <p>这种风格的函数要有额外的参数：“后续逻辑体”，比如带一个参数的函数。CPS函数计算出结果值后并不是直接返回，而是调用那个后续逻辑函数，并把这个结果作为它的参数。从而实现计算结果在逻辑步骤之间的传递，以及逻辑的延续。也就是说如果要调用CPS函数，调用方函数要提供一个后续逻辑函数来接收CPS函数的“返回”值。
 回调</p>
-<p>在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示：
-<img src="http://img.blog.csdn.net/20160427082823559" alt="这里写图片描述">
-下面一个例子说明回调样例的恶心之处：</p>
+<p>在JavaScript中，这个“后续逻辑体”就是我们常说的回调(callback)。这种作为参数的函数之所以被称为回调，是因为它一般在主程序中定义，由主程序交给库函数，并由它在需要时回来调用。而将回调函数作为参数的，一般是一个会占用较长时间的异步函数，要交给另一个线程执行，以便不影响主程序的后续操作。如下图所示：</p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
+<p>下面一个例子说明回调样例的恶心之处：</p>
 <pre tabindex="0"><code>module.exports = function (param, cb) {
   asyncFun1(param, function (er, data) {
     if (er) return cb(er);
@@ -428,6 +430,8 @@ generator返回的不是原始值，而是有两个属性的对象：value和don
 可是generator和回调大坑有什么关系呢？因为yield可以暂停程序，next可以让程序再次执行，所以只需稍加控制，就能让异步回调代码顺序执行。</p>
 <p>用generator平坑
 Node.js社区中有很多借助generator实现异步回调顺序化的库，比如suspend、co等，不过我们重点介绍的还是Q。它提供了一个spawn方法。这个方法可以立即运行一个generator，并将其中未捕获的错误发给Q.onerror。</p>
+<h2 id="译者实践注">译者实践注</h2>
+<p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p>
 </article>
     <footer class="post-footer">
       

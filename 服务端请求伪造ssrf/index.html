@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -27,19 +27,19 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="全栈工程师的进击">
+  <meta name="description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
 
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@gohugoio">
   <meta name="twitter:title" content="Neal 的博客">
-  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta name="twitter:image" content="/img/avatar.jpg">
 
   
   <meta property="og:type" content="website">
   <meta property="og:title" content="Neal 的博客">
-  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:description" content="Neal 的技术博客：Web 安全、安全工程与开发实践">
   <meta property="og:url" content="https://madneal.com/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -221,6 +221,8 @@
     </li>
     <li><a href="#自查问题">自查问题</a></li>
     <li><a href="#小结">小结</a></li>
+    <li><a href="#案例化自检应用安全">案例化自检（应用安全）</a></li>
+    <li><a href="#小结-1">小结</a></li>
   </ul>
 </nav>
       </nav>
@@ -321,6 +323,18 @@
 <h2 id="小结">小结</h2>
 <p>SSRF 的本质是 <strong>把服务器的网络位置与身份交给了攻击者指定的目标</strong>。修漏洞不只是正则拦 <code>localhost</code>，而是 <strong>出站控制 + 严格 URL 策略 + 不回显</strong>。和 CSRF 一样，它提醒我们：安全边界不在「我写的业务逻辑」，而在「系统实际能触达哪里」。</p>
 <p>相关阅读：<a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">跨站请求伪造（CSRF）</a>（若站内路径不同请以标签「安全」检索）。</p>
+<h2 id="案例化自检应用安全">案例化自检（应用安全）</h2>
+<p>上线前问开发：</p>
+<ol>
+<li>是否存在「用户输入 URL → 服务端请求」？</li>
+<li>是否跟随重定向？最多几次？</li>
+<li>是否校验解析后的 IP 段？</li>
+<li>响应是否回显给用户？</li>
+<li>出网策略是否默认拒绝？</li>
+</ol>
+<p>任一「否」都要有工单。</p>
+<h2 id="小结-1">小结</h2>
+<p>SSRF 是云时代的常客。把出站与 URL 处理当成统一安全设计，而不是单个接口的临时正则。</p>
 </article>
     <footer class="post-footer">
       <div class="wechat-card">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -293,7 +293,9 @@ proxy_pass http://127.0.0.1:8888;
 </code></pre><p>这样启动完 nginx 后，整个发布过程就完成了，关于整个发布流程，笔者也在B站上发布了一个<a href="https://www.bilibili.com/video/BV1Py4y1s7ap/">教学视频</a>，如果感兴趣的还可以再去看看。</p>
 <h2 id="使用">使用</h2>
 <p>如果其实之前使用过 GShark 的用户，对于功能的使用应该有多了解，这里着重介绍一些增加的功能。在上面的发布完成之后，第一次进入应用 <code>http://localhost:8080</code>，会需要初始化数据库，只要输入数据库用户名、密码以及数据库名即可。进入系统，首先是服务器运行状态的监控界面。系统主要分为几个菜单，当然有一些可能还是有冗余，后续可能会考虑删除掉，其实核心功能主要就是搜索结果、管理、以及超级管理员菜单。</p>
-<p><a href="https://imgtu.com/i/c4Lyh6"><img src="https://z3.ax1x.com/2021/04/17/c4Lyh6.png" alt="server"></a></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>和之前一样，如果需要开启 scan 服务，那么首先需要添加 Github 或者 Gitlab 的 token，这个可以在 token管理菜单下进行添加。另外也需要根据自己的需求在规则管理里添加规则：</p>
 <p><img src="https://i.loli.net/2021/04/17/SusckilMNTXYv3E.png" alt="rule.png"></p>
 <p>当然你也可以配置过滤规则，主要是文件夹后缀的过滤，以及选择是否搜索 fork 的代码仓库。另外值得讲的就是角色管理，通过角色管理可以创建任意角色，每种角色对应的菜单权限或者 API 权限都可以自由设置</p>

