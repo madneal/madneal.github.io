@@ -323,15 +323,11 @@
 </span></span><span style="display:flex;"><span>  and ${criterion.condition} #{criterion.value}
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/when&gt;</span>
 </span></span></code></pre></div><p>总结以下，导致这个 SQL 注入的原因还是开发没有按照规范来写，自己造轮子写了一个方法来进行模糊查询，殊不知带来了 SQL 注入漏洞。其实，Mybatis generator 已经为每个字段生成了丰富的方法，只要合理使用，就一定可以避免 SQL 注入问题。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://p4.ssl.qhimg.com/t019817257e653fdf5e.jpg</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/juejin-t01dd1ab1980a2ff9c4.png" alt="MyBatis Criteria 条件查询"></p>
 <h2 id="使用--可以避免-sql-注入吗">使用 #{} 可以避免 SQL 注入吗</h2>
 <p>如果你猛地一看到这个问题，你可能会觉得迟疑？使用 <code>#{}</code> 就可以彻底杜绝 SQL 注入么，不一定吧。但如果你仔细分析一下，你就会发现答案是肯定的。具体的原因让我和你娓娓道来。</p>
 <p>首先我们需要先搞清楚 MyBatis 中 <code>#{}</code> 是如何声明的。当参数通过 <code>#{}</code> 声明的，参数就会通过 PreparedStatement 来执行，即预编译的方式来执行。预编译你应该不陌生，因为在 JDBC 中就已经有了预编译的接口。这也对应了开头文中我们提到的一点，MyBatis 并不是能解决 SQL 注入的核心，预编译才是。预编译不仅可以对 SQL 语句进行转义，避免 SQL 注入，还可以增加执行效率。MyBatis 底层其实也是通过 JDBC 来实现的。以 MyBatis 3.3.1 为例，jdbc 中的 SqlRunner 就设计到具体 SQL 语句的实现。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/01/KHvCy6.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/juejin-t017e1ee9b2d905ad05.png" alt="PreparedStatement 预编译"></p>
 <p>以 update 方法为例,可以看到就是通过 JAVA 中 PreparedStatement 来实现 sql 语句的预编译。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">update</span>(String sql, Object... args) <span style="color:#66d9ef">throws</span> SQLException {
 </span></span><span style="display:flex;"><span>    PreparedStatement ps <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">connection</span>.<span style="color:#a6e22e">prepareStatement</span>(sql);
@@ -351,9 +347,7 @@
 </span></span></code></pre></div><p>值得注意的一点是，这里的 PreparedStatement 严格意义上来说并不是完全等同于预编译。其实预编译分为客户端的预编译以及客户端的预编译，4.1 之后的 MySql 服务器端已经支持了预编译功能。很多主流持久层框架(MyBatis，Hibernate)其实都没有真正的用上预编译，预编译是要我们自己在参数列表上面配置的，如果我们不手动开启，JDBC 驱动程序 5.0.5 以后版本 默认预编译都是关闭的。需要通过配置参数来进行开启：</p>
 <pre tabindex="0"><code>jdbc:mysql://localhost:3306/mybatis?&amp;useServerPrepStmts=true&amp;cachePrepStmts=true
 </code></pre><p>数据库 SQL 执行包含多个阶段如下图所示，但我们这里针对于 SQL 语句客户端的预编译在发送到服务端之前就已经完成了。在服务器端主要考虑的就是性能问题，这不是本文的重点。当然，每一个数据库实现的预编译方式可能都有一些差别。但是对于防止 SQL 注入，在 MyBatis 中只要使用 <code>#{}</code> 就可以了，因为这样就会实现 SQL 语句的参数化，避免直接引入恶意的 SQL 语句并执行。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/02/KqtZxe.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/juejin-t013b55c42309644d99.png" alt="SQL 执行阶段"></p>
 <h2 id="mybatis-generator-的使用">MyBatis generator 的使用</h2>
 <p>对于使用 MyBatis，MyBatis generator 肯定是必不可少的使用工具。MyBatis 是针对 MyBatis 以及 iBATIS 的代码生成工具，支持 MyBatis 的所有版本以及 iBATIS 2.2.0 版本以上。因为在现实的业务开发中，肯定会涉及到很多表，开发不可能自己一个去手写相应的文件。通过 MyBatis generator 就可以生成相应的 POJO 文件、 SQL Map XML 文件以及可选的 JAVA 客户端代码。常用的使用 MyBatis generator 的方式是直接通过使用 Maven 的 mybatis-generator-maven-plugin 插件，只要准备好配置文件以及数据库相关信息，就可以通过这个插件生成相应代码了。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
@@ -394,9 +388,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">&lt;table</span> <span style="color:#a6e22e">tableName=</span><span style="color:#e6db74">&#34;user&#34;</span> <span style="color:#a6e22e">domainObjectName=</span><span style="color:#e6db74">&#34;user&#34;</span><span style="color:#f92672">/&gt;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;/context&gt;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/generatorConfiguration&gt;</span>
-</span></span></code></pre></div><blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/02/KqIDBj.png</code></p>
-</blockquote>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/juejin-t01bcc5f5cd9e3e08b1.png" alt="MyBatis Generator 配置"></p>
 <p>在这里我想强调的是一个关键参数的配置，即 <code>targetRuntime</code> 参数。这个参数有2种配置项，即 <code>MyBatis3</code> 和 <code>MyBatis3Simple</code>，<code>MyBatis3</code> 为默认配置项。MyBatis3Simple 只会生成基本的增删改查，而 MyBatis3 会生成带条件的增删改查，所有的条件都在 XXXexample 中封装。使用 MyBatis3 时，enableSelectByExample，enableDeleteByExample，enableCountByExample 以及 enableUpdateByExample 这些属性为 true，就会生成相应的动态语句。这也就是我们上述 <code>Example_Where_Clause</code> 生成的原因。</p>
 <p>如果使用配置项 <code>MyBatis3Simple</code>，那么生成的 SQL Map XML 文件将非常简单，只包含一些基本的方法，也不会产生上面的动态方法。可以这么说，如果你使用 <code>MyBatis3Simple</code> 话，并且不额外改造，因为里面所有的变量都是通过 <code>#{}</code> 引入，就不可能会有 SQL 注入的问题。但是现实业务中往往涉及到复杂的查询条件，而且一般开发使用的都是祖传配置文件，所以到底是使用 <code>MyBatis3</code> 还是 <code>MyBatis3Simple</code>，还是需要具体问题，具体看待。不过如果你是使用默认配置，你就需要当心了，谨记一点，外部传入的参数是极有可能是不安全的，是不可以直接引入处理的。意思到这一点，就基本可以很好地避免 SQL 注入问题了。</p>
 <p>我创建了一个 Github 仓库 <a href="https://github.com/neal1991/mb-generator">mb-generator</a>，这个仓库里面的 mybatis3 分支以及 mybatis3simple 分支分别是使用不同的配置项生成的代码，你可以去看一看生成的代码具体差别有哪一些，可以看一看使用不同配置项的具体差别。</p>

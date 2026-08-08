@@ -276,37 +276,27 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click!&lt;/<span style="color:#f92672">a</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click2!&lt;/<span style="color:#f92672">a</span>&gt;
 </span></span></code></pre></div><p>那么访问 <code>window.test1</code> 时我们将得到什么？我直觉上希望得到具有该 id 的第一个元素（当你尝试调用<code>document.getElementById('#test1')</code> 时会发生这种情况。但是，在 Chromium 中，我们实际上得到了一个<code>HTMLCollection</code>！</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/18/McKGoq.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/sekurak-amp4email-image-6.png" alt="window.test1 指向 HTMLCollection"></p>
 <p>图4. window.test1 指向 HTMLCollection</p>
 <p>这里特别有趣的是（可以在图4中看到），我们可以通过索引（示例中的0和1）以及通过 id 访问该 HTMLCollection 中的特定元素。 这意味着 <code>window.test1.test1</code> 实际上是指第一个元素。 事实证明，设置 <code>name</code> 属性也会在 <code>HTMLCollection</code> 中创建新属性。 所以现在我们有以下代码：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span>&gt;click!&lt;/<span style="color:#f92672">a</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">test1</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">test2</span>&gt;click2!&lt;/<span style="color:#f92672">a</span>&gt;
 </span></span></code></pre></div><p>我们可以通过 <code>window.test1.test2</code> 访问第二个锚元素。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/19/Mc53RA.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/sekurak-amp4email-image-5.png" alt="window.test1.test2 属性"></p>
 <p>图5. 我们可以定义 window.test1.test2</p>
 <p>因此，回到通过 DOM Clobbering 利用 <code>eval(''+ window.test1.test2)</code> 的原始练习，解决方案是：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test1&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test1&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;test2&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;x:alert(1)&#34;</span>&gt;&lt;/<span style="color:#f92672">a</span>&gt;
 </span></span></code></pre></div><p>现在让我们回到 AMP4Email，看看如何在实际情况下如何利用 DOM Clobbering。</p>
 <h2 id="在-amp4email-利用-dom-clobbering">在 AMP4Email 利用 DOM Clobbering</h2>
 <p>我已经提到过，通过向元素添加我自己的 id 属性，AMP4Email 可能容易受到 DOM Clobbering 的攻击。为了找到可利用的条件，我决定看一下 <code>window</code> 的属性（图6）。立即引起注意的是开头的 AMP。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/19/Mc5DRs.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/sekurak-amp4email-image-7.png" alt="window 全局对象属性"></p>
 <p>图6. window 全局对象的属性</p>
 <p>在这一点上，事实证明 AMP4Email 实际上对 DOM Clobbering 采取了某种保护措施，因为它严格禁止 id 属性的某些值，例如：<code>AMP</code>（图7）。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s1.ax1x.com/2019/11/19/MRVc2F.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/sekurak-amp4email-image-8.png" alt="AMP 无效的 id 值"></p>
 <p>图7. AMP 是 AMP4Email 中的 id 的无效值</p>
 <p>但是，AMP_MODE并没有发生相同的限制。所以我准备了一句代码 <code>&lt;a id=AMP_MODE&gt;</code> 看看会发生什么……</p>
 <p>…然后我注意到控制台中有一个非常有趣的错误（图8）。</p>
-<blockquote>
-<p><strong>（配图未能自动恢复）</strong> 原地址：<code>https://s2.ax1x.com/2019/11/19/Mc5WoF.png</code></p>
-</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/sekurak-amp4email-image-9.png" alt="AMP4Email 脚本加载 404"></p>
 <p>图8. 加载某些JS文件的 404 错误</p>
 <p>如图8 所示，AMP4Email 尝试加载某些JS文件，但由于 404 而未能加载。但是，特别引人注目的是，URL （https://cdn.ampproject.org/rtv/undefined/v0/amp-auto-lightbox-0.1.js）中存在 <code>undefined</code>。我能够想出的唯一一个合理的解释：AMP 尝试获取 <code>AMP_MODE</code> 的属性以将其放入URL。由于 DOM Clobbering，缺少了预期的属性，因此是 <code>undefined</code>。包含代码的代码如下所示：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">preloadExtension</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>) {
