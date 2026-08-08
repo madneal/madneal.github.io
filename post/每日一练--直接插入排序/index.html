@@ -280,6 +280,17 @@
 </ol>
 <h2 id="小结">小结</h2>
 <p>插入排序代码短、好证不变式，适合做每日一练的第一题。工程上 <code>n</code> 大时请用 <code>std::sort</code>，但面试手写插入/快排/归并仍是基本功。</p>
+<h2 id="模拟一步">模拟一步</h2>
+<p>数组 <code>[3, 1, 4, 2]</code>：</p>
+<ol>
+<li><code>j=1</code> key=<code>1</code> → 插入前得 <code>[1, 3, 4, 2]</code></li>
+<li><code>j=2</code> key=<code>4</code> → 已有序前缀无需大挪</li>
+<li><code>j=3</code> key=<code>2</code> → 前移 <code>4,3</code> 得 <code>[1, 2, 3, 4]</code></li>
+</ol>
+<h2 id="稳定排序例子">稳定排序例子</h2>
+<p>相等元素相对顺序不变，适合「先按成绩排，再按报名序号排」的多关键字场景（插入作为基础稳定算法理解很好）。</p>
+<h2 id="与标准库">与标准库</h2>
+<p>C++ <code>std::sort</code> 通常不是纯插入；但 <code>std::stable_sort</code> 与小数组调优路径里仍可能见到插入思想。理解插入，有助于读混合排序实现。</p>
 </article>
     <footer class="post-footer">
       

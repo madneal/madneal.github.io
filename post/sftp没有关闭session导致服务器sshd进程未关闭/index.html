@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>sftp没有关闭session导致服务器sshd进程未关闭</title>
+  <title>SFTP 未关闭 Session 导致服务器 sshd 进程残留</title>
 
   
   
@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="JSch 使用 ChannelSftp 后只 disconnect channel 不够：必须关闭 Session，否则远端 sshd 会话进程堆积。附正确释放顺序与 finally 模板。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="sftp没有关闭session导致服务器sshd进程未关闭">
-    <meta name="twitter:description" content="本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
+    <meta name="twitter:title" content="SFTP 未关闭 Session 导致服务器 sshd 进程残留">
+    <meta name="twitter:description" content="JSch 使用 ChannelSftp 后只 disconnect channel 不够：必须关闭 Session，否则远端 sshd 会话进程堆积。附正确释放顺序与 finally 模板。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="sftp没有关闭session导致服务器sshd进程未关闭">
-  <meta property="og:description" content="本文围绕《sftp没有关闭session导致服务器sshd进程未关闭》梳理java开发、后端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="SFTP 未关闭 Session 导致服务器 sshd 进程残留">
+  <meta property="og:description" content="JSch 使用 ChannelSftp 后只 disconnect channel 不够：必须关闭 Session，否则远端 sshd 会话进程堆积。附正确释放顺序与 finally 模板。">
   <meta property="og:url" content="https://madneal.com/post/sftp%E6%B2%A1%E6%9C%89%E5%85%B3%E9%97%ADsession%E5%AF%BC%E8%87%B4%E6%9C%8D%E5%8A%A1%E5%99%A8sshd%E8%BF%9B%E7%A8%8B%E6%9C%AA%E5%85%B3%E9%97%AD/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -208,41 +208,101 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">sftp没有关闭session导致服务器sshd进程未关闭</h1>
+      <h1 class="post-title">SFTP 未关闭 Session 导致服务器 sshd 进程残留</h1>
       <p class="post-meta">@Neal · Jul 28, 2016 · 3 min read</p>
     </header>
-    <article class="post-content"><p>项目中需要用Sftp上传下载文件，通过jsch中的sftp实现。代码上了服务器之后，发觉服务器多了很多进程没有被关闭。
-<img src="http://img.blog.csdn.net/20160728170459770" alt="这里写图片描述">
-连接sftp代码：</p>
-<pre tabindex="0"><code> protected boolean connectToServer() {
-        try {
-            JSch jsch = new JSch();
-            jsch.getSession(userName, hostname, port);
-            Session sshSession = jsch.getSession(userName, hostname, port);
-            logger.debug(&#34;HostName:&#34; + hostname + &#34;|Port:&#34; + port);
-            logger.debug(&#34;Session created&#34;);
-            sshSession.setPassword(password);
-            Properties sshConfig = new Properties();
-            sshConfig.put(&#34;StrictHostKeyChecking&#34;, &#34;no&#34;);
-            sshSession.setConfig(sshConfig);
-            sshSession.setTimeout(TIMEOUT); //ms
-            sshSession.connect();
-            sftp = (ChannelSftp) sshSession.openChannel(&#34;sftp&#34;);
-            sftp.connect();
-            if (!sftp.isConnected()) {
-                logger.error(&#34;Failed to connect FTP server &#34; + hostname);
-                return false;
-            }
-            logger.debug(&#34;Username:&#34; + userName + &#34;|Password:&#34; + password);
-        } catch (Exception ex) {
-            logger.error(ex);
-        }
-        return true;
-    }
-</code></pre><p>其实每次执行完都会</p>
-<pre tabindex="0"><code>sftp.quit();
-sftp.disconnet();
-</code></pre><p>但是进程还是在，后来觉得应该是session没有关闭。后来证明的确是这样的，虽然sftp退出了，但是session还是存在的。解决办法很简单，只要在<code>sftp.quit()</code> 之前加上 <code>sftp.getSession().disconnect()</code> 就可以了。</p>
+    <article class="post-content"><h2 id="现象">现象</h2>
+<p>项目里用 <strong>JSch</strong> 做 SFTP 上传下载。代码上线后，服务器上多了很多迟迟不退出的进程（与 sshd/会话相关）。业务「看起来能传文件」，但主机连接数与进程表被慢慢打满。</p>
+<h2 id="错误用法">错误用法</h2>
+<p>常见写法：连上 → 传文件 → <code>sftp.quit()</code> / <code>sftp.disconnect()</code>，以为结束了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">connectToServer</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        JSch jsch <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> JSch();
+</span></span><span style="display:flex;"><span>        Session sshSession <span style="color:#f92672">=</span> jsch.<span style="color:#a6e22e">getSession</span>(userName, hostname, port);
+</span></span><span style="display:flex;"><span>        sshSession.<span style="color:#a6e22e">setPassword</span>(password);
+</span></span><span style="display:flex;"><span>        Properties sshConfig <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Properties();
+</span></span><span style="display:flex;"><span>        sshConfig.<span style="color:#a6e22e">put</span>(<span style="color:#e6db74">&#34;StrictHostKeyChecking&#34;</span>, <span style="color:#e6db74">&#34;no&#34;</span>); <span style="color:#75715e">// 生产请正确校验 host key</span>
+</span></span><span style="display:flex;"><span>        sshSession.<span style="color:#a6e22e">setConfig</span>(sshConfig);
+</span></span><span style="display:flex;"><span>        sshSession.<span style="color:#a6e22e">setTimeout</span>(TIMEOUT);
+</span></span><span style="display:flex;"><span>        sshSession.<span style="color:#a6e22e">connect</span>();
+</span></span><span style="display:flex;"><span>        sftp <span style="color:#f92672">=</span> (ChannelSftp) sshSession.<span style="color:#a6e22e">openChannel</span>(<span style="color:#e6db74">&#34;sftp&#34;</span>);
+</span></span><span style="display:flex;"><span>        sftp.<span style="color:#a6e22e">connect</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> sftp.<span style="color:#a6e22e">isConnected</span>();
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">catch</span> (Exception ex) {
+</span></span><span style="display:flex;"><span>        logger.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#34;sftp connect failed&#34;</span>, ex);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>只关 channel：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>sftp.<span style="color:#a6e22e">quit</span>();
+</span></span><span style="display:flex;"><span>sftp.<span style="color:#a6e22e">disconnect</span>();
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Session 仍在！</span>
+</span></span></code></pre></div><p><strong>Channel 关了，Session 还活着</strong>，远端会话与本地资源都可能残留。</p>
+<h2 id="正确释放顺序">正确释放顺序</h2>
+<p>建议：</p>
+<ol>
+<li>退出 SFTP 子系统（<code>exit</code>/<code>quit</code>）</li>
+<li><code>disconnect</code> Channel</li>
+<li><strong><code>disconnect</code> Session</strong></li>
+<li>全部放进 <code>finally</code>，避免异常路径泄漏</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Session session <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>ChannelSftp sftp <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// connect ...</span>
+</span></span><span style="display:flex;"><span>    session <span style="color:#f92672">=</span> jsch.<span style="color:#a6e22e">getSession</span>(userName, hostname, port);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>    session.<span style="color:#a6e22e">connect</span>();
+</span></span><span style="display:flex;"><span>    sftp <span style="color:#f92672">=</span> (ChannelSftp) session.<span style="color:#a6e22e">openChannel</span>(<span style="color:#e6db74">&#34;sftp&#34;</span>);
+</span></span><span style="display:flex;"><span>    sftp.<span style="color:#a6e22e">connect</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// upload / download ...</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (sftp <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> { sftp.<span style="color:#a6e22e">disconnect</span>(); } <span style="color:#66d9ef">catch</span> (Exception ignore) {}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (session <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> { session.<span style="color:#a6e22e">disconnect</span>(); } <span style="color:#66d9ef">catch</span> (Exception ignore) {}
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>关键一行（在仍持有 channel 时也可）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (sftp <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> sftp.<span style="color:#a6e22e">getSession</span>() <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    sftp.<span style="color:#a6e22e">getSession</span>().<span style="color:#a6e22e">disconnect</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="为何会堆进程">为何会堆进程</h2>
+<p>SSH 是会话型协议：每个 Session 对应一组服务端状态。只关 SFTP channel 等于关了一个子系统，<strong>登录会话未结束</strong>，服务端侧仍可能保留进程/连接，直到超时。高频任务下就会「进程越堆越多」。</p>
+<h2 id="额外建议">额外建议</h2>
+<table>
+	<thead>
+			<tr>
+					<th>项</th>
+					<th>建议</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>连接复用</td>
+					<td>池化 Session，但必须有空闲回收与强制 disconnect</td>
+			</tr>
+			<tr>
+					<td>超时</td>
+					<td><code>setTimeout</code> / ServerAlive 避免僵死连接</td>
+			</tr>
+			<tr>
+					<td>安全</td>
+					<td>避免 <code>StrictHostKeyChecking=no</code>；用密钥而非硬编码密码</td>
+			</tr>
+			<tr>
+					<td>可观测</td>
+					<td>指标：活跃 session 数、上传失败率</td>
+			</tr>
+			<tr>
+					<td>替代</td>
+					<td>长期可评估 MinIO/对象存储 SDK，减少自运维 SFTP</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="小结">小结</h2>
+<p>JSch 资源释放的口诀：<strong>Channel 和 Session 都要断，且放在 finally</strong>。只 <code>sftp.disconnect()</code> 等于只关了一半门，sshd 侧的「人」还没走。</p>
 </article>
     <footer class="post-footer">
       
@@ -250,12 +310,16 @@ sftp.disconnet();
         
           <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF"><span class="tag">后端</span></a></li>
         
+          <li><a href="https://madneal.com/tags/java"><span class="tag">Java</span></a></li>
+        
           <li><a href="https://madneal.com/tags/%E5%B7%A5%E5%85%B7"><span class="tag">工具</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/sftp"><span class="tag">SFTP</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3662</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>sqlite操作</title>
+  <title>SQLite 实用操作：CSV 导入、乱码、时区与 database is locked</title>
 
   
   
@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="命令行导入 CSV、中文乱码、datetime 本地时间，以及 database is locked 的常见原因与关闭连接习惯。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="sqlite操作">
-    <meta name="twitter:description" content="本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:title" content="SQLite 实用操作：CSV 导入、乱码、时区与 database is locked">
+    <meta name="twitter:description" content="命令行导入 CSV、中文乱码、datetime 本地时间，以及 database is locked 的常见原因与关闭连接习惯。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="sqlite操作">
-  <meta property="og:description" content="本文围绕《sqlite操作》展开，重点梳理导入excel到表格、导入文件乱码和datatime()函数时间出错等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="SQLite 实用操作：CSV 导入、乱码、时区与 database is locked">
+  <meta property="og:description" content="命令行导入 CSV、中文乱码、datetime 本地时间，以及 database is locked 的常见原因与关闭连接习惯。">
   <meta property="og:url" content="https://madneal.com/post/sqlite%E6%93%8D%E4%BD%9C/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -208,21 +208,41 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">sqlite操作</h1>
+      <h1 class="post-title">SQLite 实用操作：CSV 导入、乱码、时区与 database is locked</h1>
       <p class="post-meta">@Neal · Apr 15, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><h2 id="导入excel到表格">导入excel到表格</h2>
-<p>本来想使用sqlite expert personal导入表格的，后来发现软件里面没有import/export菜单，后来问只有professional版本才有这个菜单的，我晕，穷人那只能敲命令行了。
-注意导入的excel表格是要把表头给去掉的，然后按照sqlite表格里面标头的顺序进行导入，excel的表格用csv的格式来保存。</p>
-<pre tabindex="0"><code>sqlite3
-.separator &#39;,&#39;
-.import filename tablename
-</code></pre><h2 id="导入文件乱码">导入文件乱码</h2>
-<p>经常会出现导入的文件的中文出现乱码的情况，建议就是把文件用记事本打开，然后用UTF-8的格式另存为csv的文件。</p>
-<h2 id="datatime函数时间出错">datatime()函数时间出错</h2>
-<p>使用sqlite数据库时，使用datatime函数获取当前时间的时候，时间总是错误的，总是晚了好几个小时，结果在datatime()函数里面加上参数就好了，datetime(&rsquo;now&rsquo;,&rsquo;localtime&rsquo;)。</p>
+    <article class="post-content"><h2 id="用命令行导入-csv">用命令行导入 CSV</h2>
+<p>免费版 GUI 可能没有 import 菜单，用 CLI 即可。CSV <strong>列顺序与表结构一致</strong>，通常先去掉表头或 <code>.import</code> 时注意 header 选项（视版本）。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlite3 my.db
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>.<span style="color:#66d9ef">mode</span> csv
+</span></span><span style="display:flex;"><span>.separator <span style="color:#e6db74">&#39;,&#39;</span>
+</span></span><span style="display:flex;"><span>.import <span style="color:#66d9ef">data</span>.csv my_table
+</span></span></code></pre></div><p>也可用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlite3 my.db <span style="color:#e6db74">&#34;.mode csv&#34;</span> <span style="color:#e6db74">&#34;.import data.csv my_table&#34;</span>
+</span></span></code></pre></div><h2 id="中文乱码">中文乱码</h2>
+<p>导入前把文件转为 <strong>UTF-8</strong>（记事本「另存为」或 <code>iconv</code>）。SQLite 内部以 UTF-8 为主，源文件编码不对就会花。</p>
+<h2 id="datetime-时间不准">datetime 时间不准</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> datetime(<span style="color:#e6db74">&#39;now&#39;</span>);              <span style="color:#75715e">-- UTC 语义常见
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> datetime(<span style="color:#e6db74">&#39;now&#39;</span>, <span style="color:#e6db74">&#39;localtime&#39;</span>); <span style="color:#75715e">-- 本地时区
+</span></span></span></code></pre></div><p>应用层更推荐存 <strong>UTC</strong>，展示时再转本地。</p>
 <h2 id="database-is-locked">database is locked</h2>
-<p>读完数据库一定要关闭，无论是reader还是dataset，必须统统都要close</p>
+<p>常见原因：</p>
+<ol>
+<li>另一个连接未关闭（读未放、写事务未结束）</li>
+<li>多进程同时写，默认锁粒度导致等待超时</li>
+<li>异常路径忘记 <code>close</code></li>
+</ol>
+<p>习惯：</p>
+<ul>
+<li><code>using</code> / <code>try/finally</code> 关闭 connection、reader</li>
+<li>长只读可考虑 WAL 模式（<code>PRAGMA journal_mode=WAL;</code>）</li>
+<li>控制事务范围，尽快 commit/rollback</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>SQLite 轻便，但 <strong>编码、时区、连接生命周期</strong> 三个细节最容易在业务里炸。命令行导入 + 严谨关闭连接，能解决大部分「小库大麻烦」。</p>
+<h2 id="和嵌入式场景">和嵌入式场景</h2>
+<p>移动端、桌面端、边缘设备常用 SQLite。锁问题在「UI 线程写库 + 后台同步写库」时尤其明显，应用层应串行化写操作或上队列。</p>
+<p>备份很简单：停写后复制单个 <code>.db</code> 文件（注意 WAL 模式下还有 <code>-wal</code>/<code>-shm</code>）。理解这些运维细节，比背更多 SQL 方言更有用。</p>
 </article>
     <footer class="post-footer">
       
@@ -230,10 +250,14 @@
         
           <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF"><span class="tag">后端</span></a></li>
         
+          <li><a href="https://madneal.com/tags/sqlite"><span class="tag">SQLite</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="tag">数据库</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4132</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>github命令大全</title>
+  <title>Git 常用命令速查（从配置到协作）</title>
 
   
   
@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《github命令大全》展开，重点梳理github安装、配置工具和建立版本库等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="github命令大全">
-    <meta name="twitter:description" content="本文围绕《github命令大全》展开，重点梳理github安装、配置工具和建立版本库等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:title" content="Git 常用命令速查（从配置到协作）">
+    <meta name="twitter:description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="github命令大全">
-  <meta property="og:description" content="本文围绕《github命令大全》展开，重点梳理github安装、配置工具和建立版本库等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="Git 常用命令速查（从配置到协作）">
+  <meta property="og:description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。">
   <meta property="og:url" content="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -208,87 +208,104 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">github命令大全</h1>
+      <h1 class="post-title">Git 常用命令速查（从配置到协作）</h1>
       <p class="post-meta">@Neal · Oct 25, 2015 · 6 min read</p>
     </header>
-    <article class="post-content"><p>github是一种开源的版本控制工具，现在已经得到很多人的应用。所以想介绍一下github的一些使用。</p>
-<h2 id="github安装">github安装</h2>
-<p>github提供了桌面客户端，我们也可以通过命令行的方式来进行控制。
-windows
-<a href="https://windows.github.com">https://windows.github.com</a>
-mac
-<a href="https://mac.github.com">https://mac.github.com</a></p>
-<h2 id="配置工具">配置工具</h2>
-<p>对于本地版本配置用户信息</p>
-<pre tabindex="0"><code>git config --global user.name &#34;username&#34;
-git config --global user.email &#34;email&#34;
-</code></pre><p>上面的分别是设置用户名和邮箱</p>
-<h2 id="建立版本库">建立版本库</h2>
-<pre tabindex="0"><code>git init project-name
-//create a new local repost with the specified name
-git clone url
-//download a project and its entire version history
-</code></pre><h2 id="提交变化版本">提交变化版本</h2>
-<pre tabindex="0"><code>git status
-// list all new of modified files to be committed
-git diff
-//show file differences not yet staged
-git add file
-//snapshot the file in preparation for versioning
-git diff --staged
-//show file difference between staging and the last file version
-git reset file
-//unstage the file, but preserve its contents
-git commit -m &#34;description message&#34;
-</code></pre><h2 id="群组版本控制">群组版本控制</h2>
-<pre tabindex="0"><code>git branch
-//list all local branches in the current respority
-git branch branch-name
-//create a new branch
-git checkout branch-name
-//switch to the specific branch and update the working directory
-git merge branch
-//combine the specified branch&#39;s history into the current branch
-git branch -d branch-name
-//delete the specified branch
-</code></pre><h2 id="重构文件名">重构文件名</h2>
-<pre tabindex="0"><code>git rm [file]
-//delete the file from the working directory and stage the deletion
-git rm --cached [file]
-//remove the file from version control but pressure the file locally
-git mv [file-origin] [file-renamed]
-//change the file name and prepare it for commit
-</code></pre><h2 id="排除版本控制">排除版本控制</h2>
-<pre tabindex="0"><code>*.log
+    <article class="post-content"><blockquote>
+<p>说明：标题沿用旧文，但正文区分 <strong>Git</strong>（版本控制系统）与 <strong>GitHub</strong>（托管平台）。下列为命令行 Git。</p>
+</blockquote>
+<h2 id="配置">配置</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global user.name <span style="color:#e6db74">&#34;yourname&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#e6db74">&#34;you@example.com&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global core.editor <span style="color:#e6db74">&#34;vim&#34;</span>
+</span></span><span style="display:flex;"><span>git config --list
+</span></span></code></pre></div><h2 id="创建与克隆">创建与克隆</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git clone &lt;url&gt;
+</span></span><span style="display:flex;"><span>git clone &lt;url&gt; &lt;dir&gt;
+</span></span></code></pre></div><h2 id="日常提交">日常提交</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git status
+</span></span><span style="display:flex;"><span>git diff                 <span style="color:#75715e"># 工作区 vs 暂存区</span>
+</span></span><span style="display:flex;"><span>git diff --staged        <span style="color:#75715e"># 暂存区 vs HEAD</span>
+</span></span><span style="display:flex;"><span>git add &lt;file&gt;
+</span></span><span style="display:flex;"><span>git add -p               <span style="color:#75715e"># 交互暂存</span>
+</span></span><span style="display:flex;"><span>git reset HEAD &lt;file&gt;    <span style="color:#75715e"># 取消暂存，保留修改</span>
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;msg&#34;</span>
+</span></span><span style="display:flex;"><span>git commit --amend       <span style="color:#75715e"># 改最后一次提交（未推送时）</span>
+</span></span></code></pre></div><h2 id="分支">分支</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git branch
+</span></span><span style="display:flex;"><span>git branch &lt;name&gt;
+</span></span><span style="display:flex;"><span>git switch &lt;name&gt;        <span style="color:#75715e"># 或 git checkout &lt;name&gt;</span>
+</span></span><span style="display:flex;"><span>git switch -c &lt;name&gt;
+</span></span><span style="display:flex;"><span>git merge &lt;branch&gt;
+</span></span><span style="display:flex;"><span>git branch -d &lt;name&gt;
+</span></span></code></pre></div><h2 id="远程">远程</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git remote -v
+</span></span><span style="display:flex;"><span>git fetch
+</span></span><span style="display:flex;"><span>git pull
+</span></span><span style="display:flex;"><span>git push -u origin HEAD
+</span></span></code></pre></div><h2 id="暂存现场">暂存现场</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git stash push -m <span style="color:#e6db74">&#34;wip&#34;</span>
+</span></span><span style="display:flex;"><span>git stash list
+</span></span><span style="display:flex;"><span>git stash pop
+</span></span><span style="display:flex;"><span>git stash drop
+</span></span></code></pre></div><h2 id="历史">历史</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git log --oneline --graph -20
+</span></span><span style="display:flex;"><span>git log --follow -- &lt;file&gt;
+</span></span><span style="display:flex;"><span>git show &lt;commit&gt;
+</span></span></code></pre></div><h2 id="撤销慎用">撤销（慎用）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git restore &lt;file&gt;           <span style="color:#75715e"># 丢弃工作区修改</span>
+</span></span><span style="display:flex;"><span>git revert &lt;commit&gt;          <span style="color:#75715e"># 新提交抵消</span>
+</span></span><span style="display:flex;"><span>git reset --soft &lt;commit&gt;    <span style="color:#75715e"># 回退提交，保留暂存</span>
+</span></span><span style="display:flex;"><span>git reset --hard &lt;commit&gt;    <span style="color:#75715e"># 危险：丢本地未推送工作</span>
+</span></span></code></pre></div><h2 id="gitignore-示例">.gitignore 示例</h2>
+<pre tabindex="0"><code class="language-gitignore" data-lang="gitignore">*.log
 build/
-temp-*
-</code></pre><p>以.log为结尾的文件都不会被进行版本控制</p>
-<pre tabindex="0"><code>git ls-files --other --ignored --exclude-standard
-//list all ignored files in the project
-</code></pre><pre tabindex="0"><code>git stash
-//temprarily store all modified tracked files
-git stash pop
-//restore the most recently stashed files
-git stash list 
-//list all stashed changesets
-git stash drop
-//discard the most recently stashed changeset
-</code></pre><pre tabindex="0"><code>git log
-//list version history for the current branch
-git log --follow [file]
-list version history for a file
-git diff [first-branch]...[second-branch]
-//show content differences between two branches
-git showw [commit]
-//output metadata and content change of the specified commit
-</code></pre><pre tabindex="0"><code>git reset [commit]
-//undo all commits after[commit],preserve changes locally
-git reset --hard [commit]
-//discard all history and changes back to the specified commit
-</code></pre><pre tabindex="0"><code>git fetch [bookmark]
-//download all history from the respority bookmark
-git merge ［bookmark]
-</code></pre></article>
+node_modules/
+.DS_Store
+</code></pre><h2 id="小结">小结</h2>
+<p>先建立 <strong>工作区 / 暂存区 / 提交 / 远程</strong> 四层模型，再记命令会快很多。需要桌面客户端可用 GitHub Desktop 等，但原理仍是这套 Git 对象模型。</p>
+<h2 id="推荐日常工作流">推荐日常工作流</h2>
+<ol>
+<li>从 <code>main</code>/<code>master</code> 拉最新：<code>git switch main &amp;&amp; git pull</code></li>
+<li>开功能分支：<code>git switch -c feature/x</code></li>
+<li>小步提交，信息写清「为什么」</li>
+<li>推远程并发 PR，避免直接推受保护分支</li>
+<li>评审合并后删除已合并分支</li>
+</ol>
+<h2 id="易混概念">易混概念</h2>
+<table>
+	<thead>
+			<tr>
+					<th>概念</th>
+					<th>含义</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>工作区</td>
+					<td>你正在改的文件</td>
+			</tr>
+			<tr>
+					<td>暂存区</td>
+					<td><code>git add</code> 后等待 commit 的快照</td>
+			</tr>
+			<tr>
+					<td>HEAD</td>
+					<td>当前提交指针</td>
+			</tr>
+			<tr>
+					<td>origin</td>
+					<td>默认远程名，不是特殊协议</td>
+			</tr>
+	</tbody>
+</table>
+<p>把命令当「改这四层状态的工具」，比死记参数快。需要撤销时先问：改动是否已推送？未推送可用 reset；已推送优先 revert。</p>
+<h2 id="远程协作最小集">远程协作最小集</h2>
+<p>本地提交只存在于你的磁盘；<code>git push</code> 之后同事才能 <code>fetch</code>/<code>pull</code> 到。冲突发生在合并双方都改了同一区域时：打开文件找冲突标记，手动保留正确版本，再 <code>add</code> + <code>commit</code> 完成合并。</p>
+<p>若误把密钥、大文件提交进历史，应立刻轮换密钥，并使用 <code>git filter-repo</code> 等工具清理历史（超出本文范围，但务必知道「删文件再 commit 一次」不够）。</p>
+<p>命令速查解决的是「语法」；协作规范（分支命名、PR 模板、保护主分支）解决的是「团队怎么不乱」。两者都要。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
@@ -300,7 +317,7 @@ git merge ［bookmark]
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3939</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

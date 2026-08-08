@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>服务端请求伪造（SSRF）攻击</title>
+
+  
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5932835142675120" crossorigin="anonymous"></script>
+  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
+  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
+  
+  <link href="//at.alicdn.com" rel="dns-prefetch">
+  
+  <link href="//fonts.googleapis.com" rel="dns-prefetch">
+  <link href="//fonts.gstatic.com" rel="dns-prefetch">
+  <link href="///disqus.com" rel="dns-prefetch">
+  <link href="//c.disquscdn.com" rel="dns-prefetch">
+  
+  
+  
+
+  
+
+  
+  <meta name="author" content="Neal">
+  <meta name="description" content="全栈工程师的进击">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@gohugoio">
+  <meta name="twitter:title" content="Neal 的博客">
+  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:image" content="/img/avatar.jpg">
+
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Neal 的博客">
+  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:url" content="https://madneal.com/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/">
+  <meta property="og:image" content="/img/avatar.jpg">
+
+
+
+
+<meta name="generator" content="Hugo 0.163.3">
+
+
+<link rel="canonical" href="https://madneal.com/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0ssrf/">
+
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no,email=no,adress=no">
+<meta http-equiv="Cache-Control" content="no-transform">
+
+
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="origin-when-cross-origin">
+<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
+
+
+
+
+
+
+<meta name="theme-color" content="#02b875">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
+<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
+<meta name='msapplication-navbutton-color' content="#02b875">
+<meta name="msapplication-TileColor" content="#02b875">
+<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+<link rel="icon" href="https://madneal.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
+<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
+<link rel="manifest" href="https://madneal.com/manifest.json">
+
+
+<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
+
+
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
+<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
+<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
+
+
+<style>
+  body {
+    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
+  }
+</style>
+<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
+
+
+
+
+
+
+
+
+  
+  
+
+</head>
+  <body>
+    <div class="suspension">
+      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
+  
+  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
+  
+  <p class="subtitle">Development &amp; Security</p>
+  
+  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
+    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
+  </a>
+  
+  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
+    <span class="icon icon-menu" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/post">Home</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://github.com/madneal">Works</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/tags/">Tags</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/about/">About</a>
+        </li>
+      
+        <li class="menu-item
+          
+          
+          ">
+          <a href="https://madneal.com/privacy/">Privacy</a>
+        </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list"><li class="social-item">
+          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
+            <span class="icon icon-email" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
+	    <span class="icon icon-github" aria-hidden="true"></span>
+          </a>
+        </li><li class="social-item">
+          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
+            <span class="icon icon-wechat" aria-hidden="true"></span>
+          </a>
+        </li></ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">服务端请求伪造（SSRF）攻击</h1>
+      <p class="post-meta">@Neal · <time datetime="2019-02-22">2019-02-22</time> · 约 1 分钟阅读</p>
+    </header>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#和-csrf-的对比">和 CSRF 的对比</a></li>
+    <li><a href="#攻击面直觉">攻击面直觉</a></li>
+    <li><a href="#常见入口">常见入口</a></li>
+    <li><a href="#利用与危害简">利用与危害（简）</a></li>
+    <li><a href="#防护清单">防护清单</a>
+      <ul>
+        <li><a href="#1-网络层最有效">1. 网络层（最有效）</a></li>
+        <li><a href="#2-应用层-url-校验">2. 应用层 URL 校验</a></li>
+        <li><a href="#3-响应处理">3. 响应处理</a></li>
+        <li><a href="#4-云侧">4. 云侧</a></li>
+      </ul>
+    </li>
+    <li><a href="#自查问题">自查问题</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><h2 id="概述">概述</h2>
+<p>之前写过跨站请求伪造（CSRF）。相对 CSRF「借浏览器的身份」，<strong>服务端请求伪造（SSRF, Server-Side Request Forgery）</strong> 是借 <strong>服务器自己的身份</strong> 去访问资源。</p>
+<p>攻击者诱导或控制应用侧发起的请求目标（URL、主机、协议），让服务器：</p>
+<ul>
+<li>读本不该对外的内部地址</li>
+<li>访问云厂商实例元数据</li>
+<li>打内网管理面、Redis、Elasticsearch 等</li>
+<li>在部分场景下把响应内容回显给攻击者（读文件/扫端口）</li>
+</ul>
+<p>目标应用只要「能从 URL 拉数据」或「能把数据推到 URL」，就可能中招：网页预览、Webhook、导入远程图片、文档转换、SSO/元数据拉取、监控探测……</p>
+<h2 id="和-csrf-的对比">和 CSRF 的对比</h2>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>CSRF</th>
+					<th>SSRF</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>谁发请求</td>
+					<td>受害者浏览器</td>
+					<td>目标服务器</td>
+			</tr>
+			<tr>
+					<td>凭什么有权限</td>
+					<td>浏览器自动带 Cookie</td>
+					<td>服务器在内网/有角色权限</td>
+			</tr>
+			<tr>
+					<td>典型目标</td>
+					<td>用户态改密、转账</td>
+					<td>内网服务、元数据、本机</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="攻击面直觉">攻击面直觉</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>攻击者 --&gt; 业务应用（可配置 URL） --&gt; 内网/127.0.0.1/169.254.169.254
+</span></span></code></pre></div><p>常见危险目标：</p>
+<ul>
+<li><code>http://127.0.0.1</code> / <code>http://localhost</code></li>
+<li>内网段 <code>10.0.0.0/8</code>、<code>172.16.0.0/12</code>、<code>192.168.0.0/16</code></li>
+<li>云元数据 <code>http://169.254.169.254/</code>（AWS/阿里云/GCP 等路径不同）</li>
+<li><code>file://</code>、<code>gopher://</code>、<code>dict://</code> 等另类协议（视客户端库而定）</li>
+</ul>
+<h2 id="常见入口">常见入口</h2>
+<ol>
+<li>远程图片/头像拉取</li>
+<li>页面截图、PDF 渲染、Office 预览</li>
+<li>Webhook / 回调 URL 测试</li>
+<li>从 URL 导入数据、RSS、字幕</li>
+<li>内部 HTTP 客户端封装不严，参数直接进 <code>host</code></li>
+</ol>
+<h2 id="利用与危害简">利用与危害（简）</h2>
+<ul>
+<li><strong>信息泄露</strong>：内网 banner、错误信息、若回显则读响应体</li>
+<li><strong>云凭据</strong>：元数据里的临时密钥可导致更大横向</li>
+<li><strong>打内网未鉴权服务</strong>：老 Redis、ES、admin</li>
+<li><strong>协议走私/特殊库</strong>：部分场景升级为更强利用（依赖组件）</li>
+</ul>
+<h2 id="防护清单">防护清单</h2>
+<h3 id="1-网络层最有效">1. 网络层（最有效）</h3>
+<ul>
+<li>应用出站默认拒绝，仅放行明确依赖的外部域名</li>
+<li>禁止访问链路本地与云元数据地址</li>
+<li>生产与管理面分段</li>
+</ul>
+<h3 id="2-应用层-url-校验">2. 应用层 URL 校验</h3>
+<ul>
+<li><strong>允许列表</strong> 优于黑名单（黑名单永远被 DNS rebinding、IP 编码、跳转绕过）</li>
+<li>解析后校验 <strong>最终 IP</strong> 是否为公网允许范围，而不是只看 hostname 字符串</li>
+<li>禁止或严格限制重定向跟随</li>
+<li>固定协议为 <code>https</code>（如业务允许）</li>
+</ul>
+<h3 id="3-响应处理">3. 响应处理</h3>
+<ul>
+<li>不要把原始响应体直接回显给用户</li>
+<li>限制响应大小与超时</li>
+<li>使用专用「出口代理」角色，最小权限</li>
+</ul>
+<h3 id="4-云侧">4. 云侧</h3>
+<ul>
+<li>启用 IMDSv2 等要求会话头的元数据访问</li>
+<li>实例角色最小权限</li>
+</ul>
+<h2 id="自查问题">自查问题</h2>
+<ul>
+<li>系统里有哪些「用户可控 URL → 服务端请求」的功能？</li>
+<li>出站 ACL 是否存在？</li>
+<li>是否禁用了危险协议？</li>
+<li>安全测试是否覆盖 DNS rebinding 与 302 跳内网？</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>SSRF 的本质是 <strong>把服务器的网络位置与身份交给了攻击者指定的目标</strong>。修漏洞不只是正则拦 <code>localhost</code>，而是 <strong>出站控制 + 严格 URL 策略 + 不回显</strong>。和 CSRF 一样，它提醒我们：安全边界不在「我写的业务逻辑」，而在「系统实际能触达哪里」。</p>
+<p>相关阅读：<a href="https://madneal.com/post/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf%E6%94%BB%E5%87%BB/">跨站请求伪造（CSRF）</a>（若站内路径不同请以标签「安全」检索）。</p>
+</article>
+    <footer class="post-footer">
+      <div class="wechat-card">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8/"><span class="tag">安全</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8/"><span class="tag">Web安全</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/"><span class="tag">漏洞分析</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/ssrf/"><span class="tag">SSRF</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        
+      </p>
+    </footer>
+    
+        
+        <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	  
+       
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2015-2026 Neal&#39;s Blog</p>
+  <p class="footer-links">
+    <a href="https://madneal.com/about/">About</a>
+    ·
+    <a href="https://madneal.com/privacy/">Privacy</a>
+  </p>
+</footer>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
+  
+
+
+
+  </body>
+</html>

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>WWDC2015</title>
+  <title>lucene 中 query 的实现</title>
 
   
   
@@ -27,22 +27,20 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《WWDC2015》展开，重点梳理ios9功能、OS X EI Capitan和ipad最新功能等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="全栈工程师的进击">
 
   
-  
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="WWDC2015">
-    <meta name="twitter:description" content="本文围绕《WWDC2015》展开，重点梳理ios9功能、OS X EI Capitan和ipad最新功能等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="/img/avatar.jpg">
-  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@gohugoio">
+  <meta name="twitter:title" content="Neal 的博客">
+  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:image" content="/img/avatar.jpg">
 
   
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="WWDC2015">
-  <meta property="og:description" content="本文围绕《WWDC2015》展开，重点梳理ios9功能、OS X EI Capitan和ipad最新功能等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/wwdc2015/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Neal 的博客">
+  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:url" content="https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/">
   <meta property="og:image" content="/img/avatar.jpg">
 
 
@@ -51,7 +49,7 @@
 <meta name="generator" content="Hugo 0.163.3">
 
 
-<link rel="canonical" href="https://madneal.com/post/wwdc2015/">
+<link rel="canonical" href="https://madneal.com/lucene%E4%B8%ADquery%E7%9A%84%E5%AE%9E%E7%8E%B0/">
 
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -105,12 +103,8 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
 
 
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
 
 
 
@@ -121,10 +115,6 @@
   <body>
     <div class="suspension">
       <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
       
     </div>
     
@@ -154,7 +144,7 @@
         <li class="menu-item
           
           
-           is-active">
+          ">
           <a href="https://madneal.com/post">Home</a>
         </li>
       
@@ -208,51 +198,150 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">WWDC2015</h1>
-      <p class="post-meta">@Neal · Jun 9, 2015 · 3 min read</p>
+      <h1 class="post-title">lucene 中 query 的实现</h1>
+      <p class="post-meta">@Neal · <time datetime="2018-10-09">2018-10-09</time> · 约 1 分钟阅读</p>
     </header>
-    <article class="post-content"><h2 id="ios9功能">ios9功能</h2>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#常见-query-类型">常见 Query 类型</a></li>
+    <li><a href="#继承链以-regexpquery-为例">继承链：以 RegexpQuery 为例</a></li>
+    <li><a href="#使用上的注意">使用上的注意</a></li>
+    <li><a href="#建议的阅读顺序">建议的阅读顺序</a></li>
+    <li><a href="#小结">小结</a></li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><h2 id="背景">背景</h2>
+<p>做搜索或读 Elasticsearch/Lucene 相关代码时，会不断碰到各种 <code>Query</code>。它们不是「SQL 的 where 语法糖」那么简单：每种 Query 对应不同的 <strong>匹配语义</strong> 与 <strong>执行计划</strong>（是否可走倒排、是否要自动机、是否要算分等）。</p>
+<h2 id="常见-query-类型">常见 Query 类型</h2>
+<p>Lucene 里常见的包括：</p>
+<table>
+	<thead>
+			<tr>
+					<th>类型</th>
+					<th>大致用途</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>TermQuery</code></td>
+					<td>精确 term</td>
+			</tr>
+			<tr>
+					<td><code>BooleanQuery</code></td>
+					<td>多子句布尔组合</td>
+			</tr>
+			<tr>
+					<td><code>PhraseQuery</code> / <code>MultiPhraseQuery</code></td>
+					<td>短语、多短语</td>
+			</tr>
+			<tr>
+					<td><code>PrefixQuery</code></td>
+					<td>前缀</td>
+			</tr>
+			<tr>
+					<td><code>WildcardQuery</code></td>
+					<td>通配</td>
+			</tr>
+			<tr>
+					<td><code>FuzzyQuery</code></td>
+					<td>模糊（编辑距离）</td>
+			</tr>
+			<tr>
+					<td><code>RegexpQuery</code></td>
+					<td>正则</td>
+			</tr>
+			<tr>
+					<td><code>TermRangeQuery</code> / <code>PointRangeQuery</code></td>
+					<td>词项/数值点范围</td>
+			</tr>
+			<tr>
+					<td><code>ConstantScoreQuery</code></td>
+					<td>固定分</td>
+			</tr>
+			<tr>
+					<td><code>DisjunctionMaxQuery</code></td>
+					<td>多查询取 max 分</td>
+			</tr>
+			<tr>
+					<td><code>MatchAllDocsQuery</code></td>
+					<td>全匹配</td>
+			</tr>
+	</tbody>
+</table>
+<p>它们大都继承抽象类 <code>Query</code>，再按能力向上抽象出 <code>MultiTermQuery</code> 等中间层。可以组合使用，例如 Boolean 里嵌 Term + Phrase。</p>
+<h2 id="继承链以-regexpquery-为例">继承链：以 RegexpQuery 为例</h2>
+<p><code>RegexpQuery</code> 的继承关系大致是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Query
+</span></span><span style="display:flex;"><span>  └── MultiTermQuery
+</span></span><span style="display:flex;"><span>        └── AutomatonQuery
+</span></span><span style="display:flex;"><span>              └── RegexpQuery
+</span></span></code></pre></div><p>含义：</p>
 <ol>
-<li>Proactive：整合siri、联系人、日历以及第三方应用。</li>
-<li>Notes： 可调节字体、插图片、支持手写注记等功能。</li>
-<li>Maps： 加入新公交试图，Transit提供公交系统和换乘细节。</li>
-<li>News：聚合新闻应用，可根据西兴趣选择不同的新闻源。</li>
-<li>电池续航：充满殿后设备使用时间延长1小时。</li>
-<li>安装包更小，只有1.3G。</li>
-<li>用户隐私：数据只会保存在本地，不会上传到云。</li>
+<li>
+<p><strong>Query</strong><br>
+抽象根：重写、访问权重、创建 <code>Weight</code>/<code>Scorer</code> 的模板。</p>
+</li>
+<li>
+<p><strong>MultiTermQuery</strong><br>
+「一个字段上由多个 term 组成的匹配」。通配、前缀、正则、模糊都可能落到「先枚举 term 再合成」的路径。子类要实现如何从 term 字典枚举。</p>
+</li>
+<li>
+<p><strong>AutomatonQuery</strong><br>
+用 <strong>自动机（Automaton）</strong> 描述可接受的 term 集合，在 term 字典上做高效求交/枚举。正则、部分通配会先编译成自动机。</p>
+</li>
+<li>
+<p><strong>RegexpQuery</strong><br>
+把用户正则编译为自动机，再交给 <code>AutomatonQuery</code> 执行。</p>
+</li>
 </ol>
-<h2 id="os-x-ei-capitan">OS X EI Capitan</h2>
+<p>因此读 <code>RegexpQuery</code> 源码时，真正的「怎么搜」往往在父类的枚举与 <code>Weight</code> 构建里，子类更偏 <strong>构造与正则→自动机</strong>。</p>
+<h2 id="使用上的注意">使用上的注意</h2>
+<ul>
+<li><strong>性能</strong>：前缀/正则/模糊可能扫描大量 term，生产要限制前导通配（<code>*foo</code>）和复杂正则。</li>
+<li><strong>分析器</strong>：Query 作用在 <strong>索引后的 term</strong> 上，不是原始句子；字段 analyzer 与 search analyzer 要一致理解。</li>
+<li><strong>与 ES 的关系</strong>：ES 的 query DSL 最终多会落到 Lucene Query；懂类型有助于解释「为什么这个查询慢」。</li>
+</ul>
+<h2 id="建议的阅读顺序">建议的阅读顺序</h2>
 <ol>
-<li>新增多种触控板手势。</li>
-<li>safari增加固定标签页功能。</li>
-<li>窗口自适应功能，不必手动调整窗口大小和拖动窗口。</li>
-<li>Spotlight能够理解日常语言。</li>
-<li>Metal首次引入图形管理接口。</li>
-<li>swift2将在今年年底开源。</li>
-<li>split view将自动并排两个app共用一个屏幕。</li>
-<li>邮箱app增强全屏显示功能。</li>
+<li><code>TermQuery</code> / <code>BooleanQuery</code>（主干）</li>
+<li><code>MultiTermQuery</code> 的枚举接口</li>
+<li><code>AutomatonQuery</code> + <code>RegexpQuery</code></li>
+<li>再看 <code>IndexSearcher</code> 如何建 <code>Weight</code></li>
 </ol>
-<h2 id="ipad最新功能">ipad最新功能</h2>
-<ol>
-<li>quick type键盘</li>
-<li>传说中的分屏</li>
-<li>支持“画中画”功能</li>
-</ol>
+<h2 id="小结">小结</h2>
+<p>Lucene Query 体系是「语义 → 可执行结构」的分层。<code>RegexpQuery</code> 不是孤立类，而是 <strong>正则 → 自动机 → 多 term 枚举 → 打分</strong> 链路上的一环。抓住继承关系，源码阅读会顺很多。</p>
 </article>
     <footer class="post-footer">
+      <div class="wechat-card">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E6%95%B0%E7%A0%81"><span class="tag">数码</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%90%8E%E7%AB%AF/"><span class="tag">后端</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/java/"><span class="tag">Java</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/lucene/"><span class="tag">Lucene</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="tag">学习笔记</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4077</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
+        
+        <div id="disqus_thread"></div>
 <script>
     window.disqus_config = function () {
     
@@ -272,8 +361,8 @@
 </script>
 		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
+	  
+       
     
   </section>
   <footer class="site-footer">

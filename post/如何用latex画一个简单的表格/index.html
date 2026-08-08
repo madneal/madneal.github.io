@@ -269,6 +269,13 @@
 </ul>
 <h2 id="小结">小结</h2>
 <p>先掌握 <code>tabular</code> + <code>table</code> + <code>caption</code>，再换成 <code>booktabs</code> 三线表，就覆盖了 80% 的论文表格需求。简单，但是要写对浮动与引用。</p>
+<h2 id="单元格内换行与宽度">单元格内换行与宽度</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span>egin{tabular}{p{4cm}c}
+</span></span><span style="display:flex;"><span>长文本会在固定宽度内换行 &amp; 短 <span style="color:#66d9ef">\</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">\end</span>{tabular}
+</span></span></code></pre></div><h2 id="引用表格">引用表格</h2>
+<p>正文写：<code>见表~ef{tab:complexity}</code>。编译需 <strong>两次</strong> 才能解析引用。</p>
+<p>掌握最小表后，再学 <code>booktabs</code>、<code>multirow</code>、<code>longtable</code> 即可覆盖绝大多数论文表。</p>
 </article>
     <footer class="post-footer">
       

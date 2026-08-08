@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>在pythonanywhere部署你的第一个应用</title>
+  <title>在 PythonAnywhere 部署第一个 Django 应用</title>
 
   
   
@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《在pythonanywhere部署你的第一个应用》梳理web前端和Python相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="从 Git 拉代码、建虚拟环境、配置 WSGI 到访问域名，梳理在 PythonAnywhere 上部署 Django 的基本步骤与注意点。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="在pythonanywhere部署你的第一个应用">
-    <meta name="twitter:description" content="本文围绕《在pythonanywhere部署你的第一个应用》梳理web前端和Python相关的背景、方法和实践细节，可作为排查与学习记录。">
+    <meta name="twitter:title" content="在 PythonAnywhere 部署第一个 Django 应用">
+    <meta name="twitter:description" content="从 Git 拉代码、建虚拟环境、配置 WSGI 到访问域名，梳理在 PythonAnywhere 上部署 Django 的基本步骤与注意点。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="在pythonanywhere部署你的第一个应用">
-  <meta property="og:description" content="本文围绕《在pythonanywhere部署你的第一个应用》梳理web前端和Python相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="在 PythonAnywhere 部署第一个 Django 应用">
+  <meta property="og:description" content="从 Git 拉代码、建虚拟环境、配置 WSGI 到访问域名，梳理在 PythonAnywhere 上部署 Django 的基本步骤与注意点。">
   <meta property="og:url" content="https://madneal.com/post/%E5%9C%A8pythonanywhere%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -208,37 +208,75 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">在pythonanywhere部署你的第一个应用</h1>
-      <p class="post-meta">@Neal · Oct 21, 2015 · 3 min read</p>
+      <h1 class="post-title">在 PythonAnywhere 部署第一个 Django 应用</h1>
+      <p class="post-meta">@Neal · Jan 1, 2016 · 3 min read</p>
     </header>
-    <article class="post-content"><p>pythonanywhere是一个免费的托管python的代码，可以测试你的web应用，用起来还是比较方便的，现在就来介绍如何在pythonanywhere部署你的应用。
-下载你的代码
-我的代码是托管在github，我们首先从github下代码：</p>
-<pre tabindex="0"><code>git clone https://github.com/&lt;username&gt;/my-first-blog.git
-</code></pre><p>产生一个virtualenv</p>
-<pre tabindex="0"><code>cd my-first-blog
-// create virtualenv
-virtualenv myvenv
-// activate vitalness
-. myvenv/bin/activate
-</code></pre><p>数据库什么的我就不说了，pythonanywhere支持两种数据库，另外由于django本身就是支持sqlite数据库的，所以这里我们就不说了。
-这里讲一下如何发布你的应用：
-在他那个dashboard里面的vitualenv里面设置路径：
-/home/<your-username>/my-first-blog/myvenv/.
-配置wsgi文件：</p>
-<pre tabindex="0"><code>import os
-import sys
-
-path = &#39;/home/&lt;your-username&gt;/my-first-blog&#39;  # use your own username here
-if path not in sys.path:
-    sys.path.append(path)
-
-os.environ[&#39;DJANGO_SETTINGS_MODULE&#39;] = &#39;mysite.settings&#39;
-
-from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
-application = DjangoWhiteNoise(get_wsgi_application())
-</code></pre><p>ok,可以访问你的网站了，网站地址：http://neal1991.pythonanywhere.com。那个是我的用户名，你可以设置成你自己的用户名。</p>
+    <article class="post-content"><h2 id="为什么用-pythonanywhere">为什么用 PythonAnywhere</h2>
+<p><a href="https://www.pythonanywhere.com/">PythonAnywhere</a> 提供浏览器里的 Python 环境与 Web app 托管，适合练手部署 Django/Flask，免去自己买 VPS 配 Nginx 的门槛。免费层有限制，但够跑 demo。</p>
+<h2 id="步骤概览">步骤概览</h2>
+<ol>
+<li>注册账号并打开 <strong>Bash</strong> 控制台</li>
+<li>从 Git 拉取项目</li>
+<li>创建并启用 virtualenv，安装依赖</li>
+<li>在 Web 面板指定虚拟环境路径</li>
+<li>编辑 <strong>WSGI 文件</strong> 指向 Django <code>application</code></li>
+<li>Reload，用 <code>https://&lt;user&gt;.pythonanywhere.com</code> 访问</li>
+</ol>
+<h2 id="拉代码与虚拟环境">拉代码与虚拟环境</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/you/your-project.git
+</span></span><span style="display:flex;"><span>cd your-project
+</span></span><span style="display:flex;"><span>python3 -m venv venv
+</span></span><span style="display:flex;"><span>source venv/bin/activate
+</span></span><span style="display:flex;"><span>pip install -r requirements.txt
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Django 项目按需 migrate、collectstatic</span>
+</span></span></code></pre></div><p>Web 面板里 <strong>Virtualenv</strong> 填类似：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>/home/&lt;your-username&gt;/your-project/venv
+</span></span></code></pre></div><h2 id="wsgi-配置示意">WSGI 配置示意</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/home/&lt;your-username&gt;/your-project&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> path <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> sys<span style="color:#f92672">.</span>path:
+</span></span><span style="display:flex;"><span>    sys<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>append(path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>os<span style="color:#f92672">.</span>environ[<span style="color:#e6db74">&#39;DJANGO_SETTINGS_MODULE&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mysite.settings&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> django.core.wsgi <span style="color:#f92672">import</span> get_wsgi_application
+</span></span><span style="display:flex;"><span>application <span style="color:#f92672">=</span> get_wsgi_application()
+</span></span></code></pre></div><p>旧文使用 <code>whitenoise</code> 服务静态文件在部分教程里常见；Django 4+ 与 WhiteNoise 配置请以当前文档为准。生产务必设置 <code>ALLOWED_HOSTS</code>、关闭 <code>DEBUG</code>。</p>
+<h2 id="常见问题">常见问题</h2>
+<table>
+	<thead>
+			<tr>
+					<th>问题</th>
+					<th>处理</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>500</td>
+					<td>看 Web 面板 error log</td>
+			</tr>
+			<tr>
+					<td>静态 404</td>
+					<td><code>collectstatic</code> + WhiteNoise 或平台静态映射</td>
+			</tr>
+			<tr>
+					<td>依赖缺失</td>
+					<td>确认 Web 用的 venv 与 bash 里安装的是同一个</td>
+			</tr>
+			<tr>
+					<td>路径写错</td>
+					<td>username、项目目录必须是绝对路径</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="小结">小结</h2>
+<p>PythonAnywhere 把「能跑起来」变简单：核心是 <strong>venv 路径正确 + WSGI 指到 application + ALLOWED_HOSTS</strong>。这套步骤对理解后续更复杂的容器部署也有帮助。</p>
+<h2 id="适合与不适合">适合与不适合</h2>
+<p><strong>适合：</strong> 课程作业、个人 demo、低流量原型。<br>
+<strong>不适合：</strong> 强 CPU 任务、长期高流量、需要任意系统包的特殊依赖（免费层限制多）。</p>
+<p>把第一次部署走通后，再迁移到 Railway、Fly.io、容器 + 云主机时，你会发现概念一一对应：进程入口、环境变量、静态资源、域名与 HTTPS。PythonAnywhere 是很好的「部署第一课」。</p>
 </article>
     <footer class="post-footer">
       
@@ -246,10 +284,14 @@ application = DjangoWhiteNoise(get_wsgi_application())
         
           <li><a href="https://madneal.com/tags/python"><span class="tag">Python</span></a></li>
         
+          <li><a href="https://madneal.com/tags/django"><span class="tag">Django</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E9%83%A8%E7%BD%B2"><span class="tag">部署</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3943</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

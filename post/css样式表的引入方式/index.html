@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>css样式表的引入方式</title>
+  <title>CSS 样式表引入：link 与 @import 的区别</title>
 
   
   
@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《css样式表的引入方式》梳理web前端和前端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta name="description" content="对比 HTML link 与 CSS @import：加载时机、可控性、性能建议，以及何时用哪一种。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="css样式表的引入方式">
-    <meta name="twitter:description" content="本文围绕《css样式表的引入方式》梳理web前端和前端相关的背景、方法和实践细节，可作为排查与学习记录。">
+    <meta name="twitter:title" content="CSS 样式表引入：link 与 @import 的区别">
+    <meta name="twitter:description" content="对比 HTML link 与 CSS @import：加载时机、可控性、性能建议，以及何时用哪一种。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="css样式表的引入方式">
-  <meta property="og:description" content="本文围绕《css样式表的引入方式》梳理web前端和前端相关的背景、方法和实践细节，可作为排查与学习记录。">
+  <meta property="og:title" content="CSS 样式表引入：link 与 @import 的区别">
+  <meta property="og:description" content="对比 HTML link 与 CSS @import：加载时机、可控性、性能建议，以及何时用哪一种。">
   <meta property="og:url" content="https://madneal.com/post/css%E6%A0%B7%E5%BC%8F%E8%A1%A8%E7%9A%84%E5%BC%95%E5%85%A5%E6%96%B9%E5%BC%8F/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -208,14 +208,76 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">css样式表的引入方式</h1>
+      <h1 class="post-title">CSS 样式表引入：link 与 @import 的区别</h1>
       <p class="post-meta">@Neal · Oct 6, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>一般来说，css 有两种样式表的引入方式，在这里我记录一下，比较这两种引入方式的区别：</p>
-<pre tabindex="0"><code>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css文件&#34;&gt;
-
-@import &#34;css文件&#34;
-</code></pre><p>显然第一种方式似乎是更常见的。事实上，使用这两种方式引入css文件的效果都是一致的，区别在于<link>是html标记，而@import是css语法。<link>标记有rel,type和href属性，可以制定css样式表的名称，这样可以利用javascript的语法来控制。举例来说，我们可以在一个网页中链接多个css样式文件，在利用javascript语法控制不同情况下显示的样式文件，例如让用户在点击某个按钮之后更换网页的背景颜色，或者随着时间来更换网页的背景颜色，正因为link方式的弹性更大，这也是为什么这种方式更为常见的原因。</p>
+    <article class="post-content"><h2 id="两种写法">两种写法</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/styles/main.css&#34;</span>&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>@<span style="color:#66d9ef">import</span> <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/styles/main.css&#34;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* 或 */</span>
+</span></span><span style="display:flex;"><span>@<span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;main.css&#34;</span>;
+</span></span></code></pre></div><p>视觉上都能挂上样式，但 <strong>机制不同</strong>。</p>
+<h2 id="关键差异">关键差异</h2>
+<table>
+	<thead>
+			<tr>
+					<th>维度</th>
+					<th><code>&lt;link&gt;</code></th>
+					<th><code>@import</code></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>出现位置</td>
+					<td>HTML</td>
+					<td>CSS 文件内（须在其它规则前）</td>
+			</tr>
+			<tr>
+					<td>并行下载</td>
+					<td>多个 link 可并行</td>
+					<td>常等父 CSS 下载完再拉，易串行</td>
+			</tr>
+			<tr>
+					<td>JS 控制</td>
+					<td>可动态增删 link、切主题</td>
+					<td>不方便</td>
+			</tr>
+			<tr>
+					<td>旧 IE 行为</td>
+					<td>相对清晰</td>
+					<td>历史上更多坑</td>
+			</tr>
+			<tr>
+					<td>媒体查询</td>
+					<td><code>media</code> 属性自然</td>
+					<td>也支持，但性能仍可能差</td>
+			</tr>
+	</tbody>
+</table>
+<p>这也是工程里 <strong>更推荐 link</strong> 的原因：弹性大、性能路径更可控。</p>
+<h2 id="性能建议">性能建议</h2>
+<ol>
+<li>关键路径 CSS 用 <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> 放在 <code>&lt;head&gt;</code>。</li>
+<li>避免在关键 CSS 里层层 <code>@import</code>。</li>
+<li>可用 HTTP/2 + 合并/拆分策略，但不要靠 @import 组织巨型依赖树。</li>
+<li>现代打包（webpack/vite）会处理依赖，源码里少手写 @import 远程 CSS。</li>
+</ol>
+<h2 id="动态换肤示例link-优势">动态换肤示例（link 优势）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">setTheme</span>(<span style="color:#a6e22e">href</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;theme&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">el</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;link&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;theme&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">rel</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;stylesheet&#39;</span>;
+</span></span><span style="display:flex;"><span>    document.<span style="color:#a6e22e">head</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">el</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">el</span>.<span style="color:#a6e22e">href</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">href</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="小结">小结</h2>
+<p>效果都是「应用样式」，<strong>交付方式不同</strong>。默认用 <code>link</code>；<code>@import</code> 留给 CSS 内少量模块化或遗留代码，并清楚它的加载成本。</p>
+<h2 id="和工程化的关系">和工程化的关系</h2>
+<p>在组件化项目中，样式常通过构建工具 <code>import './x.css'</code> 进入打包图，浏览器最终仍多是 <code>&lt;link&gt;</code> 或注入 style。源码里的 <code>@import</code> 与运行时 <code>@import</code> 不是同一回事。</p>
+<p>写静态页或邮件模板时，优先 link；只有拆分第三方 CSS 片段且能接受串行代价时，才考虑 <code>@import</code>。</p>
 </article>
     <footer class="post-footer">
       
@@ -223,10 +285,12 @@
         
           <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF"><span class="tag">前端</span></a></li>
         
+          <li><a href="https://madneal.com/tags/css"><span class="tag">CSS</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3958</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>combox系列问题集</title>
+  <title>架构整洁之道读后感</title>
 
   
   
@@ -27,22 +27,20 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《combox系列问题集》展开，重点梳理模糊查询等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="全栈工程师的进击">
 
   
-  
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="combox系列问题集">
-    <meta name="twitter:description" content="本文围绕《combox系列问题集》展开，重点梳理模糊查询等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="/img/avatar.jpg">
-  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@gohugoio">
+  <meta name="twitter:title" content="Neal 的博客">
+  <meta name="twitter:description" content="全栈工程师的进击">
+  <meta name="twitter:image" content="/img/avatar.jpg">
 
   
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="combox系列问题集">
-  <meta property="og:description" content="本文围绕《combox系列问题集》展开，重点梳理模糊查询等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Neal 的博客">
+  <meta property="og:description" content="全栈工程师的进击">
+  <meta property="og:url" content="https://madneal.com/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E8%AF%BB%E5%90%8E%E6%84%9F/">
   <meta property="og:image" content="/img/avatar.jpg">
 
 
@@ -51,7 +49,7 @@
 <meta name="generator" content="Hugo 0.163.3">
 
 
-<link rel="canonical" href="https://madneal.com/post/combox%E7%B3%BB%E5%88%97%E9%97%AE%E9%A2%98%E9%9B%86/">
+<link rel="canonical" href="https://madneal.com/%E6%9E%B6%E6%9E%84%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E8%AF%BB%E5%90%8E%E6%84%9F/">
 
 <meta name="renderer" content="webkit">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -105,12 +103,8 @@
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
 
 
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
 
 
 
@@ -121,10 +115,6 @@
   <body>
     <div class="suspension">
       <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
       
     </div>
     
@@ -154,7 +144,7 @@
         <li class="menu-item
           
           
-           is-active">
+          ">
           <a href="https://madneal.com/post">Home</a>
         </li>
       
@@ -208,69 +198,50 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">combox系列问题集</h1>
-      <p class="post-meta">@Neal · Apr 14, 2015 · 3 min read</p>
+      <h1 class="post-title">架构整洁之道读后感</h1>
+      <p class="post-meta">@Neal · <time datetime="2018-11-16">2018-11-16</time> · 约 1 分钟阅读</p>
     </header>
-    <article class="post-content"><h2 id="visual-studio崩溃">visual studio崩溃</h2>
-<p>你是不是经常会遇到一编辑combox，visual studio就会立马崩溃。一直都无法理解是什么原因，然后后来发现居然是因为有道的截屏翻译，关掉截屏翻译就好了。</p>
-<h2 id="combox绑定数据源">combox绑定数据源</h2>
-<pre tabindex="0"><code>            SqliteDataReader dr;
-            if (dr.Read())
-            {
-                this.comboBox1.Items.Add(dr[0]);
-            }
-</code></pre><h2 id="自动补全的功能">自动补全的功能</h2>
-<p>我们希望在combox中实现输入的时候，有推荐的文本自动补全功能。我们主要只需要设置AutoCompleteMode和AutoCompleteSource这两个属性就可以了。</p>
-<h2 id="模糊查询">模糊查询</h2>
-<p>上面那个自动补全的功能只能实现从左到右进行匹配，而不能进行模糊匹配。假设我们的combobox里面有“张三“，如果输入”张“可以进行匹配，但是我们如果输入”三“的话就无法实现匹配，而combobox自身并没有这个属性，所以我们需要自己写一个方法来实现。</p>
-<pre tabindex="0"><code>        List&lt;string&gt; listOnit = new List&lt;string&gt;();
-        List&lt;string&gt; listNew = new List&lt;string&gt;();
-        
-        //用于模糊查询
-        private void BindComboBox()
-        {
-            string str = &#34;select License from tb_drug&#34;;
-            SQLiteDataReader sdr = sh.getcom(str);
-            while (sdr.Read())
-            {
-                if (sdr[0].ToString() != &#34; &#34; &amp;&amp; sdr[0].ToString() != null)
-                    listOnit.Add(sdr[0].ToString());               
-            }
-            sdr.Close();
-            this.comboBox1.Items.AddRange(listOnit.ToArray());
-        }
-
-        private void comboBox1_TextUpdate(object sender, EventArgs e)
-        {
-            this.comboBox1.Items.Clear();
-            listNew.Clear();
-            foreach (var item in listOnit)
-            {
-                if (item.Contains(this.comboBox1.Text))
-                {
-                    listNew.Add(item);
-                }
-            }
-            this.comboBox1.Items.AddRange(listNew.ToArray());
-            this.comboBox1.SelectionStart = this.comboBox1.Text.Length;
-            Cursor = Cursors.Default;
-            this.comboBox1.DroppedDown = true;
-        }
-</code></pre></article>
+    
+      <nav class="post-toc" aria-label="文章目录">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#框架是个好东西但你不能依赖它">框架是个好东西，但你不能依赖它</a></li>
+    <li><a href="#编程范式">编程范式</a></li>
+    <li><a href="#架构师也写代码">架构师也写代码</a></li>
+  </ul>
+</nav>
+      </nav>
+    
+    <article class="post-content"><p>之前度过这本书作者之前的《代码整洁之道》，学习了一些概念。但是这本书相对于那本书阅读更加容易理解，感觉收益也更大，对于有些东西，有一种茅塞顿开的感觉。软件架构不是像做菜一样，这个加一点，那个加一点，在一起炒一炒就可以了。架构更像是乐高玩具，可以自由组合，是结构化的，层次化的，模块之间是可以独立存在的。我感觉自己以前在写代码的时候有一些疑惑，在这里找到了答案，同时也学会了以后写代码更应该注意到哪些方面。这本书里面有一些很好的观点，想分享给大家。</p>
+<h2 id="框架是个好东西但你不能依赖它">框架是个好东西，但你不能依赖它</h2>
+<p>现在，无论是在前端开发亦或是后端开发以及其它领域，框架的使用已经屡见不鲜。网上也经常有为了哪种框架更优秀而爆发的各种激烈的争论。比如，之前前端框架的 Vue 与 Angular 之争闹得沸沸扬扬，总是有人为了框架的孰优孰劣而喋喋不休。正如书中所说，“框架是工具而不是生活信念”。很显然，框架已经成为了不少人的生活新信念，他们为此乐此不疲地争论着，他们似乎就是要为他们的信念而战斗。诚然，框架为了我们日常的开发带来了巨大的便利。但不可否认的是，框架中解决的问题和概念是依赖于框架的开发者，而不是仅仅针对于你一人。因此，如果你是用的框架，明天开始就不会再维护，那不应该是你的世界末日。框架可以帮助我有效地进行开发，而不是开发依赖于某个框架。这就好比与讨论 golang，java 或者 python 哪一种语言更优秀。我认为这种讨论都是无意义的，任何语言都是有它自己的应用场景的，所以没必要没要说出哪个语言就是最优秀的。</p>
+<h2 id="编程范式">编程范式</h2>
+<p>主要是三个编程范式，即结构化编程、面向对象编程以及函数式编程。结构化编程是对程序控制权的直接转移的限制。面向对象编程对程序控制权的间接转移的限制。函数式编程是对程序中赋值操作的限制。这里面提到一些有意思的点，封装不仅仅是面向对象编程的特性，C 语言也可以做封装，而且往往做得还很不错。尽管函数式编程最近才名声大噪，但是它确实最早被发明的。另外一点我们需要意识的是，软件构建并没有发生本质的变化，今天的软件构建规则和 1946 年图灵写下电子计算机的第一行代码其实是一样的，虽然语言变化了，硬件的性能变化了，但是软件编程的核心并没有发生变化。</p>
+<h2 id="架构师也写代码">架构师也写代码</h2>
+<p>很多人对于架构师可能有一种误解，认为架构师高高在上，只要对于项目的框架做一些设计，并不会具体去写代码。但是实际上，架构师实际上就应该还是一个保持 coding 的码农。“软件架构师其实应该是能力最强的一群程序员，他们通常会在自身承接变成任务的同时，逐渐引导整个团队向一个能够最大化生产力方向前进。也许软件架构师成产的代码量不是最多的，但是他们必须不停地承接编程任务。如果不亲身承受因系统设计而带来的麻烦，就体会不到设计不佳所带来的痛苦，接着就会逐渐迷失正确的设计方向。”可以看出软件架构师并不是高高在上，指指点点，他们需要亲自体会糟糕的系统带来的痛苦，他才知道如何去改进。</p>
+</article>
     <footer class="post-footer">
+      <div class="wechat-card">
+        <p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
+        <img src="https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg" alt="mad_coder" loading="lazy" decoding="async">
+      </div>
       
       <ul class="post-tags">
         
-          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="tag">学习笔记</span></a></li>
+          <li><a href="https://madneal.com/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"><span class="tag">工程化</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><span class="tag">学习笔记</span></a></li>
         
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>4134</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>2822</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
-      <div id="disqus_thread"></div>
+        
+        <div id="disqus_thread"></div>
 <script>
     window.disqus_config = function () {
     
@@ -290,8 +261,8 @@
 </script>
 		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
+	  
+       
     
   </section>
   <footer class="site-footer">

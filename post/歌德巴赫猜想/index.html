@@ -209,7 +209,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">验证歌德巴赫猜想：偶数拆成两素数且乘积最大</h1>
-      <p class="post-meta">@Neal · Apr 11, 2015 · 3 min read</p>
+      <p class="post-meta">@Neal · Apr 11, 2015 · 6 min read</p>
     </header>
     <article class="post-content"><h2 id="题目">题目</h2>
 <p>歌德巴赫猜想的一种计算验证：对每个大于 4 的偶数 (n)，存在素数 (a,b) 使 (a+b=n)。本题额外要求：</p>
@@ -267,6 +267,15 @@
 </span></span></span></code></pre></div><p>多组查询时收益明显。</p>
 <h2 id="小结">小结</h2>
 <p>本题考的不是证明歌德巴赫，而是：<strong>约束下的搜索起点选择</strong>。乘积最大 ⇒ 从 (n/2) 往下找第一对素数解。写出正确的 <code>isPrime</code> 边界后，代码非常短。</p>
+<h2 id="正确性直觉">正确性直觉</h2>
+<p>对偶数 (n)，从 (a=n/2) 向下找素数对，等价于在约束 (a+b=n) 下最大化 (a(n-a))。二次函数在中点取最大，故「中点往下第一对素数」即所求。</p>
+<h2 id="小优化">小优化</h2>
+<ul>
+<li>偶数 (n&gt;2) 时，一个加数若为偶数只能是 2；可从奇数起跳</li>
+<li>多组查询预筛素数表到 20000</li>
+</ul>
+<h2 id="和真正的猜想">和真正的猜想</h2>
+<p>本题是编程验证给定范围内的拆分，<strong>不是</strong>证明歌德巴赫猜想本身。数学上偶数哥德巴赫仍是著名问题；工程上我们只在有限 (n) 上找构造。</p>
 </article>
     <footer class="post-footer">
       

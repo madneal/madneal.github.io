@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
 
   
-  <title>剑指offer学习--实现单例模式</title>
+  <title>剑指 Offer：C# 实现单例模式</title>
 
   
   
@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《剑指offer学习&ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="双重检查锁、静态构造函数、嵌套类延迟初始化三种 C# 单例写法，说明线程安全与懒加载差异，并修正旧文笔误。">
 
   
   
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="剑指offer学习--实现单例模式">
-    <meta name="twitter:description" content="本文围绕《剑指offer学习&ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:title" content="剑指 Offer：C# 实现单例模式">
+    <meta name="twitter:description" content="双重检查锁、静态构造函数、嵌套类延迟初始化三种 C# 单例写法，说明线程安全与懒加载差异，并修正旧文笔误。">
     <meta name="twitter:image" content="/img/avatar.jpg">
   
 
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="剑指offer学习--实现单例模式">
-  <meta property="og:description" content="本文围绕《剑指offer学习&ndash;实现单例模式》展开，重点梳理加同步锁前后两次判断实例是否已存在、利用静态构造函数和实现按需创建实例等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:title" content="剑指 Offer：C# 实现单例模式">
+  <meta property="og:description" content="双重检查锁、静态构造函数、嵌套类延迟初始化三种 C# 单例写法，说明线程安全与懒加载差异，并修正旧文笔误。">
   <meta property="og:url" content="https://madneal.com/post/%E5%89%91%E6%8C%87offer%E5%AD%A6%E4%B9%A0--%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
   <meta property="og:image" content="/img/avatar.jpg">
 
@@ -208,87 +208,93 @@
 
   <section class="main post-detail">
     <header class="post-header">
-      <h1 class="post-title">剑指offer学习--实现单例模式</h1>
+      <h1 class="post-title">剑指 Offer：C# 实现单例模式</h1>
       <p class="post-meta">@Neal · Nov 13, 2015 · 3 min read</p>
     </header>
-    <article class="post-content"><p>只能生成一个实例的类是为了实现单例模式的类型。</p>
-<h2 id="加同步锁前后两次判断实例是否已存在">加同步锁前后两次判断实例是否已存在</h2>
-<p>我们只是在实例还没有创建之前加锁操作，以保证只有一个线程创建出实例。而当实例已经创建之后，我们已经不需要再做加锁操作了。</p>
-<pre tabindex="0"><code>public sealed class Singleton
-{
-	private Singelton()
-	{
-	}
-private static object syncObj = new object();
-
-private static Singleton instance = null;
-public static Singleton Instance
-{
-	get
-	{
-		if (instance == null)
-		{
-			locak(syncObj)
-			{
-				if (instance == null)
-					instance = new Singleton();				
-			}
-		}
-		return instance;
-	}
-}
-}
-</code></pre><h2 id="利用静态构造函数">利用静态构造函数</h2>
-<pre tabindex="0"><code>public seled class Singleton
-{
-	private Singelton()
-	{
-	}
-
-	private static Singleton instance = new Singleton();
-	public static Singleton Instance
-	{
-		get
-		{
-			return instance;
-		}
-	}
-}
-</code></pre><p>由于C#中调用静态构造函数时初始化静态变量，.NET运行时能够保证只调用一次静态构造函数，这样我们就能够保证只初始化一次instance。C#中调用静态构造函数的时机不是由程序员掌控的，而是当.NET运行时发现第一使用一个类型的时候自动调用该类型的静态构造函数。在Singleton中，实例instance并不是第一次调用属性Singleton.Instance的时候创建的，而是在第一次用到Singleton的时候就会被创建。</p>
-<h2 id="实现按需创建实例">实现按需创建实例</h2>
-<pre tabindex="0"><code>public sealed class Singleton
-{
-	Singleton()
-	{
-	}
-
-	public static Singleton Instance;
-	{
-		get
-		{
-			return Nested.instance;
-		}
-	}
-
-	class Nested
-	{
-		static Nested()
-		{
-		}
-		internal static readonly Singleton instance = new Singleton();
-	}
-}
-</code></pre></article>
+    <article class="post-content"><h2 id="目标">目标</h2>
+<p>保证一个类在进程内 <strong>只有一个实例</strong>，并提供全局访问点。面试与桌面端缓存/日志里常见。</p>
+<h2 id="1-双重检查锁懒加载">1. 双重检查锁（懒加载）</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> <span style="color:#66d9ef">object</span> SyncObj = <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">object</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Singleton _instance;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Singleton() { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Singleton Instance
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">get</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (_instance == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">lock</span> (SyncObj)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (_instance == <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>                        _instance = <span style="color:#66d9ef">new</span> Singleton();
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> _instance;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>外层判断避免每次都加锁；内层判断防止多线程重复创建。</p>
+<h2 id="2-静态字段--运行时保证">2. 静态字段 + 运行时保证</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> Singleton InstanceField = <span style="color:#66d9ef">new</span> Singleton();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Singleton() { }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Singleton Instance =&gt; InstanceField;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>.NET 保证类型初始化线程安全；实例在类型首次使用时创建，不一定等于首次访问 <code>Instance</code> 属性的时刻（取决于是否触碰了类型其它成员）。</p>
+<h2 id="3-嵌套类延迟初始化">3. 嵌套类延迟初始化</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">sealed</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Singleton() { }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Singleton Instance =&gt; Nested.Instance;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Nested</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> Singleton Instance = <span style="color:#66d9ef">new</span> Singleton();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> Nested() { }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>只有真正用到 <code>Instance</code> 时才初始化嵌套类型，懒加载更干净。</p>
+<h2 id="现代-c">现代 C#</h2>
+<p>也可使用 <code>Lazy&lt;T&gt;</code>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">readonly</span> Lazy&lt;Singleton&gt; Lazy =
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">new</span>(() =&gt; <span style="color:#66d9ef">new</span> Singleton());
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Singleton Instance =&gt; Lazy.Value;
+</span></span></code></pre></div><h2 id="注意">注意</h2>
+<ul>
+<li><code>sealed</code> 防止派生破坏单例</li>
+<li>多 AppDomain / 分布式不等于进程内单例</li>
+<li>旧文 <code>locak</code>/<code>Singelton</code>/<code>seled</code> 均为拼写错误</li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>要线程安全懒加载：双重检查、<code>Lazy&lt;T&gt;</code> 或嵌套类；要简单：静态只读字段。先说清「是否懒加载 + 是否线程安全」，再写代码。</p>
+<h2 id="面试怎么讲">面试怎么讲</h2>
+<ol>
+<li>先定义：唯一实例 + 全局访问</li>
+<li>再说线程安全与懒加载是否需要</li>
+<li>给出一种实现并分析</li>
+<li>主动提：测试困难、隐藏依赖，现代更爱依赖注入</li>
+</ol>
+<p>能讲清 trade-off，比默写三种模板更加分。</p>
+</article>
     <footer class="post-footer">
       
       <ul class="post-tags">
         
           <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
         
+          <li><a href="https://madneal.com/tags/c"><span class="tag">C#</span></a></li>
+        
+          <li><a href="https://madneal.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="tag">设计模式</span></a></li>
+        
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3920</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        
       </p>
     </footer>
     

@@ -357,6 +357,13 @@
 </ol>
 <h2 id="小结">小结</h2>
 <p>RGB 三元组是跨前端与视觉算法的「普通话」。记住基色、分清 BGR、会换算 HEX，就够应付大多数笔记级需求。</p>
+<h2 id="在-css-与-canvas-中的写法">在 CSS 与 Canvas 中的写法</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">color</span><span style="color:#f92672">:</span> <span style="color:#f92672">rgb</span><span style="color:#f92672">(</span><span style="color:#f92672">255</span><span style="color:#f92672">,</span> <span style="color:#f92672">0</span><span style="color:#f92672">,</span> <span style="color:#f92672">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">color</span><span style="color:#f92672">:</span> #ff0000<span style="color:#f92672">;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">fillStyle</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;rgb(0, 128, 128)&#39;</span>;
+</span></span></code></pre></div><h2 id="无障碍提示">无障碍提示</h2>
+<p>仅靠红/绿区分状态对色弱用户不友好。图表请叠加形状、线型或文字标签，而不要只换 RGB。</p>
+<p>基色表适合当调色板起点；产品界面请落到设计系统 token（primary/secondary），避免满屏纯 <code>#00FF00</code>。</p>
 </article>
     <footer class="post-footer">
       
