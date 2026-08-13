@@ -214,7 +214,7 @@
     <article class="post-content"><p>七牛云是国内一家领先的云存储公司，可以利用七牛云存储对象存储图片。虽然现在各种图床，但还是希望能够搭建一个私有的图床。所以一直有希望使用七牛云搭建图床的想法，之前一直没有好好地看懂七牛云的 SDK，后来在仔细地看了一遍之后，终于知道如何利用官方的 SDK 来实现图片上传。过年在家花了一点时间，后来陆续也写了一点，完成了这个七牛云图床 chrome 拓展。</p>
 <h2 id="注册账户">注册账户</h2>
 <p>首先你可以通过这个<a href="https://portal.qiniu.com/signup?code=3ln7n4xpfyuky">链接</a>注册你的七牛云账户。在成功注册账户之后，可能还需要绑定手机号，你就可以创建存储空间，可以理解成为文件存储的文件夹。</p>
-<p><em>clipboard.png（原图链接已失效且无法恢复，已移除）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-wechat-qiniu-00-bucket.jpg" alt="clipboard.png"></p>
 <p>创建好存储空间（bucket）就已经完成了私有图库的第一步。</p>
 <h2 id="开发">开发</h2>
 <p>在这也会对所有代码一一解释，主要是讲解一下在开发中遇到的一些问题。首先基于七牛云存储开发，有必要学会七牛云存储 API 的使用。可以在<a href="https://developer.qiniu.com/sdk#official-sdk">官方 SDK 文档</a>获取所有文档。本拓展的开发主要是基于 js 来进行开发，因此我们只需要了解 <a href="https://developer.qiniu.com/kodo/sdk/1283/javascript">js SDK 文档</a>。</p>
@@ -232,7 +232,7 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">policy</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><em>clipboard.png（原图链接已失效且无法恢复，已移除）</em></p>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-wechat-qiniu-01-token.png" alt="clipboard.png"></p>
 <p>按照上述算法流程构建客户端的上传 token，官方有提供上传凭证的<a href="http://jsfiddle.net/gh/get/extjs/4.2/icattlecoder/jsfiddle/tree/master/uptoken">在线示例</a>，通过整理形成了自己的 <a href="https://github.com/neal1991/image-host/blob/master/js/token.js">token.js</a>。</p>
 <p>完成本地 token 的，我的开发就完成了一大步。这个拓展需要两个界面的设置，就是包括图片上传页面以及七牛云存储配置页面。关于这两个页面的设计，我也就不一一赘述，主要讲几点：</p>
 <h3 id="七牛云信息存储">七牛云信息存储</h3>
@@ -249,7 +249,7 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">isConfig</span>) {
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">create</span>({<span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;options.html&#39;</span>});
 </span></span><span style="display:flex;"><span>  }
-</span></span></code></pre></div><p><em>options（原图链接已失效且无法恢复，已移除）</em></p>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-wechat-qiniu-02-options.jpg" alt="options"></p>
 <p>另外一个问题是如果配置页打开时，无法在拓展程序弹出页面添加图片，暂时不知道是什么原因导致的。解决办法是在保存配置之后，设置延时关闭当前 tab。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>        <span style="color:#a6e22e">setTimeout</span>(() =&gt; {
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">chrome</span>.<span style="color:#a6e22e">tabs</span>.<span style="color:#a6e22e">query</span>({<span style="color:#a6e22e">currentWindow</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#a6e22e">active</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>}, <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">tabs</span>) {
@@ -303,7 +303,7 @@
       </ul>
       
       <p class="post-copyright">
-        This post was published <strong>3091</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        This post was published <strong>3092</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
