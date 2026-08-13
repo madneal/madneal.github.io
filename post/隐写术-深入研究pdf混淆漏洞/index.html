@@ -224,7 +224,7 @@
 </ul>
 <p><img src="https://4.bp.blogspot.com/-Kr-NkDqfyho/XEdDnFNT1EI/AAAAAAAAAEo/d9VFG0l_qDwAB_vhf50p7AHCZjNncLPuQCLcBGAs/s1600/edgespot-detection.png" alt=""></p>
 <p>样本首先在 2017-10-10 提交给 VirusTotal，文件名为 “oral-b oxyjet spec.pdf”。</p>
-<p><img src="https://lh4.googleusercontent.com/ORMvSEL5-R-yLYe8ow9YzjUkUWBfXSTxa8d55dxZhoot91KnVhLvyvjd0nBUbPJk9sH433KsJDgdSZnu52NWm-9mbf5uPQv-gMGalUX918rX7HSAJyFj3OQq1zpNsUqrKVlc_Qrf" alt=""></p>
+<p><em>配图（原图链接已失效且无法恢复，已移除）</em></p>
 <p>上周只有 1 个 AV 引擎检测到这种攻击（但是，截至写作时，检测增加到 5/57）。</p>
 <ul>
 <li><a href="https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection">https://www.virustotal.com/#/file/ebc5617447c58c88d52be6218384158ccf96ec7d7755179a31d209a95cd81a69/detection</a></li>
@@ -233,24 +233,24 @@
 <p>打开后，伪装成 IRS 文件的 PDF 看起来很正常。</p>
 <p><img src="https://4.bp.blogspot.com/-_zJ5pKPgv3I/XEdH34_gUOI/AAAAAAAAAE4/KYsV8Wi3phs4FWS3xJ8yZnI9jZXnNgAhwCLcBGAs/s1600/16.png" alt=""></p>
 <p>在该样本中使用两层混淆。 第一层是我们之前公开的 - &ldquo;this.getPageNumWords()&rdquo; 以及 &ldquo;this.getPageNthWord()&rdquo; 方法。该漏洞使用 &ldquo;this.getPageNumWords()&rdquo; 以及 &ldquo;this.getPageNthWord()&rdquo; 来读取和执行隐藏为“内容”的 Javascript。 相关代码可以在 PDF stream-64中找到。</p>
-<p><img src="https://lh6.googleusercontent.com/Qa4otHEzSjZlj4B65CmnfgutxzaTfn4EugYFlSf0BaMQdyntnVpxr7qzgwjAdzY3Ue97axGjscZtt2dumd7bKlutVi1aDi9ElBSPm17xJkgmIPM902ailGHvnOGRjtfpy_ADT_-_" alt=""></p>
+<p><em>配图（原图链接已失效且无法恢复，已移除）</em></p>
 <p align="center"><b>stream-64</b></p>
 <p>第二层是新的，这是我们本文的重点。 “Javascript 内容”存储在 stream-119 中，让我们看看它什么样。</p>
-<p><img src="https://lh6.googleusercontent.com/daXGdDM5pyT4_kjmoaPsX9jnXZRbq9fIF22cHznr97dqymfQ8TLJ1KpnsK7LswND3Tfo-cVqXG_VyxOD_amxM2Pi_bpUFUzG1xLPJLq_-EIzLDWS4PBHGZzcb4Aw0aXZEpipBv0X" alt=""></p>
+<p><em>配图（原图链接已失效且无法恢复，已移除）</em></p>
 <p>美化 Javascript 后，显示如下：</p>
 <p><img src="https://1.bp.blogspot.com/-ux7d0FWJFqM/XEdNBe3NpMI/AAAAAAAAAFE/JaVx-Zq4P0kRFc7E9C1RRkGya_6hFrrkwCLcBGAs/s1600/22.png" alt=""></p>
 <p>为了弄清楚 Javascript 做了什么，我们首先需要学习这两个 PDF JS API，<code>this.getIcon()</code> 和 <code>util.iconStreamFromIcon()</code>。 以下是 Adobe 参考文献的摘录。</p>
 <p><img src="https://2.bp.blogspot.com/-n78eqA8dplg/XEdNwvK8GCI/AAAAAAAAAFM/l4fI0jyNbbUZilcpU2zsNfyHL5holqNgQCLcBGAs/s1600/4.png" alt=""></p>
-<p><img src="https://2.bp.blogspot.com/-2-4DtAFE_2c/XEdN0UrwVrI/AAAAAAAAAFc/3q4W0pMMGkwmnhuyXBe-8yCkqUAvWEwYQCLcBGAs/s1600/5.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-blogspot-stego-5.png" alt=""></p>
 <p>根据 API 参考资料，这两个 API 协同工作，用于读取存储在 PDF 文件中的名为 “icon” 的图像流。</p>
 <p>通过检查上面的 Javascript 代码，我们发现代码的功能是读取和解码隐藏在图标流中的“消息”。 一旦成功读取“消息”，它将通过 “eval（msg）” 执行“消息”作为 Javascript 代码。</p>
 <p>object-131 中名为 “icon” 的图标流可以保存为 “jpg” 文件，并在图像查看器中查看，没有问题。 如下所示：</p>
-<p align="center"> <img src="https://lh3.googleusercontent.com/IPN1eis6eIjQjZsiQR4MRlkGGbw1Zb8P324LrOzw6LFIagc_KB4bsyY8xlc1T1TfSeofYKOkxTbOiXJihanQ9NG2Ky1Ya2CDxjphMhHmwSJJ3ZMl744Xz3DnVGLqDLnXZkMRwF0U">
+<p align="center">*配图（原图链接已失效且无法恢复，已移除）*
 <p align="center">当图像仍然可见时，恶意数据隐藏在图像中</p>
 </p>
 <p>然而，图标文件中没有可疑数据，因为恶意代码数据被严重混淆。</p>
 <p>最终执行的 Javascript 是什么样的？在成功去混淆之后，这是一段真实的代码。</p>
-<p><img src="https://lh4.googleusercontent.com/Iun-DdCJrtuagzxaB1eYLCX5_Ecu0MCTTV-P3cBxUGlxJKdVSIqFsnCTZFMym2HzpUIvKqpoEDK8gEt6WMmfxWBdgJCqHIRgTC25dDjKOMoxcCstabRGkRsIWMq9BNb6xzd0VqNR" alt=""></p>
+<p><em>配图（原图链接已失效且无法恢复，已移除）</em></p>
 <p>因此，我们确认这个漏洞利用为 CVE-2013-3346。</p>
 <p>此外，我们推断该样本和<a href="https://edgespot.io/analysis/6e71c6ff75abf5b7f40a2b1ed7480757af2f4af191797f19d1b4a46e8ecfa448/">前一个</a>来自同一作者，原因如下。
 他们都利用相同的漏洞 (CVE-2013-3346)。这两个漏洞利用中 Javascript 代码的相似性。
