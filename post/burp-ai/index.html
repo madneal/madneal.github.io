@@ -27,21 +27,21 @@
 
   
   <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  》展开，重点梳理方法论、提示词风格校准和关键结果等内容，提炼背景、思路与实践注意点。">
+  <meta name="description" content="PortSwigger 客座文译文：对比三种提示词风格，用 Academy 实验室验证 Burp AI 能否在约一分钟内产出可用 PoC，并附可复用的提示词与 Notes 模板。">
 
   
   
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@gohugoio">
     <meta name="twitter:title" content="不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  ">
-    <meta name="twitter:description" content="本文围绕《不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  》展开，重点梳理方法论、提示词风格校准和关键结果等内容，提炼背景、思路与实践注意点。">
+    <meta name="twitter:description" content="PortSwigger 客座文译文：对比三种提示词风格，用 Academy 实验室验证 Burp AI 能否在约一分钟内产出可用 PoC，并附可复用的提示词与 Notes 模板。">
     <meta name="twitter:image" content="https://madneal.com/img/post-covers/burp-ai-0d500a4cf1.jpg">
   
 
   
   <meta property="og:type" content="article">
   <meta property="og:title" content="不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  ">
-  <meta property="og:description" content="本文围绕《不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI  》展开，重点梳理方法论、提示词风格校准和关键结果等内容，提炼背景、思路与实践注意点。">
+  <meta property="og:description" content="PortSwigger 客座文译文：对比三种提示词风格，用 Academy 实验室验证 Burp AI 能否在约一分钟内产出可用 PoC，并附可复用的提示词与 Notes 模板。">
   <meta property="og:url" content="https://madneal.com/post/burp-ai/">
   <meta property="og:image" content="https://madneal.com/img/post-covers/burp-ai-0d500a4cf1.jpg">
 
@@ -220,7 +220,7 @@
 <h1 id="不到一分钟拿到可用-pocjulen-garrido-estévez-测试-burp-ai">不到一分钟拿到可用 PoC：Julen Garrido Estévez 测试 Burp AI</h1>
 <p>Hassan Ud-Deen | 2026 年 1 月 16 日 00:00（UTC）</p>
 <p><em>注：本文为客座文章，由渗透测试人员 <a href="https://www.linkedin.com/in/julen-garrido-estevez/">Julen Garrido Estévez</a>（@b3xal）撰写。</em></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-b2b83ec7e201.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/7a/13/2696-article-julen-garrido-quote.png" alt=""></p>
 <ul>
 <li><a href="#%E6%96%B9%E6%B3%95%E8%AE%BA">方法论</a></li>
 <li><a href="#%E5%85%B3%E9%94%AE%E7%BB%93%E6%9E%9C">关键结果</a></li>
@@ -261,7 +261,7 @@
 </ul>
 <p>总体而言，基于 <a href="https://portswigger.net/burp/documentation/desktop/ai">Burp AI 官方文档</a> 的自由文本提示词在成本与准确性之间提供了最佳平衡。更关键的是，它在确保 Burp AI 遵循指定指导方面也表现最好。</p>
 <p>下面摘录的是最具代表性的会话片段。这些数据来自我在受控环境下的测试，用于调优如何编写最佳提示词。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-0df66c7a0ddb.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/66/30/8fcd-article-image_3_1.png" alt=""></p>
 <h2 id="关键结果">关键结果</h2>
 <h3 id="关键结果--提示词风格校准漏洞ssti">关键结果 — 提示词风格校准（漏洞：SSTI）</h3>
 <p><strong>指标 / 提示词风格</strong></p>
@@ -358,8 +358,8 @@
 <p>我的目标是看看 Burp AI 是否不仅能识别漏洞，还能以一种类似资深渗透测试人员的方式采取行动。以下是测试过程。</p>
 <h3 id="示例-a--服务端模板注入ssti">示例 A — 服务端模板注入（SSTI）</h3>
 <p>第一个场景是一个商品网站，用户可以浏览商品并查看描述。我之前观察到：请求不存在的商品会触发重定向，而重定向后的请求里有一个 <code>message</code> 参数会在页面中反射显示。这种反射提示了可能存在 <a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a> 或 SSTI。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-6e6f804cdb8f.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-1b4fb6d80efa.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/d6/e3/311a-article-image_5_1.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/31/d9/444d-article-image_6_1.png" alt=""></p>
 <p>我给 Burp AI 一个聚焦的提示词：</p>
 <pre tabindex="0"><code>我正在测试 &#39;message&#39; 参数，以判断是否存在 XSS 或 SSTI 的迹象。请聚焦 &#39;message&#39; 并观察它在响应中如何被反射。执行具体测试、建议 payload，并给出能够确认漏洞的判定标准。如果任何测试确认漏洞，立刻停止并不要再执行任何请求。
 </code></pre><p>并在 “Notes” 中提供固定的上下文：</p>
@@ -371,14 +371,14 @@
 </code></pre><p>同时用 Highlights 强调要测试的参数：文本 <code>message</code></p>
 <p>它在 44 秒内发起 18 次请求，消耗约 €0.43 的 credits。让我印象深刻的是它方法非常精准：能快速锁定模板上下文、验证相关 payload，并在确认漏洞后立即停止测试。</p>
 <p>结果是：迅速且高效地得到了一个干净、可用的 SSTI PoC。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-494a98a03b9a.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-90b7405cf766.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-d3ae1dd30dd6.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-09e7bedc7bf9.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/ac/1a/a737-article-image_6_2_highres_from_docx.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/29/4d/6f5b-article-image_7_1_highres_from_docx.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/18/59/0870-article-image_7_2_highres_from_docx.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/e9/b7/ede7-article-image_7_3_highres_from_docx.png" alt=""></p>
 <h3 id="示例-b--不安全反序列化">示例 B — 不安全反序列化</h3>
 <p>第二个测试中，我关注一个商品页面：登录后它会发放一个序列化的 PHP 对象作为 session cookie。基于之前测试，我知道如果能操纵这个 cookie，可能就能拿到其他用户的会话。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-554955664c59.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-5686e7ba5995.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/73/e9/c9ed-article-image_8_1.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/0c/8f/e0d7-article-image_8_2.png" alt=""></p>
 <p>这次我让 Burp AI 调查 <code>session</code> cookie：</p>
 <pre tabindex="0"><code>我正在测试 &#39;session&#39; cookie，以判断是否存在不安全反序列化的迹象。请聚焦 &#39;session&#39;，并观察分配到的用户在响应中如何体现，此处为 &#39;wiener&#39;。执行具体测试，看看是否能以其他用户或管理员身份访问；给出建议 payload，以及能确认漏洞的判定标准。如果任何测试确认漏洞，立刻停止并不要再执行任何请求。
 </code></pre><p>同样在 “Notes” 里提供上下文是一个很好的起点：</p>
@@ -390,9 +390,9 @@
 </code></pre><p>我们在提示词里越“重复强调”要测试的参数，它对 Burp AI 越重要。因此这里用 highlights：文本 <code>session</code></p>
 <p>仅用 4 次请求、61 秒，Burp AI 就搞定了：它解码了序列化对象，理解了底层结构并提出多种修改方案，最终给出一个能拿到管理员权限的版本。和前面一样，一旦确认漏洞，它就停止继续测试。</p>
 <p>成本约 €0.34，既快又省。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-6b120dc3e5cd.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-95777093cb97.png" alt=""></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-cacf694dad62.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/e9/cd/1584-article-image_9_1_highres_from_docx.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/0f/f3/5611-article-image_9_2_highres_from_docx.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/6a/4f/d5a2-article-image_10_1.png" alt=""></p>
 <p>这两个示例让我看到：Burp AI 并不只是跑固定 payload 或“打勾式检查”；它会主动分析每个情境，按反馈调整策略，并以一种很类人的方式确认漏洞。感觉就像有一位经验丰富的测试人员在后台安静地工作：速度很快，但也足够谨慎。</p>
 <h2 id="关键心得">关键心得</h2>
 <p>在试用 Burp AI 的过程中，当我逐渐理解如何有效引导它时，出现了一些非常明确的规律。</p>
@@ -409,7 +409,7 @@
 <p>我发现在 HTTP 消息里高亮特定子串非常有价值。通过标记 <code>message</code>、<code>session</code> 或 <code>userId</code> 这类输入点，我可以用人的直觉先挑出重点，再引导 Burp AI 把注意力放在最关键的请求/响应部分。</p>
 <h3 id="设置明确的停止条件">设置明确的停止条件</h3>
 <p>较长任务会受到内部 20 步限制，但 AI 也可能在得到结果后提前退出。就像前面的示例一样，我倾向于在提示词里加入明确的停止条件。“确认即停止”不仅能防止过度测试，也有助于控制成本与速度。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-31a1f21042aa.png" alt=""></p>
+<p><img src="https://portswigger.net/cms/images/47/71/6977-article-image_12_1.png" alt=""></p>
 <h2 id="提示词模板">提示词模板</h2>
 <p>以下是我基于 <a href="https://portswigger.net/burp/documentation/desktop/ai">官方文档</a> 构造提示词时使用的粗略模板，供你在自己的提示词工程中参考：</p>
 <h3 id="1-明确目标一句话">1. 明确目标（一句话）</h3>
