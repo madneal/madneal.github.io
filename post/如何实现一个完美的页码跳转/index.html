@@ -213,21 +213,21 @@
     </header>
     <article class="post-content"><h2 id="需求">需求</h2>
 <p>想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：</p>
-<p><em>page_navagation（原图链接已失效且无法恢复，已移除）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---00.gif" alt="page_navagation"></p>
 <h2 id="问题定义">问题定义</h2>
 <p>我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 <code>pages</code>，当前选择的页码为 <code>p</code>,<code>p</code> 往左走或者往右走的步长是固定的，令步长为 <code>step</code>。那么我们现在要做的事情可以这么理解，我们要从 1 到 <code>pages</code> 之间截取可用的页码数，假设开始页码为 <code>startIndex</code>，结束页码为 <code>endIndex</code>。抽象一下，我们可以总结出以下几种情况：</p>
 <h3 id="condition1">Condition1</h3>
 <p><code>startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages</code></p>
-<p><em>condition1.png（原图链接已失效且无法恢复，已移除）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---01.jpg" alt="condition1.png"></p>
 <h3 id="condition2">Condition2</h3>
 <p><code>startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages</code></p>
-<p><em>condition2.png（原图链接已失效且无法恢复，已移除）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---02.jpg" alt="condition2.png"></p>
 <h3 id="condition3">Condition3</h3>
 <p><code>startIndex &lt; 1 &amp;&amp; endIndex &gt; pages</code></p>
-<p><em>condition3.png（原图链接已失效且无法恢复，已移除）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---03.jpg" alt="condition3.png"></p>
 <h3 id="condition4">Condition4</h3>
 <p><code>startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages</code></p>
-<p><em>condition4.png（原图链接已失效且无法恢复，已移除）</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---04.jpg" alt="condition4.png"></p>
 <p>这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 <code>pages</code> 截取页码。</p>
 <h2 id="代码实现">代码实现</h2>
 <p>Show me the code.</p>
