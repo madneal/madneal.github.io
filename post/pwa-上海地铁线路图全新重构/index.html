@@ -286,7 +286,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">transform</span>: translate(<span style="color:#ae81ff">-100</span><span style="color:#66d9ef">px</span>, <span style="color:#ae81ff">-300</span><span style="color:#66d9ef">px</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>这样实现了整个 svg 图位置的偏移，使用 lighthouse 进行分析，性能分降到了 70 多分。继续想想有没有其他的方法，后来我想在最左上上角定义一个箭头动画。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-mirror-pwa--00.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;recovered&#34;</span>&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-pwa-right-arrow.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;right-arrow&#34;</span>&gt;
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">right-arrow</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">animation</span>: moveright <span style="color:#ae81ff">3</span><span style="color:#66d9ef">s</span> <span style="color:#66d9ef">linear</span> <span style="color:#66d9ef">infinite</span>;
 </span></span><span style="display:flex;"><span>}
@@ -301,14 +301,14 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">5</span><span style="color:#66d9ef">rem</span>);
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>} 
-</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2-pwa--01.gif" alt="right_arrow.gif"></p>
+</span></span></code></pre></div><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2-pwa--02.gif" alt="right_arrow.gif"></p>
 <p>这样我们就可以创建一个循环向右移动的动画，提示用户向右滑动。部署之后发现性能分立马降到 0，索性也就放弃了这个做法。最后来时决定采用 <code>transform: translateX(-200px) translateY(-300px);</code> ，因为这样通过 css3 的属性可以在一些移动设备上还可以利用 GPU 加速，并且 translateX 不会引起页面的重绘或者重排，只会导致图层重组，最小避免对性能的影响。</p>
 <h2 id="部署">部署</h2>
 <p>目前的部署方案是采取 create-react-app 的官方建议，通过 gh-pages 实现将 build 的打包文件上传到 gh-pages 分支上从而实现部署。</p>
 <h3 id="兼容性">兼容性</h3>
 <p>目前该应用在 Chrome 浏览器的支持性是最好的，安卓浏览器建议安装 Chrome 浏览器使用，我一般也都比较喜欢在手机上使用谷歌浏览器。对于 Safari 浏览器，其它的浏览功能似乎没有什么大问题，目前应该还没支持添加到主屏幕。不过在之后的 ios 版本好像对于 pwa 有着更进一步的支持。</p>
 <h2 id="结语">结语</h2>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2-pwa--02.gif" alt="commits.png"></p>
+<p><em>commits.png（原图链接已失效且无法恢复，已移除）</em></p>
 <p>花了两个礼拜的时间完成了项目的完整的重构，从这一年来的 commit 记录可以看到三月份疯狂 commit 了一波，主要是第一个周末花费了两天的时间修改了好多代码，被那个 InfoCard 的状态切换搞了很久，后面就是针对性能做了一些优化。过程很痛苦，一度怀疑自己的 coding 能力。不过最后还是有以下感悟：</p>
 <ul>
 <li>世界上没有最好的语言，最好的框架，只有最合适的</li>
