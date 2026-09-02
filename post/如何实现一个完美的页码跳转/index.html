@@ -1,329 +1,38 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>如何做一个完美的页码跳转</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  
-  <meta name="description" content="本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="如何做一个完美的页码跳转">
-    <meta name="twitter:description" content="本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/pagination-perfect-89b357f8a6.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="如何做一个完美的页码跳转">
-  <meta property="og:description" content="本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/pagination-perfect-89b357f8a6.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">如何做一个完美的页码跳转</h1>
-      <p class="post-meta">@Neal · Mar 28, 2018 · 3 min read</p>
-    </header>
-    <article class="post-content"><h2 id="需求">需求</h2>
-<p>想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---00.gif" alt="page_navagation"></p>
-<h2 id="问题定义">问题定义</h2>
-<p>我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 <code>pages</code>，当前选择的页码为 <code>p</code>,<code>p</code> 往左走或者往右走的步长是固定的，令步长为 <code>step</code>。那么我们现在要做的事情可以这么理解，我们要从 1 到 <code>pages</code> 之间截取可用的页码数，假设开始页码为 <code>startIndex</code>，结束页码为 <code>endIndex</code>。抽象一下，我们可以总结出以下几种情况：</p>
-<h3 id="condition1">Condition1</h3>
-<p><code>startIndex &lt; 1 &amp;&amp; endIndex &lt;= pages</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---01.jpg" alt="condition1.png"></p>
-<h3 id="condition2">Condition2</h3>
-<p><code>startIndex &gt;= 1 &amp;&amp; endIndex &gt; pages</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---02.jpg" alt="condition2.png"></p>
-<h3 id="condition3">Condition3</h3>
-<p><code>startIndex &lt; 1 &amp;&amp; endIndex &gt; pages</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---03.jpg" alt="condition3.png"></p>
-<h3 id="condition4">Condition4</h3>
-<p><code>startIndex &gt;= 1 &amp;&amp; endIndex &lt;= pages</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/fix-final2---04.jpg" alt="condition4.png"></p>
-<p>这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 <code>pages</code> 截取页码。</p>
-<h2 id="代码实现">代码实现</h2>
-<p>Show me the code.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetPageList</span>(<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">step</span>, <span style="color:#a6e22e">pages</span> <span style="color:#66d9ef">int</span>) ([]<span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pageList</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">startIndex</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">step</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">endIndex</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">step</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">startIndex</span> &lt; <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">endIndex</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">pages</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">startIndex</span> = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">endIndex</span> = <span style="color:#a6e22e">startIndex</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">step</span>
-</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">startIndex</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">endIndex</span> &gt; <span style="color:#a6e22e">pages</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">endIndex</span> = <span style="color:#a6e22e">pages</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">startIndex</span> = <span style="color:#a6e22e">pages</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">step</span>
-</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">startIndex</span> &lt; <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">endIndex</span> &gt; <span style="color:#a6e22e">pages</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">startIndex</span> = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">endIndex</span> = <span style="color:#a6e22e">pages</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// handle some special cases</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">startIndex</span> &lt; <span style="color:#ae81ff">1</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">startIndex</span> = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">endIndex</span> &gt; <span style="color:#a6e22e">pages</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">endIndex</span> = <span style="color:#a6e22e">pages</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">startIndex</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">endIndex</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">pageList</span> = append(<span style="color:#a6e22e">pageList</span>, <span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pageList</span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h2 id="结语">结语</h2>
-<p>没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p>
-<p>以上。</p>
-<p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/csdn-c426094ff14b3641ac856606e857bf94e.jpeg" alt="页码跳转效果"></p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/go"><span class="tag">Go</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>如何做一个完美的页码跳转</title><meta name=description content="本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="如何做一个完美的页码跳转"><meta name=twitter:description content="本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。"><meta name=twitter:image content="https://madneal.com/img/post-covers/pagination-perfect-89b357f8a6.jpg"><meta property="og:type" content="article"><meta property="og:title" content="如何做一个完美的页码跳转"><meta property="og:description" content="本文围绕《如何做一个完美的页码跳转》展开，重点梳理需求、问题定义和Condition1等内容，提炼背景、思路与实践注意点。"><meta property="og:url" content="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/"><meta property="og:image" content="https://madneal.com/img/post-covers/pagination-perfect-89b357f8a6.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>如何做一个完美的页码跳转</h1><p class=post-meta>@Neal · <time datetime=2018-03-28>2018-03-28</time> · 约 1 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#需求>需求</a></li><li><a href=#问题定义>问题定义</a><ul><li><a href=#condition1>Condition1</a></li><li><a href=#condition2>Condition2</a></li><li><a href=#condition3>Condition3</a></li><li><a href=#condition4>Condition4</a></li></ul></li><li><a href=#代码实现>代码实现</a></li><li><a href=#结语>结语</a></li></ul></nav></nav><article class=post-content><h2 id=需求>需求</h2><p>想给系统实现一个选择不同页面的功能，一开始的代码逻辑比较混乱，后来抽象出来就比较清楚了。第一步，咱们先说需求：</p><p><img src=https://madneal.com/img/content/fix-final2---00.webp alt=page_navagation decoding=async fetchpriority=high></p><h2 id=问题定义>问题定义</h2><p>我们希望实现一个页面切换，每次显示的可选的页码长度都是固定的，比如从第 1 页到第 11 页，从 21 页 到 31 页。这样能够实现一个统一的切换效果，可能还需要考虑一些边界情况。现在，我们令总页码数为 <code>pages</code>，当前选择的页码为 <code>p</code>,<code>p</code> 往左走或者往右走的步长是固定的，令步长为 <code>step</code>。那么我们现在要做的事情可以这么理解，我们要从 1 到 <code>pages</code> 之间截取可用的页码数，假设开始页码为 <code>startIndex</code>，结束页码为 <code>endIndex</code>。抽象一下，我们可以总结出以下几种情况：</p><h3 id=condition1>Condition1</h3><p><code>startIndex &lt; 1 && endIndex &lt;= pages</code></p><p><img src=https://madneal.com/img/content/fix-final2---01.webp alt=condition1.png decoding=async loading=lazy fetchpriority=low></p><h3 id=condition2>Condition2</h3><p><code>startIndex >= 1 && endIndex > pages</code></p><p><img src=https://madneal.com/img/content/fix-final2---02.webp alt=condition2.png decoding=async loading=lazy fetchpriority=low></p><h3 id=condition3>Condition3</h3><p><code>startIndex &lt; 1 && endIndex > pages</code></p><p><img src=https://madneal.com/img/content/fix-final2---03.webp alt=condition3.png decoding=async loading=lazy fetchpriority=low></p><h3 id=condition4>Condition4</h3><p><code>startIndex >= 1 && endIndex &lt;= pages</code></p><p><img src=https://madneal.com/img/content/fix-final2---04.webp alt=condition4.png decoding=async loading=lazy fetchpriority=low></p><p>这样抽象成四种情况，这样就比较容易理解。以线段的方式来理解，则是从 1 到 <code>pages</code> 截取页码。</p><h2 id=代码实现>代码实现</h2><p>Show me the code.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-go data-lang=go><span style=display:flex><span><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>GetPageList</span>(<span style=color:#a6e22e>p</span>, <span style=color:#a6e22e>step</span>, <span style=color:#a6e22e>pages</span> <span style=color:#66d9ef>int</span>) ([]<span style=color:#66d9ef>int</span>) {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>pageList</span> <span style=color:#f92672>:=</span> make([]<span style=color:#66d9ef>int</span>, <span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>startIndex</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>p</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>step</span>
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>endIndex</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>p</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>step</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>startIndex</span> &lt; <span style=color:#ae81ff>1</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>endIndex</span> <span style=color:#f92672>&lt;=</span> <span style=color:#a6e22e>pages</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>startIndex</span> = <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>endIndex</span> = <span style=color:#a6e22e>startIndex</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>step</span>
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>startIndex</span> <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>endIndex</span> &gt; <span style=color:#a6e22e>pages</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>endIndex</span> = <span style=color:#a6e22e>pages</span>
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>startIndex</span> = <span style=color:#a6e22e>pages</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>step</span>
+</span></span><span style=display:flex><span>	} <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> <span style=color:#a6e22e>startIndex</span> &lt; <span style=color:#ae81ff>1</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>endIndex</span> &gt; <span style=color:#a6e22e>pages</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>startIndex</span> = <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>endIndex</span> = <span style=color:#a6e22e>pages</span>
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// handle some special cases</span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>startIndex</span> &lt; <span style=color:#ae81ff>1</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>startIndex</span> = <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>endIndex</span> &gt; <span style=color:#a6e22e>pages</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>endIndex</span> = <span style=color:#a6e22e>pages</span>
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>for</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>startIndex</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;=</span> <span style=color:#a6e22e>endIndex</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span> {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>pageList</span> = append(<span style=color:#a6e22e>pageList</span>, <span style=color:#a6e22e>i</span>)
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>pageList</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=结语>结语</h2><p>没有思考清楚的时候，你的逻辑是混乱的，写出来的代码也是混乱的。所以先整理好思路，想好应该怎么写，可以画画图，理理思路，这样写出的代码既有逻辑出现 bug 的概率也会大大降低。另外一点，很多人觉得写业务和算法可能就相去甚远，都有时候认真想想，或许你的业务代码也可以抽象成一个小算法。</p><p>以上。</p><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><p><img src=https://madneal.com/img/content/csdn-c426094ff14b3641ac856606e857bf94e.webp alt=页码跳转效果 decoding=async loading=lazy fetchpriority=low></p></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/go/><span class=tag>Go</span></a></li><li><a href=https://madneal.com/tags/%E7%AE%97%E6%B3%95/><span class=tag>算法</span></a></li></ul><p class=post-copyright></p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%AE%8C%E7%BE%8E%E7%9A%84%E9%A1%B5%E7%A0%81%E8%B7%B3%E8%BD%AC/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script defer src=https://madneal.com/js/bundle.js></script></body></html>

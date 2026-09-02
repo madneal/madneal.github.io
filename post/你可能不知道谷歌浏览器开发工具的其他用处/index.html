@@ -1,254 +1,8 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>你可能不知道谷歌浏览器开发工具的其他用处</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  <meta name="author" content="Neal">
-  <meta name="description" content="本文围绕《你可能不知道谷歌浏览器开发工具的其他用处》梳理web前端、JavaScript、前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="你可能不知道谷歌浏览器开发工具的其他用处">
-    <meta name="twitter:description" content="本文围绕《你可能不知道谷歌浏览器开发工具的其他用处》梳理web前端、JavaScript、前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/chrome-devtools-tips-b970266feb.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="你可能不知道谷歌浏览器开发工具的其他用处">
-  <meta property="og:description" content="本文围绕《你可能不知道谷歌浏览器开发工具的其他用处》梳理web前端、JavaScript、前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。">
-  <meta property="og:url" content="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/chrome-devtools-tips-b970266feb.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">你可能不知道谷歌浏览器开发工具的其他用处</h1>
-      <p class="post-meta">@Neal · Oct 3, 2016 · 3 min read</p>
-    </header>
-    <article class="post-content"><ul>
-<li>原文链接 原文链接似乎翻墙才可以访问</li>
-</ul>
-<ul>
-<li>译者：neal</li>
-<li>github: <a href="https://github.com/neal1991">https://github.com/neal1991</a></li>
-</ul>
-<p>你可能不知道谷歌浏览器开发工具的其他用处</p>
-<p>Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.</p>
-<p>当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。</p>
-<p>在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。</p>
-<ol>
-<li>选择节点元素</li>
-</ol>
-<p>如果你熟悉jquery的话，你应该知道$(&rsquo;.class&rsquo;)和$(&rsquo;#id&rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。</p>
-<p>同样你可以在console使用同样的方式来访问元素。$(&rsquo;tagName&rsquo;) $(&rsquo;.class&rsquo;) $(&rsquo;#id&rsquo;)和document.querySelector(&rsquo;&rsquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。</p>
-<p>你可以用$$(&rsquo;tagName&rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组</p>
-<p>2.将你的浏览器转化成一个编辑器</p>
-<p>你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。</p>
-<p>你不需要检测html中的元素。取而代之，你只要去console里面输入以下：</p>
-<p>document.body.contentEditable = true</p>
-<p>3.寻找dom中元素绑定的事件</p>
-<p>当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(&lsquo;selector&rsquo;))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：</p>
-<p>如果希望找到某个特定事件的监听，你可以这么做：</p>
-<p>getEventListeners($(&lsquo;selector&rsquo;)).eventName[0].listener</p>
-<p>这将展示所有和这个事件相关的监听。比如：</p>
-<p>getEventListeners($(&rsquo;.firstName&rsquo;)).click[0].listener</p>
-<p>4.监听事件</p>
-<p>如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：</p>
-<ul>
-<li>monitorEvents($(&lsquo;selector&rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。</li>
-<li>monitorEvents($(&lsquo;selector&rsquo;),&rsquo;eventName&rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。</li>
-<li>monitorEvents($(&lsquo;selector&rsquo;),[&rsquo;eventName1&rsquo;,&rsquo;eventName2&rsquo;….])将会监听符合这个选择器的事件。</li>
-<li>unmonitorEvents($(&lsquo;selector&rsquo;))这个会停止监听并且在console里面显示出所有的事件。</li>
-</ul>
-<p>5.找到语句块执行的时间</p>
-<p>console里面有一个很重要的函数叫做console.time(&rsquo;labelTime&rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&rsquo;labelName&rsquo;)能够结束相应的计时器。</p>
-<p>比如我们想看到一个循环的执行时间，我们可以做如下处理：</p>
-<pre><code>console.time('myTime'); //Starts the timer with label - myTime
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>你可能不知道谷歌浏览器开发工具的其他用处</title><meta name=author content="Neal"><meta name=description content="本文围绕《你可能不知道谷歌浏览器开发工具的其他用处》梳理web前端、JavaScript、前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="你可能不知道谷歌浏览器开发工具的其他用处"><meta name=twitter:description content="本文围绕《你可能不知道谷歌浏览器开发工具的其他用处》梳理web前端、JavaScript、前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。"><meta name=twitter:image content="https://madneal.com/img/post-covers/chrome-devtools-tips-b970266feb.jpg"><meta property="og:type" content="article"><meta property="og:title" content="你可能不知道谷歌浏览器开发工具的其他用处"><meta property="og:description" content="本文围绕《你可能不知道谷歌浏览器开发工具的其他用处》梳理web前端、JavaScript、前端和工具相关的背景、方法和实践细节，可作为排查与学习记录。"><meta property="og:url" content="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/"><meta property="og:image" content="https://madneal.com/img/post-covers/chrome-devtools-tips-b970266feb.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>你可能不知道谷歌浏览器开发工具的其他用处</h1><p class=post-meta>@Neal · <time datetime=2016-10-03>2016-10-03</time> · 约 1 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#译者实践注>译者实践注</a></li></ul></nav></nav><article class=post-content><ul><li>原文链接 原文链接似乎翻墙才可以访问</li></ul><ul><li>译者：neal</li><li>github: <a href=https://github.com/neal1991>https://github.com/neal1991</a></li></ul><p>你可能不知道谷歌浏览器开发工具的其他用处</p><p>Chrome内嵌开发者工具。它具有丰富的功能特色，比如元素，网络以及安全。今天，我们将完全关注javascript的console.</p><p>当我才开始编程的时候，我只是将console用作纪录服务器的响应。但是后来经过一些教学的帮助，我开始发现console可以做的更多。</p><p>在这我们讲一些你可以用console做更多有用的事情。如果你是用chrome浏览这篇文章，你可以马上就试试效果。</p><ol><li>选择节点元素</li></ol><p>如果你熟悉jquery的话，你应该知道$(&rsquo;.class&rsquo;)和$(&rsquo;#id&rsquo;)事多的么的重要。你可以根据id或者类名选择相应的元素。</p><p>同样你可以在console使用同样的方式来访问元素。$(&rsquo;tagName&rsquo;) $(&rsquo;.class&rsquo;) $(&rsquo;#id&rsquo;)和document.querySelector(&rsquo;&rsquo;)是等同的。这个将返回文档中第一个匹配这个选择器的元素。</p><p>你可以用$$(&rsquo;tagName&rsquo;)来访问，注意这边的两个美元符号可以访问所有符合这个选择器的元素。这些元素会组成一个数组</p><p>2.将你的浏览器转化成一个编辑器</p><p>你是否想过可以直接在浏览器中直接编辑？答案是肯定的，你可以将你的浏览器转化成一个文本编辑工具。你可以在dom元素中任意添加或者删除文本。</p><p>你不需要检测html中的元素。取而代之，你只要去console里面输入以下：</p><p>document.body.contentEditable = true</p><p>3.寻找dom中元素绑定的事件</p><p>当调试的时候你可能希望知道dom元素中绑定的事件。console工具能使你很轻松就找到这些事件。getEventListeners($(&lsquo;selector&rsquo;))将会返回一个数组包含所有事件的对象。你可以展开这个对象看到所有的事件：</p><p>如果希望找到某个特定事件的监听，你可以这么做：</p><p>getEventListeners($(&lsquo;selector&rsquo;)).eventName[0].listener</p><p>这将展示所有和这个事件相关的监听。比如：</p><p>getEventListeners($(&rsquo;.firstName&rsquo;)).click[0].listener</p><p>4.监听事件</p><p>如果你想监听特定元素绑定的事件的时候，你也可以在console里面这么做。你可以使用以下的这些命名：</p><ul><li>monitorEvents($(&lsquo;selector&rsquo;))将会监听符合这个选择器的元素的所有事件，并且将会显示这些事件当事件被触发的时候。</li><li>monitorEvents($(&lsquo;selector&rsquo;),&rsquo;eventName&rsquo;)将会监听符合这个选择器的特定事件。你可以将事件的名称作为一个参数传入到这个函数中。</li><li>monitorEvents($(&lsquo;selector&rsquo;),[&rsquo;eventName1&rsquo;,&rsquo;eventName2&rsquo;….])将会监听符合这个选择器的事件。</li><li>unmonitorEvents($(&lsquo;selector&rsquo;))这个会停止监听并且在console里面显示出所有的事件。</li></ul><p>5.找到语句块执行的时间</p><p>console里面有一个很重要的函数叫做console.time(&rsquo;labelTime&rsquo;)能够启动一个计时器。另外又一个函数叫做console.timeEnd(&rsquo;labelName&rsquo;)能够结束相应的计时器。</p><p>比如我们想看到一个循环的执行时间，我们可以做如下处理：</p><pre><code>console.time('myTime'); //Starts the timer with label - myTime
 
 for(var i=0; i &lt; 100000; i++){
   2+4+5;
@@ -257,23 +11,8 @@ for(var i=0; i &lt; 100000; i++){
 console.timeEnd('mytime'); //Ends the timer with Label - myTime
 
 //Output - myTime:12345.00 ms
-</code></pre>
-<p>6.将变量的值以表格形式呈现</p>
-<p>当我们有如下的一个数组的时候：</p>
-<pre><code>var myArray=[{a:1,b:2,c:3},{a:1,b:2,c:3,d:4},{k:11,f:22},{a:1,b:2,c:3}]
-</code></pre>
-<p>我们可以使用console.table(variableName)从而以表格的形式更好地展现数据的属性。</p>
-<p>7.在dom中检测元素</p>
-<p>你可以直接在console里面检测元素：</p>
-<ul>
-<li>inspect($(&lsquo;selector&rsquo;))将会检测符合这个在选择器的元素并且会跳转到匹配这个选择器的dom中。</li>
-<li>$0,$1,$2能够帮助你检测最近检测过的元素。</li>
-</ul>
-<p>8.列出与纳素的属性</p>
-<p>如果你希望列出元素所有的属性，你可以直接在console里面输入dir($(&lsquo;selector&rsquo;))返回dom元素中的相关属性。</p>
-<p>9.取到上次最近结果的值</p>
-<p>你可以把console当作一个计算器来时用。你可以使用$_来获取最近的结果。如下所示：</p>
-<pre><code>2+3+4
+</code></pre><p>6.将变量的值以表格形式呈现</p><p>当我们有如下的一个数组的时候：</p><pre><code>var myArray=[{a:1,b:2,c:3},{a:1,b:2,c:3,d:4},{k:11,f:22},{a:1,b:2,c:3}]
+</code></pre><p>我们可以使用console.table(variableName)从而以表格的形式更好地展现数据的属性。</p><p>7.在dom中检测元素</p><p>你可以直接在console里面检测元素：</p><ul><li>inspect($(&lsquo;selector&rsquo;))将会检测符合这个在选择器的元素并且会跳转到匹配这个选择器的dom中。</li><li>$0,$1,$2能够帮助你检测最近检测过的元素。</li></ul><p>8.列出与纳素的属性</p><p>如果你希望列出元素所有的属性，你可以直接在console里面输入dir($(&lsquo;selector&rsquo;))返回dom元素中的相关属性。</p><p>9.取到上次最近结果的值</p><p>你可以把console当作一个计算器来时用。你可以使用$_来获取最近的结果。如下所示：</p><pre><code>2+3+4
 9 //- The Answer of the SUM is 9
 
 $_
@@ -287,69 +26,9 @@ Math.sqrt($_)
 
 $_
 9 // As the Last Result is 9
-</code></pre>
-<p>10.清楚cosole和缓存</p>
-<p>如果你希望清楚console和它的缓存，你可以输入clear()就可以了。</p>
-<h2 id="译者实践注">译者实践注</h2>
-<p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/javascript"><span class="tag">JavaScript</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E5%89%8D%E7%AB%AF"><span class="tag">前端</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E5%B7%A5%E5%85%B7"><span class="tag">工具</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        This post was published <strong>3612</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config">
+</code></pre><p>10.清楚cosole和缓存</p><p>如果你希望清楚console和它的缓存，你可以输入clear()就可以了。</p><h2 id=译者实践注>译者实践注</h2><p>本文为技术译文/整理，原文版权归原作者所有。阅读时建议结合自身环境验证命令与结论；若原文年代较早，请以官方最新文档与安全通告为准。欢迎通过 issue 或邮件指出过时之处。</p></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/javascript/><span class=tag>JavaScript</span></a></li><li><a href=https://madneal.com/tags/%E5%89%8D%E7%AB%AF/><span class=tag>前端</span></a></li><li><a href=https://madneal.com/tags/%E5%B7%A5%E5%85%B7/><span class=tag>工具</span></a></li></ul><p class=post-copyright>This post was published <strong>3621</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.</p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93%E8%B0%B7%E6%AD%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E5%A4%84/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script type=text/x-mathjax-config>
   MathJax.Hub.Config({
     tex2jax: {
       inlineMath: [['$','$'], ['\\(','\\)']],
@@ -361,20 +40,11 @@ $_
       extensions: ["AMSmath.js", "AMSsymbols.js"] }
     }
   });
-</script>
-<script type="text/x-mathjax-config">
+</script><script type=text/x-mathjax-config>
   // Fix <code> tags after MathJax finishes running. This is a
   // hack to overcome a shortcoming of Markdown. Discussion at
   // https://github.com/mojombo/jekyll/issues/199
   MathJax.Hub.Queue(() => {
     MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
   });
-</script>
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script defer src=https://madneal.com/js/bundle.js></script></body></html>

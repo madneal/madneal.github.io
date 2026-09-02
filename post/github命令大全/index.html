@@ -1,367 +1,47 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>Git 常用命令速查（从配置到协作）</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  <meta name="author" content="Neal">
-  <meta name="description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="Git 常用命令速查（从配置到协作）">
-    <meta name="twitter:description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/github-commands-4310686421.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Git 常用命令速查（从配置到协作）">
-  <meta property="og:description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。">
-  <meta property="og:url" content="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/github-commands-4310686421.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">Git 常用命令速查（从配置到协作）</h1>
-      <p class="post-meta">@Neal · Oct 25, 2015 · 6 min read</p>
-    </header>
-    <article class="post-content"><blockquote>
-<p>说明：标题沿用旧文，但正文区分 <strong>Git</strong>（版本控制系统）与 <strong>GitHub</strong>（托管平台）。下列为命令行 Git。</p>
-</blockquote>
-<h2 id="配置">配置</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global user.name <span style="color:#e6db74">&#34;yourname&#34;</span>
-</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#e6db74">&#34;you@example.com&#34;</span>
-</span></span><span style="display:flex;"><span>git config --global core.editor <span style="color:#e6db74">&#34;vim&#34;</span>
-</span></span><span style="display:flex;"><span>git config --list
-</span></span></code></pre></div><h2 id="创建与克隆">创建与克隆</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
-</span></span><span style="display:flex;"><span>git clone &lt;url&gt;
-</span></span><span style="display:flex;"><span>git clone &lt;url&gt; &lt;dir&gt;
-</span></span></code></pre></div><h2 id="日常提交">日常提交</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git status
-</span></span><span style="display:flex;"><span>git diff                 <span style="color:#75715e"># 工作区 vs 暂存区</span>
-</span></span><span style="display:flex;"><span>git diff --staged        <span style="color:#75715e"># 暂存区 vs HEAD</span>
-</span></span><span style="display:flex;"><span>git add &lt;file&gt;
-</span></span><span style="display:flex;"><span>git add -p               <span style="color:#75715e"># 交互暂存</span>
-</span></span><span style="display:flex;"><span>git reset HEAD &lt;file&gt;    <span style="color:#75715e"># 取消暂存，保留修改</span>
-</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;msg&#34;</span>
-</span></span><span style="display:flex;"><span>git commit --amend       <span style="color:#75715e"># 改最后一次提交（未推送时）</span>
-</span></span></code></pre></div><h2 id="分支">分支</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git branch
-</span></span><span style="display:flex;"><span>git branch &lt;name&gt;
-</span></span><span style="display:flex;"><span>git switch &lt;name&gt;        <span style="color:#75715e"># 或 git checkout &lt;name&gt;</span>
-</span></span><span style="display:flex;"><span>git switch -c &lt;name&gt;
-</span></span><span style="display:flex;"><span>git merge &lt;branch&gt;
-</span></span><span style="display:flex;"><span>git branch -d &lt;name&gt;
-</span></span></code></pre></div><h2 id="远程">远程</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git remote -v
-</span></span><span style="display:flex;"><span>git fetch
-</span></span><span style="display:flex;"><span>git pull
-</span></span><span style="display:flex;"><span>git push -u origin HEAD
-</span></span></code></pre></div><h2 id="暂存现场">暂存现场</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git stash push -m <span style="color:#e6db74">&#34;wip&#34;</span>
-</span></span><span style="display:flex;"><span>git stash list
-</span></span><span style="display:flex;"><span>git stash pop
-</span></span><span style="display:flex;"><span>git stash drop
-</span></span></code></pre></div><h2 id="历史">历史</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git log --oneline --graph -20
-</span></span><span style="display:flex;"><span>git log --follow -- &lt;file&gt;
-</span></span><span style="display:flex;"><span>git show &lt;commit&gt;
-</span></span></code></pre></div><h2 id="撤销慎用">撤销（慎用）</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git restore &lt;file&gt;           <span style="color:#75715e"># 丢弃工作区修改</span>
-</span></span><span style="display:flex;"><span>git revert &lt;commit&gt;          <span style="color:#75715e"># 新提交抵消</span>
-</span></span><span style="display:flex;"><span>git reset --soft &lt;commit&gt;    <span style="color:#75715e"># 回退提交，保留暂存</span>
-</span></span><span style="display:flex;"><span>git reset --hard &lt;commit&gt;    <span style="color:#75715e"># 危险：丢本地未推送工作</span>
-</span></span></code></pre></div><h2 id="gitignore-示例">.gitignore 示例</h2>
-<pre tabindex="0"><code class="language-gitignore" data-lang="gitignore">*.log
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>Git 常用命令速查（从配置到协作）</title><meta name=author content="Neal"><meta name=description content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="Git 常用命令速查（从配置到协作）"><meta name=twitter:description content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。"><meta name=twitter:image content="https://madneal.com/img/post-covers/github-commands-4310686421.jpg"><meta property="og:type" content="article"><meta property="og:title" content="Git 常用命令速查（从配置到协作）"><meta property="og:description" content="按场景整理 Git 常用命令：配置、提交、分支、暂存、历史与撤销。纠正「GitHub=Git」的说法，便于日常检索。"><meta property="og:url" content="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"><meta property="og:image" content="https://madneal.com/img/post-covers/github-commands-4310686421.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>Git 常用命令速查（从配置到协作）</h1><p class=post-meta>@Neal · <time datetime=2015-10-25>2015-10-25</time> · 约 2 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#配置>配置</a></li><li><a href=#创建与克隆>创建与克隆</a></li><li><a href=#日常提交>日常提交</a></li><li><a href=#分支>分支</a></li><li><a href=#远程>远程</a></li><li><a href=#暂存现场>暂存现场</a></li><li><a href=#历史>历史</a></li><li><a href=#撤销慎用>撤销（慎用）</a></li><li><a href=#gitignore-示例>.gitignore 示例</a></li><li><a href=#小结>小结</a></li><li><a href=#推荐日常工作流>推荐日常工作流</a></li><li><a href=#易混概念>易混概念</a></li><li><a href=#远程协作最小集>远程协作最小集</a></li></ul></nav></nav><article class=post-content><blockquote><p>说明：标题沿用旧文，但正文区分 <strong>Git</strong>（版本控制系统）与 <strong>GitHub</strong>（托管平台）。下列为命令行 Git。</p></blockquote><h2 id=配置>配置</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git config --global user.name <span style=color:#e6db74>&#34;yourname&#34;</span>
+</span></span><span style=display:flex><span>git config --global user.email <span style=color:#e6db74>&#34;you@example.com&#34;</span>
+</span></span><span style=display:flex><span>git config --global core.editor <span style=color:#e6db74>&#34;vim&#34;</span>
+</span></span><span style=display:flex><span>git config --list
+</span></span></code></pre></div><h2 id=创建与克隆>创建与克隆</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git init
+</span></span><span style=display:flex><span>git clone &lt;url&gt;
+</span></span><span style=display:flex><span>git clone &lt;url&gt; &lt;dir&gt;
+</span></span></code></pre></div><h2 id=日常提交>日常提交</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git status
+</span></span><span style=display:flex><span>git diff                 <span style=color:#75715e># 工作区 vs 暂存区</span>
+</span></span><span style=display:flex><span>git diff --staged        <span style=color:#75715e># 暂存区 vs HEAD</span>
+</span></span><span style=display:flex><span>git add &lt;file&gt;
+</span></span><span style=display:flex><span>git add -p               <span style=color:#75715e># 交互暂存</span>
+</span></span><span style=display:flex><span>git reset HEAD &lt;file&gt;    <span style=color:#75715e># 取消暂存，保留修改</span>
+</span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#34;msg&#34;</span>
+</span></span><span style=display:flex><span>git commit --amend       <span style=color:#75715e># 改最后一次提交（未推送时）</span>
+</span></span></code></pre></div><h2 id=分支>分支</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git branch
+</span></span><span style=display:flex><span>git branch &lt;name&gt;
+</span></span><span style=display:flex><span>git switch &lt;name&gt;        <span style=color:#75715e># 或 git checkout &lt;name&gt;</span>
+</span></span><span style=display:flex><span>git switch -c &lt;name&gt;
+</span></span><span style=display:flex><span>git merge &lt;branch&gt;
+</span></span><span style=display:flex><span>git branch -d &lt;name&gt;
+</span></span></code></pre></div><h2 id=远程>远程</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git remote -v
+</span></span><span style=display:flex><span>git fetch
+</span></span><span style=display:flex><span>git pull
+</span></span><span style=display:flex><span>git push -u origin HEAD
+</span></span></code></pre></div><h2 id=暂存现场>暂存现场</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git stash push -m <span style=color:#e6db74>&#34;wip&#34;</span>
+</span></span><span style=display:flex><span>git stash list
+</span></span><span style=display:flex><span>git stash pop
+</span></span><span style=display:flex><span>git stash drop
+</span></span></code></pre></div><h2 id=历史>历史</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git log --oneline --graph -20
+</span></span><span style=display:flex><span>git log --follow -- &lt;file&gt;
+</span></span><span style=display:flex><span>git show &lt;commit&gt;
+</span></span></code></pre></div><h2 id=撤销慎用>撤销（慎用）</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span>git restore &lt;file&gt;           <span style=color:#75715e># 丢弃工作区修改</span>
+</span></span><span style=display:flex><span>git revert &lt;commit&gt;          <span style=color:#75715e># 新提交抵消</span>
+</span></span><span style=display:flex><span>git reset --soft &lt;commit&gt;    <span style=color:#75715e># 回退提交，保留暂存</span>
+</span></span><span style=display:flex><span>git reset --hard &lt;commit&gt;    <span style=color:#75715e># 危险：丢本地未推送工作</span>
+</span></span></code></pre></div><h2 id=gitignore-示例>.gitignore 示例</h2><pre tabindex=0><code class=language-gitignore data-lang=gitignore>*.log
 build/
 node_modules/
 .DS_Store
-</code></pre><h2 id="小结">小结</h2>
-<p>先建立 <strong>工作区 / 暂存区 / 提交 / 远程</strong> 四层模型，再记命令会快很多。需要桌面客户端可用 GitHub Desktop 等，但原理仍是这套 Git 对象模型。</p>
-<h2 id="推荐日常工作流">推荐日常工作流</h2>
-<ol>
-<li>从 <code>main</code>/<code>master</code> 拉最新：<code>git switch main &amp;&amp; git pull</code></li>
-<li>开功能分支：<code>git switch -c feature/x</code></li>
-<li>小步提交，信息写清「为什么」</li>
-<li>推远程并发 PR，避免直接推受保护分支</li>
-<li>评审合并后删除已合并分支</li>
-</ol>
-<h2 id="易混概念">易混概念</h2>
-<table>
-	<thead>
-			<tr>
-					<th>概念</th>
-					<th>含义</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>工作区</td>
-					<td>你正在改的文件</td>
-			</tr>
-			<tr>
-					<td>暂存区</td>
-					<td><code>git add</code> 后等待 commit 的快照</td>
-			</tr>
-			<tr>
-					<td>HEAD</td>
-					<td>当前提交指针</td>
-			</tr>
-			<tr>
-					<td>origin</td>
-					<td>默认远程名，不是特殊协议</td>
-			</tr>
-	</tbody>
-</table>
-<p>把命令当「改这四层状态的工具」，比死记参数快。需要撤销时先问：改动是否已推送？未推送可用 reset；已推送优先 revert。</p>
-<h2 id="远程协作最小集">远程协作最小集</h2>
-<p>本地提交只存在于你的磁盘；<code>git push</code> 之后同事才能 <code>fetch</code>/<code>pull</code> 到。冲突发生在合并双方都改了同一区域时：打开文件找冲突标记，手动保留正确版本，再 <code>add</code> + <code>commit</code> 完成合并。</p>
-<p>若误把密钥、大文件提交进历史，应立刻轮换密钥，并使用 <code>git filter-repo</code> 等工具清理历史（超出本文范围，但务必知道「删文件再 commit 一次」不够）。</p>
-<p>命令速查解决的是「语法」；协作规范（分支命名、PR 模板、保护主分支）解决的是「团队怎么不乱」。两者都要。</p>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/git"><span class="tag">Git</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7"><span class="tag">开发工具</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+</code></pre><h2 id=小结>小结</h2><p>先建立 <strong>工作区 / 暂存区 / 提交 / 远程</strong> 四层模型，再记命令会快很多。需要桌面客户端可用 GitHub Desktop 等，但原理仍是这套 Git 对象模型。</p><h2 id=推荐日常工作流>推荐日常工作流</h2><ol><li>从 <code>main</code>/<code>master</code> 拉最新：<code>git switch main && git pull</code></li><li>开功能分支：<code>git switch -c feature/x</code></li><li>小步提交，信息写清「为什么」</li><li>推远程并发 PR，避免直接推受保护分支</li><li>评审合并后删除已合并分支</li></ol><h2 id=易混概念>易混概念</h2><table><thead><tr><th>概念</th><th>含义</th></tr></thead><tbody><tr><td>工作区</td><td>你正在改的文件</td></tr><tr><td>暂存区</td><td><code>git add</code> 后等待 commit 的快照</td></tr><tr><td>HEAD</td><td>当前提交指针</td></tr><tr><td>origin</td><td>默认远程名，不是特殊协议</td></tr></tbody></table><p>把命令当「改这四层状态的工具」，比死记参数快。需要撤销时先问：改动是否已推送？未推送可用 reset；已推送优先 revert。</p><h2 id=远程协作最小集>远程协作最小集</h2><p>本地提交只存在于你的磁盘；<code>git push</code> 之后同事才能 <code>fetch</code>/<code>pull</code> 到。冲突发生在合并双方都改了同一区域时：打开文件找冲突标记，手动保留正确版本，再 <code>add</code> + <code>commit</code> 完成合并。</p><p>若误把密钥、大文件提交进历史，应立刻轮换密钥，并使用 <code>git filter-repo</code> 等工具清理历史（超出本文范围，但务必知道「删文件再 commit 一次」不够）。</p><p>命令速查解决的是「语法」；协作规范（分支命名、PR 模板、保护主分支）解决的是「团队怎么不乱」。两者都要。</p></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/git/><span class=tag>Git</span></a></li><li><a href=https://madneal.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/><span class=tag>开发工具</span></a></li></ul><p class=post-copyright></p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/github%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script defer src=https://madneal.com/js/bundle.js></script></body></html>

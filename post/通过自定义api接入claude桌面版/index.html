@@ -1,411 +1,66 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-
-  <meta charset="utf-8" />
-
-  
-  <title>改三个 JSON，让 Claude 桌面版用上你自己的 API</title>
-
-  
-  
-  <link href="//cdn.jsdelivr.net" rel="dns-prefetch">
-  <link href="//cdnjs.cloudflare.com" rel="dns-prefetch">
-  
-  <link href="//at.alicdn.com" rel="dns-prefetch">
-  
-  <link href="//fonts.googleapis.com" rel="dns-prefetch">
-  <link href="//fonts.gstatic.com" rel="dns-prefetch">
-  <link href="///disqus.com" rel="dns-prefetch">
-  <link href="//c.disquscdn.com" rel="dns-prefetch">
-  
-  
-  
-
-  
-
-  
-  <meta name="author" content="Neal">
-  <meta name="description" content="Claude Desktop 默认只能官方账号登录。本文基于 cc-switch 源码分析与实操，讲解如何利用官方内置的 3p 企业网关模式，通过三个 JSON 配置文件让桌面版接入任意 Anthropic 兼容 API，并复用 Claude Code CLI 的现有配置。">
-
-  
-  
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@gohugoio">
-    <meta name="twitter:title" content="改三个 JSON，让 Claude 桌面版用上你自己的 API">
-    <meta name="twitter:description" content="Claude Desktop 默认只能官方账号登录。本文基于 cc-switch 源码分析与实操，讲解如何利用官方内置的 3p 企业网关模式，通过三个 JSON 配置文件让桌面版接入任意 Anthropic 兼容 API，并复用 Claude Code CLI 的现有配置。">
-    <meta name="twitter:image" content="https://madneal.com/img/post-covers/claude-3p-gateway-v2-20260801.jpg">
-  
-
-  
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="改三个 JSON，让 Claude 桌面版用上你自己的 API">
-  <meta property="og:description" content="Claude Desktop 默认只能官方账号登录。本文基于 cc-switch 源码分析与实操，讲解如何利用官方内置的 3p 企业网关模式，通过三个 JSON 配置文件让桌面版接入任意 Anthropic 兼容 API，并复用 Claude Code CLI 的现有配置。">
-  <meta property="og:url" content="https://madneal.com/post/%E9%80%9A%E8%BF%87%E8%87%AA%E5%AE%9A%E4%B9%89api%E6%8E%A5%E5%85%A5claude%E6%A1%8C%E9%9D%A2%E7%89%88/">
-  <meta property="og:image" content="https://madneal.com/img/post-covers/claude-3p-gateway-v2-20260801.jpg">
-
-
-
-
-<meta name="generator" content="Hugo 0.163.3">
-
-
-<link rel="canonical" href="https://madneal.com/post/%E9%80%9A%E8%BF%87%E8%87%AA%E5%AE%9A%E4%B9%89api%E6%8E%A5%E5%85%A5claude%E6%A1%8C%E9%9D%A2%E7%89%88/">
-
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="format-detection" content="telephone=no,email=no,adress=no">
-<meta http-equiv="Cache-Control" content="no-transform">
-
-
-<meta name="robots" content="index,follow">
-<meta name="referrer" content="origin-when-cross-origin">
-<meta name="google-site-verification" content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc">
-
-
-
-
-
-
-<meta name="theme-color" content="#02b875">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Neal&#39;s Blog">
-<meta name="msapplication-tooltip" content="Neal&#39;s Blog">
-<meta name='msapplication-navbutton-color' content="#02b875">
-<meta name="msapplication-TileColor" content="#02b875">
-<meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
-<link rel="icon" href="https://madneal.com/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://madneal.com/icons/icon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://madneal.com/icons/icon-32x32.png">
-<link rel="icon" sizes="192x192" href="https://madneal.com/icons/icon-192x192.png">
-<link rel="apple-touch-icon" href="https://madneal.com/icons/icon-152x152.png">
-<link rel="manifest" href="https://madneal.com/manifest.json">
-
-
-<link rel="preload" href="https://madneal.com/styles/main-rendered.min.css" as="style">
-
-
-<link rel="preload" href="https://fonts.googleapis.com/css?family=Lobster" as="style">
-<link rel="preload" href="https://madneal.com/img/avatar.jpg" as="image">
-<link rel="preload" href="https://madneal.com/img/grey-prism.svg" as="image">
-
-
-<style>
-  body {
-    background: rgb(244, 243, 241) url('/img/grey-prism.svg') repeat fixed;
-  }
-</style>
-<link rel="stylesheet" href="https://madneal.com/styles/main-rendered.min.css">
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.2/dist/medium-zoom.min.js"></script>
-
-
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/video.js@7.3.0/dist/video-js.min.css">
-
-
-
-  
-  
-
-</head>
-  <body>
-    <div class="suspension">
-      <a role="button" aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden="true"></span></a>
-      
-        
-	<a role="button" aria-label="Go to comments" title="Go to comments" class="to-comment" href="#disqus_thread"><span class="icon icon-comment" aria-hidden="true"></span></a>
-        
-      
-    </div>
-    
-    
-  <header class="site-header">
-  <a class="avatar-link" href="https://madneal.com/"><img class="avatar" src="https://madneal.com/img/avatar.jpg" alt="Avatar" width="128" height="128" decoding="async"></a>
-  
-  <h2 class="title"><a href="https://madneal.com/">Neal&#39;s Blog</a></h2>
-  
-  <p class="subtitle">Development &amp; Security</p>
-  
-  <a class="wechat-link" href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat QR code">
-    <img class="wechat-qr" src="https://madneal.com/img/wechat.jpg" alt="Wechat QR code" width="180" height="180" loading="lazy" decoding="async">
-  </a>
-  
-  <button class="menu-toggle" type="button" aria-label="Main Menu" aria-expanded="false" tab-index="0">
-    <span class="icon icon-menu" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-menu collapsed">
-    <h2 class="offscreen">Main Menu</h2>
-    <ul class="menu-list">
-      
-      
-      
-      
-        <li class="menu-item
-          
-          
-           is-active">
-          <a href="https://madneal.com/post">Home</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://github.com/madneal">Works</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/tags/">Tags</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/about/">About</a>
-        </li>
-      
-        <li class="menu-item
-          
-          
-          ">
-          <a href="https://madneal.com/privacy/">Privacy</a>
-        </li>
-      
-    </ul>
-  </nav>
-  <nav class="social-menu collapsed">
-    <h2 class="offscreen">Social Networks</h2>
-    <ul class="social-list"><li class="social-item">
-          <a href="mailto:bing.ecnu@gmail.com" title="Email" aria-label="Email">
-            <span class="icon icon-email" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="//github.com/madneal" rel="me" title="GitHub" aria-label="GitHub">
-	    <span class="icon icon-github" aria-hidden="true"></span>
-          </a>
-        </li><li class="social-item">
-          <a href="https://madneal.com/img/wechat.jpg" rel="me" title="Wechat" aria-label="Wechat">
-            <span class="icon icon-wechat" aria-hidden="true"></span>
-          </a>
-        </li></ul>
-  </nav>
-</header>
-
-  <section class="main post-detail">
-    <header class="post-header">
-      <h1 class="post-title">改三个 JSON，让 Claude 桌面版用上你自己的 API</h1>
-      <p class="post-meta">@Neal · Aug 1, 2026 · 6 min read</p>
-    </header>
-    <article class="post-content"><blockquote>
-<p>无需破解、不改 App 本体：利用 Claude Desktop 官方内置的企业「推理网关」模式，
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><title>改三个 JSON，让 Claude 桌面版用上你自己的 API</title><meta name=author content="Neal"><meta name=description content="Claude Desktop 默认只能官方账号登录。本文基于 cc-switch 源码分析与实操，讲解如何利用官方内置的 3p 企业网关模式，通过三个 JSON 配置文件让桌面版接入任意 Anthropic 兼容 API，并复用 Claude Code CLI 的现有配置。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@gohugoio"><meta name=twitter:title content="改三个 JSON，让 Claude 桌面版用上你自己的 API"><meta name=twitter:description content="Claude Desktop 默认只能官方账号登录。本文基于 cc-switch 源码分析与实操，讲解如何利用官方内置的 3p 企业网关模式，通过三个 JSON 配置文件让桌面版接入任意 Anthropic 兼容 API，并复用 Claude Code CLI 的现有配置。"><meta name=twitter:image content="https://madneal.com/img/post-covers/claude-3p-gateway-v2-20260801.jpg"><meta property="og:type" content="article"><meta property="og:title" content="改三个 JSON，让 Claude 桌面版用上你自己的 API"><meta property="og:description" content="Claude Desktop 默认只能官方账号登录。本文基于 cc-switch 源码分析与实操，讲解如何利用官方内置的 3p 企业网关模式，通过三个 JSON 配置文件让桌面版接入任意 Anthropic 兼容 API，并复用 Claude Code CLI 的现有配置。"><meta property="og:url" content="https://madneal.com/post/%E9%80%9A%E8%BF%87%E8%87%AA%E5%AE%9A%E4%B9%89api%E6%8E%A5%E5%85%A5claude%E6%A1%8C%E9%9D%A2%E7%89%88/"><meta property="og:image" content="https://madneal.com/img/post-covers/claude-3p-gateway-v2-20260801.jpg"><meta name=generator content="Hugo 0.163.3"><link rel=canonical href=https://madneal.com/post/%E9%80%9A%E8%BF%87%E8%87%AA%E5%AE%9A%E4%B9%89api%E6%8E%A5%E5%85%A5claude%E6%A1%8C%E9%9D%A2%E7%89%88/><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=format-detection content="telephone=no,email=no,adress=no"><meta http-equiv=Cache-Control content="no-transform"><meta name=robots content="index,follow"><meta name=referrer content="origin-when-cross-origin"><meta name=google-site-verification content="_moDmnnBNVLBN1rzNxyGUGdPHE20YgbmrtzLIbxaWFc"><meta name=theme-color content="#02b875"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black"><meta name=apple-mobile-web-app-title content="Neal's Blog"><meta name=msapplication-tooltip content="Neal's Blog"><meta name=msapplication-navbutton-color content="#02b875"><meta name=msapplication-TileColor content="#02b875"><meta name=msapplication-TileImage content="/icons/icon-144x144.png"><link rel=icon href=https://madneal.com/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://madneal.com/icons/icon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://madneal.com/icons/icon-32x32.png><link rel=icon sizes=192x192 href=https://madneal.com/icons/icon-192x192.png><link rel=apple-touch-icon href=https://madneal.com/icons/icon-152x152.png><link rel=manifest href=https://madneal.com/manifest.json><style>body{background:#f4f3f1 url(/img/grey-prism.svg)repeat fixed;background-attachment:scroll!important}.title{font-family:-apple-system,BlinkMacSystemFont,segoe ui,sans-serif}</style><link rel=stylesheet href=https://madneal.com/styles/main-rendered.min.css></head><body><div class=suspension><a role=button aria-label="Go to top" title="Go to top" class="to-top is-hide"><span class="icon icon-up" aria-hidden=true></span></a>
+<a role=button aria-label="Go to comments" title="Go to comments" class=to-comment href=#disqus_thread><span class="icon icon-comment" aria-hidden=true></span></a></div><header class=site-header><a class=avatar-link href=https://madneal.com/><img class=avatar src=https://madneal.com/img/avatar.jpg alt=Avatar width=128 height=128 decoding=async></a><h2 class=title><a href=https://madneal.com/>Neal's Blog</a></h2><p class=subtitle>Development & Security</p><a class=wechat-link href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label="Wechat QR code"><img class=wechat-qr src=https://madneal.com/img/wechat.jpg alt="Wechat QR code" width=180 height=180 loading=lazy decoding=async>
+</a><button class=menu-toggle type=button aria-label="Main Menu" aria-expanded=false tab-index=0>
+<span class="icon icon-menu" aria-hidden=true></span></button><nav class="site-menu collapsed"><h2 class=offscreen>Main Menu</h2><ul class=menu-list><li class="menu-item
+is-active"><a href=https://madneal.com/post>Home</a></li><li class=menu-item><a href=https://github.com/madneal>Works</a></li><li class=menu-item><a href=https://madneal.com/tags/>Tags</a></li><li class=menu-item><a href=https://madneal.com/about/>About</a></li><li class=menu-item><a href=https://madneal.com/privacy/>Privacy</a></li></ul></nav><nav class="social-menu collapsed"><h2 class=offscreen>Social Networks</h2><ul class=social-list><li class=social-item><a href=mailto:bing.ecnu@gmail.com title=Email aria-label=Email><span class="icon icon-email" aria-hidden=true></span></a></li><li class=social-item><a href=//github.com/madneal rel=me title=GitHub aria-label=GitHub><span class="icon icon-github" aria-hidden=true></span></a></li><li class=social-item><a href=https://madneal.com/img/wechat.jpg rel=me title=Wechat aria-label=Wechat><span class="icon icon-wechat" aria-hidden=true></span></a></li></ul></nav></header><section class="main post-detail"><header class=post-header><h1 class=post-title>改三个 JSON，让 Claude 桌面版用上你自己的 API</h1><p class=post-meta>@Neal · <time datetime=2026-08-01>2026-08-01</time> · 约 2 分钟阅读</p></header><nav class=post-toc aria-label=文章目录><h2>目录</h2><nav id=TableOfContents><ul><li><a href=#背景>背景</a></li><li><a href=#原理三个配置文件>原理：三个配置文件</a><ul><li><a href=#1-部署模式开关>1. 部署模式开关</a></li><li><a href=#2-网关-profile>2. 网关 profile</a></li><li><a href=#3-profile-注册表>3. profile 注册表</a></li></ul></li><li><a href=#实操中踩到的两个坑>实操中踩到的两个坑</a><ul><li><a href=#坑一baseurl-必须是-https>坑一：baseUrl 必须是 https</a></li><li><a href=#坑二模型-id-必须是-claude-命名>坑二：模型 ID 必须是 Claude 命名</a></li></ul></li><li><a href=#复用-claude-code-cli-的配置>复用 Claude Code CLI 的配置</a></li><li><a href=#一个最小实现>一个最小实现</a></li><li><a href=#限制与注意事项>限制与注意事项</a></li><li><a href=#参考>参考</a></li></ul></nav></nav><article class=post-content><blockquote><p>无需破解、不改 App 本体：利用 Claude Desktop 官方内置的企业「推理网关」模式，
 把请求指向你自己的 Anthropic 兼容 API 端点。本文源自对开源工具
-<a href="https://github.com/farion1231/cc-switch">cc-switch</a> 的源码分析与一次完整实操。</p>
-</blockquote>
-<h2 id="背景">背景</h2>
-<p>Claude Desktop（桌面版 Claude App）默认只能通过 Anthropic 官方账号登录使用。但很多
+<a href=https://github.com/farion1231/cc-switch>cc-switch</a> 的源码分析与一次完整实操。</p></blockquote><h2 id=背景>背景</h2><p>Claude Desktop（桌面版 Claude App）默认只能通过 Anthropic 官方账号登录使用。但很多
 场景下我们手里有的是 API：公司内部的 LLM 网关、第三方中转服务、或官方 API key。
 Claude Code（CLI）早就支持通过 <code>ANTHROPIC_BASE_URL</code> / <code>ANTHROPIC_AUTH_TOKEN</code> 环境
-变量接入任意兼容端点，而桌面 App 表面上没有提供这个入口。</p>
-<p>开源工具 cc-switch 在 v3.x 里实现了「Claude 桌面版切换供应商」，读它的源码
+变量接入任意兼容端点，而桌面 App 表面上没有提供这个入口。</p><p>开源工具 cc-switch 在 v3.x 里实现了「Claude 桌面版切换供应商」，读它的源码
 （<code>src-tauri/src/claude_desktop_config.rs</code>）可以发现：<strong>Claude Desktop 其实内置了
-一个面向企业的「第三方部署模式」（<code>deploymentMode: &quot;3p&quot;</code>）和推理网关（inference
-gateway）配置通道</strong>。所谓&quot;通过 API 接入&quot;，就是把 App 切到这个模式，再把你的 API
+一个面向企业的「第三方部署模式」（<code>deploymentMode: "3p"</code>）和推理网关（inference
+gateway）配置通道</strong>。所谓"通过 API 接入"，就是把 App 切到这个模式，再把你的 API
 地址和 key 伪装成一个网关 profile 写进配置文件。全程只改用户目录下的 JSON 配置，
-不碰 App 本体，随时可逆。</p>
-<h2 id="原理三个配置文件">原理：三个配置文件</h2>
-<p>以 macOS 为例（Windows 对应 <code>%LOCALAPPDATA%</code> 下的同名目录），涉及两个数据目录：</p>
-<ul>
-<li><code>~/Library/Application Support/Claude/</code> —— 官方模式（1p）的数据目录</li>
-<li><code>~/Library/Application Support/Claude-3p/</code> —— 第三方模式（3p）的独立数据目录</li>
-</ul>
-<p>需要写入三类文件：</p>
-<h3 id="1-部署模式开关">1. 部署模式开关</h3>
-<p>两个目录下的 <code>claude_desktop_config.json</code> 都写入：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{ <span style="color:#f92672">&#34;deploymentMode&#34;</span>: <span style="color:#e6db74">&#34;3p&#34;</span> }
-</span></span></code></pre></div><p>App 启动时读到 <code>&quot;3p&quot;</code> 就会跳过官方账号推理通道，转而加载网关 profile；改回
-<code>&quot;1p&quot;</code> 即恢复官方登录。</p>
-<h3 id="2-网关-profile">2. 网关 profile</h3>
-<p><code>Claude-3p/configLibrary/&lt;PROFILE_ID&gt;.json</code>（cc-switch 使用固定 ID
-<code>00000000-0000-4000-8000-000000157210</code>）：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inferenceProvider&#34;</span>: <span style="color:#e6db74">&#34;gateway&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inferenceGatewayBaseUrl&#34;</span>: <span style="color:#e6db74">&#34;https://your-gateway.example.com/v1&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inferenceGatewayApiKey&#34;</span>: <span style="color:#e6db74">&#34;sk-xxx&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inferenceGatewayAuthScheme&#34;</span>: <span style="color:#e6db74">&#34;bearer&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;disableDeploymentModeChooser&#34;</span>: <span style="color:#66d9ef">true</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;coworkEgressAllowedHosts&#34;</span>: [<span style="color:#e6db74">&#34;*&#34;</span>],
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;inferenceModels&#34;</span>: [
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;claude-sonnet-5&#34;</span>,
-</span></span><span style="display:flex;"><span>    { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;claude-opus-5&#34;</span>, <span style="color:#f92672">&#34;labelOverride&#34;</span>: <span style="color:#e6db74">&#34;我的 Opus&#34;</span> },
-</span></span><span style="display:flex;"><span>    { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;claude-sonnet-5&#34;</span>, <span style="color:#f92672">&#34;supports1m&#34;</span>: <span style="color:#66d9ef">true</span> }
-</span></span><span style="display:flex;"><span>  ]
-</span></span><span style="display:flex;"><span>}
+不碰 App 本体，随时可逆。</p><h2 id=原理三个配置文件>原理：三个配置文件</h2><p>以 macOS 为例（Windows 对应 <code>%LOCALAPPDATA%</code> 下的同名目录），涉及两个数据目录：</p><ul><li><code>~/Library/Application Support/Claude/</code> —— 官方模式（1p）的数据目录</li><li><code>~/Library/Application Support/Claude-3p/</code> —— 第三方模式（3p）的独立数据目录</li></ul><p>需要写入三类文件：</p><h3 id=1-部署模式开关>1. 部署模式开关</h3><p>两个目录下的 <code>claude_desktop_config.json</code> 都写入：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{ <span style=color:#f92672>&#34;deploymentMode&#34;</span>: <span style=color:#e6db74>&#34;3p&#34;</span> }
+</span></span></code></pre></div><p>App 启动时读到 <code>"3p"</code> 就会跳过官方账号推理通道，转而加载网关 profile；改回
+<code>"1p"</code> 即恢复官方登录。</p><h3 id=2-网关-profile>2. 网关 profile</h3><p><code>Claude-3p/configLibrary/&lt;PROFILE_ID>.json</code>（cc-switch 使用固定 ID
+<code>00000000-0000-4000-8000-000000157210</code>）：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;inferenceProvider&#34;</span>: <span style=color:#e6db74>&#34;gateway&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;inferenceGatewayBaseUrl&#34;</span>: <span style=color:#e6db74>&#34;https://your-gateway.example.com/v1&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;inferenceGatewayApiKey&#34;</span>: <span style=color:#e6db74>&#34;sk-xxx&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;inferenceGatewayAuthScheme&#34;</span>: <span style=color:#e6db74>&#34;bearer&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;disableDeploymentModeChooser&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;coworkEgressAllowedHosts&#34;</span>: [<span style=color:#e6db74>&#34;*&#34;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;inferenceModels&#34;</span>: [
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;claude-sonnet-5&#34;</span>,
+</span></span><span style=display:flex><span>    { <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;claude-opus-5&#34;</span>, <span style=color:#f92672>&#34;labelOverride&#34;</span>: <span style=color:#e6db74>&#34;我的 Opus&#34;</span> },
+</span></span><span style=display:flex><span>    { <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;claude-sonnet-5&#34;</span>, <span style=color:#f92672>&#34;supports1m&#34;</span>: <span style=color:#66d9ef>true</span> }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
 </span></span></code></pre></div><p>这就是核心：App 会按 Anthropic Messages API 格式向 <code>inferenceGatewayBaseUrl</code>
 发请求，用 Bearer token 认证。<code>inferenceModels</code> 可选，不写则用 App 默认模型列表；
 条目可以是字符串，也可以是带 <code>labelOverride</code>（UI 显示名）和 <code>supports1m</code>
-（1M 上下文标记）的对象。</p>
-<h3 id="3-profile-注册表">3. profile 注册表</h3>
-<p><code>Claude-3p/configLibrary/_meta.json</code>，告诉 App 当前激活哪个 profile：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;appliedId&#34;</span>: <span style="color:#e6db74">&#34;00000000-0000-4000-8000-000000157210&#34;</span>,
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;entries&#34;</span>: [{ <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;00000000-0000-4000-8000-000000157210&#34;</span>, <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;claude3p&#34;</span> }]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>恢复官方模式时的逆操作：<code>deploymentMode</code> 改回 <code>&quot;1p&quot;</code>、删除 profile 文件、从
+（1M 上下文标记）的对象。</p><h3 id=3-profile-注册表>3. profile 注册表</h3><p><code>Claude-3p/configLibrary/_meta.json</code>，告诉 App 当前激活哪个 profile：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;appliedId&#34;</span>: <span style=color:#e6db74>&#34;00000000-0000-4000-8000-000000157210&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;entries&#34;</span>: [{ <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;00000000-0000-4000-8000-000000157210&#34;</span>, <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;claude3p&#34;</span> }]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>恢复官方模式时的逆操作：<code>deploymentMode</code> 改回 <code>"1p"</code>、删除 profile 文件、从
 <code>_meta.json</code> 移除条目并清掉 <code>appliedId</code>，另外清理 3p 配置里 <code>enterpriseConfig</code>
-下的网关字段。</p>
-<h2 id="实操中踩到的两个坑">实操中踩到的两个坑</h2>
-<h3 id="坑一baseurl-必须是-https">坑一：baseUrl 必须是 https</h3>
-<p>第一次我们直接复用了 CLI 里的内网 <code>http://</code> 网关地址，App 启动后弹出报错：</p>
-<pre tabindex="0"><code>Invalid custom3p managed config: baseUrl: must use https (or http on loopback)
+下的网关字段。</p><h2 id=实操中踩到的两个坑>实操中踩到的两个坑</h2><h3 id=坑一baseurl-必须是-https>坑一：baseUrl 必须是 https</h3><p>第一次我们直接复用了 CLI 里的内网 <code>http://</code> 网关地址，App 启动后弹出报错：</p><pre tabindex=0><code>Invalid custom3p managed config: baseUrl: must use https (or http on loopback)
 failingField: baseUrl
 </code></pre><p><strong>Claude Desktop 对网关地址有强制校验：必须 <code>https://</code>，<code>http://</code> 仅允许
-loopback（<code>127.0.0.1</code> / <code>localhost</code>）。</strong> 解法有两个：</p>
-<ol>
-<li>网关本身支持 https 就直接换协议（用 <code>curl</code> 试一下，返回 401 说明 TLS 正常、
-只是没带认证，可以用）；</li>
-<li>网关只有 http 的话，在本地起一个 loopback 转发代理，profile 里填
-<code>http://127.0.0.1:&lt;port&gt;</code>——cc-switch 的「代理模式」就是这么做的。</li>
-</ol>
-<h3 id="坑二模型-id-必须是-claude-命名">坑二：模型 ID 必须是 Claude 命名</h3>
-<p><code>inferenceModels</code> 里的模型 ID 会被 App 内置的校验器检查，必须形如：</p>
-<pre tabindex="0"><code>claude-sonnet-*   claude-opus-*   claude-haiku-*   claude-fable-*
+loopback（<code>127.0.0.1</code> / <code>localhost</code>）。</strong> 解法有两个：</p><ol><li>网关本身支持 https 就直接换协议（用 <code>curl</code> 试一下，返回 401 说明 TLS 正常、
+只是没带认证，可以用）；</li><li>网关只有 http 的话，在本地起一个 loopback 转发代理，profile 里填
+<code>http://127.0.0.1:&lt;port></code>——cc-switch 的「代理模式」就是这么做的。</li></ol><h3 id=坑二模型-id-必须是-claude-命名>坑二：模型 ID 必须是 Claude 命名</h3><p><code>inferenceModels</code> 里的模型 ID 会被 App 内置的校验器检查，必须形如：</p><pre tabindex=0><code>claude-sonnet-*   claude-opus-*   claude-haiku-*   claude-fable-*
 </code></pre><p>（也接受 <code>anthropic/claude-</code> 前缀。）<strong>只要有一个不合法（比如 <code>gpt-4o</code>），
 整组模型都会被拒收</strong>（fail-all）。所以第三方非 Claude 命名的模型不能直连，需要
 中间代理把合法的 Claude 模型名映射到真实模型——这也是 cc-switch 代理模式的另一个
-存在理由。</p>
-<h2 id="复用-claude-code-cli-的配置">复用 Claude Code CLI 的配置</h2>
-<p>如果你已经在用 Claude Code CLI 接第三方 API，那么 <code>~/.claude/settings.json</code> 的
-<code>env</code> 块里已经有全部所需信息，直接搬过来即可：</p>
-<table>
-	<thead>
-			<tr>
-					<th>CLI 配置（settings.json → env）</th>
-					<th>桌面版 profile 字段</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td><code>ANTHROPIC_BASE_URL</code></td>
-					<td><code>inferenceGatewayBaseUrl</code>（注意 https 限制）</td>
-			</tr>
-			<tr>
-					<td><code>ANTHROPIC_AUTH_TOKEN</code></td>
-					<td><code>inferenceGatewayApiKey</code>（bearer）</td>
-			</tr>
-			<tr>
-					<td><code>ANTHROPIC_DEFAULT_OPUS/SONNET/HAIKU_MODEL</code></td>
-					<td><code>inferenceModels</code> 列表</td>
-			</tr>
-	</tbody>
-</table>
-<p>cc-switch 的直连模式读取的正是这几个字段、原样写入 profile——所以 CLI 能用的
-Anthropic 兼容端点，桌面版一定能用（https 前提下）。</p>
-<h2 id="一个最小实现">一个最小实现</h2>
-<p>我们照 cc-switch 的逻辑写了一个约 300 行的单文件 Python 脚本
-（<code>claude3p.py</code>），提供三个命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 复用 CLI 配置一键切换（也可 --base-url/--api-key 手动指定）</span>
-</span></span><span style="display:flex;"><span>./claude3p.py apply --from-cli
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看当前模式 / 网关地址 / 模型列表</span>
-</span></span><span style="display:flex;"><span>./claude3p.py status
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># 恢复官方账号登录</span>
-</span></span><span style="display:flex;"><span>./claude3p.py restore
-</span></span></code></pre></div><p>除了写配置本身，有几个工程细节值得照搬 cc-switch：</p>
-<ul>
-<li><strong>原子写入</strong>：先写临时文件再 <code>rename</code>，避免写一半留下损坏的 JSON；</li>
-<li><strong>快照回滚</strong>：修改前对四个目标文件做内存快照，中途任何一步失败自动恢复原状；</li>
-<li><strong>自动备份</strong>：每次操作前把现有文件备份到带时间戳的目录，手工可救；</li>
-<li><strong>前置校验</strong>：写入前就拦截非 https 地址和非 Claude 命名的模型 ID，
-好过让 App 启动后弹错。</li>
-</ul>
-<h2 id="限制与注意事项">限制与注意事项</h2>
-<ul>
-<li>端点必须兼容 <strong>Anthropic Messages API</strong>（App 会请求 <code>&lt;baseUrl&gt;/v1/messages</code>）；
-OpenAI 格式端点需要代理做格式转换。</li>
-<li>3p 模式使用独立的 <code>Claude-3p</code> 数据目录，<strong>会话历史与官方账号互不相通</strong>，
-restore 后官方历史原样回来。</li>
-<li>每次改动后需要<strong>完全退出</strong>（Cmd+Q）并重启 Claude Desktop 才生效。</li>
-<li>这是官方为企业网关准备的通道，未来 App 版本的校验规则可能变化
-（例如模型角色白名单就随版本更新过）。</li>
-</ul>
-<h2 id="参考">参考</h2>
-<ul>
-<li><a href="https://github.com/farion1231/cc-switch">cc-switch 仓库</a></li>
-<li><a href="https://github.com/farion1231/cc-switch/blob/main/src-tauri/src/claude_desktop_config.rs">claude_desktop_config.rs 源码</a></li>
-</ul>
-</article>
-    <footer class="post-footer">
-      
-      <ul class="post-tags">
-        
-          <li><a href="https://madneal.com/tags/ai"><span class="tag">AI</span></a></li>
-        
-          <li><a href="https://madneal.com/tags/%E5%B7%A5%E5%85%B7"><span class="tag">工具</span></a></li>
-        
-      </ul>
-      
-      <p class="post-copyright">
-        
-      </p>
-    </footer>
-    
-      <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "nealecnu" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-		<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-	
-      
-    
-  </section>
-  <footer class="site-footer">
-  <p>© 2015-2026 Neal&#39;s Blog</p>
-  <p class="footer-links">
-    <a href="https://madneal.com/about/">About</a>
-    ·
-    <a href="https://madneal.com/privacy/">Privacy</a>
-  </p>
-</footer>
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/gh/neal1991/neal1991.github.io/js/bundle.js"></script>
-  
-
-
-
-  </body>
-</html>
+存在理由。</p><h2 id=复用-claude-code-cli-的配置>复用 Claude Code CLI 的配置</h2><p>如果你已经在用 Claude Code CLI 接第三方 API，那么 <code>~/.claude/settings.json</code> 的
+<code>env</code> 块里已经有全部所需信息，直接搬过来即可：</p><table><thead><tr><th>CLI 配置（settings.json → env）</th><th>桌面版 profile 字段</th></tr></thead><tbody><tr><td><code>ANTHROPIC_BASE_URL</code></td><td><code>inferenceGatewayBaseUrl</code>（注意 https 限制）</td></tr><tr><td><code>ANTHROPIC_AUTH_TOKEN</code></td><td><code>inferenceGatewayApiKey</code>（bearer）</td></tr><tr><td><code>ANTHROPIC_DEFAULT_OPUS/SONNET/HAIKU_MODEL</code></td><td><code>inferenceModels</code> 列表</td></tr></tbody></table><p>cc-switch 的直连模式读取的正是这几个字段、原样写入 profile——所以 CLI 能用的
+Anthropic 兼容端点，桌面版一定能用（https 前提下）。</p><h2 id=一个最小实现>一个最小实现</h2><p>我们照 cc-switch 的逻辑写了一个约 300 行的单文件 Python 脚本
+（<code>claude3p.py</code>），提供三个命令：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># 复用 CLI 配置一键切换（也可 --base-url/--api-key 手动指定）</span>
+</span></span><span style=display:flex><span>./claude3p.py apply --from-cli
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 查看当前模式 / 网关地址 / 模型列表</span>
+</span></span><span style=display:flex><span>./claude3p.py status
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 恢复官方账号登录</span>
+</span></span><span style=display:flex><span>./claude3p.py restore
+</span></span></code></pre></div><p>除了写配置本身，有几个工程细节值得照搬 cc-switch：</p><ul><li><strong>原子写入</strong>：先写临时文件再 <code>rename</code>，避免写一半留下损坏的 JSON；</li><li><strong>快照回滚</strong>：修改前对四个目标文件做内存快照，中途任何一步失败自动恢复原状；</li><li><strong>自动备份</strong>：每次操作前把现有文件备份到带时间戳的目录，手工可救；</li><li><strong>前置校验</strong>：写入前就拦截非 https 地址和非 Claude 命名的模型 ID，
+好过让 App 启动后弹错。</li></ul><h2 id=限制与注意事项>限制与注意事项</h2><ul><li>端点必须兼容 <strong>Anthropic Messages API</strong>（App 会请求 <code>&lt;baseUrl>/v1/messages</code>）；
+OpenAI 格式端点需要代理做格式转换。</li><li>3p 模式使用独立的 <code>Claude-3p</code> 数据目录，<strong>会话历史与官方账号互不相通</strong>，
+restore 后官方历史原样回来。</li><li>每次改动后需要<strong>完全退出</strong>（Cmd+Q）并重启 Claude Desktop 才生效。</li><li>这是官方为企业网关准备的通道，未来 App 版本的校验规则可能变化
+（例如模型角色白名单就随版本更新过）。</li></ul><h2 id=参考>参考</h2><ul><li><a href=https://github.com/farion1231/cc-switch>cc-switch 仓库</a></li><li><a href=https://github.com/farion1231/cc-switch/blob/main/src-tauri/src/claude_desktop_config.rs>claude_desktop_config.rs 源码</a></li></ul></article><footer class=post-footer><div class=wechat-card><p>欢迎搜索微信号 mad_coder 或者扫描二维码关注公众号：</p><img src=https://user-images.githubusercontent.com/12164075/133170982-62816554-7dd8-4e97-adbc-734f1df61e73.jpg alt=mad_coder loading=lazy decoding=async></div><ul class=post-tags><li><a href=https://madneal.com/tags/ai/><span class=tag>AI</span></a></li><li><a href=https://madneal.com/tags/%E5%B7%A5%E5%85%B7/><span class=tag>工具</span></a></li></ul><p class=post-copyright></p></footer><div id=disqus_thread><button class=comments-load type=button>加载评论</button></div><script>(function(){var e,t=document.getElementById("disqus_thread"),n=t.querySelector(".comments-load"),s=!1;function o(){if(s)return;s=!0,n.remove(),window.disqus_config=function(){this.page.url="https://madneal.com/post/%E9%80%9A%E8%BF%87%E8%87%AA%E5%AE%9A%E4%B9%89api%E6%8E%A5%E5%85%A5claude%E6%A1%8C%E9%9D%A2%E7%89%88/"};var e=document.createElement("script");e.src="https://nealecnu.disqus.com/embed.js",e.async=!0,e.setAttribute("data-timestamp",String(Date.now())),(document.head||document.body).appendChild(e)}n.addEventListener("click",o),"IntersectionObserver"in window&&(e=new IntersectionObserver(function(t){t[0].isIntersecting&&(e.disconnect(),o())},{rootMargin:"600px 0px"}),e.observe(t))})()</script><noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript></section><footer class=site-footer><p>© 2015-2026 Neal's Blog</p><p class=footer-links><a href=https://madneal.com/about/>About</a>
+·
+<a href=https://madneal.com/privacy/>Privacy</a></p></footer><script defer src=https://madneal.com/js/bundle.js></script></body></html>
